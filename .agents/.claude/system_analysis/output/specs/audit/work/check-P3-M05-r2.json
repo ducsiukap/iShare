@@ -1,0 +1,16 @@
+{
+ "errors": [],
+ "warnings": [],
+ "info": [
+  [
+   "COV-99",
+   "Chưa truyền --inventory nên bỏ qua kiểm bao phủ nguồn",
+   null
+  ],
+  [
+   "TST-00",
+   "Ca kiểm: 168 ca cho 107 yêu cầu",
+   null
+  ]
+ ]
+}

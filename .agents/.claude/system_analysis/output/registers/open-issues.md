@@ -1,0 +1,16 @@
+# Open Issues Register
+
+> Formally unresolved items that block writing spec for affected features.
+> Different from issue-queue (interview backlog) — OPEN-### are items where
+> no definitive answer was reached and must be resolved before specs are finalized.
+
+| ID | Description | Why it blocks | Affected features | Status |
+|---|---|---|---|---|
+| OPEN-001 | AI cost & budget chưa chốt chính thức (ISS-026) — hiện estimate <$0.01, recommend $5 OpenAI credit, nhưng chưa có budget confirmed | Blocks: AI module cost planning, provider stack confirmation | AI, ADMN | Open — tech stack đã chốt (DEC-137), sẵn sàng resolve (còn cần xác nhận ngân sách) |
+| OPEN-002 | Tech stack chưa quyết định (ISS-029) — ảnh hưởng đến academic constraints và AI provider choice | Blocks: NFR spec, AI provider final decision, academic doc requirements | All modules (NFR), AI | Closed — tech stack chốt xong (DEC-134/135/136/137; ISS-197–203; QA-256–263). Bổ sung công nghệ về sau sẽ bàn khi cần |
+| OPEN-003 | Chat (M16) — chưa có cơ chế Block hoặc Report cho tin nhắn ở MS1 (ISS-160) — quyết định defer có chủ đích, không phải unknown | Không block việc viết spec M16 (đã có quyết định rõ: không làm ở MS1), nhưng cần revisit trước khi mở rộng chat ra ngoài phạm vi nhỏ/riêng tư hiện tại | Chat (M16) | Open — defer to later phase |
+| OPEN-004 | Analytics & Stats (M15) — chưa có export CSV cho 3 dashboard ở MS1 (ISS-184) — quyết định defer có chủ đích | Không block việc viết spec M15 | Analytics (M15) | Open — defer, revisit sau khi core modules hoàn thiện |
+| OPEN-005 | Cross-cutting (Phase 6) — chưa xây hạ tầng event-tracking chung (ISS-196) — quyết định defer có chủ đích, formalize từ quyết định ngầm đã chọn ở M15/QA-242 | Không block việc viết spec nào | Toàn hệ thống (cross-cutting) | Open — defer, revisit sau khi core modules hoàn thiện |
+| OPEN-006 | SEO / SSR chưa làm ở MS1 (ISS-197, DEC-134) — quyết định defer có chủ đích: MS1 chỉ đảm bảo core, frontend là React SPA (client-side rendering). Hệ quả: Google index kém tin cậy, link chia sẻ (Zalo/Facebook) không có preview tiêu đề/ảnh từ HTML ban đầu | Không block spec MS1. QA-234/ISS-174 (yêu cầu SSR cho batch đầu của Guest feed) và lý do Guest xem được post (SEO/discoverability, QA-011) được giữ nguyên nhưng hoãn phần thực thi | Guest feed (M05/Feed tabs), Post detail, Search public | Open — defer, revisit trước khi deploy production thật (có thể chuyển sang Next.js hoặc SSR framework khác) |
+| OPEN-007 | UI Kit (ISS-197, DEC-134) — thư viện nền chưa chốt; stakeholder nghiêng về MUI nhưng phải đợi có design mới quyết (có thể MUI, Ant Design, hoặc headless như Radix/shadcn) | Không block spec nghiệp vụ; ảnh hưởng NFR về bundle size / hỗ trợ trình duyệt ở mức chi tiết | Frontend toàn app (UI Kit) | Open — resolve sau khi có design |
+| OPEN-008 | Privacy (ISS-204, DEC-138) — chưa định nghĩa chi tiết: danh mục dữ liệu cá nhân, quyền người dùng (xem/tải/xóa), xử lý học sinh dưới 18 tuổi, cơ sở pháp lý, và quan hệ giữa DEC-129 (giữ chat/audit log/ai_decision_log vĩnh viễn) với việc xóa PII khi xóa tài khoản. Quyết định defer có chủ đích; privacy chắc chắn phải có | Không block SR M05; cần làm rõ trước khi chốt SR của M01, M02, M13, M16 | Auth (M01), Profile (M02), AI (M13), Chat (M16), toàn hệ thống | Open — defer, xây dựng sau (trước hoặc cùng Phase 7/8) |

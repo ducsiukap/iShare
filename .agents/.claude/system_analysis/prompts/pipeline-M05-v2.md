@@ -1,0 +1,17 @@
+Bạn là người điều phối quy trình SR của iShare. Thư mục hiện tại là gốc repo.
+Đọc .agent-instructions/COMMON-RULES.md, rồi .agent-instructions/system_analysis/shared/SR-DOCUMENT-RULES.md (đặc biệt §8, §10 và §11).
+Chạy script bằng Python 3 (thử `python3`, nếu không có thì `python`).
+
+Bối cảnh: M05 đã qua một lượt thử nghiệm với bản skill cũ; toàn bộ output đó (SR, routing, báo cáo audit, tệp làm việc) đã được sao lưu sang .agents/.claude/system_analysis/backup/m05-pilot-1-2026-10-04/ và KHÔNG được đọc trong lượt này. Skill đã được xây lại: checklist 45 mục, ca kiểm của Author (tests-Mxx.md), Auditor chia lượt P1/P2/P3 + MERGE, đợt xác minh VERIFY. Lượt này bắt đầu M05 từ đầu: chưa có SR, routing hay tệp làm việc nào; số AUD-M05-nn bắt đầu từ 01 (dữ liệu pilot cũ đã hủy). Registers GIỮ NGUYÊN, gồm các quyết định tôi đã chốt ở DEC-140, DEC-141, DEC-142 (và ISS/QA tương ứng): xử lý chúng như mọi mục OWNED khác, không hỏi lại những gì đã có câu trả lời.
+
+Giai đoạn 1, Author: làm trực tiếp trong phiên này vì cần hỏi tôi. Đọc và làm theo .agent-instructions/system_analysis/roles/sr-author/AGENT.md từ Bước 0 đến Bước 8 (Bước 0 gồm đọc tài liệu mẫu docs/_temp/system_requirement_demo/system_requirement_demo.md), kể cả phương pháp lấy từ khóa mới ở Bước 1 và tệp ca kiểm tests-M05.md cho TẤT CẢ yêu cầu cấp dưới (RULES §11). Mức chi tiết: giữ yêu cầu ngắn gọn nhưng đủ ngữ cảnh; áp dụng khung quét hành vi (RULES §4.7), mỗi tính năng hỏi tôi tối đa ba điểm có hệ quả lớn nhất kèm đề xuất mặc định, các điểm còn lại ghi OP. Mọi "Giả định cần thêm" phải hỏi tôi, mỗi lần MỘT vấn đề; chỉ ghi register sau khi tôi xác nhận. Điền selfcheck với đủ 45 mục và bảng Quét khung hành vi. Lưu bản chụp SR và routing khi bàn giao. Không dùng thông tin nào ngoài registers, DRAFT và câu trả lời của tôi.
+
+Giai đoạn 2, Auditor vòng 1: sau Bước 8, khởi chạy ba subagent mới cùng lúc (một tin nhắn, ba lệnh gọi), mỗi cái ngữ cảnh sạch, lượt P1, P2, P3. Prompt gửi cho mỗi subagent chỉ gồm nội dung theo mẫu .agent-instructions/system_analysis/shared/templates/audit-invocation-prompt.md (M05, vòng 1, lượt tương ứng, gốc repo là thư mục hiện tại). TUYỆT ĐỐI không đưa vào prompt tóm tắt, nhận định hay tên tệp làm việc nào từ phần Author. Khi cả ba xong, khởi chạy MỘT subagent mới cho lượt MERGE. Khi nó trả về, tóm tắt báo cáo cho tôi (kết luận, số finding theo lớp x mức, finding nào do lượt nào tìm ra, vấn đề cần tôi quyết).
+
+Giai đoạn 3, sửa: nếu Chưa đạt, quay lại chế độ sửa của sr-author. DEFECT thì sửa thẳng; CONFLICT, GAP, OBSERVATION thì hỏi tôi từng cái một, ghi register sau khi tôi xác nhận, rồi sửa SR, cập nhật tests-M05.md, điền lại selfcheck, lưu bản chụp, tăng phiên bản.
+
+Giai đoạn 4, Auditor vòng 2: như giai đoạn 2 (ba lượt song song rồi MERGE), vòng 2, nêu đường dẫn báo cáo vòng 1.
+
+Giai đoạn 5: nếu sau vòng 2 chỉ còn DEFECT, Author sửa rồi chạy một subagent lượt VERIFY (vòng v1, nêu báo cáo vòng 2). Nếu còn CONFLICT hoặc GAP chưa trả lời thì hỏi tôi trước. Dừng sau đợt xác minh, báo kết quả. Không tự đổi trạng thái sang Đã chốt, không chuyển tài liệu sang docs/approved.
+
+Quy tắc điều phối: dừng và chờ tôi ở mọi câu hỏi và trước mọi lần ghi register. Sau mỗi giai đoạn thêm mục "Phản hồi về skill": chỗ nào trong skill hoặc rules mơ hồ, thiếu chi tiết hoặc phải tự quyết. Ở cuối, lập bảng đo: số finding từng lượt P1/P2/P3 tìm ra, số finding mà selfcheck của Author đã ghi Đạt, số GAP do ca kiểm lộ ra, và số lỗi lọt qua đến tận vòng 2.

@@ -1,10 +1,10 @@
 # Temporary files
-**/_temp
+# **/_temp
 
 # AI agents
-**/.claude
-**/.agents
-**/.agent-instructions
+# **/.claude
+# **/.agents
+# **/.agent-instructions
 
 # sub-modules .gitignore
 ./**/.gitignore

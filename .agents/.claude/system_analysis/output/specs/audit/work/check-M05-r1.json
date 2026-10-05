@@ -1,0 +1,101 @@
+{
+ "errors": [],
+ "warnings": [],
+ "info": [
+  [
+   "COV-03",
+   "Nguồn DEC-047 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn DEC-049 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn DEC-050 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn DEC-051 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn DEC-052 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn DEC-140 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn DEC-141 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn DEC-147 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn DEC-150 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn ISS-207 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn QA-101 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn QA-102 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn QA-104 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn QA-106 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn QA-107 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn QA-268 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-03",
+   "Nguồn QA-278 vừa ở SR vừa ở routing (hợp lệ nếu một phần nội dung được chuyển đi — Author giải thích)",
+   null
+  ],
+  [
+   "COV-00",
+   "OWNED=76, trong SR=70, trong routing=23",
+   null
+  ],
+  [
+   "TST-00",
+   "Ca kiểm: 135 ca cho 92 yêu cầu",
+   null
+  ]
+ ]
+}
