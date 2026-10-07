@@ -280,10 +280,14 @@ Click Reply → editor auto-inserts blockquote with original content + author na
 ### DEC-048: Topic list (11, final)
 Toán học, Ngữ văn, Ngoại ngữ, Khoa học tự nhiên (Lý/Hóa/Sinh), Khoa học xã hội (Sử/Địa/KT&PL), Tin học, Kỹ năng mềm, Hướng nghiệp, Nghệ thuật & Sáng tạo, Góc Chill, Khác
 
+**[Amended 2026-10-07 — DEC-141: 11 Topic là danh mục ban đầu; Admin thêm, gộp, xóa Topic]**
+
 ### DEC-049: Topic rules
 - Min 1, max 3 topics/post (mandatory)
 - Mod/admin: edit (rename) + merge. No delete.
 - Merge auto re-points post_topics from source to target
+
+**[Amended 2026-10-07 — DEC-141, DEC-142: thêm/gộp/xóa Topic chỉ Admin, bỏ đổi tên, xóa khi chưa có bài; nháp được 0 Topic; đổi Topic khi sửa bài]**
 
 ### DEC-050: AI suggest topic flow
 - "Gợi ý topic" button (not automatic) → AI analyzes text only (title + content_text, no attachment processing) → suggest max 3 topics, pre-ticked
@@ -294,6 +298,8 @@ Toán học, Ngữ văn, Ngoại ngữ, Khoa học tự nhiên (Lý/Hóa/Sinh), 
 - User manually picks topic from start → skips AI flow entirely
 - AI off → user picks from dropdown, no suggest
 
+**[Amended 2026-10-07 — DEC-142, DEC-144: gợi ý cả khi tác giả sửa bài; 20 từ đếm trên tiêu đề + nội dung]**
+
 ### DEC-051: Tag data model + rules
 - Tables: tags (id, name unique lowercase-normalized, created_at — no created_by) + post_tags junction
 - Auto-created, no approval
@@ -301,11 +307,15 @@ Toán học, Ngữ văn, Ngoại ngữ, Khoa học tự nhiên (Lý/Hóa/Sinh), 
 - Fully free — mod/admin do NOT edit/merge/delete under normal conditions
 - Crisis case: mod/admin soft-delete (is_active=false) → hidden from autocomplete/trending/browse; old posts keep post_tags record but tag chip hidden from display; if user retypes a disabled tag name, it's NOT tagified — rendered as plain text
 
+**[Amended 2026-10-07 — DEC-143, DEC-146: tập ký tự Tag, "#" không tính, hiển thị chữ thường, kích hoạt lại Tag, ghi nhật ký]**
+
 ### DEC-052: Trending (Topic + Tag)
 - Rolling 7-day window (sliding from now, unlike leaderboard's fixed calendar week)
 - Recalculated every 15-30 min (cached, not live query)
 - Score: Σ(1 + upvotes×2 + comments×1) across all posts in window
 - To be integrated as a dedicated Feed section (note for M14)
+
+**[Amended 2026-10-07 — DEC-145: công thức theo tương tác trong cửa sổ, thêm bookmark, phạm vi bài, mốc 30 phút, thứ tự]**
 
 ---
 ## Phase 5 — M06: Search
@@ -479,6 +489,8 @@ Warning status is fully PRIVATE — visible only to the user themselves and to m
 - Mod (default): sees only their own resolved case list
 - Mod (appeal review exception): can see another mod's action details specifically when reviewing an appeal referencing that action (per QA-021 policy)
 
+**[Amended 2026-10-07 — DEC-146: thêm loại thao tác vô hiệu hóa/kích hoạt lại Tag, đổi Topic/Tag bài người khác]**
+
 ### DEC-082: False/malicious report handling
 - No automated punishment — false positives risk discouraging legitimate reporting
 - Metric shown to mod as reference: target_concentration = (dismissed reports targeting the same single target) / (total resolved reports by that reporter), calculated over reports resolved in the last 90 days
@@ -523,6 +535,8 @@ Each resolved report action, warning, or ban may be appealed exactly once. A rej
 - Admin-only: Role management (promote/demote USER↔MOD), System config (AI toggle etc.), full audit log view, MOD account management (performance, revoke)
 - Shared with Mod: report/warning/ban/appeal handling, Topic edit/merge (M05), Tag crisis soft-delete (M05)
 - Policy constants (warning durations, ban durations, thresholds) are NOT admin-configurable via UI — hardcoded in code, changed via deployment + notify if needed
+
+**[Amended 2026-10-07 — DEC-141: Topic thêm/gộp/xóa chỉ Admin; xóa mềm Tag vẫn dùng chung Mod]**
 
 ### DEC-091: Role management flow
 - Promote: Admin sends a proposal ("Đề xuất làm Mod") to a user (no eligibility conditions — admin free choice) → user receives notification with Accept/Decline → Accept sets role=MOD immediately; Decline does nothing (admin can re-propose later)
@@ -575,6 +589,8 @@ Two distinct scenarios:
 
 ### DEC-100: AI rate limiting
 No dedicated AI-specific rate limit system. Relies on existing limits: Search (M06 DEC-063). New limit added: Topic Suggest button — 10 requests/min/user (only AI-triggered action lacking a natural rate limiter). Pre-scan/auto-scan are system-triggered, not user-invoked repeatedly, so no separate limit needed.
+
+**[Amended 2026-10-07 — DEC-144: 10 lần tính theo 60 giây gần nhất]**
 
 ---
 ## Phase 5 — M11: Group
@@ -718,8 +734,12 @@ No dedicated malware scan layer is added. The existing per-feature type/size whi
 ### DEC-131: AI — third-party data privacy disclosure
 A public Privacy Policy / Terms of Service page is added, explicitly disclosing that publicly posted content (posts/comments) is processed by a third-party AI service (OpenAI — Moderation API for content scanning, Embedding API for semantic search). Linked from the footer and/or the registration flow. Low-cost (a single static content page) but materially increases transparency — judged especially important given the user base includes minors (THPT students).
 
+**[Amended 2026-10-07 — DEC-146: công bố thêm Topic Suggestion, kể cả nội dung chưa đăng]**
+
 ### DEC-132: AI — Topic Suggestion hallucination handling
 Topic Suggestion (GPT-4o-mini) output is validated against the system's fixed 11-topic whitelist. If the returned topic does not match, it is treated as a suggestion failure: a non-blocking error is shown ("Không thể gợi ý chủ đề lúc này, vui lòng chọn thủ công") and the user selects manually. This deliberately reuses the exact same UX pattern already established for AI transient failure (DEC-099: timeout/retry exhausted) — even though the underlying technical cause differs (hallucination vs. timeout), the user-facing experience is identical, requiring no new UI pattern.
+
+**[Amended 2026-10-07 — DEC-141, DEC-144: đối chiếu danh mục Topic hiện tại; bỏ Topic sai, giữ Topic đúng]**
 
 ### DEC-133: AI — raw output logging
 Every AI call (Moderation API, Embedding, Topic Suggestion) has its raw response logged to a dedicated `ai_decision_log` table, linked to the relevant post/comment. Distinct from the existing admin/mod action audit log (DEC-081/094), which logs human actions — this logs AI-made decisions specifically. Serves two purposes: (1) provides real usage data to tune the currently-placeholder 0.9/0.5 confidence thresholds (DEC-098), (2) gives Moderators/Admins an evidence trail when handling a Content Deletion Appeal (M09/DEC-115) where a user disputes an AI-driven rejection.
@@ -763,3 +783,61 @@ SR documents are written per module, in Vietnamese (English kept for necessary t
 
 ### Issues Closed
 ISS-205.
+
+---
+
+## Functional Requirement — M05: Topic & Tag
+
+### DEC-140: M05 — AI Classification scope and Topic structure (confirmations)
+- AI suggests Topics only; it never suggests or assigns Tags (Tags stay fully user-decided, per QA-017). The draft and glossary wording "AI suggests Topic and Tags" is superseded.
+- No Moderator review step for suggestion results: the author adjusts the pre-ticked suggestions and submits (DEC-050 flow unchanged).
+- The Topic taxonomy is flat (DEC-047); the "2 tiers Category → Topic" of QA-033 is superseded. QA-033's point that grade_level is an independent optional Post field stays (M03).
+Source: QA-267, QA-268, QA-269
+
+### DEC-141: M05 — Topic catalog management (Admin only)
+- The 11 Topics of DEC-048 are the initial catalog. Only ADMIN can add a Topic; the catalog has no size limit; a new Topic is not assigned to existing posts.
+- Topic names are unique. Comparison ignores letter case and extra whitespace (leading, trailing, repeated inner spaces) but keeps diacritics: "Tin học" = "tin học" = " Tin  học "; "Tin hoc" ≠ "Tin học".
+- Topic rename is not supported. To fix a name, Admin adds the correct Topic and merges the old one into it.
+- Merge is ADMIN only. All posts of the source Topic move to the target (a post holding both keeps the target once). The source Topic is then deleted automatically. Users following the source Topic are moved to follow the target (already-followers unchanged).
+- Delete is ADMIN only, and only when the Topic has no non-draft post (pending, published, self-hidden, rejected, and deleted posts still inside the 7-day recovery window all count). Drafts holding that Topic lose it (drafts may have 0 Topics, DEC-142). Follows of a deleted Topic are removed.
+- Topic Suggestion validates against the current catalog, not a fixed 11-topic list.
+- MOD no longer edits or merges Topics (amends DEC-090 "Shared with Mod: Topic edit/merge"). Tag crisis soft-delete stays shared MOD/ADMIN.
+Source: QA-270, QA-272, QA-278, QA-279, QA-280
+
+### DEC-142: M05 — Topics and Tags on posts (drafts, edits, browse)
+- The 1–3 Topic rule is enforced on submit only; a draft may hold 0 Topics (still max 3 Topics, max 5 Tags).
+- When editing a submitted post, the author may change its Topics and Tags within the same limits.
+- MOD and ADMIN may change Topics and Tags on any user's post within the same limits. The author is not notified and the change is not recorded in the public post edit history (DEC-037).
+- The author may use Topic Suggestion while editing a submitted post, under the same rules (including feedback recording). MOD/ADMIN changing someone else's post do not use suggestion.
+- "Browse" in M05 means viewing the Topic and Tag lists. Viewing the posts of a Topic or Tag is done through M06 Search filters; M05 has no per-Topic/Tag post page.
+Source: QA-273, QA-274, QA-275, QA-277, QA-288, QA-289
+
+### DEC-143: M05 — Tag characters, display, re-activation
+- A Tag name contains only letters (including Vietnamese diacritics), digits and underscore, with at least one letter. Valid: #XácSuất, #đạo_hàm, #lớp12, #covid19. Invalid: #covid-19, #node.js, #c++, #12, #___.
+- The "#" prefix is display-only and is not counted in the 30-character limit.
+- Tags are displayed everywhere in their normalized lowercase name (e.g. #xácsuất); no original casing is stored.
+- MOD and ADMIN may re-activate a disabled Tag: it reappears in autocomplete, Trending Tag, the Tag list and on posts still linked to it. Text typed as "#name" while the Tag was disabled stays plain text.
+Source: QA-276, QA-284
+
+### DEC-144: M05 — Topic Suggestion details
+- The 20-word minimum is counted over title + content_text; a word is a whitespace-separated token (each Vietnamese syllable counts as one word).
+- If the AI returns some Topics outside the catalog, those are dropped and the valid ones kept; the suggestion fails only when no valid Topic remains.
+- The 10 requests per user limit (DEC-100) uses a sliding 60-second window.
+Source: QA-281, QA-282, QA-283
+
+### DEC-145: M05 — Trending Topic/Tag formula (supersedes the formula of DEC-052)
+- Score of a Topic or Tag = sum of interactions that happened inside the sliding 7-day window on its posts, regardless of when the post was published: post published in the window = 1, post upvote = 2, comment (replies included) = 1, bookmark = 1. Retracted interactions (removed upvote, deleted comment, removed bookmark) do not count. A post with several Topics/Tags counts for each. No decay.
+- Only posts visible on the main feed count: published and not hidden by moderation, including Public-group posts, excluding Private-group posts. Comment upvotes do not count. Disabled Tags have no score.
+- Post views are not counted at MS1 (deferred; requires event tracking, see OPEN-005).
+- Freshness: every interaction is reflected in the score at most 30 minutes after it happens; the recalculation cycle stays within 15–30 minutes.
+- Only Topics/Tags with score > 0 are listed. Order: score descending; ties broken by the number of posts published in the window (descending), then by name A–Z. Each item has its own rank.
+Example (computed 07/10 10:00, window from 30/09 10:00): post A published 05/10 with 3 upvotes, 2 comments, 1 bookmark in window → 1 + 6 + 2 + 1 = 10; post B published 20/09 with 2 upvotes in window → 4; post C published 30/09 09:00 with 1 comment on 01/10 → 1; Topic total 15.
+Source: QA-271, QA-285, QA-286, QA-287
+
+### DEC-146: M05 — Moderator action logging and AI disclosure
+- Disabling a Tag, re-activating a Tag, and changing Topics/Tags on another user's post are recorded in the moderation audit log (DEC-081 fields: actor, action type, target, reason optional, timestamp), for MOD and ADMIN alike. ADMIN actions also remain in the admin action log (DEC-094).
+- The Privacy Policy / ToS page (DEC-131) additionally discloses that when a user clicks "Gợi ý topic", the title and content of the post being composed or edited, including unpublished content, are sent to a third-party AI service to suggest Topics.
+Source: QA-290, QA-291
+
+### Issues Closed
+ISS-207 – ISS-231.

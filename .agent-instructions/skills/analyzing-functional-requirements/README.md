@@ -151,7 +151,8 @@ Theo tài liệu mẫu của stakeholder (DEC-139):
 6. Lịch sử sửa đổi
 
 Phụ lục A truy vết, Phụ lục B câu hỏi/TBD, Phụ lục C sổ nguồn. Thân tài liệu không ghi nguồn.
-Mẫu đầy đủ: `output/fr-template.md`. Ví dụ một chức năng đã viết: `output/example.md`.
+Mẫu đầy đủ: `output/fr-template.md`. Muốn xem một tài liệu đã hoàn chỉnh, mở `FR-M05.md` trong
+`.agents/.claude/system_analysis/output/fr/` (module đầu tiên chạy đủ 7 bước).
 
 Quy ước mã:
 
@@ -176,8 +177,8 @@ analyzing-functional-requirements/
 ├── README.md       tệp này, dành cho người dùng
 ├── input/INPUTS.md nguồn đầu vào và lưu ý về dữ liệu
 ├── steps/          01 … 07, mỗi bước một tệp; agent chỉ đọc tệp của bước đang làm
-├── output/         fr-template.md (mẫu), example.md (ví dụ)
-└── tools/          script Python 3, chỉ dùng thư viện chuẩn
+├── output/         fr-template.md (mẫu tệp FR)
+└── tools/          script Python 3, chỉ dùng thư viện chuẩn; tools/fixtures/ là dữ liệu kiểm thử tool
 ```
 
 ## Tool
@@ -205,10 +206,13 @@ python3 $SK/tools/lineage.py --index $W/index.json --scan $W/scan-M05.json \
 python3 $SK/tools/lint_fr.py --fr .agents/.claude/system_analysis/output/fr/FR-M05.md \
   --index $W/index.json --lineage $W/lineage-M05.json [--final]
 python3 $SK/tools/trace_check.py --fr .agents/.claude/system_analysis/output/fr/FR-M05.md \
-  --scan $W/scan-M05.json [--others .agents/.claude/system_analysis/output/fr]
+  --scan $W/scan-M05.json --lineage $W/lineage-M05.json [--others .agents/.claude/system_analysis/output/fr]
 ```
 
 `lint_fr.py` và `trace_check.py` trả mã thoát 1 khi có ERROR.
+
+Sau khi sửa tool, chạy thử trên `tools/fixtures/example.md` (kết quả mong đợi: không ERROR) và trên một bản sao
+cố ý làm hỏng của tệp đó, để chắc tool vẫn bắt được lỗi.
 
 ## Xử lý sự cố
 

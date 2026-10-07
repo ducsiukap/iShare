@@ -11,8 +11,9 @@ steps_completed: [1, 2, 3, 4, 5]
 ---
 # Tài liệu yêu cầu chức năng — M05 Topic & Tag (VÍ DỤ ĐỊNH DẠNG)
 
-> Tệp này chỉ minh họa cách viết **một** chức năng sau bước 5, dùng dữ liệu thật của DEC-048 và DEC-049.
-> Nó không phải tài liệu M05 đã chốt và cố ý bỏ trống các phần không liên quan tới chức năng mẫu.
+> **Dữ liệu kiểm thử cho tool**, không phải hướng dẫn và không phải tài liệu M05 thật. Agent không đọc tệp này khi viết FR.
+> Dùng để chạy thử `lint_fr.py` và `trace_check.py` sau khi sửa tool. Nội dung viết từ dữ liệu M05 trước khi chạy skill,
+> nên đã lệch với quyết định hiện tại (ví dụ câu hỏi về bài nháp đã được DEC-142 trả lời).
 
 | Mã tài liệu | FR-M05 |
 |---|---|

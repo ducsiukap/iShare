@@ -146,7 +146,9 @@ def parse_fr(text):
     res = {"fm": fm, "module": mod, "pats": pats, "body": body,
            "defined": {}, "upper_heads": {}, "list44": [], "lower_text": {},
            "appendix_a": {}, "c1": [], "crud": [], "states": {}, "interfaces": [],
-           "perm": [], "tbd": [], "br": {}}
+           "perm": [], "tbd": [], "br": {}, "c2_text": "", "c2_rows": [], "steps": []}
+    m_steps = re.findall(r"\d+", fm.get("steps_completed", ""))
+    res["steps"] = [int(x) for x in m_steps]
     in_app = False
     cur_upper = None
     cur_state = None
@@ -184,6 +186,11 @@ def parse_fr(text):
                 for r in rows:
                     if len(r) >= 3:
                         res["tbd"].append({"id": r[0], "text": r[1], "impact": r[2]})
+                        if pats["tbd"].match(r[0]):
+                            res["defined"].setdefault(r[0], "TBD")
+            elif t.startswith("C.2"):
+                res["c2_text"] = "\n".join(lines)
+                res["c2_rows"] = rows
             continue
         if t.startswith("4.4"):
             res["list44"] = [r[0] for r in rows if r and r[0]]

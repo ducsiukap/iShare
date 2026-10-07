@@ -16,6 +16,10 @@ Phụ lục B.1 (câu hỏi đã gom từ bước 2–5), mọi dòng `[GAP]`, �
      được, hoặc chạm tới quyền hay an toàn dữ liệu; khi đó chuyển sang B.3 "Cần cân nhắc" kèm lý do.
    - Tìm trong `index.json` (đọc nguyên văn các mục có từ khóa liên quan) xem câu trả lời đã có chưa.
      Có rồi thì dùng, cập nhật yêu cầu, không hỏi.
+   - **Câu mở rộng phạm vi**: nếu câu trả lời "có" sẽ tạo thêm một chức năng hoặc một quyền mới mà nguồn chưa có
+     (ví dụ "Mod có được đổi Topic trên bài người khác không?" khi nguồn chưa nói Mod làm việc này), thì xếp loại
+     **Cần cân nhắc**, ghi rõ "mở rộng phạm vi" trong câu hỏi, và tách thành nhóm riêng khi hỏi. Không xếp loại
+     "Thiếu chi tiết".
 2. **Xếp theo ảnh hưởng**:
    - **Cao**: làm đổi dữ liệu, trạng thái, quyền, phạm vi, hoặc điều người dùng thấy ở tình huống thường gặp;
      mọi mâu thuẫn. Hỏi riêng từng câu theo khuôn ở SKILL.md.
@@ -38,9 +42,14 @@ Phụ lục B.1 (câu hỏi đã gom từ bước 2–5), mọi dòng `[GAP]`, �
    - thay mỗi `[GAP]` bằng yêu cầu có ID, căn cứ Nói thẳng, nguồn là QA/DEC mới;
    - B.1 điền cột Trả lời và Ghi vào register;
    - C.1 thêm dòng cho nguồn mới; `moc_nguon` cập nhật;
+   - chạy lại `lineage.py` (register vừa có thêm dấu `[Amended …]`), rồi cập nhật cột Trạng thái của C.1 cho các
+     nguồn bị DEC mới sửa ("Sửa một phần bởi DEC-nnn", "Bị thay bởi DEC-nnn");
+   - viết lại **C.2** cho mọi chuỗi bị câu trả lời tác động: viết ở thì hiện tại (không còn "Sẽ …"), nêu nội dung
+     đang hiệu lực sau DEC mới, và nội dung đó phải khớp với quy tắc và yêu cầu trong thân tài liệu
+     (ví dụ công thức Trending ở C.2 phải giống BR tương ứng);
    - chỉ soát lại các yêu cầu bị câu trả lời tác động. Không mở GAP mới ngoài phạm vi câu trả lời. Nếu câu trả
      lời buộc phải có thêm một chi tiết mới viết được, hỏi tiếp đúng chi tiết đó và nói rõ vì sao.
-7. Chạy `lint_fr.py` và `trace_check.py`.
+7. Chạy `lint_fr.py --lineage …` và `trace_check.py --lineage …`. Cảnh báo C2-01, C2-02 nghĩa là C.2 chưa cập nhật.
 
 ## Tự kiểm trước cổng
 
@@ -49,7 +58,8 @@ Phụ lục B.1 (câu hỏi đã gom từ bước 2–5), mọi dòng `[GAP]`, �
 
 ## Trình ở cổng
 
-Bảng câu hỏi – trả lời – ID register đã ghi; các yêu cầu mới hoặc đã sửa; TBD còn lại; kết quả tool.
+Bảng câu hỏi – trả lời – ID register đã ghi; các câu **mở rộng phạm vi** đã được chấp nhận (liệt kê riêng);
+các yêu cầu mới hoặc đã sửa; các dòng C.2 đã viết lại; TBD còn lại; kết quả tool.
 
 ## Không làm
 

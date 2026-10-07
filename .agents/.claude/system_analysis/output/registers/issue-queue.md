@@ -319,3 +319,35 @@
 |----|-------|--------|----------|
 | ISS-205 | Cách viết tài liệu System Requirement (SR) theo module: cấu trúc, ngôn ngữ, thời điểm, quy trình Author–Auditor | Closed | Xem DEC-139. Quy ước ID để bàn sau (chốt trước khi chạy thử M05) |
 | ISS-206 | Quy ước ID cho tài liệu SR | Closed | Xem DEC-139 (amended): tiền tố `ISH`, `ISH-SR-Mxx`, `ISH-Mxx-nnn[.k]`, `OP-Mxx-nn`, `AUD-Mxx-nn`; ID vĩnh viễn **[Sẽ bị thay thế 2026-10-07 — quy ước ID và quy trình theo skill FR mới, xem DEC-139]** |
+
+---
+
+## Functional Requirement — M05: Topic & Tag | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-207 | AI Classification có gợi ý Tag không? (draft nói có, QA-017 nói không) | Closed | Xem DEC-140 |
+| ISS-208 | Có bước Mod duyệt kết quả gợi ý Topic không? | Closed | Xem DEC-140 |
+| ISS-209 | Topic phẳng hay 2 tầng Category → Topic? (QA-033 vs DEC-047) | Closed | Xem DEC-140 |
+| ISS-210 | Cho Admin thêm Topic mới vào danh mục và các quy tắc đi kèm | Closed | Xem DEC-141 |
+| ISS-211 | Đổi công thức Trending Topic/Tag | Closed | Xem DEC-145, OPEN-009 |
+| ISS-212 | Có giữ quyền đổi tên Topic không? | Closed | Xem DEC-141 |
+| ISS-213 | Tác giả có đổi Topic, Tag khi sửa bài đã gửi không? | Closed | Xem DEC-142 |
+| ISS-214 | Mod/Admin có đổi Topic, Tag trên bài người khác không? | Closed | Xem DEC-142 |
+| ISS-215 | "Browse" Topic/Tag có gồm trang liệt kê bài theo Topic/Tag không? | Closed | Xem DEC-142 |
+| ISS-216 | Mod/Admin có kích hoạt lại Tag đã vô hiệu hóa được không? | Closed | Xem DEC-143 |
+| ISS-217 | Bài nháp có bắt buộc đủ 1–3 Topic không? | Closed | Xem DEC-142 |
+| ISS-218 | So trùng tên Topic thế nào? | Closed | Xem DEC-141 |
+| ISS-219 | "Topic chưa có bài viết" đếm những bài nào? | Closed | Xem DEC-141 |
+| ISS-220 | Sau khi gộp Topic: Topic nguồn và người follow ra sao? | Closed | Xem DEC-141 |
+| ISS-221 | Ngưỡng 20 từ của gợi ý Topic đếm thế nào? | Closed | Xem DEC-144 |
+| ISS-222 | AI trả về một phần Topic ngoài danh mục thì xử lý sao? | Closed | Xem DEC-144 |
+| ISS-223 | Giới hạn 10 lần/phút tính theo cửa sổ nào? | Closed | Xem DEC-144 |
+| ISS-224 | Tag: tập ký tự, cách hiển thị, "#" có tính vào 30 ký tự không? | Closed | Xem DEC-143 |
+| ISS-225 | Trending tính trên những bài và tương tác nào? | Closed | Xem DEC-145 |
+| ISS-226 | Chu kỳ tính lại Trending 15–30 phút: mốc kiểm chứng | Closed | Xem DEC-145 |
+| ISS-227 | Trending: mục điểm 0, thứ tự khi bằng điểm | Closed | Xem DEC-145 |
+| ISS-228 | Có dùng gợi ý Topic khi sửa bài không? | Closed | Xem DEC-142 |
+| ISS-229 | Mod/Admin đổi Topic, Tag bài người khác: có thông báo, có ghi lịch sử sửa bài không? | Closed | Xem DEC-142 |
+| ISS-230 | Có ghi nhật ký thao tác Tag/Topic của Mod không? | Closed | Xem DEC-146 |
+| ISS-231 | Trang Chính sách quyền riêng tư có nêu việc gửi nội dung bài cho AI gợi ý Topic không? | Closed | Xem DEC-146 |

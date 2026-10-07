@@ -14,14 +14,17 @@ trước khi người dùng chốt.
    - 4.1 "Không có." trừ khi người dùng đã nêu luật hoặc tiêu chuẩn;
    - HMI và Chuyển màn hình để "Chưa có — chờ giai đoạn thiết kế.";
    - mục 6 Lịch sử sửa đổi.
-2. Chạy `lint_fr.py --final` và `trace_check.py --others .agents/.claude/system_analysis/output/fr`.
+2. Chạy `lint_fr.py --final --lineage $W/lineage-Mxx.json` và
+   `trace_check.py --lineage $W/lineage-Mxx.json --others .agents/.claude/system_analysis/output/fr`.
    Sửa và chạy lại, tối đa hai vòng. Lỗi còn lại sau hai vòng thì trình ở cổng, không tự che.
 3. **Đối chiếu chéo module** (khi đã có FR của module khác): mỗi dòng "Dùng Myy" phải khớp một dòng
    "Cung cấp Mxx" ở FR-Myy và ngược lại; một hành vi không được viết ở cả hai tài liệu. Lệch thì ghi ở cổng,
    không tự sửa tài liệu của module khác.
 4. **Đọc lại theo từng chức năng**: luồng chính và ngoại lệ đủ; ví dụ của quy tắc tính lại đúng; quyền khớp 4.3;
    không chi tiết cài đặt; mỗi câu đọc ra một nghĩa.
-5. Khi người dùng nói "chốt": `trang_thai: Đã chốt`, phiên bản `1.0`, thêm dòng Lịch sử, thêm `7` vào
+5. **Đối chiếu Phụ lục C với thân tài liệu**: mọi nội dung ghi là "hiện hành" ở C.2 (công thức, giới hạn, quyền)
+   giống quy tắc và yêu cầu ở mục 5; trạng thái ở C.1 khớp C.2; không còn dòng viết ở thì tương lai.
+6. Khi người dùng nói "chốt": `trang_thai: Đã chốt`, phiên bản `1.0`, thêm dòng Lịch sử, thêm `7` vào
    `steps_completed`.
 
 ## Sửa sau khi đã chốt

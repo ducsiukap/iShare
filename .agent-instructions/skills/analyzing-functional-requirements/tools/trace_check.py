@@ -8,9 +8,11 @@ Kiểm:
   CRUD thực thể thiếu ô Tạo hoặc Đọc (ô "—").
   STATE trạng thái không có đường vào, dòng chuyển trạng thái không trỏ tới yêu cầu.
   XMOD (khi có --others) phần "Giao tiếp với module khác" có khớp với tệp FR của module kia.
+  C2   chuỗi quyết định (Phụ lục C.2): sau bước 6 không còn dòng viết ở thì tương lai ("Sẽ …");
+       (khi có --lineage) mọi mục sửa đổi một nguồn của module và được trích ở Phụ lục A đều có trong C.2.
 
 Cách dùng (từ gốc repo):
-  python3 .../trace_check.py --fr <FR-Mxx.md> --scan <scan-Mxx.json> [--others <thư mục fr/>]
+  python3 .../trace_check.py --fr <FR-Mxx.md> --scan <scan-Mxx.json> [--lineage <lineage-Mxx.json>] [--others <thư mục fr/>]
 """
 import argparse
 import glob
@@ -35,6 +37,7 @@ def main():
     ap.add_argument("--fr", required=True)
     ap.add_argument("--scan", required=True)
     ap.add_argument("--others", help="thư mục chứa các tệp FR-Myy.md khác để đối chiếu chéo")
+    ap.add_argument("--lineage", help="chuỗi sửa đổi từ lineage.py, để kiểm C.2")
     a = ap.parse_args()
     fr = frlib.parse_fr(frlib.read(a.fr))
     scan = frlib.load_json(a.scan)
@@ -100,6 +103,20 @@ def main():
         for r in rows:
             if not pats["any"].findall(r[4]):
                 say("WARN", "STATE-02", "%s: chuyển '%s' → '%s' chưa trỏ tới yêu cầu" % (ent, r[0], r[3]))
+
+    # C2
+    if 6 in fr["steps"]:
+        for r in fr["c2_rows"]:
+            if any(re.search(r"(?<!\w)[Ss]ẽ(?!\w)", c) for c in r):
+                say("WARN", "C2-01", "C.2 dòng '%s' còn viết ở thì tương lai dù bước 6 đã xong: cập nhật theo register đã ghi" % frlib.excerpt(r[0], 50))
+    if a.lineage:
+        c2_ids = set(frlib.find_ids(fr["c2_text"]))
+        seen_by = set()
+        for e in frlib.load_json(a.lineage)["edges"]:
+            by, target = e["by"], e["target"]
+            if target in c1 and by in cited and by not in c2_ids and by not in seen_by:
+                seen_by.add(by)
+                say("WARN", "C2-02", "%s sửa %s và được trích ở Phụ lục A nhưng chưa có trong chuỗi quyết định C.2" % (by, target))
 
     # XMOD
     if a.others:

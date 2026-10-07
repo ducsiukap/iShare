@@ -418,7 +418,7 @@
 - **Issue:** ISS-046
 - **Phase:** 4
 - **Question:** Classification — 1 hay 2 tầng? Grade level tích hợp thế nào?
-- **Answer:** 2 tầng: Category → Topic. `grade_level` là field độc lập trên Post (optional, user chọn). Không cross-validate grade với Category/Topic.
+- **Answer:** 2 tầng: Category → Topic. `grade_level` là field độc lập trên Post (optional, user chọn). Không cross-validate grade với Category/Topic. **[Amended 2026-10-07 — DEC-140: Topic phẳng, không 2 tầng]**
 - **Decision triggered:** —
 - **Implication:** Post schema: `category_id`, `topic_id`, `grade_level` (3 field riêng). AI gợi ý topic_id, user confirm. grade_level = user's explicit choice.
 
@@ -742,8 +742,8 @@
 | QA-103 | AI suggest topic limit? | Max 3 (matches max 3 topics/post cap) |
 | QA-104 | Content changed after AI suggest? | Flag is_stale, soft warning, feedback only recorded when not stale |
 | QA-105 | Tag max count/length? | Max 5 tags/post, 30 chars/tag |
-| QA-106 | Trending calculation? | Rolling 7-day window, score = Σ(1+upvotes×2+comments×1), recalc every 15-30min |
-| QA-107 | Topic/tag edit/delete by mod? | Topic: edit+merge, no delete. Tag: fully free, soft-delete only for crisis (name becomes reserved, non-tagifiable) |
+| QA-106 | Trending calculation? | Rolling 7-day window, score = Σ(1+upvotes×2+comments×1), recalc every 15-30min **[Amended 2026-10-07 — DEC-145]** |
+| QA-107 | Topic/tag edit/delete by mod? | Topic: edit+merge, no delete. Tag: fully free, soft-delete only for crisis (name becomes reserved, non-tagifiable) **[Amended 2026-10-07 — DEC-141, DEC-143]** |
 | QA-108 | Comment tags? | Not needed — comments inherit parent post's topic/tag context |
 
 ---
@@ -826,7 +826,7 @@
 
 | ID | Question | Answer |
 |----|----------|--------|
-| QA-160 | What's admin-exclusive vs shared with mod? | Admin: role mgmt/config/full-audit/mod-mgmt. Shared: moderation actions, topic/tag mgmt |
+| QA-160 | What's admin-exclusive vs shared with mod? | Admin: role mgmt/config/full-audit/mod-mgmt. Shared: moderation actions, topic/tag mgmt **[Amended 2026-10-07 — DEC-141: quản lý Topic chỉ Admin]** |
 | QA-161 | Should policy constants be admin-configurable? | No — hardcoded, changed via deployment |
 | QA-162 | Can admin promote any user to mod freely? | Yes, no eligibility conditions, but user can decline the proposal |
 | QA-163 | Does demote need mod's consent? | No — direct, immediate, no appeal (not a punishment) |
@@ -993,3 +993,35 @@
 |----|----------|--------|
 | QA-265 | ISS-205: Cách viết tài liệu SR theo module? | Stakeholder cung cấp tài liệu mẫu (cấu trúc mục 1–6, mỗi chức năng gồm yêu cầu cấp trên / lý do / yêu cầu cấp dưới) và chốt: mỗi module một tài liệu, tự chứa thuật ngữ và quyền; tiếng Việt (giữ tiếng Anh cho thuật ngữ bắt buộc); văn phong chuyên nghiệp dễ hiểu; viết SR ngay ở phase này, Phase 7/8 làm sau; một hành vi chỉ ở một module sở hữu, module khác tham chiếu bằng ID (điểm 4A); Nguồn/Basis ở phụ lục truy vết, thân tài liệu sạch (điểm 6B); milestone/ưu tiên ghi một lần ở mục 5.1, chỉ gắn nhãn ngoại lệ, bỏ bảng áp dụng kiểu automotive (điểm 10B); mục 4.1 chỉ ghi luật/tiêu chuẩn do stakeholder nêu, nếu không có thì 'Không có'; phần đầu có mã tài liệu, dự án, module, trạng thái, phiên bản, ngày, tác giả Phạm Văn Đức, bỏ mục người duyệt; lưu ở .agents/.claude/system_analysis/output/specs/ (báo cáo audit ở specs/audit/); hai agent Author (viết) và Auditor (chỉ kiểm tra, không sửa; kiểm độ bao quát bằng ma trận nguồn–yêu cầu và checklist quy tắc), Author sửa theo báo cáo, tối đa 2 vòng rồi đưa stakeholder quyết; mọi GAP/mơ hồ/đề xuất raise cho stakeholder từng việc; câu trả lời ghi vào register (QA/DEC) và Author phải sửa/bổ sung vào SR; chạy thử một module trước (đề xuất M05); HMI Requirements và Screen Transitions để placeholder đến khi có design. Ghi nhận: quyết định này khác hai quy tắc trong BA-INTERVIEW-RULES (output tiếng Anh; chỉ sinh spec sau Phase 9). |
 | QA-266 | ISS-206: Quy ước ID cho tài liệu SR? | Stakeholder chốt tạm: tiền tố dự án `ISH`; tài liệu `ISH-SR-Mxx`; yêu cầu cấp trên `ISH-Mxx-nnn`, cấp dưới `ISH-Mxx-nnn.k`; điểm mở `OP-Mxx-nn` (tạm thời, chỉ ở Phụ lục B); phát hiện audit `AUD-Mxx-nn`; mục nguồn dùng lại ID ISS/QA/DEC/OPEN; ID vĩnh viễn (không đánh số lại/dùng lại, cho phép khoảng trống); số mục 5.x không phải ID. Kèm yêu cầu: xây skill Author và sửa các file trong .agent-instructions liên quan, sau đó stakeholder review |
+
+---
+
+## Functional Requirement — M05: Topic & Tag (QA-267 → QA-291)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-267 | ISS-207: AI Classification có gợi ý Tag không? | Xác nhận: AI không gợi ý Tag, chỉ gợi ý Topic (giữ QA-017) |
+| QA-268 | ISS-208: Có bước Mod duyệt kết quả gợi ý Topic không? | Xác nhận: không có bước Mod duyệt; tác giả tự chỉnh rồi đăng (giữ DEC-050) |
+| QA-269 | ISS-209: Topic phẳng hay 2 tầng? | Xác nhận: Topic phẳng, không chia 2 tầng (giữ DEC-047, thay QA-033) |
+| QA-270 | ISS-210: Cho thêm Topic mới? | Chỉ Admin được thêm; tên Topic không được trùng; AI phải gợi ý dựa trên toàn bộ danh mục Topic hiện tại; bài cũ không tự gán Topic mới; không đặt giới hạn số Topic. Gộp Topic cũng chỉ Admin. Admin được xóa Topic khi Topic chưa có bài nào. Xóa mềm Tag khi khủng hoảng vẫn cho cả Mod và Admin |
+| QA-271 | ISS-211: Đổi công thức Trending Topic/Tag thế nào? | Xét dữ liệu tương tác trên cửa sổ 7 ngày, không chỉ bài đăng trong cửa sổ; giữ 7 ngày, không decay; thêm bookmark trọng số 1 (bài mới 1, upvote 2, comment 1); tương tác đã rút lại không tính; bài nhiều Topic/Tag góp cho tất cả; chưa thêm lượt xem ở MS1. Trending Post có thêm bookmark không: để review ở M14, tạo OPEN, hướng đang chấp nhận là thêm |
+| QA-272 | ISS-212: Có giữ quyền đổi tên Topic không? | "confirm không hỗ trợ đổi tên!" — sửa tên bằng cách thêm Topic mới rồi gộp Topic cũ vào |
+| QA-273 | ISS-213: Tác giả có đổi Topic, Tag khi sửa bài đã gửi không? | "có, tác giả, mod và admin đều có thể đổi" |
+| QA-274 | ISS-214: Mod/Admin có đổi Topic, Tag trên bài người khác không? | Có (trả lời cùng QA-273) |
+| QA-275 | ISS-215: "Browse" có gồm trang bài theo Topic/Tag không? | Không: M05 chỉ có danh sách Topic/Tag; xem bài theo Topic/Tag qua bộ lọc của M06 |
+| QA-276 | ISS-216: Có kích hoạt lại Tag đã vô hiệu hóa không? | "hoàn toàn mod/admin có thể active lại tag này" |
+| QA-277 | ISS-217: Bài nháp có bắt buộc 1–3 Topic không? | A: chỉ bắt buộc khi gửi; nháp được có 0 Topic (vẫn tối đa 3 Topic, 5 Tag) |
+| QA-278 | ISS-218: So trùng tên Topic thế nào? | Đồng ý: không phân biệt hoa/thường, bỏ khoảng trắng thừa (đầu, cuối, giữa); khác dấu là khác tên |
+| QA-279 | ISS-219: "Topic chưa có bài" đếm những bài nào? | "có lẽ chỉ cần bỏ qua bài nháp" — đếm mọi bài không phải nháp (kể cả đã xóa còn trong 7 ngày khôi phục); bài nháp mất Topic đó khi Topic bị xóa |
+| QA-280 | ISS-220: Sau khi gộp, Topic nguồn và người follow ra sao? | Topic nguồn tự bị xóa; người follow Topic nguồn tự chuyển sang Topic đích. Kèm: khi xóa Topic, các lượt follow Topic đó bị bỏ |
+| QA-281 | ISS-221: Ngưỡng 20 từ đếm thế nào? | A: giữ 20 từ, đếm trên tiêu đề cộng nội dung chữ; mỗi cụm ký tự cách nhau bởi khoảng trắng là một từ |
+| QA-282 | ISS-222: AI trả về một phần Topic ngoài danh mục? | Đồng ý: bỏ Topic sai, giữ Topic hợp lệ; chỉ thất bại khi không còn Topic hợp lệ |
+| QA-283 | ISS-223: 10 lần/phút tính theo cửa sổ nào? | Đồng ý: 60 giây gần nhất |
+| QA-284 | ISS-224: Tag gồm ký tự nào, hiển thị thế nào, "#" có tính không? | Chữ cái (kể cả có dấu), chữ số, "_"; có ít nhất một chữ cái (#12 không hợp lệ); không thêm ký tự khác. Hiển thị chung theo tên chuẩn hóa chữ thường. "#" không tính vào 30 ký tự, chỉ để hiển thị |
+| QA-285 | ISS-225: Trending tính trên bài và tương tác nào? | A: chỉ bài đang hiển thị trên feed chính (đã đăng, không bị Mod ẩn; gồm nhóm Public, không gồm nhóm Private); upvote chỉ cho bài; comment gồm reply; bài không còn hiển thị không đóng góp |
+| QA-286 | ISS-226: Mốc kiểm chứng cho chu kỳ 15–30 phút? | A: mọi tương tác có mặt trong điểm Trending chậm nhất 30 phút; không hạ mốc |
+| QA-287 | ISS-227: Mục điểm 0 và thứ tự khi bằng điểm? | Chỉ hiện mục có điểm > 0. Bằng điểm → số bài mới (đăng trong cửa sổ 7 ngày) nhiều hơn xếp trước → tên A–Z. "vì tên không trùng nên chắc chắn không thể cùng hạng" |
+| QA-288 | ISS-228: Dùng gợi ý Topic khi sửa bài? | A: tác giả dùng được, cùng quy tắc và có ghi phản hồi; Mod/Admin sửa bài người khác không dùng gợi ý |
+| QA-289 | ISS-229: Mod/Admin đổi Topic, Tag bài người khác có thông báo, có ghi lịch sử sửa không? | "không thông báo, cũng không cần ghi vào lịch sử sửa bài" |
+| QA-290 | ISS-230: Ghi nhật ký thao tác Tag/Topic của Mod? | A: "ghi log là được" — ghi vào nhật ký kiểm duyệt |
+| QA-291 | ISS-231: Công bố việc gửi nội dung cho AI gợi ý Topic? | "Có" — bổ sung vào trang Chính sách quyền riêng tư |

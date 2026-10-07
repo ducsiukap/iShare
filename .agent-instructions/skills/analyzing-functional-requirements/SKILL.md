@@ -74,7 +74,7 @@ Chạy từ gốc repo iShare. Đặt `SK=.agent-instructions/skills/analyzing-f
 | `scan_sources.py` | 1, 6 | `python3 $SK/tools/scan_sources.py --index $W/index.json --module Mxx --keywords "…" --dep-keywords "…" --draft DM-x.y --exclude "…" --out-md $W/scan-Mxx.md --out-json $W/scan-Mxx.json` |
 | `lineage.py` | 2 | `python3 $SK/tools/lineage.py --index $W/index.json --scan $W/scan-Mxx.json --out-md $W/lineage-Mxx.md --out-json $W/lineage-Mxx.json` |
 | `lint_fr.py` | 5, 7 | `python3 $SK/tools/lint_fr.py --fr <FR-Mxx.md> --index $W/index.json --lineage $W/lineage-Mxx.json [--final]` |
-| `trace_check.py` | 4, 5, 7 | `python3 $SK/tools/trace_check.py --fr <FR-Mxx.md> --scan $W/scan-Mxx.json [--others .agents/.claude/system_analysis/output/fr]` |
+| `trace_check.py` | 4, 5, 6, 7 | `python3 $SK/tools/trace_check.py --fr <FR-Mxx.md> --scan $W/scan-Mxx.json --lineage $W/lineage-Mxx.json [--others .agents/.claude/system_analysis/output/fr]` |
 
 Tool lo phần máy làm chắc chắn (không bỏ sót mục nguồn, đúng định dạng, đủ truy vết).
 Phần hiểu và phán đoán là của bạn. Kết quả tool **không** thay thế việc đọc nguyên văn nguồn.
@@ -95,6 +95,8 @@ Tool báo ERROR thì sửa trước khi trình cổng. WARN được giữ lại
 - Câu ảnh hưởng nhỏ gom theo chức năng thành danh sách xác nhận, người dùng trả lời
   "ok cả nhóm" hoặc sửa từng mục.
 - Trước khi hỏi, tìm trong chỉ mục xem câu trả lời đã có chưa. Có rồi thì dùng, không hỏi lại.
+- Câu hỏi mà câu trả lời "có" sẽ **tạo thêm chức năng hoặc quyền mới** chưa có trong nguồn là câu **mở rộng phạm vi**:
+  xếp loại "Cần cân nhắc" (không phải "Thiếu chi tiết"), ghi rõ "mở rộng phạm vi" và liệt kê riêng ở cổng (bước 6).
 - Sau khi được trả lời, chỉ soát lại các yêu cầu bị câu trả lời đó tác động.
 
 ## Mẫu tin nhắn cổng
