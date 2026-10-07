@@ -276,7 +276,6 @@ Click Reply → editor auto-inserts blockquote with original content + author na
 ### DEC-047: Topic vs Tag
 - Topic: structured taxonomy, AI suggest + user confirm, used for filter/browse. Flat structure (nested deferred).
 - Tag: free-form #hashtag, user-typed, no fixed list, no spaces.
-  **[Clarified 2026-10-05 — DEC-166: allowed characters are letters, digits and underscore only]**
 
 ### DEC-048: Topic list (11, final)
 Toán học, Ngữ văn, Ngoại ngữ, Khoa học tự nhiên (Lý/Hóa/Sinh), Khoa học xã hội (Sử/Địa/KT&PL), Tin học, Kỹ năng mềm, Hướng nghiệp, Nghệ thuật & Sáng tạo, Góc Chill, Khác
@@ -294,21 +293,19 @@ Toán học, Ngữ văn, Ngoại ngữ, Khoa học tự nhiên (Lý/Hóa/Sinh), 
 - Feedback (AI suggest vs final selection) only recorded when not stale
 - User manually picks topic from start → skips AI flow entirely
 - AI off → user picks from dropdown, no suggest
-- **[Amended 2026-10-04 — DEC-147: threshold is 10 whitespace-separated words over title + content, replacing "<20 words"; see also DEC-148 for selection replacement and staleness trigger]**
 
 ### DEC-051: Tag data model + rules
 - Tables: tags (id, name unique lowercase-normalized, created_at — no created_by) + post_tags junction
 - Auto-created, no approval
-- Max 5 tags/post, max 30 chars/tag  **[Clarified 2026-10-05 — DEC-166: disabled Tags count toward the 5; lowercase display; allowed characters]**
+- Max 5 tags/post, max 30 chars/tag
 - Fully free — mod/admin do NOT edit/merge/delete under normal conditions
 - Crisis case: mod/admin soft-delete (is_active=false) → hidden from autocomplete/trending/browse; old posts keep post_tags record but tag chip hidden from display; if user retypes a disabled tag name, it's NOT tagified — rendered as plain text
 
 ### DEC-052: Trending (Topic + Tag)
 - Rolling 7-day window (sliding from now, unlike leaderboard's fixed calendar week)
 - Recalculated every 15-30 min (cached, not live query)
-- Score: Σ(1 + upvotes×2 + comments×1) across all posts in window **[Clarified: ý nghĩa của "in window" và của "+1" đã được làm rõ bởi DEC-142 — ISS-210/QA-270; không đổi cửa sổ trượt hay chu kỳ tính lại]**
+- Score: Σ(1 + upvotes×2 + comments×1) across all posts in window
 - To be integrated as a dedicated Feed section (note for M14)
-- **[Amended 2026-10-05 — DEC-158: engagement adds 1 × bookmarks + 0.1 × unique viewers; see also DEC-154]**
 
 ---
 ## Phase 5 — M06: Search
@@ -390,7 +387,6 @@ Infinite scroll, 15 results/load, max 120 total results (8 loads), cursor-based 
 | Group: invite/join/approve/promote/kick | Yes | No |
 | Badge / point milestone / weekly top | Yes | No |
 | DM / Group chat message | Yes | No |
-| New post in a followed Topic **[Added 2026-10-05 — DEC-155]** | Yes | No |
 Email limited to: security (password change), account-deletion warning, ban/unban, ban-related appeals only. No digest email.
 
 ### DEC-066: Upvote notification batching
@@ -692,10 +688,10 @@ Two mechanisms, kept consistent with each other:
 ## Phase 5 — M14: Feed & Discovery
 
 ### DEC-124: Trending Post — decay formula (new, distinct from DEC-052)
-DEC-052 (Trending Topic/Tag, M05) stays unchanged — rolling 7-day hard window, no decay. Trending Post (new sub-view under M14's Trending tab) uses a separate, smoother formula: exponential half-life decay, `weight = 0.5^(age_days / 7)` (weight halves every 7 days), hard cutoff at 28 days (4 weeks) — posts older than that are excluded entirely regardless of residual weight. Base engagement score unchanged: `Σ(weight × (1 + upvotes×2 + comments×1))`, recalculated every 15-30 min (same cadence as DEC-052). 28-day cutoff chosen as a clean multiple of the 7-day half-life (residual weight ≈6.25% at cutoff — negligible, avoids an abrupt "cliff" effect vs. shorter windows like 21 days which would cut off content still at 12.5% weight). **[Amended 2026-10-05 — DEC-158: base engagement adds 1 × bookmarks + 0.1 × unique viewers]**
+DEC-052 (Trending Topic/Tag, M05) stays unchanged — rolling 7-day hard window, no decay. Trending Post (new sub-view under M14's Trending tab) uses a separate, smoother formula: exponential half-life decay, `weight = 0.5^(age_days / 7)` (weight halves every 7 days), hard cutoff at 28 days (4 weeks) — posts older than that are excluded entirely regardless of residual weight. Base engagement score unchanged: `Σ(weight × (1 + upvotes×2 + comments×1))`, recalculated every 15-30 min (same cadence as DEC-052). 28-day cutoff chosen as a clean multiple of the 7-day half-life (residual weight ≈6.25% at cutoff — negligible, avoids an abrupt "cliff" effect vs. shorter windows like 21 days which would cut off content still at 12.5% weight).
 
 ### DEC-125: M14 Feed structure — 4 tabs, no AI-driven personalization tab
-M14 Feed consists of 4 tabs: **Trending** (3 sub-views: Post/Topic/Tag), **Following** (chronological, from Follow targets established in M07 — User/Topic/Post), **Group** (chronological, aggregated from all groups — Public+Private — the user has joined), **Newest** (chronological, site-wide, excluding Group-sourced posts). There is no separate algorithmic "For You" personalized-ranking tab — this simplifies scope and removes M14's dependency on M13 (AI Layer); M14 now depends only on M03 (Post) and M05 (Topic & Tag). Group Public posts cross-posted to the main feed (per DEC-111) are included in Trending Post and the Group tab, but excluded from Newest (Newest is kept as a pure non-group content stream). **[Amended 2026-10-05 — DEC-141: Follow of Topic is owned by M05; M07 owns the notification (DEC-155)]**
+M14 Feed consists of 4 tabs: **Trending** (3 sub-views: Post/Topic/Tag), **Following** (chronological, from Follow targets established in M07 — User/Topic/Post), **Group** (chronological, aggregated from all groups — Public+Private — the user has joined), **Newest** (chronological, site-wide, excluding Group-sourced posts). There is no separate algorithmic "For You" personalized-ranking tab — this simplifies scope and removes M14's dependency on M13 (AI Layer); M14 now depends only on M03 (Post) and M05 (Topic & Tag). Group Public posts cross-posted to the main feed (per DEC-111) are included in Trending Post and the Group tab, but excluded from Newest (Newest is kept as a pure non-group content stream).
 
 ### DEC-126: Guest access to Feed tabs
 Guest (unauthenticated) can view Newest and the full Trending tab (all 3 sub-views) without restriction — consistent with the existing Guest browse permissions (QA-011) and the SEO/discoverability rationale behind them. The Following and Group tabs remain visible to Guest but are gated behind login. All interactions (upvote, report, bookmark, follow, join) require login regardless of tab, per the existing Guest permission matrix (QA-011).
@@ -723,7 +719,7 @@ No dedicated malware scan layer is added. The existing per-feature type/size whi
 A public Privacy Policy / Terms of Service page is added, explicitly disclosing that publicly posted content (posts/comments) is processed by a third-party AI service (OpenAI — Moderation API for content scanning, Embedding API for semantic search). Linked from the footer and/or the registration flow. Low-cost (a single static content page) but materially increases transparency — judged especially important given the user base includes minors (THPT students).
 
 ### DEC-132: AI — Topic Suggestion hallucination handling
-Topic Suggestion (GPT-4o-mini) output is validated against the system's fixed 11-topic whitelist. If the returned topic does not match, it is treated as a suggestion failure: a non-blocking error is shown ("Không thể gợi ý chủ đề lúc này, vui lòng chọn thủ công") and the user selects manually. This deliberately reuses the exact same UX pattern already established for AI transient failure (DEC-099: timeout/retry exhausted) — even though the underlying technical cause differs (hallucination vs. timeout), the user-facing experience is identical, requiring no new UI pattern. **[Amended 2026-10-04 — DEC-149: when only some returned topics are invalid, the invalid ones are dropped and the valid ones kept; failure only when none is valid]**
+Topic Suggestion (GPT-4o-mini) output is validated against the system's fixed 11-topic whitelist. If the returned topic does not match, it is treated as a suggestion failure: a non-blocking error is shown ("Không thể gợi ý chủ đề lúc này, vui lòng chọn thủ công") and the user selects manually. This deliberately reuses the exact same UX pattern already established for AI transient failure (DEC-099: timeout/retry exhausted) — even though the underlying technical cause differs (hallucination vs. timeout), the user-facing experience is identical, requiring no new UI pattern.
 
 ### DEC-133: AI — raw output logging
 Every AI call (Moderation API, Embedding, Topic Suggestion) has its raw response logged to a dedicated `ai_decision_log` table, linked to the relevant post/comment. Distinct from the existing admin/mod action audit log (DEC-081/094), which logs human actions — this logs AI-made decisions specifically. Serves two purposes: (1) provides real usage data to tune the currently-placeholder 0.9/0.5 confidence thresholds (DEC-098), (2) gives Moderators/Admins an evidence trail when handling a Content Deletion Appeal (M09/DEC-115) where a user disputes an AI-driven rejection.
@@ -763,132 +759,7 @@ SR documents are written per module, in Vietnamese (English kept for necessary t
 
 **[Amended 2026-10-04 — QA-266]** Details fixed for the pilot: (1) ID convention — project prefix `ISH`; document `ISH-SR-Mxx` (routing file `ISH-RT-Mxx`); upper-level requirement `ISH-Mxx-nnn`, lower-level `ISH-Mxx-nnn.k`; open point `OP-Mxx-nn` (temporary, Appendix B only); audit finding `AUD-Mxx-nn`; source items keep their ISS/QA/DEC/OPEN IDs; IDs are permanent (never renumbered or reused, gaps allowed); section numbers 5.x are not IDs. (2) Requirement sentences use Vietnamese EARS templates with 'hệ thống' as the only subject of 'phải', plus INCOSE-style rules (atomic, measurable, no escape clauses, no pronouns, no solution or data-model terms). (3) Content that is not a functional requirement (data model → Phase 8, NFR → Phase 7, HMI, process notes, other-module behaviour, superseded items, omissions) goes to a per-module routing file `specs/routing/ISH-RT-Mxx.md`, not into the SR; every source item of the module must appear either in SR Appendix A or in the routing file. (4) Appendix A = traceability (ID | Source | Basis Stated/Derived | Note); Appendix B = temporary open points. (5) Normative rules live in `.agent-instructions/system_analysis/shared/SR-DOCUMENT-RULES.md`; Author role `.agent-instructions/system_analysis/roles/sr-author/AGENT.md` (Auditor role `roles/sr-auditor/` later); helper scripts `inventory.py` and `check_sr.py` live in `.agent-instructions/system_analysis/shared/sr-tools/`. [Layout updated 2026-10-04 when the instruction set was restructured into roles/ and shared/.] Source: QA-266.
 
+**[To be superseded 2026-10-07 — stakeholder]** The process and convention parts of DEC-139 and its QA-266 amendment are marked to be superseded by the new Functional Requirement skill and will be replaced by a new DEC when that skill is confirmed: the Author/Auditor process and audit rounds, raising every GAP one at a time, the `ISH-*`, `OP-*` and `AUD-*` ID convention, the Vietnamese EARS sentence rules, the routing file and Appendices A/B, the `specs/` file locations, and the references to SR-DOCUMENT-RULES, the sr-author/sr-auditor roles and the sr-tools scripts. The M05 pilot run was discarded. Still in force until then: one document per module, self-contained terms and permissions; Vietnamese with English kept for necessary technical terms; requirements written now, before Phase 7/8; the reference-sample section structure; one owner module per behaviour, other modules reference it; sources kept out of the body; milestone/priority stated once; header fields.
+
 ### Issues Closed
 ISS-205.
-
----
-## System Requirement — M05: Topic & Tag
-
-### DEC-140: Topic classification — flat confirmed, supersedes 2-tier scoping
-Phase 5 (DEC-047/048: flat 11-topic list, "nested deferred") is confirmed as final for M05's SR — Topic has exactly one flat level, no separate Category layer on Post. This explicitly supersedes the Phase 3/4 "2 tầng: Category → Topic" scoping in QA-033/ISS-046, which register had not previously marked as amended. `grade_level` (Post and User Profile) remains out of M05 scope — it is an independent field owned by M03 (F-POST-09) and M02/User Profile (QA-034), unaffected by this decision.
-Source: QA-267.
-
-### DEC-141: Follow Topic ownership — M05, Topic only (not Tag)
-M05 (Topic & Tag) owns the Follow/Unfollow behaviour for Topic (button, follow state, follower count), confirmed in scope by QA-043 (Phase 4, Closed: "Follow: User, Topic, Post — not Group") and module-registry ISS-051. Tag is explicitly NOT a follow target — QA-043 only lists User/Topic/Post. `iShare_dev_priority.md`'s "Follow (User/Post/Topic/Tag/Group)" line is a pre-Phase-5 roadmap note that also still lists Group (which QA-043 excludes) — not treated as authoritative where it conflicts with the Closed Phase-4 decision. Notification delivery on new posts in a followed Topic remains M07's responsibility (per QA-043's own implication), M05 only owns the follow relationship and its surface on Topic.
-Source: QA-268.
-
-### DEC-142: Trending score window semantics — clarifies DEC-052
-DEC-052's "Σ(1 + upvotes×2 + comments×1) across all posts in window" is made precise: (1) interactions — every post of the Topic/Tag counts, but only upvotes and comments made within the rolling 7-day window are counted; (2) the "+1" per post is a new-post bonus, given only to posts created within the window. Score = Σ over all posts of (2 × upvotes in window + comments in window) + number of posts created in window. A post older than 7 days with no interaction in the window contributes 0. No change to the rolling (sliding) window or the 15-30 minute recalculation in DEC-052.
-**[Amended 2026-10-05 — DEC-158 (adds bookmarks and unique viewers); DEC-154 ("created" = first became public)]**
-Source: QA-270.
-
-### DEC-143: Register overrides DRAFT on Topic and Tag counts per post
-DEC-049 (1–3 Topics per post, mandatory) overrides the single-Topic diagram in DRAFT §3.4. DEC-051 (at most 5 Tags per post) overrides DRAFT §3.2 "không giới hạn số lượng". Tags are optional: a post may have 0 to 5 Tags.
-Source: QA-271, QA-272.
-
-### DEC-144: Changing a post's Topics and Tags after submission
-The author can change both Topics and Tags when editing the post. A Mod or Admin can change the Topics of any post. A Mod or Admin does not change a post's Tags (consistent with DEC-051; the only Tag action for Mod/Admin is the crisis disable in DEC-051/DEC-150). The limits of 1–3 Topics (DEC-049) and 0–5 Tags (DEC-143) apply to every change.
-Source: QA-273.
-
-### DEC-145: Topic merge — fate of the source Topic and its followers (clarifies DEC-049)
-After a merge, the source Topic is removed from the Topic catalog: it can no longer be selected, suggested, ranked in Trending or followed; all its posts are already re-pointed to the target (DEC-049). Users following the source Topic are moved to follow the target Topic; a user who followed both counts once.
-Source: QA-274, QA-275.
-
-### DEC-146: Trending Topic/Tag — which posts and interactions count (clarifies DEC-142)
-Only posts that are currently public (publish_state PUBLISHED and mod_state NORMAL, DEC-033) and not in a Private group count. Posts are not excluded by the author's account status (QA-236 unchanged). "upvotes" = upvotes on the post itself (comment upvotes excluded); "comments" = all root comments and replies on the post; only interactions that still exist count (retracted upvotes and deleted comments are not counted).
-Source: QA-276, QA-277.
-
-### DEC-147: Topic suggestion minimum text length (amends DEC-050)
-DEC-050's "Content <20 words → no suggestion" is replaced: a suggestion is refused when the title plus the text content together contain fewer than 10 words, a word being a whitespace-separated token (each Vietnamese syllable counts as one). Rationale: 20 words blocked short questions; the threshold is kept (not removed) because suggested topics are pre-ticked and very short text leads to wrong topics.
-Source: QA-278.
-
-### DEC-148: Topic suggestion — interaction with manual selection and staleness (clarifies DEC-050)
-Suggested topics replace the current selection, including topics the user ticked manually before requesting the suggestion. A suggestion becomes stale on any change to the title or the text content; attachment changes do not count.
-Source: QA-279, QA-280.
-
-### DEC-149: Partially valid Topic suggestion output (amends DEC-132)
-Returned topics that are not in the Topic catalog are dropped; the valid ones are kept and pre-ticked. Only when no valid topic remains is the suggestion treated as failed (non-blocking error, manual selection — DEC-099/DEC-132).
-Source: QA-281.
-
-### DEC-150: Tag — re-enabling and length counting (clarifies DEC-051)
-A Mod or Admin can re-enable a disabled Tag; it then shows again on the posts that carry it and can be used normally. The 30-character limit applies to the Tag name and does not count the "#" sign.
-Source: QA-282, QA-283.
-
-### DEC-151: SR M05 feature skeleton
-The SR for M05 has 12 features. Browsing posts by Topic/Tag (the "browse" in DEC-047/DEC-051) is owned by M14 or M06 (to be fixed when those SRs are written), not M05. Milestones: recording Topic-suggestion feedback = AI-P1 (dev_priority "Feedback / Evaluation Loop"); Mod/Admin actions (changing a post's Topics, renaming and merging Topics, disabling and re-enabling Tags) = P0, with the rest of Topic/Tag.
-Source: QA-284.
-
-### DEC-152: Topic suggestion with more than 3 valid topics; Tag name normalization
-(1) When the AI returns more than 3 valid topics (after dropping invalid ones per DEC-149), the first 3 in the returned order are kept. (2) Tag names are normalized before validation: leading and trailing whitespace is removed; an empty name (after removing "#" and whitespace) is rejected; each visible character, including Vietnamese letters with diacritics, counts as one character toward the 30-character limit (DEC-051, DEC-150).
-Source: QA-285, QA-286.
-
-### DEC-153: Trending Topic/Tag ranking order (clarifies DEC-052)
-Topics and Tags are ranked by Trending score, highest first. Ties are broken by the number of counted posts created within the rolling 7-day window (more first), then by name in alphabetical order (A→Z).
-Source: QA-287.
-
-### DEC-154: Trending Topic/Tag — "new post" moment, hidden comments, name ordering (clarifies DEC-142, DEC-153)
-(1) A post counts as "created/posted within the window" (the +1 new-post bonus of DEC-142 and the tie-break of DEC-153) when it first became public within the rolling 7-day window — not when its draft was created or when it was submitted. (2) Comments currently hidden by moderation are not counted; a restored comment counts again. (3) The name tie-break uses Vietnamese alphabetical order (a ă â b c d đ e ê …), case-insensitive.
-**[Clarified 2026-10-05 — DEC-160: full name-ordering rule]**
-Source: QA-288, QA-291, QA-292.
-
-### DEC-155: New post in a followed Topic triggers an in-app notification (amends DEC-065)
-Following a Topic notifies the follower in-app when a new post in that Topic becomes available (QA-043, DEC-141). The event "new post in a followed Topic" is added to the DEC-065 event table (in-app: Yes, email: No). M07 owns delivery and any batching rule.
-Source: QA-289.
-
-### DEC-156: Draft posts may be saved without a Topic (clarifies DEC-049)
-The minimum of 1 Topic (DEC-049) is enforced when the author submits a post and when a change to an already submitted post is saved; a draft can be saved with no Topic.
-Source: QA-290.
-
-### DEC-157: Topic-suggestion feedback uses the latest suggestion (clarifies DEC-050)
-When a post received several non-stale suggestions, the feedback recorded at submission compares only the latest suggestion with the final selection; one record per submission.
-**[Clarified 2026-10-05 — DEC-162: only the first submission records feedback]**
-Source: QA-293.
-
-### DEC-158: Trending adds unique viewers and bookmarks (amends DEC-052, DEC-142, DEC-124)
-For Trending Topic/Tag and for Trending Post, the per-post engagement within the rolling 7-day window becomes: 2 × upvotes + 1 × comments + 1 × bookmarks + 0.1 × unique viewers (plus the +1 new-post bonus for Topic/Tag per DEC-142/DEC-154; Trending Post keeps its decay weighting of DEC-124 over this base). Unique viewers = distinct logged-in users other than the author who opened the post detail page within the window; Guest views are not counted. Bookmarks = bookmarks created within the window that still exist, excluding the author's own. Overrides the remaining Views/Bookmarks part of DRAFT §7.2. Viewing data is recorded per view with its time (detail in Phase 8); no tracking of Guests.
-Source: QA-294.
-
-### DEC-159: Invalid Topic merge is rejected (clarifies DEC-049, DEC-145)
-A merge is accepted only between two different Topics that are both in the Topic catalog. If the source or the target has already been removed from the catalog (by an earlier merge), the merge is rejected and the Mod/Admin is told that the Topic does not exist. A merge whose source equals its target is also rejected. The catalog and posts stay unchanged.
-Source: QA-296.
-
-### DEC-160: Name tie-break — digits, non-letters, non-Vietnamese letters, tone marks (clarifies DEC-154)
-For the name tie-break of Trending Topic/Tag: characters that are not letters, and digits (0→9), sort before all letters; f, j, w, z take their Latin-alphabet positions within the Vietnamese order (… e ê f g …, … i j k …, … v w x y z); for the same base letter, tone marks sort as level, grave (huyền), hook (hỏi), tilde (ngã), acute (sắc), dot below (nặng); comparison is case-insensitive.
-**[Clarified 2026-10-05 — DEC-164: base letters compared before tone marks; symbols before digits]**
-Source: QA-297.
-
-### DEC-161: Trending Tag ranks only Tags with at least one counted post (clarifies QA-235 for Tags)
-The Trending Tag ranking includes only active Tags currently attached to at least one counted post (public, not in a Private group). No minimum score threshold applies (QA-235 unchanged). This prevents Tag names used only on drafts or in Private groups from appearing publicly.
-Source: QA-298.
-
-### DEC-162: Topic-suggestion feedback only on the first submission (clarifies DEC-157)
-Feedback is recorded only on the first submission of a post; a resubmission after rejection does not record another feedback. At most one feedback record per post.
-Source: QA-299.
-
-### DEC-163: Ownership — post-view recording (M03) and the Guest "Tag list" (M14/M06)
-Recording that a logged-in user opened a post's detail page is owned by M03 (the post page); M05 (Trending Topic/Tag) and M14 (Trending Post) reference it. The "Tag list" that QA-011 lets Guests view is not a separate page: it is served by the Trending Tag ranking (displayed in M14) and by browsing posts by Tag (M14/M06, DEC-151).
-Source: QA-300, QA-301.
-
-### DEC-164: Name tie-break — base letters first, tone marks last (clarifies DEC-160)
-Names are compared first on base letters only (tone marks ignored), character by character from left to right in the order of DEC-160; a name that is a prefix of another sorts first. Only when two names are identical on base letters are tone marks compared, left to right, in the order level, grave (huyền), hook (hỏi), tilde (ngã), acute (sắc), dot below (nặng). Among characters that are not letters, non-letter symbols sort before digits. Example: "bá" before "ban"; "nghỉhè" before "nghĩhè".
-Source: QA-303.
-
-### DEC-165: Renaming a removed Topic is rejected (clarifies DEC-049, DEC-159)
-A Mod or Admin request to rename a Topic that has been removed from the catalog (by a merge) is rejected, and the Mod/Admin is told that the Topic does not exist, as for merges in DEC-159.
-Source: QA-304.
-
-### DEC-166: Tag rules — disabled Tags count toward the limit; lowercase display; allowed characters (clarifies DEC-051, DEC-047)
-(1) A disabled Tag still attached to a post counts toward that post's limit of 5 Tags, so that re-enabling the Tag never pushes a post above 5. (2) A Tag name is displayed in lowercase, matching its normalized name (typing "#Bayes" displays "#bayes"). (3) A Tag name may contain only letters (including Vietnamese letters with diacritics), digits and the underscore; a name containing any other character (whitespace, "+", "&", punctuation, symbols) is rejected. The "no spaces" rule of DEC-047 is therefore a special case of (3).
-Source: QA-308, QA-311, QA-312.
-
-### DEC-167: Topic suggestion scope and rate limit (clarifies DEC-050, DEC-100)
-AI Topic suggestion is available only while composing a new post; it is not available when the author edits an already-submitted post (the author changes Topics manually, DEC-144). A suggestion request rejected because the text is shorter than 10 words does not count toward the limit of 10 suggestion requests per minute.
-Source: QA-306, QA-313.
-
-### DEC-168: Topic rename, follower count and Mod change of Topic (clarifies DEC-049, DEC-141, DEC-065)
-(1) Renaming a Topic to an empty name, or to the name of another Topic in the catalog (compared case-insensitively), is rejected. (2) The number of followers of a Topic is shown to every user including Guests; it excludes DELETED accounts and still includes DEACTIVATED and BANNED accounts. (3) When a Mod or Admin changes the Topics of a post, the author is not notified (not an event in the DEC-065 list).
-Source: QA-307, QA-309, QA-310.
-
-### DEC-169: Trending reason and ownership of Topic/Tag display on the post page
-(1) Reason for the Trending feature: "Cho người dùng thấy lĩnh vực và từ khóa đang được thảo luận nhiều trong tuần qua" (shows users which fields and keywords were discussed most in the past week). (2) Displaying a post's Topics and Tags on the post page is owned by M05; M03 (post page) references it.
-Source: QA-305, QA-314.

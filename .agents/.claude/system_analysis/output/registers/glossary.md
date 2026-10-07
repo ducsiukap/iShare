@@ -11,7 +11,7 @@
 | Comment | A response or reply to a Post. Can be starred, reported, and accepted as an answer. | Draft |
 | Accepted Answer | A Comment marked by the Post author as the best response. Only the Post author can set this (not AI, not Moderators). | Draft |
 | Anonymous Post | A Post where the author's identity is hidden from other users. The system retains the real identity for moderation purposes. | Draft |
-| Topic | A broad subject-area classification for Posts (e.g. Mathematics, Life Skills). Not limited to school curriculum. List to be finalized in BA. **[Amended 2026-10-05 — DEC-048: 11 Topics, final]** | Draft |
+| Topic | A broad subject-area classification for Posts (e.g. Mathematics, Life Skills). Not limited to school curriculum. List to be finalized in BA. | Draft |
 | Tag | A free-form keyword attached to a Post. More granular than Topic. A Post can have multiple Tags. | Draft |
 | Lớp/Khối | Grade level classification: 10, 11, or 12. Applied to both Posts and user Profiles optionally. Used to personalize feed. | Draft |
 | Post Star | An upvote/like action on a Post. Distinct from Comment Star; different weight in Reputation calculation. | Draft |
@@ -26,7 +26,7 @@
 | USER | The standard member role. Can create content, interact, and report. | Draft |
 | AI Assistance Layer | The set of 5 mandatory AI-powered features that support (not replace) human decision-making on the platform. Calls third-party AI APIs. | Draft |
 | AI Moderation | Automated content screening for spam, toxic content, and policy violations. Returns prediction + confidence score. | Draft |
-| AI Classification | Suggests Topic and Tags for a Post automatically. User/Moderator reviews before publish. **[Amended 2026-10-05 — QA-269: Topic only, no Tag suggestion; DEC-144: author, Mod and Admin can change a post's Topics]** | Draft |
+| AI Classification | Suggests Topic and Tags for a Post automatically. User/Moderator reviews before publish. | Draft |
 | Semantic Search | Search using vector embeddings to find conceptually related content, not just keyword matches. Uses PostgreSQL + pgvector. | Draft |
 | Summarization | AI-generated summary of a long Post or a long Comment thread. | Draft |
 | Feedback / Evaluation Loop | System for tracking AI prediction accuracy over time (precision, recall, F1). Used to tune moderation thresholds — not to retrain models. | Draft |

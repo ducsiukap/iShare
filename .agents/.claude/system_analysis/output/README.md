@@ -1,8 +1,9 @@
-# BA Output — Hướng dẫn đọc & Truy vết
+# Đầu ra của giai đoạn System Analysis — Hướng dẫn đọc và truy vết
 
-> **Thư mục này là workspace output của BA agent** trong quá trình phỏng vấn hệ thống iShare.
-> Mọi thứ ở đây là tài liệu làm việc — chưa phải output chính thức.
-> Sau khi stakeholder approve, spec files sẽ được push sang `docs/approved/specs/`.
+> Thư mục này là workspace đầu ra của agent trong giai đoạn System Analysis của iShare.
+> Mọi thứ ở đây là tài liệu làm việc, chưa phải bản chính thức.
+> Tài liệu được stakeholder duyệt sẽ được chuyển sang `docs/approved/` (COMMON-RULES Rule 3).
+> Cách làm từng loại tài liệu: xem `.agent-instructions/README.md`.
 
 ---
 
@@ -10,147 +11,110 @@
 
 ```
 output/
-├── README.md              ← File này
-├── registers/             ← 6 live registers (cập nhật liên tục trong suốt BA)
+├── README.md              ← tệp này
+├── phase0-intake.md       ← hiểu biết ban đầu về sản phẩm và lịch trình phỏng vấn
+├── registers/             ← các register sống, cập nhật trong suốt quá trình phân tích
 │   ├── issue-queue.md
 │   ├── qa-log.md
 │   ├── decisions.md
 │   ├── open-issues.md
 │   ├── assumptions.md
-│   └── glossary.md
-└── specs/                 ← Tài liệu System Requirement (DEC-139)
-    ├── ISH-SR-Mxx.md        ← SR của module Mxx (tiếng Việt)
-    ├── routing/ISH-RT-Mxx.md ← mục nguồn không thành yêu cầu chức năng
-    └── audit/               ← báo cáo audit + tệp làm việc (work/)
+│   ├── glossary.md
+│   └── module-registry.md
+└── fr/                    ← tài liệu yêu cầu chức năng, mỗi module một tệp
+    ├── FR-Mxx.md
+    └── .work/             ← tệp tạm của tool (chỉ mục nguồn, bảng nguồn); xóa được, chạy lại sẽ sinh lại
 ```
+
+Tài liệu FR được viết bằng skill `.agent-instructions/skills/analyzing-functional-requirements/`
+(hướng dẫn cho người dùng: `README.md` trong thư mục đó).
 
 ---
 
-## 6 Registers — Mục đích & Cách đọc
+## Các register — mục đích và cách đọc
 
 ### 1. `issue-queue.md` — Backlog phỏng vấn
 
-**Dùng để làm gì:** Danh sách tất cả câu hỏi BA cần hỏi stakeholder, được xây dựng từng scope.
+**Dùng để làm gì:** danh sách vấn đề cần hỏi stakeholder, chia theo phase và module.
 
 **Cách đọc:**
-- `Status: Closed` → đã hỏi và có câu trả lời → xem `Resulting QA-###`
-- `Status: Open` + Scope Phase X backlog → chưa hỏi, sẽ hỏi khi vào Phase đó
-- `Status: Open` + Scope Phase 1/2 → câu hỏi còn treo từ phase đã qua (xem `open-issues.md`)
+- `Closed` → đã hỏi và có câu trả lời (xem QA, DEC tương ứng).
+- `Open` → chưa hỏi, hoặc còn treo (xem `open-issues.md`).
+- Một ID có thể xuất hiện hai lần: ở bảng backlog và ở bảng đã đóng của phase sau.
 
-**ID convention:** `ISS-###` (sequential) hoặc `ISS-MOD-##` (module-specific backlog)
+**Mã:** `ISS-###`, hoặc `ISS-XXX-##` cho backlog theo nhóm (ví dụ `ISS-GRP-01`).
 
----
+### 2. `qa-log.md` — Nhật ký hỏi đáp (nguồn gốc của mọi yêu cầu)
 
-### 2. `qa-log.md` — Nhật ký hỏi đáp (**nguồn gốc của mọi requirement**)
-
-**Dùng để làm gì:** Ghi lại toàn bộ câu hỏi + câu trả lời của stakeholder + phân tích + implication.
-
-**Cách đọc:**
-- Mỗi block `QA-###` = 1 lần hỏi đáp
-- `Issue ref` → ISS nào đã sinh ra câu hỏi này
-- `Answer` → câu trả lời chính xác của stakeholder
-- `Implication` → BA phân tích ảnh hưởng lên hệ thống
-- `Traceability note` → ghi chú để mở rộng vào báo cáo luận văn
-
-**Trace từ spec về nguồn gốc:**
-```
-Spec rule → QA-### → ISS-### → Phase X
-```
-
----
+**Dùng để làm gì:** ghi câu hỏi và câu trả lời của stakeholder. Phase đầu ghi theo khối `### QA-###`, các phase sau ghi theo bảng.
 
 ### 3. `decisions.md` — Nhật ký quyết định
 
-**Dùng để làm gì:** Ghi nhanh các quyết định thiết kế đã chốt.
+**Dùng để làm gì:** các quyết định đã chốt (`DEC-###`), kèm nguồn QA.
 
 **Cách đọc:**
-- `DEC-###`: ID quyết định
-- `Source: QA-###`: QA nào dẫn đến quyết định này
-- Đọc khi cần biết nhanh **cái gì đã được quyết** mà không cần đọc toàn bộ QA log
+- Quyết định sửa một mục cũ được đánh dấu ngay trên mục cũ, ví dụ `**[Amended YYYY-MM-DD — DEC-nnn: …]**`, `AMENDED by …`, `supersedes …`.
+- Mục cũ không bị xóa. Luôn đọc cả dấu sửa đổi trước khi dùng một quyết định.
+
+### 4. `open-issues.md` — Điểm chưa giải quyết
+
+**Dùng để làm gì:** những điểm **chưa có câu trả lời dứt khoát** hoặc **hoãn có chủ đích** (`OPEN-###`), kèm phần bị ảnh hưởng.
+Trong tài liệu FR, các điểm này được ghi thành TBD, không hỏi lại.
+
+### 5. `assumptions.md` — Giả định
+
+**Dùng để làm gì:** giả định đã được stakeholder xác nhận (`ASM-###`). Hiện chưa có.
+
+### 6. `glossary.md` — Thuật ngữ
+
+**Dùng để làm gì:** định nghĩa thống nhất các khái niệm của dự án.
+
+### 7. `module-registry.md` — Danh sách module
+
+**Dùng để làm gì:** 16 module (M01–M16), mức ưu tiên MoSCoW, phụ thuộc, các đợt sửa phạm vi.
+Lưu ý: cột MoSCoW và Dependencies đang bị lệch ở các dòng M02–M10 và M13, cần stakeholder bổ sung.
 
 ---
 
-### 4. `open-issues.md` — Vấn đề chưa giải quyết (chặn spec)
-
-**Dùng để làm gì:** Theo dõi những điểm **chưa có câu trả lời dứt khoát** và ảnh hưởng đến việc viết spec.
-
-**Cách đọc:**
-- `OPEN-###`: ID vấn đề treo
-- `Why it blocks`: feature/spec nào bị chặn
-- `Affected features`: module/feature cụ thể bị ảnh hưởng
-- Khác với `issue-queue`: OPEN-### là vấn đề **không thể giải quyết ngay** và cần ghi nhận chính thức
-
-**Hiện tại:**
-- `OPEN-001`: AI budget chưa chốt
-- `OPEN-002`: Tech stack chưa quyết định
-
----
-
-### 5. `assumptions.md` — Giả định của BA
-
-**Dùng để làm gì:** Khi stakeholder không trả lời / bỏ qua, BA tự giả định và ghi lại để xác nhận sau.
-
-**Cách đọc:**
-- `ASM-###`: ID giả định
-- `Status: Unconfirmed` → cần stakeholder xác nhận trước khi finalize spec
-- Hiện trống — mọi câu hỏi đều đã được trả lời
-
----
-
-### 6. `glossary.md` — Bảng thuật ngữ
-
-**Dùng để làm gì:** Định nghĩa thống nhất các khái niệm domain, tránh hiểu nhầm giữa BA, dev, stakeholder.
-
-**Cách đọc:** Tra cứu khi gặp từ lạ trong spec hoặc QA log.
-
----
-
-## Cách trace requirement từ spec về nguồn
-
-Khi đọc một spec file và muốn biết **tại sao rule đó tồn tại**:
+## Truy vết một yêu cầu về nguồn
 
 ```
-1. Tìm ID trong spec (FR-###, BR-###, AC-###)
-2. Spec file sẽ ghi "Source: QA-###"
-3. Mở qa-log.md → tìm QA-### đó
-4. Đọc Answer (câu trả lời gốc của stakeholder) + Traceability note
-5. Nếu cần ngược thêm → xem "Issue ref: ISS-###" trong QA block
-6. Mở issue-queue.md → tìm ISS-### → biết scope/phase câu hỏi được đặt ra
+1. Trong FR-Mxx.md, tìm ID yêu cầu (ví dụ FR-M05-01.02 hoặc BR-M05-01).
+2. Phụ lục A của tệp đó ghi nguồn (DEC-###, QA-###, ISS-###, mục draft DM-x.y / DG-x) và căn cứ (Nói thẳng / Suy ra).
+3. Mở register tương ứng, đọc nguyên văn, kèm các dấu sửa đổi.
+4. Phụ lục C.2 của tệp FR ghi chuỗi quyết định, nếu quyết định đó đã bị sửa.
 ```
 
 ---
 
-## Lifecycle của output
+## Vòng đời
 
 ```
-[BA Interview] → registers/ (live, cập nhật liên tục)
-     ↓ Phase 5 complete + stakeholder confirm
-[Spec draft] → specs/ (trong thư mục này)
-     ↓ Stakeholder approve
-[Official] → iShare/docs/approved/specs/ (xem README ở đó)
+[Phỏng vấn]   → registers/ (sống, cập nhật liên tục)
+     ↓
+[Viết FR]     → fr/FR-Mxx.md (Bản nháp → Đã chốt, mỗi bước có stakeholder xác nhận)
+     ↓ stakeholder duyệt
+[Chính thức]  → docs/approved/
 ```
 
 ---
 
-## Conventions
+## Quy ước mã
 
-| Prefix | Loại | Register |
+| Mã | Nghĩa | Nằm ở |
 |---|---|---|
-| `ISS-###` | Interview issue (câu hỏi phỏng vấn) | issue-queue.md |
-| `QA-###` | Q&A pair | qa-log.md |
-| `DEC-###` | Decision | decisions.md |
-| `OPEN-###` | Unresolved blocking issue | open-issues.md |
-| `ASM-###` | Assumption | assumptions.md |
-| `FR-MOD-###` | Functional requirement | specs/ |
-| `BR-MOD-###` | Business rule | specs/ |
-| `AC-MOD-###` | Acceptance criteria | specs/ |
-| `NFR-CAT-###` | Non-functional requirement | specs/ |
-| `ISH-SR-Mxx` / `ISH-RT-Mxx` | Tài liệu SR / routing file của module Mxx | specs/ |
-| `ISH-Mxx-nnn[.k]` | Yêu cầu SR (cấp trên / cấp dưới) — thay cho `FR-MOD-###` trong SR | specs/ |
-| `OP-Mxx-nn` / `AUD-Mxx-nn` | Điểm mở tạm thời trong SR / phát hiện audit | specs/ |
+| `ISS-###` | Vấn đề trong backlog phỏng vấn | issue-queue.md |
+| `QA-###` | Câu hỏi và câu trả lời | qa-log.md |
+| `DEC-###` | Quyết định | decisions.md |
+| `OPEN-###` | Điểm chưa giải quyết hoặc hoãn có chủ đích | open-issues.md |
+| `ASM-###` | Giả định đã xác nhận | assumptions.md |
+| `FR-Mxx` | Tài liệu yêu cầu chức năng của module Mxx | fr/ |
+| `FR-Mxx-nn` · `FR-Mxx-nn.mm` | Chức năng (yêu cầu cấp trên) · yêu cầu cấp dưới | fr/ |
+| `BR-Mxx-nn` · `TBD-Mxx-nn` | Quy tắc nghiệp vụ · điểm chưa chốt trong tài liệu FR | fr/ |
+| `NFR-CAT-###` | Yêu cầu phi chức năng (Phase 7, chưa làm) | — |
 
-> Quy tắc đầy đủ của SR: `.agent-instructions/system_analysis/shared/SR-DOCUMENT-RULES.md`. Các ID `FR/BR/AC-MOD` chỉ còn dùng cho mẫu SPEC theo feature cũ (không dùng trong SR).
+Mã không bao giờ đánh lại. Quy trình SR cũ (`ISH-SR-Mxx`, `ISH-RT-Mxx`, `OP-*`, `AUD-*`) đã ngừng dùng và được lưu ở `.agent-instructions/_archive/sr-v1-2026-10/`.
 
 ---
 
-*Last updated: Phase 2 — Actors, Roles & Permissions (confirmed pending)*
+*Cập nhật: 2026-10-07 — chuyển sang tài liệu FR theo skill analyzing-functional-requirements.*

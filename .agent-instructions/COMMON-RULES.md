@@ -10,7 +10,7 @@ These 10 rules apply to **every agent, every phase, every task**. Read and follo
 - **Default output language:** ENGLISH
 - If the task specifies a different language requirement, use that language
 - Always document language decisions in comments/headers
-- A document type whose own rules fix another language follows those rules (for example System Requirement documents are Vietnamese — DEC-139, see `system_analysis/shared/SR-DOCUMENT-RULES.md`) and carries the marker `[Vietnamese Doc]`
+- A document type whose own rules fix another language follows those rules (for example Functional Requirement documents are Vietnamese — DEC-139, see `skills/analyzing-functional-requirements/SKILL.md`) and carries the marker `[Vietnamese Doc]`
 - When translating content, include both source and target
 
 **Why it matters:**
@@ -112,7 +112,7 @@ Task: "Document the API"
   - `.agents/.claude/design/` - Design phase drafts
   - `.agents/.claude/coding/` - Coding phase drafts
 - Temporary work includes: drafts, research, experiments, intermediate outputs
-- Working documents the project keeps (for example the System Analysis registers and SR drafts in `.agents/.claude/system_analysis/output/`) stay in the workspace; **approved** deliverables are promoted to `docs/approved/` or delivered to the user
+- Working documents the project keeps (for example the System Analysis registers and FR drafts in `.agents/.claude/system_analysis/output/`) stay in the workspace; **approved** deliverables are promoted to `docs/approved/` or delivered to the user
 - Stakeholder drafts are read-only inputs in `docs/_temp/`
 - Create the workspace once (`mkdir -p .agents/.claude/{system_analysis,design,coding}`), reuse it for every task, one workspace per agent, short lowercase name (`.claude`, `.gpt`, …)
 
@@ -138,13 +138,18 @@ Task: "Document the API"
 - Keeps project root clean
 - Makes it easy to differentiate between drafts and final work
 - Provides a workspace for experiments without affecting production
-- `.agents/` should be added to `.gitignore`
+
+**Shared project record:**
+- The System Analysis output in `.agents/.claude/system_analysis/output/` (registers, `phase0-intake.md`, FR documents in `fr/`) is the project's single record, not one agent's private notes.
+- An agent with a different workspace name (`.gpt`, …) reads and updates the registers and FR documents **there**. It never creates its own copy.
 
 **Git Configuration:**
-```bash
-# Add to .gitignore
-echo ".agents/" >> .gitignore
-```
+- `.agents/` is **tracked**. The registers and FR documents are deliverables of the project and must be committed.
+- **Never** add `.agents/` as a whole to `.gitignore`.
+- Only regenerable or machine-local files are ignored (see the root `.gitignore`), for example:
+  - tool caches: `.agents/.claude/system_analysis/output/fr/.work/`
+  - backups of the instruction set: `.agents/.claude/system_analysis/backup/`
+  - `__pycache__/`, `*.pyc`, `.claude/settings.local.json`
 
 **Examples:**
 
@@ -368,7 +373,7 @@ function validateEmail(email) {
 - [ ] No sensitive information exposed
 
 **Phase-specific checklists:**
-See individual phase AGENT.md files for detailed pre-delivery checklists.
+See the phase files in `phases/` and each skill's own checks for detailed pre-delivery checklists.
 
 ---
 
@@ -478,13 +483,14 @@ Should I proceed with detailed design for Option C, or would you like to explore
 
 ## 📞 Questions?
 
-If you're unsure about any rule, check the corresponding phase AGENT.md file or ask for clarification before proceeding.
+If you're unsure about any rule, check the corresponding phase file in `phases/` or ask for clarification before proceeding.
 
 **Navigate to:**
 - [README.md](./README.md) — index of roles and files
-- [System Analysis AGENT.md](./system_analysis/AGENT.md)
-- [Design AGENT.md](./design/AGENT.md)
-- [Coding AGENT.md](./coding/AGENT.md)
+- [System Analysis phase](./phases/system-analysis.md)
+- [Design phase](./phases/design.md)
+- [Coding phase](./phases/coding.md)
+- [Skills](./skills/)
 
 ---
 
@@ -495,5 +501,7 @@ These instructions are living documents. They may be updated as team practices e
 | Date       | Version | Description     | Author | Status           |
 | ---------- | ------- | --------------- | ------ | ---------------- |
 | 2026-09-20 | 1.0.0   | Initial version | vduczz | Production Ready |
+| 2026-10-07 | 1.1.0   | Layout changed to phases/ + skills/ + _archive/; SR roles archived; FR skill added | vduczz | Active |
+| 2026-10-07 | 1.1.1   | Rule 3: `.agents/` output is tracked in git; only caches and backups are ignored | vduczz | Active |
 
 > For the latest updates, check your repository's `.agent-instructions/` directory.

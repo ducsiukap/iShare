@@ -29,9 +29,9 @@ Replace `[agent-name]` with your identifier (e.g., claude, gpt, custom-agent).
 
 ## 📝 Important
 
-- **Temporary storage only** — drafts, experiments, iterations
-- **Not committed to git** — add `.agents/` to `.gitignore`
-- **Final deliverables go outside** — deliver to user, not in `.agents/`
-- **Workspace persists** — reuse for all your tasks
+- **Working storage** — drafts, experiments, iterations, and the System Analysis output
+- **Committed to git** — `.agents/.claude/system_analysis/output/` (registers, FR documents) is the shared project record; only caches (`output/fr/.work/`) and backups are ignored. Never add `.agents/` as a whole to `.gitignore`
+- **Approved deliverables** are promoted to `docs/approved/`
+- **Workspace persists** — reuse for all your tasks; other agents read and update the registers in `.agents/.claude/system_analysis/output/`, they do not create their own copy
 
 → See [.agent-instructions/README.md](../.agent-instructions/README.md) (Workspace section) and COMMON-RULES Rule 3.

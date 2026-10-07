@@ -258,7 +258,7 @@
 | ISS-168 | M14 cần những tab/view nào cho Feed? | Closed | 4 tab: Trending (sub Post/Topic/Tag) + Following + Group + Newest. Không có tab "For You" thuật toán riêng |
 | ISS-169 | Tab Following rỗng (chưa follow ai/gì) hiện gì? | Closed | Empty state + CTA dẫn sang trang Search (tìm User/Topic/Post) — đúng phạm vi 3 loại follow target, khác Trending có cả Tag (không follow được) |
 | ISS-170 | AI-off fallback cho Personalized Home Feed? | Closed — N/A | Không còn tab cá nhân hóa cần AI (xem ISS-168, ISS-186) |
-| ISS-171 | Trending Section có tái dùng công thức QA-106/DEC-052 không? | Closed — superseded by ISS-185 | Trending Topic/Tag giữ nguyên DEC-052; Trending Post là khái niệm mới, xem ISS-185 **[Amended 2026-10-05 — DEC-158: Trending Topic/Tag formula changed]** |
+| ISS-171 | Trending Section có tái dùng công thức QA-106/DEC-052 không? | Closed — superseded by ISS-185 | Trending Topic/Tag giữ nguyên DEC-052; Trending Post là khái niệm mới, xem ISS-185 |
 | ISS-172 | Trending Post có filter theo Topic không? | Closed | Không — chỉ 1 danh sách global duy nhất (đã có Trending Topic/Tag riêng để lọc theo chủ đề) |
 | ISS-173 | Bài Group Public cross-post có tính vào Newest/Trending Post không? | Closed | Tính vào Trending Post và tab Group; KHÔNG tính vào Newest (Newest giữ thuần nội dung không-thuộc-group) |
 | ISS-174 | Cơ chế phân trang cho 4 tab? | Closed | Infinite scroll, cursor-based, 20 bài/lần load, áp dụng cả 4 tab. Cần SSR cho batch đầu (SEO cho Guest, nhắc lại Phase 7) — **[Amended: SSR hoãn ở MS1 theo DEC-134/QA-256, ghi OPEN-006]** |
@@ -318,58 +318,4 @@
 | ID | Title | Status | Decision |
 |----|-------|--------|----------|
 | ISS-205 | Cách viết tài liệu System Requirement (SR) theo module: cấu trúc, ngôn ngữ, thời điểm, quy trình Author–Auditor | Closed | Xem DEC-139. Quy ước ID để bàn sau (chốt trước khi chạy thử M05) |
-| ISS-206 | Quy ước ID cho tài liệu SR | Closed | Xem DEC-139 (amended): tiền tố `ISH`, `ISH-SR-Mxx`, `ISH-Mxx-nnn[.k]`, `OP-Mxx-nn`, `AUD-Mxx-nn`; ID vĩnh viễn |
-
----
-## System Requirement — M05: Topic & Tag
-
-| ID | Title | Status | Decision |
-|----|-------|--------|----------|
-| ISS-207 | SR M05 — Topic classification: flat (DEC-047/048) hay 2 tầng Category→Topic (QA-033/ISS-046)? Register không ghi rõ ghi đè | Closed | Flat thắng, xem DEC-140 → QA-267 |
-| ISS-208 | SR M05 — audit vòng 1: Follow Topic/Tag đã xác nhận trong phạm vi dự án nhưng chưa module nào nhận sở hữu; dev_priority nhắc cả Tag và Group, QA-043 (Closed) chỉ nhắc Topic/Post/User, loại Group | Closed | M05 sở hữu Follow Topic (không Tag), xem DEC-141 → QA-268 |
-| ISS-209 | SR M05 — audit vòng 1: DRAFT §11.2 từng nêu AI gợi ý cả Tag, DEC-050/051 (Phase 5) chỉ quyết AI gợi ý Topic — chủ đích hay thiếu sót? | Closed | Chủ đích — Tag hoàn toàn tự do, không có AI gợi ý → QA-269 |
-| ISS-210 | SR M05 — Trending score (DEC-052): "across all posts in window" — window applies to post creation or to interactions? And what is the "+1" per post? | Closed | Interactions counted within 7 days on every post; +1 is a new-post bonus for posts created in the window — xem DEC-142 → QA-270 |
-| ISS-211 | SR M05 — Số Topic mỗi bài: DRAFT §3.4 vẽ một Topic/Category, DEC-049 cho 1–3; register không ghi rõ ghi đè DRAFT | Closed | 1–3 theo DEC-049, register ghi đè DRAFT — xem DEC-143 → QA-271 |
-| ISS-212 | SR M05 — Số Tag mỗi bài: DRAFT §3.2 "không giới hạn số lượng", DEC-051 tối đa 5; không nguồn nào nêu số tối thiểu | Closed | 0–5, Tag không bắt buộc, register ghi đè DRAFT — xem DEC-143 → QA-272 |
-| ISS-213 | SR M05 — Sau khi gửi bài, ai được đổi Topic/Tag của bài (DRAFT §11.2 nhắc "User / Moderator review")? | Closed | Tác giả đổi Topic và Tag khi sửa bài; Mod/Admin đổi Topic của bất kỳ bài; Mod/Admin không đổi Tag của bài — xem DEC-144 → QA-273 |
-| ISS-214 | SR M05 — Topic nguồn còn tồn tại sau khi gộp không? | Closed | Biến mất khỏi danh mục — xem DEC-145 → QA-274 |
-| ISS-215 | SR M05 — Người theo dõi Topic nguồn thì sao sau khi gộp? | Closed | Chuyển sang theo dõi Topic đích — xem DEC-145 → QA-275 |
-| ISS-216 | SR M05 — Trending Topic/Tag: "every post" gồm bài ở trạng thái nào? | Closed | Chỉ bài công khai, không tính bài trong Group Private — xem DEC-146 → QA-276 |
-| ISS-217 | SR M05 — Trending Topic/Tag: "upvotes" và "comments" gồm những tương tác nào? | Closed | Upvote vào bài; mọi bình luận và trả lời; chỉ tương tác còn tồn tại — xem DEC-146 → QA-277 |
-| ISS-218 | SR M05 — Ngưỡng "<20 words" của gợi ý Topic đếm trên phần nào; 20 từ có quá chặt với câu hỏi ngắn? | Closed | Hạ còn 10 tiếng, đếm tiêu đề + nội dung — xem DEC-147 (sửa DEC-050) → QA-278 |
-| ISS-219 | SR M05 — Đã tự chọn Topic rồi yêu cầu gợi ý: Topic gợi ý thay thế hay cộng thêm? | Closed | Thay thế — xem DEC-148 → QA-279 |
-| ISS-220 | SR M05 — "Content changed after suggest" gồm thay đổi nào? | Closed | Mọi thay đổi ở tiêu đề hoặc nội dung văn bản — xem DEC-148 → QA-280 |
-| ISS-221 | SR M05 — AI trả về Topic chỉ một phần hợp lệ thì xử lý sao (DEC-132)? | Closed | Giữ phần hợp lệ; báo lỗi khi không còn Topic hợp lệ — xem DEC-149 (sửa DEC-132) → QA-281 |
-| ISS-222 | SR M05 — Tag đã vô hiệu hóa có được mở lại không? | Closed | Mod/Admin mở lại được — xem DEC-150 → QA-282 |
-| ISS-223 | SR M05 — Giới hạn 30 ký tự của Tag có tính dấu "#"? | Closed | Không tính "#" — xem DEC-150 → QA-283 |
-| ISS-224 | SR M05 — Khung tính năng SR: sở hữu trang duyệt bài theo Topic/Tag; mốc phần ghi nhận phản hồi và phần quản trị | Closed | 12 tính năng; duyệt theo Topic/Tag thuộc M14/M06; phản hồi AI-P1; quản trị P0 — xem DEC-151 → QA-284 |
-| ISS-225 | SR M05 — Ca kiểm T-021: dịch vụ AI trả về nhiều hơn 3 Topic hợp lệ thì giữ Topic nào? | Closed | Giữ 3 Topic đầu theo thứ tự AI trả về — xem DEC-152 → QA-285 |
-| ISS-226 | SR M05 — Ca kiểm T-066: chuẩn hóa tên Tag khi nhập (tên rỗng, khoảng trắng đầu/cuối, đếm chữ có dấu) | Closed | Bỏ khoảng trắng đầu/cuối; từ chối tên rỗng; mỗi chữ nhìn thấy tính 1 ký tự — xem DEC-152 → QA-286 |
-| ISS-227 | SR M05 — Thứ tự bảng xếp hạng Trending Topic/Tag và cách phá hòa (RULES §4.5 không cho suy ra thứ tự sắp xếp) | Closed | Điểm giảm dần; hòa thì nhiều bài đăng trong 7 ngày hơn xếp trước; vẫn hòa thì tên A→Z — xem DEC-153 → QA-287 |
-| ISS-228 | SR M05 — audit vòng 1 (AUD-M05-01): "bài mới đăng trong 7 ngày" (thưởng +1, phá hòa) tính theo mốc tạo, gửi hay công khai? | Closed | Mốc bài công khai lần đầu — xem DEC-154 → QA-288 |
-| ISS-229 | SR M05 — audit vòng 1 (AUD-M05-02): theo dõi Topic có tạo thông báo bài mới không — QA-043/DEC-141 mâu thuẫn DEC-065 | Closed | Có; thêm sự kiện vào DEC-065 — xem DEC-155 → QA-289 |
-| ISS-230 | SR M05 — audit vòng 1 (AUD-M05-16): có được lưu bản nháp khi chưa có Topic? | Closed | Được; tối thiểu 1 Topic chỉ kiểm khi gửi và khi lưu sửa bài đã gửi — xem DEC-156 → QA-290 |
-| ISS-231 | SR M05 — audit vòng 1 (AUD-M05-14): bình luận đang bị ẩn có được đếm vào Trending? | Closed | Không đếm — xem DEC-154 → QA-291 |
-| ISS-232 | SR M05 — audit vòng 1 (AUD-M05-15): phá hòa theo tên A→Z với tên tiếng Việt | Closed | Bảng chữ cái tiếng Việt, không phân biệt hoa–thường — xem DEC-154 → QA-292 |
-| ISS-233 | SR M05 — audit vòng 1 (AUD-M05-10): nhiều gợi ý còn mới thì phản hồi ghi theo lần nào? | Closed | Chỉ lần gần nhất — xem DEC-157 → QA-293 |
-| ISS-234 | SR M05 — audit vòng 1 (AUD-M05-18): DRAFT §7.2 gợi ý Views/Bookmarks cho Trending; DEC-052 không dùng | Closed | Thêm người xem (0,1) và bookmark (1) cho Trending Topic/Tag và Trending Post — xem DEC-158 → QA-294 |
-| ISS-235 | SR M05 — audit vòng 1 (AUD-M05-21): câu cũ ở glossary và DEC-125 chưa đánh dấu bị thay | Closed | Đánh dấu [Amended] — QA-295 |
-| ISS-236 | SR M05 — audit vòng 1 (AUD-M05-13, ca kiểm chuyển trạng thái không hợp lệ): gộp Topic khi nguồn hoặc đích đã bị loại khỏi danh mục, hoặc nguồn trùng đích | Closed | Từ chối; báo Topic không tồn tại khi Topic đã bị loại — xem DEC-159 → QA-296 |
-| ISS-237 | SR M05 — audit vòng 2 (AUD-M05-26): so tên khi phá hòa với chữ số, ký tự ngoài bảng chữ cái tiếng Việt và dấu thanh | Closed | Ký tự khác và chữ số trước chữ cái; f, j, w, z theo bảng Latin; dấu thanh ngang, huyền, hỏi, ngã, sắc, nặng — xem DEC-160 → QA-297 |
-| ISS-238 | SR M05 — audit vòng 2 (AUD-M05-27): Tag chưa có bài viết được tính có vào bảng Trending Tag không | Closed | Chỉ Tag gắn trên ít nhất một bài viết được tính — xem DEC-161 → QA-298 |
-| ISS-239 | SR M05 — audit vòng 2 (AUD-M05-24): bài bị từ chối rồi gửi lại có ghi thêm phản hồi gợi ý Topic không | Closed | Chỉ ghi ở lần gửi đầu tiên — xem DEC-162 → QA-299 |
-| ISS-240 | SR M05 — audit vòng 2 (AUD-M05-31): module nào sở hữu việc ghi nhận lượt mở trang chi tiết bài viết | Closed | M03 — xem DEC-163 → QA-300 |
-| ISS-241 | SR M05 — audit vòng 2 (AUD-M05-31): "Guest xem danh sách Tag" (QA-011) là tính năng nào | Closed | Không có trang riêng; đáp ứng bởi Trending Tag và duyệt theo Tag (M14/M06) — xem DEC-163 → QA-301 |
-| ISS-242 | SR M05 — audit vòng 2 (AUD-M05-32): câu cũ QA-106, QA-226, ISS-171 chưa đánh dấu theo DEC-158 | Closed | Đánh dấu [Amended] — QA-302 |
-| ISS-243 | SR M05 — đợt xác minh (AUD-M05-34): khi phá hòa theo tên, so dấu thanh theo từng vị trí hay sau khi so hết chữ cái; ký tự khác hay chữ số đứng trước | Closed | So hết chữ cái trước, dấu thanh chỉ phân xử khi chữ cái giống hệt; ký tự khác trước chữ số — xem DEC-164 → QA-303 |
-| ISS-244 | SR M05 — đợt xác minh (AUD-M05-33): đổi tên Topic đã bị gộp (loại khỏi danh mục) | Closed | Từ chối, báo Topic không tồn tại — xem DEC-165 → QA-304 |
-| ISS-245 | SR M05 — OP-M05-01: lý do của tính năng Trending Topic và Tag (nguồn chưa nêu) | Closed | Dùng câu "cho người dùng thấy lĩnh vực và từ khóa đang được thảo luận nhiều trong tuần qua" — xem DEC-169 → QA-305 |
-| ISS-246 | SR M05 — OP-M05-02: có gợi ý Topic khi tác giả sửa bài viết đã gửi không (nguồn chỉ nêu lúc soạn bài mới) | Closed | Không; chỉ khi soạn bài viết mới — xem DEC-167 → QA-306 |
-| ISS-247 | SR M05 — OP-M05-04: đổi tên Topic thành tên rỗng hoặc trùng tên Topic khác | Closed | Từ chối cả hai; trùng tên không phân biệt hoa–thường — xem DEC-168 → QA-307 |
-| ISS-248 | SR M05 — OP-M05-05: Tag bị vô hiệu hóa còn gắn trên bài có tính vào giới hạn 5 Tag không | Closed | Có tính — xem DEC-166 → QA-308 |
-| ISS-249 | SR M05 — OP-M05-06: số người theo dõi Topic hiển thị cho ai, tính tài khoản nào | Closed | Hiển thị cho mọi người kể cả Guest; không tính tài khoản đã xóa, vẫn tính tài khoản vô hiệu hóa hoặc bị cấm — xem DEC-168 → QA-309 |
-| ISS-250 | SR M05 — OP-M05-07: Mod/Admin đổi Topic của bài thì tác giả có được thông báo không | Closed | Không thông báo ở phạm vi hiện tại — xem DEC-168 → QA-310 |
-| ISS-251 | SR M05 — OP-M05-08: tên Tag hiển thị theo chữ thường hay theo cách viết lần đầu | Closed | Chữ thường — xem DEC-166 → QA-311 |
-| ISS-252 | SR M05 — OP-M05-09: tên Tag được chứa những ký tự nào | Closed | Chỉ chữ cái (kể cả chữ có dấu tiếng Việt), chữ số và dấu gạch dưới — xem DEC-166 → QA-312 |
-| ISS-253 | SR M05 — OP-M05-11: yêu cầu gợi ý bị từ chối vì văn bản ngắn có tính vào giới hạn 10 yêu cầu mỗi phút không | Closed | Không tính — xem DEC-167 → QA-313 |
-| ISS-254 | SR M05 — OP-M05-12: việc hiển thị Topic và Tag trên trang bài viết thuộc M05 hay M03 | Closed | M05 sở hữu, M03 tham chiếu — xem DEC-169 → QA-314 |
+| ISS-206 | Quy ước ID cho tài liệu SR | Closed | Xem DEC-139 (amended): tiền tố `ISH`, `ISH-SR-Mxx`, `ISH-Mxx-nnn[.k]`, `OP-Mxx-nn`, `AUD-Mxx-nn`; ID vĩnh viễn **[Sẽ bị thay thế 2026-10-07 — quy ước ID và quy trình theo skill FR mới, xem DEC-139]** |

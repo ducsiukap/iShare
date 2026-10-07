@@ -7,4 +7,17 @@
 # **/.agent-instructions
 
 # sub-modules .gitignore
-./**/.gitignore
+**/.gitignore
+_to_delete/
+.agent-instructions/_archive/
+.agents/.claude/system_analysis/backup/
+
+# Claude Code: cài đặt quyền riêng của máy này
+.claude/settings.local.json
+
+# Tệp tạm của tool skill FR (sinh lại được)
+.agents/.claude/system_analysis/output/fr/.work/
+
+# Python
+__pycache__/
+*.pyc
