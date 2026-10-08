@@ -38,8 +38,7 @@ Khác phạm vi thì không phải mâu thuẫn, cả hai cùng hiện hành.
 
 ## Không dùng
 
-- Bộ skill SR cũ đã lưu trữ: `.agent-instructions/_archive/sr-v1-2026-10/`.
+- Bộ skill SR cũ (sr-author, sr-auditor) và quy ước mã `ISH-*`, `OP-*`, `AUD-*` (đã bỏ).
 - Phần quy trình và quy ước mã của DEC-139 (đã đánh dấu sẽ bị thay). Phần còn hiệu lực của DEC-139
   (mỗi module một tài liệu, tiếng Việt, cấu trúc theo tài liệu mẫu, một hành vi một module sở hữu, nguồn ở phụ lục)
   đã được đưa vào mẫu đầu ra.
-- Thư mục `_to_delete/`.

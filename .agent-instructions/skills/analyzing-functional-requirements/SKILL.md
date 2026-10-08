@@ -114,8 +114,8 @@ Trả lời "ok" để sang bước N+1, hoặc nói chỗ cần sửa.
 
 ## Không làm
 
-- Không dùng bộ skill SR cũ trong `.agent-instructions/_archive/sr-v1-2026-10/` (sr-author,
-  sr-auditor, SR-DOCUMENT-RULES, sr-tools) và không dùng quy ước mã `ISH-*`, `OP-*`, `AUD-*`.
+- Không dùng quy trình SR cũ (sr-author, sr-auditor, SR-DOCUMENT-RULES, sr-tools; đã bỏ)
+  và không dùng quy ước mã `ISH-*`, `OP-*`, `AUD-*`.
 - Không ghi register khi người dùng chưa xác nhận bản nháp.
 - Không sửa hay xóa mục cũ trong register. Mục bị sửa chỉ được gắn dấu `**[Amended YYYY-MM-DD — DEC-nnn: …]**`.
 - Không đánh số lại ID. Yêu cầu bị bỏ: giữ dòng, ghi "(Đã bỏ ở phiên bản x.y — lý do)".

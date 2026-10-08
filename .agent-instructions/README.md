@@ -47,8 +47,6 @@ Planned: `analyzing-dependencies`, `assessing-tech-feasibility`.
 │   ├── ba-interview/
 │   ├── analyzing-functional-requirements/
 │   └── technical-design/
-└── _archive/            ← retired workflows, reference only; no agent may use them
-    └── sr-v1-2026-10/   ← old System Requirement workflow (sr-author, sr-auditor, rules, tools)
 ```
 
 ## How other tools find this directory
@@ -77,4 +75,4 @@ Create it once (`mkdir -p .agents/.claude/{system_analysis,design,coding}`), reu
 
 **May I edit a file directly?** Only if the task says so (edit, fix, update, sửa, cập nhật…). Otherwise ask first. See COMMON-RULES Rule 4.
 
-**Where is the history of previous layouts?** `.agents/.claude/system_analysis/backup/agent-instructions-2026-10-04/` and `.../agent-instructions-2026-10-07/` (the directory has no git history).
+**Where is the history of previous layouts?** In git history only. The old SR workflow and the earlier backups were deleted on 2026-10-08.

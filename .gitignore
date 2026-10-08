@@ -6,12 +6,6 @@
 # **/.agents
 # **/.agent-instructions
 
-# sub-modules .gitignore
-**/.gitignore
-_to_delete/
-.agent-instructions/_archive/
-.agents/.claude/system_analysis/backup/
-
 # Claude Code: cài đặt quyền riêng của máy này
 .claude/settings.local.json
 

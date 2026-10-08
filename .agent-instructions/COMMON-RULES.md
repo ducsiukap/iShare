@@ -148,7 +148,6 @@ Task: "Document the API"
 - **Never** add `.agents/` as a whole to `.gitignore`.
 - Only regenerable or machine-local files are ignored (see the root `.gitignore`), for example:
   - tool caches: `.agents/.claude/system_analysis/output/fr/.work/`
-  - backups of the instruction set: `.agents/.claude/system_analysis/backup/`
   - `__pycache__/`, `*.pyc`, `.claude/settings.local.json`
 
 **Examples:**
@@ -503,5 +502,6 @@ These instructions are living documents. They may be updated as team practices e
 | 2026-09-20 | 1.0.0   | Initial version | vduczz | Production Ready |
 | 2026-10-07 | 1.1.0   | Layout changed to phases/ + skills/ + _archive/; SR roles archived; FR skill added | vduczz | Active |
 | 2026-10-07 | 1.1.1   | Rule 3: `.agents/` output is tracked in git; only caches and backups are ignored | vduczz | Active |
+| 2026-10-08 | 1.1.2   | Retired SR workflow (`_archive/`) and instruction-set backups deleted; references removed | vduczz | Active |
 
 > For the latest updates, check your repository's `.agent-instructions/` directory.

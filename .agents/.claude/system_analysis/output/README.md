@@ -113,7 +113,7 @@ Lưu ý: cột MoSCoW và Dependencies đang bị lệch ở các dòng M02–M1
 | `BR-Mxx-nn` · `TBD-Mxx-nn` | Quy tắc nghiệp vụ · điểm chưa chốt trong tài liệu FR | fr/ |
 | `NFR-CAT-###` | Yêu cầu phi chức năng (Phase 7, chưa làm) | — |
 
-Mã không bao giờ đánh lại. Quy trình SR cũ (`ISH-SR-Mxx`, `ISH-RT-Mxx`, `OP-*`, `AUD-*`) đã ngừng dùng và được lưu ở `.agent-instructions/_archive/sr-v1-2026-10/`.
+Mã không bao giờ đánh lại. Quy trình SR cũ (`ISH-SR-Mxx`, `ISH-RT-Mxx`, `OP-*`, `AUD-*`) đã ngừng dùng và đã bị xoá.
 
 ---
 

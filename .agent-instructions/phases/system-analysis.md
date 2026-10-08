@@ -16,7 +16,7 @@ Before you start, read [../COMMON-RULES.md](../COMMON-RULES.md). Then pick the s
 | Assess technical feasibility | `assessing-tech-feasibility` | Planned |
 | Architecture, database schema, API contract, ADR, performance analysis | [technical-design](../skills/technical-design/SKILL.md) | Active (Phase 7 and 8) |
 
-The previous System Requirement (SR) workflow (sr-author, sr-auditor, SR-DOCUMENT-RULES, sr-tools) is archived in [../_archive/sr-v1-2026-10/](../_archive/sr-v1-2026-10/). Do not use it.
+The previous System Requirement (SR) workflow (sr-author, sr-auditor, SR-DOCUMENT-RULES, sr-tools) has been retired and deleted. Do not recreate it.
 
 ---
 
@@ -51,7 +51,6 @@ A requirement gap found in a later phase comes back to this phase for that scope
 | FR documents | `.agents/.claude/system_analysis/output/fr/FR-Mxx.md` (tool cache in `.../fr/.work/`) |
 | Technical design outputs | `.agents/.claude/system_analysis/output/<architecture or data-model or api or adr or performance>/` |
 | Approved documents | `docs/approved/` — promoted only after stakeholder approval |
-| Backups of the instruction set | `.agents/.claude/system_analysis/backup/agent-instructions-<date>/` |
 
 ---
 
