@@ -1,215 +1,228 @@
-# Tài liệu Đặc tả Use Case — {{MODULE_CODE}}: {{MODULE_NAME}} (US-{{MODULE_CODE}})
+# Đặc tả use case — {{DOCUMENT_ID}}
 
-| Thuộc tính | Nội dung |
+[Vietnamese Doc]
+
+## Metadata và tiến độ
+
+<!-- uc:document -->
+| key | value |
 |---|---|
-| **Mã tài liệu** | `US-{{MODULE_CODE}}` |
-| **Dự án** | iShare — Nền tảng chia sẻ tri thức và hỏi đáp học sinh THPT |
-| **Module** | {{MODULE_CODE}} — {{MODULE_NAME}} |
-| **Tài liệu căn cứ (Nguồn)** | [`FR-{{MODULE_CODE}}.md`](file:///g:/documents/season9/iShare/docs/specs/fr/FR-{{MODULE_CODE}}.md) (Phiên bản {{FR_VERSION}} — Ngày {{FR_DATE}}) |
-| **Mốc register căn cứ** | {{REGISTER_REFS}} |
-| **Người thực hiện** | Antigravity Engine (Tổng hợp & Phân rã theo yêu cầu BA) |
-| **Ngày lập** | {{DATE}} |
-| **Trạng thái** | Đang thực hiện |
+| document_id | {{DOCUMENT_ID}} |
+| skill_version | 2.0 |
+| mode | {{module_or_overview_or_partial}} |
+| modules | {{Mxx_LIST}} |
+| scope | {{ALL_or_FULL_FR_IDS}} |
+| status | Đang soạn |
+| current_step | 1 |
+| completed_steps | - |
+| approved_steps | - |
+| source_baseline | {{SOURCE_VERSIONS}} |
+| author | {{ACTUAL_AUTHOR}} |
+| date | {{DATE}} |
+| approval_evidence | - |
+| semantic_review | pending |
+| diagram_check | pending |
 
----
+mode: module / overview / partial. scope: ALL hoặc danh sách đầy đủ các mã FR/BR
+giới hạn phạm vi; partial phải ghi giới hạn và dùng --scope khi kiểm tra.
+Overview hoàn tất danh mục/view, không hàm ý đặc tả sâu mọi UC.
+completed_steps ghi sau khi làm xong; approved_steps chỉ ghi theo xác nhận thật.
 
-## 1. Bảng Tổng hợp các Chức năng con trong {{MODULE_CODE}}
+| Bước | Phần đã hoàn tất/thay đổi | Xác nhận của người dùng | Baseline | Cần làm lại |
+|---|---|---|---|---|
+| 1 | {{CONTENT}} | {{PENDING_or_EVIDENCE}} | {{BASELINE}} | - |
 
-Căn cứ theo mục 4.4 và mục 5 trong tài liệu [`FR-{{MODULE_CODE}}.md`](file:///g:/documents/season9/iShare/docs/specs/fr/FR-{{MODULE_CODE}}.md), module bao gồm {{N}} chức năng con với mô tả ngắn gọn như sau:
+## 1. Phạm vi và nguồn
 
-| STT | Mã chức năng | Tên chức năng con | Mô tả ngắn gọn phạm vi & nghiệp vụ |
-|:---:|:---:|---|---|
-| 1 | **FR-{{MODULE_CODE}}-01** | {{FUNCTION_NAME_1}} | {{SHORT_DESCRIPTION_1}} |
-| 2 | **FR-{{MODULE_CODE}}-02** | {{FUNCTION_NAME_2}} | {{SHORT_DESCRIPTION_2}} |
-| ... | ... | ... | ... |
+**Mục đích sử dụng:** {{PURPOSE_AND_AUDIENCE}}
+**Subject/boundary:** {{SYSTEM_UNDER_STUDY}}
+**Trong phạm vi:** {{IN_SCOPE}}
+**Ngoài phạm vi:** {{OUT_OF_SCOPE}}
+**Mức đặc tả:** {{OVERVIEW_OR_DETAILED_SCOPE}}
 
----
+<!-- uc:sources -->
+| path | version | role |
+|---|---|---|
+| docs/specs/fr/FR-{{Mxx}}.md | {{VERSION}} | owner |
 
-## 2. Phân rã thành các Use Case Chính & Quy trình Nghiệp vụ Hoàn chỉnh
+Ghi mọi FR liên quan thực sự đọc; role: owner / related. Rubric và tài liệu
+phương pháp ghi riêng, không dùng thay nguồn tính năng.
 
-### 2.1 Tiêu chí phân rã Use Case Chính
-- **Đủ lớn & Độc lập:** Đại diện cho một mục tiêu nghiệp vụ trọn vẹn của người dùng (User Goal) hoặc của hệ thống.
-- **Có tương tác giao diện trực tiếp:** Bắt đầu bằng một hành động chủ động của Actor trên giao diện (UI) và kết thúc khi đạt được kết quả mong đợi.
-- **Bao hàm các chức năng con:** Chứa đựng các bước thực hiện mang tính nghiệp vụ bắt buộc hoặc tùy chọn mở rộng.
-- **Quy tắc đặt tên:** Cấu trúc `[1 Động từ duy nhất] + [Cụm danh từ]`. Tuyệt đối không dùng nhiều động từ nối nhau ("và", "&", "/", "hoặc"). Văn phong con người, chuẩn nghiệp vụ.
+### Danh mục actor
 
-Từ {{N}} chức năng con, module được phân rã thành **{{M}} Use Case Chính** sau:
-1. **UC-C01: {{UC1_NAME_VI}} ({{UC1_NAME_EN}})**
-2. **UC-C02: {{UC2_NAME_VI}} ({{UC2_NAME_EN}})**
-<!-- Thêm các UC Chính khác nếu có -->
+<!-- uc:actors -->
+| id | name | kind | parent | boundary_reason | sources |
+|---|---|---|---|---|---|
+| ACT-001 | {{ROLE}} | human | - | {{WHY_EXTERNAL}} | {{FULL_SOURCE_IDS}} |
 
----
+kind: human / external-system. Chính/hỗ trợ là vai trò trong từng UC;
+parent tùy chọn dùng actor ID nếu có generalization đã kiểm chứng.
 
-### 2.2 Sơ đồ Use Case Tổng quan của Module {{MODULE_CODE}} (Macro Use Case Diagram)
+### Kiểm kê nhóm chức năng
 
-```mermaid
-flowchart LR
-    %% ACTORS
-    Actor1(["Actor 1"])
-    Actor2(["Actor 2"])
+| Mã nhóm FR | Mục tiêu/hành vi | Cách biểu diễn dự kiến | Owner | Căn cứ |
+|---|---|---|---|---|
+| {{FULL_FR_GROUP_ID}} | {{BEHAVIOR}} | {{UC_STEP_RULE_AUT}} | {{Mxx}} | {{SOURCE}} |
 
-    %% CORE USE CASES
-    subgraph Mxx_Core ["MODULE Mxx: TÊN MODULE (TỔNG QUAN)"]
-        direction TB
-        UC_C01(["UC-C01: Tên Use Case Chính 1<br/>(Core UC 1 Name)"])
-        UC_C02(["UC-C02: Tên Use Case Chính 2<br/>(Core UC 2 Name)"])
-    end
+## 2. Danh mục mục tiêu và use case
 
-    %% LIÊN KẾT ACTOR - USE CASE CHÍNH
-    Actor1 --> UC_C01
-    Actor1 --> UC_C02
-    Actor2 --> UC_C02
+<!-- uc:catalog -->
+| id | name | level | primary | supporting | owner | anchor | sources |
+|---|---|---|---|---|---|---|---|
+| UC-{{Mxx}}-001 | {{VERB_GOAL}} | User goal | ACT-001 | - | {{Mxx}} | #uc-{{mxx}}-001 | {{FULL_SOURCE_IDS}} |
 
-    %% Styling
-    classDef actorStyle fill:#ffffff,stroke:#333333,stroke-width:2px;
-    classDef coreUC fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,font-weight:bold;
-    class Actor1,Actor2 actorStyle;
-    class UC_C01,UC_C02 coreUC;
-```
+level: Summary / User goal / Subfunction. Không bắt buộc có Summary hoặc
+Subfunction. Một UC dùng chung có một ID, một owner, nhiều view.
 
----
+| Quyết định | Hành vi FR | Biểu diễn được chọn | Vì sao giữ/gộp/tách | Phương án khác |
+|---|---|---|---|---|
+| D-001 | {{BEHAVIOR}} | {{REPRESENTATION}} | {{RATIONALE}} | {{ALTERNATIVE}} |
 
-### 2.3 Mô tả Quy trình Nghiệp vụ Hoàn chỉnh của từng Use Case Chính
+## 3. Đặc tả
 
-<!-- Áp dụng Kiểu A (Quy trình tuần tự) HOẶC Kiểu B (Phân nhánh song song) tùy bản chất UC -->
+<a id="uc-{{mxx}}-001"></a>
 
-#### 1. UC-C01: {{UC1_NAME_VI}} ({{UC1_NAME_EN}}) — [Ví dụ Kiểu A: Tuần tự]
-- **Actor chính:** `{{ACTOR_1}}`.
-- **Mục tiêu:** {{GOAL_DESCRIPTION_1}}.
-- **Quy trình nghiệp vụ hoàn chỉnh:**
-  1. *Khởi đầu:* {{STEP_1_START}}
-  2. *Thực hiện & Kiểm tra:* {{STEP_1_EXECUTION}}
-  3. *Kết thúc:* {{STEP_1_END}}
+### UC-{{Mxx}}-001 — {{GOAL}}
 
-#### 2. UC-C02: {{UC2_NAME_VI}} ({{UC2_NAME_EN}}) — [Ví dụ Kiểu B: Phân nhánh song song]
-- **Actor chính:** `{{ACTOR_A}}` (cho Nhánh 1), `{{ACTOR_B}}` (cho Nhánh 2).
-- **Mục tiêu:** {{GOAL_DESCRIPTION_2}}.
-- **Quy trình nghiệp vụ hoàn chỉnh:**
-  - *Nhánh 1 — {{BRANCH_1_NAME}}:* {{ACTOR_A}} bắt đầu từ {{SCREEN_1}} $\to$ {{ACTIONS_AND_RULES_1}} $\to$ Hệ thống phản hồi {{RESULT_1}}.
-  - *Nhánh 2 — {{BRANCH_2_NAME}}:* {{ACTOR_B}} bắt đầu từ {{SCREEN_2}} $\to$ {{ACTIONS_AND_RULES_2}} $\to$ Hệ thống phản hồi {{RESULT_2}}.
+<!-- uc:spec UC-{{Mxx}}-001 -->
+| key | value |
+|---|---|
+| goal | {{OBSERVABLE_VALUE}} |
+| subject | {{BOUNDARY}} |
+| level | User goal |
+| primary | ACT-001 |
+| supporting | - |
+| trigger | {{EVENT}} |
+| preconditions | {{SOURCE_BACKED_CONDITIONS}} |
+| success | {{SUCCESS_POSTCONDITIONS}} |
+| failure | {{SOURCE_BACKED_GUARANTEE_OR_OPEN_POINT}} |
+| abstract | false |
+| common_contract | {{IF_GENERALIZATION_OTHERWISE_NOT_APPLICABLE}} |
 
-<!-- Tiếp tục mô tả cho các UC Chính tiếp theo -->
+#### Luồng chính
 
----
+<a id="uc-{{mxx}}-001-main-1"></a>
 
-## 3. Xác định Use Case con Chi tiết và Mối quan hệ với Use Case Chính
+| Bước | Ai | Hành động/phản hồi | Tiếp tục | Nguồn |
+|---|---|---|---|---|
+| 1 | ACT-001 | {{ACTION}} | {{NEXT_STEP}} | {{SOURCE_IDS}} |
+| 2 | Subject | {{RESPONSE}} | END: {{RESULT}} | {{SOURCE_IDS}} |
 
-Toàn bộ các Use Case con được phân rã strictly trong phạm vi các chức năng đã xác định trong tài liệu `FR-{{MODULE_CODE}}.md` (bằng cách giữ nguyên chức năng độc lập hoặc gộp các chức năng liên quan mật thiết); mỗi Use Case con đảm nhiệm đúng duy nhất 1 nghiệp vụ xác định cụ thể và tuân thủ quy tắc 1 động từ duy nhất.
+Tạo anchor riêng cho mỗi bước được relation/trace tham chiếu; ID anchor
+bắt đầu bằng ID UC viết thường, theo sau là main-N / alt-N / pre / post / contract.
 
-Mối quan hệ giữa Use Case Chính và Use Case con được phân loại theo đúng 3 loại quan hệ chuẩn UML:
-- **`<<include>>` (Bao hàm Bắt buộc):** Bước nghiệp vụ tiên quyết, bắt buộc phải có để Use Case chính thành công. (Mũi tên nét đứt từ Chính sang Con).
-- **`<<extend>>` (Mở rộng Tùy chọn / Rẽ nhánh):** Bước mở rộng, tính năng tùy chọn hoặc nhánh ngoại lệ. (Mũi tên nét đứt từ Con sang Chính).
-- **`Generalization` (Kế thừa / Cha - Con):** Use Case con là một dạng chuyên biệt hóa cụ thể của Use Case cha tổng quát (*is-a-kind-of*). (Mũi tên nét liền từ Con sang Cha).
+#### Luồng thay thế và ngoại lệ
 
----
+<a id="uc-{{mxx}}-001-alt-1"></a>
 
-### 3.1 Phân rã UC-C01: {{UC1_NAME_VI}}
+| ID nhánh | Bước rẽ | Điều kiện | Xử lý | Quay lại/kết thúc | Nguồn |
+|---|---|---|---|---|---|
+| A1 | {{STEP}} | {{GUARD}} | {{ACTIONS}} | {{STEP_OR_END_WITH_RESULT}} | {{SOURCE_IDS}} |
 
-```mermaid
-flowchart TB
-    Actor1(["Actor 1"]) --> UC_C01(["UC-C01: Tên Use Case Chính 1"])
+Nếu không có nhánh theo FR, ghi rõ sau đối chiếu. Không bịa lỗi/retry để đủ bảng.
 
-    subgraph Sub_UCC01 ["Các Use Case phụ của UC-C01"]
-        direction TB
-        %% Bắt buộc (Include)
-        INC_01_1(["UC-01.1: Tên UC con Bắt buộc<br/>[FR-Mxx-01]"])
+#### Quy tắc và điểm chưa rõ
 
-        %% Tùy chọn / Mở rộng (Extend)
-        EXT_01_1(["UC-01.2: Tên UC con Mở rộng<br/>[FR-Mxx-02]"])
+<a id="uc-{{mxx}}-001-rules"></a>
 
-        %% Kế thừa / Cha-Con (Generalization)
-        GEN_01_1(["UC-01.3: Tên UC con Kế thừa Chuyên biệt hóa<br/>[FR-Mxx-03]"])
-    end
+{{SOURCE_BACKED_RULES_AND_OPEN_POINT_IDS}}
 
-    %% Quan hệ Include
-    UC_C01 -.->|"<<include>>"| INC_01_1
+Lặp cấu trúc cho UC thuộc scope chi tiết. Summary/UC chỉ tham chiếu ở overview
+có brief goal/owner/nguồn và đường dẫn đặc tả, ghi rõ chưa đặc tả nếu chưa có.
 
-    %% Quan hệ Extend
-    EXT_01_1 -.->|"<<extend>>"| UC_C01
+### Hành vi tự động / quy tắc xuyên UC
 
-    %% Quan hệ Generalization
-    GEN_01_1 -->|"<<generalization>>"| UC_C01
+<a id="aut-{{mxx}}-001"></a>
 
-    classDef incStyle fill:#e8f5e9,stroke:#2e7d32,stroke-width:1.5px;
-    classDef extStyle fill:#fffde7,stroke:#f57f17,stroke-width:1.5px,stroke-dasharray: 4 4;
-    classDef genStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1.5px;
-    class INC_01_1 incStyle;
-    class EXT_01_1 extStyle;
-    class GEN_01_1 genStyle;
-```
+| ID | Trigger | Điều kiện/trạng thái trước | Kết quả/trạng thái sau | Quy tắc dữ liệu | Nguồn |
+|---|---|---|---|---|---|
+| AUT-{{Mxx}}-001 | {{EVENT_TIME}} | {{BEFORE}} | {{AFTER}} | {{DATA_POLICY}} | {{SOURCE_IDS}} |
 
-#### Bảng chi tiết quan hệ, điều kiện & lý do nghiệp vụ (UC-C01):
-| Mã Use Case con | Tên Use Case con | Căn cứ FR/BR | Quan hệ | Điều kiện kích hoạt & Lý do nghiệp vụ |
-|---|---|:---:|:---:|---|
-| **UC-01.1** | {{INC_SUB_UC_NAME}} | FR-{{MODULE_CODE}}-01 | `<<include>>` | **Bắt buộc:** {{REASON_MANDATORY}} |
-| **UC-01.2** | {{EXT_SUB_UC_NAME}} | FR-{{MODULE_CODE}}-02 | `<<extend>>` | **{{EXTENSION_TYPE}}:** {{REASON_CONDITIONAL}} |
-| **UC-01.3** | {{GEN_SUB_UC_NAME}} | FR-{{MODULE_CODE}}-03 | Generalization | **Kế thừa (Chuyên biệt hóa):** Là một dạng hình thức cụ thể của Use Case cha; kế thừa toàn bộ mục tiêu và quy tắc của cha nhưng áp dụng phương thức thực thi chuyên biệt. |
+Xóa mục này nếu không áp dụng; không tự suy diễn cơ chế kỹ thuật.
 
----
+## 4. Quan hệ
 
-### 3.2 Phân rã UC-C02: {{UC2_NAME_VI}}
+### Extension points
 
-<!-- Lặp lại cấu trúc sơ đồ và bảng quan hệ chi tiết cho UC-C02 và các UC Chính tiếp theo -->
+<!-- uc:extension-points -->
+| id | base | at | description |
+|---|---|---|---|
 
----
+Không cần thêm dòng khi không dùng extend. at là anchor bước của UC base.
 
-## 4. Bảng Tổng kết Ánh xạ & Sơ đồ Use Case Chi tiết Toàn Module
+### Quan hệ UC–UC
 
-### 4.1 Bảng Ma trận Ánh xạ Toàn bộ Chức năng con vào Hệ thống Use Case
+<!-- uc:relations -->
+| type | source | target | at | condition | return_to | rationale | sources |
+|---|---|---|---|---|---|---|---|
 
-| Mã FR | Tên chức năng con trong `FR-{{MODULE_CODE}}.md` | Thuộc Use Case Chính | Thuộc Use Case Phụ cụ thể | Vai trò quan hệ trong UC Chính |
-|:---:|---|:---:|---|:---:|
-| **FR-{{MODULE_CODE}}-01** | {{FUNCTION_NAME_1}} | **UC-C01** | UC-01.1: {{SUB_NAME_1}} | `<<include>>` (Bắt buộc) |
-| **FR-{{MODULE_CODE}}-02** | {{FUNCTION_NAME_2}} | **UC-C01** | UC-01.2: {{SUB_NAME_2}}<br>UC-01.3: {{SUB_NAME_3}} | `<<include>>` (Bắt buộc)<br>`<<extend>>` (Tùy chọn) |
-| **FR-{{MODULE_CODE}}-03** | {{FUNCTION_NAME_3}} | **UC-C01** | UC-01.4: {{SUB_NAME_4}} | Generalization (Chuyên biệt hóa) |
-| **FR-{{MODULE_CODE}}-04** | {{FUNCTION_NAME_4}} | **UC-C01**<br>**UC-C02** | UC-01.5: {{SUB_NAME_5}}<br>UC-02.3: {{SUB_NAME_6}} | `<<extend>>` (Thay thế)<br>`<<extend>>` (Rẽ nhánh) |
-| **FR-{{MODULE_CODE}}-05** | {{FUNCTION_NAME_5}} | *(Tiến trình ngầm)* | {{BACKGROUND_JOB_DESCRIPTION}} | Nền tảng hạ tầng kỹ thuật |
-| **FR-{{MODULE_CODE}}-06** | {{FUNCTION_NAME_6}} | *(Tầng hiển thị)* | {{DISPLAY_FILTER_DESCRIPTION}} | Logic kiểm soát hiển thị |
+type: include / extend / generalization.
+include: source including, target included, at = anchor bước của source.
+extend: source extension, target base, at = extension point ID của base;
+condition và return_to bắt buộc (anchor base hoặc END: kết quả).
+generalization: source specific, target general, at = anchor hợp đồng chung
+của target; rationale ghi phần kế thừa và chuyên biệt. Không bắt cha abstract.
 
----
+### Association actor–UC
 
-### 4.2 Sơ đồ Use Case Chi tiết Toàn Module
+| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
+|---|---|---|---|---|
 
-```mermaid
-flowchart TB
-    %% ACTORS
-    Actor1(["Actor 1"])
-    Actor2(["Actor 2"])
+Không coi bảng quyền hoặc link màn hình tự tạo quan hệ giữa UC.
 
-    %% UC-C01 GROUP
-    subgraph UCC01 ["UC-C01: Tên Use Case Chính 1"]
-        direction TB
-        UC_C01(["UC-C01: Tên Use Case Chính 1"])
-        INC_C01_1(["UC-01.1: Tên UC con Bao hàm<br/>[FR-Mxx-01]"])
-        EXT_C01_1(["UC-01.2: Tên UC con Mở rộng<br/>[FR-Mxx-02]"])
-        GEN_C01_1(["UC-01.3: Tên UC con Kế thừa<br/>[FR-Mxx-03]"])
-        UC_C01 -.->|"<<include>>"| INC_C01_1
-        EXT_C01_1 -.->|"<<extend>>"| UC_C01
-        GEN_C01_1 -->|"<<generalization>>"| UC_C01
-    end
+## 5. Truy vết
 
-    %% UC-C02 GROUP
-    subgraph UCC02 ["UC-C02: Tên Use Case Chính 2"]
-        direction TB
-        UC_C02(["UC-C02: Tên Use Case Chính 2"])
-        INC_C02_1(["UC-02.1: Tên UC con Bao hàm<br/>[FR-Mxx-04]"])
-        UC_C02 -.->|"<<include>>"| INC_C02_1
-    end
+<!-- uc:trace -->
+| requirement | target | coverage | note |
+|---|---|---|---|
+| {{FULL_REQUIREMENT_ID}} | #{{ANCHOR}} | Chưa | {{EXPLANATION}} |
 
-    %% ACTORS TO CORE USE CASES
-    Actor1 --> UC_C01
-    Actor1 --> UC_C02
-    Actor2 --> UC_C02
+Một dòng mỗi FR nhóm/chi tiết hoặc BR, target có thể có nhiều anchor ngăn bằng
+dấu phẩy. coverage: Đủ / Một phần / Chưa. Ghi Đủ sau review nội dung nguồn–đích;
+mã tồn tại và anchor có thật chưa chứng minh đủ hành vi.
+Overview chỉ bắt buộc nhóm FR; ghi rõ tham chiếu module chưa đặc tả, không
+nhận là bao phủ chi tiết toàn dự án.
 
-    %% STYLING
-    classDef actorStyle fill:#ffffff,stroke:#333333,stroke-width:2px;
-    classDef coreUC fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,font-weight:bold;
-    classDef incStyle fill:#e8f5e9,stroke:#2e7d32,stroke-width:1.5px;
-    classDef extStyle fill:#fffde7,stroke:#f57f17,stroke-width:1.5px,stroke-dasharray: 4 4;
-    classDef genStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1.5px;
-    class Actor1,Actor2 actorStyle;
-    class UC_C01,UC_C02 coreUC;
-    class INC_C01_1,INC_C02_1 incStyle;
-    class EXT_C01_1 extStyle;
-    class GEN_C01_1 genStyle;
-```
+| Mã đã bỏ/hoãn | Bằng chứng nguồn hiện hành | Cách xử lý |
+|---|---|---|
+
+### Giao tiếp và tác động thay đổi
+
+| Owner | UC/FR liên quan | Sự kiện/điều kiện/kết quả | Đối chiếu bên nhận | Thay đổi baseline |
+|---|---|---|---|---|
+
+## 6. Các view
+
+{{OVERVIEW_AND_FOCUSED_VIEWS_FROM_AGREED_MODEL}}
+
+Mỗi view ghi subject, scope, ID và renderer; dùng ký pháp UML phù hợp.
+Không dựng mọi loại quan hệ chỉ để đủ mẫu.
+
+## 7. Kiểm tra và phê duyệt
+
+<!-- uc:diagrams -->
+| id | format | renderer | result | artifact |
+|---|---|---|---|---|
+
+result: pass / pending / fail; format: plantuml / mermaid / illustrative.
+Ghi phiên bản renderer và vị trí hình xuất; không có sơ đồ thì ghi diagram_check
+not-applicable kèm lý do trong bảng QA. Không dùng not-applicable để bỏ qua
+sơ đồ bắt buộc của tài liệu tổng quan/module hoàn chỉnh.
+
+| Hạng mục | Lệnh/phương pháp | Kết quả thực tế | Giới hạn/bằng chứng |
+|---|---|---|---|
+| Ngữ nghĩa | Đọc FR–UC và từng quan hệ | {{RESULT}} | {{EVIDENCE}} |
+| Cấu trúc/truy vết | check_us.py | {{RESULT}} | Không chứng minh ngữ nghĩa |
+| Sơ đồ | Parser + render + kiểm tra hình | {{RESULT}} | {{RENDERER_AND_ARTIFACT}} |
+
+### Điểm cần làm rõ
+
+| ID | Nguồn | Vấn đề | Ảnh hưởng | Trạng thái/quyết định |
+|---|---|---|---|---|
+
+### ID cũ → mới (khi thực sự cần chuyển đổi)
+
+| ID cũ | ID hiện hành | Lý do | Tham chiếu đã xử lý |
+|---|---|---|---|
+
+Chỉ sau xác nhận cuối mới ghi Đã duyệt, approved_steps có 7 và approval_evidence.

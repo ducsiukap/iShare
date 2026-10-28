@@ -1,30 +1,24 @@
-# Bước 1 — Trích xuất Chức năng con
+# Bước 1 — Baseline, boundary, actor và kiểm kê
 
-**Mục tiêu:** Đọc FR-Mxx.md và xây dựng Mục 1 (Bảng tổng hợp chức năng con).
+[Vietnamese Doc]
 
-## Làm gì
+Đọc [INPUTS](../input/INPUTS.md), phần boundary/actor trong
+[modeling-rules](../references/modeling-rules.md).
 
-1. Đọc metadata của `FR-Mxx.md` (tên module, phiên bản, ngày lập, các mốc register căn cứ).
-2. Điền bảng metadata vào phần đầu `US-Mxx.md`.
-3. Đọc mục **4.4 Danh sách chức năng** trong FR để lấy tất cả mã `FR-Mxx-nn`.
-4. Với mỗi mã, đọc mục **5.nn** tương ứng để hiểu phạm vi và bản chất xử lý nghiệp vụ, rồi viết mô tả ngắn gọn (1–2 câu, súc tích, bao hàm bản chất nghiệp vụ và trạng thái xử lý).
-5. Ghi vào **Mục 1** của `US-Mxx.md` theo cấu trúc bảng chuẩn:
+1. Xác nhận mode module/overview/một phần; ghi rõ yêu cầu trong và ngoài scope.
+2. Kiểm tra trạng thái và phiên bản FR. Ghi nguồn, phiên bản, mốc register và
+   baseline thực tế. Chỉ đọc thêm FR cần thiết để hiểu giao tiếp.
+3. Xác định subject/boundary; phân biệt iShare, subsystem và dịch vụ ngoài.
+4. Lập danh mục actor: ID, vai trò, loại human/external-system, quan hệ với
+   boundary, nguồn. Phân biệt trạng thái/quyền với vai trò tương tác.
+5. Kiểm kê nhóm FR và từng FR chi tiết/BR còn hiệu lực. Đánh dấu mã đã bỏ có
+   bằng chứng; chưa phân rã tất cả thành UC.
+6. Tạo/cập nhật US theo template, điền metadata, bảng nguồn/actor/phạm vi.
+   Chưa có đủ dữ liệu thì ghi gap có ID, nguồn và ảnh hưởng.
 
-```markdown
-| STT | Mã chức năng | Tên chức năng con | Mô tả ngắn gọn phạm vi & nghiệp vụ |
-|:---:|:---:|---|---|
-| 1 | **FR-Mxx-01** | <tên> | <mô tả 1–2 câu súc tích> |
-...
-```
+Kiểm tra: đúng phạm vi; không thiếu nguồn; actor ngoài subject; không tự tạo
+dịch vụ/scheduler; không sửa FR để khớp mô hình. Mode overview ghi rõ danh mục
+module, không tự coi đã đặc tả chi tiết mọi UC.
 
-## Kiểm tra trước khi trình cổng
-
-- [ ] Số dòng trong bảng = số chức năng trong mục 4.4 của FR (không thiếu, không thừa).
-- [ ] Mỗi mô tả ngắn gọn, rõ ràng phạm vi, không quá dài dòng.
-- [ ] Mã chức năng đúng định dạng chuẩn `FR-Mxx-nn` (hai chữ số).
-- [ ] **Khóa chặt phạm vi:** Xác nhận danh sách này là hàng rào phạm vi (Scope Boundary) tuyệt đối; các Use Case con ở Bước 4 chỉ được lấy từ các chức năng này (giữ nguyên hoặc gộp), cấm tự suy diễn thêm.
-
-## Cổng xác nhận
-
-Gửi tin nhắn theo mẫu trong SKILL.md và chờ.
+Cập nhật tiến độ và trình cổng theo SKILL.md.
 

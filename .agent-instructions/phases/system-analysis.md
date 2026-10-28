@@ -12,7 +12,7 @@ Before you start, read [../COMMON-RULES.md](../COMMON-RULES.md). Then pick the s
 |---|---|---|
 | Interview the stakeholder, decompose modules and features, maintain the registers | [ba-interview](../skills/ba-interview/SKILL.md) | Active |
 | Write or revise the Functional Requirement (FR) document of one module (7 gated steps) | [analyzing-functional-requirements](../skills/analyzing-functional-requirements/SKILL.md) | Active |
-| Write or build the Use Case analysis (US) document for one module (7 gated steps) | [use-case-analysis](../skills/use-case-analysis/SKILL.md) | Active |
+| Identify project/module use cases and write detailed US documents (7 gated steps) | [use-case-analysis](../skills/use-case-analysis/SKILL.md) | Active |
 | Analyse dependencies between modules | `analyzing-dependencies` | Planned |
 | Assess technical feasibility | `assessing-tech-feasibility` | Planned |
 | Architecture, database schema, API contract, ADR, performance analysis | [technical-design](../skills/technical-design/SKILL.md) | Active (Phase 7 and 8) |
@@ -50,7 +50,7 @@ A requirement gap found in a later phase comes back to this phase for that scope
 | Stakeholder's reference sample for document structure | `docs/_temp/system_requirement_demo/` |
 | Registers, intake, module registry (live) | `.agents/.claude/system_analysis/output/registers/`, `.../output/phase0-intake.md` |
 | FR documents | `.agents/.claude/system_analysis/output/fr/FR-Mxx.md` (tool cache in `.../fr/.work/`) |
-| Use Case documents (US) | `docs/specs/us/US-Mxx.md` |
+| Use Case documents (US) | `docs/specs/us/US-Mxx.md`; shared project overview: `docs/specs/us/US-overview.md` |
 | Technical design outputs | `.agents/.claude/system_analysis/output/<architecture or data-model or api or adr or performance>/` |
 | Approved documents | `docs/specs/` — promoted only after stakeholder approval |
 

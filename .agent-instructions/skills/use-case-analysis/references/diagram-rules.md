@@ -1,0 +1,89 @@
+# Sơ đồ, ký pháp và render
+
+[Vietnamese Doc]
+
+Đọc ở bước 6. Mô hình hành vi/quan hệ đã thống nhất là nguồn cho các view.
+
+## Ký pháp
+
+- Actor ở ngoài boundary subject; UC trong boundary, package chỉ tổ chức nhóm.
+- Association actor–UC dùng nét liền, thường không cần mũi tên.
+- Include: nét đứt, mũi tên mở từ including → included, nhãn «include».
+- Extend: nét đứt, mũi tên mở từ extension → base, nhãn «extend».
+- Generalization: nét liền, **tam giác rỗng**, từ chuyên biệt → tổng quát;
+  áp dụng cho UC–UC hoặc actor–actor, không actor–UC.
+- UC abstract phải được đánh dấu phù hợp và có hợp đồng chung trong đặc tả.
+- Không dùng mũi tên để diễn đạt thứ tự; dùng luồng văn bản/activity khi cần.
+
+Node không có “loại include/extend” cố định: cùng UC có thể được nhiều quan hệ
+sử dụng. Màu không thay thế ký pháp; ID của node là ID UC ổn định, không đặt theo
+loại quan hệ hay UC cha.
+
+## Chọn renderer
+
+Ưu tiên PlantUML cho đầu ra UML chính thức. Ví dụ ký pháp (chỉ minh họa, không
+phải mô hình tính năng iShare):
+
+```plantuml
+@startuml
+left to right direction
+actor "Actor chính" as A
+rectangle "Subject" {
+  usecase "UC cơ sở" as Base
+  usecase "Hành vi dùng chung" as Shared
+  usecase "Phần mở rộng" as Extra
+  usecase "Phương thức cụ thể" as Specific
+}
+A -- Base
+Base ..> Shared : <<include>>
+Extra ..> Base : <<extend>>
+Specific -|> Base
+@enduml
+```
+
+Không sao chép cả bốn quan hệ vào mọi UC. Sơ đồ thật chỉ chứa quan hệ đã được
+chứng minh ở bước 4.
+
+Có thể dùng Mermaid native use case nếu runtime đã xác minh hỗ trợ
+[usecase-beta](https://mermaid.js.org/syntax/usecase.html). Ghi phiên bản và
+kiểm tra cú pháp thực tế, không suy từ hỗ trợ của một website khác. Flowchart
+Mermaid chỉ là view minh họa: mũi tên thường có nhãn generalization không tạo
+tam giác UML. Nếu dùng, ghi rõ giới hạn, không nghiệm thu là ký pháp UML chuẩn.
+
+## View và tính nhất quán
+
+- Overview dự án: actor/mục tiêu và ownership, không nhồi mọi bước.
+- Overview module: UC mức User goal, UC tổng quát khi hữu ích và actor liên quan.
+- View chi tiết: chọn tập UC/quan hệ cần giải thích; không bắt buộc mỗi UC một sơ đồ.
+- UC dùng chung giữ ID và định nghĩa; chỉ khai báo node một lần trong mỗi view.
+  Lặp cùng ID ở **các sơ đồ khác nhau** là hợp lệ.
+- Đối chiếu endpoints, chiều, nhãn, extension point với bảng quan hệ. Phát hiện
+  cycle generalization/include để review; không biến điều hướng UI thành quan hệ.
+
+## Xác minh thực tế
+
+1. Kiểm tra renderer có sẵn và phiên bản. Không tuyên bố đã render khi chỉ đọc mã.
+2. Với PlantUML jar cục bộ được cài sẵn, dùng đường dẫn thực tế:
+
+```text
+java -jar <plantuml.jar> -version
+java -jar <plantuml.jar> -checkonly <diagram.puml>
+java -jar <plantuml.jar> -tsvg <diagram.puml>
+```
+
+   Chạy ở workspace agent cho file render, không ghi rác vào docs/specs.
+3. Nếu dùng Mermaid CLI đã có, kiểm tra `mmdc --version`, render từng view
+   bằng `mmdc -i <diagram.mmd> -o <diagram.svg>`.
+4. Kiểm tra hình xuất: tiếng Việt/nhãn đủ đọc, boundary/actor đúng, đầu mũi tên,
+   không cắt nội dung hoặc chồng lấp làm sai nghĩa.
+5. Ghi lệnh, phiên bản, kết quả và vị trí hình vào bảng kiểm tra. Không có renderer:
+   ghi “chưa kiểm tra render”, nêu phần còn thiếu; không đánh dấu Đã duyệt hoặc
+   đạt QA ký pháp. Chỉ yêu cầu cài công cụ nếu thực sự cần để hoàn tất tác vụ và
+   tuân theo quyền môi trường.
+
+Tool check_us.py kiểm tra tham chiếu, không thực thi renderer hoặc chứng minh
+sơ đồ khớp hoàn toàn bảng quan hệ. Kiểm tra này là một bước riêng.
+
+Nguồn: [OMG UML](https://www.omg.org/spec/UML/2.5.1),
+[IBM Generalization](https://www.ibm.com/docs/en/dma?topic=diagrams-generalization-relationships),
+[PlantUML use case](https://plantuml.com/use-case-diagram).

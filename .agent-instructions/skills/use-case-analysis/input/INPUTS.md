@@ -1,38 +1,48 @@
-# Đầu vào của skill use-case-analysis
+# Đầu vào và baseline
 
-Mọi đường dẫn tính từ gốc repo iShare.
+[Vietnamese Doc]
 
-## Tệp bắt buộc
+Lệnh chạy từ repository root. Link trong US tương đối với file chứa link,
+không gắn ổ đĩa cụ thể hoặc dùng file URI.
 
-| Tệp | Vai trò | Bắt buộc |
+| Chế độ | Nguồn | Đầu ra |
 |---|---|---|
-| `docs/specs/fr/FR-Mxx.md` | Tài liệu Yêu cầu Chức năng của module cần phân tích | **Có** |
+| Module | docs/specs/fr/FR-Mxx.md có trạng thái Đã chốt | docs/specs/us/US-Mxx.md |
+| Toàn dự án | Tập FR đã chốt thuộc phạm vi yêu cầu | docs/specs/us/US-overview.md |
+| Một phần/review | Tập mã/tài liệu được chỉ định, ghi rõ giới hạn | Vị trí yêu cầu hoặc workspace draft |
 
-Thiếu tệp FR → dừng và báo người dùng. Không làm tiếp.
+Thiếu nguồn hoặc nguồn chưa chốt: thống kê phần đã có, ghi điểm cần làm rõ;
+không chốt đặc tả phần thiếu. Không tự mở rộng scope khi đọc FR liên module.
 
-## Các mục cần đọc trong FR-Mxx.md
+## Đọc theo nội dung, không hard-code số mục
 
-| Mục FR | Nội dung | Dùng ở Bước |
-|---|---|---|
-| Metadata (bảng đầu) | Tên module, phiên bản, ngày lập | 1 — điền metadata US |
-| Mục 1 (Mục đích) | Phạm vi và mục tiêu của module | 1 — hiểu bối cảnh |
-| Mục 4.2 (Vai trò) | Danh sách Actor và mô tả | 3 — xác định Actor |
-| Mục 4.3 (Ma trận quyền) | Actor nào có quyền gì | 3 — liên kết Actor với UC |
-| Mục 4.4 (Danh sách chức năng) | Mã và tên các chức năng con `FR-Mxx-nn` | 1 — bảng Mục 1 |
-| Mục 5.x (Yêu cầu chi tiết) | Mô tả chi tiết từng chức năng và Business Rules | 2, 3, 4 |
-| Mục 5.17 / BR (Business Rules) | Quy tắc nghiệp vụ | 4 — điều kiện UC con |
+- Metadata, mục đích và trong/ngoài phạm vi: subject và baseline.
+- Vai trò, ma trận quyền, giao tiếp dịch vụ ngoài: actor chính/hỗ trợ, quyền.
+- Danh sách chức năng: kiểm kê nhóm FR.
+- Yêu cầu chi tiết, BR, trạng thái, giao tiếp module, TBD và lịch sử sửa:
+  xây luồng, tác vụ tự động, quyền xem và truy vết.
+- FR được trích và review-cross-module.md: đối chiếu giao tiếp khi cần;
+  báo cáo cũ không thay FR hiện hành.
+- US-overview.md và US module đã có: tái sử dụng actor/UC ID, ownership.
+  Chưa có thì lập danh mục trong scope, không tự viết lại các module khác.
 
-## Tệp tham khảo (không bắt buộc, giúp hiểu ngữ cảnh)
+Ghi đường dẫn và phiên bản từng FR đã dùng vào bảng nguồn. Tài liệu phương
+pháp không cung cấp tính năng sản phẩm. Mâu thuẫn FR/register phát hiện sau
+phải quay về phân tích yêu cầu, không tự bỏ qua FR đã chốt.
 
-| Tệp | Dùng để |
-|---|---|
-| `docs/specs/us/US-M01.md` | Tài liệu mẫu đầu ra — đọc trước khi bắt đầu module đầu tiên |
-| `docs/_temp/iShare_modules.md` | Bức tranh toàn cảnh các module, phụ thuộc |
+## ID và phạm vi
 
-## Cách xác định số module
+- UC mới: UC-Mxx-nnn; actor chung: ACT-nnn; tự động: AUT-Mxx-nnn;
+  quy tắc: RULE-Mxx-nnn. Overview tham chiếu UC của module sở hữu.
+- Giữ mã cũ đã duyệt; cần đổi thì lập old → new và xử lý tham chiếu trong
+  scope được yêu cầu. Không tái đánh số toàn dự án.
+- Viết đầy đủ mọi mã nguồn, ví dụ FR-M01-07.01, FR-M01-07.02;
+  không dùng dạng rút gọn 07.01–07.02.
+- Phạm vi nhóm FR gồm các mã con còn hiệu lực. BR được dùng và FR liên
+  module vẫn phải tham chiếu chính xác.
+- Ghi riêng mã đã bỏ cùng bằng chứng, không tạo lại hành vi.
+- Các mã AUT/RULE là nơi đặc tả hành vi, không phải lý do miễn bao phủ.
 
-- Từ tên file: `FR-M02.md` → module `M02`, số `02`.
-- Tài liệu US đầu ra sẽ là: `docs/specs/us/US-M02.md`.
-- Mã UC Chính: `UC-C01`, `UC-C02`, ... (đặt lại từ đầu cho mỗi module).
-- Mã UC con: `UC-01.1`, `UC-01.2`, ... (số đầu là số thứ tự UC Chính).
+Dùng [template hiện hành](../output/us-template.md);
+không lấy quan hệ trong mẫu M01 cũ làm đáp án mặc định.
 
