@@ -7,7 +7,7 @@
 1. **Đủ lớn & Độc lập:** Đại diện cho một mục tiêu nghiệp vụ trọn vẹn (User Goal) của người dùng hoặc hệ thống.
 2. **Có tương tác giao diện trực tiếp:** Bắt đầu bằng hành động chủ động của Actor trên giao diện (UI), kết thúc khi đạt kết quả mong đợi.
    - *Lưu ý về Actor:* Điểm khởi đầu phải là thao tác chủ động từ UI (ví dụ bấm nút Đăng nhập, gửi Form). Một UC Chính có thể tiếp nhận nhiều loại Actor với kết quả điều phối khác nhau (ví dụ: tại Cổng đăng nhập, `Guest` hợp lệ được vào trang chủ, còn `Banned User` bị điều hướng cô lập sang Màn hình khóa — cả hai vẫn thuộc chung một quy trình nghiệp vụ Đăng nhập).
-3. **Bao hàm chức năng con:** Chứa các bước thực hiện mang tính nghiệp vụ bắt buộc hoặc tùy chọn mở rộng (ít nhất 2 chức năng con hoặc 1 quy trình nghiệp vụ nhiều bước phức tạp).
+3. **Bao hàm chức năng con trong phạm vi FR:** Chứa các bước thực hiện mang tính nghiệp vụ bắt buộc hoặc tùy chọn mở rộng (ít nhất 2 chức năng con hoặc 1 quy trình nghiệp vụ nhiều bước phức tạp) đã được xác định trong tài liệu FR. Tuyệt đối không bao hàm các hành vi ngoài phạm vi FR.
 
 ## Quy trình thực hiện
 

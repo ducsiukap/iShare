@@ -14,11 +14,13 @@
      + `Generalization (Kế thừa / Chuyên biệt hóa)`: Use Case con là một dạng cụ thể của Use Case cha.
      + `Nền tảng hạ tầng kỹ thuật` hoặc `Daemon chạy tự động`: Dành cho `*(Tiến trình ngầm)*`.
      + `Logic kiểm soát hiển thị`: Dành cho `*(Tầng hiển thị)*`.
-3. **Quy tắc định dạng nhiều dòng trong một ô (Dùng thẻ `<br>`):**
-   - Khi một mã FR span nhiều UC Chính hoặc tạo ra nhiều UC con, dùng thẻ `<br>` để chia dòng tương ứng giữa các cột:
+3. **Quy tắc xử lý ánh xạ (Giữ nguyên, Gộp, và Rẽ nhánh):**
+   - **Giữ nguyên (1-to-1):** 1 mã FR ánh xạ trực tiếp tới đúng 1 UC con.
+   - **Gộp lại (N-to-1):** Khi nhiều mã FR liên quan được gộp thành 1 UC con đơn nhiệm (ví dụ `FR-M02-04.01 - 04.05` gộp thành `UC-02.5: Đổi ảnh đại diện`), từng dòng mã FR trong ma trận đều ghi nhận ánh xạ tới UC con chung này.
+   - **Rẽ nhánh / Nhiều vai trò (1-to-N):** Khi 1 mã FR sinh ra nhiều UC con, dùng thẻ `<br>` để chia dòng tương ứng giữa các cột:
      + Nếu 1 FR thuộc 2 UC Chính: Cột "Thuộc Use Case Chính" ghi `**UC-C01**<br>**UC-C02**`, các cột tiếp theo chia dòng tương ứng.
      + Nếu 1 FR sinh ra nhiều UC con: Liệt kê các UC con trên từng dòng nối bằng `<br>`, cột "Vai trò quan hệ" cũng chia các dòng tương ứng bằng `<br>`.
-4. Rà soát đảm bảo 100% mã FR trong mục 4.4 đều có mặt trong bảng, không sót bất kỳ mã nào.
+4. Rà soát đảm bảo 100% mã FR trong mục 4.4 đều có mặt trong bảng, không sót bất kỳ mã nào, và KHÔNG có bất kỳ Use Case con nào không xuất phát từ mã FR (chống Use Case con mồ côi / tự bịa).
 
 ## Cấu trúc bảng ma trận truy vết chuẩn (Mục 4.1 — Chuẩn vàng US-M01)
 

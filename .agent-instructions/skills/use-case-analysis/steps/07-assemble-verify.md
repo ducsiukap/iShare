@@ -15,10 +15,12 @@
 - [ ] Mục 4.2: Sơ đồ Use Case Chi tiết Toàn Module bao quát tất cả Actor, UC Chính và UC con.
 
 ### 2. Chuẩn mực UML & Tính logic Nghiệp vụ (UML Semantics & Logic)
-- [ ] Quy tắc đặt tên Use Case: 100% Use Case Chính và Use Case con đều tuân thủ cấu trúc `[1 Động từ duy nhất] + [Cụm danh từ]`, tuyệt đối không dùng nhiều động từ nối nhau ("và", "&", "/", "hoặc").
-- [ ] Quan hệ `<<include>>`: Thể hiện đúng các bước nghiệp vụ tiên quyết, bắt buộc phải có. Chiều mũi tên từ UC Chính sang UC con.
-- [ ] Quan hệ `<<extend>>`: Thể hiện đúng các nhánh tùy chọn, mở rộng, phương thức thay thế, ngoại lệ hoặc nhánh nghiệp vụ song song. Chiều mũi tên từ UC con về UC Chính.
-- [ ] Quan hệ `Generalization`: Thể hiện đúng quan hệ cha - con (chuyên biệt hóa / kế thừa). Chiều mũi tên nét liền từ UC con chuyên biệt về UC cha tổng quát.
+- [ ] **100% trong phạm vi FR (Không vẽ thêm Use Case con):** Tất cả các Use Case con đều có căn cứ từ tài liệu FR (giữ nguyên từ chức năng FR hoặc gộp từ các chức năng liên quan). Tuyệt đối KHÔNG có Use Case con nào do agent tự suy diễn hoặc bịa ra ngoài phạm vi tài liệu FR.
+- [ ] **Đơn nghiệp vụ (Single Business Responsibility):** Mỗi Use Case con (dù giữ nguyên hay gộp) chỉ đảm nhiệm đúng duy nhất 1 nghiệp vụ xác định cụ thể, không đa nhiệm, không gom tạp nham các nghiệp vụ khác biệt.
+- [ ] **Quy tắc đặt tên Use Case:** 100% Use Case Chính và Use Case con đều tuân thủ cấu trúc `[1 Động từ duy nhất] + [Cụm danh từ]`, tuyệt đối không dùng nhiều động từ nối nhau ("và", "&", "/", "hoặc").
+- [ ] **Quan hệ `<<include>>`:** Thể hiện đúng các bước nghiệp vụ tiên quyết, bắt buộc phải có. Chiều mũi tên từ UC Chính sang UC con.
+- [ ] **Quan hệ `<<extend>>`:** Thể hiện đúng các nhánh tùy chọn, mở rộng, phương thức thay thế, ngoại lệ hoặc nhánh nghiệp vụ song song. Chiều mũi tên từ UC con về UC Chính.
+- [ ] **Quan hệ `Generalization`:** Thể hiện đúng quan hệ cha - con (chuyên biệt hóa / kế thừa). Chiều mũi tên nét liền từ UC con chuyên biệt về UC cha tổng quát.
 - [ ] Các Actor gắn với use case đều là tác nhân chủ động trực tiếp thực hiện hoặc tương tác.
 - [ ] Không biến các tiến trình ngầm (cron job, token rotation) hoặc tầng hiển thị (bộ lọc ẩn/hiện) thành use case tương tác người dùng.
 

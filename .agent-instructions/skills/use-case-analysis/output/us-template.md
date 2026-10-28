@@ -94,7 +94,9 @@ flowchart LR
 
 ## 3. Xác định Use Case con Chi tiết và Mối quan hệ với Use Case Chính
 
-Phần này phân tích chi tiết quan hệ giữa các Use Case Chính và các Use Case con theo đúng 3 loại quan hệ chuẩn UML:
+Toàn bộ các Use Case con được phân rã strictly trong phạm vi các chức năng đã xác định trong tài liệu `FR-{{MODULE_CODE}}.md` (bằng cách giữ nguyên chức năng độc lập hoặc gộp các chức năng liên quan mật thiết); mỗi Use Case con đảm nhiệm đúng duy nhất 1 nghiệp vụ xác định cụ thể và tuân thủ quy tắc 1 động từ duy nhất.
+
+Mối quan hệ giữa Use Case Chính và Use Case con được phân loại theo đúng 3 loại quan hệ chuẩn UML:
 - **`<<include>>` (Bao hàm Bắt buộc):** Bước nghiệp vụ tiên quyết, bắt buộc phải có để Use Case chính thành công. (Mũi tên nét đứt từ Chính sang Con).
 - **`<<extend>>` (Mở rộng Tùy chọn / Rẽ nhánh):** Bước mở rộng, tính năng tùy chọn hoặc nhánh ngoại lệ. (Mũi tên nét đứt từ Con sang Chính).
 - **`Generalization` (Kế thừa / Cha - Con):** Use Case con là một dạng chuyên biệt hóa cụ thể của Use Case cha tổng quát (*is-a-kind-of*). (Mũi tên nét liền từ Con sang Cha).

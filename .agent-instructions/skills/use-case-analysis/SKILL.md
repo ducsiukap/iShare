@@ -24,36 +24,41 @@ lý do nghiệp vụ rõ ràng.
 
 ## Nguyên tắc cốt lõi
 
-1. **Chỉ bám FR.** Nguồn duy nhất là tài liệu `FR-Mxx.md`. Không thêm Use Case
-   hay hành vi mà FR không mô tả.
-2. **Không đề xuất ngoài phạm vi.** Mọi Use Case phải ánh xạ tới ít nhất một
-   mã chức năng `FR-Mxx-nn` hoặc một Business Rule `BR-Mxx-nn`.
-3. **Quy tắc đặt tên Use Case (Bắt buộc, chuẩn BA chuyên nghiệp):**
+1. **Chỉ bám FR.** Nguồn duy nhất là tài liệu `FR-Mxx.md`. Không thêm Use Case hay hành vi mà FR không mô tả.
+2. **Không đề xuất ngoài phạm vi.** Mọi Use Case (cả Chính và Con) phải ánh xạ tới ít nhất một mã chức năng `FR-Mxx-nn` hoặc một Business Rule `BR-Mxx-nn`. Tuyệt đối cấm tự suy diễn, sáng tạo thêm Use Case hay chức năng ngoài phạm vi tài liệu FR.
+3. **Quy tắc xác định Use Case con (Bắt buộc — Tuyệt đối trong phạm vi FR & Đơn nghiệp vụ):**
+   - **Giới hạn phạm vi nghiêm ngặt:** Việc xác định các Use Case con **CHỈ ĐƯỢC PHÉP TRONG PHẠM VI** các chức năng đã xác định trong tài liệu `FR-Mxx.md` tương ứng. Tuyệt đối không được vượt quá phạm vi; nghiêm cấm agent tự ý suy diễn hoặc "nghĩ ra" thêm các Use Case con không có căn cứ trong FR (chống Out-of-Scope / Hallucination).
+   - **Hai cơ chế hình thành Use Case con hợp lệ từ FR:**
+     + **Cơ chế 1 — Giữ nguyên (1-to-1):** Giữ nguyên một chức năng FR (hoặc chức năng chi tiết `FR-Mxx-yy.zz` đã nêu trong FR) làm một Use Case con độc lập.
+     + **Cơ chế 2 — Gộp lại (N-to-1):** Có thể gộp các chức năng FR lại với nhau thành 1 Use Case con nếu chúng có liên quan mật thiết và cùng thực hiện trong một chuỗi thao tác/nghiệp vụ gắn kết.
+   - **Tính đơn nhất về nghiệp vụ (Single Business Responsibility):** Dù giữ nguyên hay gộp, **mỗi Use Case con BẮT BUỘC chỉ được thực hiện ĐÚNG DUY NHẤT 1 nghiệp vụ xác định cụ thể**. Tuyệt đối không gom các nghiệp vụ khác biệt, rời rạc hoặc có mục đích hành vi khác nhau vào một Use Case con tạp nham.
+   - **Truy vết minh bạch:** Mọi Use Case con đều phải ghi rõ căn cứ mã `FR-Mxx-nn` (khi gộp thì ghi đủ các mã thành phần, ví dụ `FR-M02-04.01 - 04.05`).
+4. **Quy tắc đặt tên Use Case (Bắt buộc, chuẩn BA chuyên nghiệp):**
    - **Cấu trúc ngữ pháp:** `[Động từ duy nhất] + [Cụm danh từ bổ nghĩa]` (Verb + Noun Phrase). Cả tên tiếng Việt và tiếng Anh đi kèm đều tuân thủ nguyên tắc này.
-   - **Chỉ chứa ĐÚNG 1 động từ:** Tuyệt đối **KHÔNG** dùng nhiều động từ ghép nối nhau qua các từ liên kết như "và", "với", "hoặc", "&", "/", dấu gạch chéo hay gạch nối.
+   - **Chỉ chứa ĐÚNG 1 động từ:** Tuyệt đối **KHÔNG** dùng nhiều động từ ghép nối nhau qua các từ liên kết như "và", "với", "hoặc", "&", "/", dấu gạch chéo hay gạch nối. Động từ duy nhất này phản ánh chính xác nghiệp vụ đơn nhất của Use Case đó.
      - *Sai:* `Khám phá & Xem trang hồ sơ`, `Chỉnh sửa và tùy biến hồ sơ`, `Quản lý & khôi phục mật khẩu`, `Tải lên & đổi avatar`, `Tìm kiếm và gợi ý người dùng`.
      - *Đúng:* `Xem hồ sơ người dùng`, `Cập nhật hồ sơ cá nhân`, `Quản lý mật khẩu`, `Đổi ảnh đại diện`, `Gợi ý người dùng`.
    - **Mang tính con người (Human-centric), tường minh, đúng nghiệp vụ:**
      - Tên phản ánh đúng mục tiêu hành vi mà người dùng muốn đạt được (Actor Goal) theo góc nhìn tự nhiên của con người.
      - Dùng các động từ chuẩn mực của BA: `Xem`, `Cập nhật`, `Lưu`, `Bỏ lưu`, `Đổi`, `Xác minh`, `Đăng nhập`, `Đăng ký`, `Gửi`, `Nhắc tên`, `Khôi phục`, `Vô hiệu hóa`, `Kích hoạt`.
      - Áp dụng nghiêm ngặt cho cả Use Case Chính (`UC-Cnn`) và Use Case con (`UC-nn.n`).
-4. **100% truy vết.** Mọi mã `FR-Mxx-nn` trong mục 4.4 của tài liệu FR phải
-   xuất hiện trong ma trận truy vết (Mục 4 của US). Không bỏ sót.
-5. **Ba loại quan hệ chuẩn UML giữa các Use Case:**
+5. **100% truy vết.** Mọi mã `FR-Mxx-nn` trong mục 4.4 của tài liệu FR phải xuất hiện trong ma trận truy vết (Mục 4 của US). Không bỏ sót.
+6. **Ba loại quan hệ chuẩn UML giữa các Use Case:**
    - **`<<include>>` (Bao hàm bắt buộc):** Use Case chính bắt buộc phải thực hiện Use Case con để hoàn thành. Thiếu nó quy trình không thể kết thúc. (Chiều mũi tên nét đứt từ Chính sang Con: `UC_Chinh -.->|"<<include>>"| UC_Con`).
    - **`<<extend>>` (Mở rộng tùy chọn / Rẽ nhánh):** Use Case con mở rộng hoặc bổ sung hành vi cho Use Case chính tại điểm mở rộng khi thỏa mãn điều kiện nhất định. Use Case chính vẫn có thể hoàn tất mà không cần Use Case con này. (Chiều mũi tên nét đứt từ Con sang Chính: `UC_Con -.->|"<<extend>>"| UC_Chinh`).
    - **`Generalization` (Kế thừa / Khái quát hóa / Quan hệ Cha - Con):** Use Case con là một dạng chuyên biệt hóa cụ thể của Use Case cha tổng quát (*"is-a-kind-of"*). Use Case con kế thừa toàn bộ mục tiêu, quyền truy cập và hành vi cơ bản của cha, đồng thời chuyên biệt hóa cơ chế thực hiện.
      *Ví dụ kinh điển:* Use Case cha **"Đăng nhập hệ thống"** khái quát hóa cho 2 Use Case con: **"Đăng nhập bằng Email/Password"** và **"Đăng nhập bằng Google OAuth"**; hoặc **"Đăng ký tài khoản"** là cha của **"Đăng ký bằng Email"** và **"Đăng ký bằng Google OAuth"**. (Trong sơ đồ Mermaid dùng mũi tên nét liền từ Con trỏ về Cha: `UC_Con -->|"<<generalization>>"| UC_Cha`, tương ứng mũi tên tam giác rỗng trong UML).
-6. **Phân định rõ chức năng không phải Use Case:**
+7. **Phân định rõ chức năng không phải Use Case:**
    - **`*(Tiến trình ngầm)*`:** Các tác vụ daemon, cron job, batch job, rotation token nền tảng kỹ thuật tự động chạy (ví dụ `FR-M01-06`, `FR-M01-12`).
    - **`*(Tầng hiển thị)*`:** Các logic kiểm soát hiển thị thụ động, filter dữ liệu (ví dụ `FR-M01-13`).
    Cả hai nhóm này KHÔNG biến thành Use Case tương tác của Actor mà được ghi nhận vai trò đặc thù trong ma trận truy vết (Mục 4.1).
-7. **Quan hệ nhiều-nhiều giữa FR và Use Case:**
-   - Một mã `FR-Mxx-nn` có thể tham gia vào **nhiều Use Case Chính** (ví dụ `FR-M01-04` vừa thuộc `UC-C01` vừa thuộc `UC-C02`).
-   - Một mã `FR-Mxx-nn` có thể sinh ra **nhiều Use Case con** với các vai trò khác nhau (cả `<<include>>`, `<<extend>>`, `Generalization`).
-8. **Mermaid phải render.** Áp dụng nghiêm túc Quy tắc Mermaid ở mục cuối file này. Sơ đồ có lỗi cú pháp là lỗi nghiêm trọng.
-9. **Ngôn ngữ:** Tài liệu viết bằng tiếng Việt, thuật ngữ kỹ thuật giữ nguyên tiếng Anh (`username`, `JWT`, `OAuth`, `ACTIVE`, `<<include>>`, `<<extend>>`, `Generalization`, v.v.).
-10. **Một bước một lượt.** Mỗi lượt làm đúng một bước, rồi dừng chờ xác nhận.
+8. **Quan hệ linh hoạt giữa FR và Use Case:**
+   - Khi gộp: Nhiều chức năng con FR liên quan có thể gom thành 1 Use Case con đơn nhiệm (N-to-1).
+   - Khi tách/phân nhánh: Một mã `FR-Mxx-nn` có thể sinh ra nhiều Use Case con với các vai trò khác nhau (cả `<<include>>`, `<<extend>>`, `Generalization`).
+   - Khi chia sẻ: Một mã `FR-Mxx-nn` có thể tham gia vào nhiều Use Case Chính (ví dụ `FR-M01-04` vừa thuộc `UC-C01` vừa thuộc `UC-C02`).
+9. **Mermaid phải render.** Áp dụng nghiêm túc Quy tắc Mermaid ở mục cuối file này. Sơ đồ có lỗi cú pháp là lỗi nghiêm trọng.
+10. **Ngôn ngữ:** Tài liệu viết bằng tiếng Việt, thuật ngữ kỹ thuật giữ nguyên tiếng Anh (`username`, `JWT`, `OAuth`, `ACTIVE`, `<<include>>`, `<<extend>>`, `Generalization`, v.v.).
+11. **Một bước một lượt.** Mỗi lượt làm đúng một bước, rồi dừng chờ xác nhận.
 
 ## Bắt đầu hoặc tiếp tục
 

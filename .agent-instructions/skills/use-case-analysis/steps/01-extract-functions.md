@@ -22,6 +22,7 @@
 - [ ] Số dòng trong bảng = số chức năng trong mục 4.4 của FR (không thiếu, không thừa).
 - [ ] Mỗi mô tả ngắn gọn, rõ ràng phạm vi, không quá dài dòng.
 - [ ] Mã chức năng đúng định dạng chuẩn `FR-Mxx-nn` (hai chữ số).
+- [ ] **Khóa chặt phạm vi:** Xác nhận danh sách này là hàng rào phạm vi (Scope Boundary) tuyệt đối; các Use Case con ở Bước 4 chỉ được lấy từ các chức năng này (giữ nguyên hoặc gộp), cấm tự suy diễn thêm.
 
 ## Cổng xác nhận
 
