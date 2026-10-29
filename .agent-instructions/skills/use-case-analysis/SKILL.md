@@ -34,6 +34,9 @@ khi sản xuất US; khi review hoặc sửa chính bộ skill, không chạy c�
   hệ thống khi được yêu cầu. Module chưa phân tích ghi còn thiếu, không tự bịa UC.
 - Dùng [output/us-template.md](output/us-template.md). Tái sử dụng ID đã duyệt.
   US-M01–M04 hiện có cần được đối chiếu; **không phải chuẩn vàng**.
+- Mỗi sơ đồ bàn giao **chỉ một file `.svg`** trong thư mục sơ đồ của tài liệu.
+  Không xuất kèm `.puml`, `.mmd` hoặc `.png`; mã nguồn và ảnh phục vụ kiểm tra
+  nếu cần chỉ là file tạm trong workspace agent. US nhúng/link tới SVG đó.
 - Ví dụ có giới hạn phạm vi: [references/worked-example.md](references/worked-example.md).
 
 ## Quyết định phân tích

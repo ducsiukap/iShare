@@ -16,6 +16,10 @@ module và đặc tả nghiệp vụ phục vụ thiết kế, kiểm thử.
 `docs/specs/us/US-Mxx.md`; tổng quan: `docs/specs/us/US-overview.md`.
 Phạm vi một phần được ghi rõ, không báo hoàn tất toàn module.
 
+Mỗi sơ đồ chỉ bàn giao **một file SVG** và nhúng/link trong tài liệu US.
+Không tạo bộ ba SVG + PNG + PlantUML; file nguồn/render trung gian chỉ nằm
+trong workspace agent khi cần để tạo hoặc kiểm tra SVG.
+
 ## Quy trình
 
 1. Baseline, boundary và actor.

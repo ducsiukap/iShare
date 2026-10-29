@@ -277,6 +277,8 @@ không đưa sub vào hình tổng quan và không tự tạo core khác với n
 
 Mỗi view ghi subject, scope, ID và renderer; dùng ký pháp UML phù hợp.
 Không dựng mọi loại quan hệ chỉ để đủ mẫu.
+Mỗi view chỉ có một file SVG bàn giao: nhúng/link SVG trong mục tương ứng.
+Không thêm bản PNG hoặc file nguồn `.puml`/`.mmd` vào bộ đầu ra.
 
 ## 7. Kiểm tra và phê duyệt
 
@@ -289,6 +291,8 @@ system. result: pass / pending / fail; format: plantuml / mermaid / illustrative
 Mỗi core có một dòng detail: focus=ID core, members=core và các sub/tham chiếu
 trong hình (ngăn bằng dấu phẩy). View core/system dùng focus=-, members ghi
 các ID xuất hiện. Thêm hình phụ ở QA, không tạo hai dòng detail chính cùng focus.
+artifact là đường dẫn tới file `.svg` duy nhất của view; format mô tả công cụ/
+ngôn ngữ dựng hình, không yêu cầu bàn giao file nguồn tương ứng.
 Ghi phiên bản renderer và vị trí hình xuất; không có sơ đồ thì ghi diagram_check
 not-applicable kèm lý do trong bảng QA. Không dùng not-applicable để bỏ qua
 sơ đồ bắt buộc của tài liệu tổng quan/module hoàn chỉnh.

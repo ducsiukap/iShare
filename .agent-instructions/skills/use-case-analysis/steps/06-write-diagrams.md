@@ -28,6 +28,9 @@
    Cặp không có relation ghi kết luận bên dưới hình, không nối mũi tên giả.
    Mỗi view detail ghi focus=ID core, members=core và các sub/tham chiếu xuất hiện.
 6. Xác minh renderer, chạy parser/render, kiểm hình và ghi QA theo diagram-rules.
+   Mỗi view chỉ bàn giao một file `.svg`; bảng diagrams trỏ tới SVG đó.
+   File `.puml`/`.mmd` và ảnh kiểm tra trung gian nếu cần nằm ở workspace agent,
+   không xuất kèm trong thư mục sơ đồ và không thêm link tải chúng vào US.
    Không có renderer thì ghi chưa kiểm, không tuyên bố pass.
 7. Đặt link từ từng module tới overview khi đã tồn tại, và từ overview về
    phân rã/đặc tả module. Chỉ cập nhật file ngoài scope nếu được yêu cầu.

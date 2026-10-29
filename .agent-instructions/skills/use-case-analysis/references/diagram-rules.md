@@ -72,6 +72,16 @@ tam giác UML. Nếu dùng, ghi rõ giới hạn, không nghiệm thu là ký ph
 - Đối chiếu endpoints, chiều, nhãn, extension point với bảng quan hệ. Phát hiện
   cycle generalization/include để review; không biến điều hướng UI thành quan hệ.
 
+## Định dạng bàn giao
+
+- Mỗi sơ đồ/view chỉ bàn giao **một file `.svg`** trong thư mục sơ đồ của US.
+  Tài liệu US nhúng/link SVG; cột artifact trỏ tới chính file này.
+- Không tạo kèm `.png`, `.puml` hoặc `.mmd` trong thư mục đầu ra. File nguồn
+  cần cho renderer nằm trong workspace agent; chỉ chuyển SVG đã kiểm tra
+  sang vị trí bàn giao. Không thêm link tải file trung gian vào US.
+- Ưu tiên kiểm tra hình SVG trực tiếp. Nếu công cụ kiểm tra cần ảnh raster,
+  chỉ tạo ảnh tạm trong workspace agent, không bàn giao thêm bản PNG.
+
 ## Xác minh thực tế
 
 1. Kiểm tra renderer có sẵn và phiên bản. Không tuyên bố đã render khi chỉ đọc mã.
@@ -83,7 +93,8 @@ java -jar <plantuml.jar> -checkonly <diagram.puml>
 java -jar <plantuml.jar> -tsvg <diagram.puml>
 ```
 
-   Chạy ở workspace agent cho file render, không ghi rác vào docs/specs.
+   Chạy trong workspace agent: `<diagram.puml>` và SVG render tại đây là file
+   làm việc. Sau kiểm tra, chỉ chuyển SVG tới thư mục sơ đồ của tài liệu.
 3. Nếu dùng Mermaid CLI đã có, kiểm tra `mmdc --version`, render từng view
    bằng `mmdc -i <diagram.mmd> -o <diagram.svg>`.
 4. Kiểm tra hình xuất: tiếng Việt/nhãn đủ đọc, boundary/actor đúng, đầu mũi tên,
