@@ -6,6 +6,9 @@ Dùng bảng marker của [template](../output/us-template.md) và
 [công cụ](../tools/README.md).
 
 1. Lập bảng kiểm kê nhóm FR để biết chức năng nào thuộc scope.
+   Bổ sung đường truy vết FR → UC con → UC chính → tổng quan hệ thống;
+   mục tổng quan trỏ về tài liệu module nguồn. Mọi sub có core trong bảng
+   decomposition; FR biểu diễn bằng BR/AUT/bước vẫn ghi core liên quan nếu có.
 2. Với **từng FR chi tiết và BR còn hiệu lực** trong scope, ghi một hoặc nhiều
    target là anchor UC/bước/nhánh/điều kiện/quy tắc/AUT, mức Đủ/Một phần/Chưa
    và lý do. Không coi đủ nhóm FR là đủ hành vi chi tiết.

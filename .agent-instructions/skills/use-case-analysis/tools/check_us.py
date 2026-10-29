@@ -46,11 +46,13 @@ def table(text: str, marker: str) -> list[dict[str, str]]:
         "document": ("key", "value"),
         "sources": ("path", "version", "role"),
         "actors": ("id", "name", "kind", "parent", "boundary_reason", "sources"),
-        "catalog": ("id", "name", "level", "primary", "supporting", "owner", "anchor", "sources"),
+        "catalog": ("id", "name", "tier", "level", "primary", "supporting", "owner", "anchor", "sources"),
+        "decomposition": ("core", "sub", "rationale", "sources"),
+        "module-models": ("module", "path", "baseline"),
         "extension-points": ("id", "base", "at", "description"),
         "relations": ("type", "source", "target", "at", "condition", "return_to", "rationale", "sources"),
         "trace": ("requirement", "target", "coverage", "note"),
-        "diagrams": ("id", "format", "renderer", "result", "artifact"),
+        "diagrams": ("id", "view", "focus", "members", "format", "renderer", "result", "artifact"),
     }
     expected_columns = ("key", "value") if marker.startswith("spec ") else schemas.get(marker, ())
     if not set(expected_columns).issubset(headers):
@@ -229,6 +231,10 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
             errors.append(f"Empty or duplicate UC ID: {value!r}")
     for row in catalog:
         uid = row.get("id", "")
+        if row.get("tier") not in ("core", "sub"):
+            errors.append(f"{uid}: tier must be core or sub")
+        if mode == "overview" and row.get("tier") != "core":
+            errors.append(f"{uid}: system overview may contain only module core UCs")
         if row.get("level") not in ("Summary", "User goal", "Subfunction"):
             errors.append(f"{uid}: invalid goal level")
         if row.get("owner") not in modules:
@@ -240,7 +246,9 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
                 errors.append(f"{uid}: unknown actor {actor}")
         if row.get("level") == "User goal" and not row.get("primary"):
             errors.append(f"{uid}: User goal needs a primary actor")
-        if mode != "overview" and row.get("owner") in modules and row.get("level") != "Summary":
+        if mode != "overview" and row.get("owner") in modules and (
+            row.get("tier") == "sub" or row.get("level") != "Summary"
+        ):
             try:
                 spec = fields(table(text, f"spec {uid}"))
             except ValueError as exc:
@@ -252,6 +260,76 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
             for field in ("primary", "supporting", "level"):
                 if clean(spec.get(field, "")) != row.get(field, ""):
                     errors.append(f"{uid}: catalog/spec mismatch for {field}")
+
+    # Output hierarchy is separate from UML behavioral relationships.
+    by_id = {row.get("id", ""): row for row in catalog}
+    decomposition = table(text, "decomposition")
+    mapped_core, mapped_sub, seen_mapping = set(), set(), set()
+    for row in decomposition:
+        core, sub = row.get("core", ""), row.get("sub", "")
+        context = f"decomposition {core}->{sub}"
+        if by_id.get(core, {}).get("tier") != "core":
+            errors.append(f"{context}: source must be a declared core UC")
+        if by_id.get(sub, {}).get("tier") != "sub":
+            errors.append(f"{context}: target must be a declared sub UC")
+        if (core, sub) in seen_mapping:
+            errors.append(f"{context}: duplicate mapping")
+        seen_mapping.add((core, sub))
+        if not row.get("rationale"):
+            errors.append(f"{context}: missing contribution rationale")
+        refs(row.get("sources", ""), context)
+        mapped_core.add(core)
+        mapped_sub.add(sub)
+    for module in modules:
+        cores = {r["id"] for r in catalog if r.get("owner") == module and r.get("tier") == "core"}
+        subs = {r["id"] for r in catalog if r.get("owner") == module and r.get("tier") == "sub"}
+        if not cores:
+            errors.append(f"{module}: missing core UC tier")
+        if mode != "overview":
+            if not subs:
+                errors.append(f"{module}: missing sub UC tier")
+            for core in sorted(cores - mapped_core):
+                errors.append(f"{core}: core has no sub UC decomposition")
+            for sub in sorted(subs - mapped_sub):
+                errors.append(f"{sub}: orphan sub UC has no core")
+
+    if mode == "overview":
+        models = table(text, "module-models")
+        model_ids = [r.get("module", "") for r in models]
+        for module, count in Counter(model_ids).items():
+            if count > 1 or module not in modules:
+                errors.append(f"Invalid/duplicate module-models entry: {module}")
+        for module in set(modules) - set(model_ids):
+            (errors if final else warnings).append(f"Missing module model: {module}")
+        for row in models:
+            model_path = (repo / row.get("path", "")).resolve()
+            module = row.get("module", "")
+            if not model_path.is_relative_to(repo.resolve()) or model_path == path.resolve():
+                errors.append(f"Invalid module model path: {row.get('path')}")
+                continue
+            if not model_path.is_file():
+                (errors if final else warnings).append(f"Missing module model file: {model_path}")
+                continue
+            try:
+                model_text = model_path.read_text(encoding="utf-8-sig")
+                model_meta = fields(table(model_text, "document"))
+                module_catalog = table(model_text, "catalog")
+            except (OSError, ValueError) as exc:
+                errors.append(f"{module}: invalid module model: {exc}")
+                continue
+            if model_meta.get("mode") != "module" or items(model_meta.get("modules", "")) != [module]:
+                errors.append(f"{module}: source must be its full module model")
+            if row.get("baseline") != model_meta.get("source_baseline"):
+                errors.append(f"{module}: stale module-models baseline")
+            original = {r["id"]: r for r in module_catalog
+                        if r.get("tier") == "core" and r.get("owner") == module}
+            selected = {r["id"]: r for r in catalog if r.get("owner") == module}
+            if set(original) != set(selected):
+                errors.append(f"{module}: overview core IDs differ from module model")
+            for uid in set(original) & set(selected):
+                for field in ("name", "owner", "level", "primary", "supporting", "sources"):
+                    if original[uid].get(field) != selected[uid].get(field):
+                        errors.append(f"{uid}: overview {field} differs from module model")
 
     points = table(text, "extension-points")
     point_ids = [row.get("id", "") for row in points]
@@ -351,6 +429,29 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
         if meta.get("semantic_review") != "pass":
             errors.append("Final review needs recorded semantic review")
         diagram_rows = table(text, "diagrams")
+        required_views = {"core", "detail"} if mode == "module" else {"system"} if mode == "overview" else set()
+        actual_views = {row.get("view", "") for row in diagram_rows}
+        for view in sorted(required_views - actual_views):
+            errors.append(f"Final {mode} document is missing {view} diagram view")
+        detail_focus = [row.get("focus", "") for row in diagram_rows if row.get("view") == "detail"]
+        for focus, count in Counter(detail_focus).items():
+            if count > 1:
+                errors.append(f"{focus}: multiple primary detail diagrams")
+        if mode == "module":
+            core_ids = {r["id"] for r in catalog if r.get("tier") == "core" and r.get("owner") in modules}
+            for focus in sorted(core_ids - set(detail_focus)):
+                errors.append(f"{focus}: missing per-core detail diagram")
+        for row in diagram_rows:
+            members = set(items(row.get("members", "")))
+            for uid in members - set(uc_ids):
+                errors.append(f"Diagram {row.get('id')}: unknown UC member {uid}")
+            if row.get("view") == "detail":
+                focus = row.get("focus", "")
+                if by_id.get(focus, {}).get("tier") != "core":
+                    errors.append(f"Diagram {row.get('id')}: focus must be a core UC")
+                required_members = {focus} | {r.get("sub", "") for r in decomposition if r.get("core") == focus}
+                for uid in sorted(required_members - members):
+                    errors.append(f"Diagram {row.get('id')}: missing detail UC member {uid}")
         has_diagrams = bool(re.search(r"(?m)^\x60{3}(plantuml|mermaid)\s*$", text))
         if (mode in ("module", "overview") or has_diagrams) and (
             meta.get("diagram_check") != "pass" or not diagram_rows

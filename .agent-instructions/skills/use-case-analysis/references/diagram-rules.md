@@ -36,13 +36,17 @@ rectangle "Subject" {
 }
 A -- Base
 Base ..> Shared : <<include>>
-Extra ..> Base : <<extend>>
+Extra ..> Shared : <<extend>>
 Specific -|> Base
 @enduml
 ```
 
 Không sao chép cả bốn quan hệ vào mọi UC. Sơ đồ thật chỉ chứa quan hệ đã được
 chứng minh ở bước 4.
+Trong ví dụ, Base là core, các UC còn lại là sub: Base include Shared là cạnh
+chính–con; Extra extend Shared là cạnh con–con. Shared là sub của core nhưng
+đồng thời là base của quan hệ extend. Đây là ví dụ ký pháp, không phải yêu cầu
+iShare; trong mô hình thật phải có guard/extension point và luồng tương ứng.
 
 Có thể dùng Mermaid native use case nếu runtime đã xác minh hỗ trợ
 [usecase-beta](https://mermaid.js.org/syntax/usecase.html). Ghi phiên bản và
@@ -52,9 +56,17 @@ tam giác UML. Nếu dùng, ghi rõ giới hạn, không nghiệm thu là ký ph
 
 ## View và tính nhất quán
 
-- Overview dự án: actor/mục tiêu và ownership, không nhồi mọi bước.
-- Overview module: UC mức User goal, UC tổng quát khi hữu ích và actor liên quan.
-- View chi tiết: chọn tập UC/quan hệ cần giải thích; không bắt buộc mỗi UC một sơ đồ.
+- Overview dự án: chỉ UC chính (core) lấy từ module, actor và ownership; giữ
+  ID/tên, link về module, không đưa sub lên sơ đồ tổng quan toàn hệ thống.
+- Overview module: UC chính và actor của module, làm đầu vào ghép toàn hệ thống.
+- Chi tiết module: **mỗi core có một sơ đồ riêng**, gồm node core, toàn bộ sub
+  theo decomposition, actor và các quan hệ core–sub/sub–sub. Package có thể hỗ
+  trợ bố cục nhưng không thay node core. Không cần mỗi sub một sơ đồ riêng.
+- Trong mỗi view, lọc bảng relation theo các endpoint thuộc tập node xuất hiện
+  và vẽ đủ các cạnh đó, kể cả sub–sub. Quan hệ tới UC dùng chung ngoài nhóm thì
+  thêm node tham chiếu cùng ID; không đổi đích về core để đơn giản hóa hình.
+- Decomposition xác định sub thuộc core nào; relation UML xác định mũi tên
+  hành vi. Không vẽ kế thừa chỉ để biểu diễn hai tầng đầu ra.
 - UC dùng chung giữ ID và định nghĩa; chỉ khai báo node một lần trong mỗi view.
   Lặp cùng ID ở **các sơ đồ khác nhau** là hợp lệ.
 - Đối chiếu endpoints, chiều, nhãn, extension point với bảng quan hệ. Phát hiện

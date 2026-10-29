@@ -2,8 +2,9 @@
 
 [Vietnamese Doc]
 
-Phân tích FR đã duyệt thành danh mục use case tổng quan và đặc tả chi tiết
-phục vụ thiết kế, kiểm thử iShare.
+Phân tích FR đã duyệt để xác định **UC chính và UC con trên từng module**.
+UC chính dùng ghép sơ đồ tổng quan toàn hệ thống; UC con dùng xây sơ đồ chi tiết
+module và đặc tả nghiệp vụ phục vụ thiết kế, kiểm thử.
 
 ## Cách gọi
 
@@ -18,11 +19,12 @@ Phạm vi một phần được ghi rõ, không báo hoàn tất toàn module.
 ## Quy trình
 
 1. Baseline, boundary và actor.
-2. Mục tiêu, mức UC và danh mục.
-3. Trigger, điều kiện, luồng chính/thay thế/ngoại lệ, kết quả.
-4. Quyết định tách UC và quan hệ UML.
+2. UC chính và UC con ứng viên của từng module.
+3. Quy trình UC chính và đặc tả từng UC con.
+4. Chốt bảng UC chính → UC con, tái sử dụng và quan hệ UML.
 5. Truy vết chi tiết và liên module.
-6. Sơ đồ và kiểm tra render.
+6. Tổng quan từ UC chính; mỗi UC chính có một sơ đồ chi tiết riêng gồm chính
+   UC đó, các UC con và quan hệ chính–con/con–con; kiểm tra render.
 7. Review, trình duyệt cuối.
 
 Mỗi bước có xác nhận; tiến độ/baseline nằm trong US. Checklist kỹ thuật
@@ -30,11 +32,13 @@ hoàn tất không tự có nghĩa stakeholder đã phê duyệt.
 
 ## Các nguyên tắc
 
-- Không có số UC cố định hoặc yêu cầu dùng đủ ba loại quan hệ.
+- Mỗi module có hai tầng core/sub và mapping đầy đủ; không ấn định số UC
+  chính hoặc ép dùng đủ ba loại quan hệ UML.
 - FR có thể là bước, điều kiện, quy tắc hoặc tác vụ tự động; không cần mỗi FR
-  thành UC riêng. “UC chính/con” là cách tổ chức view, không mặc định cây UML.
+  thành UC riêng. Phân rã chính–con bắt buộc nhưng không tự tạo mũi tên UML.
 - Viết luồng trước quan hệ. Nhánh điều kiện không tự đồng nghĩa extend.
-- Giữ ID ổn định xuyên view; đọc và kiểm tra ý nghĩa nguồn.
+- Tổng quan hệ thống lấy nguyên core từ module, giữ ID/tên/owner và link về
+  module. Không đưa sub lên sơ đồ tổng quan hệ thống.
 - Thiếu yêu cầu được ghi để làm rõ, không tự bổ sung trong US.
 
 ## Tài liệu

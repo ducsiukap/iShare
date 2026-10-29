@@ -28,12 +28,35 @@ Không dùng số FR, số màn hình hoặc độ phức tạp tối thiểu đ
 Hành trình nhiều phiên có thể hợp lệ; ghi ranh giới và mức mục tiêu. Không bắt
 buộc UI: tác nhân ngoài có thể tương tác bằng sự kiện/dữ liệu.
 
+## UC chính, UC con và hai loại ánh xạ
+
+Mỗi module có UC chính (tier=core) để đưa lên tổng quan hệ thống, và UC con
+(tier=sub) để xây sơ đồ chi tiết module. Core có mục tiêu/năng lực bao quát,
+giá trị và ranh giới rõ; sub cụ thể hóa thành mục tiêu/hành vi gắn kết.
+Sub có thể ở mức User goal, không chỉ Subfunction; tier độc lập với level.
+
+Mỗi core có ít nhất một sub, mỗi sub có ít nhất một core. Không quota số lượng.
+Sub dùng chung có một ID, nhiều mapping. Mapping chính–con không tự sinh
+include/extend/generalization; có thể nhóm bằng package hoặc bảng phân rã.
+
+Ví dụ M01: core “Quản lý phiên truy cập” bao quát sub Đăng nhập và Đăng xuất
+với mục tiêu quản lý quyền truy cập theo phiên. Đăng xuất vẫn là UC cụ thể
+độc lập trong chi tiết, không extend lần Đăng nhập đã kết thúc. “Quản lý mật
+khẩu” có thể là core mức Summary nếu nêu rõ giá trị bảo vệ/khôi phục quyền
+truy cập; sub Đổi mật khẩu và Lấy lại mật khẩu không vì thế kế thừa nhau hoặc
+buộc chạy trong cùng một lần thực hiện.
+
+System overview lấy nguyên core từ US module, không thay bằng bộ summary mới.
+Module chưa có mô hình ghi thiếu, không tự bịa. Chi tiết module gồm sub/actor
+theo decomposition, giữ core làm ngữ cảnh.
+
 ## Giữ trong luồng hay tách UC?
 
 Với từng hành vi, xác định mục tiêu/kết quả, nguồn và cách biểu diễn đơn giản
 nhất vẫn bảo toàn yêu cầu:
 
-- UC độc lập cho mục tiêu riêng; không bắt buộc có UC con.
+- UC con độc lập về mục tiêu trong chi tiết; không bắt buộc phân rã tiếp cấp
+  thứ ba. UC chính vẫn phải có mapping đến UC con.
 - Bước/subflow cho thao tác thuộc cùng công việc.
 - Alternative/exception flow cho phương thức khác, lỗi hoặc từ chối.
 - Tiền/hậu điều kiện, BR, quy tắc hiển thị/dữ liệu.
@@ -63,6 +86,17 @@ Kết quả thất bại chỉ ghi bảo đảm có căn cứ FR. Thiếu quy t�
 rollback/retry có ảnh hưởng nghiệp vụ thì ghi gap, không tự điền yêu cầu mới.
 
 ## Quan hệ
+
+### Rà quan hệ cho từng UC chính
+
+Lấy tập core và các sub từ decomposition, đọc luồng/hợp đồng rồi xét cả:
+(a) core–sub; (b) sub–sub. Xác định source/target theo hành vi, không theo tầng.
+Sub có thể là UC bao hàm, UC cơ sở hoặc UC tổng quát của một quan hệ khác.
+Không bắt buộc mọi cặp có cạnh. Quan hệ có bằng chứng vào bảng relation; cặp
+đã xem xét nhưng không có quan hệ ghi lý do/cách thể hiện. Sơ đồ chi tiết riêng
+của core giữ node core, toàn bộ sub và mọi cạnh đã xác định giữa các node đó.
+Với UC dùng chung ngoài nhóm, thêm node tham chiếu cùng ID để thể hiện đúng
+đích cạnh; không chuyển đích về core cho sơ đồ thành hình sao.
 
 ### Association
 

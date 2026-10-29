@@ -7,8 +7,8 @@ không gắn ổ đĩa cụ thể hoặc dùng file URI.
 
 | Chế độ | Nguồn | Đầu ra |
 |---|---|---|
-| Module | docs/specs/fr/FR-Mxx.md có trạng thái Đã chốt | docs/specs/us/US-Mxx.md |
-| Toàn dự án | Tập FR đã chốt thuộc phạm vi yêu cầu | docs/specs/us/US-overview.md |
+| Module | FR-Mxx.md có trạng thái Đã chốt | US-Mxx.md: core, sub, phân rã, tổng quan và chi tiết |
+| Toàn dự án | FR đã chốt và danh mục core trong US module | US-overview.md: tổng hợp core module thành sơ đồ toàn hệ thống |
 | Một phần/review | Tập mã/tài liệu được chỉ định, ghi rõ giới hạn | Vị trí yêu cầu hoặc workspace draft |
 
 Thiếu nguồn hoặc nguồn chưa chốt: thống kê phần đã có, ghi điểm cần làm rõ;
@@ -23,7 +23,8 @@ không chốt đặc tả phần thiếu. Không tự mở rộng scope khi đ�
   xây luồng, tác vụ tự động, quyền xem và truy vết.
 - FR được trích và review-cross-module.md: đối chiếu giao tiếp khi cần;
   báo cáo cũ không thay FR hiện hành.
-- US-overview.md và US module đã có: tái sử dụng actor/UC ID, ownership.
+- US-overview.md và US module đã có: lấy core module làm đầu vào tổng quan
+  hệ thống, tái sử dụng actor/UC ID và owner, trỏ về phân rã và đặc tả sub.
   Chưa có thì lập danh mục trong scope, không tự viết lại các module khác.
 
 Ghi đường dẫn và phiên bản từng FR đã dùng vào bảng nguồn. Tài liệu phương
@@ -31,6 +32,9 @@ pháp không cung cấp tính năng sản phẩm. Mâu thuẫn FR/register phát
 phải quay về phân tích yêu cầu, không tự bỏ qua FR đã chốt.
 
 ## ID và phạm vi
+
+- Catalog ghi tier=core/sub riêng với level; decomposition ghi core, sub, lý
+  do và nguồn. ID không tự thay đổi khi bổ sung tier.
 
 - UC mới: UC-Mxx-nnn; actor chung: ACT-nnn; tự động: AUT-Mxx-nnn;
   quy tắc: RULE-Mxx-nnn. Overview tham chiếu UC của module sở hữu.

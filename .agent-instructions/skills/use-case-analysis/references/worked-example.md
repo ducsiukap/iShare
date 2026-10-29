@@ -2,15 +2,17 @@
 
 [Vietnamese Doc]
 
-Đây là ví dụ phương pháp của skill 2.0, không phải tài liệu được stakeholder
-duyệt và không đại diện toàn bộ M01. Chỉ xét FR-M01-07 và hai yêu cầu con.
+Đây là ví dụ phương pháp của skill 2.2, không phải tài liệu được stakeholder
+duyệt và không đại diện toàn bộ M01. Chỉ đặc tả FR-M01-07 và hai yêu cầu con;
+UC chính quản lý phiên được ghi để minh họa ngữ cảnh phân rã, không nhận là
+đã phân tích đủ các UC con Đăng nhập/Duy trì phiên của toàn bộ M01.
 Không thêm bước xác nhận đăng xuất vì nguồn không yêu cầu.
 
 <!-- uc:document -->
 | key | value |
 |---|---|
 | document_id | EXAMPLE-M01-LOGOUT |
-| skill_version | 2.0 |
+| skill_version | 2.2 |
 | mode | partial |
 | modules | M01 |
 | scope | FR-M01-07 |
@@ -44,9 +46,21 @@ trên thiết bị hiện tại. Không mô tả cách lưu token.
 ## Danh mục
 
 <!-- uc:catalog -->
-| id | name | level | primary | supporting | owner | anchor | sources |
-|---|---|---|---|---|---|---|---|
-| UC-M01-001 | Đăng xuất | User goal | ACT-001 | - | M01 | #uc-m01-001 | FR-M01-07.01, FR-M01-07.02 |
+| id | name | tier | level | primary | supporting | owner | anchor | sources |
+|---|---|---|---|---|---|---|---|---|
+| UC-M01-020 | Quản lý phiên truy cập | core | Summary | ACT-001 | - | M01 | #uc-m01-020 | FR-M01-05, FR-M01-06, FR-M01-07 |
+| UC-M01-001 | Đăng xuất | sub | User goal | ACT-001 | - | M01 | #uc-m01-001 | FR-M01-07.01, FR-M01-07.02 |
+
+<!-- uc:decomposition -->
+| core | sub | rationale | sources |
+|---|---|---|---|
+| UC-M01-020 | UC-M01-001 | Kết thúc phiên hiện tại là một mục tiêu cụ thể của quản lý phiên | FR-M01-07.01, FR-M01-07.02 |
+
+<a id="uc-m01-020"></a>
+
+UC chính Quản lý phiên truy cập đặt việc bắt đầu, duy trì và kết thúc phiên
+vào bối cảnh quản lý quyền truy cập của chủ tài khoản. Ở ví dụ một phần này
+chỉ đặc tả UC con Đăng xuất, không có mũi tên UML phát sinh từ bảng mapping.
 
 ID minh họa, không tự dùng để đổi ID tài liệu M01 đã có.
 
@@ -99,8 +113,8 @@ Không có quan hệ UC–UC cần thiết trong phạm vi ví dụ.
 | FR-M01-07.02 | #uc-m01-001-main-2 | Đủ | Bảo toàn phiên thiết bị khác |
 
 <!-- uc:diagrams -->
-| id | format | renderer | result | artifact |
-|---|---|---|---|---|
+| id | view | focus | members | format | renderer | result | artifact |
+|---|---|---|---|---|---|---|---|
 
 Ví dụ đặc tả nhỏ này không chứa sơ đồ. Tài liệu module đầy đủ vẫn phải có các
 view theo bước 6.

@@ -17,7 +17,7 @@ def marked(name, headers, rows=()):
 
 def document():
     metadata = {
-        "document_id": "US-M01", "skill_version": "2.0", "mode": "module",
+        "document_id": "US-M01", "skill_version": "2.2", "mode": "module",
         "modules": "M01", "scope": "ALL", "status": "Chờ duyệt",
         "current_step": "7", "completed_steps": "1, 2, 3, 4, 5, 6, 7",
         "approved_steps": "1, 2, 3, 4, 5, 6", "source_baseline": "M01 1.0",
@@ -31,13 +31,20 @@ def document():
     result += marked("actors", ["id", "name", "kind", "parent", "boundary_reason", "sources"], [
         ["ACT-001", "External user", "human", "-", "Outside subject", "FR-M01-01"]
     ])
-    catalog = []
+    catalog = [["UC-M01-000", "Core capability", "core", "Summary", "ACT-001", "-",
+                "M01", "#uc-m01-000", "FR-M01-01"]]
     for number in (1, 2):
         uid = f"UC-M01-00{number}"
-        catalog.append([uid, f"Goal {number}", "User goal", "ACT-001", "-", "M01",
+        catalog.append([uid, f"Goal {number}", "sub", "User goal", "ACT-001", "-", "M01",
                         f"#{uid.lower()}", "FR-M01-01.01"])
-    result += marked("catalog", ["id", "name", "level", "primary", "supporting", "owner",
+    result += marked("catalog", ["id", "name", "tier", "level", "primary", "supporting", "owner",
                                  "anchor", "sources"], catalog)
+    result += marked("decomposition", ["core", "sub", "rationale", "sources"], [
+        ["UC-M01-000", f"UC-M01-00{number}", "Contributes to core goal", "FR-M01-01.01"]
+        for number in (1, 2)
+    ])
+    result += marked("module-models", ["module", "path", "baseline"])
+    result += '<a id="uc-m01-000"></a>\n<a id="uc-m01-000-main-1"></a>\n<a id="uc-m01-000-main-2"></a>\n'
     for number in (1, 2):
         uid = f"UC-M01-00{number}"
         result += f'<a id="{uid.lower()}"></a>\n'
@@ -55,8 +62,9 @@ def document():
         [code, "#uc-m01-001-main-1", "Đủ", "Synthetic mapping"]
         for code in ["FR-M01-01", "FR-M01-01.01", "FR-M01-01.02", "BR-M01-01"]
     ])
-    result += marked("diagrams", ["id", "format", "renderer", "result", "artifact"], [
-        ["D1", "plantuml", "RENDER-STUB", "pass", "STUB.svg"]
+    result += marked("diagrams", ["id", "view", "focus", "members", "format", "renderer", "result", "artifact"], [
+        ["D1", "core", "-", "UC-M01-000", "plantuml", "RENDER-STUB", "pass", "STUB-core.svg"],
+        ["D2", "detail", "UC-M01-000", "UC-M01-000, UC-M01-001, UC-M01-002", "plantuml", "RENDER-STUB", "pass", "STUB-detail.svg"]
     ])
     return result
 
@@ -108,11 +116,82 @@ class USChecks(unittest.TestCase):
         self.assertTrue(self.check(text, scope=["FR-M01-77"])[0])
 
     def test_overview_only_checks_groups(self):
-        text = document().replace("| mode | module |", "| mode | overview |")
-        text = text.replace("| FR-M01-01.02 | #uc-m01-001-main-1 | Đủ | Synthetic mapping |\n", "")
+        text = self.overview()
+        text = text.replace("| FR-M01-01.02 | #uc-m01-000 | Đủ | Synthetic mapping |\n", "")
         errors, warnings, _ = self.check(text)
         self.assertEqual(errors, [])
         self.assertTrue(any("OVERVIEW" in value for value in warnings))
+
+    def overview(self):
+        module_path = self.repo / "docs/specs/us/US-M01.md"
+        module_path.parent.mkdir(parents=True, exist_ok=True)
+        module_path.write_text(document(), encoding="utf-8")
+        text = document().replace("| mode | module |", "| mode | overview |")
+        text = "\n".join(line for line in text.splitlines()
+                         if not line.startswith(("| UC-M01-001 | Goal", "| UC-M01-002 | Goal",
+                                                 "| UC-M01-000 | UC-M01-00"))) + "\n"
+        text = text.replace("#uc-m01-001-main-1 | Đủ", "#uc-m01-000 | Đủ")
+        text = text.replace("| D1 | core |", "| D1 | system |")
+        text = "\n".join(line for line in text.splitlines() if not line.startswith("| D2 | detail |")) + "\n"
+        text = text.replace('\n\n<a id="uc-m01-000">',
+                            '\n| M01 | docs/specs/us/US-M01.md | M01 1.0 |\n\n<a id="uc-m01-000">')
+        return text
+
+    def test_module_requires_both_tiers_and_full_mapping(self):
+        text = document().replace("| core | Summary |", "| unknown | Summary |")
+        errors = self.check(text)[0]
+        self.assertTrue(any("missing core UC tier" in e for e in errors))
+        self.assertTrue(any("declared core" in e for e in errors))
+        text = "\n".join(line for line in document().splitlines()
+                         if not line.startswith("| UC-M01-000 | UC-M01-00"))
+        errors = self.check(text)[0]
+        self.assertTrue(any("core has no sub" in e for e in errors))
+        self.assertTrue(any("orphan sub" in e for e in errors))
+
+    def test_shared_sub_uses_one_id_without_uml_inheritance(self):
+        text = document().replace(
+            '<a id="uc-m01-000"></a>',
+            '<a id="uc-m01-000"></a>\n<a id="uc-m01-009"></a>'
+        )
+        text = text.replace("\n\n<!-- uc:decomposition -->",
+                            "\n| UC-M01-009 | Other capability | core | Summary | ACT-001 | - | M01 | #uc-m01-009 | FR-M01-01 |\n\n<!-- uc:decomposition -->")
+        text = text.replace("\n\n<!-- uc:module-models -->",
+                            "\n| UC-M01-009 | UC-M01-001 | Shared contribution | FR-M01-01.01 |\n\n<!-- uc:module-models -->")
+        text = text.rstrip() + "\n| D3 | detail | UC-M01-009 | UC-M01-009, UC-M01-001 | plantuml | RENDER-STUB | pass | STUB-other.svg |\n"
+        self.assertEqual(self.check(text)[0], [])
+
+    def test_each_core_detail_must_show_core_and_all_subs(self):
+        text = document().replace("UC-M01-000, UC-M01-001, UC-M01-002 | plantuml",
+                                  "UC-M01-001 | plantuml")
+        errors = self.check(text)[0]
+        for uid in ("UC-M01-000", "UC-M01-002"):
+            self.assertTrue(any("missing detail UC member " + uid in e for e in errors))
+        text = document().replace("| D2 | detail | UC-M01-000 |", "| D2 | detail | UC-M01-001 |")
+        errors = self.check(text)[0]
+        self.assertTrue(any("focus must be a core" in e for e in errors))
+        self.assertTrue(any("missing per-core detail" in e for e in errors))
+
+    def test_relations_allow_core_sub_and_sub_sub_in_same_detail(self):
+        text = self.relation("include", start="UC-M01-000", end="UC-M01-001",
+                             at="#uc-m01-000-main-1", return_to="#uc-m01-000-main-2")
+        text = text.replace("\n\n<!-- uc:trace -->",
+                            "\n| extend | UC-M01-002 | UC-M01-001 | EP1 | guard | #uc-m01-001-main-2 | Sub extends sub | FR-M01-01.01 |\n\n<!-- uc:trace -->")
+        self.assertEqual(self.check(text)[0], [])
+
+    def test_overview_rejects_subs_and_core_drift(self):
+        text = self.overview().replace("| Core capability |", "| Changed core |")
+        self.assertTrue(any("overview name differs" in e for e in self.check(text)[0]))
+        text = self.overview().replace("| core | Summary |", "| sub | Summary |")
+        self.assertTrue(any("only module core" in e for e in self.check(text)[0]))
+        text = self.overview().replace("docs/specs/us/US-M01.md | M01 1.0",
+                                       "docs/specs/us/US-M01.md | old")
+        self.assertTrue(any("stale module-models" in e for e in self.check(text)[0]))
+
+    def test_complete_module_needs_core_and_detail_views(self):
+        text = document().replace("| D2 | detail |", "| D2 | core |")
+        self.assertTrue(any("missing detail diagram" in e for e in self.check(text)[0]))
+        text = self.overview().replace("| D1 | system |", "| D1 | core |")
+        self.assertTrue(any("missing system diagram" in e for e in self.check(text)[0]))
 
     def test_retired_unknown_and_stale_sources(self):
         text = document().replace("FR-M01-01.01", "FR-M01-02").replace(

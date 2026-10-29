@@ -6,6 +6,9 @@
    nguồn đổi và mọi quyết định cần làm rõ được xử lý/ghi giới hạn.
 2. Review actor/boundary/mức mục tiêu; không quota UC, không phân rã thao tác
    UI máy móc; owner/ID dùng chung nhất quán.
+   Mỗi module đủ core và sub, mỗi core có sub, không sub mồ côi; decomposition
+   có lý do/nguồn và tách biệt relation UML. Overview chỉ gồm core lấy nguyên
+   từ các module nguồn, không thiếu/thừa hoặc đổi ID/tên/owner.
 3. Review hợp đồng từng UC chi tiết: trigger, điều kiện, luồng chính, lỗi/thay
    thế, kết quả; mọi nhánh có điểm rẽ và nơi tiếp tục/kết thúc.
 4. Review từng relation theo modeling-rules: điểm gọi include, extension point/
@@ -17,6 +20,11 @@
    Công cụ này không render sơ đồ và không chứng minh đầy đủ ngữ nghĩa.
 7. Kiểm parser, hình xuất và consistency sơ đồ theo diagram-rules; ghi trạng
    thái thực tế, không đánh dấu pass nếu chưa thực hiện.
+   Kiểm các view bắt buộc: core cho tổng quan module/hệ thống; sub cho chi
+   tiết module. Có link overview ↔ module và truy vết chính–con.
+   Có đúng một view detail chính cho từng core, trong hình có node core và
+   đủ sub liên quan. Đối chiếu từng cạnh core–sub/sub–sub của bảng relation
+   với hình; không bỏ cạnh giữa các sub hoặc vẽ thêm cạnh chưa phân tích.
 8. Kiểm link tương đối, ngôn ngữ, trường còn trống và tiến độ. Không ghi metadata
    tên người thực hiện giả hoặc thời điểm phê duyệt không có bằng chứng.
 
