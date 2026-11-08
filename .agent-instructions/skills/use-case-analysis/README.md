@@ -58,3 +58,10 @@ hoàn tất không tự có nghĩa stakeholder đã phê duyệt.
 US-M01–M04 cũ cần review trước khi dùng làm ví dụ; cập nhật skill không tự
 cho phép viết lại các tài liệu này.
 
+## Bước tiếp theo: scenario cho từng luồng nghiệp vụ
+
+Khi đã có FR + US, dùng [scenarios](../scenarios/SKILL.md)
+để kiểm kê các nhóm UC chi tiết và xây dựng scenario sáu phần cho từng luồng
+nghiệp vụ, với dữ liệu minh họa và nhánh ngoại lệ đầy đủ. Skill này giữ mô
+hình/ID của US, không thay thế quy trình phân tích use case hoặc tự phê duyệt US.
+

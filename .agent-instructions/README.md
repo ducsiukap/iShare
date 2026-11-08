@@ -28,6 +28,7 @@ Not sure which phase? Writing or fixing code → Coding. Producing visual design
 | Interview the stakeholder, maintain registers | [ba-interview](./skills/ba-interview/SKILL.md) | System Analysis |
 | Write or revise one module's FR document (7 gated steps) | [analyzing-functional-requirements](./skills/analyzing-functional-requirements/SKILL.md) · [user guide](./skills/analyzing-functional-requirements/README.md) | System Analysis |
 | Identify project/module use cases and write detailed specifications with UML and traceability (7 gated steps) | [use-case-analysis](./skills/use-case-analysis/SKILL.md) · [user guide](./skills/use-case-analysis/README.md) | System Analysis |
+| Turn module FR + US into six-part business scenarios with complete exception paths (4 steps) | [scenarios](./skills/scenarios/SKILL.md) · [user guide](./skills/scenarios/README.md) | System Analysis |
 | Architecture, database, API, ADR, performance | [technical-design](./skills/technical-design/SKILL.md) | System Analysis (Phase 7, 8) |
 
 Planned: `analyzing-dependencies`, `assessing-tech-feasibility`.
@@ -48,6 +49,7 @@ Planned: `analyzing-dependencies`, `assessing-tech-feasibility`.
 │   ├── ba-interview/
 │   ├── analyzing-functional-requirements/
 │   ├── use-case-analysis/
+│   ├── scenarios/
 │   └── technical-design/
 ```
 
