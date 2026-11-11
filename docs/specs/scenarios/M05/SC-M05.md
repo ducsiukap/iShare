@@ -1,6 +1,6 @@
 # Kịch bản nghiệp vụ — M05 Topic & Tag
 
-[Vietnamese Doc] — 2026-11-09 — Skill scenarios v1.3.
+[Vietnamese Doc] — Tái kiểm 11/11/2026 — Skill scenarios v1.4.
 
 Mục đích: từ FR/US triển khai các chức năng actor thực hiện hoàn chỉnh với iShare thành scenario sáu phần. Boundary là toàn iShare; M01/M03/M06/M07/M08/M10/M13/M14 là phần nội bộ SYSTEM. ACT-006 là dịch vụ AI ngoài hệ thống hỗ trợ theo yêu cầu tác giả, không phải actor khởi tạo BF.
 
@@ -18,11 +18,11 @@ Mục đích: từ FR/US triển khai các chức năng actor thực hiện hoà
 |---|---|
 | module | M05 |
 | scope | ALL |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | docs/specs/scenarios/M05 |
 | status | Đang soạn |
 | completed_steps | 1, 2, 3, 4 |
-| date | 2026-11-09 |
+| date | 2026-11-11 |
 | approval_evidence | - |
 
 
@@ -163,7 +163,7 @@ Gán và chốt Topic cho bài viết của mình — BF-M05-001. UC owner: [UC-
 
 #### 2. Actor thực hiện
 
-ACT-002 — User — có phiên là actor chính. ACT-006 là dịch vụ ngoài hỗ trợ trong các nhánh gợi ý, không quyết định Topic cuối; M13 vẫn là SYSTEM. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-002 — User — có phiên là actor chính. ACT-006 là dịch vụ ngoài hỗ trợ trong các nhánh gợi ý, không quyết định Topic cuối; M13 vẫn là SYSTEM. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -236,6 +236,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E35 | user-choice | M3 | Sau gợi ý hợp lệ, tác giả gửi tập cuối có 0 Topic không hợp lệ | E35.1 | FR-M05-02.01, BR-M05-10, FR-M05-02.02, FR-M05-02.05, FR-M05-02.15, FR-M05-02.16, BR-M05-11, BR-M05-12, BR-M05-17, BR-M05-18, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-05.01, FR-M13-05.02, FR-M05-02.03, FR-M05-02.19, BR-M05-13, BR-M05-14, FR-M05-03.11, FR-M05-02.04, FR-M05-01.03, FR-M05-01.04, BR-M05-03, FR-M05-02.12, BR-M05-16 |
 | E36 | user-choice | M3 | Sau gợi ý hợp lệ, tác giả gửi tập cuối có 4 Topic không hợp lệ | E36.1 | FR-M05-02.01, BR-M05-10, FR-M05-02.02, FR-M05-02.05, FR-M05-02.15, FR-M05-02.16, BR-M05-11, BR-M05-12, BR-M05-17, BR-M05-18, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-05.01, FR-M13-05.02, FR-M05-02.03, FR-M05-02.19, BR-M05-13, BR-M05-14, FR-M05-03.11, FR-M05-02.04, FR-M05-01.03, FR-M05-01.04, BR-M05-03, FR-M05-02.12, BR-M05-16 |
 | E37 | user-choice | M3 | Gợi ý đã lỗi thời, tác giả yêu cầu lại khi công tắc gợi ý đang tắt rồi chọn thủ công | E37.1 | FR-M05-02.01, BR-M05-10, FR-M05-02.02, FR-M05-02.05, FR-M05-02.15, FR-M05-02.16, BR-M05-11, BR-M05-12, BR-M05-17, BR-M05-18, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-05.01, FR-M13-05.02, FR-M05-02.03, FR-M05-02.19, BR-M05-13, BR-M05-14, FR-M05-03.11, FR-M05-02.09, FR-M05-02.10, FR-M05-02.17, FR-M13-01.09, FR-M05-01.02, FR-M05-02.13, BR-M05-15, BR-M05-16 |
+| E38 | system | M1 | ACT-001 — Guest chưa có phiên thử gán/đổi Topic. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E38.1 | FR-M05-01.08 |
+| E39 | system | M1 | ACT-001 — Guest yêu cầu gợi ý Topic. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E39.1 | FR-M05-02.18 |
 
 
 <!-- sc:branch SC-M05-001 E1 -->
@@ -633,24 +635,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E37.10 | SYSTEM | Hệ thống kiểm tập Topic cuối, lưu Hướng nghiệp và trả kết quả phân loại; không ghi phản hồi vì không có lượt gần nhất còn hiệu lực. | P501.Topic={Hướng nghiệp}; phản hồi=không; M03 tiếp nhận Chờ duyệt | END:SUCCESS | FR-M05-01.02, FR-M05-02.13, BR-M05-15, BR-M05-16 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên thử gán/đổi Topic. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E38 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên thử gán/đổi Topic. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-001 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu gán/đổi Topic cho bài. | Chưa đăng nhập; không mượn phiên của tác giả | V1.2 | FR-M05-01.08 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác phân loại của Guest; không lưu thay đổi hoặc tự đăng nhập giúp. | Không ghi Topic/Tag từ yêu cầu này | END:REJECTED | FR-M05-01.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu gợi ý Topic. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M05-001 V2 -->
+<!-- sc:branch SC-M05-001 E38 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-001 | Guest yêu cầu Gợi ý topic. | Chưa đăng nhập; title/body đủ 20 từ cũng không cấp quyền | V2.2 | FR-M05-02.18 |
-| V2.2 | SYSTEM | Hệ thống từ chối, không gọi AI hoặc tự chọn Topic. | Không có gợi ý và không ghi phản hồi | END:REJECTED | FR-M05-02.18 |
+| --- | --- | --- | --- | --- | --- |
+| E38.1 | ACT-001 | Guest yêu cầu gán/đổi Topic cho bài. | Chưa đăng nhập; không mượn phiên của tác giả | E38.2 | FR-M05-01.08 |
+| E38.2 | SYSTEM | Hệ thống từ chối thao tác phân loại của Guest; không lưu thay đổi hoặc tự đăng nhập giúp. | Không ghi Topic/Tag từ yêu cầu này | END:REJECTED | FR-M05-01.08 |
+
+
+**E39 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu gợi ý Topic. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M05-001 E39 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E39.1 | ACT-001 | Guest yêu cầu Gợi ý topic. | Chưa đăng nhập; title/body đủ 20 từ cũng không cấp quyền | E39.2 | FR-M05-02.18 |
+| E39.2 | SYSTEM | Hệ thống từ chối, không gọi AI hoặc tự chọn Topic. | Không có gợi ý và không ghi phản hồi | END:REJECTED | FR-M05-02.18 |
 
 
 <!-- sc:end SC-M05-001 -->
@@ -667,7 +669,7 @@ Gắn và chốt Tag tự do cho bài viết của mình — BF-M05-002. UC owne
 
 #### 2. Actor thực hiện
 
-ACT-002 — User — có phiên là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-002 — User — có phiên là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -719,6 +721,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E14 | user-choice | M1 | Trạng thái bài chuyển sang không cho sửa sau khi đã mở sửa hợp lệ | E14.1 | FR-M03-11.01, FR-M05-01.06, FR-M05-03.10, FR-M03-11.07 |
 | E15 | system | M4 | Phiên đã hết hiệu lực và không làm mới được tại thời điểm ghi | E15.1 | FR-M01-06.04 |
 | E16 | user-choice | M1 | Sửa Tag khác trong khi bài đang giữ liên kết với Tag bị vô hiệu hóa | E16.1 | FR-M05-03.10, FR-M05-04.05, FR-M05-09.03, BR-M05-26, FR-M05-03.01, FR-M05-03.03, FR-M05-03.14, BR-M05-04 |
+| E17 | system | M1 | ACT-001 — Guest chưa có phiên thử gắn/đổi Tag. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E17.1 | FR-M05-03.12 |
 
 
 <!-- sc:branch SC-M05-002 E1 -->
@@ -859,14 +862,14 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E16.4 | SYSTEM | Hệ thống kiểm phần thêm, dùng lại xácsuất hoạt động, lưu thêm liên kết và giữ bayes/abc cũ; trả #bayes, #xácsuất, tiếp tục ẩn abc. Không tự bỏ abc chỉ vì không hiển thị. | P504.Tag liên kết={bayes, abc, xácsuất}; 3 liên kết≤5; hiển thị2 Tag; Topic={Toán học} | END:SUCCESS | FR-M05-03.01, FR-M05-03.03, FR-M05-03.10, FR-M05-03.14, FR-M05-09.03, FR-M05-04.05, BR-M05-04, BR-M05-26 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên thử gắn/đổi Tag. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E17 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên thử gắn/đổi Tag. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-002 V1 -->
+<!-- sc:branch SC-M05-002 E17 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu gắn/đổi Tag cho bài. | Chưa đăng nhập; không mượn phiên của tác giả | V1.2 | FR-M05-03.12 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác phân loại của Guest; không lưu thay đổi hoặc tự đăng nhập giúp. | Không ghi Topic/Tag từ yêu cầu này | END:REJECTED | FR-M05-03.12 |
+| --- | --- | --- | --- | --- | --- |
+| E17.1 | ACT-001 | Guest yêu cầu gắn/đổi Tag cho bài. | Chưa đăng nhập; không mượn phiên của tác giả | E17.2 | FR-M05-03.12 |
+| E17.2 | SYSTEM | Hệ thống từ chối thao tác phân loại của Guest; không lưu thay đổi hoặc tự đăng nhập giúp. | Không ghi Topic/Tag từ yêu cầu này | END:REJECTED | FR-M05-03.12 |
 
 
 <!-- sc:end SC-M05-002 -->
@@ -883,7 +886,7 @@ Xem danh mục và nhãn phân loại Topic, Tag — BF-M05-003. UC owner: [UC-M
 
 #### 2. Actor thực hiện
 
-ACT-001 — Guest — chưa có phiên là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-001 — Guest — chưa có phiên là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -921,6 +924,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E2 | user-choice | M1 | Người xem yêu cầu đọc nhãn Topic, Tag trên bài công khai | E2.1 | FR-M05-04.04, FR-M05-04.05, FR-M05-03.14, BR-M05-26, FR-M03-07.01 |
 | E3 | system | M1 | Đọc nhãn bài không được phép hiển thị với Guest | E3.1 | FR-M05-04.04, FR-M03-07.01, FR-M03-07.02 |
 | E4 | system | M1 | Danh sách Tag không có Tag hoạt động | E4.1 | FR-M05-04.02, FR-M05-04.03, BR-M05-26 |
+| E5 | system | M1 | ACT-002 — User có phiên xem cùng các danh mục công khai; Mod/Admin kế thừa quyền này. Actor khởi tạo ACT-002, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M05-04.01, FR-M05-04.02, FR-M05-04.03, BR-M05-26 |
 
 
 <!-- sc:branch SC-M05-003 E1 -->
@@ -955,14 +959,14 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E4.2 | SYSTEM | Hệ thống trả tập Tag hoạt động rỗng, không đưa Tag vô hiệu hóa vào để lấp danh sách. | Tag hoạt động=[] | END:SUCCESS | FR-M05-04.02, FR-M05-04.03, BR-M05-26 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** User có phiên xem cùng các danh mục công khai; Mod/Admin kế thừa quyền này. Actor khởi tạo ACT-002, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** User có phiên xem cùng các danh mục công khai; Mod/Admin kế thừa quyền này. Actor khởi tạo ACT-002, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-003 V1 -->
+<!-- sc:branch SC-M05-003 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-002 | Lan mở danh sách Topic hoặc Tag. | loại=Topic hoặc Tag; D-CAT/D-TAG | V1.2 | FR-M05-04.01, FR-M05-04.02 |
-| V1.2 | SYSTEM | Hệ thống trả toàn bộ Topic hiện tại hoặc Tag hoạt động đúng loại yêu cầu; không dùng phiên để đưa Tag vô hiệu vào danh sách. | D-CAT hoặc {#bayes, #xácsuất} | END:SUCCESS | FR-M05-04.01, FR-M05-04.02, FR-M05-04.03, BR-M05-26 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-002 | Lan mở danh sách Topic hoặc Tag. | loại=Topic hoặc Tag; D-CAT/D-TAG | E5.2 | FR-M05-04.01, FR-M05-04.02 |
+| E5.2 | SYSTEM | Hệ thống trả toàn bộ Topic hiện tại hoặc Tag hoạt động đúng loại yêu cầu; không dùng phiên để đưa Tag vô hiệu vào danh sách. | D-CAT hoặc {#bayes, #xácsuất} | END:SUCCESS | FR-M05-04.01, FR-M05-04.02, FR-M05-04.03, BR-M05-26 |
 
 
 <!-- sc:end SC-M05-003 -->
@@ -979,7 +983,7 @@ Thêm Topic mới vào danh mục hệ thống — BF-M05-004. UC owner: [UC-M05
 
 #### 2. Actor thực hiện
 
-ACT-007 — Admin — quản trị danh mục Topic là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-007 — Admin — quản trị danh mục Topic là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -1016,6 +1020,9 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E1 | system | M2 | Tên mới trùng tên hiện có sau quy tắc so sánh | E1.1 | FR-M05-06.02, FR-M05-06.08, BR-M05-05 |
 | E2 | user-choice | M1 | Tên chỉ khác dấu không bị coi là trùng | E2.1 | FR-M05-06.01, FR-M05-06.08, BR-M05-05, FR-M05-06.04, FR-M05-06.05, FR-M05-06.07, BR-M05-01, BR-M05-07, FR-M10-14.01, FR-M10-14.02, FR-M10-14.09 |
 | E3 | system | M2 | Danh mục đã có nhiều Topic, tên mới vẫn không trùng | E3.1 | FR-M05-06.01, FR-M05-06.04, FR-M05-06.05, FR-M05-06.06, FR-M05-06.07, FR-M05-06.08, BR-M05-06, FR-M10-14.01, FR-M10-14.02, FR-M10-14.09 |
+| E4 | system | M1 | ACT-001 — Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M05-06.03 |
+| E5 | system | M1 | ACT-002 — User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M05-06.03 |
+| E6 | system | M1 | ACT-003 — Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M05-06.03 |
 
 
 <!-- sc:branch SC-M05-004 E1 -->
@@ -1040,34 +1047,34 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E3.1 | SYSTEM | Hệ thống không từ chối vì tổng số Topic; kiểm trùng/quyền như chuẩn, thêm Tài chính cá nhân ngang cấp, cho chọn/gợi ý và ghi log Admin; bài cũ giữ nguyên. | Giả lập hiện có 100 Topic gồm D-CAT, chưa có Tài chính cá nhân; 100→101, đây không phải giới hạn | END:SUCCESS | FR-M05-06.01, FR-M05-06.04, FR-M05-06.05, FR-M05-06.06, FR-M05-06.07, FR-M05-06.08, BR-M05-06, FR-M10-14.01, FR-M10-14.02, FR-M10-14.09 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-004 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu thêm topic mới vào danh mục hệ thống. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V1.2 | FR-M05-06.03 |
-| V1.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-06.03 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M05-004 V2 -->
+<!-- sc:branch SC-M05-004 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | User yêu cầu thêm topic mới vào danh mục hệ thống. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V2.2 | FR-M05-06.03 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-06.03 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Guest yêu cầu thêm topic mới vào danh mục hệ thống. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E4.2 | FR-M05-06.03 |
+| E4.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-06.03 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-004 V3 -->
+<!-- sc:branch SC-M05-004 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-003 | Mod không có quyền Admin yêu cầu thêm topic mới vào danh mục hệ thống. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V3.2 | FR-M05-06.03 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-06.03 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-002 | User yêu cầu thêm topic mới vào danh mục hệ thống. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E5.2 | FR-M05-06.03 |
+| E5.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-06.03 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M05-004 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-003 | Mod không có quyền Admin yêu cầu thêm topic mới vào danh mục hệ thống. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E6.2 | FR-M05-06.03 |
+| E6.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-06.03 |
 
 
 <!-- sc:end SC-M05-004 -->
@@ -1084,7 +1091,7 @@ Gộp Topic nguồn vào Topic đích — BF-M05-005. UC owner: [UC-M05-007](../
 
 #### 2. Actor thực hiện
 
-ACT-007 — Admin — quản trị danh mục Topic là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-007 — Admin — quản trị danh mục Topic là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -1120,6 +1127,9 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 |---|---|---|---|---|---|
 | E1 | system | M2 | Cùng Topic làm cả nguồn và đích | E1.1 | FR-M05-07.04 |
 | E2 | user-choice | M1 | Admin chọn cặp khác, chưa có liên kết trùng đích | E2.1 | FR-M05-07.01, FR-M05-07.05, FR-M05-07.06, BR-M05-09, FR-M10-14.01, FR-M10-14.02, FR-M10-14.09 |
+| E3 | system | M1 | ACT-001 — Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M05-07.03 |
+| E4 | system | M1 | ACT-002 — User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M05-07.03 |
+| E5 | system | M1 | ACT-003 — Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M05-07.03 |
 
 
 <!-- sc:branch SC-M05-005 E1 -->
@@ -1137,34 +1147,34 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E2.2 | SYSTEM | Hệ thống kiểm Admin/cặp khác nhau, chuyển P513 sang Hướng nghiệp, chuyển follow U4, bỏ nguồn, ghi log và trả kết quả. | P513:{Hướng nghiệp, Khác}; follow Hướng nghiệp={U4, U5}; nguồn không còn | END:SUCCESS | FR-M05-07.01, FR-M05-07.05, FR-M05-07.06, BR-M05-09, FR-M10-14.01, FR-M10-14.02, FR-M10-14.09 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-005 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu gộp topic nguồn vào topic đích. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V1.2 | FR-M05-07.03 |
-| V1.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-07.03 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M05-005 V2 -->
+<!-- sc:branch SC-M05-005 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | User yêu cầu gộp topic nguồn vào topic đích. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V2.2 | FR-M05-07.03 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-07.03 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-001 | Guest yêu cầu gộp topic nguồn vào topic đích. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E3.2 | FR-M05-07.03 |
+| E3.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-07.03 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-005 V3 -->
+<!-- sc:branch SC-M05-005 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-003 | Mod không có quyền Admin yêu cầu gộp topic nguồn vào topic đích. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V3.2 | FR-M05-07.03 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-07.03 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-002 | User yêu cầu gộp topic nguồn vào topic đích. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E4.2 | FR-M05-07.03 |
+| E4.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-07.03 |
+
+
+**E5 — thay toàn bộ M1 đến kết thúc:** Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M05-005 E5 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-003 | Mod không có quyền Admin yêu cầu gộp topic nguồn vào topic đích. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E5.2 | FR-M05-07.03 |
+| E5.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-07.03 |
 
 
 <!-- sc:end SC-M05-005 -->
@@ -1181,7 +1191,7 @@ Xóa Topic không có bài viết ngoài nháp — BF-M05-006. UC owner: [UC-M05
 
 #### 2. Actor thực hiện
 
-ACT-007 — Admin — quản trị danh mục Topic là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-007 — Admin — quản trị danh mục Topic là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -1222,6 +1232,9 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E5 | system | M2 | Topic còn ít nhất một bài ngoài nháp: Đã xóa 2 ngày trước, còn 7 ngày khôi phục | E5.1 | FR-M05-08.02, BR-M05-08, FR-M03-17.02 |
 | E6 | system | M2 | Topic còn ít nhất một bài ngoài nháp: Đã xóa hẳn nhưng M03 vẫn giữ liên kết bài–Topic | E6.1 | FR-M05-08.02, BR-M05-08, FR-M03-17.02 |
 | E7 | system | M2 | Topic chưa có bài viết nào, cũng không có follow | E7.1 | FR-M05-08.01, FR-M05-08.04, FR-M05-08.05, FR-M05-08.06, BR-M05-08, FR-M10-14.01, FR-M10-14.02, FR-M10-14.09 |
+| E8 | system | M1 | ACT-001 — Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M05-08.03 |
+| E9 | system | M1 | ACT-002 — User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M05-08.03 |
+| E10 | system | M1 | ACT-003 — Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M05-08.03 |
 
 
 <!-- sc:branch SC-M05-006 E1 -->
@@ -1273,34 +1286,34 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E7.1 | SYSTEM | Hệ thống kiểm Admin và không có bài ngoài nháp, xóa Topic khỏi danh mục, không cho chọn/gợi ý, ghi log và trả thành công; không cần tạo dữ liệu nháp/follow để xóa. | Topic Thử nghiệm: bài=[], follow=[]; sau xóa không còn danh mục | END:SUCCESS | FR-M05-08.01, FR-M05-08.04, FR-M05-08.05, FR-M05-08.06, BR-M05-08, FR-M10-14.01, FR-M10-14.02, FR-M10-14.09 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-006 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu xóa topic không có bài viết ngoài nháp. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V1.2 | FR-M05-08.03 |
-| V1.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-08.03 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M05-006 V2 -->
+<!-- sc:branch SC-M05-006 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | User yêu cầu xóa topic không có bài viết ngoài nháp. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V2.2 | FR-M05-08.03 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-08.03 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-001 | Guest yêu cầu xóa topic không có bài viết ngoài nháp. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E8.2 | FR-M05-08.03 |
+| E8.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-08.03 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** User yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-006 V3 -->
+<!-- sc:branch SC-M05-006 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-003 | Mod không có quyền Admin yêu cầu xóa topic không có bài viết ngoài nháp. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | V3.2 | FR-M05-08.03 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-08.03 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-002 | User yêu cầu xóa topic không có bài viết ngoài nháp. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E9.2 | FR-M05-08.03 |
+| E9.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-08.03 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** Mod không có quyền Admin yêu cầu chức năng chỉ Admin. Actor khởi tạo ACT-003, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M05-006 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-003 | Mod không có quyền Admin yêu cầu xóa topic không có bài viết ngoài nháp. | Vai trò thực tế không phải ADMIN; dữ liệu đối tượng như đường chuẩn | E10.2 | FR-M05-08.03 |
+| E10.2 | SYSTEM | Hệ thống kiểm vai trò thực tế và từ chối; không gán quyền Admin theo tên gọi nhóm vai trò Mod/Admin. | Không thực hiện thêm/gộp/xóa từ yêu cầu này | END:REJECTED | FR-M05-08.03 |
 
 
 <!-- sc:end SC-M05-006 -->
@@ -1317,7 +1330,7 @@ Vô hiệu hóa Tag trong tình huống khủng hoảng — BF-M05-007. UC owner
 
 #### 2. Actor thực hiện
 
-ACT-003 — Mod / Admin — quyền điều phối chung là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-003 — Mod / Admin — quyền điều phối chung là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -1354,6 +1367,9 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E1 | system | M2 | Tag đã bị vô hiệu hóa từ trước | E1.1 | FR-M05-09.05, BR-M05-26 |
 | E2 | user-choice | M1 | Mod không nhập lý do | E2.1 | FR-M05-09.01, FR-M05-09.07, FR-M05-09.02, FR-M05-09.03, BR-M05-26, FR-M08-16.02 |
 | E3 | system | M2 | Phiên hoặc vai trò điều phối không còn hợp lệ khi yêu cầu | E3.1 | FR-M05-09.04, FR-M01-06.04 |
+| E4 | system | M1 | ACT-001 — Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M05-09.04 |
+| E5 | system | M1 | ACT-002 — User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M05-09.04 |
+| E6 | system | M1 | ACT-007 — Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M05-09.01, FR-M05-09.02, FR-M05-09.03, FR-M05-09.07, FR-M05-03.09, FR-M05-04.03, FR-M05-04.05, FR-M05-05.07, BR-M05-26, FR-M08-16.02, FR-M06-03.04, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
 
 
 <!-- sc:branch SC-M05-007 E1 -->
@@ -1378,34 +1394,34 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E3.1 | SYSTEM | Hệ thống từ chối thao tác cần quyền; không dùng kết quả quyền cũ để tiếp tục. | Snapshot: mất vai trò điều phối hoặc phiên làm mới đã hết30 ngày | END:REJECTED | FR-M05-09.04, FR-M01-06.04 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-007 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu vô hiệu hóa tag trong tình huống khủng hoảng. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | V1.2 | FR-M05-09.04 |
-| V1.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-09.04 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M05-007 V2 -->
+<!-- sc:branch SC-M05-007 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | User không phải tác giả đối tượng khi đổi bài yêu cầu vô hiệu hóa tag trong tình huống khủng hoảng. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | V2.2 | FR-M05-09.04 |
-| V2.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-09.04 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Guest yêu cầu vô hiệu hóa tag trong tình huống khủng hoảng. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | E4.2 | FR-M05-09.04 |
+| E4.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-09.04 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-007 V3 -->
+<!-- sc:branch SC-M05-007 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-007 | Admin An yêu cầu vô hiệu hóa #abc, có thể kèm lý do. | abc hoạt động; P530.Tag={abc, bayes}; lý do giả lập=Ngừng hiển thị trong khủng hoảng | V3.2 | FR-M05-09.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền Mod/Admin và trạng thái, chuyển abc sang vô hiệu hóa; giữ Tag/liên kết P530, ngừng hiện trong gợi ý, tìm Tag, danh sách, Trending và nhãn bài. Lần nhập mới tên abc chỉ thành văn bản, không liên kết mới. Ghi nhật ký kiểm duyệt rồi trả Tag đã vô hiệu hóa. Đồng thời ghi thêm một mục nhật ký thao tác Admin riêng, không thay thế nhật ký kiểm duyệt. | abc vô hiệu; P530 liên kết abc vẫn còn nhưng không hiện; P531 nhập#abc chỉ là chữ; log An/vô hiệu Tag/abc/lý do đã nhập/10:15+07 | END:SUCCESS | FR-M05-09.01, FR-M05-09.02, FR-M05-09.03, FR-M05-09.07, FR-M05-03.09, FR-M05-04.03, FR-M05-04.05, FR-M05-05.07, BR-M05-26, FR-M08-16.02, FR-M06-03.04, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-002 | User không phải tác giả đối tượng khi đổi bài yêu cầu vô hiệu hóa tag trong tình huống khủng hoảng. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | E5.2 | FR-M05-09.04 |
+| E5.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-09.04 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M05-007 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-007 | Admin An yêu cầu vô hiệu hóa #abc, có thể kèm lý do. | abc hoạt động; P530.Tag={abc, bayes}; lý do giả lập=Ngừng hiển thị trong khủng hoảng | E6.2 | FR-M05-09.01 |
+| E6.2 | SYSTEM | Hệ thống kiểm quyền Mod/Admin và trạng thái, chuyển abc sang vô hiệu hóa; giữ Tag/liên kết P530, ngừng hiện trong gợi ý, tìm Tag, danh sách, Trending và nhãn bài. Lần nhập mới tên abc chỉ thành văn bản, không liên kết mới. Ghi nhật ký kiểm duyệt rồi trả Tag đã vô hiệu hóa. Đồng thời ghi thêm một mục nhật ký thao tác Admin riêng, không thay thế nhật ký kiểm duyệt. | abc vô hiệu; P530 liên kết abc vẫn còn nhưng không hiện; P531 nhập#abc chỉ là chữ; log An/vô hiệu Tag/abc/lý do đã nhập/10:15+07 | END:SUCCESS | FR-M05-09.01, FR-M05-09.02, FR-M05-09.03, FR-M05-09.07, FR-M05-03.09, FR-M05-04.03, FR-M05-04.05, FR-M05-05.07, BR-M05-26, FR-M08-16.02, FR-M06-03.04, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
 
 
 <!-- sc:end SC-M05-007 -->
@@ -1422,7 +1438,7 @@ Kích hoạt lại Tag đã vô hiệu hóa — BF-M05-008. UC owner: [UC-M05-01
 
 #### 2. Actor thực hiện
 
-ACT-003 — Mod / Admin — quyền điều phối chung là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-003 — Mod / Admin — quyền điều phối chung là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -1460,6 +1476,9 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E2 | system | M2 | Tag được kích hoạt lại nhưng điểm Trending gần nhất bằng0 hoặc chưa có kỳ tính sau kích hoạt | E2.1 | FR-M05-10.01, FR-M05-10.02, FR-M05-10.03, FR-M05-10.06, FR-M05-05.07, FR-M05-05.10, FR-M05-05.14, BR-M05-27, BR-M05-30, BR-M05-31, FR-M08-16.02 |
 | E3 | user-choice | M1 | Mod để trống lý do khi kích hoạt lại | E3.1 | FR-M05-10.01, FR-M05-10.06, FR-M05-10.02, FR-M05-10.03, BR-M05-27, BR-M05-30, BR-M05-31, FR-M08-16.02 |
 | E4 | system | M2 | Phiên hoặc vai trò điều phối không còn hợp lệ khi yêu cầu | E4.1 | FR-M05-10.04, FR-M01-06.04 |
+| E5 | system | M1 | ACT-001 — Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M05-10.04 |
+| E6 | system | M1 | ACT-002 — User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M05-10.04 |
+| E7 | system | M1 | ACT-007 — Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M05-10.01, FR-M05-10.02, FR-M05-10.03, FR-M05-10.06, FR-M05-05.10, FR-M05-05.14, BR-M05-27, BR-M05-30, BR-M05-31, FR-M08-16.02, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
 
 
 <!-- sc:branch SC-M05-008 E1 -->
@@ -1491,34 +1510,34 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E4.1 | SYSTEM | Hệ thống từ chối thao tác cần quyền; không dùng kết quả quyền cũ để tiếp tục. | Snapshot: mất vai trò điều phối hoặc phiên làm mới đã hết30 ngày | END:REJECTED | FR-M05-10.04, FR-M01-06.04 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-008 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu kích hoạt lại tag đã vô hiệu hóa. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | V1.2 | FR-M05-10.04 |
-| V1.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-10.04 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M05-008 V2 -->
+<!-- sc:branch SC-M05-008 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | User không phải tác giả đối tượng khi đổi bài yêu cầu kích hoạt lại tag đã vô hiệu hóa. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | V2.2 | FR-M05-10.04 |
-| V2.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-10.04 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-001 | Guest yêu cầu kích hoạt lại tag đã vô hiệu hóa. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | E5.2 | FR-M05-10.04 |
+| E5.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-10.04 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-008 V3 -->
+<!-- sc:branch SC-M05-008 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-007 | Admin An yêu cầu kích hoạt lại #abc. | abc vô hiệu; P530 có liên kết; P531 chỉ có chữ; lý do tùy chọn=Khủng hoảng đã qua | V3.2 | FR-M05-10.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền/trạng thái, chuyển abc sang hoạt động; cho hiển thị lại trong gợi ý, danh sách, trên P530 còn liên kết và Trending theo điểm/kỳ tính. Không biến chữ #abc của P531 thành Tag. Ghi log kiểm duyệt và trả Tag hoạt động. Đồng thời ghi thêm một mục nhật ký thao tác Admin riêng, không thay thế nhật ký kiểm duyệt. | abc hoạt động; P530 hiện#abc; P531 vẫn chỉ chữ; log An/kích hoạt Tag/abc/lý do đã nhập/10:20+07; không tạo hạng Trending điểm0 | END:SUCCESS | FR-M05-10.01, FR-M05-10.02, FR-M05-10.03, FR-M05-10.06, FR-M05-05.10, FR-M05-05.14, BR-M05-27, BR-M05-30, BR-M05-31, FR-M08-16.02, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-002 | User không phải tác giả đối tượng khi đổi bài yêu cầu kích hoạt lại tag đã vô hiệu hóa. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | E6.2 | FR-M05-10.04 |
+| E6.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-10.04 |
+
+
+**E7 — thay toàn bộ M1 đến kết thúc:** Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M05-008 E7 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-007 | Admin An yêu cầu kích hoạt lại #abc. | abc vô hiệu; P530 có liên kết; P531 chỉ có chữ; lý do tùy chọn=Khủng hoảng đã qua | E7.2 | FR-M05-10.01 |
+| E7.2 | SYSTEM | Hệ thống kiểm quyền/trạng thái, chuyển abc sang hoạt động; cho hiển thị lại trong gợi ý, danh sách, trên P530 còn liên kết và Trending theo điểm/kỳ tính. Không biến chữ #abc của P531 thành Tag. Ghi log kiểm duyệt và trả Tag hoạt động. Đồng thời ghi thêm một mục nhật ký thao tác Admin riêng, không thay thế nhật ký kiểm duyệt. | abc hoạt động; P530 hiện#abc; P531 vẫn chỉ chữ; log An/kích hoạt Tag/abc/lý do đã nhập/10:20+07; không tạo hạng Trending điểm0 | END:SUCCESS | FR-M05-10.01, FR-M05-10.02, FR-M05-10.03, FR-M05-10.06, FR-M05-05.10, FR-M05-05.14, BR-M05-27, BR-M05-30, BR-M05-31, FR-M08-16.02, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
 
 
 <!-- sc:end SC-M05-008 -->
@@ -1535,7 +1554,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 
 #### 2. Actor thực hiện
 
-ACT-003 — Mod / Admin — quyền điều phối chung là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường V thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
+ACT-003 — Mod / Admin — quyền điều phối chung là actor chính. Các quyền kế thừa giữ đúng actor hierarchy của US. Đường E tại M1 thay toàn bộ khi actor khởi tạo khác, không đổi vai trò giữa luồng.
 
 #### 3. Tiền điều kiện
 
@@ -1588,6 +1607,9 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E15 | system | M2 | Bài không được phép sửa theo cổng trạng thái M03 | E15.1 | FR-M03-11.07 |
 | E16 | system | M4 | Bài không được phép sửa theo cổng trạng thái M03 | E16.1 | FR-M03-11.07 |
 | E17 | user-choice | M3 | Mod chỉ đổi Topic, bài vẫn giữ Tag cũ đang vô hiệu hóa | E17.1 | FR-M05-11.01, FR-M05-11.05, FR-M05-11.06, FR-M05-11.07, FR-M05-09.03, FR-M05-04.05, BR-M05-04, BR-M05-26, FR-M08-16.02 |
+| E18 | system | M1 | ACT-001 — Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E18.1 | FR-M05-11.04 |
+| E19 | system | M1 | ACT-002 — User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4. | E19.1 | FR-M05-11.04 |
+| E20 | system | M1 | ACT-007 — Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4. | E20.1 | FR-M05-11.01, FR-M05-11.02, FR-M05-11.04, FR-M05-02.21, FR-M03-11.04, FR-M03-11.07, FR-M05-11.05, FR-M05-11.06, FR-M05-11.07, FR-M05-01.01, FR-M05-01.02, FR-M05-01.03, FR-M05-01.04, FR-M05-01.05, FR-M05-01.07, FR-M05-01.09, FR-M05-01.10, BR-M05-03, BR-M05-04, FR-M05-03.01, FR-M05-03.02, FR-M05-03.03, FR-M05-03.04, FR-M05-03.05, FR-M05-03.06, FR-M05-03.07, FR-M05-03.08, FR-M05-03.09, FR-M05-03.14, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26, FR-M08-16.02, FR-M03-11.05, FR-M03-11.06, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
 
 
 <!-- sc:branch SC-M05-009 E1 -->
@@ -1717,36 +1739,36 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E17.2 | SYSTEM | Hệ thống kiểm và lưu Topic Toán học, giữ toàn bộ liên kết Tag cũ kể cả abc vô hiệu, chỉ hiện#bayes. Ghi log kiểm duyệt, không thông báo/lịch sử sửa/AI; không dùng việc Tag bị ẩn làm thao tác bỏ liên kết. | P540.Topic={Toán học}; Tag liên kết={bayes, abc}; Tag hiển thị={#bayes} | END:SUCCESS | FR-M05-11.01, FR-M05-11.05, FR-M05-11.06, FR-M05-11.07, FR-M05-09.03, FR-M05-04.05, BR-M05-04, BR-M05-26, FR-M08-16.02 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
+**E18 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền điều phối. Actor khởi tạo ACT-001, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-009 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu đổi topic và tag trên bài viết của người khác. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | V1.2 | FR-M05-11.04 |
-| V1.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-11.04 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M05-009 V2 -->
+<!-- sc:branch SC-M05-009 E18 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | User không phải tác giả đối tượng khi đổi bài yêu cầu đổi topic và tag trên bài viết của người khác. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | V2.2 | FR-M05-11.04 |
-| V2.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-11.04 |
+| --- | --- | --- | --- | --- | --- |
+| E18.1 | ACT-001 | Guest yêu cầu đổi topic và tag trên bài viết của người khác. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | E18.2 | FR-M05-11.04 |
+| E18.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-11.04 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4.
+**E19 — thay toàn bộ M1 đến kết thúc:** User không phải tác giả đối tượng khi đổi bài không có quyền điều phối. Actor khởi tạo ACT-002, END:REJECTED, dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M05-009 V3 -->
+<!-- sc:branch SC-M05-009 E19 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-007 | Admin An yêu cầu đổi phân loại P540 của Lan. | P540.Topic={Tin học}; Tag={bayes}; An khác tác giả | V3.2 | FR-M05-11.01, FR-M05-11.02 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền điều phối và trạng thái bài, trả phân loại/danh mục hiện tại; không cung cấp AI gợi ý trên bài người khác, không mở quyền sửa nội dung bài. | Topic={Tin học}; Tag={bayes}; danh mục D-CAT, D-TAG | V3.3 | FR-M05-11.04, FR-M05-02.21, FR-M03-11.04, FR-M03-11.07 |
-| V3.3 | ACT-007 | Admin An bỏ Tin học, chọn Toán học, thay #bayes bằng #XácSuất và lưu. | Topic cuối={Toán học}; Tag cuối={XácSuất}; lý do tùy chọn=Điều chỉnh phân loại | V3.4 | FR-M05-11.01, FR-M05-11.02 |
-| V3.4 | SYSTEM | Hệ thống kiểm Topic 1–3 thuộc danh mục, Tag 0–5 đúng tên/chuẩn hóa/trạng thái, dùng lại hoặc tạo Tag theo tập vừa gửi; lưu và trả đúng phân loại cuối. Ghi log kiểm duyệt, không gửi thông báo cho tác giả, không ghi lần đổi này vào lịch sử sửa công khai; không dùng AI. Đồng thời ghi thêm một mục nhật ký thao tác Admin riêng, không thay thế nhật ký kiểm duyệt. | Đường chuẩn P540.Topic={Toán học}; Tag={xácsuất}; khi nhập lại từ nhánh dùng chính tập Topic/Tag/lý do của bước gửi gần nhất. Log An/đổi phân loại/P540/lý do nếu có/10:25+07; title/body/tệp giữ nguyên | END:SUCCESS | FR-M05-11.01, FR-M05-11.02, FR-M05-11.05, FR-M05-11.06, FR-M05-11.07, FR-M05-02.21, FR-M05-01.01, FR-M05-01.02, FR-M05-01.03, FR-M05-01.04, FR-M05-01.05, FR-M05-01.07, FR-M05-01.09, FR-M05-01.10, BR-M05-03, BR-M05-04, FR-M05-03.01, FR-M05-03.02, FR-M05-03.03, FR-M05-03.04, FR-M05-03.05, FR-M05-03.06, FR-M05-03.07, FR-M05-03.08, FR-M05-03.09, FR-M05-03.14, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26, FR-M08-16.02, FR-M03-11.05, FR-M03-11.06, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
+| --- | --- | --- | --- | --- | --- |
+| E19.1 | ACT-002 | User không phải tác giả đối tượng khi đổi bài yêu cầu đổi topic và tag trên bài viết của người khác. | Không có vai trò Mod/Admin; P540 của Lan nếu là đổi phân loại | E19.2 | FR-M05-11.04 |
+| E19.2 | SYSTEM | Hệ thống từ chối, không thay trạng thái Tag hay phân loại bài từ yêu cầu không quyền. | Không ghi kết quả điều phối thành công | END:REJECTED | FR-M05-11.04 |
+
+
+**E20 — thay toàn bộ M1 đến kết thúc:** Admin thực hiện cùng chức năng với quyền điều phối kế thừa. Actor khởi tạo ACT-007, END:SUCCESS, dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M05-009 E20 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E20.1 | ACT-007 | Admin An yêu cầu đổi phân loại P540 của Lan. | P540.Topic={Tin học}; Tag={bayes}; An khác tác giả | E20.2 | FR-M05-11.01, FR-M05-11.02 |
+| E20.2 | SYSTEM | Hệ thống kiểm quyền điều phối và trạng thái bài, trả phân loại/danh mục hiện tại; không cung cấp AI gợi ý trên bài người khác, không mở quyền sửa nội dung bài. | Topic={Tin học}; Tag={bayes}; danh mục D-CAT, D-TAG | E20.3 | FR-M05-11.04, FR-M05-02.21, FR-M03-11.04, FR-M03-11.07 |
+| E20.3 | ACT-007 | Admin An bỏ Tin học, chọn Toán học, thay #bayes bằng #XácSuất và lưu. | Topic cuối={Toán học}; Tag cuối={XácSuất}; lý do tùy chọn=Điều chỉnh phân loại | E20.4 | FR-M05-11.01, FR-M05-11.02 |
+| E20.4 | SYSTEM | Hệ thống kiểm Topic 1–3 thuộc danh mục, Tag 0–5 đúng tên/chuẩn hóa/trạng thái, dùng lại hoặc tạo Tag theo tập vừa gửi; lưu và trả đúng phân loại cuối. Ghi log kiểm duyệt, không gửi thông báo cho tác giả, không ghi lần đổi này vào lịch sử sửa công khai; không dùng AI. Đồng thời ghi thêm một mục nhật ký thao tác Admin riêng, không thay thế nhật ký kiểm duyệt. | Đường chuẩn P540.Topic={Toán học}; Tag={xácsuất}; khi nhập lại từ nhánh dùng chính tập Topic/Tag/lý do của bước gửi gần nhất. Log An/đổi phân loại/P540/lý do nếu có/10:25+07; title/body/tệp giữ nguyên | END:SUCCESS | FR-M05-11.01, FR-M05-11.02, FR-M05-11.05, FR-M05-11.06, FR-M05-11.07, FR-M05-02.21, FR-M05-01.01, FR-M05-01.02, FR-M05-01.03, FR-M05-01.04, FR-M05-01.05, FR-M05-01.07, FR-M05-01.09, FR-M05-01.10, BR-M05-03, BR-M05-04, FR-M05-03.01, FR-M05-03.02, FR-M05-03.03, FR-M05-03.04, FR-M05-03.05, FR-M05-03.06, FR-M05-03.07, FR-M05-03.08, FR-M05-03.09, FR-M05-03.14, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26, FR-M08-16.02, FR-M03-11.05, FR-M03-11.06, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
 
 
 <!-- sc:end SC-M05-009 -->
@@ -1775,27 +1797,27 @@ Ví dụ xếp hạng snapshot riêng: Ngữ văn12 (0 bài mới), Tin học10 
 
 | Mã FR/BR | SC/bước/nhánh hoặc quy tắc nền | Mức đối soát |
 |---|---|---|
-| FR-M05-01 | SC-M05-001/M1; SC-M05-001/M2; SC-M05-001/E4.2; SC-M05-001/E14.5; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/V3.4; SC-M05-001/M3; SC-M05-001/M4; SC-M05-001/E1.3; SC-M05-001/E1.4; SC-M05-001/E2.3; SC-M05-001/E2.4; SC-M05-001/E10.5; SC-M05-001/E10.6; SC-M05-001/E11.6; SC-M05-001/E12.6; SC-M05-001/E13.5; SC-M05-001/E13.6; SC-M05-001/E15.3; SC-M05-001/E16.3; SC-M05-001/E17.3; SC-M05-001/E18.3; SC-M05-001/E19.7; SC-M05-001/E19.8; SC-M05-001/E20.3; SC-M05-001/E21.5; SC-M05-001/E21.6; SC-M05-001/E22.5; SC-M05-001/E22.6; SC-M05-001/E23.3; SC-M05-001/E24.7; SC-M05-001/E24.8; SC-M05-001/E25.7; SC-M05-001/E25.8; SC-M05-001/E26.11; SC-M05-001/E26.12; SC-M05-001/E27.6; SC-M05-001/E28.7; SC-M05-001/E28.8; SC-M05-001/E37.9; SC-M05-001/E37.10; SC-M05-002/M4; SC-M05-002/E1.2; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-001/E1.1; SC-M05-001/E1.2; SC-M05-001/E35.5; SC-M05-001/E35.6; SC-M05-001/E36.5; SC-M05-001/E36.6; SC-M05-001/E2.1; SC-M05-001/E2.2; SC-M05-001/E3.1; SC-M05-002/E10.1; SC-M05-001/E4.1; SC-M05-001/E5.1; SC-M05-001/E5.2; SC-M05-001/E6.1; SC-M05-001/E6.2; SC-M05-001/E29.5; SC-M05-001/E29.6; SC-M05-001/E7.1; SC-M05-001/E7.2; SC-M05-001/E7.3; SC-M05-001/E7.4; SC-M05-001/E8.1; SC-M05-001/E8.2; SC-M05-001/E9.1; SC-M05-001/E9.2; SC-M05-001/E28.1; SC-M05-001/E28.2; SC-M05-001/E33.3; SC-M05-002/E14.3; SC-M05-001/E8.3; SC-M05-001/E8.4; SC-M05-001/E9.3; SC-M05-001/E9.4; SC-M05-001/V1.1; SC-M05-001/V1.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-02 | SC-M05-001/M2; SC-M05-001/E10.2; SC-M05-001/E11.2; SC-M05-001/E12.2; SC-M05-001/E13.2; SC-M05-001/E14.2; SC-M05-001/E19.4; SC-M05-001/E21.2; SC-M05-001/E22.2; SC-M05-001/E23.2; SC-M05-001/E24.2; SC-M05-001/E25.2; SC-M05-001/E26.2; SC-M05-001/E26.8; SC-M05-001/E27.2; SC-M05-001/E28.4; SC-M05-001/E29.2; SC-M05-001/E35.2; SC-M05-001/E36.2; SC-M05-001/E37.2; RULE-M05-004; SC-M05-001/M4; SC-M05-001/E1.4; SC-M05-001/E2.4; SC-M05-001/E7.4; SC-M05-001/E14.5; SC-M05-001/E23.3; SC-M05-002/E9.4; AUT-M05-002; SC-M05-001/E10.6; SC-M05-001/E11.5; SC-M05-001/E11.6; SC-M05-001/E12.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E27.6; SC-M05-001/E28.8; SC-M05-001/E29.6; SC-M05-001/E35.6; SC-M05-001/E36.6; SC-M05-001/E24.8; SC-M05-001/E25.8; SC-M05-001/E37.10; AUT-M05-004; SC-M05-001/E10.1; SC-M05-001/E11.1; SC-M05-001/E12.1; SC-M05-001/E13.1; SC-M05-001/E14.1; SC-M05-001/E15.1; SC-M05-001/E16.1; SC-M05-001/E17.1; SC-M05-001/E18.1; SC-M05-001/E19.1; SC-M05-001/E19.3; SC-M05-001/E22.1; SC-M05-001/E23.1; SC-M05-001/E24.1; SC-M05-001/E25.1; SC-M05-001/E26.1; SC-M05-001/E26.7; SC-M05-001/E27.1; SC-M05-001/E27.5; SC-M05-001/E28.3; SC-M05-001/E29.1; SC-M05-001/E35.1; SC-M05-001/E36.1; SC-M05-001/E37.1; SC-M05-001/E18.2; SC-M05-001/E18.3; SC-M05-001/E19.2; SC-M05-001/E20.1; SC-M05-001/E20.2; SC-M05-001/E21.1; SC-M05-001/E15.2; SC-M05-001/E16.2; SC-M05-001/E17.2; SC-M05-001/E37.7; SC-M05-001/E37.8; SC-M05-001/E10.4; SC-M05-001/E11.4; SC-M05-001/E12.4; SC-M05-001/E13.4; SC-M05-001/E19.6; SC-M05-001/E21.4; SC-M05-001/E22.4; SC-M05-001/E24.4; SC-M05-001/E25.4; SC-M05-001/E26.4; SC-M05-001/E26.10; SC-M05-001/E27.4; SC-M05-001/E28.6; SC-M05-001/E29.4; SC-M05-001/E35.4; SC-M05-001/E36.4; SC-M05-001/E37.4; SC-M05-001/E10.5; SC-M05-001/E12.5; SC-M05-001/E13.5; SC-M05-001/E19.7; SC-M05-001/E21.5; SC-M05-001/E22.5; SC-M05-001/E24.7; SC-M05-001/E25.7; SC-M05-001/E26.11; SC-M05-001/E28.7; SC-M05-001/E35.5; SC-M05-001/E36.5; SC-M05-001/E14.4; SC-M05-001/E15.3; SC-M05-001/E16.3; SC-M05-001/E17.3; SC-M05-001/E37.9; SC-M05-001/E24.5; SC-M05-001/E24.6; SC-M05-001/E25.5; SC-M05-001/E25.6; SC-M05-001/E26.5; SC-M05-001/E37.5; SC-M05-001/E37.6; SC-M05-001/E26.6; SC-M05-001/E28.1; SC-M05-001/E28.2; SC-M05-001/V2.1; SC-M05-001/V2.2; SC-M05-009/M2; SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E13.1; SC-M05-009/E13.2; SC-M05-009/V3.2; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03 | SC-M05-001/M2; SC-M05-001/M4; SC-M05-001/E1.4; SC-M05-001/E2.4; SC-M05-001/E7.4; SC-M05-001/E10.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E28.8; SC-M05-002/M1; SC-M05-002/M2; SC-M05-002/M3; SC-M05-002/M4; SC-M05-002/E1.1; SC-M05-002/E1.2; SC-M05-002/E2.3; SC-M05-002/E2.4; SC-M05-002/E3.3; SC-M05-002/E3.4; SC-M05-002/E4.3; SC-M05-002/E4.4; SC-M05-002/E5.3; SC-M05-002/E5.4; SC-M05-002/E6.2; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E10.1; SC-M05-002/E16.4; SC-M05-009/M4; SC-M05-009/V3.4; SC-M05-001/E10.4; SC-M05-001/E11.4; SC-M05-001/E12.4; SC-M05-001/E13.4; SC-M05-001/E19.6; SC-M05-001/E21.4; SC-M05-001/E22.4; SC-M05-001/E24.4; SC-M05-001/E25.4; SC-M05-001/E26.4; SC-M05-001/E26.10; SC-M05-001/E27.4; SC-M05-001/E28.6; SC-M05-001/E29.4; SC-M05-001/E35.4; SC-M05-001/E36.4; SC-M05-001/E37.4; SC-M05-002/E9.2; RULE-M05-001; SC-M05-001/E33.3; SC-M05-002/E9.1; SC-M05-002/E9.3; SC-M05-002/E14.3; SC-M05-002/E16.1; SC-M05-002/E16.2; SC-M05-002/E16.3; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-002/E6.1; SC-M05-002/E2.1; SC-M05-002/E2.2; SC-M05-002/E3.1; SC-M05-002/E3.2; SC-M05-009/E5.1; SC-M05-002/E4.1; SC-M05-002/E4.2; SC-M05-009/E6.1; SC-M05-002/E5.1; SC-M05-002/E5.2; SC-M05-009/E7.1; SC-M05-002/E8.1; SC-M05-007/M2; SC-M05-007/V3.2; SC-M05-009/E12.1; SC-M05-009/E12.2; RULE-M05-002; SC-M05-003/E1.2; SC-M05-003/E2.2; SC-M05-002/V1.1; SC-M05-002/V1.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-04 | SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-003/E2.2; SC-M05-007/M2; SC-M05-007/V3.2; SC-M05-009/E17.2; RULE-M05-002; SC-M05-003/M1; SC-M05-003/M2; SC-M05-003/V1.1; SC-M05-003/V1.2; RULE-M05-001; SC-M05-003/E1.1; SC-M05-003/E1.2; SC-M05-003/E4.1; SC-M05-003/E4.2; SC-M05-003/E2.1; SC-M05-003/E3.1; SC-M05-003/E3.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-05 | SC-M05-003/M2; SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/V3.2; AUT-M05-001; RULE-M05-002; SC-M05-007/M2; SC-M05-007/V3.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-06 | SC-M05-004/M1; SC-M05-004/M2; SC-M05-004/E2.1; SC-M05-004/E2.2; SC-M05-004/E3.1; SC-M05-004/V1.1; SC-M05-004/V1.2; SC-M05-004/V2.1; SC-M05-004/V2.2; SC-M05-004/V3.1; SC-M05-004/V3.2; RULE-M05-003; RULE-M05-001; SC-M05-004/E1.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-07 | SC-M05-005/M1; SC-M05-005/M2; SC-M05-005/E2.1; SC-M05-005/E2.2; RULE-M05-003; SC-M05-005/V1.1; SC-M05-005/V1.2; SC-M05-005/V2.1; SC-M05-005/V2.2; SC-M05-005/V3.1; SC-M05-005/V3.2; SC-M05-005/E1.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-08 | SC-M05-006/M1; SC-M05-006/M2; SC-M05-006/E7.1; RULE-M05-003; SC-M05-006/V1.1; SC-M05-006/V1.2; SC-M05-006/V2.1; SC-M05-006/V2.2; SC-M05-006/V3.1; SC-M05-006/V3.2; SC-M05-006/E1.1; SC-M05-006/E2.1; SC-M05-006/E3.1; SC-M05-006/E4.1; SC-M05-006/E5.1; SC-M05-006/E6.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-09 | SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-007/M2; SC-M05-007/E2.2; SC-M05-007/V3.2; SC-M05-009/E17.2; RULE-M05-002; SC-M05-007/M1; SC-M05-007/E2.1; SC-M05-007/V3.1; AUT-M05-003; SC-M05-007/E1.1; SC-M05-007/E3.1; SC-M05-007/V1.1; SC-M05-007/V1.2; SC-M05-007/V2.1; SC-M05-007/V2.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-10 | SC-M05-008/M1; SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.1; SC-M05-008/E3.2; SC-M05-008/V3.1; SC-M05-008/V3.2; RULE-M05-002; SC-M05-008/E1.1; AUT-M05-003; SC-M05-008/E4.1; SC-M05-008/V1.1; SC-M05-008/V1.2; SC-M05-008/V2.1; SC-M05-008/V2.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-11 | SC-M05-001/E30.1; SC-M05-001/E31.1; SC-M05-002/E11.1; SC-M05-002/E12.1; SC-M05-009/M2; SC-M05-009/E14.1; SC-M05-009/V1.1; SC-M05-009/V1.2; SC-M05-009/V2.1; SC-M05-009/V2.2; SC-M05-009/V3.2; RULE-M05-003; SC-M05-009/M1; SC-M05-009/M3; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E13.2; SC-M05-009/E13.3; SC-M05-009/E17.1; SC-M05-009/E17.2; SC-M05-009/V3.1; SC-M05-009/V3.3; SC-M05-009/V3.4; SC-M05-009/E5.1; SC-M05-009/E6.1; SC-M05-009/E7.1; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/E12.1; SC-M05-009/E12.2; AUT-M05-003; SC-M05-009/E1.1; SC-M05-009/E2.1; SC-M05-009/E3.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.01 | SC-M05-001/M1; SC-M05-001/M2; SC-M05-001/E4.2; SC-M05-001/E14.5; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.02 | SC-M05-001/M3; SC-M05-001/M4; SC-M05-001/E1.3; SC-M05-001/E1.4; SC-M05-001/E2.3; SC-M05-001/E2.4; SC-M05-001/E4.2; SC-M05-001/E10.5; SC-M05-001/E10.6; SC-M05-001/E11.6; SC-M05-001/E12.6; SC-M05-001/E13.5; SC-M05-001/E13.6; SC-M05-001/E14.5; SC-M05-001/E15.3; SC-M05-001/E16.3; SC-M05-001/E17.3; SC-M05-001/E18.3; SC-M05-001/E19.7; SC-M05-001/E19.8; SC-M05-001/E20.3; SC-M05-001/E21.5; SC-M05-001/E21.6; SC-M05-001/E22.5; SC-M05-001/E22.6; SC-M05-001/E23.3; SC-M05-001/E24.7; SC-M05-001/E24.8; SC-M05-001/E25.7; SC-M05-001/E25.8; SC-M05-001/E26.11; SC-M05-001/E26.12; SC-M05-001/E27.6; SC-M05-001/E28.7; SC-M05-001/E28.8; SC-M05-001/E37.9; SC-M05-001/E37.10; SC-M05-002/M4; SC-M05-002/E1.2; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-009/M4; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.03 | SC-M05-001/E3.1; SC-M05-001/E35.5; SC-M05-001/E35.6; SC-M05-001/E36.5; SC-M05-001/E36.6; SC-M05-002/E10.1; SC-M05-009/M4; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.04 | SC-M05-001/E1.1; SC-M05-001/E1.2; SC-M05-001/E1.3; SC-M05-001/E1.4; SC-M05-001/E35.5; SC-M05-001/E35.6; SC-M05-001/E36.5; SC-M05-001/E36.6; SC-M05-009/M4; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.05 | SC-M05-001/E2.1; SC-M05-001/E2.2; SC-M05-001/E2.3; SC-M05-001/E2.4; SC-M05-009/M4; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01 | SC-M05-001/M1; SC-M05-001/M2; SC-M05-001/E4.2; SC-M05-001/E14.5; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/E20.4; SC-M05-001/M3; SC-M05-001/M4; SC-M05-001/E1.3; SC-M05-001/E1.4; SC-M05-001/E2.3; SC-M05-001/E2.4; SC-M05-001/E10.5; SC-M05-001/E10.6; SC-M05-001/E11.6; SC-M05-001/E12.6; SC-M05-001/E13.5; SC-M05-001/E13.6; SC-M05-001/E15.3; SC-M05-001/E16.3; SC-M05-001/E17.3; SC-M05-001/E18.3; SC-M05-001/E19.7; SC-M05-001/E19.8; SC-M05-001/E20.3; SC-M05-001/E21.5; SC-M05-001/E21.6; SC-M05-001/E22.5; SC-M05-001/E22.6; SC-M05-001/E23.3; SC-M05-001/E24.7; SC-M05-001/E24.8; SC-M05-001/E25.7; SC-M05-001/E25.8; SC-M05-001/E26.11; SC-M05-001/E26.12; SC-M05-001/E27.6; SC-M05-001/E28.7; SC-M05-001/E28.8; SC-M05-001/E37.9; SC-M05-001/E37.10; SC-M05-002/M4; SC-M05-002/E1.2; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-001/E1.1; SC-M05-001/E1.2; SC-M05-001/E35.5; SC-M05-001/E35.6; SC-M05-001/E36.5; SC-M05-001/E36.6; SC-M05-001/E2.1; SC-M05-001/E2.2; SC-M05-001/E3.1; SC-M05-002/E10.1; SC-M05-001/E4.1; SC-M05-001/E5.1; SC-M05-001/E5.2; SC-M05-001/E6.1; SC-M05-001/E6.2; SC-M05-001/E29.5; SC-M05-001/E29.6; SC-M05-001/E7.1; SC-M05-001/E7.2; SC-M05-001/E7.3; SC-M05-001/E7.4; SC-M05-001/E8.1; SC-M05-001/E8.2; SC-M05-001/E9.1; SC-M05-001/E9.2; SC-M05-001/E28.1; SC-M05-001/E28.2; SC-M05-001/E33.3; SC-M05-002/E14.3; SC-M05-001/E8.3; SC-M05-001/E8.4; SC-M05-001/E9.3; SC-M05-001/E9.4; SC-M05-001/E38.1; SC-M05-001/E38.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-02 | SC-M05-001/M2; SC-M05-001/E10.2; SC-M05-001/E11.2; SC-M05-001/E12.2; SC-M05-001/E13.2; SC-M05-001/E14.2; SC-M05-001/E19.4; SC-M05-001/E21.2; SC-M05-001/E22.2; SC-M05-001/E23.2; SC-M05-001/E24.2; SC-M05-001/E25.2; SC-M05-001/E26.2; SC-M05-001/E26.8; SC-M05-001/E27.2; SC-M05-001/E28.4; SC-M05-001/E29.2; SC-M05-001/E35.2; SC-M05-001/E36.2; SC-M05-001/E37.2; RULE-M05-004; SC-M05-001/M4; SC-M05-001/E1.4; SC-M05-001/E2.4; SC-M05-001/E7.4; SC-M05-001/E14.5; SC-M05-001/E23.3; SC-M05-002/E9.4; AUT-M05-002; SC-M05-001/E10.6; SC-M05-001/E11.5; SC-M05-001/E11.6; SC-M05-001/E12.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E27.6; SC-M05-001/E28.8; SC-M05-001/E29.6; SC-M05-001/E35.6; SC-M05-001/E36.6; SC-M05-001/E24.8; SC-M05-001/E25.8; SC-M05-001/E37.10; AUT-M05-004; SC-M05-001/E10.1; SC-M05-001/E11.1; SC-M05-001/E12.1; SC-M05-001/E13.1; SC-M05-001/E14.1; SC-M05-001/E15.1; SC-M05-001/E16.1; SC-M05-001/E17.1; SC-M05-001/E18.1; SC-M05-001/E19.1; SC-M05-001/E19.3; SC-M05-001/E22.1; SC-M05-001/E23.1; SC-M05-001/E24.1; SC-M05-001/E25.1; SC-M05-001/E26.1; SC-M05-001/E26.7; SC-M05-001/E27.1; SC-M05-001/E27.5; SC-M05-001/E28.3; SC-M05-001/E29.1; SC-M05-001/E35.1; SC-M05-001/E36.1; SC-M05-001/E37.1; SC-M05-001/E18.2; SC-M05-001/E18.3; SC-M05-001/E19.2; SC-M05-001/E20.1; SC-M05-001/E20.2; SC-M05-001/E21.1; SC-M05-001/E15.2; SC-M05-001/E16.2; SC-M05-001/E17.2; SC-M05-001/E37.7; SC-M05-001/E37.8; SC-M05-001/E10.4; SC-M05-001/E11.4; SC-M05-001/E12.4; SC-M05-001/E13.4; SC-M05-001/E19.6; SC-M05-001/E21.4; SC-M05-001/E22.4; SC-M05-001/E24.4; SC-M05-001/E25.4; SC-M05-001/E26.4; SC-M05-001/E26.10; SC-M05-001/E27.4; SC-M05-001/E28.6; SC-M05-001/E29.4; SC-M05-001/E35.4; SC-M05-001/E36.4; SC-M05-001/E37.4; SC-M05-001/E10.5; SC-M05-001/E12.5; SC-M05-001/E13.5; SC-M05-001/E19.7; SC-M05-001/E21.5; SC-M05-001/E22.5; SC-M05-001/E24.7; SC-M05-001/E25.7; SC-M05-001/E26.11; SC-M05-001/E28.7; SC-M05-001/E35.5; SC-M05-001/E36.5; SC-M05-001/E14.4; SC-M05-001/E15.3; SC-M05-001/E16.3; SC-M05-001/E17.3; SC-M05-001/E37.9; SC-M05-001/E24.5; SC-M05-001/E24.6; SC-M05-001/E25.5; SC-M05-001/E25.6; SC-M05-001/E26.5; SC-M05-001/E37.5; SC-M05-001/E37.6; SC-M05-001/E26.6; SC-M05-001/E28.1; SC-M05-001/E28.2; SC-M05-001/E39.1; SC-M05-001/E39.2; SC-M05-009/M2; SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E13.1; SC-M05-009/E13.2; SC-M05-009/E20.2; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03 | SC-M05-001/M2; SC-M05-001/M4; SC-M05-001/E1.4; SC-M05-001/E2.4; SC-M05-001/E7.4; SC-M05-001/E10.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E28.8; SC-M05-002/M1; SC-M05-002/M2; SC-M05-002/M3; SC-M05-002/M4; SC-M05-002/E1.1; SC-M05-002/E1.2; SC-M05-002/E2.3; SC-M05-002/E2.4; SC-M05-002/E3.3; SC-M05-002/E3.4; SC-M05-002/E4.3; SC-M05-002/E4.4; SC-M05-002/E5.3; SC-M05-002/E5.4; SC-M05-002/E6.2; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E10.1; SC-M05-002/E16.4; SC-M05-009/M4; SC-M05-009/E20.4; SC-M05-001/E10.4; SC-M05-001/E11.4; SC-M05-001/E12.4; SC-M05-001/E13.4; SC-M05-001/E19.6; SC-M05-001/E21.4; SC-M05-001/E22.4; SC-M05-001/E24.4; SC-M05-001/E25.4; SC-M05-001/E26.4; SC-M05-001/E26.10; SC-M05-001/E27.4; SC-M05-001/E28.6; SC-M05-001/E29.4; SC-M05-001/E35.4; SC-M05-001/E36.4; SC-M05-001/E37.4; SC-M05-002/E9.2; RULE-M05-001; SC-M05-001/E33.3; SC-M05-002/E9.1; SC-M05-002/E9.3; SC-M05-002/E14.3; SC-M05-002/E16.1; SC-M05-002/E16.2; SC-M05-002/E16.3; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-002/E6.1; SC-M05-002/E2.1; SC-M05-002/E2.2; SC-M05-002/E3.1; SC-M05-002/E3.2; SC-M05-009/E5.1; SC-M05-002/E4.1; SC-M05-002/E4.2; SC-M05-009/E6.1; SC-M05-002/E5.1; SC-M05-002/E5.2; SC-M05-009/E7.1; SC-M05-002/E8.1; SC-M05-007/M2; SC-M05-007/E6.2; SC-M05-009/E12.1; SC-M05-009/E12.2; RULE-M05-002; SC-M05-003/E1.2; SC-M05-003/E2.2; SC-M05-002/E17.1; SC-M05-002/E17.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-04 | SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-003/E2.2; SC-M05-007/M2; SC-M05-007/E6.2; SC-M05-009/E17.2; RULE-M05-002; SC-M05-003/M1; SC-M05-003/M2; SC-M05-003/E5.1; SC-M05-003/E5.2; RULE-M05-001; SC-M05-003/E1.1; SC-M05-003/E1.2; SC-M05-003/E4.1; SC-M05-003/E4.2; SC-M05-003/E2.1; SC-M05-003/E3.1; SC-M05-003/E3.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-05 | SC-M05-003/M2; SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E7.2; AUT-M05-001; RULE-M05-002; SC-M05-007/M2; SC-M05-007/E6.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-06 | SC-M05-004/M1; SC-M05-004/M2; SC-M05-004/E2.1; SC-M05-004/E2.2; SC-M05-004/E3.1; SC-M05-004/E4.1; SC-M05-004/E4.2; SC-M05-004/E5.1; SC-M05-004/E5.2; SC-M05-004/E6.1; SC-M05-004/E6.2; RULE-M05-003; RULE-M05-001; SC-M05-004/E1.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-07 | SC-M05-005/M1; SC-M05-005/M2; SC-M05-005/E2.1; SC-M05-005/E2.2; RULE-M05-003; SC-M05-005/E3.1; SC-M05-005/E3.2; SC-M05-005/E4.1; SC-M05-005/E4.2; SC-M05-005/E5.1; SC-M05-005/E5.2; SC-M05-005/E1.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-08 | SC-M05-006/M1; SC-M05-006/M2; SC-M05-006/E7.1; RULE-M05-003; SC-M05-006/E8.1; SC-M05-006/E8.2; SC-M05-006/E9.1; SC-M05-006/E9.2; SC-M05-006/E10.1; SC-M05-006/E10.2; SC-M05-006/E1.1; SC-M05-006/E2.1; SC-M05-006/E3.1; SC-M05-006/E4.1; SC-M05-006/E5.1; SC-M05-006/E6.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-09 | SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-007/M2; SC-M05-007/E2.2; SC-M05-007/E6.2; SC-M05-009/E17.2; RULE-M05-002; SC-M05-007/M1; SC-M05-007/E2.1; SC-M05-007/E6.1; AUT-M05-003; SC-M05-007/E1.1; SC-M05-007/E3.1; SC-M05-007/E4.1; SC-M05-007/E4.2; SC-M05-007/E5.1; SC-M05-007/E5.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-10 | SC-M05-008/M1; SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.1; SC-M05-008/E3.2; SC-M05-008/E7.1; SC-M05-008/E7.2; RULE-M05-002; SC-M05-008/E1.1; AUT-M05-003; SC-M05-008/E4.1; SC-M05-008/E5.1; SC-M05-008/E5.2; SC-M05-008/E6.1; SC-M05-008/E6.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-11 | SC-M05-001/E30.1; SC-M05-001/E31.1; SC-M05-002/E11.1; SC-M05-002/E12.1; SC-M05-009/M2; SC-M05-009/E14.1; SC-M05-009/E18.1; SC-M05-009/E18.2; SC-M05-009/E19.1; SC-M05-009/E19.2; SC-M05-009/E20.2; RULE-M05-003; SC-M05-009/M1; SC-M05-009/M3; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E13.2; SC-M05-009/E13.3; SC-M05-009/E17.1; SC-M05-009/E17.2; SC-M05-009/E20.1; SC-M05-009/E20.3; SC-M05-009/E20.4; SC-M05-009/E5.1; SC-M05-009/E6.1; SC-M05-009/E7.1; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/E12.1; SC-M05-009/E12.2; AUT-M05-003; SC-M05-009/E1.1; SC-M05-009/E2.1; SC-M05-009/E3.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.01 | SC-M05-001/M1; SC-M05-001/M2; SC-M05-001/E4.2; SC-M05-001/E14.5; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.02 | SC-M05-001/M3; SC-M05-001/M4; SC-M05-001/E1.3; SC-M05-001/E1.4; SC-M05-001/E2.3; SC-M05-001/E2.4; SC-M05-001/E4.2; SC-M05-001/E10.5; SC-M05-001/E10.6; SC-M05-001/E11.6; SC-M05-001/E12.6; SC-M05-001/E13.5; SC-M05-001/E13.6; SC-M05-001/E14.5; SC-M05-001/E15.3; SC-M05-001/E16.3; SC-M05-001/E17.3; SC-M05-001/E18.3; SC-M05-001/E19.7; SC-M05-001/E19.8; SC-M05-001/E20.3; SC-M05-001/E21.5; SC-M05-001/E21.6; SC-M05-001/E22.5; SC-M05-001/E22.6; SC-M05-001/E23.3; SC-M05-001/E24.7; SC-M05-001/E24.8; SC-M05-001/E25.7; SC-M05-001/E25.8; SC-M05-001/E26.11; SC-M05-001/E26.12; SC-M05-001/E27.6; SC-M05-001/E28.7; SC-M05-001/E28.8; SC-M05-001/E37.9; SC-M05-001/E37.10; SC-M05-002/M4; SC-M05-002/E1.2; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-009/M4; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.03 | SC-M05-001/E3.1; SC-M05-001/E35.5; SC-M05-001/E35.6; SC-M05-001/E36.5; SC-M05-001/E36.6; SC-M05-002/E10.1; SC-M05-009/M4; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.04 | SC-M05-001/E1.1; SC-M05-001/E1.2; SC-M05-001/E1.3; SC-M05-001/E1.4; SC-M05-001/E35.5; SC-M05-001/E35.6; SC-M05-001/E36.5; SC-M05-001/E36.6; SC-M05-009/M4; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.05 | SC-M05-001/E2.1; SC-M05-001/E2.2; SC-M05-001/E2.3; SC-M05-001/E2.4; SC-M05-009/M4; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-01.06 | SC-M05-001/E7.1; SC-M05-001/E7.2; SC-M05-001/E7.3; SC-M05-001/E7.4; SC-M05-001/E8.1; SC-M05-001/E8.2; SC-M05-001/E9.1; SC-M05-001/E9.2; SC-M05-001/E10.5; SC-M05-001/E10.6; SC-M05-001/E13.5; SC-M05-001/E13.6; SC-M05-001/E19.7; SC-M05-001/E19.8; SC-M05-001/E21.5; SC-M05-001/E21.6; SC-M05-001/E22.5; SC-M05-001/E22.6; SC-M05-001/E26.11; SC-M05-001/E26.12; SC-M05-001/E28.1; SC-M05-001/E28.2; SC-M05-001/E28.7; SC-M05-001/E28.8; SC-M05-001/E33.3; SC-M05-002/E14.3 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.07 | SC-M05-001/E7.4; SC-M05-001/E8.3; SC-M05-001/E8.4; SC-M05-001/E9.3; SC-M05-001/E9.4; SC-M05-009/M4; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.08 | SC-M05-001/V1.1; SC-M05-001/V1.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.09 | SC-M05-001/E4.1; SC-M05-002/E10.1; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-01.10 | SC-M05-001/E5.1; SC-M05-001/E5.2; SC-M05-001/E6.1; SC-M05-001/E6.2; SC-M05-001/E29.5; SC-M05-001/E29.6; SC-M05-009/M4; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.07 | SC-M05-001/E7.4; SC-M05-001/E8.3; SC-M05-001/E8.4; SC-M05-001/E9.3; SC-M05-001/E9.4; SC-M05-009/M4; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.08 | SC-M05-001/E38.1; SC-M05-001/E38.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.09 | SC-M05-001/E4.1; SC-M05-002/E10.1; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-01.10 | SC-M05-001/E5.1; SC-M05-001/E5.2; SC-M05-001/E6.1; SC-M05-001/E6.2; SC-M05-001/E29.5; SC-M05-001/E29.6; SC-M05-009/M4; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-02.01 | SC-M05-001/E10.1; SC-M05-001/E10.2; SC-M05-001/E11.1; SC-M05-001/E11.2; SC-M05-001/E12.1; SC-M05-001/E12.2; SC-M05-001/E13.1; SC-M05-001/E13.2; SC-M05-001/E14.1; SC-M05-001/E14.2; SC-M05-001/E15.1; SC-M05-001/E16.1; SC-M05-001/E17.1; SC-M05-001/E18.1; SC-M05-001/E19.1; SC-M05-001/E19.3; SC-M05-001/E19.4; SC-M05-001/E21.2; SC-M05-001/E22.1; SC-M05-001/E22.2; SC-M05-001/E23.1; SC-M05-001/E23.2; SC-M05-001/E24.1; SC-M05-001/E24.2; SC-M05-001/E25.1; SC-M05-001/E25.2; SC-M05-001/E26.1; SC-M05-001/E26.2; SC-M05-001/E26.7; SC-M05-001/E26.8; SC-M05-001/E27.1; SC-M05-001/E27.2; SC-M05-001/E27.5; SC-M05-001/E28.3; SC-M05-001/E28.4; SC-M05-001/E29.1; SC-M05-001/E29.2; SC-M05-001/E35.1; SC-M05-001/E35.2; SC-M05-001/E36.1; SC-M05-001/E36.2; SC-M05-001/E37.1; SC-M05-001/E37.2; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-02.02 | SC-M05-001/M2; SC-M05-001/E10.2; SC-M05-001/E11.2; SC-M05-001/E12.2; SC-M05-001/E13.2; SC-M05-001/E14.2; SC-M05-001/E19.4; SC-M05-001/E21.2; SC-M05-001/E22.2; SC-M05-001/E23.2; SC-M05-001/E24.2; SC-M05-001/E25.2; SC-M05-001/E26.2; SC-M05-001/E26.8; SC-M05-001/E27.2; SC-M05-001/E28.4; SC-M05-001/E29.2; SC-M05-001/E35.2; SC-M05-001/E36.2; SC-M05-001/E37.2; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-02.03 | SC-M05-001/E10.4; SC-M05-001/E11.4; SC-M05-001/E12.4; SC-M05-001/E13.4; SC-M05-001/E19.6; SC-M05-001/E21.4; SC-M05-001/E22.4; SC-M05-001/E24.4; SC-M05-001/E25.4; SC-M05-001/E26.4; SC-M05-001/E26.10; SC-M05-001/E27.4; SC-M05-001/E28.6; SC-M05-001/E29.4; SC-M05-001/E35.4; SC-M05-001/E36.4; SC-M05-001/E37.4; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
@@ -1813,30 +1835,30 @@ Ví dụ xếp hạng snapshot riêng: Ngữ văn12 (0 bài mới), Tin học10 
 | FR-M05-02.15 | SC-M05-001/E10.2; SC-M05-001/E11.2; SC-M05-001/E12.2; SC-M05-001/E13.2; SC-M05-001/E14.2; SC-M05-001/E19.4; SC-M05-001/E20.1; SC-M05-001/E20.2; SC-M05-001/E21.1; SC-M05-001/E21.2; SC-M05-001/E22.2; SC-M05-001/E23.2; SC-M05-001/E24.2; SC-M05-001/E25.2; SC-M05-001/E26.2; SC-M05-001/E26.8; SC-M05-001/E27.2; SC-M05-001/E28.4; SC-M05-001/E29.2; SC-M05-001/E35.2; SC-M05-001/E36.2; SC-M05-001/E37.2; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-02.16 | SC-M05-001/E10.2; SC-M05-001/E11.2; SC-M05-001/E12.2; SC-M05-001/E13.2; SC-M05-001/E14.2; SC-M05-001/E15.2; SC-M05-001/E16.2; SC-M05-001/E17.2; SC-M05-001/E19.4; SC-M05-001/E21.2; SC-M05-001/E22.2; SC-M05-001/E23.2; SC-M05-001/E24.2; SC-M05-001/E25.2; SC-M05-001/E26.2; SC-M05-001/E26.8; SC-M05-001/E27.2; SC-M05-001/E28.4; SC-M05-001/E29.2; SC-M05-001/E35.2; SC-M05-001/E36.2; SC-M05-001/E37.2; SC-M05-001/E37.7; SC-M05-001/E37.8; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-02.17 | SC-M05-001/E15.2; SC-M05-001/E15.3; SC-M05-001/E16.2; SC-M05-001/E16.3; SC-M05-001/E17.2; SC-M05-001/E17.3; SC-M05-001/E37.8; SC-M05-001/E37.9; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-02.18 | SC-M05-001/V2.1; SC-M05-001/V2.2; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-02.18 | SC-M05-001/E39.1; SC-M05-001/E39.2; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-02.19 | SC-M05-001/E10.4; SC-M05-001/E11.4; SC-M05-001/E12.4; SC-M05-001/E13.4; SC-M05-001/E19.6; SC-M05-001/E21.4; SC-M05-001/E22.4; SC-M05-001/E24.4; SC-M05-001/E25.4; SC-M05-001/E26.4; SC-M05-001/E26.10; SC-M05-001/E27.4; SC-M05-001/E28.6; SC-M05-001/E29.4; SC-M05-001/E35.4; SC-M05-001/E36.4; SC-M05-001/E37.4; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-02.20 | SC-M05-001/E28.1; SC-M05-001/E28.2; SC-M05-001/E28.3; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-02.21 | SC-M05-009/M2; SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E13.1; SC-M05-009/E13.2; SC-M05-009/V3.2; SC-M05-009/V3.4; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-02.21 | SC-M05-009/M2; SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E13.1; SC-M05-009/E13.2; SC-M05-009/E20.2; SC-M05-009/E20.4; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-02.22 | AUT-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.01 | SC-M05-001/M2; SC-M05-001/M4; SC-M05-001/E1.4; SC-M05-001/E2.4; SC-M05-001/E7.4; SC-M05-001/E10.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E28.8; SC-M05-002/M1; SC-M05-002/M2; SC-M05-002/M3; SC-M05-002/M4; SC-M05-002/E1.1; SC-M05-002/E1.2; SC-M05-002/E2.3; SC-M05-002/E2.4; SC-M05-002/E3.3; SC-M05-002/E3.4; SC-M05-002/E4.3; SC-M05-002/E4.4; SC-M05-002/E5.3; SC-M05-002/E5.4; SC-M05-002/E6.2; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E10.1; SC-M05-002/E16.4; SC-M05-009/M4; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.02 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.03 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E6.1; SC-M05-002/E6.2; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E16.4; SC-M05-009/M4; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.04 | SC-M05-002/M4; SC-M05-002/E2.1; SC-M05-002/E2.2; SC-M05-002/E2.3; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.05 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.1; SC-M05-002/E3.2; SC-M05-002/E3.3; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E5.1; SC-M05-009/V3.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.06 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.1; SC-M05-002/E4.2; SC-M05-002/E4.3; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E6.1; SC-M05-009/V3.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.07 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.1; SC-M05-002/E5.2; SC-M05-002/E5.3; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E7.1; SC-M05-009/V3.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.08 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E6.1; SC-M05-002/E6.2; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.09 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E8.1; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-007/M2; SC-M05-007/V3.2; SC-M05-009/M4; SC-M05-009/E12.1; SC-M05-009/E12.2; SC-M05-009/V3.4; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.01 | SC-M05-001/M2; SC-M05-001/M4; SC-M05-001/E1.4; SC-M05-001/E2.4; SC-M05-001/E7.4; SC-M05-001/E10.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E28.8; SC-M05-002/M1; SC-M05-002/M2; SC-M05-002/M3; SC-M05-002/M4; SC-M05-002/E1.1; SC-M05-002/E1.2; SC-M05-002/E2.3; SC-M05-002/E2.4; SC-M05-002/E3.3; SC-M05-002/E3.4; SC-M05-002/E4.3; SC-M05-002/E4.4; SC-M05-002/E5.3; SC-M05-002/E5.4; SC-M05-002/E6.2; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E10.1; SC-M05-002/E16.4; SC-M05-009/M4; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.02 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.03 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E6.1; SC-M05-002/E6.2; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E16.4; SC-M05-009/M4; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.04 | SC-M05-002/M4; SC-M05-002/E2.1; SC-M05-002/E2.2; SC-M05-002/E2.3; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.05 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.1; SC-M05-002/E3.2; SC-M05-002/E3.3; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E5.1; SC-M05-009/E20.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.06 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.1; SC-M05-002/E4.2; SC-M05-002/E4.3; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E6.1; SC-M05-009/E20.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.07 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.1; SC-M05-002/E5.2; SC-M05-002/E5.3; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E7.1; SC-M05-009/E20.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.08 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E6.1; SC-M05-002/E6.2; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.09 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E8.1; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-007/M2; SC-M05-007/E6.2; SC-M05-009/M4; SC-M05-009/E12.1; SC-M05-009/E12.2; SC-M05-009/E20.4; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-03.10 | SC-M05-001/E33.3; SC-M05-002/E9.1; SC-M05-002/E9.2; SC-M05-002/E9.3; SC-M05-002/E9.4; SC-M05-002/E14.3; SC-M05-002/E16.1; SC-M05-002/E16.2; SC-M05-002/E16.3; SC-M05-002/E16.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-03.11 | SC-M05-001/E10.4; SC-M05-001/E11.4; SC-M05-001/E12.4; SC-M05-001/E13.4; SC-M05-001/E19.6; SC-M05-001/E21.4; SC-M05-001/E22.4; SC-M05-001/E24.4; SC-M05-001/E25.4; SC-M05-001/E26.4; SC-M05-001/E26.10; SC-M05-001/E27.4; SC-M05-001/E28.6; SC-M05-001/E29.4; SC-M05-001/E35.4; SC-M05-001/E36.4; SC-M05-001/E37.4; SC-M05-002/M2; SC-M05-002/M4; SC-M05-002/E1.2; SC-M05-002/E9.2; SC-M05-002/E9.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.12 | SC-M05-002/V1.1; SC-M05-002/V1.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.12 | SC-M05-002/E17.1; SC-M05-002/E17.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-03.13 | RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-03.14 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E6.2; SC-M05-002/E7.2; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E16.4; SC-M05-003/E1.2; SC-M05-003/E2.2; SC-M05-009/M4; SC-M05-009/E11.2; SC-M05-009/V3.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-04.01 | SC-M05-003/M1; SC-M05-003/M2; SC-M05-003/V1.1; SC-M05-003/V1.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-04.02 | SC-M05-003/E1.1; SC-M05-003/E1.2; SC-M05-003/E4.1; SC-M05-003/E4.2; SC-M05-003/V1.1; SC-M05-003/V1.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-04.03 | SC-M05-003/E1.2; SC-M05-003/E4.2; SC-M05-003/V1.2; SC-M05-007/M2; SC-M05-007/V3.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-03.14 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E6.2; SC-M05-002/E7.2; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E16.4; SC-M05-003/E1.2; SC-M05-003/E2.2; SC-M05-009/M4; SC-M05-009/E11.2; SC-M05-009/E20.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-04.01 | SC-M05-003/M1; SC-M05-003/M2; SC-M05-003/E5.1; SC-M05-003/E5.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-04.02 | SC-M05-003/E1.1; SC-M05-003/E1.2; SC-M05-003/E4.1; SC-M05-003/E4.2; SC-M05-003/E5.1; SC-M05-003/E5.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-04.03 | SC-M05-003/E1.2; SC-M05-003/E4.2; SC-M05-003/E5.2; SC-M05-007/M2; SC-M05-007/E6.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-04.04 | SC-M05-003/E2.1; SC-M05-003/E2.2; SC-M05-003/E3.1; SC-M05-003/E3.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-04.05 | SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-003/E2.2; SC-M05-007/M2; SC-M05-007/V3.2; SC-M05-009/E17.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-04.05 | SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-003/E2.2; SC-M05-007/M2; SC-M05-007/E6.2; SC-M05-009/E17.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-04.06 | SC-M05-003/M2; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.01 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.02 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
@@ -1844,17 +1866,17 @@ Ví dụ xếp hạng snapshot riêng: Ngữ văn12 (0 bài mới), Tin học10 
 | FR-M05-05.04 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.05 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.06 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-05.07 | SC-M05-007/M2; SC-M05-007/V3.2; SC-M05-008/E2.1; AUT-M05-001; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-05.07 | SC-M05-007/M2; SC-M05-007/E6.2; SC-M05-008/E2.1; AUT-M05-001; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.08 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.09 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-05.10 | SC-M05-003/M2; SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/V3.2; AUT-M05-001; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-05.10 | SC-M05-003/M2; SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E7.2; AUT-M05-001; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.11 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.12 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-05.13 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-05.14 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/V3.2; AUT-M05-001; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-05.14 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E7.2; AUT-M05-001; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-06.01 | SC-M05-004/M1; SC-M05-004/M2; SC-M05-004/E2.1; SC-M05-004/E2.2; SC-M05-004/E3.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-06.02 | SC-M05-004/E1.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-06.03 | SC-M05-004/M2; SC-M05-004/V1.1; SC-M05-004/V1.2; SC-M05-004/V2.1; SC-M05-004/V2.2; SC-M05-004/V3.1; SC-M05-004/V3.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-06.03 | SC-M05-004/M2; SC-M05-004/E4.1; SC-M05-004/E4.2; SC-M05-004/E5.1; SC-M05-004/E5.2; SC-M05-004/E6.1; SC-M05-004/E6.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-06.04 | SC-M05-004/M2; SC-M05-004/E2.2; SC-M05-004/E3.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-06.05 | SC-M05-004/M2; SC-M05-004/E2.2; SC-M05-004/E3.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-06.06 | SC-M05-004/M2; SC-M05-004/E3.1; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
@@ -1862,40 +1884,40 @@ Ví dụ xếp hạng snapshot riêng: Ngữ văn12 (0 bài mới), Tin học10 
 | FR-M05-06.08 | SC-M05-004/M2; SC-M05-004/E1.1; SC-M05-004/E2.1; SC-M05-004/E2.2; SC-M05-004/E3.1; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-07.01 | SC-M05-005/M1; SC-M05-005/M2; SC-M05-005/E2.1; SC-M05-005/E2.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-07.02 | SC-M05-005/M2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-07.03 | SC-M05-005/M2; SC-M05-005/V1.1; SC-M05-005/V1.2; SC-M05-005/V2.1; SC-M05-005/V2.2; SC-M05-005/V3.1; SC-M05-005/V3.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-07.03 | SC-M05-005/M2; SC-M05-005/E3.1; SC-M05-005/E3.2; SC-M05-005/E4.1; SC-M05-005/E4.2; SC-M05-005/E5.1; SC-M05-005/E5.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-07.04 | SC-M05-005/E1.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-07.05 | SC-M05-005/M2; SC-M05-005/E2.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-07.06 | SC-M05-005/M2; SC-M05-005/E2.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-08.01 | SC-M05-006/M1; SC-M05-006/M2; SC-M05-006/E7.1; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-08.02 | SC-M05-006/E1.1; SC-M05-006/E2.1; SC-M05-006/E3.1; SC-M05-006/E4.1; SC-M05-006/E5.1; SC-M05-006/E6.1; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-08.03 | SC-M05-006/M2; SC-M05-006/V1.1; SC-M05-006/V1.2; SC-M05-006/V2.1; SC-M05-006/V2.2; SC-M05-006/V3.1; SC-M05-006/V3.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-08.03 | SC-M05-006/M2; SC-M05-006/E8.1; SC-M05-006/E8.2; SC-M05-006/E9.1; SC-M05-006/E9.2; SC-M05-006/E10.1; SC-M05-006/E10.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-08.04 | SC-M05-006/M2; SC-M05-006/E7.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-08.05 | SC-M05-006/M2; SC-M05-006/E7.1; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-08.06 | SC-M05-006/M2; SC-M05-006/E7.1; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-09.01 | SC-M05-007/M1; SC-M05-007/M2; SC-M05-007/E2.1; SC-M05-007/E2.2; SC-M05-007/V3.1; SC-M05-007/V3.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-09.02 | SC-M05-007/M2; SC-M05-007/E2.2; SC-M05-007/V3.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-09.03 | SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-007/M2; SC-M05-007/E2.2; SC-M05-007/V3.2; SC-M05-009/E17.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-09.04 | SC-M05-007/E3.1; SC-M05-007/V1.1; SC-M05-007/V1.2; SC-M05-007/V2.1; SC-M05-007/V2.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-09.01 | SC-M05-007/M1; SC-M05-007/M2; SC-M05-007/E2.1; SC-M05-007/E2.2; SC-M05-007/E6.1; SC-M05-007/E6.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-09.02 | SC-M05-007/M2; SC-M05-007/E2.2; SC-M05-007/E6.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-09.03 | SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-007/M2; SC-M05-007/E2.2; SC-M05-007/E6.2; SC-M05-009/E17.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-09.04 | SC-M05-007/E3.1; SC-M05-007/E4.1; SC-M05-007/E4.2; SC-M05-007/E5.1; SC-M05-007/E5.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-09.05 | SC-M05-007/E1.1; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-09.06 | RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-09.07 | SC-M05-007/M2; SC-M05-007/E2.1; SC-M05-007/E2.2; SC-M05-007/V3.2; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-10.01 | SC-M05-008/M1; SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.1; SC-M05-008/E3.2; SC-M05-008/V3.1; SC-M05-008/V3.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-10.02 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/V3.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-10.03 | SC-M05-008/M2; SC-M05-008/E1.1; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/V3.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-10.04 | SC-M05-008/E4.1; SC-M05-008/V1.1; SC-M05-008/V1.2; SC-M05-008/V2.1; SC-M05-008/V2.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-09.07 | SC-M05-007/M2; SC-M05-007/E2.1; SC-M05-007/E2.2; SC-M05-007/E6.2; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-10.01 | SC-M05-008/M1; SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.1; SC-M05-008/E3.2; SC-M05-008/E7.1; SC-M05-008/E7.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-10.02 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/E7.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-10.03 | SC-M05-008/M2; SC-M05-008/E1.1; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/E7.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-10.04 | SC-M05-008/E4.1; SC-M05-008/E5.1; SC-M05-008/E5.2; SC-M05-008/E6.1; SC-M05-008/E6.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-10.05 | SC-M05-008/E1.1; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-10.06 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.1; SC-M05-008/E3.2; SC-M05-008/V3.2; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-11.01 | SC-M05-009/M1; SC-M05-009/M3; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E13.2; SC-M05-009/E13.3; SC-M05-009/E17.1; SC-M05-009/E17.2; SC-M05-009/V3.1; SC-M05-009/V3.3; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-11.02 | SC-M05-009/M1; SC-M05-009/M3; SC-M05-009/M4; SC-M05-009/E5.1; SC-M05-009/E6.1; SC-M05-009/E7.1; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/E12.1; SC-M05-009/E12.2; SC-M05-009/E13.3; SC-M05-009/V3.1; SC-M05-009/V3.3; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-10.06 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.1; SC-M05-008/E3.2; SC-M05-008/E7.2; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-11.01 | SC-M05-009/M1; SC-M05-009/M3; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E13.2; SC-M05-009/E13.3; SC-M05-009/E17.1; SC-M05-009/E17.2; SC-M05-009/E20.1; SC-M05-009/E20.3; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-11.02 | SC-M05-009/M1; SC-M05-009/M3; SC-M05-009/M4; SC-M05-009/E5.1; SC-M05-009/E6.1; SC-M05-009/E7.1; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/E12.1; SC-M05-009/E12.2; SC-M05-009/E13.3; SC-M05-009/E20.1; SC-M05-009/E20.3; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | FR-M05-11.03 | SC-M05-009/E1.1; SC-M05-009/E2.1; SC-M05-009/E3.1 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-11.04 | SC-M05-001/E30.1; SC-M05-001/E31.1; SC-M05-002/E11.1; SC-M05-002/E12.1; SC-M05-009/M2; SC-M05-009/E14.1; SC-M05-009/V1.1; SC-M05-009/V1.2; SC-M05-009/V2.1; SC-M05-009/V2.2; SC-M05-009/V3.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-11.05 | SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E11.2; SC-M05-009/E12.2; SC-M05-009/E17.2; SC-M05-009/V3.4; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-11.06 | SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E11.2; SC-M05-009/E12.2; SC-M05-009/E17.2; SC-M05-009/V3.4; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| FR-M05-11.07 | SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E11.2; SC-M05-009/E12.2; SC-M05-009/E17.2; SC-M05-009/V3.4; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-11.04 | SC-M05-001/E30.1; SC-M05-001/E31.1; SC-M05-002/E11.1; SC-M05-002/E12.1; SC-M05-009/M2; SC-M05-009/E14.1; SC-M05-009/E18.1; SC-M05-009/E18.2; SC-M05-009/E19.1; SC-M05-009/E19.2; SC-M05-009/E20.2; RULE-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-11.05 | SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E11.2; SC-M05-009/E12.2; SC-M05-009/E17.2; SC-M05-009/E20.4; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-11.06 | SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E11.2; SC-M05-009/E12.2; SC-M05-009/E17.2; SC-M05-009/E20.4; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| FR-M05-11.07 | SC-M05-009/M4; SC-M05-009/E8.2; SC-M05-009/E9.2; SC-M05-009/E10.2; SC-M05-009/E11.2; SC-M05-009/E12.2; SC-M05-009/E17.2; SC-M05-009/E20.4; AUT-M05-003 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-01 | SC-M05-003/M2; SC-M05-004/M2; SC-M05-004/E2.2; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-02 | SC-M05-003/M2; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-03 | SC-M05-001/M2; SC-M05-001/M3; SC-M05-001/M4; SC-M05-001/E1.1; SC-M05-001/E1.2; SC-M05-001/E1.3; SC-M05-001/E1.4; SC-M05-001/E2.1; SC-M05-001/E2.2; SC-M05-001/E2.3; SC-M05-001/E2.4; SC-M05-001/E3.1; SC-M05-001/E4.2; SC-M05-001/E5.2; SC-M05-001/E6.2; SC-M05-001/E10.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E28.8; SC-M05-001/E35.5; SC-M05-001/E35.6; SC-M05-001/E36.5; SC-M05-001/E36.6; SC-M05-002/E10.1; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-04 | SC-M05-001/E7.2; SC-M05-001/E7.4; SC-M05-001/E8.4; SC-M05-001/E9.4; SC-M05-001/E10.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E28.8; SC-M05-002/E16.4; SC-M05-009/M4; SC-M05-009/E1.1; SC-M05-009/E2.1; SC-M05-009/E3.1; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E17.2; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-03 | SC-M05-001/M2; SC-M05-001/M3; SC-M05-001/M4; SC-M05-001/E1.1; SC-M05-001/E1.2; SC-M05-001/E1.3; SC-M05-001/E1.4; SC-M05-001/E2.1; SC-M05-001/E2.2; SC-M05-001/E2.3; SC-M05-001/E2.4; SC-M05-001/E3.1; SC-M05-001/E4.2; SC-M05-001/E5.2; SC-M05-001/E6.2; SC-M05-001/E10.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E28.8; SC-M05-001/E35.5; SC-M05-001/E35.6; SC-M05-001/E36.5; SC-M05-001/E36.6; SC-M05-002/E10.1; SC-M05-009/M4; SC-M05-009/E4.1; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-04 | SC-M05-001/E7.2; SC-M05-001/E7.4; SC-M05-001/E8.4; SC-M05-001/E9.4; SC-M05-001/E10.6; SC-M05-001/E13.6; SC-M05-001/E19.8; SC-M05-001/E21.6; SC-M05-001/E22.6; SC-M05-001/E26.12; SC-M05-001/E28.8; SC-M05-002/E16.4; SC-M05-009/M4; SC-M05-009/E1.1; SC-M05-009/E2.1; SC-M05-009/E3.1; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E17.2; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-05 | SC-M05-004/M2; SC-M05-004/E1.1; SC-M05-004/E2.1; SC-M05-004/E2.2; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-06 | SC-M05-004/M2; SC-M05-004/E3.1; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-07 | SC-M05-004/M2; SC-M05-004/E2.2 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
@@ -1911,18 +1933,18 @@ Ví dụ xếp hạng snapshot riêng: Ngữ văn12 (0 bài mới), Tin học10 
 | BR-M05-17 | SC-M05-001/E10.2; SC-M05-001/E11.2; SC-M05-001/E12.2; SC-M05-001/E13.2; SC-M05-001/E14.2; SC-M05-001/E19.4; SC-M05-001/E20.1; SC-M05-001/E20.2; SC-M05-001/E21.1; SC-M05-001/E21.2; SC-M05-001/E22.2; SC-M05-001/E23.2; SC-M05-001/E24.2; SC-M05-001/E25.2; SC-M05-001/E26.2; SC-M05-001/E26.7; SC-M05-001/E26.8; SC-M05-001/E27.2; SC-M05-001/E28.4; SC-M05-001/E29.2; SC-M05-001/E35.2; SC-M05-001/E36.2; SC-M05-001/E37.2; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-18 | SC-M05-001/E10.2; SC-M05-001/E11.2; SC-M05-001/E12.2; SC-M05-001/E13.2; SC-M05-001/E14.2; SC-M05-001/E15.2; SC-M05-001/E16.2; SC-M05-001/E17.2; SC-M05-001/E19.4; SC-M05-001/E21.2; SC-M05-001/E22.2; SC-M05-001/E23.2; SC-M05-001/E24.2; SC-M05-001/E25.2; SC-M05-001/E26.2; SC-M05-001/E26.8; SC-M05-001/E27.2; SC-M05-001/E28.4; SC-M05-001/E29.2; SC-M05-001/E35.2; SC-M05-001/E36.2; SC-M05-001/E37.2; SC-M05-001/E37.7; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-19 | SC-M05-001/E14.4; SC-M05-001/E23.2; RULE-M05-004 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-20 | SC-M05-002/M2; SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.1; SC-M05-002/E4.2; SC-M05-002/E4.3; SC-M05-002/E4.4; SC-M05-002/E5.1; SC-M05-002/E5.2; SC-M05-002/E5.3; SC-M05-002/E5.4; SC-M05-002/E7.1; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E6.1; SC-M05-009/E7.1; SC-M05-009/V3.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-21 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E11.2; SC-M05-009/V3.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-22 | SC-M05-001/M2; SC-M05-001/M4; SC-M05-001/E1.4; SC-M05-001/E2.4; SC-M05-002/M2; SC-M05-002/M4; SC-M05-002/E1.1; SC-M05-002/E1.2; SC-M05-002/E2.1; SC-M05-002/E2.2; SC-M05-002/E2.3; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/V3.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-23 | SC-M05-002/M2; SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.1; SC-M05-002/E3.2; SC-M05-002/E3.3; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E5.1; SC-M05-009/V3.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-24 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E6.1; SC-M05-002/E6.2; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/V3.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-20 | SC-M05-002/M2; SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.1; SC-M05-002/E4.2; SC-M05-002/E4.3; SC-M05-002/E4.4; SC-M05-002/E5.1; SC-M05-002/E5.2; SC-M05-002/E5.3; SC-M05-002/E5.4; SC-M05-002/E7.1; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E6.1; SC-M05-009/E7.1; SC-M05-009/E20.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-21 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E11.2; SC-M05-009/E20.4 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-22 | SC-M05-001/M2; SC-M05-001/M4; SC-M05-001/E1.4; SC-M05-001/E2.4; SC-M05-002/M2; SC-M05-002/M4; SC-M05-002/E1.1; SC-M05-002/E1.2; SC-M05-002/E2.1; SC-M05-002/E2.2; SC-M05-002/E2.3; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E8.1; SC-M05-009/E8.2; SC-M05-009/E9.1; SC-M05-009/E9.2; SC-M05-009/E10.1; SC-M05-009/E10.2; SC-M05-009/E20.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-23 | SC-M05-002/M2; SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.1; SC-M05-002/E3.2; SC-M05-002/E3.3; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E5.1; SC-M05-009/E20.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-24 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E6.1; SC-M05-002/E6.2; SC-M05-002/E7.1; SC-M05-002/E7.2; SC-M05-002/E9.4; SC-M05-009/M4; SC-M05-009/E11.1; SC-M05-009/E11.2; SC-M05-009/E20.4; RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-25 | RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-26 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-003/E1.2; SC-M05-003/E2.2; SC-M05-003/E4.2; SC-M05-003/V1.2; SC-M05-007/M2; SC-M05-007/E1.1; SC-M05-007/E2.2; SC-M05-007/V3.2; SC-M05-009/M4; SC-M05-009/E12.2; SC-M05-009/E17.2; SC-M05-009/V3.4; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-27 | SC-M05-008/M2; SC-M05-008/E1.1; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/V3.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-26 | SC-M05-002/M4; SC-M05-002/E2.4; SC-M05-002/E3.4; SC-M05-002/E4.4; SC-M05-002/E5.4; SC-M05-002/E8.2; SC-M05-002/E9.4; SC-M05-002/E16.2; SC-M05-002/E16.4; SC-M05-003/E1.2; SC-M05-003/E2.2; SC-M05-003/E4.2; SC-M05-003/E5.2; SC-M05-007/M2; SC-M05-007/E1.1; SC-M05-007/E2.2; SC-M05-007/E6.2; SC-M05-009/M4; SC-M05-009/E12.2; SC-M05-009/E17.2; SC-M05-009/E20.4; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-27 | SC-M05-008/M2; SC-M05-008/E1.1; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/E7.2; RULE-M05-002 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-28 | RULE-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 | BR-M05-29 | AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-30 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/V3.2; AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
-| BR-M05-31 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/V3.2; AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-30 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/E7.2; AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
+| BR-M05-31 | SC-M05-008/M2; SC-M05-008/E2.1; SC-M05-008/E3.2; SC-M05-008/E7.2; AUT-M05-001 | Đối chiếu nội dung/nguồn, chưa phê duyệt |
 
 
 | UC owner | Guard/lựa chọn | Nhánh | Đích |
@@ -2022,7 +2044,7 @@ Ví dụ xếp hạng snapshot riêng: Ngữ văn12 (0 bài mới), Tin học10 
 | UC-M05-011 | Mod chỉ đổi Topic, bài vẫn giữ Tag cũ đang vô hiệu hóa | SC-M05-009/E17 | END:SUCCESS |
 
 
-Truy vết ngược ở sources từng bước. Mỗi E thay bước chính, các V thay cả đường theo actor khởi tạo khác. V không là BF thứ hai; được kiểm riêng vì graph validator mặc định chỉ đi main/E. Kết thúc REJECTED có hậu điều kiện từ chối, không giả thành SUCCESS.
+Truy vết ngược ở sources từng bước. Mỗi E thay bước chính, các E tại M1 thay cả đường theo actor khởi tạo khác. E tại M1 không là BF thứ hai; được kiểm riêng vì graph validator mặc định chỉ đi main/E. Kết thúc REJECTED có hậu điều kiện từ chối, không giả thành SUCCESS.
 
 Tổ hợp dùng lớp tương đương: lỗi tên Tag áp lại cùng hợp đồng ở lúc gắn và lưu, số lượng/tên/danh mục khác nhau không cần nhân mọi bộ dữ liệu. Quyền/trạng thái được kiểm ở lượt trả dữ liệu và lượt ghi; nếu thay đổi giữa hai lượt thì kết quả lúc ghi quyết định. Các lỗi Topic/Tag là kiểm độc lập trong tập cuối, không tạo chính sách ưu tiên thông báo khi nhiều lỗi cùng lúc. Gợi ý lỗi thời + gửi hợp lệ và lỗi thời + gợi ý lại đã có đường riêng vì thay điều kiện ghi phản hồi; sửa có gợi ý tươi phải ghi, lưu nháp không ghi. AI tắt không phải lỗi dịch vụ; lỗi/timeout sau retry đi chọn thủ công. Kích hoạt Tag không tự cho hạng Trending khi điểm0/chưa đến kỳ. Không thêm đường hủy/xác nhận hoặc lỗi mạng/lưu/log chưa có hợp đồng.
 
@@ -2040,3 +2062,33 @@ Tổ hợp dùng lớp tương đương: lỗi tên Tag áp lại cùng hợp đ
 
 
 Không phát sinh GAP nghiệp vụ mới cần quyết định thay FR. Các NOTE/TBD nguồn nêu trên giới hạn tính đầy đủ: bộ scenario bao phủ hành vi đã xác định trong M05, chưa là đặc tả UI/hạ tầng hoặc mọi module giao tiếp. Báo cáo/lệnh/kiểm tra thực tế ở [QA-M05.md](QA-M05.md). Bản soạn chưa được stakeholder phê duyệt.
+
+
+## Chuyển đổi ID nhánh sau QA-SC-01
+
+Ngày 11/11/2026, các biến thể vai trò được đăng ký thành E tại M1 theo skill v1.4. Bảng này giữ ID lịch sử để đối chiếu các tài liệu đã dẫn V. Mỗi hàng ánh xạ cả nhánh và các bước cùng số thứ tự, ví dụ V1.2 sang bước .2 của E tương ứng.
+
+| ID lịch sử | ID hiện hành | Điểm thay | Số bước | Nguồn |
+| --- | --- | --- | --- | --- |
+| SC-M05-001/V1 | SC-M05-001/E38 | M1 | 2 | FR-M05-01.08 |
+| SC-M05-001/V2 | SC-M05-001/E39 | M1 | 2 | FR-M05-02.18 |
+| SC-M05-002/V1 | SC-M05-002/E17 | M1 | 2 | FR-M05-03.12 |
+| SC-M05-003/V1 | SC-M05-003/E5 | M1 | 2 | FR-M05-04.01, FR-M05-04.02, FR-M05-04.03, BR-M05-26 |
+| SC-M05-004/V1 | SC-M05-004/E4 | M1 | 2 | FR-M05-06.03 |
+| SC-M05-004/V2 | SC-M05-004/E5 | M1 | 2 | FR-M05-06.03 |
+| SC-M05-004/V3 | SC-M05-004/E6 | M1 | 2 | FR-M05-06.03 |
+| SC-M05-005/V1 | SC-M05-005/E3 | M1 | 2 | FR-M05-07.03 |
+| SC-M05-005/V2 | SC-M05-005/E4 | M1 | 2 | FR-M05-07.03 |
+| SC-M05-005/V3 | SC-M05-005/E5 | M1 | 2 | FR-M05-07.03 |
+| SC-M05-006/V1 | SC-M05-006/E8 | M1 | 2 | FR-M05-08.03 |
+| SC-M05-006/V2 | SC-M05-006/E9 | M1 | 2 | FR-M05-08.03 |
+| SC-M05-006/V3 | SC-M05-006/E10 | M1 | 2 | FR-M05-08.03 |
+| SC-M05-007/V1 | SC-M05-007/E4 | M1 | 2 | FR-M05-09.04 |
+| SC-M05-007/V2 | SC-M05-007/E5 | M1 | 2 | FR-M05-09.04 |
+| SC-M05-007/V3 | SC-M05-007/E6 | M1 | 2 | FR-M05-09.01, FR-M05-09.02, FR-M05-09.03, FR-M05-09.07, FR-M05-03.09, FR-M05-04.03, FR-M05-04.05, FR-M05-05.07, BR-M05-26, FR-M08-16.02, FR-M06-03.04, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
+| SC-M05-008/V1 | SC-M05-008/E5 | M1 | 2 | FR-M05-10.04 |
+| SC-M05-008/V2 | SC-M05-008/E6 | M1 | 2 | FR-M05-10.04 |
+| SC-M05-008/V3 | SC-M05-008/E7 | M1 | 2 | FR-M05-10.01, FR-M05-10.02, FR-M05-10.03, FR-M05-10.06, FR-M05-05.10, FR-M05-05.14, BR-M05-27, BR-M05-30, BR-M05-31, FR-M08-16.02, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |
+| SC-M05-009/V1 | SC-M05-009/E18 | M1 | 2 | FR-M05-11.04 |
+| SC-M05-009/V2 | SC-M05-009/E19 | M1 | 2 | FR-M05-11.04 |
+| SC-M05-009/V3 | SC-M05-009/E20 | M1 | 4 | FR-M05-11.01, FR-M05-11.02, FR-M05-11.04, FR-M05-02.21, FR-M03-11.04, FR-M03-11.07, FR-M05-11.05, FR-M05-11.06, FR-M05-11.07, FR-M05-01.01, FR-M05-01.02, FR-M05-01.03, FR-M05-01.04, FR-M05-01.05, FR-M05-01.07, FR-M05-01.09, FR-M05-01.10, BR-M05-03, BR-M05-04, FR-M05-03.01, FR-M05-03.02, FR-M05-03.03, FR-M05-03.04, FR-M05-03.05, FR-M05-03.06, FR-M05-03.07, FR-M05-03.08, FR-M05-03.09, FR-M05-03.14, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26, FR-M08-16.02, FR-M03-11.05, FR-M03-11.06, FR-M10-14.01, FR-M10-14.02, FR-M10-14.03, FR-M10-14.09 |

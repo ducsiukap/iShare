@@ -1,6 +1,6 @@
 # Kịch bản nghiệp vụ — M04 Comment
 
-[Vietnamese Doc] — 2026-11-09 — Skill scenarios v1.3.
+[Vietnamese Doc] — Tái kiểm 11/11/2026 — Skill scenarios v1.4.
 
 Mục đích: triển khai các chức năng actor hoàn thành cùng hệ thống từ FR + US. Boundary là toàn iShare; M01/M03/M07/M08/M09/M11/M12/M13 đều bên trong SYSTEM. M04 không có actor AI vì không gọi quét trước khi đăng.
 
@@ -18,11 +18,11 @@ Mục đích: triển khai các chức năng actor hoàn thành cùng hệ thố
 |---|---|
 | module | M04 |
 | scope | ALL |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | docs/specs/scenarios/M04 |
 | status | Đang soạn |
 | completed_steps | 1, 2, 3, 4 |
-| date | 2026-11-09 |
+| date | 2026-11-11 |
 | approval_evidence | - |
 
 
@@ -140,7 +140,7 @@ UC002/003 chuyên biệt core020 theo hợp đồng chung: một lần gửi t�
 
 #### 2. Actor thực hiện
 
-ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường V trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
+ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường E tại M1 trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
 
 #### 3. Tiền điều kiện
 
@@ -186,6 +186,12 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E10 | system | M2 | Bài Khóa bình luận hoặc Khóa toàn bộ nhưng vẫn được phép đọc | E10.1 | FR-M04-01.13, BR-M04-14, FR-M03-14.04, FR-M03-14.05 |
 | E11 | system | M2 | Tài khoản tác giả bình luận DEACTIVATED hoặc DELETED, bình luận chưa xóa/không Bị ẩn | E11.1 | FR-M01-13.03, FR-M01-13.04 |
 | E12 | system | M2 | Bài không có bình luận bình thường hoặc dấu còn hợp lệ | E12.1 | FR-M04-01.01, FR-M04-01.10, FR-M04-01.15, BR-M04-18 |
+| E13 | system | M1 | ACT-001 — Guest đọc luồng của bài công khai, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4. | E13.1 | FR-M04-01.02, FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, BR-M04-16 |
+| E14 | system | M1 | ACT-001 — Guest đọc rồi chọn Mới nhất. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4. | E14.1 | FR-M04-01.02, FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, FR-M04-01.04 |
+| E15 | system | M1 | ACT-001 — Guest đọc rồi chọn Cũ nhất. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4. | E15.1 | FR-M04-01.02, FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, FR-M04-01.04 |
+| E16 | system | M1 | ACT-001 — Guest đọc rồi chọn Top. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4. | E16.1 | FR-M04-01.02, FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, FR-M04-01.04 |
+| E17 | system | M1 | ACT-001 — Guest không có quyền đọc bài đích. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E17.1 | FR-M04-01.11, BR-M04-17, FR-M11-03.06 |
+| E18 | system | M1 | ACT-003 — Mod/Admin đọc luồng có gốc Bị ẩn, không phải đang xử lý vụ việc. Actor khởi tạo ACT-003, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4. | E18.1 | FR-M04-01.09, FR-M04-01.07, FR-M04-01.08, FR-M04-01.10, BR-M04-13, BR-M04-18 |
 
 
 <!-- sc:branch SC-M04-001 E1 -->
@@ -278,70 +284,70 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E12.1 | SYSTEM | Hệ thống trả luồng rỗng và số bình luận 0; không tạo bình luận hoặc dấu giả. | Gốc/trả lời hiển thị=[]; count=0 | END:SUCCESS | FR-M04-01.01, FR-M04-01.10, FR-M04-01.15, BR-M04-18 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest đọc luồng của bài công khai, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
+**E13 — thay toàn bộ M1 đến kết thúc:** Guest đọc luồng của bài công khai, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-001 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest mở bình luận P401 công khai. | P401 ngoài nhóm, Đã đăng/Bình thường/Không khóa; người xem được M03/M01 cho phép xem. Snapshot nhóm dùng G41 theo M11. Ngày minh họa 09/11/2026, múi giờ +07. | V1.2 | FR-M04-01.02 |
-| V1.2 | SYSTEM | Hệ thống kiểm quyền đọc rồi trả hai cấp, Top mặc định, trả lời cũ đến mới, trích dẫn hiện tại, nhãn nếu đã sửa và count chung. Không yêu cầu đăng nhập để đọc và không cho Guest viết/sửa/xóa. | C401 của Lan,09:00,5 upvote,body="Dùng định lý Pytago là ra. Cạnh huyền bằng 5 vì 3² + 4² = 25"; C402 của Minh,09:10,2 upvote; C403 của Hà,09:20,5 upvote; cả ba là gốc, Bình thường, chưa xóa; R411 của Minh,10:00,7 upvote,root=C401,target=C401,body="Mình đã tính được cạnh huyền bằng 5"; R412 của Hà,10:05,0 upvote,root=C401,target=R411,body="Mình cũng ra kết quả đó"; cả hai Bình thường, cùng cấp hai; Top:C401,C403,C402; Mới nhất:C403,C402,C401; Cũ nhất:C401,C402,C403. Trong C401 luôn R411 rồi R412. Tổng bình luận bình thường=5, không cộng thêm dòng trích dẫn. | END:SUCCESS | FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, FR-M04-01.02, BR-M04-16 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Guest đọc rồi chọn Mới nhất. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
-
-<!-- sc:role-path SC-M04-001 V2 -->
+<!-- sc:branch SC-M04-001 E13 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-001 | Guest mở luồng bình luận P401 công khai. | P401 ngoài nhóm, Đã đăng/Bình thường/Không khóa; người xem được M03/M01 cho phép xem. Snapshot nhóm dùng G41 theo M11. Ngày minh họa 09/11/2026, múi giờ +07. | V2.2 | FR-M04-01.02 |
-| V2.2 | SYSTEM | Hệ thống trả luồng Top mặc định và count5. | Top:C401,C403,C402; Mới nhất:C403,C402,C401; Cũ nhất:C401,C402,C403. Trong C401 luôn R411 rồi R412. Tổng bình luận bình thường=5, không cộng thêm dòng trích dẫn. | V2.3 | FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18 |
-| V2.3 | ACT-001 | Guest chọn Mới nhất. | Chỉ thay cách sắp xếp gốc | V2.4 | FR-M04-01.04 |
-| V2.4 | SYSTEM | Hệ thống kiểm quyền và trả thứ tự gốc theo lựa chọn, giữ R411 rồi R412 và count5. | Gốc=C403,C402,C401; trả lời vẫn cũ→mới | END:SUCCESS | FR-M04-01.04, FR-M04-01.05, FR-M04-01.10, FR-M04-01.14, BR-M04-05, BR-M04-06, BR-M04-18 |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-001 | Guest mở bình luận P401 công khai. | P401 ngoài nhóm, Đã đăng/Bình thường/Không khóa; người xem được M03/M01 cho phép xem. Snapshot nhóm dùng G41 theo M11. Ngày minh họa 09/11/2026, múi giờ +07. | E13.2 | FR-M04-01.02 |
+| E13.2 | SYSTEM | Hệ thống kiểm quyền đọc rồi trả hai cấp, Top mặc định, trả lời cũ đến mới, trích dẫn hiện tại, nhãn nếu đã sửa và count chung. Không yêu cầu đăng nhập để đọc và không cho Guest viết/sửa/xóa. | C401 của Lan,09:00,5 upvote,body="Dùng định lý Pytago là ra. Cạnh huyền bằng 5 vì 3² + 4² = 25"; C402 của Minh,09:10,2 upvote; C403 của Hà,09:20,5 upvote; cả ba là gốc, Bình thường, chưa xóa; R411 của Minh,10:00,7 upvote,root=C401,target=C401,body="Mình đã tính được cạnh huyền bằng 5"; R412 của Hà,10:05,0 upvote,root=C401,target=R411,body="Mình cũng ra kết quả đó"; cả hai Bình thường, cùng cấp hai; Top:C401,C403,C402; Mới nhất:C403,C402,C401; Cũ nhất:C401,C402,C403. Trong C401 luôn R411 rồi R412. Tổng bình luận bình thường=5, không cộng thêm dòng trích dẫn. | END:SUCCESS | FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, FR-M04-01.02, BR-M04-16 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest đọc rồi chọn Cũ nhất. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
+**E14 — thay toàn bộ M1 đến kết thúc:** Guest đọc rồi chọn Mới nhất. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-001 V3 -->
+<!-- sc:branch SC-M04-001 E14 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Guest mở luồng bình luận P401 công khai. | P401 ngoài nhóm, Đã đăng/Bình thường/Không khóa; người xem được M03/M01 cho phép xem. Snapshot nhóm dùng G41 theo M11. Ngày minh họa 09/11/2026, múi giờ +07. | V3.2 | FR-M04-01.02 |
-| V3.2 | SYSTEM | Hệ thống trả luồng Top mặc định và count5. | Top:C401,C403,C402; Mới nhất:C403,C402,C401; Cũ nhất:C401,C402,C403. Trong C401 luôn R411 rồi R412. Tổng bình luận bình thường=5, không cộng thêm dòng trích dẫn. | V3.3 | FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18 |
-| V3.3 | ACT-001 | Guest chọn Cũ nhất. | Chỉ thay cách sắp xếp gốc | V3.4 | FR-M04-01.04 |
-| V3.4 | SYSTEM | Hệ thống kiểm quyền và trả thứ tự gốc theo lựa chọn, giữ R411 rồi R412 và count5. | Gốc=C401,C402,C403; trả lời vẫn cũ→mới | END:SUCCESS | FR-M04-01.04, FR-M04-01.05, FR-M04-01.10, FR-M04-01.14, BR-M04-05, BR-M04-06, BR-M04-18 |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-001 | Guest mở luồng bình luận P401 công khai. | P401 ngoài nhóm, Đã đăng/Bình thường/Không khóa; người xem được M03/M01 cho phép xem. Snapshot nhóm dùng G41 theo M11. Ngày minh họa 09/11/2026, múi giờ +07. | E14.2 | FR-M04-01.02 |
+| E14.2 | SYSTEM | Hệ thống trả luồng Top mặc định và count5. | Top:C401,C403,C402; Mới nhất:C403,C402,C401; Cũ nhất:C401,C402,C403. Trong C401 luôn R411 rồi R412. Tổng bình luận bình thường=5, không cộng thêm dòng trích dẫn. | E14.3 | FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18 |
+| E14.3 | ACT-001 | Guest chọn Mới nhất. | Chỉ thay cách sắp xếp gốc | E14.4 | FR-M04-01.04 |
+| E14.4 | SYSTEM | Hệ thống kiểm quyền và trả thứ tự gốc theo lựa chọn, giữ R411 rồi R412 và count5. | Gốc=C403,C402,C401; trả lời vẫn cũ→mới | END:SUCCESS | FR-M04-01.04, FR-M04-01.05, FR-M04-01.10, FR-M04-01.14, BR-M04-05, BR-M04-06, BR-M04-18 |
 
 
-**V4 — thay toàn bộ M1 đến kết thúc:** Guest đọc rồi chọn Top. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
+**E15 — thay toàn bộ M1 đến kết thúc:** Guest đọc rồi chọn Cũ nhất. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-001 V4 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-001 | Guest mở luồng bình luận P401 công khai. | P401 ngoài nhóm, Đã đăng/Bình thường/Không khóa; người xem được M03/M01 cho phép xem. Snapshot nhóm dùng G41 theo M11. Ngày minh họa 09/11/2026, múi giờ +07. | V4.2 | FR-M04-01.02 |
-| V4.2 | SYSTEM | Hệ thống trả luồng Top mặc định và count5. | Top:C401,C403,C402; Mới nhất:C403,C402,C401; Cũ nhất:C401,C402,C403. Trong C401 luôn R411 rồi R412. Tổng bình luận bình thường=5, không cộng thêm dòng trích dẫn. | V4.3 | FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18 |
-| V4.3 | ACT-001 | Guest chọn Top. | Chỉ thay cách sắp xếp gốc | V4.4 | FR-M04-01.04 |
-| V4.4 | SYSTEM | Hệ thống kiểm quyền và trả thứ tự gốc theo lựa chọn, giữ R411 rồi R412 và count5. | Gốc=C401,C403,C402; trả lời vẫn cũ→mới | END:SUCCESS | FR-M04-01.04, FR-M04-01.05, FR-M04-01.10, FR-M04-01.14, BR-M04-05, BR-M04-06, BR-M04-18 |
-
-
-**V5 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền đọc bài đích. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
-
-<!-- sc:role-path SC-M04-001 V5 -->
+<!-- sc:branch SC-M04-001 E15 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-001 | Guest yêu cầu xem luồng P401. | G41 Private, Guest ngoài nhóm; hoặc bài không còn hiển thị | V5.2 | FR-M04-01.11 |
-| V5.2 | SYSTEM | Hệ thống không trả bình luận vì không được xem bài; không dùng URL bình luận để lách quyền. | Không lộ body/luồng | END:REJECTED | FR-M04-01.11, BR-M04-17, FR-M11-03.06 |
+| --- | --- | --- | --- | --- | --- |
+| E15.1 | ACT-001 | Guest mở luồng bình luận P401 công khai. | P401 ngoài nhóm, Đã đăng/Bình thường/Không khóa; người xem được M03/M01 cho phép xem. Snapshot nhóm dùng G41 theo M11. Ngày minh họa 09/11/2026, múi giờ +07. | E15.2 | FR-M04-01.02 |
+| E15.2 | SYSTEM | Hệ thống trả luồng Top mặc định và count5. | Top:C401,C403,C402; Mới nhất:C403,C402,C401; Cũ nhất:C401,C402,C403. Trong C401 luôn R411 rồi R412. Tổng bình luận bình thường=5, không cộng thêm dòng trích dẫn. | E15.3 | FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18 |
+| E15.3 | ACT-001 | Guest chọn Cũ nhất. | Chỉ thay cách sắp xếp gốc | E15.4 | FR-M04-01.04 |
+| E15.4 | SYSTEM | Hệ thống kiểm quyền và trả thứ tự gốc theo lựa chọn, giữ R411 rồi R412 và count5. | Gốc=C401,C402,C403; trả lời vẫn cũ→mới | END:SUCCESS | FR-M04-01.04, FR-M04-01.05, FR-M04-01.10, FR-M04-01.14, BR-M04-05, BR-M04-06, BR-M04-18 |
 
 
-**V6 — thay toàn bộ M1 đến kết thúc:** Mod/Admin đọc luồng có gốc Bị ẩn, không phải đang xử lý vụ việc. Actor khởi tạo ACT-003, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
+**E16 — thay toàn bộ M1 đến kết thúc:** Guest đọc rồi chọn Top. Actor khởi tạo ACT-001, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-001 V6 -->
+<!-- sc:branch SC-M04-001 E16 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-003 | Mod mở luồng bình luận P401 được phép đọc. | C401 Bị ẩn, R411/R412 bình thường; không dùng đường M08/M09 | V6.2 | FR-M04-01.09 |
-| V6.2 | SYSTEM | Hệ thống không trả body C401 kể cả cho Mod/Admin; giữ dấu gốc và hai trả lời, trích R411 thành trả lời [bình luận đã bị xóa]. | C401 chỉ [Bình luận đã bị xóa]; count=4, không tính dấu | END:SUCCESS | FR-M04-01.07, FR-M04-01.08, FR-M04-01.09, FR-M04-01.10, BR-M04-13, BR-M04-18 |
+| --- | --- | --- | --- | --- | --- |
+| E16.1 | ACT-001 | Guest mở luồng bình luận P401 công khai. | P401 ngoài nhóm, Đã đăng/Bình thường/Không khóa; người xem được M03/M01 cho phép xem. Snapshot nhóm dùng G41 theo M11. Ngày minh họa 09/11/2026, múi giờ +07. | E16.2 | FR-M04-01.02 |
+| E16.2 | SYSTEM | Hệ thống trả luồng Top mặc định và count5. | Top:C401,C403,C402; Mới nhất:C403,C402,C401; Cũ nhất:C401,C402,C403. Trong C401 luôn R411 rồi R412. Tổng bình luận bình thường=5, không cộng thêm dòng trích dẫn. | E16.3 | FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18 |
+| E16.3 | ACT-001 | Guest chọn Top. | Chỉ thay cách sắp xếp gốc | E16.4 | FR-M04-01.04 |
+| E16.4 | SYSTEM | Hệ thống kiểm quyền và trả thứ tự gốc theo lựa chọn, giữ R411 rồi R412 và count5. | Gốc=C401,C403,C402; trả lời vẫn cũ→mới | END:SUCCESS | FR-M04-01.04, FR-M04-01.05, FR-M04-01.10, FR-M04-01.14, BR-M04-05, BR-M04-06, BR-M04-18 |
+
+
+**E17 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền đọc bài đích. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+
+<!-- sc:branch SC-M04-001 E17 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E17.1 | ACT-001 | Guest yêu cầu xem luồng P401. | G41 Private, Guest ngoài nhóm; hoặc bài không còn hiển thị | E17.2 | FR-M04-01.11 |
+| E17.2 | SYSTEM | Hệ thống không trả bình luận vì không được xem bài; không dùng URL bình luận để lách quyền. | Không lộ body/luồng | END:REJECTED | FR-M04-01.11, BR-M04-17, FR-M11-03.06 |
+
+
+**E18 — thay toàn bộ M1 đến kết thúc:** Mod/Admin đọc luồng có gốc Bị ẩn, không phải đang xử lý vụ việc. Actor khởi tạo ACT-003, kết quả END:SUCCESS; dùng hậu điều kiện tương ứng mục4.
+
+<!-- sc:branch SC-M04-001 E18 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E18.1 | ACT-003 | Mod mở luồng bình luận P401 được phép đọc. | C401 Bị ẩn, R411/R412 bình thường; không dùng đường M08/M09 | E18.2 | FR-M04-01.09 |
+| E18.2 | SYSTEM | Hệ thống không trả body C401 kể cả cho Mod/Admin; giữ dấu gốc và hai trả lời, trích R411 thành trả lời [bình luận đã bị xóa]. | C401 chỉ [Bình luận đã bị xóa]; count=4, không tính dấu | END:SUCCESS | FR-M04-01.07, FR-M04-01.08, FR-M04-01.09, FR-M04-01.10, BR-M04-13, BR-M04-18 |
 
 
 <!-- sc:end SC-M04-001 -->
@@ -358,7 +364,7 @@ Viết và gửi bình luận gốc dưới bài — BF-M04-002. UC owner: [UC-M
 
 #### 2. Actor thực hiện
 
-ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường V trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
+ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường E tại M1 trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
 
 #### 3. Tiền điều kiện
 
@@ -405,6 +411,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E9 | system | M4 | Nội dung gửi trống hoặc chỉ khoảng trắng | E9.1 | FR-M04-02.11, BR-M04-19 |
 | E10 | user-choice | M3 | Trong lúc soạn vượt1000 từ, người gửi thử gửi rồi sửa | E10.1 | FR-M04-02.09, FR-M04-02.10, BR-M04-19 |
 | E11 | system | M4 | Actor LIGHT/MEDIUM hoặc người ngoài nhóm Public có phiên, các điều kiện khác hợp lệ | E11.1 | FR-M04-02.01, FR-M04-02.02, BR-M04-12, BR-M04-15, FR-M11-03.13 |
+| E12 | system | M1 | ACT-001 — Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E12.1 | FR-M04-02.05, BR-M04-16 |
 
 
 <!-- sc:branch SC-M04-002 E1 -->
@@ -489,14 +496,14 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E11.1 | SYSTEM | Hệ thống áp điều kiện chung, lưu/hiển thị ngay bình luận hợp lệ, không từ chối chỉ vì MEDIUM hoặc không là thành viên nhóm Public. | body hợp lệ; C404 gốc P401; count5→6; actor LIGHT/MEDIUM, G41 Public nếu có | END:SUCCESS | FR-M04-02.01, FR-M04-02.02, BR-M04-12, BR-M04-15, FR-M11-03.13 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+**E12 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-002 V1 -->
+<!-- sc:branch SC-M04-002 E12 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu viết và gửi bình luận gốc dưới bài. | Không có phiên xác định tác giả/người thao tác | V1.2 | FR-M04-02.05, BR-M04-16 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | FR-M04-02.05, BR-M04-16 |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-001 | Guest yêu cầu viết và gửi bình luận gốc dưới bài. | Không có phiên xác định tác giả/người thao tác | E12.2 | FR-M04-02.05, BR-M04-16 |
+| E12.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | FR-M04-02.05, BR-M04-16 |
 
 
 <!-- sc:end SC-M04-002 -->
@@ -513,7 +520,7 @@ Trả lời bình luận trong luồng hai cấp — BF-M04-003. UC owner: [UC-M
 
 #### 2. Actor thực hiện
 
-ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường V trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
+ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường E tại M1 trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
 
 #### 3. Tiền điều kiện
 
@@ -566,6 +573,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E15 | system | M4 | Actor LIGHT/MEDIUM hoặc người ngoài nhóm Public có phiên, các điều kiện khác hợp lệ | E15.1 | FR-M04-03.02, FR-M04-03.04, BR-M04-12, BR-M04-15, FR-M11-03.13 |
 | E16 | system | M4 | Thân trả lời1000 từ nhưng bình luận được trích rất dài | E16.1 | FR-M04-03.02, FR-M04-03.04, FR-M04-03.12, FR-M04-03.13, FR-M04-01.16, FR-M04-01.17, BR-M04-04, BR-M04-19 |
 | E17 | user-choice | M3 | Khối trích dẫn người gửi tự gõ làm tổng thân trả lời vượt giới hạn | E17.1 | BR-M04-19, FR-M04-03.12, FR-M04-03.13 |
+| E18 | system | M1 | ACT-001 — Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E18.1 | FR-M04-03.06, BR-M04-16 |
 
 
 <!-- sc:branch SC-M04-003 E1 -->
@@ -700,14 +708,14 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E17.3 | ACT-002 | Hà rút ngắn khối tự gõ về100 từ rồi gửi. | body tổng1000 từ; target=C401; root=C401 | M4 | BR-M04-19 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+**E18 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-003 V1 -->
+<!-- sc:branch SC-M04-003 E18 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu trả lời bình luận trong luồng hai cấp. | Không có phiên xác định tác giả/người thao tác | V1.2 | FR-M04-03.06, BR-M04-16 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | FR-M04-03.06, BR-M04-16 |
+| --- | --- | --- | --- | --- | --- |
+| E18.1 | ACT-001 | Guest yêu cầu trả lời bình luận trong luồng hai cấp. | Không có phiên xác định tác giả/người thao tác | E18.2 | FR-M04-03.06, BR-M04-16 |
+| E18.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | FR-M04-03.06, BR-M04-16 |
 
 
 <!-- sc:end SC-M04-003 -->
@@ -724,7 +732,7 @@ Sửa nội dung bình luận của mình — BF-M04-004. UC owner: [UC-M04-004]
 
 #### 2. Actor thực hiện
 
-ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường V trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
+ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường E tại M1 trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
 
 #### 3. Tiền điều kiện
 
@@ -774,6 +782,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E12 | system | M4 | Nội dung sửa trống hoặc chỉ khoảng trắng | E12.1 | FR-M04-04.13 |
 | E13 | user-choice | M3 | Body đang sửa vượt1000 từ | E13.1 | FR-M04-04.12, FR-M04-04.13 |
 | E14 | system | M4 | Tác giả rời/kick khỏi nhóm Public nhưng điều kiện sửa khác hợp lệ | E14.1 | FR-M04-04.01, FR-M04-04.02, FR-M04-04.03, BR-M04-07, FR-M11-10.08 |
+| E15 | system | M1 | ACT-001 — Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E15.1 | BR-M04-16 |
+| E16 | system | M1 | ACT-003 — Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E16.1 | FR-M04-04.07 |
 
 
 <!-- sc:branch SC-M04-004 E1 -->
@@ -879,24 +889,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E14.1 | SYSTEM | Hệ thống cho tác giả sửa như bình luận ngoài nhóm, lưu nội dung/mốc sửa và nhãn, không xóa lịch sử không tồn tại hoặc đổi vị trí. | G41 Public; R411 của Minh; P401 Không khóa; R411 Bình thường,chưa xóa | END:SUCCESS | FR-M04-04.01, FR-M04-04.02, FR-M04-04.03, BR-M04-07, FR-M11-10.08 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+**E15 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-004 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu sửa nội dung bình luận của mình. | Không có phiên xác định tác giả/người thao tác | V1.2 | BR-M04-16 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | BR-M04-16 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
-
-<!-- sc:role-path SC-M04-004 V2 -->
+<!-- sc:branch SC-M04-004 E15 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod yêu cầu sửa nội dung bình luận của mình đối với C401 của Lan. | actor=U-MOD; comment.author=U-LAN | V2.2 | FR-M04-04.07 |
-| V2.2 | SYSTEM | Hệ thống từ chối quyền sửa/xóa hoặc xem lại dành cho tác giả đối với bình luận người khác. Vai trò Mod/Admin không thay điều kiện chủ; xử lý ẩn/tra cứu vụ liên quan do M08/M09 cấp riêng. | Không đổi cờ/body, không lộ nội dung qua đường xem lại của tác giả | END:REJECTED | FR-M04-04.07 |
+| --- | --- | --- | --- | --- | --- |
+| E15.1 | ACT-001 | Guest yêu cầu sửa nội dung bình luận của mình. | Không có phiên xác định tác giả/người thao tác | E15.2 | BR-M04-16 |
+| E15.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | BR-M04-16 |
+
+
+**E16 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+
+<!-- sc:branch SC-M04-004 E16 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E16.1 | ACT-003 | Mod yêu cầu sửa nội dung bình luận của mình đối với C401 của Lan. | actor=U-MOD; comment.author=U-LAN | E16.2 | FR-M04-04.07 |
+| E16.2 | SYSTEM | Hệ thống từ chối quyền sửa/xóa hoặc xem lại dành cho tác giả đối với bình luận người khác. Vai trò Mod/Admin không thay điều kiện chủ; xử lý ẩn/tra cứu vụ liên quan do M08/M09 cấp riêng. | Không đổi cờ/body, không lộ nội dung qua đường xem lại của tác giả | END:REJECTED | FR-M04-04.07 |
 
 
 <!-- sc:end SC-M04-004 -->
@@ -913,7 +923,7 @@ Xóa bình luận của mình khỏi luồng người dùng — BF-M04-005. UC o
 
 #### 2. Actor thực hiện
 
-ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường V trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
+ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường E tại M1 trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
 
 #### 3. Tiền điều kiện
 
@@ -956,6 +966,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E7 | system | M2 | Trả lời cuối cùng đang bình thường bị tác giả xóa, gốc đã hiện dấu | E7.1 | FR-M04-05.03, FR-M04-05.07, FR-M04-01.15, BR-M04-08, BR-M04-18 |
 | E8 | system | M2 | Bài đang khóa và/hoặc tác giả HEAVY, điều kiện xóa khác hợp lệ | E8.1 | FR-M04-05.01, FR-M04-05.07, FR-M04-05.08, FR-M04-05.09, BR-M04-08, BR-M04-20 |
 | E9 | system | M2 | Tác giả rời/kick khỏi nhóm Public, các điều kiện xóa khác hợp lệ | E9.1 | FR-M04-05.01, FR-M04-05.07, BR-M04-08, FR-M11-10.08 |
+| E10 | system | M1 | ACT-001 — Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E10.1 | BR-M04-16 |
+| E11 | system | M1 | ACT-003 — Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E11.1 | FR-M04-05.05, BR-M04-23 |
 
 
 <!-- sc:branch SC-M04-005 E1 -->
@@ -1021,24 +1033,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E9.1 | SYSTEM | Hệ thống cho xóa bình luận của chính tác giả như ngoài nhóm; áp cùng cờ/dữ liệu/dấu, không cho quyền xóa của người khác. | G41 Public; Lan xóa C401 của mình, body còn; R411/R412 giữ; count5→4 | END:SUCCESS | FR-M04-05.01, FR-M04-05.07, BR-M04-08, FR-M11-10.08 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+**E10 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-005 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu xóa bình luận của mình khỏi luồng người dùng. | Không có phiên xác định tác giả/người thao tác | V1.2 | BR-M04-16 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | BR-M04-16 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
-
-<!-- sc:role-path SC-M04-005 V2 -->
+<!-- sc:branch SC-M04-005 E10 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod yêu cầu xóa bình luận của mình khỏi luồng người dùng đối với C401 của Lan. | actor=U-MOD; comment.author=U-LAN | V2.2 | FR-M04-05.05, BR-M04-23 |
-| V2.2 | SYSTEM | Hệ thống từ chối quyền sửa/xóa hoặc xem lại dành cho tác giả đối với bình luận người khác. Vai trò Mod/Admin không thay điều kiện chủ; xử lý ẩn/tra cứu vụ liên quan do M08/M09 cấp riêng. | Không đổi cờ/body, không lộ nội dung qua đường xem lại của tác giả | END:REJECTED | FR-M04-05.05, BR-M04-23 |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-001 | Guest yêu cầu xóa bình luận của mình khỏi luồng người dùng. | Không có phiên xác định tác giả/người thao tác | E10.2 | BR-M04-16 |
+| E10.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | BR-M04-16 |
+
+
+**E11 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+
+<!-- sc:branch SC-M04-005 E11 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-003 | Mod yêu cầu xóa bình luận của mình khỏi luồng người dùng đối với C401 của Lan. | actor=U-MOD; comment.author=U-LAN | E11.2 | FR-M04-05.05, BR-M04-23 |
+| E11.2 | SYSTEM | Hệ thống từ chối quyền sửa/xóa hoặc xem lại dành cho tác giả đối với bình luận người khác. Vai trò Mod/Admin không thay điều kiện chủ; xử lý ẩn/tra cứu vụ liên quan do M08/M09 cấp riêng. | Không đổi cờ/body, không lộ nội dung qua đường xem lại của tác giả | END:REJECTED | FR-M04-05.05, BR-M04-23 |
 
 
 <!-- sc:end SC-M04-005 -->
@@ -1055,7 +1067,7 @@ Xem lại nội dung bình luận mình đã bị xử lý — BF-M04-006. UC ow
 
 #### 2. Actor thực hiện
 
-ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường V trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
+ACT-002 — User có phiên là actor chính. ACT-003 kế thừa tương tác User theo US, không có đặc quyền sửa/xóa/xem lại của tác giả đối với người khác. Actor khởi tạo thay thế được ghi tại đường E tại M1 trong mục6. Không có actor AI hoặc dịch vụ nội bộ.
 
 #### 3. Tiền điều kiện
 
@@ -1093,6 +1105,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E2 | user-choice | M1 | Tác giả mở khiếu nại cảnh cáo/ban của mình liên quan bình luận | E2.1 | FR-M04-06.03, FR-M04-06.04, FR-M04-06.05, BR-M04-22, BR-M04-23, FR-M09-08.15 |
 | E3 | system | M2 | Người mở khác tác giả | E3.1 | FR-M04-06.05 |
 | E4 | system | M2 | Không có ngữ cảnh thông báo/khiếu nại hợp lệ về đúng bình luận | E4.1 | FR-M04-06.01, FR-M04-06.02, FR-M04-06.03, BR-M04-21, BR-M04-22 |
+| E5 | system | M1 | ACT-001 — Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E5.1 | FR-M04-06.05, BR-M04-22 |
+| E6 | system | M1 | ACT-003 — Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4. | E6.1 | FR-M04-06.05, BR-M04-23 |
 
 
 <!-- sc:branch SC-M04-006 E1 -->
@@ -1125,24 +1139,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | E4.1 | SYSTEM | Hệ thống từ chối truy cập nội dung Bị ẩn/đã xóa qua đường xem lại; không tạo mục duyệt các bình luận bị xóa. | N401 hoặc appeal không trỏ C401, hoặc yêu cầu URL tùy ý | END:REJECTED | FR-M04-06.01, FR-M04-06.02, FR-M04-06.03, BR-M04-21, BR-M04-22 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này, thay toàn bộ đường chính. Actor khởi tạo ACT-001, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
 
-<!-- sc:role-path SC-M04-006 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu xem lại nội dung bình luận mình đã bị xử lý. | Không có phiên xác định tác giả/người thao tác | V1.2 | FR-M04-06.05, BR-M04-22 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | FR-M04-06.05, BR-M04-22 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
-
-<!-- sc:role-path SC-M04-006 V2 -->
+<!-- sc:branch SC-M04-006 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod yêu cầu xem lại nội dung bình luận mình đã bị xử lý đối với C401 của Lan. | actor=U-MOD; comment.author=U-LAN | V2.2 | FR-M04-06.05, BR-M04-23 |
-| V2.2 | SYSTEM | Hệ thống từ chối quyền sửa/xóa hoặc xem lại dành cho tác giả đối với bình luận người khác. Vai trò Mod/Admin không thay điều kiện chủ; xử lý ẩn/tra cứu vụ liên quan do M08/M09 cấp riêng. | Không đổi cờ/body, không lộ nội dung qua đường xem lại của tác giả | END:REJECTED | FR-M04-06.05, BR-M04-23 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-001 | Guest yêu cầu xem lại nội dung bình luận mình đã bị xử lý. | Không có phiên xác định tác giả/người thao tác | E5.2 | FR-M04-06.05, BR-M04-22 |
+| E5.2 | SYSTEM | Hệ thống từ chối thao tác chưa đăng nhập; không tự chạy chức năng đăng nhập, không thay đổi hoặc cung cấp nội dung bình luận riêng tư. | Yêu cầu hiện tại kết thúc, chưa thành công | END:REJECTED | FR-M04-06.05, BR-M04-22 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thử thao tác này trên bình luận người khác qua M04. Actor khởi tạo ACT-003, kết quả END:REJECTED; dùng hậu điều kiện tương ứng mục4.
+
+<!-- sc:branch SC-M04-006 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-003 | Mod yêu cầu xem lại nội dung bình luận mình đã bị xử lý đối với C401 của Lan. | actor=U-MOD; comment.author=U-LAN | E6.2 | FR-M04-06.05, BR-M04-23 |
+| E6.2 | SYSTEM | Hệ thống từ chối quyền sửa/xóa hoặc xem lại dành cho tác giả đối với bình luận người khác. Vai trò Mod/Admin không thay điều kiện chủ; xử lý ẩn/tra cứu vụ liên quan do M08/M09 cấp riêng. | Không đổi cờ/body, không lộ nội dung qua đường xem lại của tác giả | END:REJECTED | FR-M04-06.05, BR-M04-23 |
 
 
 <!-- sc:end SC-M04-006 -->
@@ -1163,34 +1177,34 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 
 | Mã FR/BR | SC/bước/nhánh hoặc quy tắc | Mức đối soát |
 |---|---|---|
-| FR-M04-01 | SC-M04-001/M1; SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E12.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; SC-M04-001/E2.3; SC-M04-001/E3.3; SC-M04-001/E4.3; SC-M04-001/V2.4; SC-M04-001/V3.4; SC-M04-001/V4.4; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-001/E8.1; SC-M04-004/M4; SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/V6.2; SC-M04-002/M4; SC-M04-005/M2; SC-M04-005/E6.1; AUT-M04-001; SC-M04-001/E10.1; RULE-M04-002; SC-M04-003/M2; SC-M04-003/E16.1; RULE-M04-001; SC-M04-001/E1.1; SC-M04-001/V5.1; SC-M04-001/V5.2; SC-M04-001/E2.2; SC-M04-001/E3.2; SC-M04-001/E4.2; SC-M04-001/V2.3; SC-M04-001/V3.3; SC-M04-001/V4.3; SC-M04-001/V6.1; SC-M04-005/E5.1; SC-M04-005/E7.1; SC-M04-001/V1.1; SC-M04-001/V2.1; SC-M04-001/V3.1; SC-M04-001/V4.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-02 | SC-M04-002/M1; SC-M04-002/M3; SC-M04-002/M4; SC-M04-002/E11.1; SC-M04-002/M2; RULE-M04-COMPOSER; RULE-M04-003; SC-M04-002/V1.1; SC-M04-002/V1.2; SC-M04-002/E1.1; SC-M04-002/E5.1; RULE-M04-002; SC-M04-002/E2.1; SC-M04-002/E6.1; SC-M04-002/E3.1; SC-M04-002/E7.1; SC-M04-002/E10.1; SC-M04-002/E10.2; SC-M04-002/E10.3; SC-M04-002/E10.4; SC-M04-002/E10.5; SC-M04-003/E14.1; SC-M04-003/E14.2; SC-M04-003/E14.3; SC-M04-003/E14.4; SC-M04-003/E14.5; SC-M04-002/E9.1; SC-M04-002/E9.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-03 | SC-M04-003/M1; SC-M04-003/M2; SC-M04-003/E1.1; SC-M04-003/E1.2; SC-M04-003/E2.1; SC-M04-003/E2.2; RULE-M04-COMPOSER; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-003/E14.1; SC-M04-003/E14.2; SC-M04-003/E14.3; SC-M04-003/E14.4; SC-M04-003/E14.5; SC-M04-003/E16.1; SC-M04-003/E17.2; RULE-M04-001; SC-M04-003/M3; SC-M04-003/E15.1; RULE-M04-003; SC-M04-003/V1.1; SC-M04-003/V1.2; SC-M04-003/E5.1; SC-M04-003/E9.1; RULE-M04-002; SC-M04-003/E6.1; SC-M04-003/E10.1; SC-M04-003/E7.1; SC-M04-003/E11.1; SC-M04-003/E3.1; SC-M04-003/E4.1; SC-M04-003/E13.1; SC-M04-003/E13.2; SC-M04-003/E1.3; SC-M04-003/E2.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-04 | SC-M04-004/M1; SC-M04-004/M4; SC-M04-004/E11.1; SC-M04-004/M2; RULE-M04-COMPOSER; SC-M04-004/E1.1; SC-M04-004/E6.1; SC-M04-004/V2.1; SC-M04-004/V2.2; SC-M04-004/E2.1; SC-M04-004/E7.1; SC-M04-004/E4.1; SC-M04-004/E9.1; RULE-M04-002; SC-M04-004/E3.1; SC-M04-004/E8.1; SC-M04-004/M3; SC-M04-004/E14.1; SC-M04-004/E12.1; SC-M04-004/E12.2; SC-M04-004/E13.3; SC-M04-004/E13.4; SC-M04-004/E13.5; SC-M04-004/E13.1; SC-M04-004/E13.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-05 | SC-M04-005/M1; SC-M04-005/M2; SC-M04-005/E8.1; SC-M04-005/E9.1; SC-M04-005/E5.1; SC-M04-005/E6.1; RULE-M04-004; SC-M04-005/E1.1; SC-M04-005/V2.1; SC-M04-005/V2.2; SC-M04-005/E2.1; SC-M04-005/E7.1; SC-M04-005/E3.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-06 | SC-M04-006/M1; SC-M04-006/M2; SC-M04-006/E4.1; SC-M04-006/E1.2; SC-M04-006/E2.2; RULE-M04-004; SC-M04-006/E3.1; SC-M04-006/V1.1; SC-M04-006/V1.2; SC-M04-006/V2.1; SC-M04-006/V2.2; SC-M04-006/E1.1; SC-M04-006/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.01 | SC-M04-001/M1; SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E12.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.02 | SC-M04-001/V1.1; SC-M04-001/V1.2; SC-M04-001/V2.1; SC-M04-001/V3.1; SC-M04-001/V4.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.03 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.04 | SC-M04-001/E2.2; SC-M04-001/E2.3; SC-M04-001/E3.2; SC-M04-001/E3.3; SC-M04-001/E4.2; SC-M04-001/E4.3; SC-M04-001/V2.3; SC-M04-001/V2.4; SC-M04-001/V3.3; SC-M04-001/V3.4; SC-M04-001/V4.3; SC-M04-001/V4.4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.05 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V2.4; SC-M04-001/V3.2; SC-M04-001/V3.4; SC-M04-001/V4.2; SC-M04-001/V4.4; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.06 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E8.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; SC-M04-004/M4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.07 | SC-M04-001/E5.1; SC-M04-001/E7.1; SC-M04-001/V6.2; SC-M04-005/M2; AUT-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.08 | SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/V6.2; SC-M04-005/M2; SC-M04-005/E6.1; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.09 | SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/V6.1; SC-M04-001/V6.2; AUT-M04-001; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.10 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/E12.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V2.4; SC-M04-001/V3.2; SC-M04-001/V3.4; SC-M04-001/V4.2; SC-M04-001/V4.4; SC-M04-001/V6.2; SC-M04-002/M4; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-005/M2; SC-M04-005/E6.1; AUT-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.11 | SC-M04-001/E1.1; SC-M04-001/V5.1; SC-M04-001/V5.2; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01 | SC-M04-001/M1; SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E12.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; SC-M04-001/E2.3; SC-M04-001/E3.3; SC-M04-001/E4.3; SC-M04-001/E14.4; SC-M04-001/E15.4; SC-M04-001/E16.4; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-001/E8.1; SC-M04-004/M4; SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/E18.2; SC-M04-002/M4; SC-M04-005/M2; SC-M04-005/E6.1; AUT-M04-001; SC-M04-001/E10.1; RULE-M04-002; SC-M04-003/M2; SC-M04-003/E16.1; RULE-M04-001; SC-M04-001/E1.1; SC-M04-001/E17.1; SC-M04-001/E17.2; SC-M04-001/E2.2; SC-M04-001/E3.2; SC-M04-001/E4.2; SC-M04-001/E14.3; SC-M04-001/E15.3; SC-M04-001/E16.3; SC-M04-001/E18.1; SC-M04-005/E5.1; SC-M04-005/E7.1; SC-M04-001/E13.1; SC-M04-001/E14.1; SC-M04-001/E15.1; SC-M04-001/E16.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-02 | SC-M04-002/M1; SC-M04-002/M3; SC-M04-002/M4; SC-M04-002/E11.1; SC-M04-002/M2; RULE-M04-COMPOSER; RULE-M04-003; SC-M04-002/E12.1; SC-M04-002/E12.2; SC-M04-002/E1.1; SC-M04-002/E5.1; RULE-M04-002; SC-M04-002/E2.1; SC-M04-002/E6.1; SC-M04-002/E3.1; SC-M04-002/E7.1; SC-M04-002/E10.1; SC-M04-002/E10.2; SC-M04-002/E10.3; SC-M04-002/E10.4; SC-M04-002/E10.5; SC-M04-003/E14.1; SC-M04-003/E14.2; SC-M04-003/E14.3; SC-M04-003/E14.4; SC-M04-003/E14.5; SC-M04-002/E9.1; SC-M04-002/E9.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-03 | SC-M04-003/M1; SC-M04-003/M2; SC-M04-003/E1.1; SC-M04-003/E1.2; SC-M04-003/E2.1; SC-M04-003/E2.2; RULE-M04-COMPOSER; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-003/E14.1; SC-M04-003/E14.2; SC-M04-003/E14.3; SC-M04-003/E14.4; SC-M04-003/E14.5; SC-M04-003/E16.1; SC-M04-003/E17.2; RULE-M04-001; SC-M04-003/M3; SC-M04-003/E15.1; RULE-M04-003; SC-M04-003/E18.1; SC-M04-003/E18.2; SC-M04-003/E5.1; SC-M04-003/E9.1; RULE-M04-002; SC-M04-003/E6.1; SC-M04-003/E10.1; SC-M04-003/E7.1; SC-M04-003/E11.1; SC-M04-003/E3.1; SC-M04-003/E4.1; SC-M04-003/E13.1; SC-M04-003/E13.2; SC-M04-003/E1.3; SC-M04-003/E2.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-04 | SC-M04-004/M1; SC-M04-004/M4; SC-M04-004/E11.1; SC-M04-004/M2; RULE-M04-COMPOSER; SC-M04-004/E1.1; SC-M04-004/E6.1; SC-M04-004/E16.1; SC-M04-004/E16.2; SC-M04-004/E2.1; SC-M04-004/E7.1; SC-M04-004/E4.1; SC-M04-004/E9.1; RULE-M04-002; SC-M04-004/E3.1; SC-M04-004/E8.1; SC-M04-004/M3; SC-M04-004/E14.1; SC-M04-004/E12.1; SC-M04-004/E12.2; SC-M04-004/E13.3; SC-M04-004/E13.4; SC-M04-004/E13.5; SC-M04-004/E13.1; SC-M04-004/E13.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-05 | SC-M04-005/M1; SC-M04-005/M2; SC-M04-005/E8.1; SC-M04-005/E9.1; SC-M04-005/E5.1; SC-M04-005/E6.1; RULE-M04-004; SC-M04-005/E1.1; SC-M04-005/E11.1; SC-M04-005/E11.2; SC-M04-005/E2.1; SC-M04-005/E7.1; SC-M04-005/E3.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-06 | SC-M04-006/M1; SC-M04-006/M2; SC-M04-006/E4.1; SC-M04-006/E1.2; SC-M04-006/E2.2; RULE-M04-004; SC-M04-006/E3.1; SC-M04-006/E5.1; SC-M04-006/E5.2; SC-M04-006/E6.1; SC-M04-006/E6.2; SC-M04-006/E1.1; SC-M04-006/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.01 | SC-M04-001/M1; SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E12.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.02 | SC-M04-001/E13.1; SC-M04-001/E13.2; SC-M04-001/E14.1; SC-M04-001/E15.1; SC-M04-001/E16.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.03 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.04 | SC-M04-001/E2.2; SC-M04-001/E2.3; SC-M04-001/E3.2; SC-M04-001/E3.3; SC-M04-001/E4.2; SC-M04-001/E4.3; SC-M04-001/E14.3; SC-M04-001/E14.4; SC-M04-001/E15.3; SC-M04-001/E15.4; SC-M04-001/E16.3; SC-M04-001/E16.4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.05 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E14.4; SC-M04-001/E15.2; SC-M04-001/E15.4; SC-M04-001/E16.2; SC-M04-001/E16.4; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.06 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E8.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; SC-M04-004/M4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.07 | SC-M04-001/E5.1; SC-M04-001/E7.1; SC-M04-001/E18.2; SC-M04-005/M2; AUT-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.08 | SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E18.2; SC-M04-005/M2; SC-M04-005/E6.1; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.09 | SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/E18.1; SC-M04-001/E18.2; AUT-M04-001; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.10 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/E12.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E14.4; SC-M04-001/E15.2; SC-M04-001/E15.4; SC-M04-001/E16.2; SC-M04-001/E16.4; SC-M04-001/E18.2; SC-M04-002/M4; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-005/M2; SC-M04-005/E6.1; AUT-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.11 | SC-M04-001/E1.1; SC-M04-001/E17.1; SC-M04-001/E17.2; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-01.12 | SC-M04-001/E9.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.13 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E10.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.14 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V2.4; SC-M04-001/V3.2; SC-M04-001/V3.4; SC-M04-001/V4.2; SC-M04-001/V4.4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.13 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E10.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.14 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E14.4; SC-M04-001/E15.2; SC-M04-001/E15.4; SC-M04-001/E16.2; SC-M04-001/E16.4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-01.15 | SC-M04-001/E7.1; SC-M04-001/E12.1; SC-M04-005/E5.1; SC-M04-005/E7.1; AUT-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.16 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E8.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; SC-M04-003/M2; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-003/E16.1; SC-M04-004/M4; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-01.17 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E8.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; SC-M04-003/M2; SC-M04-003/M4; SC-M04-003/E16.1; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.16 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E8.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; SC-M04-003/M2; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-003/E16.1; SC-M04-004/M4; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-01.17 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E8.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; SC-M04-003/M2; SC-M04-003/M4; SC-M04-003/E16.1; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-02.01 | SC-M04-002/M1; SC-M04-002/M3; SC-M04-002/M4; SC-M04-002/E11.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-02.02 | SC-M04-002/M4; SC-M04-002/E11.1; RULE-M04-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-02.03 | SC-M04-002/M2; RULE-M04-COMPOSER | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-02.04 | SC-M04-002/M2; RULE-M04-COMPOSER | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-02.05 | SC-M04-002/M4; SC-M04-002/V1.1; SC-M04-002/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-02.05 | SC-M04-002/M4; SC-M04-002/E12.1; SC-M04-002/E12.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-02.06 | SC-M04-002/M4; SC-M04-002/E1.1; SC-M04-002/E5.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-02.07 | SC-M04-002/M4; SC-M04-002/E2.1; SC-M04-002/E6.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-02.08 | SC-M04-002/M4; SC-M04-002/E3.1; SC-M04-002/E7.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
@@ -1202,7 +1216,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | FR-M04-03.03 | SC-M04-003/E1.2; SC-M04-003/E1.3; SC-M04-003/E1.4; SC-M04-003/E2.2; SC-M04-003/E2.3; SC-M04-003/E2.4; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-03.04 | SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-003/E15.1; SC-M04-003/E16.1; RULE-M04-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-03.05 | SC-M04-003/M2; RULE-M04-COMPOSER | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-03.06 | SC-M04-003/M4; SC-M04-003/V1.1; SC-M04-003/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-03.06 | SC-M04-003/M4; SC-M04-003/E18.1; SC-M04-003/E18.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-03.07 | SC-M04-003/M4; SC-M04-003/E5.1; SC-M04-003/E9.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-03.08 | SC-M04-003/M4; SC-M04-003/E6.1; SC-M04-003/E10.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-03.09 | SC-M04-003/M4; SC-M04-003/E7.1; SC-M04-003/E11.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
@@ -1216,7 +1230,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | FR-M04-04.04 | SC-M04-004/M2; SC-M04-004/M4; SC-M04-004/E11.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-04.05 | SC-M04-004/M1; SC-M04-004/M4; SC-M04-004/E11.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-04.06 | SC-M04-004/M2; RULE-M04-COMPOSER | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-04.07 | SC-M04-004/M2; SC-M04-004/E1.1; SC-M04-004/E6.1; SC-M04-004/V2.1; SC-M04-004/V2.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-04.07 | SC-M04-004/M2; SC-M04-004/E1.1; SC-M04-004/E6.1; SC-M04-004/E16.1; SC-M04-004/E16.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-04.08 | SC-M04-004/M2; SC-M04-004/E2.1; SC-M04-004/E7.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-04.09 | SC-M04-004/M2; SC-M04-004/E4.1; SC-M04-004/E9.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-04.10 | SC-M04-004/M2; SC-M04-004/E3.1; SC-M04-004/E8.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
@@ -1227,7 +1241,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | FR-M04-05.02 | SC-M04-005/E5.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-05.03 | SC-M04-005/E6.1; SC-M04-005/E7.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-05.04 | SC-M04-005/M2; SC-M04-005/E5.1; SC-M04-005/E6.1; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-05.05 | SC-M04-005/M2; SC-M04-005/E1.1; SC-M04-005/V2.1; SC-M04-005/V2.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-05.05 | SC-M04-005/M2; SC-M04-005/E1.1; SC-M04-005/E11.1; SC-M04-005/E11.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-05.06 | SC-M04-005/M2; SC-M04-005/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-05.07 | SC-M04-005/M2; SC-M04-005/E5.1; SC-M04-005/E6.1; SC-M04-005/E7.1; SC-M04-005/E8.1; SC-M04-005/E9.1; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-05.08 | SC-M04-005/E8.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
@@ -1238,30 +1252,30 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | FR-M04-06.02 | SC-M04-006/E1.1; SC-M04-006/E1.2; SC-M04-006/E4.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-06.03 | SC-M04-006/E2.1; SC-M04-006/E2.2; SC-M04-006/E4.1; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M04-06.04 | SC-M04-006/M2; SC-M04-006/E1.2; SC-M04-006/E2.2; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M04-06.05 | SC-M04-006/M2; SC-M04-006/E1.2; SC-M04-006/E2.2; SC-M04-006/E3.1; SC-M04-006/V1.1; SC-M04-006/V1.2; SC-M04-006/V2.1; SC-M04-006/V2.2; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M04-06.05 | SC-M04-006/M2; SC-M04-006/E1.2; SC-M04-006/E2.2; SC-M04-006/E3.1; SC-M04-006/E5.1; SC-M04-006/E5.2; SC-M04-006/E6.1; SC-M04-006/E6.2; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-01 | SC-M04-002/M2; SC-M04-004/M2; RULE-M04-COMPOSER | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-02 | SC-M04-002/M2; SC-M04-004/M2; RULE-M04-003; RULE-M04-COMPOSER | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-03 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; SC-M04-003/M2; SC-M04-003/M4; SC-M04-003/E1.2; SC-M04-003/E1.4; SC-M04-003/E2.2; SC-M04-003/E2.4; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-04 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E6.1; SC-M04-001/E8.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; SC-M04-003/M2; SC-M04-003/M4; SC-M04-003/E1.2; SC-M04-003/E1.4; SC-M04-003/E2.2; SC-M04-003/E2.4; SC-M04-003/E16.1; SC-M04-004/M4; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-05 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V2.4; SC-M04-001/V3.2; SC-M04-001/V3.4; SC-M04-001/V4.2; SC-M04-001/V4.4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-06 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V2.4; SC-M04-001/V3.2; SC-M04-001/V3.4; SC-M04-001/V4.2; SC-M04-001/V4.4; SC-M04-003/M4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-07 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E8.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; SC-M04-004/M2; SC-M04-004/M4; SC-M04-004/E11.1; SC-M04-004/E14.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-03 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; SC-M04-003/M2; SC-M04-003/M4; SC-M04-003/E1.2; SC-M04-003/E1.4; SC-M04-003/E2.2; SC-M04-003/E2.4; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-04 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E6.1; SC-M04-001/E8.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; SC-M04-003/M2; SC-M04-003/M4; SC-M04-003/E1.2; SC-M04-003/E1.4; SC-M04-003/E2.2; SC-M04-003/E2.4; SC-M04-003/E16.1; SC-M04-004/M4; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-05 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E14.4; SC-M04-001/E15.2; SC-M04-001/E15.4; SC-M04-001/E16.2; SC-M04-001/E16.4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-06 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E14.4; SC-M04-001/E15.2; SC-M04-001/E15.4; SC-M04-001/E16.2; SC-M04-001/E16.4; SC-M04-003/M4 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-07 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E8.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; SC-M04-004/M2; SC-M04-004/M4; SC-M04-004/E11.1; SC-M04-004/E14.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-08 | SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-005/M2; SC-M04-005/E5.1; SC-M04-005/E6.1; SC-M04-005/E7.1; SC-M04-005/E8.1; SC-M04-005/E9.1; AUT-M04-001; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-09 | RULE-M04-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-10 | RULE-M04-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-11 | RULE-M04-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-12 | SC-M04-002/M4; SC-M04-002/E11.1; SC-M04-003/M4; SC-M04-003/E15.1; RULE-M04-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-13 | SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/V6.2; AUT-M04-001; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-13 | SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/E18.2; AUT-M04-001; RULE-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-14 | SC-M04-001/E10.1; SC-M04-002/M4; SC-M04-002/E1.1; SC-M04-002/E5.1; SC-M04-003/M4; SC-M04-003/E5.1; SC-M04-003/E9.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-15 | SC-M04-002/M4; SC-M04-002/E2.1; SC-M04-002/E6.1; SC-M04-002/E11.1; SC-M04-003/M4; SC-M04-003/E6.1; SC-M04-003/E10.1; SC-M04-003/E15.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-16 | SC-M04-001/V1.2; SC-M04-002/V1.1; SC-M04-002/V1.2; SC-M04-003/V1.1; SC-M04-003/V1.2; SC-M04-004/V1.1; SC-M04-004/V1.2; SC-M04-005/V1.1; SC-M04-005/V1.2; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-17 | SC-M04-001/M2; SC-M04-001/E1.1; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E9.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V3.2; SC-M04-001/V4.2; SC-M04-001/V5.2; SC-M04-002/E3.1; SC-M04-002/E7.1; SC-M04-003/E7.1; SC-M04-003/E11.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-18 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/E12.1; SC-M04-001/V1.2; SC-M04-001/V2.2; SC-M04-001/V2.4; SC-M04-001/V3.2; SC-M04-001/V3.4; SC-M04-001/V4.2; SC-M04-001/V4.4; SC-M04-001/V6.2; SC-M04-002/M4; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-005/M2; SC-M04-005/E5.1; SC-M04-005/E6.1; SC-M04-005/E7.1; AUT-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-16 | SC-M04-001/E13.2; SC-M04-002/E12.1; SC-M04-002/E12.2; SC-M04-003/E18.1; SC-M04-003/E18.2; SC-M04-004/E15.1; SC-M04-004/E15.2; SC-M04-005/E10.1; SC-M04-005/E10.2; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-17 | SC-M04-001/M2; SC-M04-001/E1.1; SC-M04-001/E2.1; SC-M04-001/E3.1; SC-M04-001/E4.1; SC-M04-001/E9.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E15.2; SC-M04-001/E16.2; SC-M04-001/E17.2; SC-M04-002/E3.1; SC-M04-002/E7.1; SC-M04-003/E7.1; SC-M04-003/E11.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-18 | SC-M04-001/M2; SC-M04-001/E2.1; SC-M04-001/E2.3; SC-M04-001/E3.1; SC-M04-001/E3.3; SC-M04-001/E4.1; SC-M04-001/E4.3; SC-M04-001/E5.1; SC-M04-001/E6.1; SC-M04-001/E7.1; SC-M04-001/E9.1; SC-M04-001/E12.1; SC-M04-001/E13.2; SC-M04-001/E14.2; SC-M04-001/E14.4; SC-M04-001/E15.2; SC-M04-001/E15.4; SC-M04-001/E16.2; SC-M04-001/E16.4; SC-M04-001/E18.2; SC-M04-002/M4; SC-M04-003/M4; SC-M04-003/E1.4; SC-M04-003/E2.4; SC-M04-005/M2; SC-M04-005/E5.1; SC-M04-005/E6.1; SC-M04-005/E7.1; AUT-M04-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-19 | SC-M04-002/M3; SC-M04-002/M4; SC-M04-002/E9.1; SC-M04-002/E9.2; SC-M04-002/E10.1; SC-M04-002/E10.2; SC-M04-002/E10.3; SC-M04-002/E10.4; SC-M04-002/E10.5; SC-M04-003/M4; SC-M04-003/E13.1; SC-M04-003/E13.2; SC-M04-003/E14.1; SC-M04-003/E14.2; SC-M04-003/E14.3; SC-M04-003/E14.4; SC-M04-003/E14.5; SC-M04-003/E16.1; SC-M04-003/E17.1; SC-M04-003/E17.2; SC-M04-003/E17.3; SC-M04-004/M4; RULE-M04-COMPOSER | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-20 | SC-M04-004/M2; SC-M04-004/M4; SC-M04-004/E11.1; SC-M04-005/E8.1; RULE-M04-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M04-21 | SC-M04-005/M2; SC-M04-006/E4.1; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-22 | SC-M04-006/M2; SC-M04-006/E1.2; SC-M04-006/E2.2; SC-M04-006/E4.1; SC-M04-006/V1.1; SC-M04-006/V1.2; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M04-23 | SC-M04-005/M2; SC-M04-005/V2.1; SC-M04-005/V2.2; SC-M04-006/M2; SC-M04-006/E2.2; SC-M04-006/V2.1; SC-M04-006/V2.2; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-22 | SC-M04-006/M2; SC-M04-006/E1.2; SC-M04-006/E2.2; SC-M04-006/E4.1; SC-M04-006/E5.1; SC-M04-006/E5.2; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M04-23 | SC-M04-005/M2; SC-M04-005/E11.1; SC-M04-005/E11.2; SC-M04-006/M2; SC-M04-006/E2.2; SC-M04-006/E6.1; SC-M04-006/E6.2; RULE-M04-004 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 
 
 | UC | Guard/lựa chọn | SC/ngoại lệ | Đích |
@@ -1335,7 +1349,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã thành công. 
 | UC-M04-006 | Không có ngữ cảnh thông báo/khiếu nại hợp lệ về đúng bình luận | SC-M04-006/E4 | END:REJECTED |
 
 
-Truy vết ngược ở sources của từng bước. E thay bước trong đường chính; V thay toàn bộ đường theo actor khởi tạo khác trong cùng mục tiêu, không tạo BF mới. Cùng guard lặp lại khi sửa vẫn áp cùng kiểm; không nhân vô hạn số lần. Nguồn có ID/đích tồn tại không tự chứng minh mọi chi tiết đúng nghiệp vụ.
+Truy vết ngược ở sources của từng bước. E thay bước trong đường chính; E tại M1 thay toàn bộ đường theo actor khởi tạo khác trong cùng mục tiêu, không tạo BF mới. Cùng guard lặp lại khi sửa vẫn áp cùng kiểm; không nhân vô hạn số lần. Nguồn có ID/đích tồn tại không tự chứng minh mọi chi tiết đúng nghiệp vụ.
 
 ## 7. Điểm đã chốt, giới hạn và QA
 
@@ -1349,3 +1363,25 @@ Truy vết ngược ở sources của từng bước. E thay bước trong đư�
 
 
 Đường có đủ nguồn đã triển khai, không phát sinh quyết định nghiệp vụ thay FR/US/register. Kết quả kiểm, ma trận điều kiện và lệnh ở [QA-M04.md](QA-M04.md). Chưa có phê duyệt nội dung cuối.
+
+
+## Chuyển đổi ID nhánh sau QA-SC-01
+
+Ngày 11/11/2026, các biến thể vai trò được đăng ký thành E tại M1 theo skill v1.4. Bảng này giữ ID lịch sử để đối chiếu các tài liệu đã dẫn V. Mỗi hàng ánh xạ cả nhánh và các bước cùng số thứ tự, ví dụ V1.2 sang bước .2 của E tương ứng.
+
+| ID lịch sử | ID hiện hành | Điểm thay | Số bước | Nguồn |
+| --- | --- | --- | --- | --- |
+| SC-M04-001/V1 | SC-M04-001/E13 | M1 | 2 | FR-M04-01.02, FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, BR-M04-16 |
+| SC-M04-001/V2 | SC-M04-001/E14 | M1 | 4 | FR-M04-01.02, FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, FR-M04-01.04 |
+| SC-M04-001/V3 | SC-M04-001/E15 | M1 | 4 | FR-M04-01.02, FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, FR-M04-01.04 |
+| SC-M04-001/V4 | SC-M04-001/E16 | M1 | 4 | FR-M04-01.02, FR-M04-01.01, FR-M04-01.03, FR-M04-01.05, FR-M04-01.06, FR-M04-01.10, FR-M04-01.13, FR-M04-01.14, FR-M04-01.16, FR-M04-01.17, BR-M04-03, BR-M04-04, BR-M04-05, BR-M04-06, BR-M04-07, BR-M04-17, BR-M04-18, FR-M04-01.04 |
+| SC-M04-001/V5 | SC-M04-001/E17 | M1 | 2 | FR-M04-01.11, BR-M04-17, FR-M11-03.06 |
+| SC-M04-001/V6 | SC-M04-001/E18 | M1 | 2 | FR-M04-01.09, FR-M04-01.07, FR-M04-01.08, FR-M04-01.10, BR-M04-13, BR-M04-18 |
+| SC-M04-002/V1 | SC-M04-002/E12 | M1 | 2 | FR-M04-02.05, BR-M04-16 |
+| SC-M04-003/V1 | SC-M04-003/E18 | M1 | 2 | FR-M04-03.06, BR-M04-16 |
+| SC-M04-004/V1 | SC-M04-004/E15 | M1 | 2 | BR-M04-16 |
+| SC-M04-004/V2 | SC-M04-004/E16 | M1 | 2 | FR-M04-04.07 |
+| SC-M04-005/V1 | SC-M04-005/E10 | M1 | 2 | BR-M04-16 |
+| SC-M04-005/V2 | SC-M04-005/E11 | M1 | 2 | FR-M04-05.05, BR-M04-23 |
+| SC-M04-006/V1 | SC-M04-006/E5 | M1 | 2 | FR-M04-06.05, BR-M04-22 |
+| SC-M04-006/V2 | SC-M04-006/E6 | M1 | 2 | FR-M04-06.05, BR-M04-23 |

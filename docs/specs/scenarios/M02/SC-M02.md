@@ -1,6 +1,6 @@
 # Kịch bản nghiệp vụ — M02 User Profile
 
-[Vietnamese Doc] — 2026-11-08 — skill scenarios v1.3.
+[Vietnamese Doc] — Tái kiểm 11/11/2026 — Skill scenarios v1.4.
 
 Mục đích: triển khai các chức năng actor thực hiện hoàn chỉnh từ FR + US. Boundary là toàn iShare: mọi module nội bộ và nơi lưu ảnh đều là SYSTEM. Không có actor dịch vụ ảnh ngoài nguồn.
 
@@ -16,9 +16,9 @@ Mục đích: triển khai các chức năng actor thực hiện hoàn chỉnh t
 |---|---|
 | module | M02 |
 | scope | ALL |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | docs/specs/scenarios/M02 |
-| date | 2026-11-08 |
+| date | 2026-11-11 |
 | completed_steps | 1, 2, 3, 4 |
 | status | Đang soạn |
 | approval_evidence | - |
@@ -178,6 +178,10 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | E8 | user-choice | M2 | Chính chủ chọn tab Đã xóa sau khi hồ sơ đã được trả | E8.1 | FR-M02-01.01, FR-M02-01.02, FR-M02-01.03, FR-M02-01.05, FR-M02-01.07, FR-M02-01.09, FR-M02-01.10, FR-M02-01.13, FR-M02-01.14, FR-M02-01.15, FR-M02-01.17, FR-M02-01.19, FR-M02-01.23, FR-M02-01.24, FR-M02-01.25, FR-M02-01.27, BR-M02-01, BR-M02-02, BR-M02-03, BR-M02-08, BR-M02-11, BR-M02-12, BR-M02-13, BR-M02-17, BR-M02-19, BR-M02-20, BR-M02-28, BR-M02-31, BR-M02-37, FR-M02-01.08, FR-M03-15.03 |
 | E9 | user-choice | M2 | Tại EP-PROFILE-FOLLOW, người có phiên chọn số followers sau khi xem hồ sơ | E9.1 | FR-M02-01.01, FR-M02-01.02, FR-M02-01.03, FR-M02-01.05, FR-M02-01.07, FR-M02-01.09, FR-M02-01.10, FR-M02-01.13, FR-M02-01.14, FR-M02-01.15, FR-M02-01.17, FR-M02-01.19, FR-M02-01.23, FR-M02-01.24, FR-M02-01.25, FR-M02-01.27, BR-M02-01, BR-M02-02, BR-M02-03, BR-M02-08, BR-M02-11, BR-M02-12, BR-M02-13, BR-M02-17, BR-M02-19, BR-M02-20, BR-M02-28, BR-M02-31, BR-M02-37, FR-M02-02.01, FR-M02-02.02, FR-M02-02.03, FR-M02-02.06, FR-M02-02.07, FR-M02-02.08, FR-M02-02.09, BR-M02-14, BR-M02-27 |
 | E10 | system | M2 | Tập bài đủ điều kiện của người xem là rỗng | E10.1 | FR-M02-01.02, FR-M02-01.05, FR-M02-01.06, FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, BR-M02-28, BR-M02-31 |
+| E11 | system | M1 | ACT-001 — Người khởi tạo là ACT-001 Guest: thay toàn bộ M1→M2, không giả lập đăng nhập. Kết quả chuẩn của đường này: END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E11.1 | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.11, FR-M02-01.12, FR-M02-01.16, FR-M02-01.20, FR-M02-01.21, FR-M02-01.27, BR-M02-26, BR-M02-28, BR-M02-34 |
+| E12 | system | M1 | ACT-001 — Guest tra cứu hồ sơ BANNED; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E12.1 | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.12, FR-M02-01.16, FR-M02-01.27, BR-M02-16, BR-M02-26, BR-M02-28 |
+| E13 | system | M1 | ACT-001 — Guest tra cứu username không tồn tại hoặc tên cũ chưa có chủ hiện hành. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E13.1 | FR-M02-01.21, FR-M02-01.22, BR-M02-34 |
+| E14 | system | M1 | ACT-001 — Guest tra cứu hồ sơ DEACTIVATED hoặc DELETED. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E14.1 | FR-M02-01.11, FR-M02-02.04, BR-M02-15 |
 
 
 <!-- sc:branch SC-M02-001 E1 -->
@@ -254,44 +258,44 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | E10.1 | SYSTEM | Hệ thống vẫn trả các thông tin hồ sơ và tab Bài viết theo đúng ngữ cảnh, danh sách bài rỗng; không chèn các bài không đủ quyền hoặc placeholder Bookmark vào tab này. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; snapshot không có bài đủ điều kiện: Bài viết=[] | END:SUCCESS | FR-M02-01.02, FR-M02-01.05, FR-M02-01.06, FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, BR-M02-28, BR-M02-31 |
 
 
-**V1 — thay toàn bộ đường đi theo actor:** Người khởi tạo là ACT-001 Guest: thay toàn bộ M1→M2, không giả lập đăng nhập. Kết quả chuẩn của đường này: END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+**E11 — thay toàn bộ đường đi theo actor:** Người khởi tạo là ACT-001 Guest: thay toàn bộ M1→M2, không giả lập đăng nhập. Kết quả chuẩn của đường này: END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M02-001 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest mở /u/LAN_12 để tra cứu hồ sơ Lan. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; Người ngoài G12 chỉ thấy P101; thành viên G12 thấy P102 rồi P101. Không thấy P103–P109; không dùng dòng thay thế Bookmark trong tab Bài viết.; Guest chỉ thấy P101; trạng thái chuẩn ACTIVE | V1.2 | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.11, FR-M02-01.12, FR-M02-01.16, FR-M02-01.20, FR-M02-01.21, FR-M02-01.27, BR-M02-26, BR-M02-28, BR-M02-34 |
-| V1.2 | SYSTEM | Hệ thống mở hồ sơ người khác chỉ đọc: trả thông tin công khai, chỉ Bài viết; không sửa/Bookmark/Đã xóa/Nhắn tin. Lọc Private như người ngoài nhóm; không lộ bài ẩn danh. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; Người ngoài G12 chỉ thấy P101; thành viên G12 thấy P102 rồi P101. Không thấy P103–P109; không dùng dòng thay thế Bookmark trong tab Bài viết.; Guest chỉ thấy P101; trạng thái chuẩn ACTIVE | END:SUCCESS | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.11, FR-M02-01.12, FR-M02-01.16, FR-M02-01.20, FR-M02-01.21, FR-M02-01.27, BR-M02-26, BR-M02-28, BR-M02-34 |
-
-
-**V2 — thay toàn bộ đường đi theo actor:** Guest tra cứu hồ sơ BANNED; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M02-001 V2 -->
+<!-- sc:branch SC-M02-001 E11 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-001 | Guest mở /u/lan_12 của tài khoản BANNED. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; U-LAN BANNED; Guest ngoài G12 | V2.2 | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.12, FR-M02-01.16, FR-M02-01.27, BR-M02-16, BR-M02-26, BR-M02-28 |
-| V2.2 | SYSTEM | Hệ thống trả hồ sơ chỉ đọc với nhãn Tài khoản đã bị khóa; chỉ tab Bài viết và P101 đủ quyền, không nút sửa hoặc Nhắn tin. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; U-LAN BANNED; Guest ngoài G12 | END:SUCCESS | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.12, FR-M02-01.16, FR-M02-01.27, BR-M02-16, BR-M02-26, BR-M02-28 |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-001 | Guest mở /u/LAN_12 để tra cứu hồ sơ Lan. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; Người ngoài G12 chỉ thấy P101; thành viên G12 thấy P102 rồi P101. Không thấy P103–P109; không dùng dòng thay thế Bookmark trong tab Bài viết.; Guest chỉ thấy P101; trạng thái chuẩn ACTIVE | E11.2 | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.11, FR-M02-01.12, FR-M02-01.16, FR-M02-01.20, FR-M02-01.21, FR-M02-01.27, BR-M02-26, BR-M02-28, BR-M02-34 |
+| E11.2 | SYSTEM | Hệ thống mở hồ sơ người khác chỉ đọc: trả thông tin công khai, chỉ Bài viết; không sửa/Bookmark/Đã xóa/Nhắn tin. Lọc Private như người ngoài nhóm; không lộ bài ẩn danh. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; Người ngoài G12 chỉ thấy P101; thành viên G12 thấy P102 rồi P101. Không thấy P103–P109; không dùng dòng thay thế Bookmark trong tab Bài viết.; Guest chỉ thấy P101; trạng thái chuẩn ACTIVE | END:SUCCESS | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.11, FR-M02-01.12, FR-M02-01.16, FR-M02-01.20, FR-M02-01.21, FR-M02-01.27, BR-M02-26, BR-M02-28, BR-M02-34 |
 
 
-**V3 — thay toàn bộ đường đi theo actor:** Guest tra cứu username không tồn tại hoặc tên cũ chưa có chủ hiện hành. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E12 — thay toàn bộ đường đi theo actor:** Guest tra cứu hồ sơ BANNED; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M02-001 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Guest mở /u/lan_old. | /u/lan_old không có tài khoản hiện hành | V3.2 | FR-M02-01.21, FR-M02-01.22, BR-M02-34 |
-| V3.2 | SYSTEM | Hệ thống trả người dùng không tồn tại, không chuyển hướng sang username mới. | /u/lan_old không có tài khoản hiện hành | END:REJECTED | FR-M02-01.21, FR-M02-01.22, BR-M02-34 |
-
-
-**V4 — thay toàn bộ đường đi theo actor:** Guest tra cứu hồ sơ DEACTIVATED hoặc DELETED. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M02-001 V4 -->
+<!-- sc:branch SC-M02-001 E12 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-001 | Guest mở /u/lan_12. | U-LAN DEACTIVATED hoặc DELETED | V4.2 | FR-M02-01.11, FR-M02-02.04, BR-M02-15 |
-| V4.2 | SYSTEM | Hệ thống trả người dùng không tồn tại thay toàn bộ hồ sơ; không cung cấp danh sách riêng tư. | U-LAN DEACTIVATED hoặc DELETED | END:REJECTED | FR-M02-01.11, FR-M02-02.04, BR-M02-15 |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-001 | Guest mở /u/lan_12 của tài khoản BANNED. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; U-LAN BANNED; Guest ngoài G12 | E12.2 | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.12, FR-M02-01.16, FR-M02-01.27, BR-M02-16, BR-M02-26, BR-M02-28 |
+| E12.2 | SYSTEM | Hệ thống trả hồ sơ chỉ đọc với nhãn Tài khoản đã bị khóa; chỉ tab Bài viết và P101 đủ quyền, không nút sửa hoặc Nhắn tin. | Avatar tròn; display_name Lan, username lan_12, bio Thích Toán 📐, Lớp 11, ngày tham gia 01/09/2026, tổng điểm 150, badge B100, danh hiệu tuần vừa chốt cạnh badge, followers=2/following=2. Không hiện tiến độ B300, mức cảnh báo, lịch sử username, liên kết mạng xã hội, stars nhận/cho, số lần/lịch sử danh hiệu tuần.; U-LAN BANNED; Guest ngoài G12 | END:SUCCESS | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.12, FR-M02-01.16, FR-M02-01.27, BR-M02-16, BR-M02-26, BR-M02-28 |
+
+
+**E13 — thay toàn bộ đường đi theo actor:** Guest tra cứu username không tồn tại hoặc tên cũ chưa có chủ hiện hành. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M02-001 E13 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-001 | Guest mở /u/lan_old. | /u/lan_old không có tài khoản hiện hành | E13.2 | FR-M02-01.21, FR-M02-01.22, BR-M02-34 |
+| E13.2 | SYSTEM | Hệ thống trả người dùng không tồn tại, không chuyển hướng sang username mới. | /u/lan_old không có tài khoản hiện hành | END:REJECTED | FR-M02-01.21, FR-M02-01.22, BR-M02-34 |
+
+
+**E14 — thay toàn bộ đường đi theo actor:** Guest tra cứu hồ sơ DEACTIVATED hoặc DELETED. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M02-001 E14 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-001 | Guest mở /u/lan_12. | U-LAN DEACTIVATED hoặc DELETED | E14.2 | FR-M02-01.11, FR-M02-02.04, BR-M02-15 |
+| E14.2 | SYSTEM | Hệ thống trả người dùng không tồn tại thay toàn bộ hồ sơ; không cung cấp danh sách riêng tư. | U-LAN DEACTIVATED hoặc DELETED | END:REJECTED | FR-M02-01.11, FR-M02-02.04, BR-M02-15 |
 
 
 <!-- sc:end SC-M02-001 -->
@@ -346,6 +350,7 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | E2 | system | M2 | Tài khoản đích DEACTIVATED hoặc DELETED | E2.1 | FR-M02-02.04, BR-M02-15 |
 | E3 | system | M2 | Hà/Bình đã trở lại ACTIVE và các quan hệ vẫn còn | E3.1 | FR-M02-02.07, FR-M02-02.08, FR-M02-02.09, BR-M02-27, BR-M02-31 |
 | E4 | system | M2 | Không có quan hệ đủ điều kiện sau lọc | E4.1 | FR-M02-02.01, FR-M02-02.07, FR-M02-02.09, BR-M02-27, BR-M02-31 |
+| E5 | system | M1 | ACT-001 — ACT-001 Guest chọn một trong hai số; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E5.1 | FR-M02-02.05, BR-M02-14 |
 
 
 <!-- sc:branch SC-M02-002 E1 -->
@@ -377,14 +382,14 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | E4.1 | SYSTEM | Hệ thống trả danh sách người theo dõi đã chọn là rỗng, số đếm bằng 0; không tự tạo quan hệ hoặc nêu một lỗi không có trong nguồn. | followers=[]; count=0; snapshot không có quan hệ ACTIVE | END:SUCCESS | FR-M02-02.01, FR-M02-02.07, FR-M02-02.09, BR-M02-27, BR-M02-31 |
 
 
-**V1 — thay toàn bộ đường đi theo actor:** ACT-001 Guest chọn một trong hai số; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E5 — thay toàn bộ đường đi theo actor:** ACT-001 Guest chọn một trong hai số; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M02-002 V1 -->
+<!-- sc:branch SC-M02-002 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest chọn Người theo dõi hoặc Đang theo dõi của Lan. | U-LAN ACTIVE; Guest chưa có phiên; hai số 2/2 | V1.2 | FR-M02-02.05, BR-M02-14 |
-| V1.2 | SYSTEM | Hệ thống yêu cầu đăng nhập, chưa mở danh sách; Guest vẫn được xem hai con số trên hồ sơ. Không tự đăng nhập hoặc thêm UC login vào hành trình. | U-LAN ACTIVE; Guest chưa có phiên; hai số 2/2 | END:REJECTED | FR-M02-02.05, BR-M02-14 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-001 | Guest chọn Người theo dõi hoặc Đang theo dõi của Lan. | U-LAN ACTIVE; Guest chưa có phiên; hai số 2/2 | E5.2 | FR-M02-02.05, BR-M02-14 |
+| E5.2 | SYSTEM | Hệ thống yêu cầu đăng nhập, chưa mở danh sách; Guest vẫn được xem hai con số trên hồ sơ. Không tự đăng nhập hoặc thêm UC login vào hành trình. | U-LAN ACTIVE; Guest chưa có phiên; hai số 2/2 | END:REJECTED | FR-M02-02.05, BR-M02-14 |
 
 
 <!-- sc:end SC-M02-002 -->
@@ -684,6 +689,7 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 |---|---|---|---|---|---|
 | E1 | system | M2 | P201 đã được Lan lưu trước lần yêu cầu này | E1.1 | FR-M02-05.03, BR-M02-22 |
 | E2 | system | M2 | Bài đang Khóa toàn bộ nhưng người dùng có phiên và chưa lưu | E2.1 | FR-M02-05.01, FR-M02-05.04, FR-M02-05.05, BR-M02-21, BR-M02-25 |
+| E3 | system | M1 | ACT-001 — ACT-001 Guest chọn Lưu; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E3.1 | FR-M02-05.02, BR-M02-24 |
 
 
 <!-- sc:branch SC-M02-005 E1 -->
@@ -700,14 +706,14 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | E2.1 | SYSTEM | Hệ thống vẫn thêm bookmark và trả kết quả đã lưu; Khóa toàn bộ không chặn lưu, không phát thông báo vì bookmark. | P201 Khóa toàn bộ; Bookmark(U-LAN,P201,08/11 10:00) | END:SUCCESS | FR-M02-05.01, FR-M02-05.04, FR-M02-05.05, BR-M02-21, BR-M02-25 |
 
 
-**V1 — thay toàn bộ đường đi theo actor:** ACT-001 Guest chọn Lưu; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E3 — thay toàn bộ đường đi theo actor:** ACT-001 Guest chọn Lưu; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M02-005 V1 -->
+<!-- sc:branch SC-M02-005 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest chọn Lưu P201. | Guest; P201; chưa có bookmark được tạo từ yêu cầu | V1.2 | FR-M02-05.02, BR-M02-24 |
-| V1.2 | SYSTEM | Hệ thống yêu cầu đăng nhập, chưa thêm bookmark; kết thúc yêu cầu lưu hiện tại, không tự chạy đăng nhập. | Guest; P201; chưa có bookmark được tạo từ yêu cầu | END:REJECTED | FR-M02-05.02, BR-M02-24 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-001 | Guest chọn Lưu P201. | Guest; P201; chưa có bookmark được tạo từ yêu cầu | E3.2 | FR-M02-05.02, BR-M02-24 |
+| E3.2 | SYSTEM | Hệ thống yêu cầu đăng nhập, chưa thêm bookmark; kết thúc yêu cầu lưu hiện tại, không tự chạy đăng nhập. | Guest; P201; chưa có bookmark được tạo từ yêu cầu | END:REJECTED | FR-M02-05.02, BR-M02-24 |
 
 
 <!-- sc:end SC-M02-005 -->
@@ -760,6 +766,7 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 |---|---|---|---|---|---|
 | E1 | user-choice | M1 | Lan chọn bỏ lưu dòng thay thế trong Bookmark | E1.1 | FR-M02-07.05, FR-M02-06.01, BR-M02-29 |
 | E2 | system | M2 | Bài đang Khóa toàn bộ | E2.1 | FR-M02-06.01, FR-M02-06.02, BR-M02-25 |
+| E3 | system | M1 | ACT-001 — ACT-001 Guest chọn Bỏ lưu; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E3.1 | FR-M02-05.02, BR-M02-24 |
 
 
 <!-- sc:branch SC-M02-006 E1 -->
@@ -777,14 +784,14 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | E2.1 | SYSTEM | Hệ thống vẫn xóa bookmark theo yêu cầu hợp lệ, trả kết quả bỏ lưu. | P201 Khóa toàn bộ; bookmark U-LAN/P201 bị xóa | END:SUCCESS | FR-M02-06.01, FR-M02-06.02, BR-M02-25 |
 
 
-**V1 — thay toàn bộ đường đi theo actor:** ACT-001 Guest chọn Bỏ lưu; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E3 — thay toàn bộ đường đi theo actor:** ACT-001 Guest chọn Bỏ lưu; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M02-006 V1 -->
+<!-- sc:branch SC-M02-006 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest gửi yêu cầu Bỏ lưu P201. | Không có phiên; không xóa bookmark của bất kỳ chủ nào | V1.2 | FR-M02-05.02, BR-M02-24 |
-| V1.2 | SYSTEM | Hệ thống yêu cầu đăng nhập, chưa bỏ lưu; không truy cập/xóa bookmark riêng tư khi chưa xác định chủ. | Không có phiên; không xóa bookmark của bất kỳ chủ nào | END:REJECTED | FR-M02-05.02, BR-M02-24 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-001 | Guest gửi yêu cầu Bỏ lưu P201. | Không có phiên; không xóa bookmark của bất kỳ chủ nào | E3.2 | FR-M02-05.02, BR-M02-24 |
+| E3.2 | SYSTEM | Hệ thống yêu cầu đăng nhập, chưa bỏ lưu; không truy cập/xóa bookmark riêng tư khi chưa xác định chủ. | Không có phiên; không xóa bookmark của bất kỳ chủ nào | END:REJECTED | FR-M02-05.02, BR-M02-24 |
 
 
 <!-- sc:end SC-M02-006 -->
@@ -840,6 +847,7 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | E3 | system | M2 | P202 bị xóa hẳn hoặc tác giả chuyển DELETED | E3.1 | FR-M02-07.06, FR-M02-07.07, BR-M02-30, BR-M02-31 |
 | E4 | user-choice | M2 | Tại EP-BOOKMARK-REMOVE, Lan chọn bỏ lưu dòng thay thế sau khi xem danh sách | E4.1 | FR-M02-07.01, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-23, BR-M02-29, BR-M02-31, FR-M02-07.05, FR-M02-06.01 |
 | E5 | system | M2 | Chủ tài khoản không có bookmark nào còn tồn tại | E5.1 | FR-M02-07.01, FR-M02-07.06, FR-M02-07.07, BR-M02-23, BR-M02-30, BR-M02-31 |
+| E6 | system | M1 | ACT-001 — Guest yêu cầu danh sách Bookmark riêng tư; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E6.1 | FR-M02-07.02, BR-M02-23 |
 
 
 <!-- sc:branch SC-M02-007 E1 -->
@@ -879,14 +887,14 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | E5.1 | SYSTEM | Hệ thống kiểm chính chủ rồi trả danh sách Bookmark rỗng; không tạo dòng giả hoặc khôi phục bookmark đã xóa. | U-LAN; Bookmark=[] | END:SUCCESS | FR-M02-07.01, FR-M02-07.06, FR-M02-07.07, BR-M02-23, BR-M02-30, BR-M02-31 |
 
 
-**V1 — thay toàn bộ đường đi theo actor:** Guest yêu cầu danh sách Bookmark riêng tư; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E6 — thay toàn bộ đường đi theo actor:** Guest yêu cầu danh sách Bookmark riêng tư; thay toàn bộ M1→M2. Kết quả chuẩn của đường này: END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M02-007 V1 -->
+<!-- sc:branch SC-M02-007 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu Bookmark của Lan. | Không có phiên; danh sách U-LAN không bị lộ | V1.2 | FR-M02-07.02, BR-M02-23 |
-| V1.2 | SYSTEM | Hệ thống từ chối cung cấp danh sách vì không có phiên xác định chủ; không trả các dòng riêng tư. | Không có phiên; danh sách U-LAN không bị lộ | END:REJECTED | FR-M02-07.02, BR-M02-23 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-001 | Guest yêu cầu Bookmark của Lan. | Không có phiên; danh sách U-LAN không bị lộ | E6.2 | FR-M02-07.02, BR-M02-23 |
+| E6.2 | SYSTEM | Hệ thống từ chối cung cấp danh sách vì không có phiên xác định chủ; không trả các dòng riêng tư. | Không có phiên; danh sách U-LAN không bị lộ | END:REJECTED | FR-M02-07.02, BR-M02-23 |
 
 
 <!-- sc:end SC-M02-007 -->
@@ -908,45 +916,45 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 
 | FR/BR | SC/bước/nhánh hoặc quy tắc | Mức đối soát |
 |---|---|---|
-| FR-M02-01 | SC-M02-001/M1; SC-M02-001/E3.1; SC-M02-001/V1.1; SC-M02-001/V1.2; RULE-M02-001; SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E5.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/V2.1; SC-M02-001/V2.2; SC-M02-001/E6.1; SC-M02-001/E10.1; SC-M02-004/M2; SC-M02-001/E7.1; RULE-M02-FLAGS; AUT-M02-002; SC-M02-001/E1.1; SC-M02-001/V3.1; SC-M02-001/V3.2; SC-M02-001/E2.1; SC-M02-001/V4.1; SC-M02-001/V4.2; SC-M02-001/E8.2; SC-M02-001/E8.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-02 | SC-M02-001/E2.1; SC-M02-001/V4.1; SC-M02-001/V4.2; SC-M02-002/E2.1; SC-M02-001/E9.2; SC-M02-001/E9.3; SC-M02-002/M1; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/E4.1; SC-M02-002/E1.1; RULE-M02-002; SC-M02-002/E3.1; SC-M02-002/V1.1; SC-M02-002/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01 | SC-M02-001/M1; SC-M02-001/E3.1; SC-M02-001/E11.1; SC-M02-001/E11.2; RULE-M02-001; SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E5.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E12.1; SC-M02-001/E12.2; SC-M02-001/E6.1; SC-M02-001/E10.1; SC-M02-004/M2; SC-M02-001/E7.1; RULE-M02-FLAGS; AUT-M02-002; SC-M02-001/E1.1; SC-M02-001/E13.1; SC-M02-001/E13.2; SC-M02-001/E2.1; SC-M02-001/E14.1; SC-M02-001/E14.2; SC-M02-001/E8.2; SC-M02-001/E8.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-02 | SC-M02-001/E2.1; SC-M02-001/E14.1; SC-M02-001/E14.2; SC-M02-002/E2.1; SC-M02-001/E9.2; SC-M02-001/E9.3; SC-M02-002/M1; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/E4.1; SC-M02-002/E1.1; RULE-M02-002; SC-M02-002/E3.1; SC-M02-002/E5.1; SC-M02-002/E5.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-03 | SC-M02-003/M1; SC-M02-003/M2; SC-M02-003/M6; SC-M02-003/E2.1; SC-M02-003/E4.1; SC-M02-003/E11.2; SC-M02-003/E1.1; SC-M02-003/E3.1; SC-M02-003/M3; SC-M02-003/M4; SC-M02-003/E12.1; SC-M02-003/M5; SC-M02-003/E5.1; SC-M02-003/E5.2; SC-M02-003/E11.1; SC-M02-003/E6.1; SC-M02-003/E6.2; RULE-M02-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-04 | SC-M02-004/M1; SC-M02-004/M2; SC-M02-004/E5.1; AUT-M02-001; SC-M02-004/E3.1; SC-M02-004/E4.1; SC-M02-004/E1.1; SC-M02-004/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-05 | SC-M02-005/M1; SC-M02-005/M2; SC-M02-005/E2.1; SC-M02-005/E1.1; SC-M02-005/V1.1; SC-M02-005/V1.2; SC-M02-006/V1.1; SC-M02-006/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-05 | SC-M02-005/M1; SC-M02-005/M2; SC-M02-005/E2.1; SC-M02-005/E1.1; SC-M02-005/E3.1; SC-M02-005/E3.2; SC-M02-006/E3.1; SC-M02-006/E3.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-06 | SC-M02-006/M1; SC-M02-006/M2; SC-M02-006/E1.2; SC-M02-006/E2.1; SC-M02-007/E4.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-07 | SC-M02-006/E1.1; SC-M02-006/E1.2; SC-M02-007/E4.2; SC-M02-007/E4.3; SC-M02-007/M1; SC-M02-007/M2; SC-M02-007/E4.1; SC-M02-007/E5.1; SC-M02-007/E2.1; RULE-M02-FLAGS; SC-M02-007/E3.1; SC-M02-007/E1.1; SC-M02-007/V1.1; SC-M02-007/V1.2; AUT-M02-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.01 | SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E5.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V2.1; SC-M02-001/V2.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-07 | SC-M02-006/E1.1; SC-M02-006/E1.2; SC-M02-007/E4.2; SC-M02-007/E4.3; SC-M02-007/M1; SC-M02-007/M2; SC-M02-007/E4.1; SC-M02-007/E5.1; SC-M02-007/E2.1; RULE-M02-FLAGS; SC-M02-007/E3.1; SC-M02-007/E1.1; SC-M02-007/E6.1; SC-M02-007/E6.2; AUT-M02-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.01 | SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E5.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E12.1; SC-M02-001/E12.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.02 | SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E6.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E10.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.03 | SC-M02-001/M2; SC-M02-001/E6.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-004/M2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.04 | SC-M02-001/E6.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.05 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E10.1; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.06 | SC-M02-001/E3.1; SC-M02-001/E4.1; SC-M02-001/E5.1; SC-M02-001/E7.1; SC-M02-001/E10.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V2.1; SC-M02-001/V2.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.07 | SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E5.1; SC-M02-001/E7.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E10.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V2.1; SC-M02-001/V2.2; RULE-M02-FLAGS | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.06 | SC-M02-001/E3.1; SC-M02-001/E4.1; SC-M02-001/E5.1; SC-M02-001/E7.1; SC-M02-001/E10.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E12.1; SC-M02-001/E12.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.07 | SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E5.1; SC-M02-001/E7.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E10.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E12.1; SC-M02-001/E12.2; RULE-M02-FLAGS | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.08 | SC-M02-001/E8.2; SC-M02-001/E8.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.09 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1; AUT-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.10 | SC-M02-001/M2; SC-M02-001/E6.1; SC-M02-001/E8.1; SC-M02-001/E9.1; AUT-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.11 | SC-M02-001/E2.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V4.1; SC-M02-001/V4.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.12 | SC-M02-001/E5.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V2.1; SC-M02-001/V2.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.11 | SC-M02-001/E2.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E14.1; SC-M02-001/E14.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.12 | SC-M02-001/E5.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E12.1; SC-M02-001/E12.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.13 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.14 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.15 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.16 | SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V2.1; SC-M02-001/V2.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.16 | SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E12.1; SC-M02-001/E12.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.17 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E10.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.18 | SC-M02-001/E6.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.19 | SC-M02-001/M2; SC-M02-001/E7.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E10.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.20 | SC-M02-001/M1; SC-M02-001/E3.1; SC-M02-001/V1.1; SC-M02-001/V1.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.21 | SC-M02-001/E1.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V3.1; SC-M02-001/V3.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.22 | SC-M02-001/E1.1; SC-M02-001/E3.1; SC-M02-001/V3.1; SC-M02-001/V3.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.20 | SC-M02-001/M1; SC-M02-001/E3.1; SC-M02-001/E11.1; SC-M02-001/E11.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.21 | SC-M02-001/E1.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E13.1; SC-M02-001/E13.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.22 | SC-M02-001/E1.1; SC-M02-001/E3.1; SC-M02-001/E13.1; SC-M02-001/E13.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.23 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.24 | SC-M02-001/M2; SC-M02-001/E6.1; SC-M02-001/E8.1; SC-M02-001/E9.1; AUT-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.25 | SC-M02-001/M2; SC-M02-001/E6.1; SC-M02-001/E8.1; SC-M02-001/E9.1; AUT-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-01.26 | SC-M02-001/E3.1; SC-M02-001/E4.1; SC-M02-001/E7.1; RULE-M02-001; RULE-M02-FLAGS | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-01.27 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V2.1; SC-M02-001/V2.2; RULE-M02-001; RULE-M02-FLAGS | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-01.27 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E12.1; SC-M02-001/E12.2; RULE-M02-001; RULE-M02-FLAGS | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-02.01 | SC-M02-001/E9.2; SC-M02-001/E9.3; SC-M02-002/M1; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/E4.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-02.02 | SC-M02-001/E9.3; SC-M02-002/M2; SC-M02-002/E1.1; SC-M02-002/E1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-02.03 | SC-M02-001/E9.3; SC-M02-002/M2; SC-M02-002/E1.2; RULE-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-02.04 | SC-M02-001/E2.1; SC-M02-001/V4.1; SC-M02-001/V4.2; SC-M02-002/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-02.05 | SC-M02-002/V1.1; SC-M02-002/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-02.04 | SC-M02-001/E2.1; SC-M02-001/E14.1; SC-M02-001/E14.2; SC-M02-002/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-02.05 | SC-M02-002/E5.1; SC-M02-002/E5.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-02.06 | SC-M02-001/E9.3; SC-M02-002/M2; SC-M02-002/E1.2; RULE-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-02.07 | SC-M02-001/E9.3; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/E3.1; SC-M02-002/E4.1; RULE-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-02.08 | SC-M02-001/E9.3; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/E3.1; RULE-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
@@ -974,14 +982,14 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | FR-M02-04.06 | SC-M02-004/M2; SC-M02-004/E3.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-04.07 | SC-M02-004/M2; SC-M02-004/E4.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-05.01 | SC-M02-005/M1; SC-M02-005/M2; SC-M02-005/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-05.02 | SC-M02-005/V1.1; SC-M02-005/V1.2; SC-M02-006/V1.1; SC-M02-006/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-05.02 | SC-M02-005/E3.1; SC-M02-005/E3.2; SC-M02-006/E3.1; SC-M02-006/E3.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-05.03 | SC-M02-005/M2; SC-M02-005/E1.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-05.04 | SC-M02-005/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-05.05 | SC-M02-005/M2; SC-M02-005/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-06.01 | SC-M02-006/M1; SC-M02-006/M2; SC-M02-006/E1.2; SC-M02-006/E2.1; SC-M02-007/E4.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-06.02 | SC-M02-006/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-07.01 | SC-M02-007/M1; SC-M02-007/M2; SC-M02-007/E4.1; SC-M02-007/E5.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| FR-M02-07.02 | SC-M02-007/E1.1; SC-M02-007/V1.1; SC-M02-007/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| FR-M02-07.02 | SC-M02-007/E1.1; SC-M02-007/E6.1; SC-M02-007/E6.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-07.03 | SC-M02-007/M2; SC-M02-007/E2.1; SC-M02-007/E4.1; RULE-M02-FLAGS | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-07.04 | SC-M02-007/M2; SC-M02-007/E2.1; SC-M02-007/E4.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | FR-M02-07.05 | SC-M02-006/E1.1; SC-M02-006/E1.2; SC-M02-007/E4.2; SC-M02-007/E4.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
@@ -1000,33 +1008,33 @@ Mỗi E thay bước tại cột at; guard thay dữ liệu/ngữ cảnh của �
 | BR-M02-11 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1; AUT-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-12 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1; AUT-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-13 | SC-M02-001/M2; SC-M02-001/E6.1; SC-M02-001/E8.1; SC-M02-001/E9.1; AUT-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M02-14 | SC-M02-001/E9.3; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/V1.1; SC-M02-002/V1.2; RULE-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M02-15 | SC-M02-001/E2.1; SC-M02-001/V4.1; SC-M02-001/V4.2; SC-M02-002/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M02-16 | SC-M02-001/E5.1; SC-M02-001/V2.1; SC-M02-001/V2.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M02-14 | SC-M02-001/E9.3; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/E5.1; SC-M02-002/E5.2; RULE-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M02-15 | SC-M02-001/E2.1; SC-M02-001/E14.1; SC-M02-001/E14.2; SC-M02-002/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M02-16 | SC-M02-001/E5.1; SC-M02-001/E12.1; SC-M02-001/E12.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-17 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-18 | SC-M02-003/M2; SC-M02-003/M6; SC-M02-003/E2.1; SC-M02-003/E4.1; SC-M02-004/M2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-19 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1; RULE-M02-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-20 | SC-M02-001/M2; SC-M02-001/E8.1; SC-M02-001/E9.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-21 | SC-M02-005/M2; SC-M02-005/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-22 | SC-M02-005/M2; SC-M02-005/E1.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M02-23 | SC-M02-005/M2; SC-M02-007/M2; SC-M02-007/E1.1; SC-M02-007/E4.1; SC-M02-007/E5.1; SC-M02-007/V1.1; SC-M02-007/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M02-24 | SC-M02-005/M2; SC-M02-005/V1.1; SC-M02-005/V1.2; SC-M02-006/M2; SC-M02-006/V1.1; SC-M02-006/V1.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M02-23 | SC-M02-005/M2; SC-M02-007/M2; SC-M02-007/E1.1; SC-M02-007/E4.1; SC-M02-007/E5.1; SC-M02-007/E6.1; SC-M02-007/E6.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M02-24 | SC-M02-005/M2; SC-M02-005/E3.1; SC-M02-005/E3.2; SC-M02-006/M2; SC-M02-006/E3.1; SC-M02-006/E3.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-25 | SC-M02-005/E2.1; SC-M02-006/E2.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M02-26 | SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V2.1; SC-M02-001/V2.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M02-26 | SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E12.1; SC-M02-001/E12.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-27 | SC-M02-001/E9.3; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/E3.1; SC-M02-002/E4.1; RULE-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M02-28 | SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E7.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E10.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V2.1; SC-M02-001/V2.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M02-28 | SC-M02-001/M2; SC-M02-001/E4.1; SC-M02-001/E7.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E10.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E12.1; SC-M02-001/E12.2 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-29 | SC-M02-006/E1.2; SC-M02-007/M2; SC-M02-007/E2.1; SC-M02-007/E4.1; SC-M02-007/E4.3 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-30 | SC-M02-007/E3.1; SC-M02-007/E5.1; AUT-M02-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-31 | SC-M02-001/M2; SC-M02-001/E7.1; SC-M02-001/E8.1; SC-M02-001/E9.1; SC-M02-001/E9.3; SC-M02-001/E10.1; SC-M02-002/M2; SC-M02-002/E1.2; SC-M02-002/E3.1; SC-M02-002/E4.1; SC-M02-007/M2; SC-M02-007/E2.1; SC-M02-007/E3.1; SC-M02-007/E4.1; SC-M02-007/E4.3; SC-M02-007/E5.1; RULE-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-32 | SC-M02-001/E6.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-33 | SC-M02-003/M4; SC-M02-003/M6; SC-M02-003/E11.1; SC-M02-003/E11.2; SC-M02-003/E12.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
-| BR-M02-34 | SC-M02-001/M1; SC-M02-001/E1.1; SC-M02-001/E3.1; SC-M02-001/V1.1; SC-M02-001/V1.2; SC-M02-001/V3.1; SC-M02-001/V3.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
+| BR-M02-34 | SC-M02-001/M1; SC-M02-001/E1.1; SC-M02-001/E3.1; SC-M02-001/E11.1; SC-M02-001/E11.2; SC-M02-001/E13.1; SC-M02-001/E13.2; RULE-M02-001 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-35 | SC-M02-003/M6; SC-M02-003/E11.2; RULE-M02-003 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-36 | SC-M02-003/M2; SC-M02-003/M6; SC-M02-003/E1.1; SC-M02-003/E3.1; SC-M02-004/M2; SC-M02-004/E4.1 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 | BR-M02-37 | SC-M02-001/M2; SC-M02-001/E6.1; SC-M02-001/E8.1; SC-M02-001/E9.1; AUT-M02-002 | Có vị trí triển khai theo nguồn; chưa phê duyệt |
 
 
-Truy vết ngược nằm trong sources của từng bước. Có vị trí không tự chứng minh đầy đủ ngữ nghĩa. E là đường cùng actor chính; V là đường thay toàn bộ theo actor Guest trong cùng chức năng, không phải BF mới. Không trộn actor Guest và User trong cùng một bước, không bịa đăng nhập để đổi vai trò.
+Truy vết ngược nằm trong sources của từng bước. Có vị trí không tự chứng minh đầy đủ ngữ nghĩa. E ghi bước thay thế, gồm cả hành trình tại M1 theo actor Guest trong cùng chức năng, không phải BF mới. Không trộn actor Guest và User trong cùng một bước, không bịa đăng nhập để đổi vai trò.
 
 ## 7. GAP, giới hạn và trạng thái
 
@@ -1041,3 +1049,19 @@ Truy vết ngược nằm trong sources của từng bước. Có vị trí khô
 ## 8. Kiểm tra và bàn giao
 
 Kết quả thực tế, lệnh kiểm và giới hạn nằm ở [QA-M02.md](QA-M02.md). Chưa có phê duyệt cuối. Chỉ tạo thư mục M02 khi ghi đầu ra, không tạo thư mục module khác.
+
+
+## Chuyển đổi ID nhánh sau QA-SC-01
+
+Ngày 11/11/2026, các biến thể vai trò được đăng ký thành E tại M1 theo skill v1.4. Bảng này giữ ID lịch sử để đối chiếu các tài liệu đã dẫn V. Mỗi hàng ánh xạ cả nhánh và các bước cùng số thứ tự, ví dụ V1.2 sang bước .2 của E tương ứng.
+
+| ID lịch sử | ID hiện hành | Điểm thay | Số bước | Nguồn |
+| --- | --- | --- | --- | --- |
+| SC-M02-001/V1 | SC-M02-001/E11 | M1 | 2 | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.11, FR-M02-01.12, FR-M02-01.16, FR-M02-01.20, FR-M02-01.21, FR-M02-01.27, BR-M02-26, BR-M02-28, BR-M02-34 |
+| SC-M02-001/V2 | SC-M02-001/E12 | M1 | 2 | FR-M02-01.01, FR-M02-01.06, FR-M02-01.07, FR-M02-01.12, FR-M02-01.16, FR-M02-01.27, BR-M02-16, BR-M02-26, BR-M02-28 |
+| SC-M02-001/V3 | SC-M02-001/E13 | M1 | 2 | FR-M02-01.21, FR-M02-01.22, BR-M02-34 |
+| SC-M02-001/V4 | SC-M02-001/E14 | M1 | 2 | FR-M02-01.11, FR-M02-02.04, BR-M02-15 |
+| SC-M02-002/V1 | SC-M02-002/E5 | M1 | 2 | FR-M02-02.05, BR-M02-14 |
+| SC-M02-005/V1 | SC-M02-005/E3 | M1 | 2 | FR-M02-05.02, BR-M02-24 |
+| SC-M02-006/V1 | SC-M02-006/E3 | M1 | 2 | FR-M02-05.02, BR-M02-24 |
+| SC-M02-007/V1 | SC-M02-007/E6 | M1 | 2 | FR-M02-07.02, BR-M02-23 |

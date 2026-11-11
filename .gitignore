@@ -20,3 +20,5 @@ __pycache__/
 *.pyc
 
 .agents/.claude/system_analysis/output/export
+
+.agents/.gpt/system_analysis

@@ -1,6 +1,6 @@
 # Kịch bản nghiệp vụ — M08 Moderation
 
-[Vietnamese Doc] — 2026-11-10 — Skill scenarios v1.3.
+[Vietnamese Doc] — Tái kiểm 11/11/2026 — Skill scenarios v1.4.
 
 **Phạm vi:** 6 UC chính + 17 UC con, 22 mapping; 16 hành trình actor hoàn tất với iShare. Giữ 25 quan hệ US (19 include, 6 extend), hai extension point và 7 SVG nguồn; không suy số BF từ số oval. Có 15 UC sở hữu scenario (UC015 có hai mục tiêu Ẩn/Khóa), 5 embedded, 3 aggregate; 8 AUT + 6 RULE là phản ứng nền/ràng buộc, không phải scenario tự động.
 
@@ -18,11 +18,11 @@
 |---|---|
 | module | M08 |
 | scope | ALL |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | docs/specs/scenarios/M08 |
 | status | Đang soạn |
 | completed_steps | 1, 2, 3, 4 |
-| date | 2026-11-10 |
+| date | 2026-11-11 |
 | approval_evidence | - |
 
 
@@ -71,7 +71,7 @@ FR chính thức khớp byte bản làm việc chung .agents/.claude/system_anal
 | Nhóm | Nội dung người lớn/Không phù hợp; Group giả mạo; Quấy rối/Bắt nạt có hệ thống; Khác |
 
 
-Mỗi SC/nhánh là một lần chạy giả lập riêng; không lấy trạng thái sau của SC trước làm tiền điều kiện mọi SC sau. Nếu đổi target sang comment/group thì K81 trong nhánh là vụ của target đó; dữ liệu cụ thể được ghi tại nhánh. Giá trị 0.7 chỉ minh họa trong khoảng tạm, không là chính sách mới. Reporter/target/actor xử lý là các chủ thể dữ liệu khác nhau; nhánh V Admin thay cả actor/người giữ/người làm, không chỉ thay nhãn vai trò.
+Mỗi SC/nhánh là một lần chạy giả lập riêng; không lấy trạng thái sau của SC trước làm tiền điều kiện mọi SC sau. Nếu đổi target sang comment/group thì K81 trong nhánh là vụ của target đó; dữ liệu cụ thể được ghi tại nhánh. Giá trị 0.7 chỉ minh họa trong khoảng tạm, không là chính sách mới. Reporter/target/actor xử lý là các chủ thể dữ liệu khác nhau; nhánh E tại M1 Admin thay cả actor/người giữ/người làm, không chỉ thay nhãn vai trò.
 
 ## 2. Kiểm kê nhóm use case chi tiết
 
@@ -214,7 +214,7 @@ Gửi báo cáo vi phạm một đối tượng — BF-M08-001; owner [UC-M08-02
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-002 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -244,7 +244,7 @@ Có đối tượng cần báo cáo; phiên, khả năng nhìn thấy, loại đ
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-001 -->
 
@@ -267,6 +267,10 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E15 | system | M4 | Lan đã báo cáo cùng target trong vụ Mở | E15.1 | FR-M08-01.16, BR-M08-46, BR-M08-47, BR-M08-55 |
 | E16 | system | M4 | Target là bài, bình luận, tài khoản Admin hoặc nhóm Owner Admin | E16.1 | FR-M08-01.20, BR-M08-46, BR-M08-47, BR-M08-55 |
 | E17 | system | M4 | Lan đang HEAVY và P81 Khóa toàn bộ nhưng vẫn được nhìn thấy | E17.1 | FR-M08-01.13, FR-M08-01.17, BR-M08-31, BR-M08-45, BR-M08-47 |
+| E18 | system | M1 | ACT-001 — Guest yêu cầu chức năng cần tài khoản. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E18.1 | FR-M08-01.01, FR-M08-01.06, BR-M08-01, BR-M08-32 |
+| E19 | system | M1 | ACT-008 — Mod Mai gửi báo cáo đối tượng USER khác mình, không phải nội dung/nhóm Owner Admin và chưa trùng. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E19.1 | FR-M08-01.01, FR-M08-01.06, FR-M08-01.11, FR-M08-01.12, FR-M08-01.15, FR-M08-01.16, FR-M08-01.19, FR-M08-01.20, BR-M08-01, BR-M08-02, BR-M08-03, BR-M08-04, BR-M08-47, BR-M08-55, FR-M08-01.02, FR-M08-01.03, FR-M08-01.04, FR-M08-01.05, FR-M08-07.10, BR-M08-05, BR-M08-06, BR-M08-07 |
+| E20 | system | M1 | ACT-007 — Admin An gửi báo cáo đối tượng USER khác mình, không phải nội dung/nhóm Owner Admin và chưa trùng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E20.1 | FR-M08-01.01, FR-M08-01.06, FR-M08-01.11, FR-M08-01.12, FR-M08-01.15, FR-M08-01.16, FR-M08-01.19, FR-M08-01.20, BR-M08-01, BR-M08-02, BR-M08-03, BR-M08-04, BR-M08-47, BR-M08-55, FR-M08-01.02, FR-M08-01.03, FR-M08-01.04, FR-M08-01.05, FR-M08-07.10, BR-M08-05, BR-M08-06, BR-M08-07 |
+| E21 | system | M1 | ACT-007 — An Admin gửi báo cáo đối tượng được miễn là post/comment/account Admin khác hoặc nhóm Owner Admin. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E21.1 | FR-M08-01.01, FR-M08-01.20, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-001 E1 -->
@@ -403,48 +407,48 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E17.1 | SYSTEM | Hệ thống vẫn cho báo cáo, kiểm dữ liệu hợp lệ, lưu báo cáo vào đúng vụ Mở hoặc tạo vụ mới, tính ưu tiên rồi trả tiếp nhận. Không lấy HEAVY/khóa toàn bộ thay quyền nhìn thấy. | Lan HEAVY; P81 Khóa toàn bộ; chưa trùng; một báo cáo trọng số 10→ưu tiên 12 nếu vụ mới | END:SUCCESS | FR-M08-01.13, FR-M08-01.17, BR-M08-31, BR-M08-45, BR-M08-47 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng cần tài khoản. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E18 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng cần tài khoản. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-001 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest chọn gửi báo cáo vi phạm một đối tượng. | Không có phiên; chưa phát sinh dữ liệu nghiệp vụ | V1.2 | FR-M08-01.01 |
-| V1.2 | SYSTEM | Hệ thống từ chối chức năng yêu cầu người dùng đã đăng nhập; không lưu báo cáo hoặc trả mức cảnh cáo riêng tư. | Không tạo báo cáo/quan hệ quyền từ ID | END:REJECTED | FR-M08-01.06, BR-M08-01, BR-M08-32 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod Mai gửi báo cáo đối tượng USER khác mình, không phải nội dung/nhóm Owner Admin và chưa trùng. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-001 V2 -->
+<!-- sc:branch SC-M08-001 E18 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-008 | Mod Mai chọn Báo cáo trên bài P81. | type=post; target=P81; reporter=STAFF-REPORTER | V2.2 | FR-M08-01.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm phiên, target còn nhìn thấy, không tự báo cáo/không thuộc Admin và chưa trùng trong vụ Mở; trả đúng danh mục lý do của bài và giới hạn mô tả/ảnh. | P81 của Bình; chọn đúng một lý do; tối đa 3 ảnh, mỗi ảnh ≤5MB JPEG/PNG/WebP | V2.3 | FR-M08-01.01, FR-M08-01.06, FR-M08-01.11, FR-M08-01.12, FR-M08-01.15, FR-M08-01.16, FR-M08-01.19, FR-M08-01.20, BR-M08-01, BR-M08-02, BR-M08-03, BR-M08-04, BR-M08-47, BR-M08-55 |
-| V2.3 | ACT-008 | Mod Mai chọn Quấy rối/Bắt nạt, nhập mô tả và gửi báo cáo. | Mô tả: “Đoạn 2 nhắm vào cá nhân”; ảnh A81.png 2MB; một lý do | V2.4 | FR-M08-01.02, FR-M08-01.19, BR-M08-02, BR-M08-03, BR-M08-04 |
-| V2.4 | SYSTEM | Hệ thống kiểm lại quyền/đối tượng, một lý do, mô tả và ảnh; lưu báo cáo Mở cùng reporter, loại/ID target, lý do, mô tả, bằng chứng. Chưa có vụ Mở nên tạo K81 Mở, gắn báo cáo, tính ưu tiên và đưa vào hàng chờ; trả báo cáo đã tiếp nhận. Chỉ gửi báo cáo không ẩn/gắn cờ bài. | R81 thuộc K81; max trọng số=10; số báo cáo=1; ưu tiên=12; P81 giữ nguyên trạng thái | END:SUCCESS | FR-M08-01.02, FR-M08-01.03, FR-M08-01.04, FR-M08-01.05, FR-M08-01.19, FR-M08-07.10, BR-M08-05, BR-M08-06, BR-M08-07, BR-M08-47 |
+| --- | --- | --- | --- | --- | --- |
+| E18.1 | ACT-001 | Guest chọn gửi báo cáo vi phạm một đối tượng. | Không có phiên; chưa phát sinh dữ liệu nghiệp vụ | E18.2 | FR-M08-01.01 |
+| E18.2 | SYSTEM | Hệ thống từ chối chức năng yêu cầu người dùng đã đăng nhập; không lưu báo cáo hoặc trả mức cảnh cáo riêng tư. | Không tạo báo cáo/quan hệ quyền từ ID | END:REJECTED | FR-M08-01.06, BR-M08-01, BR-M08-32 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Admin An gửi báo cáo đối tượng USER khác mình, không phải nội dung/nhóm Owner Admin và chưa trùng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E19 — thay toàn bộ M1 đến kết thúc:** Mod Mai gửi báo cáo đối tượng USER khác mình, không phải nội dung/nhóm Owner Admin và chưa trùng. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-001 V3 -->
+<!-- sc:branch SC-M08-001 E19 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-007 | Admin An chọn Báo cáo trên bài P81. | type=post; target=P81; reporter=STAFF-REPORTER | V3.2 | FR-M08-01.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm phiên, target còn nhìn thấy, không tự báo cáo/không thuộc Admin và chưa trùng trong vụ Mở; trả đúng danh mục lý do của bài và giới hạn mô tả/ảnh. | P81 của Bình; chọn đúng một lý do; tối đa 3 ảnh, mỗi ảnh ≤5MB JPEG/PNG/WebP | V3.3 | FR-M08-01.01, FR-M08-01.06, FR-M08-01.11, FR-M08-01.12, FR-M08-01.15, FR-M08-01.16, FR-M08-01.19, FR-M08-01.20, BR-M08-01, BR-M08-02, BR-M08-03, BR-M08-04, BR-M08-47, BR-M08-55 |
-| V3.3 | ACT-007 | Admin An chọn Quấy rối/Bắt nạt, nhập mô tả và gửi báo cáo. | Mô tả: “Đoạn 2 nhắm vào cá nhân”; ảnh A81.png 2MB; một lý do | V3.4 | FR-M08-01.02, FR-M08-01.19, BR-M08-02, BR-M08-03, BR-M08-04 |
-| V3.4 | SYSTEM | Hệ thống kiểm lại quyền/đối tượng, một lý do, mô tả và ảnh; lưu báo cáo Mở cùng reporter, loại/ID target, lý do, mô tả, bằng chứng. Chưa có vụ Mở nên tạo K81 Mở, gắn báo cáo, tính ưu tiên và đưa vào hàng chờ; trả báo cáo đã tiếp nhận. Chỉ gửi báo cáo không ẩn/gắn cờ bài. | R81 thuộc K81; max trọng số=10; số báo cáo=1; ưu tiên=12; P81 giữ nguyên trạng thái | END:SUCCESS | FR-M08-01.02, FR-M08-01.03, FR-M08-01.04, FR-M08-01.05, FR-M08-01.19, FR-M08-07.10, BR-M08-05, BR-M08-06, BR-M08-07, BR-M08-47 |
+| --- | --- | --- | --- | --- | --- |
+| E19.1 | ACT-008 | Mod Mai chọn Báo cáo trên bài P81. | type=post; target=P81; reporter=STAFF-REPORTER | E19.2 | FR-M08-01.01 |
+| E19.2 | SYSTEM | Hệ thống kiểm phiên, target còn nhìn thấy, không tự báo cáo/không thuộc Admin và chưa trùng trong vụ Mở; trả đúng danh mục lý do của bài và giới hạn mô tả/ảnh. | P81 của Bình; chọn đúng một lý do; tối đa 3 ảnh, mỗi ảnh ≤5MB JPEG/PNG/WebP | E19.3 | FR-M08-01.01, FR-M08-01.06, FR-M08-01.11, FR-M08-01.12, FR-M08-01.15, FR-M08-01.16, FR-M08-01.19, FR-M08-01.20, BR-M08-01, BR-M08-02, BR-M08-03, BR-M08-04, BR-M08-47, BR-M08-55 |
+| E19.3 | ACT-008 | Mod Mai chọn Quấy rối/Bắt nạt, nhập mô tả và gửi báo cáo. | Mô tả: “Đoạn 2 nhắm vào cá nhân”; ảnh A81.png 2MB; một lý do | E19.4 | FR-M08-01.02, FR-M08-01.19, BR-M08-02, BR-M08-03, BR-M08-04 |
+| E19.4 | SYSTEM | Hệ thống kiểm lại quyền/đối tượng, một lý do, mô tả và ảnh; lưu báo cáo Mở cùng reporter, loại/ID target, lý do, mô tả, bằng chứng. Chưa có vụ Mở nên tạo K81 Mở, gắn báo cáo, tính ưu tiên và đưa vào hàng chờ; trả báo cáo đã tiếp nhận. Chỉ gửi báo cáo không ẩn/gắn cờ bài. | R81 thuộc K81; max trọng số=10; số báo cáo=1; ưu tiên=12; P81 giữ nguyên trạng thái | END:SUCCESS | FR-M08-01.02, FR-M08-01.03, FR-M08-01.04, FR-M08-01.05, FR-M08-01.19, FR-M08-07.10, BR-M08-05, BR-M08-06, BR-M08-07, BR-M08-47 |
 
 
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin gửi báo cáo đối tượng được miễn là post/comment/account Admin khác hoặc nhóm Owner Admin. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E20 — thay toàn bộ M1 đến kết thúc:** Admin An gửi báo cáo đối tượng USER khác mình, không phải nội dung/nhóm Owner Admin và chưa trùng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-001 V4 -->
+<!-- sc:branch SC-M08-001 E20 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An chọn báo cáo một đối tượng của Admin khác. | type=post/comment/account của ADM-BAO hoặc group có Owner ADM-BAO; còn thấy | V4.2 | FR-M08-01.01 |
-| V4.2 | SYSTEM | Hệ thống từ chối báo cáo đối tượng Admin được miễn, không tạo báo cáo hoặc vụ. | Không có ngoại lệ cho reporter Admin | END:REJECTED | FR-M08-01.20, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E20.1 | ACT-007 | Admin An chọn Báo cáo trên bài P81. | type=post; target=P81; reporter=STAFF-REPORTER | E20.2 | FR-M08-01.01 |
+| E20.2 | SYSTEM | Hệ thống kiểm phiên, target còn nhìn thấy, không tự báo cáo/không thuộc Admin và chưa trùng trong vụ Mở; trả đúng danh mục lý do của bài và giới hạn mô tả/ảnh. | P81 của Bình; chọn đúng một lý do; tối đa 3 ảnh, mỗi ảnh ≤5MB JPEG/PNG/WebP | E20.3 | FR-M08-01.01, FR-M08-01.06, FR-M08-01.11, FR-M08-01.12, FR-M08-01.15, FR-M08-01.16, FR-M08-01.19, FR-M08-01.20, BR-M08-01, BR-M08-02, BR-M08-03, BR-M08-04, BR-M08-47, BR-M08-55 |
+| E20.3 | ACT-007 | Admin An chọn Quấy rối/Bắt nạt, nhập mô tả và gửi báo cáo. | Mô tả: “Đoạn 2 nhắm vào cá nhân”; ảnh A81.png 2MB; một lý do | E20.4 | FR-M08-01.02, FR-M08-01.19, BR-M08-02, BR-M08-03, BR-M08-04 |
+| E20.4 | SYSTEM | Hệ thống kiểm lại quyền/đối tượng, một lý do, mô tả và ảnh; lưu báo cáo Mở cùng reporter, loại/ID target, lý do, mô tả, bằng chứng. Chưa có vụ Mở nên tạo K81 Mở, gắn báo cáo, tính ưu tiên và đưa vào hàng chờ; trả báo cáo đã tiếp nhận. Chỉ gửi báo cáo không ẩn/gắn cờ bài. | R81 thuộc K81; max trọng số=10; số báo cáo=1; ưu tiên=12; P81 giữ nguyên trạng thái | END:SUCCESS | FR-M08-01.02, FR-M08-01.03, FR-M08-01.04, FR-M08-01.05, FR-M08-01.19, FR-M08-07.10, BR-M08-05, BR-M08-06, BR-M08-07, BR-M08-47 |
+
+
+**E21 — thay toàn bộ M1 đến kết thúc:** An Admin gửi báo cáo đối tượng được miễn là post/comment/account Admin khác hoặc nhóm Owner Admin. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-001 E21 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E21.1 | ACT-007 | An chọn báo cáo một đối tượng của Admin khác. | type=post/comment/account của ADM-BAO hoặc group có Owner ADM-BAO; còn thấy | E21.2 | FR-M08-01.01 |
+| E21.2 | SYSTEM | Hệ thống từ chối báo cáo đối tượng Admin được miễn, không tạo báo cáo hoặc vụ. | Không có ngoại lệ cho reporter Admin | END:REJECTED | FR-M08-01.20, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-001 -->
@@ -461,7 +465,7 @@ Tra cứu hàng chờ và điều tra chi tiết vụ — BF-M08-002; owner [UC-
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -491,7 +495,7 @@ Có yêu cầu đọc hàng chờ/vụ; không buộc giữ vụ để chỉ xem
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-002 -->
 
@@ -502,6 +506,11 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E3 | system | M4 | Đòi duyệt nội dung người khác đã xóa/ẩn ngoài vụ, lịch sử hoặc khiếu nại liên quan | E3.1 | FR-M08-04.07, BR-M08-15 |
 | E4 | system | M2 | Mai yêu cầu xem/nhận/xử lý vụ nhắm bài, bình luận hoặc tài khoản của chính Mai | E4.1 | FR-M08-02.06, FR-M08-03.07, BR-M08-46 |
 | E5 | system | M2 | Mod yêu cầu vụ nhắm bài, bình luận hoặc tài khoản của Mod khác | E5.1 | FR-M08-02.09, FR-M08-03.09, BR-M08-46 |
+| E6 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, FR-M08-04.01, BR-M08-11, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
+| E7 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, BR-M08-44 |
+| E8 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, BR-M08-44 |
+| E9 | system | M1 | ACT-007 — An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, FR-M08-04.01, BR-M08-11, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
+| E10 | system | M1 | ACT-007 — An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M08-02.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-002 E1 -->
@@ -539,58 +548,58 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E5.1 | SYSTEM | Hệ thống loại vụ khỏi tập được nhìn thấy/nhận và từ chối yêu cầu trực tiếp; không trả dữ liệu tố cáo hoặc cấp quyền xử lý. | target type=post/comment/account, owner=MOD-HOA | END:REJECTED | FR-M08-02.09, FR-M08-03.09, BR-M08-46 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-002 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An mở hàng chờ báo cáo. | actor=ADM-AN; bộ K81/K82/K83 | V1.2 | FR-M08-02.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm vai trò/phạm vi đọc; trả mọi vụ Mở được phép, ưu tiên giảm dần và hòa theo mở trước, đánh dấu người giữ/yêu cầu ban. Không giới hạn thời gian phải xử lý vụ. | K81=16 mở 08:00; K82=16 mở 08:05; K83=9 mở 07:00→K81,K82,K83; K82 do Mod khác giữ; K83 yêu cầu ban | V1.3 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46 |
-| V1.3 | ACT-007 | An chọn K81 để điều tra. | Mở đúng vụ P81, chỉ đọc; chưa nhận xử lý | V1.4 | FR-M08-04.01, BR-M08-11 |
-| V1.4 | SYSTEM | Hệ thống kiểm lại phạm vi và trả từng báo cáo, reporter/lý do/mô tả/ảnh, nội dung đúng vụ, lịch sử vụ đã đóng/kết luận, mức cảnh cáo và chỉ số tập trung. Hiện danh tính thật cho staff nếu bài ẩn danh/tác giả vô hiệu hóa; mục AI hiện Hệ thống (AI) và nhóm AI. Không cấp quyền duyệt nội dung lưu giữ ngoài ngữ cảnh; chỉ xem khi chưa giữ không gia hạn quyền giữ của người khác. | Lan: 6 báo cáo bị bác về chính P81 / 10 báo cáo đã xử lý của Lan trong 90×24h=0.6; mốc đúng T−90×24h bị loại; reporter khác 2/10=0.2. Bình LIGHT, hạn 12/11 10:00+07 | END:SUCCESS | FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, BR-M08-46, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-002 V2 -->
+<!-- sc:branch SC-M08-002 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn tra cứu hàng chờ và điều tra chi tiết vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-02.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-007 | An mở hàng chờ báo cáo. | actor=ADM-AN; bộ K81/K82/K83 | E6.2 | FR-M08-02.01 |
+| E6.2 | SYSTEM | Hệ thống kiểm vai trò/phạm vi đọc; trả mọi vụ Mở được phép, ưu tiên giảm dần và hòa theo mở trước, đánh dấu người giữ/yêu cầu ban. Không giới hạn thời gian phải xử lý vụ. | K81=16 mở 08:00; K82=16 mở 08:05; K83=9 mở 07:00→K81,K82,K83; K82 do Mod khác giữ; K83 yêu cầu ban | E6.3 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46 |
+| E6.3 | ACT-007 | An chọn K81 để điều tra. | Mở đúng vụ P81, chỉ đọc; chưa nhận xử lý | E6.4 | FR-M08-04.01, BR-M08-11 |
+| E6.4 | SYSTEM | Hệ thống kiểm lại phạm vi và trả từng báo cáo, reporter/lý do/mô tả/ảnh, nội dung đúng vụ, lịch sử vụ đã đóng/kết luận, mức cảnh cáo và chỉ số tập trung. Hiện danh tính thật cho staff nếu bài ẩn danh/tác giả vô hiệu hóa; mục AI hiện Hệ thống (AI) và nhóm AI. Không cấp quyền duyệt nội dung lưu giữ ngoài ngữ cảnh; chỉ xem khi chưa giữ không gia hạn quyền giữ của người khác. | Lan: 6 báo cáo bị bác về chính P81 / 10 báo cáo đã xử lý của Lan trong 90×24h=0.6; mốc đúng T−90×24h bị loại; reporter khác 2/10=0.2. Bình LIGHT, hạn 12/11 10:00+07 | END:SUCCESS | FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, BR-M08-46, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-002 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn tra cứu hàng chờ và điều tra chi tiết vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-02.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, BR-M08-44 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-002 V4 -->
+<!-- sc:branch SC-M08-002 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An mở hàng chờ báo cáo. | actor=ADM-AN; bộ K81/K82/K83 | V4.2 | FR-M08-02.01 |
-| V4.2 | SYSTEM | Hệ thống kiểm vai trò/phạm vi đọc; trả mọi vụ Mở được phép, ưu tiên giảm dần và hòa theo mở trước, đánh dấu người giữ/yêu cầu ban. Không giới hạn thời gian phải xử lý vụ. | K81=16 mở 08:00; K82=16 mở 08:05; K83=9 mở 07:00→K81,K82,K83; K82 do Mod khác giữ; K83 yêu cầu ban | V4.3 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46 |
-| V4.3 | ACT-007 | An chọn K81 để điều tra. | Mở đúng vụ P81, chỉ đọc; chưa nhận xử lý | V4.4 | FR-M08-04.01, BR-M08-11 |
-| V4.4 | SYSTEM | Hệ thống kiểm lại phạm vi và trả từng báo cáo, reporter/lý do/mô tả/ảnh, nội dung đúng vụ, lịch sử vụ đã đóng/kết luận, mức cảnh cáo và chỉ số tập trung. Hiện danh tính thật cho staff nếu bài ẩn danh/tác giả vô hiệu hóa; mục AI hiện Hệ thống (AI) và nhóm AI. Không cấp quyền duyệt nội dung lưu giữ ngoài ngữ cảnh; chỉ xem khi chưa giữ không gia hạn quyền giữ của người khác. | Lan: 6 báo cáo bị bác về chính P81 / 10 báo cáo đã xử lý của Lan trong 90×24h=0.6; mốc đúng T−90×24h bị loại; reporter khác 2/10=0.2. Hoa LIGHT, hạn 12/11 10:00+07 | END:SUCCESS | FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, BR-M08-46, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-002 | Người yêu cầu chọn tra cứu hàng chờ và điều tra chi tiết vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E7.2 | FR-M08-02.01 |
+| E7.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, BR-M08-44 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-002 V5 -->
+<!-- sc:branch SC-M08-002 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | An yêu cầu tra cứu hàng chờ và điều tra chi tiết vụ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | V5.2 | FR-M08-02.01 |
-| V5.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-001 | Người yêu cầu chọn tra cứu hàng chờ và điều tra chi tiết vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E8.2 | FR-M08-02.01 |
+| E8.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, BR-M08-44 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-002 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-007 | An mở hàng chờ báo cáo. | actor=ADM-AN; bộ K81/K82/K83 | E9.2 | FR-M08-02.01 |
+| E9.2 | SYSTEM | Hệ thống kiểm vai trò/phạm vi đọc; trả mọi vụ Mở được phép, ưu tiên giảm dần và hòa theo mở trước, đánh dấu người giữ/yêu cầu ban. Không giới hạn thời gian phải xử lý vụ. | K81=16 mở 08:00; K82=16 mở 08:05; K83=9 mở 07:00→K81,K82,K83; K82 do Mod khác giữ; K83 yêu cầu ban | E9.3 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46 |
+| E9.3 | ACT-007 | An chọn K81 để điều tra. | Mở đúng vụ P81, chỉ đọc; chưa nhận xử lý | E9.4 | FR-M08-04.01, BR-M08-11 |
+| E9.4 | SYSTEM | Hệ thống kiểm lại phạm vi và trả từng báo cáo, reporter/lý do/mô tả/ảnh, nội dung đúng vụ, lịch sử vụ đã đóng/kết luận, mức cảnh cáo và chỉ số tập trung. Hiện danh tính thật cho staff nếu bài ẩn danh/tác giả vô hiệu hóa; mục AI hiện Hệ thống (AI) và nhóm AI. Không cấp quyền duyệt nội dung lưu giữ ngoài ngữ cảnh; chỉ xem khi chưa giữ không gia hạn quyền giữ của người khác. | Lan: 6 báo cáo bị bác về chính P81 / 10 báo cáo đã xử lý của Lan trong 90×24h=0.6; mốc đúng T−90×24h bị loại; reporter khác 2/10=0.2. Hoa LIGHT, hạn 12/11 10:00+07 | END:SUCCESS | FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, BR-M08-46, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-002 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-007 | An yêu cầu tra cứu hàng chờ và điều tra chi tiết vụ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | E10.2 | FR-M08-02.01 |
+| E10.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-002 -->
@@ -607,7 +616,7 @@ Nhận quyền xử lý duy nhất của một vụ — BF-M08-003; owner [UC-M0
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -635,7 +644,7 @@ Vụ/người thao tác được nhận diện; kiểm lại quyền, trạng th
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-003 -->
 
@@ -645,6 +654,11 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E2 | system | M2 | Vụ đã được kết luận trước lúc nhận | E2.1 | FR-M08-03.05, BR-M08-05 |
 | E3 | system | M2 | Mai yêu cầu xem/nhận/xử lý vụ nhắm bài, bình luận hoặc tài khoản của chính Mai | E3.1 | FR-M08-02.06, FR-M08-03.07, BR-M08-46 |
 | E4 | system | M2 | Mod yêu cầu vụ nhắm bài, bình luận hoặc tài khoản của Mod khác | E4.1 | FR-M08-02.09, FR-M08-03.09, BR-M08-46 |
+| E5 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46 |
+| E6 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46, BR-M08-44 |
+| E7 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46, BR-M08-44 |
+| E8 | system | M1 | ACT-007 — An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46 |
+| E9 | system | M1 | ACT-007 — An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M08-03.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-003 E1 -->
@@ -675,54 +689,54 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E4.1 | SYSTEM | Hệ thống loại vụ khỏi tập được nhìn thấy/nhận và từ chối yêu cầu trực tiếp; không trả dữ liệu tố cáo hoặc cấp quyền xử lý. | target type=post/comment/account, owner=MOD-HOA | END:REJECTED | FR-M08-02.09, FR-M08-03.09, BR-M08-46 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-003 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn Nhận xử lý cho K81. | K81: vụ Mở về P81 của Bình/U-BINH (USER, khác người xử lý), 3 báo cáo Mở của Lan, Chi và Hệ thống (AI); ưu tiên 10+2×3=16; không có người giữ. An/ADM-AN là Mod hệ thống. P81 còn thấy hoặc có bản lưu đúng ngữ cảnh vụ; không phải Nháp/Bị từ chối. | V1.2 | FR-M08-03.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm staff, phạm vi target, vụ còn Mở/chưa ai giữ rồi gắn duy nhất An làm người giữ và trả kết quả đã nhận. Bắt đầu mốc hoạt động; không đóng vụ, không ghi log nhận. Mục tiêu độc lập này là nhận quyền, việc giải quyết toàn vụ ở SC004. | holder(K81)=ADM-AN; activity=T; tự nhả sau 30 phút không thao tác hợp lệ; K81 vẫn Mở | END:SUCCESS | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-003 V2 -->
+<!-- sc:branch SC-M08-003 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn nhận quyền xử lý duy nhất của một vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-03.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-007 | An chọn Nhận xử lý cho K81. | K81: vụ Mở về P81 của Bình/U-BINH (USER, khác người xử lý), 3 báo cáo Mở của Lan, Chi và Hệ thống (AI); ưu tiên 10+2×3=16; không có người giữ. An/ADM-AN là Mod hệ thống. P81 còn thấy hoặc có bản lưu đúng ngữ cảnh vụ; không phải Nháp/Bị từ chối. | E5.2 | FR-M08-03.01 |
+| E5.2 | SYSTEM | Hệ thống kiểm staff, phạm vi target, vụ còn Mở/chưa ai giữ rồi gắn duy nhất An làm người giữ và trả kết quả đã nhận. Bắt đầu mốc hoạt động; không đóng vụ, không ghi log nhận. Mục tiêu độc lập này là nhận quyền, việc giải quyết toàn vụ ở SC004. | holder(K81)=ADM-AN; activity=T; tự nhả sau 30 phút không thao tác hợp lệ; K81 vẫn Mở | END:SUCCESS | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-003 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn nhận quyền xử lý duy nhất của một vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-03.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46, BR-M08-44 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-003 V4 -->
+<!-- sc:branch SC-M08-003 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An chọn Nhận xử lý cho K81. | K81: vụ Mở về P81 của Hoa/MOD-HOA (MODERATOR, khác người xử lý), 3 báo cáo Mở của Lan, Chi và Hệ thống (AI); ưu tiên 10+2×3=16; không có người giữ. An/ADM-AN là Mod hệ thống. P81 còn thấy hoặc có bản lưu đúng ngữ cảnh vụ; không phải Nháp/Bị từ chối. | V4.2 | FR-M08-03.01 |
-| V4.2 | SYSTEM | Hệ thống kiểm staff, phạm vi target, vụ còn Mở/chưa ai giữ rồi gắn duy nhất An làm người giữ và trả kết quả đã nhận. Bắt đầu mốc hoạt động; không đóng vụ, không ghi log nhận. Mục tiêu độc lập này là nhận quyền, việc giải quyết toàn vụ ở SC004. | holder(K81)=ADM-AN; activity=T; tự nhả sau 30 phút không thao tác hợp lệ; K81 vẫn Mở | END:SUCCESS | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-002 | Người yêu cầu chọn nhận quyền xử lý duy nhất của một vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E6.2 | FR-M08-03.01 |
+| E6.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46, BR-M08-44 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-003 V5 -->
+<!-- sc:branch SC-M08-003 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | An yêu cầu nhận quyền xử lý duy nhất của một vụ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | V5.2 | FR-M08-03.01 |
-| V5.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-001 | Người yêu cầu chọn nhận quyền xử lý duy nhất của một vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E7.2 | FR-M08-03.01 |
+| E7.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46, BR-M08-44 |
+
+
+**E8 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-003 E8 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-007 | An chọn Nhận xử lý cho K81. | K81: vụ Mở về P81 của Hoa/MOD-HOA (MODERATOR, khác người xử lý), 3 báo cáo Mở của Lan, Chi và Hệ thống (AI); ưu tiên 10+2×3=16; không có người giữ. An/ADM-AN là Mod hệ thống. P81 còn thấy hoặc có bản lưu đúng ngữ cảnh vụ; không phải Nháp/Bị từ chối. | E8.2 | FR-M08-03.01 |
+| E8.2 | SYSTEM | Hệ thống kiểm staff, phạm vi target, vụ còn Mở/chưa ai giữ rồi gắn duy nhất An làm người giữ và trả kết quả đã nhận. Bắt đầu mốc hoạt động; không đóng vụ, không ghi log nhận. Mục tiêu độc lập này là nhận quyền, việc giải quyết toàn vụ ở SC004. | holder(K81)=ADM-AN; activity=T; tự nhả sau 30 phút không thao tác hợp lệ; K81 vẫn Mở | END:SUCCESS | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-003 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-007 | An yêu cầu nhận quyền xử lý duy nhất của một vụ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | E9.2 | FR-M08-03.01 |
+| E9.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-003 -->
@@ -739,7 +753,7 @@ Giải quyết hoàn chỉnh một vụ báo cáo — BF-M08-004; owner [UC-M08-
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -771,7 +785,7 @@ Có yêu cầu giải quyết vụ; không giả định đã có quyền giữ.
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-004 -->
 
@@ -805,6 +819,11 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E26 | user-choice | M5 | Sau biện pháp hợp lệ, Mai chọn Có xử lý nhưng quên lý do | E26.1 | FR-M08-05.01, FR-M08-05.09, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
 | E27 | user-choice | M1 | Vụ từ đầu về nhóm G81, người giữ chọn Khóa nhóm rồi cảnh cáo Owner Bình USER (khác Mai, chưa HEAVY) | E27.1 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07, FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, FR-M08-18.04, FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-50, BR-M11-28, FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-53, FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-39, BR-M08-40 |
 | E28 | user-choice | M5 | Vụ P81 từ đầu, tại EP-CASE-ACTION Mai xét bài gắn cờ điểm trung bình và chọn Ẩn bài + cảnh cáo tác giả | E28.1 | FR-M08-07.02, FR-M08-07.05, BR-M08-23, FR-M08-07.01, FR-M08-07.03, FR-M08-07.04, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, FR-M12-02.10, FR-M12-02.11, FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-43, BR-M08-53 |
+| E29 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E29.1 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07, FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, FR-M08-05.01, FR-M08-05.03, BR-M08-10, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-12, BR-M08-13, BR-M08-39, BR-M08-40 |
+| E30 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E30.1 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
+| E31 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E31.1 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
+| E32 | system | M1 | ACT-007 — An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E32.1 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07, FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, FR-M08-05.01, FR-M08-05.03, BR-M08-10, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-12, BR-M08-13, BR-M08-39, BR-M08-40 |
+| E33 | system | M1 | ACT-007 — An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E33.1 | FR-M08-02.01, FR-M08-03.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-004 E1 -->
@@ -850,7 +869,7 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | step | subject | action | data | next | sources |
 |---|---|---|---|---|---|
 | E6.1 | ACT-008 | Mai chọn Ẩn P81 trong K81 vì vi phạm. | P81 Đã đăng/Bình thường; lý do=Quấy rối | E6.2 | FR-M08-06.01 |
-| E6.2 | SYSTEM | Hệ thống kiểm staff, phạm vi và còn giữ K81, đúng target chưa ẩn; chuyển P81 sang Bị ẩn (Bị Mod ẩn theo M03), giữ dữ liệu, ghi log actor/target/lý do/thời điểm. Áp hiển thị và trừ ngay phần điểm từ upvote hiệu lực theo M12, ghi số điểm đã trừ; trả đã ẩn. Không xóa bài người khác hoặc tự đóng vụ. | P81→Bị ẩn; tác giả có 100 điểm, 5 điểm upvote hiệu lực trên bài→95, ghi đã trừ 5; K81 vẫn Mở | M5 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11 |
+| E6.2 | SYSTEM | Hệ thống kiểm staff, phạm vi và còn giữ K81, đúng target chưa ẩn; chuyển P81 sang Bị ẩn (Bị Mod ẩn theo M03), giữ dữ liệu, ghi log actor/target/lý do/thời điểm. Áp hiển thị và trừ ngay phần điểm từ upvote hiệu lực theo M12, ghi số điểm đã trừ; trả đã ẩn. Không xóa bài người khác hoặc tự đóng vụ. | P81→Bị ẩn; tác giả có 100 điểm, P81 có 5 Post Star × 2 điểm/Star = 10 điểm hiệu lực → 90, ghi khoản đã trừ 10 điểm cho P81; K81 vẫn Mở | M5 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, FR-M12-02.01, BR-M12-05 |
 
 
 <!-- sc:branch SC-M08-004 E7 -->
@@ -1068,67 +1087,67 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | step | subject | action | data | next | sources |
 |---|---|---|---|---|---|
 | E28.1 | ACT-008 | Mai xác định P81 điểm 0.7 vi phạm, chọn Ẩn bài và có cảnh cáo tác giả. | P81 Bị gắn cờ, đúng K81 do Mai giữ; Bình USER 2/LIGHT, chưa HEAVY | E28.2 | FR-M08-07.02, FR-M08-07.05, BR-M08-23 |
-| E28.2 | SYSTEM | Hệ thống kiểm lại quyền giữ/phạm vi/trạng thái chờ, chuyển P81 Bị ẩn, ghi log ẩn và trừ ngay 5 điểm upvote hiệu lực, ghi số điểm đã trừ; trả quyết định nội dung và lựa chọn cảnh cáo riêng. Chưa tự tăng cảnh cáo. | P81 Bị gắn cờ→Bị ẩn; điểm Bình 100→95; số lần vẫn 2/LIGHT trước chọn cảnh cáo | E28.3 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, FR-M12-02.10, FR-M12-02.11 |
+| E28.2 | SYSTEM | Hệ thống kiểm lại quyền giữ/phạm vi/trạng thái chờ, chuyển P81 Bị ẩn, ghi log ẩn và trừ ngay 10 điểm từ 5 Post Star × 2 điểm/Star, ghi số điểm đã trừ; trả quyết định nội dung và lựa chọn cảnh cáo riêng. Chưa tự tăng cảnh cáo. | P81 Bị gắn cờ→Bị ẩn; điểm Bình 100→90, khoản trừ P81=10 điểm (5 Post Star × 2); số lần vẫn 2/LIGHT trước chọn cảnh cáo | E28.3 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, FR-M12-02.10, FR-M12-02.11, FR-M12-02.01, BR-M12-05 |
 | E28.3 | ACT-008 | Mai chọn Cảnh cáo Bình và ghi lý do vi phạm đã xác định. | K81 vẫn Mở do Mai giữ; Bình USER, chưa HEAVY; lý do=Quấy rối | E28.4 | FR-M08-10.01 |
 | E28.4 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Mod/Admin đối với Mod và chưa HEAVY; ghi cảnh cáo do Mai ra với lý do/vụ, tăng số lần và tính mức. Reset thử thách đúng mức từ T, áp hạn chế riêng tư; ghi log và sự kiện app kèm khiếu nại, trả đã cảnh cáo. Không tự ẩn nội dung/ban hoặc đóng vụ. | Bình: số lần 2→3, mức mới MEDIUM, hạn=T+10×24h; record issuer=Mai; K81 Mở; cảnh cáo chỉ app, không email | M5 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E29 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-004 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn K81 từ hàng chờ để giải quyết. | K81: vụ Mở về P81 của Bình/U-BINH (USER, khác người xử lý), 3 báo cáo Mở của Lan, Chi và Hệ thống (AI); ưu tiên 10+2×3=16; không có người giữ. An/ADM-AN là Mod hệ thống. P81 còn thấy hoặc có bản lưu đúng ngữ cảnh vụ; không phải Nháp/Bị từ chối. | V1.2 | FR-M08-02.01, FR-M08-03.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm vai trò/phạm vi đọc và khả năng nhận; dùng hàng chờ ưu tiên giảm dần (max trọng số + 2×số báo cáo), hòa theo vụ mở trước, trả K81 Mở, chưa có người giữ và cho An chọn nhận. Vụ tự nhắm mình/Mod theo quyền bị loại trước khi xem/nhận. | K81 ưu tiên 16 về Bình USER; An khác Bình; chưa giữ | V1.3 | BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
-| V1.3 | ACT-007 | An chọn Nhận xử lý và mở K81 để điều tra. | Yêu cầu nắm quyền K81 hiện Mở/chưa giữ | V1.4 | FR-M08-03.01, FR-M08-04.01 |
-| V1.4 | SYSTEM | Hệ thống kiểm lại quyền/phạm vi và gắn An là người giữ duy nhất nếu vừa nhận; mở hồ sơ điều tra: từng báo cáo/người gửi/lý do/mô tả/ảnh, nội dung và bản lưu đúng vụ, lịch sử đã kết luận, mức cảnh cáo, chỉ số tập trung theo 90×24h. Hiện danh tính thật cho staff và nhãn Hệ thống (AI) đúng dữ liệu; cập nhật mốc xem vụ của chính An đang giữ. | K81 Mở, holder An; Lan 6/10=0.6, mẫu số dương; Bình USER LIGHT; dữ liệu tố cáo không đưa cho Bình | V1.5 | FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, BR-M08-46, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
-| V1.5 | ACT-007 | An đánh giá không đủ căn cứ, chọn Bác bỏ và nhập lý do để kết luận vụ. | K81 chưa áp biện pháp; lý do=Không đủ căn cứ vi phạm | V1.6 | FR-M08-05.01, FR-M08-05.03, BR-M08-10 |
-| V1.6 | SYSTEM | Hệ thống kiểm lại vai trò/phạm vi, vụ Mở, quyền giữ và lý do; lưu kết luận Bác bỏ cùng lý do/người làm/thời điểm, đóng vụ và toàn bộ báo cáo Mở cùng kết quả, ghi nhật ký bất biến. Mọi reporter người dùng chỉ nhận kết quả chung “không phát hiện vi phạm”; không gửi kết quả cho Bình hoặc mục AI. Trả vụ đã giải quyết; câu chữ thông báo cuối theo thiết kế M07. | K81 và mọi báo cáo Mở→Đã xử lý; kết quả=Bác bỏ; lý do=Không đủ căn cứ vi phạm; biện pháp=không có biện pháp; actor An; thời điểm T | END:SUCCESS | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-004 V2 -->
+<!-- sc:branch SC-M08-004 E29 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn giải quyết hoàn chỉnh một vụ báo cáo. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-02.01, FR-M08-03.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
+| --- | --- | --- | --- | --- | --- |
+| E29.1 | ACT-007 | An chọn K81 từ hàng chờ để giải quyết. | K81: vụ Mở về P81 của Bình/U-BINH (USER, khác người xử lý), 3 báo cáo Mở của Lan, Chi và Hệ thống (AI); ưu tiên 10+2×3=16; không có người giữ. An/ADM-AN là Mod hệ thống. P81 còn thấy hoặc có bản lưu đúng ngữ cảnh vụ; không phải Nháp/Bị từ chối. | E29.2 | FR-M08-02.01, FR-M08-03.01 |
+| E29.2 | SYSTEM | Hệ thống kiểm vai trò/phạm vi đọc và khả năng nhận; dùng hàng chờ ưu tiên giảm dần (max trọng số + 2×số báo cáo), hòa theo vụ mở trước, trả K81 Mở, chưa có người giữ và cho An chọn nhận. Vụ tự nhắm mình/Mod theo quyền bị loại trước khi xem/nhận. | K81 ưu tiên 16 về Bình USER; An khác Bình; chưa giữ | E29.3 | BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
+| E29.3 | ACT-007 | An chọn Nhận xử lý và mở K81 để điều tra. | Yêu cầu nắm quyền K81 hiện Mở/chưa giữ | E29.4 | FR-M08-03.01, FR-M08-04.01 |
+| E29.4 | SYSTEM | Hệ thống kiểm lại quyền/phạm vi và gắn An là người giữ duy nhất nếu vừa nhận; mở hồ sơ điều tra: từng báo cáo/người gửi/lý do/mô tả/ảnh, nội dung và bản lưu đúng vụ, lịch sử đã kết luận, mức cảnh cáo, chỉ số tập trung theo 90×24h. Hiện danh tính thật cho staff và nhãn Hệ thống (AI) đúng dữ liệu; cập nhật mốc xem vụ của chính An đang giữ. | K81 Mở, holder An; Lan 6/10=0.6, mẫu số dương; Bình USER LIGHT; dữ liệu tố cáo không đưa cho Bình | E29.5 | FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, BR-M08-46, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
+| E29.5 | ACT-007 | An đánh giá không đủ căn cứ, chọn Bác bỏ và nhập lý do để kết luận vụ. | K81 chưa áp biện pháp; lý do=Không đủ căn cứ vi phạm | E29.6 | FR-M08-05.01, FR-M08-05.03, BR-M08-10 |
+| E29.6 | SYSTEM | Hệ thống kiểm lại vai trò/phạm vi, vụ Mở, quyền giữ và lý do; lưu kết luận Bác bỏ cùng lý do/người làm/thời điểm, đóng vụ và toàn bộ báo cáo Mở cùng kết quả, ghi nhật ký bất biến. Mọi reporter người dùng chỉ nhận kết quả chung “không phát hiện vi phạm”; không gửi kết quả cho Bình hoặc mục AI. Trả vụ đã giải quyết; câu chữ thông báo cuối theo thiết kế M07. | K81 và mọi báo cáo Mở→Đã xử lý; kết quả=Bác bỏ; lý do=Không đủ căn cứ vi phạm; biện pháp=không có biện pháp; actor An; thời điểm T | END:SUCCESS | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E30 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-004 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn giải quyết hoàn chỉnh một vụ báo cáo. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-02.01, FR-M08-03.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-004 V4 -->
+<!-- sc:branch SC-M08-004 E30 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An chọn K81 từ hàng chờ để giải quyết. | K81: vụ Mở về P81 của Hoa/MOD-HOA (MODERATOR, khác người xử lý), 3 báo cáo Mở của Lan, Chi và Hệ thống (AI); ưu tiên 10+2×3=16; không có người giữ. An/ADM-AN là Mod hệ thống. P81 còn thấy hoặc có bản lưu đúng ngữ cảnh vụ; không phải Nháp/Bị từ chối. | V4.2 | FR-M08-02.01, FR-M08-03.01 |
-| V4.2 | SYSTEM | Hệ thống kiểm vai trò/phạm vi đọc và khả năng nhận; dùng hàng chờ ưu tiên giảm dần (max trọng số + 2×số báo cáo), hòa theo vụ mở trước, trả K81 Mở, chưa có người giữ và cho An chọn nhận. Vụ tự nhắm mình/Mod theo quyền bị loại trước khi xem/nhận. | K81 ưu tiên 16 về Hoa MODERATOR; An khác Hoa; chưa giữ | V4.3 | BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
-| V4.3 | ACT-007 | An chọn Nhận xử lý và mở K81 để điều tra. | Yêu cầu nắm quyền K81 hiện Mở/chưa giữ | V4.4 | FR-M08-03.01, FR-M08-04.01 |
-| V4.4 | SYSTEM | Hệ thống kiểm lại quyền/phạm vi và gắn An là người giữ duy nhất nếu vừa nhận; mở hồ sơ điều tra: từng báo cáo/người gửi/lý do/mô tả/ảnh, nội dung và bản lưu đúng vụ, lịch sử đã kết luận, mức cảnh cáo, chỉ số tập trung theo 90×24h. Hiện danh tính thật cho staff và nhãn Hệ thống (AI) đúng dữ liệu; cập nhật mốc xem vụ của chính An đang giữ. | K81 Mở, holder An; Lan 6/10=0.6, mẫu số dương; Hoa MODERATOR LIGHT; dữ liệu tố cáo không đưa cho Hoa | V4.5 | FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, BR-M08-46, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
-| V4.5 | ACT-007 | An đánh giá không đủ căn cứ, chọn Bác bỏ và nhập lý do để kết luận vụ. | K81 chưa áp biện pháp; lý do=Không đủ căn cứ vi phạm | V4.6 | FR-M08-05.01, FR-M08-05.03, BR-M08-10 |
-| V4.6 | SYSTEM | Hệ thống kiểm lại vai trò/phạm vi, vụ Mở, quyền giữ và lý do; lưu kết luận Bác bỏ cùng lý do/người làm/thời điểm, đóng vụ và toàn bộ báo cáo Mở cùng kết quả, ghi nhật ký bất biến. Mọi reporter người dùng chỉ nhận kết quả chung “không phát hiện vi phạm”; không gửi kết quả cho Hoa hoặc mục AI. Trả vụ đã giải quyết; câu chữ thông báo cuối theo thiết kế M07. | K81 và mọi báo cáo Mở→Đã xử lý; kết quả=Bác bỏ; lý do=Không đủ căn cứ vi phạm; biện pháp=không có biện pháp; actor An; thời điểm T | END:SUCCESS | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
+| --- | --- | --- | --- | --- | --- |
+| E30.1 | ACT-002 | Người yêu cầu chọn giải quyết hoàn chỉnh một vụ báo cáo. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E30.2 | FR-M08-02.01, FR-M08-03.01 |
+| E30.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E31 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-004 V5 -->
+<!-- sc:branch SC-M08-004 E31 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | An yêu cầu giải quyết hoàn chỉnh một vụ báo cáo đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | V5.2 | FR-M08-02.01, FR-M08-03.01 |
-| V5.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E31.1 | ACT-001 | Người yêu cầu chọn giải quyết hoàn chỉnh một vụ báo cáo. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E31.2 | FR-M08-02.01, FR-M08-03.01 |
+| E31.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
+
+
+**E32 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-004 E32 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E32.1 | ACT-007 | An chọn K81 từ hàng chờ để giải quyết. | K81: vụ Mở về P81 của Hoa/MOD-HOA (MODERATOR, khác người xử lý), 3 báo cáo Mở của Lan, Chi và Hệ thống (AI); ưu tiên 10+2×3=16; không có người giữ. An/ADM-AN là Mod hệ thống. P81 còn thấy hoặc có bản lưu đúng ngữ cảnh vụ; không phải Nháp/Bị từ chối. | E32.2 | FR-M08-02.01, FR-M08-03.01 |
+| E32.2 | SYSTEM | Hệ thống kiểm vai trò/phạm vi đọc và khả năng nhận; dùng hàng chờ ưu tiên giảm dần (max trọng số + 2×số báo cáo), hòa theo vụ mở trước, trả K81 Mở, chưa có người giữ và cho An chọn nhận. Vụ tự nhắm mình/Mod theo quyền bị loại trước khi xem/nhận. | K81 ưu tiên 16 về Hoa MODERATOR; An khác Hoa; chưa giữ | E32.3 | BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
+| E32.3 | ACT-007 | An chọn Nhận xử lý và mở K81 để điều tra. | Yêu cầu nắm quyền K81 hiện Mở/chưa giữ | E32.4 | FR-M08-03.01, FR-M08-04.01 |
+| E32.4 | SYSTEM | Hệ thống kiểm lại quyền/phạm vi và gắn An là người giữ duy nhất nếu vừa nhận; mở hồ sơ điều tra: từng báo cáo/người gửi/lý do/mô tả/ảnh, nội dung và bản lưu đúng vụ, lịch sử đã kết luận, mức cảnh cáo, chỉ số tập trung theo 90×24h. Hiện danh tính thật cho staff và nhãn Hệ thống (AI) đúng dữ liệu; cập nhật mốc xem vụ của chính An đang giữ. | K81 Mở, holder An; Lan 6/10=0.6, mẫu số dương; Hoa MODERATOR LIGHT; dữ liệu tố cáo không đưa cho Hoa | E32.5 | FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, BR-M08-46, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
+| E32.5 | ACT-007 | An đánh giá không đủ căn cứ, chọn Bác bỏ và nhập lý do để kết luận vụ. | K81 chưa áp biện pháp; lý do=Không đủ căn cứ vi phạm | E32.6 | FR-M08-05.01, FR-M08-05.03, BR-M08-10 |
+| E32.6 | SYSTEM | Hệ thống kiểm lại vai trò/phạm vi, vụ Mở, quyền giữ và lý do; lưu kết luận Bác bỏ cùng lý do/người làm/thời điểm, đóng vụ và toàn bộ báo cáo Mở cùng kết quả, ghi nhật ký bất biến. Mọi reporter người dùng chỉ nhận kết quả chung “không phát hiện vi phạm”; không gửi kết quả cho Hoa hoặc mục AI. Trả vụ đã giải quyết; câu chữ thông báo cuối theo thiết kế M07. | K81 và mọi báo cáo Mở→Đã xử lý; kết quả=Bác bỏ; lý do=Không đủ căn cứ vi phạm; biện pháp=không có biện pháp; actor An; thời điểm T | END:SUCCESS | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
+
+
+**E33 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-004 E33 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E33.1 | ACT-007 | An yêu cầu giải quyết hoàn chỉnh một vụ báo cáo đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | E33.2 | FR-M08-02.01, FR-M08-03.01 |
+| E33.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-004 -->
@@ -1145,7 +1164,7 @@ Kết luận một vụ đang giữ — BF-M08-005; owner [UC-M08-005](../../us/
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -1173,7 +1192,7 @@ Có hồ sơ vụ và kết quả điều tra đã có; kiểm lại quyền gi�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-005 -->
 
@@ -1189,6 +1208,11 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E8 | system | M2 | Mod yêu cầu vụ nhắm bài, bình luận hoặc tài khoản của Mod khác | E8.1 | FR-M08-02.09, FR-M08-03.09, BR-M08-46 |
 | E9 | system | M2 | Vụ không do actor giữ tại lúc tác động (do người khác đang giữ hoặc không có vụ liên quan) | E9.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48 |
 | E10 | user-choice | M2 | Quyền giữ đã tự nhả sau đủ 30 phút không hoạt động; K81 vẫn Mở/chưa ai nhận, Mai còn đủ phạm vi và chọn nhận lại | E10.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, FR-M08-16.07, FR-M08-03.01, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-05.01, FR-M08-05.03 |
+| E11 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E11.1 | FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
+| E12 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40, BR-M08-44 |
+| E13 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40, BR-M08-44 |
+| E14 | system | M1 | ACT-007 — An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
+| E15 | system | M1 | ACT-007 — An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E15.1 | FR-M08-05.01, FR-M08-05.03, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-005 E1 -->
@@ -1269,54 +1293,54 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E10.4 | ACT-008 | Mai chọn Bác bỏ, nhập lý do và gửi kết luận K81. | K81 Mở; holder Mai; Không đủ căn cứ vi phạm; chưa áp biện pháp; quyền vừa nhận lại còn hợp lệ | M2 | FR-M08-05.01, FR-M08-05.03 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E11 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-005 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn Bác bỏ, nhập lý do và gửi kết luận K81. | K81 Mở; holder An; Không đủ căn cứ vi phạm; chưa áp biện pháp | V1.2 | FR-M08-05.01, FR-M08-05.03 |
-| V1.2 | SYSTEM | Hệ thống kiểm lại vai trò/phạm vi, vụ Mở, quyền giữ và lý do; lưu kết luận Bác bỏ cùng lý do/người làm/thời điểm, đóng vụ và toàn bộ báo cáo Mở cùng kết quả, ghi nhật ký bất biến. Mọi reporter người dùng chỉ nhận kết quả chung “không phát hiện vi phạm”; không gửi kết quả cho Bình hoặc mục AI. Trả vụ đã giải quyết; câu chữ thông báo cuối theo thiết kế M07. | K81 và mọi báo cáo Mở→Đã xử lý; kết quả=Bác bỏ; lý do=Không đủ căn cứ vi phạm; biện pháp=không có biện pháp; actor An; thời điểm T | END:SUCCESS | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-005 V2 -->
+<!-- sc:branch SC-M08-005 E11 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn kết luận một vụ đang giữ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-05.01, FR-M08-05.03 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-007 | An chọn Bác bỏ, nhập lý do và gửi kết luận K81. | K81 Mở; holder An; Không đủ căn cứ vi phạm; chưa áp biện pháp | E11.2 | FR-M08-05.01, FR-M08-05.03 |
+| E11.2 | SYSTEM | Hệ thống kiểm lại vai trò/phạm vi, vụ Mở, quyền giữ và lý do; lưu kết luận Bác bỏ cùng lý do/người làm/thời điểm, đóng vụ và toàn bộ báo cáo Mở cùng kết quả, ghi nhật ký bất biến. Mọi reporter người dùng chỉ nhận kết quả chung “không phát hiện vi phạm”; không gửi kết quả cho Bình hoặc mục AI. Trả vụ đã giải quyết; câu chữ thông báo cuối theo thiết kế M07. | K81 và mọi báo cáo Mở→Đã xử lý; kết quả=Bác bỏ; lý do=Không đủ căn cứ vi phạm; biện pháp=không có biện pháp; actor An; thời điểm T | END:SUCCESS | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E12 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-005 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn kết luận một vụ đang giữ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-05.01, FR-M08-05.03 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40, BR-M08-44 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-005 V4 -->
+<!-- sc:branch SC-M08-005 E12 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An chọn Bác bỏ, nhập lý do và gửi kết luận K81. | K81 Mở; holder An; Không đủ căn cứ vi phạm; chưa áp biện pháp | V4.2 | FR-M08-05.01, FR-M08-05.03 |
-| V4.2 | SYSTEM | Hệ thống kiểm lại vai trò/phạm vi, vụ Mở, quyền giữ và lý do; lưu kết luận Bác bỏ cùng lý do/người làm/thời điểm, đóng vụ và toàn bộ báo cáo Mở cùng kết quả, ghi nhật ký bất biến. Mọi reporter người dùng chỉ nhận kết quả chung “không phát hiện vi phạm”; không gửi kết quả cho Hoa hoặc mục AI. Trả vụ đã giải quyết; câu chữ thông báo cuối theo thiết kế M07. | K81 và mọi báo cáo Mở→Đã xử lý; kết quả=Bác bỏ; lý do=Không đủ căn cứ vi phạm; biện pháp=không có biện pháp; actor An; thời điểm T | END:SUCCESS | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-002 | Người yêu cầu chọn kết luận một vụ đang giữ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E12.2 | FR-M08-05.01, FR-M08-05.03 |
+| E12.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40, BR-M08-44 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E13 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-005 V5 -->
+<!-- sc:branch SC-M08-005 E13 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | An yêu cầu kết luận một vụ đang giữ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | V5.2 | FR-M08-05.01, FR-M08-05.03 |
-| V5.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-001 | Người yêu cầu chọn kết luận một vụ đang giữ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E13.2 | FR-M08-05.01, FR-M08-05.03 |
+| E13.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40, BR-M08-44 |
+
+
+**E14 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-005 E14 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-007 | An chọn Bác bỏ, nhập lý do và gửi kết luận K81. | K81 Mở; holder An; Không đủ căn cứ vi phạm; chưa áp biện pháp | E14.2 | FR-M08-05.01, FR-M08-05.03 |
+| E14.2 | SYSTEM | Hệ thống kiểm lại vai trò/phạm vi, vụ Mở, quyền giữ và lý do; lưu kết luận Bác bỏ cùng lý do/người làm/thời điểm, đóng vụ và toàn bộ báo cáo Mở cùng kết quả, ghi nhật ký bất biến. Mọi reporter người dùng chỉ nhận kết quả chung “không phát hiện vi phạm”; không gửi kết quả cho Hoa hoặc mục AI. Trả vụ đã giải quyết; câu chữ thông báo cuối theo thiết kế M07. | K81 và mọi báo cáo Mở→Đã xử lý; kết quả=Bác bỏ; lý do=Không đủ căn cứ vi phạm; biện pháp=không có biện pháp; actor An; thời điểm T | END:SUCCESS | FR-M08-05.01, FR-M08-05.02, FR-M08-05.03, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
+
+
+**E15 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-005 E15 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E15.1 | ACT-007 | An yêu cầu kết luận một vụ đang giữ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | E15.2 | FR-M08-05.01, FR-M08-05.03 |
+| E15.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-005 -->
@@ -1333,7 +1357,7 @@ Xét và quyết định nội dung đang chờ sau AI — BF-M08-006; owner [UC
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -1363,7 +1387,7 @@ Nội dung/vụ được nhận diện, không mặc định mọi nội dung B�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-006 -->
 
@@ -1380,6 +1404,11 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E9 | system | M4 | Vụ không do actor giữ tại lúc tác động (do người khác đang giữ hoặc không có vụ liên quan) | E9.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48 |
 | E10 | user-choice | M4 | Vụ tự nhả 30 phút, còn Mở/chưa ai giữ và Mai chọn nhận lại trước tiếp tục | E10.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, FR-M08-03.01, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-16.07 |
 | E11 | user-choice | M3 | P81 đang gắn cờ, điểm trung bình, Mai chọn Ẩn bài rồi cảnh cáo tác giả đủ điều kiện | E11.1 | FR-M08-07.02, FR-M08-07.05, BR-M08-23, FR-M08-07.01, FR-M08-07.03, FR-M08-07.04, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, FR-M12-02.10, FR-M12-02.11, FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-43, BR-M08-53 |
+| E12 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M08-07.06, FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| E13 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M08-07.06, FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| E14 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M08-07.06, FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| E15 | system | M1 | ACT-007 — An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E15.1 | FR-M08-07.06, FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| E16 | system | M1 | ACT-007 — An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E16.1 | FR-M08-07.06, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-006 E1 -->
@@ -1387,7 +1416,7 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | step | subject | action | data | next | sources |
 |---|---|---|---|---|---|
 | E1.1 | ACT-008 | Mai chọn Ẩn bài cho nội dung đang xét. | P81: Bị gắn cờ; K81 Mở do Mai giữ; Bình USER chưa HEAVY | E1.2 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21 |
-| E1.2 | SYSTEM | Hệ thống kiểm lại quyền giữ/phạm vi và nội dung còn chờ xét, áp quyết định Ẩn bài và trả kết quả. Ẩn bài, ghi log và trừ ngay phần điểm upvote hiệu lực theo M12, ghi số điểm đã trừ. Không tăng cảnh cáo từ lựa chọn không cảnh cáo. K81 vẫn Mở chờ kết luận vụ. | P81→Bị ẩn; không tự Ban/cảnh cáo; trạng thái vụ không đổi; điểm Bình 100→95, ghi đã trừ 5 điểm | END:SUCCESS | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, FR-M12-02.10, FR-M12-02.11 |
+| E1.2 | SYSTEM | Hệ thống kiểm lại quyền giữ/phạm vi và nội dung còn chờ xét, áp quyết định Ẩn bài và trả kết quả. Ẩn bài, ghi log và trừ ngay phần điểm upvote hiệu lực theo M12, ghi số điểm đã trừ. Không tăng cảnh cáo từ lựa chọn không cảnh cáo. K81 vẫn Mở chờ kết luận vụ. | P81→Bị ẩn; không tự Ban/cảnh cáo; trạng thái vụ không đổi; điểm Bình 100→90, ghi khoản đã trừ 10 điểm (5 Post Star × 2) cho P81 | END:SUCCESS | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, FR-M12-02.10, FR-M12-02.11, FR-M12-02.01, BR-M12-05 |
 
 
 <!-- sc:branch SC-M08-006 E2 -->
@@ -1474,63 +1503,63 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | step | subject | action | data | next | sources |
 |---|---|---|---|---|---|
 | E11.1 | ACT-008 | Mai xác định P81 điểm 0.7 vi phạm, chọn Ẩn bài và có cảnh cáo tác giả. | P81 Bị gắn cờ, đúng K81 do Mai giữ; Bình USER 2/LIGHT, chưa HEAVY | E11.2 | FR-M08-07.02, FR-M08-07.05, BR-M08-23 |
-| E11.2 | SYSTEM | Hệ thống kiểm lại quyền giữ/phạm vi/trạng thái chờ, chuyển P81 Bị ẩn, ghi log ẩn và trừ ngay 5 điểm upvote hiệu lực, ghi số điểm đã trừ; trả quyết định nội dung và lựa chọn cảnh cáo riêng. Chưa tự tăng cảnh cáo. | P81 Bị gắn cờ→Bị ẩn; điểm Bình 100→95; số lần vẫn 2/LIGHT trước chọn cảnh cáo | E11.3 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, FR-M12-02.10, FR-M12-02.11 |
+| E11.2 | SYSTEM | Hệ thống kiểm lại quyền giữ/phạm vi/trạng thái chờ, chuyển P81 Bị ẩn, ghi log ẩn và trừ ngay 10 điểm từ 5 Post Star × 2 điểm/Star, ghi số điểm đã trừ; trả quyết định nội dung và lựa chọn cảnh cáo riêng. Chưa tự tăng cảnh cáo. | P81 Bị gắn cờ→Bị ẩn; điểm Bình 100→90, khoản trừ P81=10 điểm (5 Post Star × 2); số lần vẫn 2/LIGHT trước chọn cảnh cáo | E11.3 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, FR-M12-02.10, FR-M12-02.11, FR-M12-02.01, BR-M12-05 |
 | E11.3 | ACT-008 | Mai chọn Cảnh cáo Bình và ghi lý do vi phạm đã xác định. | K81 vẫn Mở do Mai giữ; Bình USER, chưa HEAVY; lý do=Quấy rối | E11.4 | FR-M08-10.01 |
 | E11.4 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Mod/Admin đối với Mod và chưa HEAVY; ghi cảnh cáo do Mai ra với lý do/vụ, tăng số lần và tính mức. Reset thử thách đúng mức từ T, áp hạn chế riêng tư; ghi log và sự kiện app kèm khiếu nại, trả đã cảnh cáo. Không tự ẩn nội dung/ban hoặc đóng vụ. | Bình: số lần 2→3, mức mới MEDIUM, hạn=T+10×24h; record issuer=Mai; K81 Mở; cảnh cáo chỉ app, không email | END:SUCCESS | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E12 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-006 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An mở nội dung đang chờ xét của K81. | P81 Bị gắn cờ; holder An | V1.2 | FR-M08-07.06 |
-| V1.2 | SYSTEM | Hệ thống kiểm staff/phạm vi/quyền giữ, vụ và nội dung còn chờ xét; trả nội dung, loại/điểm AI và các quyết định tương ứng, không tự tăng cảnh cáo. | P81 Bị gắn cờ; nhóm Quấy rối, điểm minh họa 0.7 | V1.3 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
-| V1.3 | ACT-007 | An quyết định giữ bài vì không vi phạm. | P81; giữ bài, không cảnh cáo | V1.4 | FR-M08-07.01 |
-| V1.4 | SYSTEM | Hệ thống kiểm lại guard, chuyển P81 về Bình thường và trả kết quả đã xét. Không tự kết luận vụ hoặc đồng nhất quyết định nội dung với chế tài tác giả. | P81 Bị gắn cờ→Bình thường; K81 vẫn Mở, holder An; số cảnh cáo không tăng | END:SUCCESS | FR-M08-07.01, FR-M08-07.05, FR-M08-07.07, BR-M08-23, BR-M08-48 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-006 V2 -->
+<!-- sc:branch SC-M08-006 E12 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn xét và quyết định nội dung đang chờ sau ai. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-07.06 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-007 | An mở nội dung đang chờ xét của K81. | P81 Bị gắn cờ; holder An | E12.2 | FR-M08-07.06 |
+| E12.2 | SYSTEM | Hệ thống kiểm staff/phạm vi/quyền giữ, vụ và nội dung còn chờ xét; trả nội dung, loại/điểm AI và các quyết định tương ứng, không tự tăng cảnh cáo. | P81 Bị gắn cờ; nhóm Quấy rối, điểm minh họa 0.7 | E12.3 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| E12.3 | ACT-007 | An quyết định giữ bài vì không vi phạm. | P81; giữ bài, không cảnh cáo | E12.4 | FR-M08-07.01 |
+| E12.4 | SYSTEM | Hệ thống kiểm lại guard, chuyển P81 về Bình thường và trả kết quả đã xét. Không tự kết luận vụ hoặc đồng nhất quyết định nội dung với chế tài tác giả. | P81 Bị gắn cờ→Bình thường; K81 vẫn Mở, holder An; số cảnh cáo không tăng | END:SUCCESS | FR-M08-07.01, FR-M08-07.05, FR-M08-07.07, BR-M08-23, BR-M08-48 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E13 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-006 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn xét và quyết định nội dung đang chờ sau ai. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-07.06 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-006 V4 -->
+<!-- sc:branch SC-M08-006 E13 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An mở nội dung đang chờ xét của K81. | P81 Bị gắn cờ; holder An | V4.2 | FR-M08-07.06 |
-| V4.2 | SYSTEM | Hệ thống kiểm staff/phạm vi/quyền giữ, vụ và nội dung còn chờ xét; trả nội dung, loại/điểm AI và các quyết định tương ứng, không tự tăng cảnh cáo. | P81 Bị gắn cờ; nhóm Quấy rối, điểm minh họa 0.7 | V4.3 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
-| V4.3 | ACT-007 | An quyết định giữ bài vì không vi phạm. | P81; giữ bài, không cảnh cáo | V4.4 | FR-M08-07.01 |
-| V4.4 | SYSTEM | Hệ thống kiểm lại guard, chuyển P81 về Hoa thường và trả kết quả đã xét. Không tự kết luận vụ hoặc đồng nhất quyết định nội dung với chế tài tác giả. | P81 Bị gắn cờ→Hoa thường; K81 vẫn Mở, holder An; số cảnh cáo không tăng | END:SUCCESS | FR-M08-07.01, FR-M08-07.05, FR-M08-07.07, BR-M08-23, BR-M08-48 |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-002 | Người yêu cầu chọn xét và quyết định nội dung đang chờ sau ai. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E13.2 | FR-M08-07.06 |
+| E13.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E14 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-006 V5 -->
+<!-- sc:branch SC-M08-006 E14 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | An yêu cầu xét và quyết định nội dung đang chờ sau ai đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | V5.2 | FR-M08-07.06 |
-| V5.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-001 | Người yêu cầu chọn xét và quyết định nội dung đang chờ sau ai. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E14.2 | FR-M08-07.06 |
+| E14.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+
+
+**E15 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-006 E15 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E15.1 | ACT-007 | An mở nội dung đang chờ xét của K81. | P81 Bị gắn cờ; holder An | E15.2 | FR-M08-07.06 |
+| E15.2 | SYSTEM | Hệ thống kiểm staff/phạm vi/quyền giữ, vụ và nội dung còn chờ xét; trả nội dung, loại/điểm AI và các quyết định tương ứng, không tự tăng cảnh cáo. | P81 Bị gắn cờ; nhóm Quấy rối, điểm minh họa 0.7 | E15.3 | FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.06, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| E15.3 | ACT-007 | An quyết định giữ bài vì không vi phạm. | P81; giữ bài, không cảnh cáo | E15.4 | FR-M08-07.01 |
+| E15.4 | SYSTEM | Hệ thống kiểm lại guard, chuyển P81 về Hoa thường và trả kết quả đã xét. Không tự kết luận vụ hoặc đồng nhất quyết định nội dung với chế tài tác giả. | P81 Bị gắn cờ→Hoa thường; K81 vẫn Mở, holder An; số cảnh cáo không tăng | END:SUCCESS | FR-M08-07.01, FR-M08-07.05, FR-M08-07.07, BR-M08-23, BR-M08-48 |
+
+
+**E16 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-006 E16 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E16.1 | ACT-007 | An yêu cầu xét và quyết định nội dung đang chờ sau ai đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | E16.2 | FR-M08-07.06 |
+| E16.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-006 -->
@@ -1547,7 +1576,7 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -1570,12 +1599,12 @@ Có nội dung và vụ liên quan; kiểm giữ vụ/role/trạng thái khi x�
 | step | subject | action | data | next | sources |
 |---|---|---|---|---|---|
 | M1 | ACT-008 | Mai chọn Ẩn P81 trong K81 vì vi phạm. | P81 Đã đăng/Bình thường; lý do=Quấy rối | M2 | FR-M08-06.01 |
-| M2 | SYSTEM | Hệ thống kiểm staff, phạm vi và còn giữ K81, đúng target chưa ẩn; chuyển P81 sang Bị ẩn (Bị Mod ẩn theo M03), giữ dữ liệu, ghi log actor/target/lý do/thời điểm. Áp hiển thị và trừ ngay phần điểm từ upvote hiệu lực theo M12, ghi số điểm đã trừ; trả đã ẩn. Không xóa bài người khác hoặc tự đóng vụ. | P81→Bị ẩn; tác giả có 100 điểm, 5 điểm upvote hiệu lực trên bài→95, ghi đã trừ 5; K81 vẫn Mở | END:SUCCESS | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11 |
+| M2 | SYSTEM | Hệ thống kiểm staff, phạm vi và còn giữ K81, đúng target chưa ẩn; chuyển P81 sang Bị ẩn (Bị Mod ẩn theo M03), giữ dữ liệu, ghi log actor/target/lý do/thời điểm. Áp hiển thị và trừ ngay phần điểm từ upvote hiệu lực theo M12, ghi số điểm đã trừ; trả đã ẩn. Không xóa bài người khác hoặc tự đóng vụ. | P81→Bị ẩn; tác giả có 100 điểm, P81 có 5 Post Star × 2 điểm/Star = 10 điểm hiệu lực → 90, ghi khoản đã trừ 10 điểm cho P81; K81 vẫn Mở | END:SUCCESS | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, FR-M12-02.01, BR-M12-05 |
 
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-007 -->
 
@@ -1588,6 +1617,11 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E5 | system | M2 | Mod yêu cầu vụ nhắm bài, bình luận hoặc tài khoản của Mod khác | E5.1 | FR-M08-02.09, FR-M08-03.09, BR-M08-46 |
 | E6 | system | M2 | Vụ không do actor giữ tại lúc tác động (do người khác đang giữ hoặc không có vụ liên quan) | E6.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48 |
 | E7 | user-choice | M2 | Quyền giữ đã tự nhả sau đủ 30 phút không hoạt động; K81 vẫn Mở/chưa ai nhận, Mai còn đủ phạm vi và chọn nhận lại | E7.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, FR-M08-16.07, FR-M08-03.01, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-06.01 |
+| E8 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11 |
+| E9 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, BR-M08-44 |
+| E10 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, BR-M08-44 |
+| E11 | system | M1 | ACT-007 — An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E11.1 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11 |
+| E12 | system | M1 | ACT-007 — An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M08-06.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-007 E1 -->
@@ -1643,54 +1677,54 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E7.4 | ACT-008 | Mai chọn Ẩn P81 trong K81 vì vi phạm. | P81 Đã đăng/Bình thường; lý do=Quấy rối; quyền vừa nhận lại còn hợp lệ | M2 | FR-M08-06.01 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-007 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn Ẩn P81 trong K81 vì vi phạm. | P81 Đã đăng/Bình thường; lý do=Quấy rối | V1.2 | FR-M08-06.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm staff, phạm vi và còn giữ K81, đúng target chưa ẩn; chuyển P81 sang Bị ẩn (Bị Mod ẩn theo M03), giữ dữ liệu, ghi log actor/target/lý do/thời điểm. Áp hiển thị và trừ ngay phần điểm từ upvote hiệu lực theo M12, ghi số điểm đã trừ; trả đã ẩn. Không xóa bài người khác hoặc tự đóng vụ. | P81→Bị ẩn; tác giả có 100 điểm, 5 điểm upvote hiệu lực trên bài→95, ghi đã trừ 5; K81 vẫn Mở | END:SUCCESS | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-007 V2 -->
+<!-- sc:branch SC-M08-007 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn ẩn một bài viết hoặc bình luận vi phạm trong vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-06.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-007 | An chọn Ẩn P81 trong K81 vì vi phạm. | P81 Đã đăng/Bình thường; lý do=Quấy rối | E8.2 | FR-M08-06.01 |
+| E8.2 | SYSTEM | Hệ thống kiểm staff, phạm vi và còn giữ K81, đúng target chưa ẩn; chuyển P81 sang Bị ẩn (Bị Mod ẩn theo M03), giữ dữ liệu, ghi log actor/target/lý do/thời điểm. Áp hiển thị và trừ ngay phần điểm từ upvote hiệu lực theo M12, ghi số điểm đã trừ; trả đã ẩn. Không xóa bài người khác hoặc tự đóng vụ. | P81→Bị ẩn; tác giả có 100 điểm, P81 có 5 Post Star × 2 điểm/Star = 10 điểm hiệu lực → 90, ghi khoản đã trừ 10 điểm cho P81; K81 vẫn Mở | END:SUCCESS | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, FR-M12-02.01, BR-M12-05 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-007 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn ẩn một bài viết hoặc bình luận vi phạm trong vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-06.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, BR-M08-44 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-007 V4 -->
+<!-- sc:branch SC-M08-007 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An chọn Ẩn P81 trong K81 vì vi phạm. | P81 Đã đăng/Hoa thường; lý do=Quấy rối | V4.2 | FR-M08-06.01 |
-| V4.2 | SYSTEM | Hệ thống kiểm staff, phạm vi và còn giữ K81, đúng target chưa ẩn; chuyển P81 sang Bị ẩn (Bị Mod ẩn theo M03), giữ dữ liệu, ghi log actor/target/lý do/thời điểm. Áp hiển thị và trừ ngay phần điểm từ upvote hiệu lực theo M12, ghi số điểm đã trừ; trả đã ẩn. Không xóa bài người khác hoặc tự đóng vụ. | P81→Bị ẩn; tác giả có 100 điểm, 5 điểm upvote hiệu lực trên bài→95, ghi đã trừ 5; K81 vẫn Mở | END:SUCCESS | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-002 | Người yêu cầu chọn ẩn một bài viết hoặc bình luận vi phạm trong vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E9.2 | FR-M08-06.01 |
+| E9.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, BR-M08-44 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E10 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-007 V5 -->
+<!-- sc:branch SC-M08-007 E10 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | An yêu cầu ẩn một bài viết hoặc bình luận vi phạm trong vụ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | V5.2 | FR-M08-06.01 |
-| V5.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-001 | Người yêu cầu chọn ẩn một bài viết hoặc bình luận vi phạm trong vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E10.2 | FR-M08-06.01 |
+| E10.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, BR-M08-44 |
+
+
+**E11 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-007 E11 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-007 | An chọn Ẩn P81 trong K81 vì vi phạm. | P81 Đã đăng/Hoa thường; lý do=Quấy rối | E11.2 | FR-M08-06.01 |
+| E11.2 | SYSTEM | Hệ thống kiểm staff, phạm vi và còn giữ K81, đúng target chưa ẩn; chuyển P81 sang Bị ẩn (Bị Mod ẩn theo M03), giữ dữ liệu, ghi log actor/target/lý do/thời điểm. Áp hiển thị và trừ ngay phần điểm từ upvote hiệu lực theo M12, ghi số điểm đã trừ; trả đã ẩn. Không xóa bài người khác hoặc tự đóng vụ. | P81→Bị ẩn; tác giả có 100 điểm, P81 có 5 Post Star × 2 điểm/Star = 10 điểm hiệu lực → 90, ghi khoản đã trừ 10 điểm cho P81; K81 vẫn Mở | END:SUCCESS | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, FR-M12-02.01, BR-M12-05 |
+
+
+**E12 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-007 E12 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-007 | An yêu cầu ẩn một bài viết hoặc bình luận vi phạm trong vụ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | E12.2 | FR-M08-06.01 |
+| E12.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-007 -->
@@ -1707,7 +1741,7 @@ Cảnh cáo người vi phạm được xác định trong vụ — BF-M08-008; 
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -1735,7 +1769,7 @@ Có vụ và đối tượng vi phạm được con người đánh giá; không
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-008 -->
 
@@ -1755,6 +1789,12 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E12 | system | M2 | Mod yêu cầu vụ nhắm bài, bình luận hoặc tài khoản của Mod khác | E12.1 | FR-M08-02.09, FR-M08-03.09, BR-M08-46 |
 | E13 | system | M2 | Vụ không do actor giữ tại lúc tác động (do người khác đang giữ hoặc không có vụ liên quan) | E13.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48 |
 | E14 | user-choice | M2 | Quyền giữ đã tự nhả sau đủ 30 phút không hoạt động; K81 vẫn Mở/chưa ai nhận, Mai còn đủ phạm vi và chọn nhận lại | E14.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, FR-M08-16.07, FR-M08-03.01, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-10.01 |
+| E15 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E15.1 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
+| E16 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E16.1 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53, BR-M08-44 |
+| E17 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E17.1 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53, BR-M08-44 |
+| E18 | system | M1 | ACT-007 — An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E18.1 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
+| E19 | system | M1 | ACT-007 — An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E19.1 | FR-M08-10.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| E20 | system | M1 | ACT-007 — Ngay cả Admin không được cảnh cáo/ban Admin khác. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E20.1 | FR-M08-10.01, FR-M08-10.09, FR-M08-14.10, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-008 E1 -->
@@ -1862,64 +1902,64 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E14.4 | ACT-008 | Mai chọn cảnh cáo Bình trong K81 và nhập lý do. | target=U-BINH USER; 2/LIGHT; reason=Quấy rối; quyền vừa nhận lại còn hợp lệ | M2 | FR-M08-10.01 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E15 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-008 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn cảnh cáo Bình trong K81 và nhập lý do. | target=U-BINH USER; 2/LIGHT; reason=Quấy rối | V1.2 | FR-M08-10.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Mod/Admin đối với Mod và chưa HEAVY; ghi cảnh cáo do An ra với lý do/vụ, tăng số lần và tính mức. Reset thử thách đúng mức từ T, áp hạn chế riêng tư; ghi log và sự kiện app kèm khiếu nại, trả đã cảnh cáo. Không tự ẩn nội dung/ban hoặc đóng vụ. | Bình: số lần 2→3, mức mới MEDIUM, hạn=T+10×24h; record issuer=An; K81 Mở; cảnh cáo chỉ app, không email | END:SUCCESS | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-008 V2 -->
+<!-- sc:branch SC-M08-008 E15 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn cảnh cáo người vi phạm được xác định trong vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-10.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E15.1 | ACT-007 | An chọn cảnh cáo Bình trong K81 và nhập lý do. | target=U-BINH USER; 2/LIGHT; reason=Quấy rối | E15.2 | FR-M08-10.01 |
+| E15.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Mod/Admin đối với Mod và chưa HEAVY; ghi cảnh cáo do An ra với lý do/vụ, tăng số lần và tính mức. Reset thử thách đúng mức từ T, áp hạn chế riêng tư; ghi log và sự kiện app kèm khiếu nại, trả đã cảnh cáo. Không tự ẩn nội dung/ban hoặc đóng vụ. | Bình: số lần 2→3, mức mới MEDIUM, hạn=T+10×24h; record issuer=An; K81 Mở; cảnh cáo chỉ app, không email | END:SUCCESS | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E16 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-008 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn cảnh cáo người vi phạm được xác định trong vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-10.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53, BR-M08-44 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-008 V4 -->
+<!-- sc:branch SC-M08-008 E16 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An chọn cảnh cáo Hoa trong K81 và nhập lý do. | target=MOD-HOA MODERATOR; 2/LIGHT; reason=Quấy rối | V4.2 | FR-M08-10.01 |
-| V4.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, actor An là Admin, target Hoa là Mod khác An và không phải Admin và chưa HEAVY; ghi cảnh cáo do An ra với lý do/vụ, tăng số lần và tính mức. Reset thử thách đúng mức từ T, áp hạn chế riêng tư; ghi log và sự kiện app kèm khiếu nại, trả đã cảnh cáo. Không tự ẩn nội dung/ban hoặc đóng vụ. | Hoa: số lần 2→3, mức mới MEDIUM, hạn=T+10×24h; record issuer=An; K81 Mở; cảnh cáo chỉ app, không email | END:SUCCESS | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
+| --- | --- | --- | --- | --- | --- |
+| E16.1 | ACT-002 | Người yêu cầu chọn cảnh cáo người vi phạm được xác định trong vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E16.2 | FR-M08-10.01 |
+| E16.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53, BR-M08-44 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E17 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-008 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | An yêu cầu cảnh cáo người vi phạm được xác định trong vụ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | V5.2 | FR-M08-10.01 |
-| V5.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** Ngay cả Admin không được cảnh cáo/ban Admin khác. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-008 V6 -->
+<!-- sc:branch SC-M08-008 E17 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-007 | An chọn cảnh cáo Admin khác. | target=ADM-BAO ADMIN | V6.2 | FR-M08-10.01 |
-| V6.2 | SYSTEM | Hệ thống từ chối chế tài Admin; không tăng cảnh cáo/tạo ban hoặc thu hồi role. | Admin miễn cảnh cáo/ban | END:REJECTED | FR-M08-10.09, FR-M08-14.10, BR-M08-46, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E17.1 | ACT-001 | Người yêu cầu chọn cảnh cáo người vi phạm được xác định trong vụ. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E17.2 | FR-M08-10.01 |
+| E17.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53, BR-M08-44 |
+
+
+**E18 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-008 E18 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E18.1 | ACT-007 | An chọn cảnh cáo Hoa trong K81 và nhập lý do. | target=MOD-HOA MODERATOR; 2/LIGHT; reason=Quấy rối | E18.2 | FR-M08-10.01 |
+| E18.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, actor An là Admin, target Hoa là Mod khác An và không phải Admin và chưa HEAVY; ghi cảnh cáo do An ra với lý do/vụ, tăng số lần và tính mức. Reset thử thách đúng mức từ T, áp hạn chế riêng tư; ghi log và sự kiện app kèm khiếu nại, trả đã cảnh cáo. Không tự ẩn nội dung/ban hoặc đóng vụ. | Hoa: số lần 2→3, mức mới MEDIUM, hạn=T+10×24h; record issuer=An; K81 Mở; cảnh cáo chỉ app, không email | END:SUCCESS | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
+
+
+**E19 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-008 E19 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E19.1 | ACT-007 | An yêu cầu cảnh cáo người vi phạm được xác định trong vụ đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | E19.2 | FR-M08-10.01 |
+| E19.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+
+
+**E20 — thay toàn bộ M1 đến kết thúc:** Ngay cả Admin không được cảnh cáo/ban Admin khác. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-008 E20 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E20.1 | ACT-007 | An chọn cảnh cáo Admin khác. | target=ADM-BAO ADMIN | E20.2 | FR-M08-10.01 |
+| E20.2 | SYSTEM | Hệ thống từ chối chế tài Admin; không tăng cảnh cáo/tạo ban hoặc thu hồi role. | Admin miễn cảnh cáo/ban | END:REJECTED | FR-M08-10.09, FR-M08-14.10, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-008 -->
@@ -1936,7 +1976,7 @@ Bỏ một cảnh cáo do AI ra — BF-M08-009; owner [UC-M08-010](../../us/US-M
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -1964,7 +2004,7 @@ Xác định record AI và target, không đòi vụ đang giữ. Đường đ�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-009 -->
 
@@ -1972,6 +2012,9 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 |---|---|---|---|---|---|
 | E1 | system | M2 | Cảnh cáo do staff ra, không phải AI | E1.1 | FR-M08-11.01 |
 | E2 | system | M2 | Cảnh cáo AI chưa bỏ và số lần hiện hành là 1, đủ điều kiện bỏ | E2.1 | FR-M08-11.01, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-54 |
+| E3 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54 |
+| E4 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54, BR-M08-44 |
+| E5 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54, BR-M08-44 |
 
 
 <!-- sc:branch SC-M08-009 E1 -->
@@ -1988,34 +2031,34 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E2.1 | SYSTEM | Hệ thống kiểm staff/record AI, giảm số lần từ 1 xuống 0, tính mức Sạch; giữ record đánh dấu đã bỏ, giữ nguyên hạn thử thách hiện tại, áp hạn chế mức mới và ghi log rồi trả kết quả. Không tự hiện lại nội dung ẩn. | W81 chưa bỏ→đã bỏ; 1/LIGHT→0/Sạch; hạn hiện tại 16/11 10:00+07 giữ nguyên; khác GAP002 nơi số lần đã 0 trước bỏ | END:SUCCESS | FR-M08-11.01, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-54 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-009 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn bỏ cảnh cáo AI W81 của Bình. | W81 do AI ra, chưa bỏ; Bình 3/MEDIUM; hạn hiện tại 19/11/2026 10:00+07 | V1.2 | FR-M08-11.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm vai trò staff và cảnh cáo do AI ra, giảm số lần một và tính mức; giữ record đánh dấu đã bỏ, giữ nguyên hạn thử thách hiện tại, áp hạn chế mức mới và ghi log bỏ AI rồi trả kết quả. Không tự hiện lại nội dung đã ẩn, giảm lần lần hai theo kết quả M09 hoặc đặt hạn mới. | Số lần 3→2, MEDIUM→LIGHT; hạn vẫn 19/11 10:00+07; W81 đã bỏ, không xóa; C81 vẫn Bị ẩn; không cần holder | END:SUCCESS | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-009 V2 -->
+<!-- sc:branch SC-M08-009 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn bỏ một cảnh cáo do ai ra. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-11.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-007 | An chọn bỏ cảnh cáo AI W81 của Bình. | W81 do AI ra, chưa bỏ; Bình 3/MEDIUM; hạn hiện tại 19/11/2026 10:00+07 | E3.2 | FR-M08-11.01 |
+| E3.2 | SYSTEM | Hệ thống kiểm vai trò staff và cảnh cáo do AI ra, giảm số lần một và tính mức; giữ record đánh dấu đã bỏ, giữ nguyên hạn thử thách hiện tại, áp hạn chế mức mới và ghi log bỏ AI rồi trả kết quả. Không tự hiện lại nội dung đã ẩn, giảm lần lần hai theo kết quả M09 hoặc đặt hạn mới. | Số lần 3→2, MEDIUM→LIGHT; hạn vẫn 19/11 10:00+07; W81 đã bỏ, không xóa; C81 vẫn Bị ẩn; không cần holder | END:SUCCESS | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-009 V3 -->
+<!-- sc:branch SC-M08-009 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn bỏ một cảnh cáo do ai ra. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-11.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-002 | Người yêu cầu chọn bỏ một cảnh cáo do ai ra. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E4.2 | FR-M08-11.01 |
+| E4.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54, BR-M08-44 |
+
+
+**E5 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-009 E5 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-001 | Người yêu cầu chọn bỏ một cảnh cáo do ai ra. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E5.2 | FR-M08-11.01 |
+| E5.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54, BR-M08-44 |
 
 
 <!-- sc:end SC-M08-009 -->
@@ -2032,7 +2075,7 @@ Ban người vi phạm trong vụ theo quyết định con người — BF-M08-0
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -2060,7 +2103,7 @@ Có quyết định con người trong vụ; quyền giữ/role/ban hiệu lực
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-010 -->
 
@@ -2078,6 +2121,12 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E10 | system | M2 | Vụ không do actor giữ tại lúc tác động (do người khác đang giữ hoặc không có vụ liên quan) | E10.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48 |
 | E11 | user-choice | M2 | Quyền giữ đã tự nhả sau đủ 30 phút không hoạt động; K81 vẫn Mở/chưa ai nhận, Mai còn đủ phạm vi và chọn nhận lại | E11.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, FR-M08-16.07, FR-M08-03.01, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-14.01 |
 | E12 | user-choice | M1 | Vụ từ đầu về nhóm G81, Mai chọn Ban Owner Bình USER riêng với biện pháp nhóm | E12.1 | FR-M08-04.10, FR-M08-14.01, BR-M08-48, BR-M08-50, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-52, BR-M08-53, FR-M10-06.01, FR-M11-11.01, FR-M11-11.05, FR-M11-11.06, FR-M11-11.07 |
+| E13 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01 |
+| E14 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, BR-M08-44 |
+| E15 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E15.1 | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, BR-M08-44 |
+| E16 | system | M1 | ACT-007 — An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E16.1 | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01 |
+| E17 | system | M1 | ACT-007 — An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E17.1 | FR-M08-14.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| E18 | system | M1 | ACT-007 — Ngay cả Admin không được cảnh cáo/ban Admin khác. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E18.1 | FR-M08-14.01, FR-M08-10.09, FR-M08-14.10, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:branch SC-M08-010 E1 -->
@@ -2173,64 +2222,64 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E12.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Admin, Mod chỉ do Admin xử lý và không có ban Đang hiệu lực. Đếm lịch sử mọi ban từng hiệu lực, gồm đã gỡ/vĩnh viễn thủ công, loại Bị lật; áp thời hạn leo thang. Ghi ban Đang hiệu lực với lý do/người làm/mốc bắt đầu, đặt account BANNED; nếu target là Mod thì thu hồi vai trò về USER. Ghi log, phát sự kiện app+email lý do/đường khiếu nại, trả đã ban; không reset cảnh cáo/thử thách hoặc tự đóng vụ. M11 đồng thời chuyển ngay Owner từ Bình sang Group Mod Thảo có thâm niên dài nhất, giữ Bình làm Member và phát sự kiện app cho Owner mới; không tự kết luận K81. | Bình (Owner); lệnh=Ban; số ban trước tính được=0; thời hạn=30×24h; bắt đầu T; account→BANNED; K81 Mở; Owner G81 Bình→Thảo; Bình BANNED/Member; K81 Mở, phần kết luận khi Owner đổi còn GAP006 | END:SUCCESS | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, FR-M11-11.01, FR-M11-11.05, FR-M11-11.06, FR-M11-11.07 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E13 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-010 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn Ban Bình trong K81, nhập lý do vi phạm. | command=Ban; target=U-BINH; reason=Tái phạm đã xác định; số ban trước 0 | V1.2 | FR-M08-14.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Admin, Mod chỉ do Admin xử lý và không có ban Đang hiệu lực. Đếm lịch sử mọi ban từng hiệu lực, gồm đã gỡ/vĩnh viễn thủ công, loại Bị lật; áp thời hạn leo thang. Ghi ban Đang hiệu lực với lý do/người làm/mốc bắt đầu, đặt account BANNED; nếu target là Mod thì thu hồi vai trò về USER. Ghi log, phát sự kiện app+email lý do/đường khiếu nại, trả đã ban; không reset cảnh cáo/thử thách hoặc tự đóng vụ. | Bình; lệnh=Ban; số ban trước tính được=0; thời hạn=30×24h; bắt đầu T; account→BANNED; K81 Mở | END:SUCCESS | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-010 V2 -->
+<!-- sc:branch SC-M08-010 E13 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn ban người vi phạm trong vụ theo quyết định con người. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-14.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-007 | An chọn Ban Bình trong K81, nhập lý do vi phạm. | command=Ban; target=U-BINH; reason=Tái phạm đã xác định; số ban trước 0 | E13.2 | FR-M08-14.01 |
+| E13.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Admin, Mod chỉ do Admin xử lý và không có ban Đang hiệu lực. Đếm lịch sử mọi ban từng hiệu lực, gồm đã gỡ/vĩnh viễn thủ công, loại Bị lật; áp thời hạn leo thang. Ghi ban Đang hiệu lực với lý do/người làm/mốc bắt đầu, đặt account BANNED; nếu target là Mod thì thu hồi vai trò về USER. Ghi log, phát sự kiện app+email lý do/đường khiếu nại, trả đã ban; không reset cảnh cáo/thử thách hoặc tự đóng vụ. | Bình; lệnh=Ban; số ban trước tính được=0; thời hạn=30×24h; bắt đầu T; account→BANNED; K81 Mở | END:SUCCESS | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E14 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-010 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn ban người vi phạm trong vụ theo quyết định con người. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-14.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, BR-M08-44 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-010 V4 -->
+<!-- sc:branch SC-M08-010 E14 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An chọn Ban Hoa trong K81, nhập lý do vi phạm. | command=Ban; target=MOD-HOA; reason=Tái phạm đã xác định; số ban trước 0 | V4.2 | FR-M08-14.01 |
-| V4.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Admin, Mod chỉ do Admin xử lý và không có ban Đang hiệu lực. Đếm lịch sử mọi ban từng hiệu lực, gồm đã gỡ/vĩnh viễn thủ công, loại Bị lật; áp thời hạn leo thang. Ghi ban Đang hiệu lực với lý do/người làm/mốc bắt đầu, đặt account BANNED; nếu target là Mod thì thu hồi vai trò về USER. Ghi log, phát sự kiện app+email lý do/đường khiếu nại, trả đã ban; không reset cảnh cáo/thử thách hoặc tự đóng vụ. | Hoa; lệnh=Ban; số ban trước tính được=0; thời hạn=30×24h; bắt đầu T; account→BANNED; K81 Mở; Hoa MODERATOR→USER ngay, không khôi phục role khi gỡ/hết hạn | END:SUCCESS | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01 |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-002 | Người yêu cầu chọn ban người vi phạm trong vụ theo quyết định con người. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E14.2 | FR-M08-14.01 |
+| E14.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, BR-M08-44 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E15 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-010 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | An yêu cầu ban người vi phạm trong vụ theo quyết định con người đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | V5.2 | FR-M08-14.01 |
-| V5.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** Ngay cả Admin không được cảnh cáo/ban Admin khác. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-010 V6 -->
+<!-- sc:branch SC-M08-010 E15 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-007 | An chọn Ban vĩnh viễn Admin khác. | target=ADM-BAO ADMIN | V6.2 | FR-M08-14.01 |
-| V6.2 | SYSTEM | Hệ thống từ chối chế tài Admin; không tăng cảnh cáo/tạo ban hoặc thu hồi role. | Admin miễn cảnh cáo/ban | END:REJECTED | FR-M08-10.09, FR-M08-14.10, BR-M08-46, BR-M08-55 |
+| --- | --- | --- | --- | --- | --- |
+| E15.1 | ACT-001 | Người yêu cầu chọn ban người vi phạm trong vụ theo quyết định con người. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E15.2 | FR-M08-14.01 |
+| E15.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, BR-M08-44 |
+
+
+**E16 — thay toàn bộ M1 đến kết thúc:** An Admin xử lý vụ về Hoa Mod khác mình; chỉ An thấy/nhận/áp chế tài khi đủ quyền giữ, không target Admin; thay actor, target và người giữ nhất quán. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-010 E16 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E16.1 | ACT-007 | An chọn Ban Hoa trong K81, nhập lý do vi phạm. | command=Ban; target=MOD-HOA; reason=Tái phạm đã xác định; số ban trước 0 | E16.2 | FR-M08-14.01 |
+| E16.2 | SYSTEM | Hệ thống kiểm lại staff/phạm vi/giữ vụ, target không Admin, Mod chỉ do Admin xử lý và không có ban Đang hiệu lực. Đếm lịch sử mọi ban từng hiệu lực, gồm đã gỡ/vĩnh viễn thủ công, loại Bị lật; áp thời hạn leo thang. Ghi ban Đang hiệu lực với lý do/người làm/mốc bắt đầu, đặt account BANNED; nếu target là Mod thì thu hồi vai trò về USER. Ghi log, phát sự kiện app+email lý do/đường khiếu nại, trả đã ban; không reset cảnh cáo/thử thách hoặc tự đóng vụ. | Hoa; lệnh=Ban; số ban trước tính được=0; thời hạn=30×24h; bắt đầu T; account→BANNED; K81 Mở; Hoa MODERATOR→USER ngay, không khôi phục role khi gỡ/hết hạn | END:SUCCESS | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01 |
+
+
+**E17 — thay toàn bộ M1 đến kết thúc:** An Admin yêu cầu vụ nhắm post/comment/account của chính An; lệnh cấm tự xử lý vẫn áp, không mở rộng sang nhóm chưa chốt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-010 E17 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E17.1 | ACT-007 | An yêu cầu ban người vi phạm trong vụ theo quyết định con người đối với vụ của chính mình. | target type=post/comment/account; owner=ADM-AN; không phải nhóm | E17.2 | FR-M08-14.01 |
+| E17.2 | SYSTEM | Hệ thống loại vụ khỏi phạm vi nhìn thấy/nhận và từ chối truy cập/xử lý đối tượng của chính An theo nguồn, không cấp quyền nhờ role Admin. | Không trả dữ liệu tố cáo/không áp biện pháp | END:REJECTED | FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+
+
+**E18 — thay toàn bộ M1 đến kết thúc:** Ngay cả Admin không được cảnh cáo/ban Admin khác. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-010 E18 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E18.1 | ACT-007 | An chọn Ban vĩnh viễn Admin khác. | target=ADM-BAO ADMIN | E18.2 | FR-M08-14.01 |
+| E18.2 | SYSTEM | Hệ thống từ chối chế tài Admin; không tăng cảnh cáo/tạo ban hoặc thu hồi role. | Admin miễn cảnh cáo/ban | END:REJECTED | FR-M08-10.09, FR-M08-14.10, BR-M08-46, BR-M08-55 |
 
 
 <!-- sc:end SC-M08-010 -->
@@ -2247,7 +2296,7 @@ Gỡ sớm một ban đang hiệu lực — BF-M08-011; owner [UC-M08-012](../..
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -2275,13 +2324,16 @@ Có tài khoản/bản ghi ban cần gỡ; không đòi giữ vụ. Chuẩn Bìn
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-011 -->
 
 | id | kind | at | condition | entry | sources |
 |---|---|---|---|---|---|
 | E1 | system | M2 | Bản ban không còn Đang hiệu lực | E1.1 | FR-M08-15.03 |
+| E2 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E2.1 | FR-M08-15.01, FR-M08-15.05, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02 |
+| E3 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M08-15.01, FR-M08-15.05, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02, BR-M08-44 |
+| E4 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M08-15.01, FR-M08-15.05, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02, BR-M08-44 |
 
 
 <!-- sc:branch SC-M08-011 E1 -->
@@ -2291,34 +2343,34 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E1.1 | SYSTEM | Hệ thống từ chối gỡ ban không hiệu lực, không ghi một lần gỡ thành công mới. | B81 Hết hạn, Đã gỡ hoặc Bị lật; kiểm đúng bản ban được chọn | END:REJECTED | FR-M08-15.03 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E2 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-011 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn Gỡ ban B81 trực tiếp trên tài khoản Bình. | B81 Đang hiệu lực; Bình BANNED/USER; không có vụ do An giữ | V1.2 | FR-M08-15.01, FR-M08-15.05 |
-| V1.2 | SYSTEM | Hệ thống kiểm staff và B81 còn Đang hiệu lực; chuyển B81 Đã gỡ và account ACTIVE ngay, giữ lịch sử ban để tính leo thang, giữ vai trò USER. Ghi log gỡ và sự kiện app+email, trả kết quả; không khôi phục Mod, không hiện lại nội dung hoặc thay hạn cảnh cáo. | B81→Đã gỡ; Bình→ACTIVE/USER; cảnh cáo và nội dung giữ trạng thái trước | END:SUCCESS | FR-M08-15.01, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-15.05, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-011 V2 -->
+<!-- sc:branch SC-M08-011 E2 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn gỡ sớm một ban đang hiệu lực. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-15.01, FR-M08-15.05 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-15.01, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-15.05, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E2.1 | ACT-007 | An chọn Gỡ ban B81 trực tiếp trên tài khoản Bình. | B81 Đang hiệu lực; Bình BANNED/USER; không có vụ do An giữ | E2.2 | FR-M08-15.01, FR-M08-15.05 |
+| E2.2 | SYSTEM | Hệ thống kiểm staff và B81 còn Đang hiệu lực; chuyển B81 Đã gỡ và account ACTIVE ngay, giữ lịch sử ban để tính leo thang, giữ vai trò USER. Ghi log gỡ và sự kiện app+email, trả kết quả; không khôi phục Mod, không hiện lại nội dung hoặc thay hạn cảnh cáo. | B81→Đã gỡ; Bình→ACTIVE/USER; cảnh cáo và nội dung giữ trạng thái trước | END:SUCCESS | FR-M08-15.01, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-15.05, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-011 V3 -->
+<!-- sc:branch SC-M08-011 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn gỡ sớm một ban đang hiệu lực. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-15.01, FR-M08-15.05 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-15.01, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-15.05, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-002 | Người yêu cầu chọn gỡ sớm một ban đang hiệu lực. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E3.2 | FR-M08-15.01, FR-M08-15.05 |
+| E3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-15.01, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-15.05, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02, BR-M08-44 |
+
+
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-011 E4 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Người yêu cầu chọn gỡ sớm một ban đang hiệu lực. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E4.2 | FR-M08-15.01, FR-M08-15.05 |
+| E4.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-15.01, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-15.05, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02, BR-M08-44 |
 
 
 <!-- sc:end SC-M08-011 -->
@@ -2335,7 +2387,7 @@ Xem mức cảnh cáo và hạn thử thách được phép — BF-M08-012; owne
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-002 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -2363,7 +2415,7 @@ Có yêu cầu xem; danh tính/phạm vi được kiểm. Chuẩn Lan có phiên
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-012 -->
 
@@ -2372,6 +2424,9 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E1 | system | M2 | Lan yêu cầu mức cảnh cáo người khác | E1.1 | FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
 | E2 | system | M2 | Mức hiện tại là HEAVY | E2.1 | FR-M08-13.01, FR-M08-13.02, FR-M08-13.03, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-43 |
 | E3 | system | M2 | Không còn cảnh cáo hiện hành | E3.1 | FR-M08-13.01, BR-M08-28, BR-M08-30, BR-M08-32 |
+| E4 | system | M1 | ACT-001 — Guest yêu cầu chức năng cần tài khoản. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M08-13.01, FR-M08-13.02, BR-M08-01, BR-M08-32 |
+| E5 | system | M1 | ACT-008 — Mod Mai xem mức của người dùng Bình theo quyền staff, không coi là dữ liệu công khai. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M08-04.05, FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
+| E6 | system | M1 | ACT-007 — Admin An xem mức của người dùng Bình theo quyền staff, không coi là dữ liệu công khai. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M08-04.05, FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
 
 
 <!-- sc:branch SC-M08-012 E1 -->
@@ -2395,34 +2450,34 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E3.1 | SYSTEM | Hệ thống xác nhận chính chủ rồi trả mức Sạch theo số lần hiện hành 0, không tạo hạn thử thách mới từ thao tác xem. | Lan 0/Sạch; không suy xóa record cảnh cáo lịch sử | END:SUCCESS | FR-M08-13.01, BR-M08-28, BR-M08-30, BR-M08-32 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng cần tài khoản. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng cần tài khoản. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-012 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest chọn xem mức cảnh cáo và hạn thử thách được phép. | Không có phiên; chưa phát sinh dữ liệu nghiệp vụ | V1.2 | FR-M08-13.01 |
-| V1.2 | SYSTEM | Hệ thống từ chối chức năng yêu cầu người dùng đã đăng nhập; không lưu báo cáo hoặc trả mức cảnh cáo riêng tư. | Không tạo báo cáo/quan hệ quyền từ ID | END:REJECTED | FR-M08-13.01, FR-M08-13.02, BR-M08-01, BR-M08-32 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod Mai xem mức của người dùng Bình theo quyền staff, không coi là dữ liệu công khai. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-012 V2 -->
+<!-- sc:branch SC-M08-012 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-008 | Mod Mai yêu cầu xem mức cảnh cáo/hạn thử thách của Bình. | target U-BINH USER; MEDIUM, hạn 19/11 10:00+07 | V2.2 | FR-M08-04.05, FR-M08-13.02 |
-| V2.2 | SYSTEM | Hệ thống kiểm staff/phạm vi được phép, trả MEDIUM và hạn hiện tại của Bình chỉ cho staff; không công khai lên bài, bình luận/hồ sơ hoặc thay mức. | Bình MEDIUM; hạn 19/11 10:00+07; dữ liệu không thuộc actor đang xem | END:SUCCESS | FR-M08-04.05, FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Guest chọn xem mức cảnh cáo và hạn thử thách được phép. | Không có phiên; chưa phát sinh dữ liệu nghiệp vụ | E4.2 | FR-M08-13.01 |
+| E4.2 | SYSTEM | Hệ thống từ chối chức năng yêu cầu người dùng đã đăng nhập; không lưu báo cáo hoặc trả mức cảnh cáo riêng tư. | Không tạo báo cáo/quan hệ quyền từ ID | END:REJECTED | FR-M08-13.01, FR-M08-13.02, BR-M08-01, BR-M08-32 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Admin An xem mức của người dùng Bình theo quyền staff, không coi là dữ liệu công khai. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Mod Mai xem mức của người dùng Bình theo quyền staff, không coi là dữ liệu công khai. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-012 V3 -->
+<!-- sc:branch SC-M08-012 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-007 | Admin An yêu cầu xem mức cảnh cáo/hạn thử thách của Bình. | target U-BINH USER; MEDIUM, hạn 19/11 10:00+07 | V3.2 | FR-M08-04.05, FR-M08-13.02 |
-| V3.2 | SYSTEM | Hệ thống kiểm staff/phạm vi được phép, trả MEDIUM và hạn hiện tại của Bình chỉ cho staff; không công khai lên bài, bình luận/hồ sơ hoặc thay mức. | Bình MEDIUM; hạn 19/11 10:00+07; dữ liệu không thuộc actor đang xem | END:SUCCESS | FR-M08-04.05, FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-008 | Mod Mai yêu cầu xem mức cảnh cáo/hạn thử thách của Bình. | target U-BINH USER; MEDIUM, hạn 19/11 10:00+07 | E5.2 | FR-M08-04.05, FR-M08-13.02 |
+| E5.2 | SYSTEM | Hệ thống kiểm staff/phạm vi được phép, trả MEDIUM và hạn hiện tại của Bình chỉ cho staff; không công khai lên bài, bình luận/hồ sơ hoặc thay mức. | Bình MEDIUM; hạn 19/11 10:00+07; dữ liệu không thuộc actor đang xem | END:SUCCESS | FR-M08-04.05, FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Admin An xem mức của người dùng Bình theo quyền staff, không coi là dữ liệu công khai. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-012 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-007 | Admin An yêu cầu xem mức cảnh cáo/hạn thử thách của Bình. | target U-BINH USER; MEDIUM, hạn 19/11 10:00+07 | E6.2 | FR-M08-04.05, FR-M08-13.02 |
+| E6.2 | SYSTEM | Hệ thống kiểm staff/phạm vi được phép, trả MEDIUM và hạn hiện tại của Bình chỉ cho staff; không công khai lên bài, bình luận/hồ sơ hoặc thay mức. | Bình MEDIUM; hạn 19/11 10:00+07; dữ liệu không thuộc actor đang xem | END:SUCCESS | FR-M08-04.05, FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
 
 
 <!-- sc:end SC-M08-012 -->
@@ -2439,7 +2494,7 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -2467,7 +2522,7 @@ Nhóm/vụ được nhận diện; chuẩn G81 Bình thường, Owner Bình USER
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-013 -->
 
@@ -2477,6 +2532,9 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E2 | system | M2 | Nhóm đã Bị ẩn | E2.1 | FR-M08-18.09, BR-M08-50 |
 | E3 | system | M2 | Vụ không do actor giữ tại lúc tác động (do người khác đang giữ hoặc không có vụ liên quan) | E3.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48 |
 | E4 | user-choice | M2 | Quyền giữ đã tự nhả sau đủ 30 phút không hoạt động; K81 vẫn Mở/chưa ai nhận, Mai còn đủ phạm vi và chọn nhận lại | E4.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, FR-M08-16.07, FR-M08-03.01, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-18.01 |
+| E5 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| E6 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| E7 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
 
 
 <!-- sc:branch SC-M08-013 E1 -->
@@ -2510,34 +2568,34 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E4.4 | ACT-008 | Mai chọn Ẩn nhóm G81 trong K81. | G81 Bình thường; lý do=Nội dung người lớn đã xác định; quyền vừa nhận lại còn hợp lệ | M2 | FR-M08-18.01 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-013 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn Ẩn nhóm G81 trong K81. | G81 Bình thường; lý do=Nội dung người lớn đã xác định | V1.2 | FR-M08-18.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm staff/phạm vi/còn giữ vụ nhóm và trạng thái cho phép; chuyển nhóm Bị ẩn, ẩn nhóm và toàn bộ nội dung với mọi người kể cả Owner/thành viên, giữ dữ liệu và không có bỏ ẩn. Ghi log và trả biện pháp đã áp; không tự cảnh cáo/ban Owner hoặc đóng vụ. | G81 Bình thường→Bị ẩn; K81 Mở do An giữ; Owner Bình USER, An khác Owner | END:SUCCESS | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-013 V2 -->
+<!-- sc:branch SC-M08-013 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn ẩn nhóm vi phạm và toàn bộ nội dung của nhóm. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-18.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-007 | An chọn Ẩn nhóm G81 trong K81. | G81 Bình thường; lý do=Nội dung người lớn đã xác định | E5.2 | FR-M08-18.01 |
+| E5.2 | SYSTEM | Hệ thống kiểm staff/phạm vi/còn giữ vụ nhóm và trạng thái cho phép; chuyển nhóm Bị ẩn, ẩn nhóm và toàn bộ nội dung với mọi người kể cả Owner/thành viên, giữ dữ liệu và không có bỏ ẩn. Ghi log và trả biện pháp đã áp; không tự cảnh cáo/ban Owner hoặc đóng vụ. | G81 Bình thường→Bị ẩn; K81 Mở do An giữ; Owner Bình USER, An khác Owner | END:SUCCESS | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-013 V3 -->
+<!-- sc:branch SC-M08-013 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn ẩn nhóm vi phạm và toàn bộ nội dung của nhóm. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-18.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-002 | Người yêu cầu chọn ẩn nhóm vi phạm và toàn bộ nội dung của nhóm. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E6.2 | FR-M08-18.01 |
+| E6.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+
+
+**E7 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-013 E7 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-001 | Người yêu cầu chọn ẩn nhóm vi phạm và toàn bộ nội dung của nhóm. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E7.2 | FR-M08-18.01 |
+| E7.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
 
 
 <!-- sc:end SC-M08-013 -->
@@ -2554,7 +2612,7 @@ Khóa hoạt động một nhóm vi phạm — BF-M08-014; owner [UC-M08-015](..
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -2582,7 +2640,7 @@ Nhóm/vụ được nhận diện; chuẩn G81 Bình thường, Owner Bình USER
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-014 -->
 
@@ -2591,6 +2649,9 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E1 | system | M2 | Nhóm đã Bị ẩn | E1.1 | FR-M08-18.09, BR-M08-50 |
 | E2 | system | M2 | Vụ không do actor giữ tại lúc tác động (do người khác đang giữ hoặc không có vụ liên quan) | E2.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48 |
 | E3 | user-choice | M2 | Quyền giữ đã tự nhả sau đủ 30 phút không hoạt động; K81 vẫn Mở/chưa ai nhận, Mai còn đủ phạm vi và chọn nhận lại | E3.1 | FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, FR-M08-16.07, FR-M08-03.01, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-18.04 |
+| E4 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M08-18.04, FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| E5 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M08-18.04, FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| E6 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M08-18.04, FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
 
 
 <!-- sc:branch SC-M08-014 E1 -->
@@ -2617,34 +2678,34 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E3.4 | ACT-008 | Mai chọn Khóa nhóm G81 trong K81. | G81 Bình thường; reason=Vi phạm đã xác định; quyền vừa nhận lại còn hợp lệ | M2 | FR-M08-18.04 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-014 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn Khóa nhóm G81 trong K81. | G81 Bình thường; reason=Vi phạm đã xác định | V1.2 | FR-M08-18.04 |
-| V1.2 | SYSTEM | Hệ thống kiểm staff/phạm vi/còn giữ vụ nhóm và trạng thái cho phép; chuyển nhóm Bị khóa; vẫn đọc theo Public/Private và giữ bookmark/báo cáo, chặn đầy đủ thao tác tại D-LOCK với mọi người kể cả Owner/Group Mod. Member/Group Mod vẫn tự rời, Owner không tự rời; hệ thống vẫn tự chuyển Owner khi mất quyền ngoài ý muốn. Ghi log và trả biện pháp đã áp; không tự cảnh cáo/ban Owner hoặc đóng vụ. | G81 Bình thường→Bị khóa; K81 Mở do An giữ; Owner Bình USER, An khác Owner | END:SUCCESS | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-014 V2 -->
+<!-- sc:branch SC-M08-014 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn khóa hoạt động một nhóm vi phạm. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-18.04 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-007 | An chọn Khóa nhóm G81 trong K81. | G81 Bình thường; reason=Vi phạm đã xác định | E4.2 | FR-M08-18.04 |
+| E4.2 | SYSTEM | Hệ thống kiểm staff/phạm vi/còn giữ vụ nhóm và trạng thái cho phép; chuyển nhóm Bị khóa; vẫn đọc theo Public/Private và giữ bookmark/báo cáo, chặn đầy đủ thao tác tại D-LOCK với mọi người kể cả Owner/Group Mod. Member/Group Mod vẫn tự rời, Owner không tự rời; hệ thống vẫn tự chuyển Owner khi mất quyền ngoài ý muốn. Ghi log và trả biện pháp đã áp; không tự cảnh cáo/ban Owner hoặc đóng vụ. | G81 Bình thường→Bị khóa; K81 Mở do An giữ; Owner Bình USER, An khác Owner | END:SUCCESS | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-014 V3 -->
+<!-- sc:branch SC-M08-014 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn khóa hoạt động một nhóm vi phạm. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-18.04 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-002 | Người yêu cầu chọn khóa hoạt động một nhóm vi phạm. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E5.2 | FR-M08-18.04 |
+| E5.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-014 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-001 | Người yêu cầu chọn khóa hoạt động một nhóm vi phạm. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E6.2 | FR-M08-18.04 |
+| E6.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
 
 
 <!-- sc:end SC-M08-014 -->
@@ -2661,7 +2722,7 @@ Mở khóa nhóm để hoạt động theo quyền thông thường — BF-M08-0
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -2689,13 +2750,16 @@ Có nhóm cần mở khóa; không đòi vụ đang giữ. Chuẩn G81 Bị khó
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-015 -->
 
 | id | kind | at | condition | entry | sources |
 |---|---|---|---|---|---|
 | E1 | system | M2 | Nhóm Bị ẩn thay vì Bị khóa | E1.1 | FR-M08-18.09, BR-M08-50 |
+| E2 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E2.1 | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28 |
+| E3 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28, BR-M08-44 |
+| E4 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28, BR-M08-44 |
 
 
 <!-- sc:branch SC-M08-015 E1 -->
@@ -2705,34 +2769,34 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E1.1 | SYSTEM | Hệ thống từ chối mở khóa nhóm Bị ẩn, không biến mở khóa thành bỏ ẩn. | G81 Bị ẩn | END:REJECTED | FR-M08-18.09, BR-M08-50 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E2 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-015 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An chọn Mở khóa G81 trực tiếp. | G81 Bị khóa; không có vụ do An giữ | V1.2 | FR-M08-18.07 |
-| V1.2 | SYSTEM | Hệ thống kiểm staff và G81 Bị khóa, chuyển Bình thường; cho lại các thao tác bị chặn bởi khóa theo quyền thông thường M11 và ghi log mở khóa, trả kết quả. Không cấp quyền Private/thành viên mới, xóa vụ cũ hoặc bỏ ẩn nhóm. | G81 Bị khóa→Bình thường; vẫn Public/Private và phân quyền như trước; K81 cũ không thay | END:SUCCESS | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-015 V2 -->
+<!-- sc:branch SC-M08-015 E2 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn mở khóa nhóm để hoạt động theo quyền thông thường. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-18.07 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E2.1 | ACT-007 | An chọn Mở khóa G81 trực tiếp. | G81 Bị khóa; không có vụ do An giữ | E2.2 | FR-M08-18.07 |
+| E2.2 | SYSTEM | Hệ thống kiểm staff và G81 Bị khóa, chuyển Bình thường; cho lại các thao tác bị chặn bởi khóa theo quyền thông thường M11 và ghi log mở khóa, trả kết quả. Không cấp quyền Private/thành viên mới, xóa vụ cũ hoặc bỏ ẩn nhóm. | G81 Bị khóa→Bình thường; vẫn Public/Private và phân quyền như trước; K81 cũ không thay | END:SUCCESS | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-015 V3 -->
+<!-- sc:branch SC-M08-015 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn mở khóa nhóm để hoạt động theo quyền thông thường. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-18.07 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-002 | Người yêu cầu chọn mở khóa nhóm để hoạt động theo quyền thông thường. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E3.2 | FR-M08-18.07 |
+| E3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28, BR-M08-44 |
+
+
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-015 E4 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Người yêu cầu chọn mở khóa nhóm để hoạt động theo quyền thông thường. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E4.2 | FR-M08-18.07 |
+| E4.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28, BR-M08-44 |
 
 
 <!-- sc:end SC-M08-015 -->
@@ -2749,7 +2813,7 @@ Tra cứu nhật ký kiểm duyệt trong phạm vi được phép — BF-M08-01
 
 #### 2. Actor thực hiện
 
-ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường V ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
+ACT-008 là actor chính. ACT-007 kế thừa ACT-008 kế thừa ACT-002, vẫn theo quyền target/caller; đường E tại M1 ghi toàn bộ khi actor khởi tạo khác. ACT-001 chỉ có đường từ chối; ACT-006 hỗ trợ quét nền, không ra lệnh ban hoặc giữ vụ. Group Mod/Owner không đồng nghĩa Mod hệ thống.
 
 #### 3. Tiền điều kiện
 
@@ -2779,7 +2843,7 @@ Có yêu cầu tra cứu; vai trò/phạm vi nhật ký được kiểm trước
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. V thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
+E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. Dữ liệu/guard nhánh thay snapshot chuẩn cho lần chạy này. E tại M1 thay toàn bộ đường theo actor khác, không đổi actor giữa chừng. Không tự thêm nút xác nhận/hủy, retry AI/email hoặc rollback ngoài nguồn. Điểm thiếu hợp đồng ghi GAP tại mục 7, không biến thành phản ứng sản phẩm do agent đặt.
 
 <!-- sc:exceptions SC-M08-016 -->
 
@@ -2787,6 +2851,10 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 |---|---|---|---|---|---|
 | E1 | system | M4 | Mod đòi dòng thao tác Mod khác, không đang xét khiếu nại về thao tác ấy | E1.1 | FR-M08-17.03, FR-M08-17.04, BR-M08-41 |
 | E2 | user-choice | M1 | Mai đang xét khiếu nại M09 về đúng thao tác của Mod khác | E2.1 | FR-M08-17.03, FR-M08-17.04, FR-M08-16.01, FR-M08-16.03, FR-M08-16.04, FR-M08-16.06, BR-M08-40, BR-M08-41 |
+| E3 | system | M1 | ACT-007 — An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M08-17.02, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-43 |
+| E4 | system | M1 | ACT-002 — User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M08-17.02, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-44 |
+| E5 | system | M1 | ACT-001 — Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M08-17.02, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-44 |
+| E6 | system | M1 | ACT-007 — An Admin tra toàn bộ nhật ký và lọc theo người làm, kể cả người đã xóa. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M08-17.01, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, BR-M08-39, BR-M08-40, BR-M08-41, FR-M08-17.06 |
 
 
 <!-- sc:branch SC-M08-016 E1 -->
@@ -2804,48 +2872,48 @@ E thay đúng bước at, không chạy sau khi bước ấy đã hoàn tất. D
 | E2.2 | SYSTEM | Hệ thống kiểm staff và quan hệ hiện tại giữa người xét, khiếu nại và đúng thao tác; trả riêng OP-HOA-81 chỉ đọc với dữ liệu đầy đủ. Không mở mọi log của Hoa hoặc xử lý khiếu nại thay M09. | Chỉ OP-HOA-81; không cho OP-HOA-82; không sửa/xóa dòng | END:SUCCESS | FR-M08-17.03, FR-M08-17.04, FR-M08-16.01, FR-M08-16.03, FR-M08-16.04, FR-M08-16.06, BR-M08-40, BR-M08-41 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** An là Admin hệ thống, khác target USER/Owner, thay toàn bộ hành trình và người giữ/người làm Mai bằng An; mọi guard của chức năng còn áp dụng. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-016 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | An mở nhật ký kiểm duyệt để tra các vụ mình đã xử lý. | actor=ADM-AN; K80 đã xử lý bởi An; K79 do Hoa xử lý | V1.2 | FR-M08-17.02 |
-| V1.2 | SYSTEM | Hệ thống xác định phạm vi Mod: chỉ các vụ mình đã xử lý, rồi trả các dòng được phép với người làm/loại/target/lý do/thời điểm. Giữ log vĩnh viễn, bất biến; không cho đọc K79 của Hoa nếu không đúng ngoại lệ khiếu nại. Không ghi nhận/tự nhả vụ thành log. | K80: An/ẩn P80/Quấy rối/T−1h và An/kết luận Có xử lý/T−50phút; K79 không trả | V1.3 | FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.02, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41 |
-| V1.3 | ACT-007 | An chọn dòng kết luận K80 để tra chi tiết. | Dòng thuộc phạm vi vụ An đã xử lý, không sửa/xóa | V1.4 | FR-M08-17.02 |
-| V1.4 | SYSTEM | Hệ thống kiểm lại phạm vi của dòng rồi trả chi tiết nhật ký chỉ đọc, theo giờ Việt Nam; không mở rộng quyền sang nhật ký người khác hoặc bản nội dung lưu giữ ngoài ngữ cảnh. | actor/operation/target/reason/time của chính dòng; không thay log | END:SUCCESS | FR-M08-16.01, FR-M08-16.03, FR-M08-16.04, FR-M08-16.06, FR-M08-17.02, FR-M08-17.04, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-43 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-016 V2 -->
+<!-- sc:branch SC-M08-016 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | Người yêu cầu chọn tra cứu nhật ký kiểm duyệt trong phạm vi được phép. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V2.2 | FR-M08-17.02 |
-| V2.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.02, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-44 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-007 | An mở nhật ký kiểm duyệt để tra các vụ mình đã xử lý. | actor=ADM-AN; K80 đã xử lý bởi An; K79 do Hoa xử lý | E3.2 | FR-M08-17.02 |
+| E3.2 | SYSTEM | Hệ thống xác định phạm vi Mod: chỉ các vụ mình đã xử lý, rồi trả các dòng được phép với người làm/loại/target/lý do/thời điểm. Giữ log vĩnh viễn, bất biến; không cho đọc K79 của Hoa nếu không đúng ngoại lệ khiếu nại. Không ghi nhận/tự nhả vụ thành log. | K80: An/ẩn P80/Quấy rối/T−1h và An/kết luận Có xử lý/T−50phút; K79 không trả | E3.3 | FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.02, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41 |
+| E3.3 | ACT-007 | An chọn dòng kết luận K80 để tra chi tiết. | Dòng thuộc phạm vi vụ An đã xử lý, không sửa/xóa | E3.4 | FR-M08-17.02 |
+| E3.4 | SYSTEM | Hệ thống kiểm lại phạm vi của dòng rồi trả chi tiết nhật ký chỉ đọc, theo giờ Việt Nam; không mở rộng quyền sang nhật ký người khác hoặc bản nội dung lưu giữ ngoài ngữ cảnh. | actor/operation/target/reason/time của chính dòng; không thay log | END:SUCCESS | FR-M08-16.01, FR-M08-16.03, FR-M08-16.04, FR-M08-16.06, FR-M08-17.02, FR-M08-17.04, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-43 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** User chỉ có quyền cá nhân, kể cả Owner/Group Mod nhưng không là staff hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M08-016 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-001 | Người yêu cầu chọn tra cứu nhật ký kiểm duyệt trong phạm vi được phép. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | V3.2 | FR-M08-17.02 |
-| V3.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.02, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-44 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Admin tra toàn bộ nhật ký và lọc theo người làm, kể cả người đã xóa. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M08-016 V4 -->
+<!-- sc:branch SC-M08-016 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | An mở nhật ký kiểm duyệt toàn bộ. | actor An ADMIN; nguồn có log Mai/Hoa/AI và người DELETED | V4.2 | FR-M08-17.01 |
-| V4.2 | SYSTEM | Hệ thống kiểm Admin, trả tập log của tất cả người làm với đầy đủ loại/target/lý do/thời điểm, chỉ đọc; không phải tập vụ An từng xử lý. | Gồm log M05 đổi Topic/Tag, vô hiệu/kích hoạt Tag; không log nhận/tự nhả | V4.3 | FR-M08-17.01, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, BR-M08-39, BR-M08-40, BR-M08-41 |
-| V4.3 | ACT-007 | An lọc nhật ký theo username người làm đã xóa và chọn một dòng. | username=mod_cu; người làm đã DELETED | V4.4 | FR-M08-17.06, FR-M08-16.04 |
-| V4.4 | SYSTEM | Hệ thống xác nhận phạm vi Admin, lọc đúng actor theo username và trả dòng chi tiết; tên hiển thị [Người dùng đã xóa], giữ lý do/target/thời điểm và tính bất biến. | Không xóa lịch sử vì actor DELETED; không sửa log | END:SUCCESS | FR-M08-17.01, FR-M08-17.06, FR-M08-16.03, FR-M08-16.04, FR-M08-16.06, BR-M08-40, BR-M08-41 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-002 | Người yêu cầu chọn tra cứu nhật ký kiểm duyệt trong phạm vi được phép. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E4.2 | FR-M08-17.02 |
+| E4.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.02, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-44 |
+
+
+**E5 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-016 E5 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-001 | Người yêu cầu chọn tra cứu nhật ký kiểm duyệt trong phạm vi được phép. | Không có vai trò staff hệ thống; không có quyền từ việc biết ID/link | E5.2 | FR-M08-17.02 |
+| E5.2 | SYSTEM | Hệ thống kiểm vai trò và từ chối chức năng staff; không trả dữ liệu điều tra/nhật ký hoặc thay dữ liệu quản trị. | Vai trò không phải ACT-008/ACT-007; không ghi thành công | END:REJECTED | FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.02, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-44 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** An Admin tra toàn bộ nhật ký và lọc theo người làm, kể cả người đã xóa. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M08-016 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-007 | An mở nhật ký kiểm duyệt toàn bộ. | actor An ADMIN; nguồn có log Mai/Hoa/AI và người DELETED | E6.2 | FR-M08-17.01 |
+| E6.2 | SYSTEM | Hệ thống kiểm Admin, trả tập log của tất cả người làm với đầy đủ loại/target/lý do/thời điểm, chỉ đọc; không phải tập vụ An từng xử lý. | Gồm log M05 đổi Topic/Tag, vô hiệu/kích hoạt Tag; không log nhận/tự nhả | E6.3 | FR-M08-17.01, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, BR-M08-39, BR-M08-40, BR-M08-41 |
+| E6.3 | ACT-007 | An lọc nhật ký theo username người làm đã xóa và chọn một dòng. | username=mod_cu; người làm đã DELETED | E6.4 | FR-M08-17.06, FR-M08-16.04 |
+| E6.4 | SYSTEM | Hệ thống xác nhận phạm vi Admin, lọc đúng actor theo username và trả dòng chi tiết; tên hiển thị [Người dùng đã xóa], giữ lý do/target/thời điểm và tính bất biến. | Không xóa lịch sử vì actor DELETED; không sửa log | END:SUCCESS | FR-M08-17.01, FR-M08-17.06, FR-M08-16.03, FR-M08-16.04, FR-M08-16.06, BR-M08-40, BR-M08-41 |
 
 
 <!-- sc:end SC-M08-016 -->
@@ -2896,99 +2964,99 @@ Các bảng AUT/RULE mô tả phản ứng trong boundary, không tạo scenario
 
 | Mã hiệu lực | SC/bước/nhánh hoặc AUT/RULE | Mức đối soát |
 |---|---|---|
-| FR-M08-01 | SC-M08-001/M1; SC-M08-001/M2; SC-M08-001/E3.1; SC-M08-001/E3.2; SC-M08-001/E4.1; SC-M08-001/E4.2; SC-M08-001/E5.1; SC-M08-001/E5.2; SC-M08-001/V1.1; SC-M08-001/V2.1; SC-M08-001/V2.2; SC-M08-001/V3.1; SC-M08-001/V3.2; SC-M08-001/V4.1; RULE-M08-002; SC-M08-001/V1.2; SC-M08-001/E12.1; SC-M08-001/E13.1; SC-M08-001/E14.1; SC-M08-001/E2.1; SC-M08-001/E15.1; SC-M08-001/M3; SC-M08-001/M4; SC-M08-001/E3.3; SC-M08-001/E4.3; SC-M08-001/E5.3; SC-M08-001/E6.2; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.2; SC-M08-001/E10.2; SC-M08-001/E11.2; SC-M08-001/V2.3; SC-M08-001/V2.4; SC-M08-001/V3.3; SC-M08-001/V3.4; SC-M08-001/E16.1; SC-M08-001/V4.2; RULE-M08-001; SC-M08-001/E1.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E6.1; SC-M08-001/E7.1; SC-M08-001/E9.1; SC-M08-001/E10.1; SC-M08-001/E11.1; SC-M08-001/E17.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02 | SC-M08-002/M1; SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/V1.1; SC-M08-002/V1.2; SC-M08-002/V2.1; SC-M08-002/V2.2; SC-M08-002/V3.1; SC-M08-002/V3.2; SC-M08-002/V4.1; SC-M08-002/V4.2; SC-M08-002/V5.1; SC-M08-004/M1; SC-M08-004/E7.1; SC-M08-004/E11.1; SC-M08-004/E12.1; SC-M08-004/E14.1; SC-M08-004/E16.1; SC-M08-004/E27.1; SC-M08-004/V1.1; SC-M08-004/V2.1; SC-M08-004/V3.1; SC-M08-004/V4.1; SC-M08-004/V5.1; RULE-M08-002; SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; RULE-M08-004; SC-M08-002/E4.1; SC-M08-002/V5.2; SC-M08-003/E3.1; SC-M08-003/V5.2; SC-M08-004/E17.1; SC-M08-004/V5.2; SC-M08-005/E7.1; SC-M08-005/V5.2; SC-M08-006/E7.1; SC-M08-006/V5.2; SC-M08-007/E4.1; SC-M08-007/V5.2; SC-M08-008/E11.1; SC-M08-008/V5.2; SC-M08-010/E8.1; SC-M08-010/V5.2; RULE-M08-001; SC-M08-002/E5.1; SC-M08-003/E4.1; SC-M08-004/E18.1; SC-M08-005/E8.1; SC-M08-006/E8.1; SC-M08-007/E5.1; SC-M08-008/E12.1; SC-M08-010/E9.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/E1.1; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E2.1; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E20.3; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E10.3; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E2.1; SC-M08-014/E3.1; SC-M08-014/E3.3; RULE-M08-003; AUT-M08-001; SC-M08-004/M2; SC-M08-004/E7.2; SC-M08-004/E11.2; SC-M08-004/E12.2; SC-M08-004/E14.2; SC-M08-004/E16.2; SC-M08-004/E27.2; SC-M08-004/V1.2; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-002/E4.1; SC-M08-002/V5.2; SC-M08-003/E3.1; SC-M08-003/V5.2; SC-M08-004/E17.1; SC-M08-004/V5.2; SC-M08-005/E7.1; SC-M08-005/V5.2; SC-M08-006/E7.1; SC-M08-006/V5.2; SC-M08-007/E4.1; SC-M08-007/V5.2; SC-M08-008/E11.1; SC-M08-008/V5.2; SC-M08-010/E8.1; SC-M08-010/V5.2; RULE-M08-001; SC-M08-002/E5.1; SC-M08-003/E4.1; SC-M08-004/E18.1; SC-M08-005/E8.1; SC-M08-006/E8.1; SC-M08-007/E5.1; SC-M08-008/E12.1; SC-M08-010/E9.1; SC-M08-003/M1; SC-M08-003/V1.1; SC-M08-003/V2.1; SC-M08-003/V3.1; SC-M08-003/V4.1; SC-M08-003/V5.1; SC-M08-004/M1; SC-M08-004/M3; SC-M08-004/E7.1; SC-M08-004/E7.3; SC-M08-004/E11.1; SC-M08-004/E11.3; SC-M08-004/E12.1; SC-M08-004/E12.3; SC-M08-004/E14.1; SC-M08-004/E14.3; SC-M08-004/E16.1; SC-M08-004/E16.3; SC-M08-004/E20.2; SC-M08-004/E27.1; SC-M08-004/E27.3; SC-M08-004/V1.1; SC-M08-004/V1.3; SC-M08-004/V2.1; SC-M08-004/V3.1; SC-M08-004/V4.1; SC-M08-004/V4.3; SC-M08-004/V5.1; SC-M08-005/E10.2; SC-M08-006/E10.2; SC-M08-007/E7.2; SC-M08-008/E14.2; SC-M08-010/E11.2; SC-M08-013/E4.2; SC-M08-014/E3.2; SC-M08-003/E2.1; SC-M08-004/E3.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04 | SC-M08-002/M3; SC-M08-002/M4; SC-M08-002/V1.3; SC-M08-002/V1.4; SC-M08-002/V4.3; SC-M08-002/V4.4; SC-M08-004/M3; SC-M08-004/M4; SC-M08-004/E1.2; SC-M08-004/E1.3; SC-M08-004/E7.3; SC-M08-004/E7.4; SC-M08-004/E11.3; SC-M08-004/E11.4; SC-M08-004/E12.3; SC-M08-004/E12.4; SC-M08-004/E14.3; SC-M08-004/E14.4; SC-M08-004/E16.3; SC-M08-004/E16.4; SC-M08-004/E27.3; SC-M08-004/E27.4; SC-M08-004/V1.3; SC-M08-004/V1.4; SC-M08-004/V4.3; SC-M08-004/V4.4; RULE-M08-003; SC-M08-002/E1.1; SC-M08-012/V2.1; SC-M08-012/V2.2; SC-M08-012/V3.1; SC-M08-012/V3.2; SC-M08-002/E3.1; SC-M08-004/E27.7; SC-M08-008/E6.1; SC-M08-010/E12.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05 | SC-M08-004/M5; SC-M08-004/M6; SC-M08-004/E4.2; SC-M08-004/E7.7; SC-M08-004/E7.8; SC-M08-004/E11.7; SC-M08-004/E11.8; SC-M08-004/E12.7; SC-M08-004/E12.8; SC-M08-004/E14.9; SC-M08-004/E14.10; SC-M08-004/E15.1; SC-M08-004/E15.2; SC-M08-004/E16.7; SC-M08-004/E16.8; SC-M08-004/E26.1; SC-M08-004/E26.3; SC-M08-004/E26.4; SC-M08-004/E27.9; SC-M08-004/E27.10; SC-M08-004/V1.5; SC-M08-004/V1.6; SC-M08-004/V4.5; SC-M08-004/V4.6; SC-M08-005/M1; SC-M08-005/M2; SC-M08-005/E1.2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E10.4; SC-M08-005/V1.1; SC-M08-005/V1.2; SC-M08-005/V2.1; SC-M08-005/V2.2; SC-M08-005/V3.1; SC-M08-005/V3.2; SC-M08-005/V4.1; SC-M08-005/V4.2; SC-M08-005/V5.1; RULE-M08-003; AUT-M08-007; SC-M08-004/E5.1; SC-M08-005/E2.1; SC-M08-004/E4.1; SC-M08-004/E26.2; SC-M08-005/E1.1; SC-M08-004/E7.6; SC-M08-007/E1.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-06 | SC-M08-004/E6.1; SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M1; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E7.4; SC-M08-007/V1.1; SC-M08-007/V1.2; SC-M08-007/V2.1; SC-M08-007/V2.2; SC-M08-007/V3.1; SC-M08-007/V3.2; SC-M08-007/V4.1; SC-M08-007/V4.2; SC-M08-007/V5.1; SC-M08-004/E7.5; SC-M08-007/E1.1; SC-M08-007/E3.1; RULE-M08-006; SC-M08-004/E21.1; SC-M08-004/E21.2; SC-M08-007/E2.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/V2.4; SC-M08-001/V3.4; SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; RULE-M08-002; SC-M08-004/E13.1; SC-M08-006/M1; SC-M08-006/E2.1; SC-M08-006/E3.1; SC-M08-006/E4.1; SC-M08-006/E5.1; SC-M08-006/V1.1; SC-M08-006/V2.1; SC-M08-006/V3.1; SC-M08-006/V4.1; SC-M08-006/V5.1; SC-M08-004/E13.3; SC-M08-004/E13.4; SC-M08-006/M3; SC-M08-006/M4; SC-M08-006/V1.3; SC-M08-006/V1.4; SC-M08-006/V4.3; SC-M08-006/V4.4; SC-M08-004/E28.1; SC-M08-006/E11.1; RULE-M08-006; SC-M08-004/E14.5; SC-M08-004/E14.6; SC-M08-004/E16.5; SC-M08-004/E16.6; SC-M08-006/E4.3; SC-M08-006/E4.4; SC-M08-006/E5.3; SC-M08-006/E5.4; SC-M08-004/E22.1; SC-M08-004/E22.2; SC-M08-006/E6.1; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01 | SC-M08-001/M1; SC-M08-001/M2; SC-M08-001/E3.1; SC-M08-001/E3.2; SC-M08-001/E4.1; SC-M08-001/E4.2; SC-M08-001/E5.1; SC-M08-001/E5.2; SC-M08-001/E18.1; SC-M08-001/E19.1; SC-M08-001/E19.2; SC-M08-001/E20.1; SC-M08-001/E20.2; SC-M08-001/E21.1; RULE-M08-002; SC-M08-001/E18.2; SC-M08-001/E12.1; SC-M08-001/E13.1; SC-M08-001/E14.1; SC-M08-001/E2.1; SC-M08-001/E15.1; SC-M08-001/M3; SC-M08-001/M4; SC-M08-001/E3.3; SC-M08-001/E4.3; SC-M08-001/E5.3; SC-M08-001/E6.2; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.2; SC-M08-001/E10.2; SC-M08-001/E11.2; SC-M08-001/E19.3; SC-M08-001/E19.4; SC-M08-001/E20.3; SC-M08-001/E20.4; SC-M08-001/E16.1; SC-M08-001/E21.2; RULE-M08-001; SC-M08-001/E1.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E6.1; SC-M08-001/E7.1; SC-M08-001/E9.1; SC-M08-001/E10.1; SC-M08-001/E11.1; SC-M08-001/E17.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02 | SC-M08-002/M1; SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/E6.1; SC-M08-002/E6.2; SC-M08-002/E7.1; SC-M08-002/E7.2; SC-M08-002/E8.1; SC-M08-002/E8.2; SC-M08-002/E9.1; SC-M08-002/E9.2; SC-M08-002/E10.1; SC-M08-004/M1; SC-M08-004/E7.1; SC-M08-004/E11.1; SC-M08-004/E12.1; SC-M08-004/E14.1; SC-M08-004/E16.1; SC-M08-004/E27.1; SC-M08-004/E29.1; SC-M08-004/E30.1; SC-M08-004/E31.1; SC-M08-004/E32.1; SC-M08-004/E33.1; RULE-M08-002; SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; RULE-M08-004; SC-M08-002/E4.1; SC-M08-002/E10.2; SC-M08-003/E3.1; SC-M08-003/E9.2; SC-M08-004/E17.1; SC-M08-004/E33.2; SC-M08-005/E7.1; SC-M08-005/E15.2; SC-M08-006/E7.1; SC-M08-006/E16.2; SC-M08-007/E4.1; SC-M08-007/E12.2; SC-M08-008/E11.1; SC-M08-008/E19.2; SC-M08-010/E8.1; SC-M08-010/E17.2; RULE-M08-001; SC-M08-002/E5.1; SC-M08-003/E4.1; SC-M08-004/E18.1; SC-M08-005/E8.1; SC-M08-006/E8.1; SC-M08-007/E5.1; SC-M08-008/E12.1; SC-M08-010/E9.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E1.1; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E2.1; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E20.3; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E10.3; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E2.1; SC-M08-014/E3.1; SC-M08-014/E3.3; RULE-M08-003; AUT-M08-001; SC-M08-004/M2; SC-M08-004/E7.2; SC-M08-004/E11.2; SC-M08-004/E12.2; SC-M08-004/E14.2; SC-M08-004/E16.2; SC-M08-004/E27.2; SC-M08-004/E29.2; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-002/E4.1; SC-M08-002/E10.2; SC-M08-003/E3.1; SC-M08-003/E9.2; SC-M08-004/E17.1; SC-M08-004/E33.2; SC-M08-005/E7.1; SC-M08-005/E15.2; SC-M08-006/E7.1; SC-M08-006/E16.2; SC-M08-007/E4.1; SC-M08-007/E12.2; SC-M08-008/E11.1; SC-M08-008/E19.2; SC-M08-010/E8.1; SC-M08-010/E17.2; RULE-M08-001; SC-M08-002/E5.1; SC-M08-003/E4.1; SC-M08-004/E18.1; SC-M08-005/E8.1; SC-M08-006/E8.1; SC-M08-007/E5.1; SC-M08-008/E12.1; SC-M08-010/E9.1; SC-M08-003/M1; SC-M08-003/E5.1; SC-M08-003/E6.1; SC-M08-003/E7.1; SC-M08-003/E8.1; SC-M08-003/E9.1; SC-M08-004/M1; SC-M08-004/M3; SC-M08-004/E7.1; SC-M08-004/E7.3; SC-M08-004/E11.1; SC-M08-004/E11.3; SC-M08-004/E12.1; SC-M08-004/E12.3; SC-M08-004/E14.1; SC-M08-004/E14.3; SC-M08-004/E16.1; SC-M08-004/E16.3; SC-M08-004/E20.2; SC-M08-004/E27.1; SC-M08-004/E27.3; SC-M08-004/E29.1; SC-M08-004/E29.3; SC-M08-004/E30.1; SC-M08-004/E31.1; SC-M08-004/E32.1; SC-M08-004/E32.3; SC-M08-004/E33.1; SC-M08-005/E10.2; SC-M08-006/E10.2; SC-M08-007/E7.2; SC-M08-008/E14.2; SC-M08-010/E11.2; SC-M08-013/E4.2; SC-M08-014/E3.2; SC-M08-003/E2.1; SC-M08-004/E3.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04 | SC-M08-002/M3; SC-M08-002/M4; SC-M08-002/E6.3; SC-M08-002/E6.4; SC-M08-002/E9.3; SC-M08-002/E9.4; SC-M08-004/M3; SC-M08-004/M4; SC-M08-004/E1.2; SC-M08-004/E1.3; SC-M08-004/E7.3; SC-M08-004/E7.4; SC-M08-004/E11.3; SC-M08-004/E11.4; SC-M08-004/E12.3; SC-M08-004/E12.4; SC-M08-004/E14.3; SC-M08-004/E14.4; SC-M08-004/E16.3; SC-M08-004/E16.4; SC-M08-004/E27.3; SC-M08-004/E27.4; SC-M08-004/E29.3; SC-M08-004/E29.4; SC-M08-004/E32.3; SC-M08-004/E32.4; RULE-M08-003; SC-M08-002/E1.1; SC-M08-012/E5.1; SC-M08-012/E5.2; SC-M08-012/E6.1; SC-M08-012/E6.2; SC-M08-002/E3.1; SC-M08-004/E27.7; SC-M08-008/E6.1; SC-M08-010/E12.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05 | SC-M08-004/M5; SC-M08-004/M6; SC-M08-004/E4.2; SC-M08-004/E7.7; SC-M08-004/E7.8; SC-M08-004/E11.7; SC-M08-004/E11.8; SC-M08-004/E12.7; SC-M08-004/E12.8; SC-M08-004/E14.9; SC-M08-004/E14.10; SC-M08-004/E15.1; SC-M08-004/E15.2; SC-M08-004/E16.7; SC-M08-004/E16.8; SC-M08-004/E26.1; SC-M08-004/E26.3; SC-M08-004/E26.4; SC-M08-004/E27.9; SC-M08-004/E27.10; SC-M08-004/E29.5; SC-M08-004/E29.6; SC-M08-004/E32.5; SC-M08-004/E32.6; SC-M08-005/M1; SC-M08-005/M2; SC-M08-005/E1.2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E10.4; SC-M08-005/E11.1; SC-M08-005/E11.2; SC-M08-005/E12.1; SC-M08-005/E12.2; SC-M08-005/E13.1; SC-M08-005/E13.2; SC-M08-005/E14.1; SC-M08-005/E14.2; SC-M08-005/E15.1; RULE-M08-003; AUT-M08-007; SC-M08-004/E5.1; SC-M08-005/E2.1; SC-M08-004/E4.1; SC-M08-004/E26.2; SC-M08-005/E1.1; SC-M08-004/E7.6; SC-M08-007/E1.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-06 | SC-M08-004/E6.1; SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M1; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E7.4; SC-M08-007/E8.1; SC-M08-007/E8.2; SC-M08-007/E9.1; SC-M08-007/E9.2; SC-M08-007/E10.1; SC-M08-007/E10.2; SC-M08-007/E11.1; SC-M08-007/E11.2; SC-M08-007/E12.1; SC-M08-004/E7.5; SC-M08-007/E1.1; SC-M08-007/E3.1; RULE-M08-006; SC-M08-004/E21.1; SC-M08-004/E21.2; SC-M08-007/E2.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E19.4; SC-M08-001/E20.4; SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; RULE-M08-002; SC-M08-004/E13.1; SC-M08-006/M1; SC-M08-006/E2.1; SC-M08-006/E3.1; SC-M08-006/E4.1; SC-M08-006/E5.1; SC-M08-006/E12.1; SC-M08-006/E13.1; SC-M08-006/E14.1; SC-M08-006/E15.1; SC-M08-006/E16.1; SC-M08-004/E13.3; SC-M08-004/E13.4; SC-M08-006/M3; SC-M08-006/M4; SC-M08-006/E12.3; SC-M08-006/E12.4; SC-M08-006/E15.3; SC-M08-006/E15.4; SC-M08-004/E28.1; SC-M08-006/E11.1; RULE-M08-006; SC-M08-004/E14.5; SC-M08-004/E14.6; SC-M08-004/E16.5; SC-M08-004/E16.6; SC-M08-006/E4.3; SC-M08-006/E4.4; SC-M08-006/E5.3; SC-M08-006/E5.4; SC-M08-004/E22.1; SC-M08-004/E22.2; SC-M08-006/E6.1; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-08 | AUT-M08-002; RULE-M08-004; AUT-M08-004; AUT-M08-007 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-09 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E5.4; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; AUT-M08-003; AUT-M08-004; AUT-M08-007; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10 | SC-M08-004/E8.1; SC-M08-004/E8.2; SC-M08-004/E14.7; SC-M08-004/E14.8; SC-M08-004/E27.7; SC-M08-004/E27.8; SC-M08-004/E28.3; SC-M08-004/E28.4; SC-M08-006/E4.5; SC-M08-006/E4.6; SC-M08-006/E11.3; SC-M08-006/E11.4; SC-M08-008/M1; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.1; SC-M08-008/E6.2; SC-M08-008/E14.4; SC-M08-008/V1.1; SC-M08-008/V1.2; SC-M08-008/V2.1; SC-M08-008/V2.2; SC-M08-008/V3.1; SC-M08-008/V3.2; SC-M08-008/V4.1; SC-M08-008/V4.2; SC-M08-008/V5.1; SC-M08-008/V6.1; RULE-M08-005; AUT-M08-007; SC-M08-008/E5.1; RULE-M08-003; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-008/E7.1; RULE-M08-001; SC-M08-008/E8.1; SC-M08-008/V6.2; SC-M08-010/V6.2; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-008/E9.1; SC-M08-008/E10.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-11 | SC-M08-009/M1; SC-M08-009/M2; SC-M08-009/E1.1; SC-M08-009/E2.1; SC-M08-009/V1.1; SC-M08-009/V1.2; SC-M08-009/V2.1; SC-M08-009/V2.2; SC-M08-009/V3.1; SC-M08-009/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-09 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E5.4; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; AUT-M08-003; AUT-M08-004; AUT-M08-007; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10 | SC-M08-004/E8.1; SC-M08-004/E8.2; SC-M08-004/E14.7; SC-M08-004/E14.8; SC-M08-004/E27.7; SC-M08-004/E27.8; SC-M08-004/E28.3; SC-M08-004/E28.4; SC-M08-006/E4.5; SC-M08-006/E4.6; SC-M08-006/E11.3; SC-M08-006/E11.4; SC-M08-008/M1; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.1; SC-M08-008/E6.2; SC-M08-008/E14.4; SC-M08-008/E15.1; SC-M08-008/E15.2; SC-M08-008/E16.1; SC-M08-008/E16.2; SC-M08-008/E17.1; SC-M08-008/E17.2; SC-M08-008/E18.1; SC-M08-008/E18.2; SC-M08-008/E19.1; SC-M08-008/E20.1; RULE-M08-005; AUT-M08-007; SC-M08-008/E5.1; RULE-M08-003; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-008/E7.1; RULE-M08-001; SC-M08-008/E8.1; SC-M08-008/E20.2; SC-M08-010/E18.2; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-008/E9.1; SC-M08-008/E10.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-11 | SC-M08-009/M1; SC-M08-009/M2; SC-M08-009/E1.1; SC-M08-009/E2.1; SC-M08-009/E3.1; SC-M08-009/E3.2; SC-M08-009/E4.1; SC-M08-009/E4.2; SC-M08-009/E5.1; SC-M08-009/E5.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-12 | AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-13 | SC-M08-012/M1; SC-M08-012/M2; SC-M08-012/E2.1; SC-M08-012/E3.1; SC-M08-012/V1.1; SC-M08-012/V1.2; RULE-M08-005; SC-M08-012/E1.1; SC-M08-012/V2.1; SC-M08-012/V2.2; SC-M08-012/V3.1; SC-M08-012/V3.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E14.8; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E5.4; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.1; SC-M08-008/E9.3; SC-M08-008/E10.1; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; AUT-M08-004; RULE-M08-005; SC-M08-004/E9.1; SC-M08-008/E9.2; SC-M08-010/M1; SC-M08-010/E11.4; SC-M08-010/E12.1; SC-M08-010/V1.1; SC-M08-010/V2.1; SC-M08-010/V3.1; SC-M08-010/V4.1; SC-M08-010/V5.1; SC-M08-010/V6.1; SC-M08-004/E10.1; SC-M08-010/E3.1; SC-M08-010/E6.4; AUT-M08-007; AUT-M08-008; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-010/E4.1; RULE-M08-001; SC-M08-008/V6.2; SC-M08-010/E5.1; SC-M08-010/V6.2; SC-M08-004/E25.1; SC-M08-004/E25.2; SC-M08-010/E6.1; SC-M08-010/E7.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-15 | SC-M08-010/E6.2; SC-M08-010/E6.3; SC-M08-011/M1; SC-M08-011/M2; SC-M08-011/V1.1; SC-M08-011/V1.2; SC-M08-011/V2.1; SC-M08-011/V2.2; SC-M08-011/V3.1; SC-M08-011/V3.2; RULE-M08-005; AUT-M08-007; SC-M08-011/E1.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-16 | SC-M08-003/M2; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/E20.3; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/E10.3; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E3.1; SC-M08-014/E3.3; SC-M08-016/M2; SC-M08-016/V1.2; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; AUT-M08-001; AUT-M08-006; SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/V1.4; SC-M08-016/V4.4; SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; SC-M08-010/E6.3; SC-M08-011/M2; SC-M08-011/V1.2; SC-M08-011/V2.2; SC-M08-011/V3.2; SC-M08-015/M2; SC-M08-015/V1.2; SC-M08-015/V2.2; SC-M08-015/V3.2; SC-M08-016/V4.3 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-17 | SC-M08-016/M1; SC-M08-016/M2; SC-M08-016/M3; SC-M08-016/M4; SC-M08-016/V1.1; SC-M08-016/V1.2; SC-M08-016/V1.3; SC-M08-016/V1.4; SC-M08-016/V2.1; SC-M08-016/V2.2; SC-M08-016/V3.1; SC-M08-016/V3.2; SC-M08-016/V4.1; SC-M08-016/V4.2; SC-M08-016/V4.4; SC-M08-016/E1.1; SC-M08-016/E2.1; SC-M08-016/E2.2; SC-M08-016/V4.3 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007; RULE-M08-006; SC-M08-004/E11.5; SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M1; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E4.4; SC-M08-013/V1.1; SC-M08-013/V1.2; SC-M08-013/V2.1; SC-M08-013/V2.2; SC-M08-013/V3.1; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; SC-M08-004/E12.5; SC-M08-004/E27.5; SC-M08-014/M1; SC-M08-014/E3.4; SC-M08-014/V1.1; SC-M08-014/V2.1; SC-M08-014/V3.1; SC-M08-015/M1; SC-M08-015/M2; SC-M08-015/V1.1; SC-M08-015/V1.2; SC-M08-015/V2.1; SC-M08-015/V2.2; SC-M08-015/V3.1; SC-M08-015/V3.2; SC-M08-013/E2.1; SC-M08-014/E1.1; SC-M08-015/E1.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.01 | SC-M08-001/M1; SC-M08-001/M2; SC-M08-001/E3.1; SC-M08-001/E3.2; SC-M08-001/E4.1; SC-M08-001/E4.2; SC-M08-001/E5.1; SC-M08-001/E5.2; SC-M08-001/V1.1; SC-M08-001/V2.1; SC-M08-001/V2.2; SC-M08-001/V3.1; SC-M08-001/V3.2; SC-M08-001/V4.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.02 | SC-M08-001/M3; SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E2.1; SC-M08-001/E3.3; SC-M08-001/E3.4; SC-M08-001/E4.3; SC-M08-001/E4.4; SC-M08-001/E5.3; SC-M08-001/E5.4; SC-M08-001/E6.2; SC-M08-001/E7.2; SC-M08-001/E8.2; SC-M08-001/E9.2; SC-M08-001/E10.2; SC-M08-001/E11.2; SC-M08-001/V2.3; SC-M08-001/V2.4; SC-M08-001/V3.3; SC-M08-001/V3.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.03 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/V2.4; SC-M08-001/V3.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.04 | SC-M08-001/M4; SC-M08-001/E2.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/V2.4; SC-M08-001/V3.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.05 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E2.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/V2.4; SC-M08-001/V3.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.06 | SC-M08-001/M2; SC-M08-001/V1.2; SC-M08-001/V2.2; SC-M08-001/V3.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-13 | SC-M08-012/M1; SC-M08-012/M2; SC-M08-012/E2.1; SC-M08-012/E3.1; SC-M08-012/E4.1; SC-M08-012/E4.2; RULE-M08-005; SC-M08-012/E1.1; SC-M08-012/E5.1; SC-M08-012/E5.2; SC-M08-012/E6.1; SC-M08-012/E6.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E14.8; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E5.4; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.1; SC-M08-008/E9.3; SC-M08-008/E10.1; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; AUT-M08-004; RULE-M08-005; SC-M08-004/E9.1; SC-M08-008/E9.2; SC-M08-010/M1; SC-M08-010/E11.4; SC-M08-010/E12.1; SC-M08-010/E13.1; SC-M08-010/E14.1; SC-M08-010/E15.1; SC-M08-010/E16.1; SC-M08-010/E17.1; SC-M08-010/E18.1; SC-M08-004/E10.1; SC-M08-010/E3.1; SC-M08-010/E6.4; AUT-M08-007; AUT-M08-008; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-010/E4.1; RULE-M08-001; SC-M08-008/E20.2; SC-M08-010/E5.1; SC-M08-010/E18.2; SC-M08-004/E25.1; SC-M08-004/E25.2; SC-M08-010/E6.1; SC-M08-010/E7.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-15 | SC-M08-010/E6.2; SC-M08-010/E6.3; SC-M08-011/M1; SC-M08-011/M2; SC-M08-011/E2.1; SC-M08-011/E2.2; SC-M08-011/E3.1; SC-M08-011/E3.2; SC-M08-011/E4.1; SC-M08-011/E4.2; RULE-M08-005; AUT-M08-007; SC-M08-011/E1.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-16 | SC-M08-003/M2; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/E20.3; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/E10.3; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E3.1; SC-M08-014/E3.3; SC-M08-016/M2; SC-M08-016/E3.2; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; AUT-M08-001; AUT-M08-006; SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/E3.4; SC-M08-016/E6.4; SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; SC-M08-010/E6.3; SC-M08-011/M2; SC-M08-011/E2.2; SC-M08-011/E3.2; SC-M08-011/E4.2; SC-M08-015/M2; SC-M08-015/E2.2; SC-M08-015/E3.2; SC-M08-015/E4.2; SC-M08-016/E6.3 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-17 | SC-M08-016/M1; SC-M08-016/M2; SC-M08-016/M3; SC-M08-016/M4; SC-M08-016/E3.1; SC-M08-016/E3.2; SC-M08-016/E3.3; SC-M08-016/E3.4; SC-M08-016/E4.1; SC-M08-016/E4.2; SC-M08-016/E5.1; SC-M08-016/E5.2; SC-M08-016/E6.1; SC-M08-016/E6.2; SC-M08-016/E6.4; SC-M08-016/E1.1; SC-M08-016/E2.1; SC-M08-016/E2.2; SC-M08-016/E6.3 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007; RULE-M08-006; SC-M08-004/E11.5; SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M1; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E4.4; SC-M08-013/E5.1; SC-M08-013/E5.2; SC-M08-013/E6.1; SC-M08-013/E6.2; SC-M08-013/E7.1; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; SC-M08-004/E12.5; SC-M08-004/E27.5; SC-M08-014/M1; SC-M08-014/E3.4; SC-M08-014/E4.1; SC-M08-014/E5.1; SC-M08-014/E6.1; SC-M08-015/M1; SC-M08-015/M2; SC-M08-015/E2.1; SC-M08-015/E2.2; SC-M08-015/E3.1; SC-M08-015/E3.2; SC-M08-015/E4.1; SC-M08-015/E4.2; SC-M08-013/E2.1; SC-M08-014/E1.1; SC-M08-015/E1.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.01 | SC-M08-001/M1; SC-M08-001/M2; SC-M08-001/E3.1; SC-M08-001/E3.2; SC-M08-001/E4.1; SC-M08-001/E4.2; SC-M08-001/E5.1; SC-M08-001/E5.2; SC-M08-001/E18.1; SC-M08-001/E19.1; SC-M08-001/E19.2; SC-M08-001/E20.1; SC-M08-001/E20.2; SC-M08-001/E21.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.02 | SC-M08-001/M3; SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E2.1; SC-M08-001/E3.3; SC-M08-001/E3.4; SC-M08-001/E4.3; SC-M08-001/E4.4; SC-M08-001/E5.3; SC-M08-001/E5.4; SC-M08-001/E6.2; SC-M08-001/E7.2; SC-M08-001/E8.2; SC-M08-001/E9.2; SC-M08-001/E10.2; SC-M08-001/E11.2; SC-M08-001/E19.3; SC-M08-001/E19.4; SC-M08-001/E20.3; SC-M08-001/E20.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.03 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E19.4; SC-M08-001/E20.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.04 | SC-M08-001/M4; SC-M08-001/E2.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E19.4; SC-M08-001/E20.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.05 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E2.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E19.4; SC-M08-001/E20.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.06 | SC-M08-001/M2; SC-M08-001/E18.2; SC-M08-001/E19.2; SC-M08-001/E20.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-01.07 | SC-M08-001/E6.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-01.08 | SC-M08-001/E7.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-01.09 | SC-M08-001/E9.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-01.10 | SC-M08-001/E10.1; SC-M08-001/E11.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.11 | SC-M08-001/M2; SC-M08-001/E12.1; SC-M08-001/V2.2; SC-M08-001/V3.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.12 | SC-M08-001/M2; SC-M08-001/E13.1; SC-M08-001/V2.2; SC-M08-001/V3.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.11 | SC-M08-001/M2; SC-M08-001/E12.1; SC-M08-001/E19.2; SC-M08-001/E20.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.12 | SC-M08-001/M2; SC-M08-001/E13.1; SC-M08-001/E19.2; SC-M08-001/E20.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-01.13 | SC-M08-001/E17.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-01.14 | SC-M08-001/E3.2; SC-M08-001/E4.2; SC-M08-001/E5.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.15 | SC-M08-001/M2; SC-M08-001/E14.1; SC-M08-001/V2.2; SC-M08-001/V3.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.16 | SC-M08-001/M2; SC-M08-001/E2.1; SC-M08-001/E15.1; SC-M08-001/V2.2; SC-M08-001/V3.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.15 | SC-M08-001/M2; SC-M08-001/E14.1; SC-M08-001/E19.2; SC-M08-001/E20.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.16 | SC-M08-001/M2; SC-M08-001/E2.1; SC-M08-001/E15.1; SC-M08-001/E19.2; SC-M08-001/E20.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-01.17 | SC-M08-001/E17.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-01.18 | RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.19 | SC-M08-001/M2; SC-M08-001/M3; SC-M08-001/M4; SC-M08-001/E3.2; SC-M08-001/E3.3; SC-M08-001/E4.2; SC-M08-001/E4.3; SC-M08-001/E5.2; SC-M08-001/E5.3; SC-M08-001/E6.2; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.2; SC-M08-001/E10.2; SC-M08-001/E11.2; SC-M08-001/V2.2; SC-M08-001/V2.3; SC-M08-001/V2.4; SC-M08-001/V3.2; SC-M08-001/V3.3; SC-M08-001/V3.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-01.20 | SC-M08-001/M2; SC-M08-001/E3.2; SC-M08-001/E4.2; SC-M08-001/E5.2; SC-M08-001/E16.1; SC-M08-001/V2.2; SC-M08-001/V3.2; SC-M08-001/V4.2; RULE-M08-001; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.01 | SC-M08-002/M1; SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/V1.1; SC-M08-002/V1.2; SC-M08-002/V2.1; SC-M08-002/V2.2; SC-M08-002/V3.1; SC-M08-002/V3.2; SC-M08-002/V4.1; SC-M08-002/V4.2; SC-M08-002/V5.1; SC-M08-004/M1; SC-M08-004/E7.1; SC-M08-004/E11.1; SC-M08-004/E12.1; SC-M08-004/E14.1; SC-M08-004/E16.1; SC-M08-004/E27.1; SC-M08-004/V1.1; SC-M08-004/V2.1; SC-M08-004/V3.1; SC-M08-004/V4.1; SC-M08-004/V5.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.02 | SC-M08-002/M2; SC-M08-002/V1.2; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.03 | SC-M08-002/M2; SC-M08-002/V1.2; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.04 | SC-M08-002/M2; SC-M08-002/M4; SC-M08-002/V1.2; SC-M08-002/V1.4; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; SC-M08-002/V4.4; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.05 | SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/V1.2; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.06 | SC-M08-002/M2; SC-M08-002/M4; SC-M08-002/E4.1; SC-M08-002/V1.2; SC-M08-002/V1.4; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; SC-M08-002/V4.4; SC-M08-002/V5.2; SC-M08-003/E3.1; SC-M08-003/V5.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E17.1; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-004/V5.2; SC-M08-005/E7.1; SC-M08-005/V5.2; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E7.1; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-006/V5.2; SC-M08-007/E4.1; SC-M08-007/V5.2; SC-M08-008/E11.1; SC-M08-008/V5.2; SC-M08-010/E8.1; SC-M08-010/V5.2; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.07 | SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/V1.2; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.08 | SC-M08-002/M2; SC-M08-002/V1.2; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-02.09 | SC-M08-002/M2; SC-M08-002/M4; SC-M08-002/E5.1; SC-M08-002/V1.2; SC-M08-002/V1.4; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; SC-M08-002/V4.4; SC-M08-003/E4.1; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E18.1; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-005/E8.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E8.1; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E5.1; SC-M08-008/E12.1; SC-M08-010/E9.1; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.01 | SC-M08-003/M1; SC-M08-003/M2; SC-M08-003/V1.1; SC-M08-003/V1.2; SC-M08-003/V2.1; SC-M08-003/V2.2; SC-M08-003/V3.1; SC-M08-003/V3.2; SC-M08-003/V4.1; SC-M08-003/V4.2; SC-M08-003/V5.1; SC-M08-004/M1; SC-M08-004/M3; SC-M08-004/E7.1; SC-M08-004/E7.3; SC-M08-004/E11.1; SC-M08-004/E11.3; SC-M08-004/E12.1; SC-M08-004/E12.3; SC-M08-004/E14.1; SC-M08-004/E14.3; SC-M08-004/E16.1; SC-M08-004/E16.3; SC-M08-004/E20.2; SC-M08-004/E20.3; SC-M08-004/E27.1; SC-M08-004/E27.3; SC-M08-004/V1.1; SC-M08-004/V1.3; SC-M08-004/V2.1; SC-M08-004/V3.1; SC-M08-004/V4.1; SC-M08-004/V4.3; SC-M08-004/V5.1; SC-M08-005/E10.2; SC-M08-005/E10.3; SC-M08-006/E10.2; SC-M08-006/E10.3; SC-M08-007/E7.2; SC-M08-007/E7.3; SC-M08-008/E14.2; SC-M08-008/E14.3; SC-M08-010/E11.2; SC-M08-010/E11.3; SC-M08-013/E4.2; SC-M08-013/E4.3; SC-M08-014/E3.2; SC-M08-014/E3.3 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.02 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/E1.1; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E2.1; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E20.3; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E10.3; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E2.1; SC-M08-014/E3.1; SC-M08-014/E3.3 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.03 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E2.1; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-014/E2.1; SC-M08-014/E3.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.04 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-014/E2.1; SC-M08-014/E3.1; AUT-M08-001; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.05 | SC-M08-003/M2; SC-M08-003/E2.1; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/E3.1; SC-M08-004/E20.3; SC-M08-005/E10.3; SC-M08-006/E10.3; SC-M08-007/E7.3; SC-M08-008/E14.3; SC-M08-010/E11.3; SC-M08-013/E4.3; SC-M08-014/E3.3 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.06 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E20.3; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E10.3; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E7.3; SC-M08-008/E14.3; SC-M08-010/E11.3; SC-M08-013/E4.3; SC-M08-014/E3.3 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.07 | SC-M08-002/M4; SC-M08-002/E4.1; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-002/V5.2; SC-M08-003/M2; SC-M08-003/E3.1; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-003/V5.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E17.1; SC-M08-004/E20.3; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-004/V5.2; SC-M08-005/E7.1; SC-M08-005/E10.3; SC-M08-005/V5.2; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E7.1; SC-M08-006/E10.3; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-006/V5.2; SC-M08-007/E4.1; SC-M08-007/E7.3; SC-M08-007/V5.2; SC-M08-008/E11.1; SC-M08-008/E14.3; SC-M08-008/V5.2; SC-M08-010/E8.1; SC-M08-010/E11.3; SC-M08-010/V5.2; SC-M08-013/E4.3; SC-M08-014/E3.3; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.08 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-014/E2.1; SC-M08-014/E3.1; AUT-M08-001; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-03.09 | SC-M08-002/M4; SC-M08-002/E5.1; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/E4.1; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E18.1; SC-M08-004/E20.3; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-005/E8.1; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E8.1; SC-M08-006/E10.3; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E5.1; SC-M08-007/E7.3; SC-M08-008/E12.1; SC-M08-008/E14.3; SC-M08-010/E9.1; SC-M08-010/E11.3; SC-M08-013/E4.3; SC-M08-014/E3.3; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.01 | SC-M08-002/M3; SC-M08-002/M4; SC-M08-002/V1.3; SC-M08-002/V1.4; SC-M08-002/V4.3; SC-M08-002/V4.4; SC-M08-004/M3; SC-M08-004/M4; SC-M08-004/E1.2; SC-M08-004/E1.3; SC-M08-004/E7.3; SC-M08-004/E7.4; SC-M08-004/E11.3; SC-M08-004/E11.4; SC-M08-004/E12.3; SC-M08-004/E12.4; SC-M08-004/E14.3; SC-M08-004/E14.4; SC-M08-004/E16.3; SC-M08-004/E16.4; SC-M08-004/E27.3; SC-M08-004/E27.4; SC-M08-004/V1.3; SC-M08-004/V1.4; SC-M08-004/V4.3; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.02 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.03 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.04 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP001 tại mẫu số 0 |
-| FR-M08-04.05 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-012/V2.1; SC-M08-012/V2.2; SC-M08-012/V3.1; SC-M08-012/V3.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.06 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.07 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/E3.1; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.08 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.09 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-04.10 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E27.7; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-008/E6.1; SC-M08-010/E12.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP006 Owner thay đổi trong vụ |
-| FR-M08-05.01 | SC-M08-004/M5; SC-M08-004/M6; SC-M08-004/E4.2; SC-M08-004/E7.7; SC-M08-004/E7.8; SC-M08-004/E11.7; SC-M08-004/E11.8; SC-M08-004/E12.7; SC-M08-004/E12.8; SC-M08-004/E14.9; SC-M08-004/E14.10; SC-M08-004/E15.1; SC-M08-004/E15.2; SC-M08-004/E16.7; SC-M08-004/E16.8; SC-M08-004/E26.1; SC-M08-004/E26.3; SC-M08-004/E26.4; SC-M08-004/E27.9; SC-M08-004/E27.10; SC-M08-004/V1.5; SC-M08-004/V1.6; SC-M08-004/V4.5; SC-M08-004/V4.6; SC-M08-005/M1; SC-M08-005/M2; SC-M08-005/E1.2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E10.4; SC-M08-005/V1.1; SC-M08-005/V1.2; SC-M08-005/V2.1; SC-M08-005/V2.2; SC-M08-005/V3.1; SC-M08-005/V3.2; SC-M08-005/V4.1; SC-M08-005/V4.2; SC-M08-005/V5.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP005 kết luận sau biện pháp/chỉ phạt reporter |
-| FR-M08-05.02 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.03 | SC-M08-004/M5; SC-M08-004/M6; SC-M08-004/E7.7; SC-M08-004/E7.8; SC-M08-004/E11.7; SC-M08-004/E11.8; SC-M08-004/E12.7; SC-M08-004/E12.8; SC-M08-004/E14.9; SC-M08-004/E14.10; SC-M08-004/E15.1; SC-M08-004/E15.2; SC-M08-004/E16.7; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.9; SC-M08-004/E27.10; SC-M08-004/V1.5; SC-M08-004/V1.6; SC-M08-004/V4.5; SC-M08-004/V4.6; SC-M08-005/M1; SC-M08-005/M2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E10.4; SC-M08-005/V1.1; SC-M08-005/V1.2; SC-M08-005/V2.1; SC-M08-005/V2.2; SC-M08-005/V3.1; SC-M08-005/V3.2; SC-M08-005/V4.1; SC-M08-005/V4.2; SC-M08-005/V5.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.04 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.05 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.06 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.07 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.08 | SC-M08-004/M6; SC-M08-004/E5.1; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E2.1; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.09 | SC-M08-004/M6; SC-M08-004/E4.1; SC-M08-004/E4.2; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.1; SC-M08-004/E26.2; SC-M08-004/E26.3; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E1.1; SC-M08-005/E1.2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.10 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-05.11 | SC-M08-004/M6; SC-M08-004/E7.6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; SC-M08-007/E1.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-06.01 | SC-M08-004/E6.1; SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M1; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E7.4; SC-M08-007/V1.1; SC-M08-007/V1.2; SC-M08-007/V2.1; SC-M08-007/V2.2; SC-M08-007/V3.1; SC-M08-007/V3.2; SC-M08-007/V4.1; SC-M08-007/V4.2; SC-M08-007/V5.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-06.02 | SC-M08-004/E6.2; SC-M08-004/E7.5; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.1; SC-M08-007/E1.2; SC-M08-007/V1.2; SC-M08-007/V2.2; SC-M08-007/V3.2; SC-M08-007/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-06.03 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E3.1; SC-M08-007/V1.2; SC-M08-007/V2.2; SC-M08-007/V3.2; SC-M08-007/V4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-06.04 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/V1.2; SC-M08-007/V2.2; SC-M08-007/V3.2; SC-M08-007/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-06.05 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E21.1; SC-M08-004/E21.2; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E2.1; SC-M08-007/V1.2; SC-M08-007/V2.2; SC-M08-007/V3.2; SC-M08-007/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-06.06 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/V1.2; SC-M08-007/V2.2; SC-M08-007/V3.2; SC-M08-007/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.01 | SC-M08-004/E13.2; SC-M08-004/E13.3; SC-M08-004/E13.4; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/M3; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V1.3; SC-M08-006/V1.4; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-006/V4.3; SC-M08-006/V4.4 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.02 | SC-M08-004/E13.2; SC-M08-004/E28.1; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.1; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.03 | SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.04 | SC-M08-004/E13.2; SC-M08-004/E14.5; SC-M08-004/E14.6; SC-M08-004/E16.5; SC-M08-004/E16.6; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.3; SC-M08-006/E4.4; SC-M08-006/E5.2; SC-M08-006/E5.3; SC-M08-006/E5.4; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.05 | SC-M08-004/E13.2; SC-M08-004/E13.4; SC-M08-004/E14.5; SC-M08-004/E14.6; SC-M08-004/E16.5; SC-M08-004/E16.6; SC-M08-004/E28.1; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.3; SC-M08-006/E4.4; SC-M08-006/E5.2; SC-M08-006/E5.4; SC-M08-006/E11.1; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V1.4; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-006/V4.4 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.06 | SC-M08-004/E13.1; SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M1; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.1; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.1; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.1; SC-M08-006/E4.2; SC-M08-006/E5.1; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/V1.1; SC-M08-006/V1.2; SC-M08-006/V2.1; SC-M08-006/V2.2; SC-M08-006/V3.1; SC-M08-006/V3.2; SC-M08-006/V4.1; SC-M08-006/V4.2; SC-M08-006/V5.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.07 | SC-M08-004/E13.2; SC-M08-004/E13.4; SC-M08-004/E22.1; SC-M08-004/E22.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E6.1; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V1.4; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-006/V4.4 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.08 | SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.09 | SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-07.10 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/V2.4; SC-M08-001/V3.4; SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.19 | SC-M08-001/M2; SC-M08-001/M3; SC-M08-001/M4; SC-M08-001/E3.2; SC-M08-001/E3.3; SC-M08-001/E4.2; SC-M08-001/E4.3; SC-M08-001/E5.2; SC-M08-001/E5.3; SC-M08-001/E6.2; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.2; SC-M08-001/E10.2; SC-M08-001/E11.2; SC-M08-001/E19.2; SC-M08-001/E19.3; SC-M08-001/E19.4; SC-M08-001/E20.2; SC-M08-001/E20.3; SC-M08-001/E20.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-01.20 | SC-M08-001/M2; SC-M08-001/E3.2; SC-M08-001/E4.2; SC-M08-001/E5.2; SC-M08-001/E16.1; SC-M08-001/E19.2; SC-M08-001/E20.2; SC-M08-001/E21.2; RULE-M08-001; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.01 | SC-M08-002/M1; SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/E6.1; SC-M08-002/E6.2; SC-M08-002/E7.1; SC-M08-002/E7.2; SC-M08-002/E8.1; SC-M08-002/E8.2; SC-M08-002/E9.1; SC-M08-002/E9.2; SC-M08-002/E10.1; SC-M08-004/M1; SC-M08-004/E7.1; SC-M08-004/E11.1; SC-M08-004/E12.1; SC-M08-004/E14.1; SC-M08-004/E16.1; SC-M08-004/E27.1; SC-M08-004/E29.1; SC-M08-004/E30.1; SC-M08-004/E31.1; SC-M08-004/E32.1; SC-M08-004/E33.1; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.02 | SC-M08-002/M2; SC-M08-002/E6.2; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.03 | SC-M08-002/M2; SC-M08-002/E6.2; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.04 | SC-M08-002/M2; SC-M08-002/M4; SC-M08-002/E6.2; SC-M08-002/E6.4; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; SC-M08-002/E9.4; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.05 | SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/E6.2; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.06 | SC-M08-002/M2; SC-M08-002/M4; SC-M08-002/E4.1; SC-M08-002/E6.2; SC-M08-002/E6.4; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; SC-M08-002/E9.4; SC-M08-002/E10.2; SC-M08-003/E3.1; SC-M08-003/E9.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E17.1; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-004/E33.2; SC-M08-005/E7.1; SC-M08-005/E15.2; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E7.1; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-006/E16.2; SC-M08-007/E4.1; SC-M08-007/E12.2; SC-M08-008/E11.1; SC-M08-008/E19.2; SC-M08-010/E8.1; SC-M08-010/E17.2; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.07 | SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/E6.2; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.08 | SC-M08-002/M2; SC-M08-002/E6.2; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-02.09 | SC-M08-002/M2; SC-M08-002/M4; SC-M08-002/E5.1; SC-M08-002/E6.2; SC-M08-002/E6.4; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; SC-M08-002/E9.4; SC-M08-003/E4.1; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E18.1; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-005/E8.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E8.1; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E5.1; SC-M08-008/E12.1; SC-M08-010/E9.1; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.01 | SC-M08-003/M1; SC-M08-003/M2; SC-M08-003/E5.1; SC-M08-003/E5.2; SC-M08-003/E6.1; SC-M08-003/E6.2; SC-M08-003/E7.1; SC-M08-003/E7.2; SC-M08-003/E8.1; SC-M08-003/E8.2; SC-M08-003/E9.1; SC-M08-004/M1; SC-M08-004/M3; SC-M08-004/E7.1; SC-M08-004/E7.3; SC-M08-004/E11.1; SC-M08-004/E11.3; SC-M08-004/E12.1; SC-M08-004/E12.3; SC-M08-004/E14.1; SC-M08-004/E14.3; SC-M08-004/E16.1; SC-M08-004/E16.3; SC-M08-004/E20.2; SC-M08-004/E20.3; SC-M08-004/E27.1; SC-M08-004/E27.3; SC-M08-004/E29.1; SC-M08-004/E29.3; SC-M08-004/E30.1; SC-M08-004/E31.1; SC-M08-004/E32.1; SC-M08-004/E32.3; SC-M08-004/E33.1; SC-M08-005/E10.2; SC-M08-005/E10.3; SC-M08-006/E10.2; SC-M08-006/E10.3; SC-M08-007/E7.2; SC-M08-007/E7.3; SC-M08-008/E14.2; SC-M08-008/E14.3; SC-M08-010/E11.2; SC-M08-010/E11.3; SC-M08-013/E4.2; SC-M08-013/E4.3; SC-M08-014/E3.2; SC-M08-014/E3.3 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.02 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E1.1; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E2.1; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E20.3; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E10.3; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E2.1; SC-M08-014/E3.1; SC-M08-014/E3.3 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.03 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E2.1; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-014/E2.1; SC-M08-014/E3.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.04 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-014/E2.1; SC-M08-014/E3.1; AUT-M08-001; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.05 | SC-M08-003/M2; SC-M08-003/E2.1; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/E3.1; SC-M08-004/E20.3; SC-M08-005/E10.3; SC-M08-006/E10.3; SC-M08-007/E7.3; SC-M08-008/E14.3; SC-M08-010/E11.3; SC-M08-013/E4.3; SC-M08-014/E3.3 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.06 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E20.3; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E10.3; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E7.3; SC-M08-008/E14.3; SC-M08-010/E11.3; SC-M08-013/E4.3; SC-M08-014/E3.3 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.07 | SC-M08-002/M4; SC-M08-002/E4.1; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-002/E10.2; SC-M08-003/M2; SC-M08-003/E3.1; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-003/E9.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E17.1; SC-M08-004/E20.3; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-004/E33.2; SC-M08-005/E7.1; SC-M08-005/E10.3; SC-M08-005/E15.2; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E7.1; SC-M08-006/E10.3; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-006/E16.2; SC-M08-007/E4.1; SC-M08-007/E7.3; SC-M08-007/E12.2; SC-M08-008/E11.1; SC-M08-008/E14.3; SC-M08-008/E19.2; SC-M08-010/E8.1; SC-M08-010/E11.3; SC-M08-010/E17.2; SC-M08-013/E4.3; SC-M08-014/E3.3; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.08 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-014/E2.1; SC-M08-014/E3.1; AUT-M08-001; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-03.09 | SC-M08-002/M4; SC-M08-002/E5.1; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E4.1; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E18.1; SC-M08-004/E20.3; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-005/E8.1; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E8.1; SC-M08-006/E10.3; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E5.1; SC-M08-007/E7.3; SC-M08-008/E12.1; SC-M08-008/E14.3; SC-M08-010/E9.1; SC-M08-010/E11.3; SC-M08-013/E4.3; SC-M08-014/E3.3; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.01 | SC-M08-002/M3; SC-M08-002/M4; SC-M08-002/E6.3; SC-M08-002/E6.4; SC-M08-002/E9.3; SC-M08-002/E9.4; SC-M08-004/M3; SC-M08-004/M4; SC-M08-004/E1.2; SC-M08-004/E1.3; SC-M08-004/E7.3; SC-M08-004/E7.4; SC-M08-004/E11.3; SC-M08-004/E11.4; SC-M08-004/E12.3; SC-M08-004/E12.4; SC-M08-004/E14.3; SC-M08-004/E14.4; SC-M08-004/E16.3; SC-M08-004/E16.4; SC-M08-004/E27.3; SC-M08-004/E27.4; SC-M08-004/E29.3; SC-M08-004/E29.4; SC-M08-004/E32.3; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.02 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.03 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.04 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP001 tại mẫu số 0 |
+| FR-M08-04.05 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-012/E5.1; SC-M08-012/E5.2; SC-M08-012/E6.1; SC-M08-012/E6.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.06 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.07 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/E3.1; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.08 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.09 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-04.10 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E27.7; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-008/E6.1; SC-M08-010/E12.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP006 Owner thay đổi trong vụ |
+| FR-M08-05.01 | SC-M08-004/M5; SC-M08-004/M6; SC-M08-004/E4.2; SC-M08-004/E7.7; SC-M08-004/E7.8; SC-M08-004/E11.7; SC-M08-004/E11.8; SC-M08-004/E12.7; SC-M08-004/E12.8; SC-M08-004/E14.9; SC-M08-004/E14.10; SC-M08-004/E15.1; SC-M08-004/E15.2; SC-M08-004/E16.7; SC-M08-004/E16.8; SC-M08-004/E26.1; SC-M08-004/E26.3; SC-M08-004/E26.4; SC-M08-004/E27.9; SC-M08-004/E27.10; SC-M08-004/E29.5; SC-M08-004/E29.6; SC-M08-004/E32.5; SC-M08-004/E32.6; SC-M08-005/M1; SC-M08-005/M2; SC-M08-005/E1.2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E10.4; SC-M08-005/E11.1; SC-M08-005/E11.2; SC-M08-005/E12.1; SC-M08-005/E12.2; SC-M08-005/E13.1; SC-M08-005/E13.2; SC-M08-005/E14.1; SC-M08-005/E14.2; SC-M08-005/E15.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP005 kết luận sau biện pháp/chỉ phạt reporter |
+| FR-M08-05.02 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.03 | SC-M08-004/M5; SC-M08-004/M6; SC-M08-004/E7.7; SC-M08-004/E7.8; SC-M08-004/E11.7; SC-M08-004/E11.8; SC-M08-004/E12.7; SC-M08-004/E12.8; SC-M08-004/E14.9; SC-M08-004/E14.10; SC-M08-004/E15.1; SC-M08-004/E15.2; SC-M08-004/E16.7; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.9; SC-M08-004/E27.10; SC-M08-004/E29.5; SC-M08-004/E29.6; SC-M08-004/E32.5; SC-M08-004/E32.6; SC-M08-005/M1; SC-M08-005/M2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E10.4; SC-M08-005/E11.1; SC-M08-005/E11.2; SC-M08-005/E12.1; SC-M08-005/E12.2; SC-M08-005/E13.1; SC-M08-005/E13.2; SC-M08-005/E14.1; SC-M08-005/E14.2; SC-M08-005/E15.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.04 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.05 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.06 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.07 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.08 | SC-M08-004/M6; SC-M08-004/E5.1; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E2.1; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.09 | SC-M08-004/M6; SC-M08-004/E4.1; SC-M08-004/E4.2; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.1; SC-M08-004/E26.2; SC-M08-004/E26.3; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E1.1; SC-M08-005/E1.2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.10 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-05.11 | SC-M08-004/M6; SC-M08-004/E7.6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; SC-M08-007/E1.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-06.01 | SC-M08-004/E6.1; SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M1; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E7.4; SC-M08-007/E8.1; SC-M08-007/E8.2; SC-M08-007/E9.1; SC-M08-007/E9.2; SC-M08-007/E10.1; SC-M08-007/E10.2; SC-M08-007/E11.1; SC-M08-007/E11.2; SC-M08-007/E12.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-06.02 | SC-M08-004/E6.2; SC-M08-004/E7.5; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.1; SC-M08-007/E1.2; SC-M08-007/E8.2; SC-M08-007/E9.2; SC-M08-007/E10.2; SC-M08-007/E11.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-06.03 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E3.1; SC-M08-007/E8.2; SC-M08-007/E9.2; SC-M08-007/E10.2; SC-M08-007/E11.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-06.04 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E8.2; SC-M08-007/E9.2; SC-M08-007/E10.2; SC-M08-007/E11.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-06.05 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E21.1; SC-M08-004/E21.2; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E2.1; SC-M08-007/E8.2; SC-M08-007/E9.2; SC-M08-007/E10.2; SC-M08-007/E11.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-06.06 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E8.2; SC-M08-007/E9.2; SC-M08-007/E10.2; SC-M08-007/E11.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.01 | SC-M08-004/E13.2; SC-M08-004/E13.3; SC-M08-004/E13.4; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/M3; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E12.3; SC-M08-006/E12.4; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-006/E15.3; SC-M08-006/E15.4 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.02 | SC-M08-004/E13.2; SC-M08-004/E28.1; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.1; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.03 | SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.04 | SC-M08-004/E13.2; SC-M08-004/E14.5; SC-M08-004/E14.6; SC-M08-004/E16.5; SC-M08-004/E16.6; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.3; SC-M08-006/E4.4; SC-M08-006/E5.2; SC-M08-006/E5.3; SC-M08-006/E5.4; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.05 | SC-M08-004/E13.2; SC-M08-004/E13.4; SC-M08-004/E14.5; SC-M08-004/E14.6; SC-M08-004/E16.5; SC-M08-004/E16.6; SC-M08-004/E28.1; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.3; SC-M08-006/E4.4; SC-M08-006/E5.2; SC-M08-006/E5.4; SC-M08-006/E11.1; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E12.4; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-006/E15.4 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.06 | SC-M08-004/E13.1; SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M1; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.1; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.1; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.1; SC-M08-006/E4.2; SC-M08-006/E5.1; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/E12.1; SC-M08-006/E12.2; SC-M08-006/E13.1; SC-M08-006/E13.2; SC-M08-006/E14.1; SC-M08-006/E14.2; SC-M08-006/E15.1; SC-M08-006/E15.2; SC-M08-006/E16.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.07 | SC-M08-004/E13.2; SC-M08-004/E13.4; SC-M08-004/E22.1; SC-M08-004/E22.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E6.1; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E12.4; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-006/E15.4 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.08 | SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.09 | SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-07.10 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E19.4; SC-M08-001/E20.4; SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-08.01 | AUT-M08-002; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-08.02 | AUT-M08-002; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-08.03 | AUT-M08-002; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
@@ -3011,130 +3079,130 @@ Các bảng AUT/RULE mô tả phản ứng trong boundary, không tạo scenario
 | FR-M08-09.08 | AUT-M08-003; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-09.09 | AUT-M08-003 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-09.10 | AUT-M08-003; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-09.11 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E5.4; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; AUT-M08-003; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt; GAP003 tại lô qua biên HEAVY |
+| FR-M08-09.11 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E5.4; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; AUT-M08-003; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt; GAP003 tại lô qua biên HEAVY |
 | FR-M08-09.12 | AUT-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP003 tại lô qua biên HEAVY |
-| FR-M08-10.01 | SC-M08-004/E8.1; SC-M08-004/E8.2; SC-M08-004/E14.7; SC-M08-004/E14.8; SC-M08-004/E27.7; SC-M08-004/E27.8; SC-M08-004/E28.3; SC-M08-004/E28.4; SC-M08-006/E4.5; SC-M08-006/E4.6; SC-M08-006/E11.3; SC-M08-006/E11.4; SC-M08-008/M1; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.1; SC-M08-008/E6.2; SC-M08-008/E14.4; SC-M08-008/V1.1; SC-M08-008/V1.2; SC-M08-008/V2.1; SC-M08-008/V2.2; SC-M08-008/V3.1; SC-M08-008/V3.2; SC-M08-008/V4.1; SC-M08-008/V4.2; SC-M08-008/V5.1; SC-M08-008/V6.1 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.02 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.03 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; AUT-M08-007 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.04 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP005 kết luận sau biện pháp/chỉ phạt reporter |
-| FR-M08-10.05 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.06 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.1; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.07 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.08 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E7.1; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.09 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E8.1; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-008/V6.2; SC-M08-010/V6.2; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.10 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.1; SC-M08-008/E10.1; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-10.11 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-11.01 | SC-M08-009/M1; SC-M08-009/M2; SC-M08-009/E1.1; SC-M08-009/E2.1; SC-M08-009/V1.1; SC-M08-009/V1.2; SC-M08-009/V2.1; SC-M08-009/V2.2; SC-M08-009/V3.1; SC-M08-009/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-11.02 | SC-M08-009/M2; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-11.03 | SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt; GAP002 bỏ AI tại số lần 0 |
-| FR-M08-11.04 | SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-11.05 | SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.01 | SC-M08-004/E8.1; SC-M08-004/E8.2; SC-M08-004/E14.7; SC-M08-004/E14.8; SC-M08-004/E27.7; SC-M08-004/E27.8; SC-M08-004/E28.3; SC-M08-004/E28.4; SC-M08-006/E4.5; SC-M08-006/E4.6; SC-M08-006/E11.3; SC-M08-006/E11.4; SC-M08-008/M1; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.1; SC-M08-008/E6.2; SC-M08-008/E14.4; SC-M08-008/E15.1; SC-M08-008/E15.2; SC-M08-008/E16.1; SC-M08-008/E16.2; SC-M08-008/E17.1; SC-M08-008/E17.2; SC-M08-008/E18.1; SC-M08-008/E18.2; SC-M08-008/E19.1; SC-M08-008/E20.1 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.02 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.03 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; AUT-M08-007 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.04 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP005 kết luận sau biện pháp/chỉ phạt reporter |
+| FR-M08-10.05 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.06 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.1; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.07 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.08 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E7.1; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.09 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E8.1; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-008/E20.2; SC-M08-010/E18.2; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.10 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.1; SC-M08-008/E10.1; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-10.11 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-11.01 | SC-M08-009/M1; SC-M08-009/M2; SC-M08-009/E1.1; SC-M08-009/E2.1; SC-M08-009/E3.1; SC-M08-009/E3.2; SC-M08-009/E4.1; SC-M08-009/E4.2; SC-M08-009/E5.1; SC-M08-009/E5.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-11.02 | SC-M08-009/M2; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-11.03 | SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt; GAP002 bỏ AI tại số lần 0 |
+| FR-M08-11.04 | SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-11.05 | SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-12.01 | AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-12.02 | AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-12.03 | AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-12.04 | AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
 | FR-M08-12.05 | AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-13.01 | SC-M08-012/M1; SC-M08-012/M2; SC-M08-012/E2.1; SC-M08-012/E3.1; SC-M08-012/V1.1; SC-M08-012/V1.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-13.02 | SC-M08-012/M2; SC-M08-012/E1.1; SC-M08-012/E2.1; SC-M08-012/V1.2; SC-M08-012/V2.1; SC-M08-012/V2.2; SC-M08-012/V3.1; SC-M08-012/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-13.03 | SC-M08-012/M2; SC-M08-012/E1.1; SC-M08-012/E2.1; SC-M08-012/V2.2; SC-M08-012/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.01 | SC-M08-004/E9.1; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.2; SC-M08-008/E9.3; SC-M08-010/M1; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E11.4; SC-M08-010/E12.1; SC-M08-010/E12.2; SC-M08-010/V1.1; SC-M08-010/V1.2; SC-M08-010/V2.1; SC-M08-010/V2.2; SC-M08-010/V3.1; SC-M08-010/V3.2; SC-M08-010/V4.1; SC-M08-010/V4.2; SC-M08-010/V5.1; SC-M08-010/V6.1; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.02 | SC-M08-004/E9.2; SC-M08-004/E10.1; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.1; SC-M08-010/E3.2; SC-M08-010/E6.4; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.03 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.04 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; AUT-M08-007; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.05 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.06 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.07 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.08 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; AUT-M08-008; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.09 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E4.1; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-001; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.10 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-008/V6.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E5.1; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; SC-M08-010/V6.2; RULE-M08-001; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.11 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E14.8; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E5.4; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.1; SC-M08-008/E9.3; SC-M08-008/E10.1; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; AUT-M08-004; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.12 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.13 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E25.1; SC-M08-004/E25.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.1; SC-M08-010/E6.5; SC-M08-010/E7.1; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-14.14 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-15.01 | SC-M08-010/E6.2; SC-M08-010/E6.3; SC-M08-011/M1; SC-M08-011/M2; SC-M08-011/V1.1; SC-M08-011/V1.2; SC-M08-011/V2.1; SC-M08-011/V2.2; SC-M08-011/V3.1; SC-M08-011/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-15.02 | SC-M08-010/E6.3; SC-M08-011/M2; SC-M08-011/V1.2; SC-M08-011/V2.2; SC-M08-011/V3.2; AUT-M08-007; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-15.03 | SC-M08-011/M2; SC-M08-011/E1.1; SC-M08-011/V1.2; SC-M08-011/V2.2; SC-M08-011/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-15.04 | SC-M08-011/M2; SC-M08-011/V1.2; SC-M08-011/V2.2; SC-M08-011/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-15.05 | SC-M08-010/E6.2; SC-M08-010/E6.3; SC-M08-011/M1; SC-M08-011/M2; SC-M08-011/V1.1; SC-M08-011/V1.2; SC-M08-011/V2.1; SC-M08-011/V2.2; SC-M08-011/V3.1; SC-M08-011/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-16.01 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/V1.2; SC-M08-016/V1.4; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-16.02 | SC-M08-016/M2; SC-M08-016/V1.2; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-16.03 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/V1.2; SC-M08-016/V1.4; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; SC-M08-016/V4.4; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-16.04 | SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/V1.2; SC-M08-016/V1.4; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; SC-M08-016/V4.3; SC-M08-016/V4.4; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-16.05 | SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; SC-M08-010/E6.3; SC-M08-011/M2; SC-M08-011/V1.2; SC-M08-011/V2.2; SC-M08-011/V3.2; SC-M08-015/M2; SC-M08-015/V1.2; SC-M08-015/V2.2; SC-M08-015/V3.2; SC-M08-016/M2; SC-M08-016/V1.2; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-16.06 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/V1.2; SC-M08-016/V1.4; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; SC-M08-016/V4.4; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-16.07 | SC-M08-003/M2; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/E20.3; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/E10.3; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E3.1; SC-M08-014/E3.3; SC-M08-016/M2; SC-M08-016/V1.2; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; AUT-M08-001; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-17.01 | SC-M08-016/M2; SC-M08-016/V1.2; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.1; SC-M08-016/V4.2; SC-M08-016/V4.4 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-17.02 | SC-M08-016/M1; SC-M08-016/M2; SC-M08-016/M3; SC-M08-016/M4; SC-M08-016/V1.1; SC-M08-016/V1.2; SC-M08-016/V1.3; SC-M08-016/V1.4; SC-M08-016/V2.1; SC-M08-016/V2.2; SC-M08-016/V3.1; SC-M08-016/V3.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-17.03 | SC-M08-016/M2; SC-M08-016/E1.1; SC-M08-016/E2.1; SC-M08-016/E2.2; SC-M08-016/V1.2; SC-M08-016/V2.2; SC-M08-016/V3.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-17.04 | SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E1.1; SC-M08-016/E2.2; SC-M08-016/V1.2; SC-M08-016/V1.4; SC-M08-016/V2.2; SC-M08-016/V3.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-17.05 | SC-M08-016/M2; SC-M08-016/V1.2; SC-M08-016/V2.2; SC-M08-016/V3.2 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-17.06 | SC-M08-016/M2; SC-M08-016/V1.2; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.3; SC-M08-016/V4.4 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.01 | SC-M08-004/E11.5; SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M1; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E4.4; SC-M08-013/V1.1; SC-M08-013/V1.2; SC-M08-013/V2.1; SC-M08-013/V2.2; SC-M08-013/V3.1; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.02 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.03 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.04 | SC-M08-004/E11.6; SC-M08-004/E12.5; SC-M08-004/E12.6; SC-M08-004/E27.5; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M1; SC-M08-014/M2; SC-M08-014/E3.4; SC-M08-014/V1.1; SC-M08-014/V1.2; SC-M08-014/V2.1; SC-M08-014/V2.2; SC-M08-014/V3.1; SC-M08-014/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.05 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.06 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.07 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; SC-M08-015/M1; SC-M08-015/M2; SC-M08-015/V1.1; SC-M08-015/V1.2; SC-M08-015/V2.1; SC-M08-015/V2.2; SC-M08-015/V3.1; SC-M08-015/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.08 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.09 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E2.1; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/E1.1; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; SC-M08-015/M2; SC-M08-015/E1.1; SC-M08-015/V1.2; SC-M08-015/V2.2; SC-M08-015/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.10 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; SC-M08-015/M2; SC-M08-015/V1.2; SC-M08-015/V2.2; SC-M08-015/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| FR-M08-18.11 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt; GAP006 Owner thay đổi trong vụ |
-| BR-M08-01 | SC-M08-001/M2; SC-M08-001/V1.2; SC-M08-001/V2.2; SC-M08-001/V3.2; SC-M08-012/V1.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-02 | SC-M08-001/M2; SC-M08-001/M3; SC-M08-001/E3.2; SC-M08-001/E3.3; SC-M08-001/E4.2; SC-M08-001/E4.3; SC-M08-001/E5.2; SC-M08-001/E5.3; SC-M08-001/E6.1; SC-M08-001/E6.2; SC-M08-001/E7.1; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.1; SC-M08-001/E9.2; SC-M08-001/E10.1; SC-M08-001/E10.2; SC-M08-001/E11.1; SC-M08-001/E11.2; SC-M08-001/V2.2; SC-M08-001/V2.3; SC-M08-001/V3.2; SC-M08-001/V3.3; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-03 | SC-M08-001/M2; SC-M08-001/M3; SC-M08-001/E3.2; SC-M08-001/E4.2; SC-M08-001/E5.2; SC-M08-001/E6.1; SC-M08-001/E6.2; SC-M08-001/E7.1; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.1; SC-M08-001/E9.2; SC-M08-001/E10.1; SC-M08-001/E10.2; SC-M08-001/E11.1; SC-M08-001/E11.2; SC-M08-001/V2.2; SC-M08-001/V2.3; SC-M08-001/V3.2; SC-M08-001/V3.3; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-04 | SC-M08-001/M2; SC-M08-001/M3; SC-M08-001/E3.2; SC-M08-001/E3.3; SC-M08-001/E4.2; SC-M08-001/E4.3; SC-M08-001/E5.2; SC-M08-001/E5.3; SC-M08-001/E6.1; SC-M08-001/E6.2; SC-M08-001/E7.1; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.1; SC-M08-001/E9.2; SC-M08-001/E10.1; SC-M08-001/E10.2; SC-M08-001/E11.1; SC-M08-001/E11.2; SC-M08-001/V2.2; SC-M08-001/V2.3; SC-M08-001/V3.2; SC-M08-001/V3.3; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-05 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E2.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/V2.4; SC-M08-001/V3.4; SC-M08-003/E2.1; AUT-M08-004; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-06 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E2.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/V2.4; SC-M08-001/V3.4; SC-M08-002/M2; SC-M08-002/V1.2; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; SC-M08-004/M2; SC-M08-004/E7.2; SC-M08-004/E11.2; SC-M08-004/E12.2; SC-M08-004/E14.2; SC-M08-004/E16.2; SC-M08-004/E27.2; SC-M08-004/V1.2; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; AUT-M08-004; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-07 | SC-M08-001/M4; SC-M08-001/V2.4; SC-M08-001/V3.4; SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/V1.2; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; SC-M08-004/M2; SC-M08-004/E7.2; SC-M08-004/E11.2; SC-M08-004/E12.2; SC-M08-004/E14.2; SC-M08-004/E16.2; SC-M08-004/E27.2; SC-M08-004/V1.2; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-08 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/E1.1; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E2.1; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E20.3; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E10.3; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E2.1; SC-M08-014/E3.1; SC-M08-014/E3.3; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-09 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-003/M2; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-014/E2.1; SC-M08-014/E3.1; AUT-M08-001; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-10 | SC-M08-004/M5; SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.1; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.5; SC-M08-004/V1.6; SC-M08-004/V4.5; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-11 | SC-M08-002/M3; SC-M08-002/M4; SC-M08-002/V1.3; SC-M08-002/V1.4; SC-M08-002/V4.3; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-12 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-13 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-14 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/M6; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E7.8; SC-M08-004/E11.4; SC-M08-004/E11.8; SC-M08-004/E12.4; SC-M08-004/E12.8; SC-M08-004/E14.4; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.4; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.4; SC-M08-004/E27.10; SC-M08-004/V1.4; SC-M08-004/V1.6; SC-M08-004/V4.4; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-15 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/E3.1; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-16 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E3.1; SC-M08-007/V1.2; SC-M08-007/V2.2; SC-M08-007/V3.2; SC-M08-007/V4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-17 | SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.1; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-18 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-19 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/V1.4; SC-M08-004/V4.4; SC-M08-008/E5.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP001 tại mẫu số 0 |
+| FR-M08-13.01 | SC-M08-012/M1; SC-M08-012/M2; SC-M08-012/E2.1; SC-M08-012/E3.1; SC-M08-012/E4.1; SC-M08-012/E4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-13.02 | SC-M08-012/M2; SC-M08-012/E1.1; SC-M08-012/E2.1; SC-M08-012/E4.2; SC-M08-012/E5.1; SC-M08-012/E5.2; SC-M08-012/E6.1; SC-M08-012/E6.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-13.03 | SC-M08-012/M2; SC-M08-012/E1.1; SC-M08-012/E2.1; SC-M08-012/E5.2; SC-M08-012/E6.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.01 | SC-M08-004/E9.1; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.2; SC-M08-008/E9.3; SC-M08-010/M1; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E11.4; SC-M08-010/E12.1; SC-M08-010/E12.2; SC-M08-010/E13.1; SC-M08-010/E13.2; SC-M08-010/E14.1; SC-M08-010/E14.2; SC-M08-010/E15.1; SC-M08-010/E15.2; SC-M08-010/E16.1; SC-M08-010/E16.2; SC-M08-010/E17.1; SC-M08-010/E18.1; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.02 | SC-M08-004/E9.2; SC-M08-004/E10.1; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.1; SC-M08-010/E3.2; SC-M08-010/E6.4; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.03 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.04 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; AUT-M08-007; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.05 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.06 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.07 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.08 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; AUT-M08-008; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.09 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E4.1; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-001; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.10 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-008/E20.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E5.1; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; SC-M08-010/E18.2; RULE-M08-001; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.11 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E14.8; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E5.4; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.1; SC-M08-008/E9.3; SC-M08-008/E10.1; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; AUT-M08-004; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.12 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.13 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E25.1; SC-M08-004/E25.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.1; SC-M08-010/E6.5; SC-M08-010/E7.1; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-14.14 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-15.01 | SC-M08-010/E6.2; SC-M08-010/E6.3; SC-M08-011/M1; SC-M08-011/M2; SC-M08-011/E2.1; SC-M08-011/E2.2; SC-M08-011/E3.1; SC-M08-011/E3.2; SC-M08-011/E4.1; SC-M08-011/E4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-15.02 | SC-M08-010/E6.3; SC-M08-011/M2; SC-M08-011/E2.2; SC-M08-011/E3.2; SC-M08-011/E4.2; AUT-M08-007; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-15.03 | SC-M08-011/M2; SC-M08-011/E1.1; SC-M08-011/E2.2; SC-M08-011/E3.2; SC-M08-011/E4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-15.04 | SC-M08-011/M2; SC-M08-011/E2.2; SC-M08-011/E3.2; SC-M08-011/E4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-15.05 | SC-M08-010/E6.2; SC-M08-010/E6.3; SC-M08-011/M1; SC-M08-011/M2; SC-M08-011/E2.1; SC-M08-011/E2.2; SC-M08-011/E3.1; SC-M08-011/E3.2; SC-M08-011/E4.1; SC-M08-011/E4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-16.01 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/E3.2; SC-M08-016/E3.4; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-16.02 | SC-M08-016/M2; SC-M08-016/E3.2; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-16.03 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/E3.2; SC-M08-016/E3.4; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; SC-M08-016/E6.4; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-16.04 | SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/E3.2; SC-M08-016/E3.4; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; SC-M08-016/E6.3; SC-M08-016/E6.4; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-16.05 | SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; SC-M08-010/E6.3; SC-M08-011/M2; SC-M08-011/E2.2; SC-M08-011/E3.2; SC-M08-011/E4.2; SC-M08-015/M2; SC-M08-015/E2.2; SC-M08-015/E3.2; SC-M08-015/E4.2; SC-M08-016/M2; SC-M08-016/E3.2; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-16.06 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/E3.2; SC-M08-016/E3.4; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; SC-M08-016/E6.4; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-16.07 | SC-M08-003/M2; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/E20.3; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/E10.3; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E3.1; SC-M08-014/E3.3; SC-M08-016/M2; SC-M08-016/E3.2; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; AUT-M08-001; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-17.01 | SC-M08-016/M2; SC-M08-016/E3.2; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.1; SC-M08-016/E6.2; SC-M08-016/E6.4 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-17.02 | SC-M08-016/M1; SC-M08-016/M2; SC-M08-016/M3; SC-M08-016/M4; SC-M08-016/E3.1; SC-M08-016/E3.2; SC-M08-016/E3.3; SC-M08-016/E3.4; SC-M08-016/E4.1; SC-M08-016/E4.2; SC-M08-016/E5.1; SC-M08-016/E5.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-17.03 | SC-M08-016/M2; SC-M08-016/E1.1; SC-M08-016/E2.1; SC-M08-016/E2.2; SC-M08-016/E3.2; SC-M08-016/E4.2; SC-M08-016/E5.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-17.04 | SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E1.1; SC-M08-016/E2.2; SC-M08-016/E3.2; SC-M08-016/E3.4; SC-M08-016/E4.2; SC-M08-016/E5.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-17.05 | SC-M08-016/M2; SC-M08-016/E3.2; SC-M08-016/E4.2; SC-M08-016/E5.2 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-17.06 | SC-M08-016/M2; SC-M08-016/E3.2; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.3; SC-M08-016/E6.4 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.01 | SC-M08-004/E11.5; SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M1; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E4.4; SC-M08-013/E5.1; SC-M08-013/E5.2; SC-M08-013/E6.1; SC-M08-013/E6.2; SC-M08-013/E7.1; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.02 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.03 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.04 | SC-M08-004/E11.6; SC-M08-004/E12.5; SC-M08-004/E12.6; SC-M08-004/E27.5; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M1; SC-M08-014/M2; SC-M08-014/E3.4; SC-M08-014/E4.1; SC-M08-014/E4.2; SC-M08-014/E5.1; SC-M08-014/E5.2; SC-M08-014/E6.1; SC-M08-014/E6.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.05 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.06 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.07 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; SC-M08-015/M1; SC-M08-015/M2; SC-M08-015/E2.1; SC-M08-015/E2.2; SC-M08-015/E3.1; SC-M08-015/E3.2; SC-M08-015/E4.1; SC-M08-015/E4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.08 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.09 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E2.1; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E1.1; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; SC-M08-015/M2; SC-M08-015/E1.1; SC-M08-015/E2.2; SC-M08-015/E3.2; SC-M08-015/E4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.10 | SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-013/M2; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; SC-M08-015/M2; SC-M08-015/E2.2; SC-M08-015/E3.2; SC-M08-015/E4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| FR-M08-18.11 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.1; SC-M08-005/E3.2; SC-M08-005/E4.1; SC-M08-005/E4.2; SC-M08-005/E5.1; SC-M08-005/E5.2; SC-M08-005/E6.1; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt; GAP006 Owner thay đổi trong vụ |
+| BR-M08-01 | SC-M08-001/M2; SC-M08-001/E18.2; SC-M08-001/E19.2; SC-M08-001/E20.2; SC-M08-012/E4.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-02 | SC-M08-001/M2; SC-M08-001/M3; SC-M08-001/E3.2; SC-M08-001/E3.3; SC-M08-001/E4.2; SC-M08-001/E4.3; SC-M08-001/E5.2; SC-M08-001/E5.3; SC-M08-001/E6.1; SC-M08-001/E6.2; SC-M08-001/E7.1; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.1; SC-M08-001/E9.2; SC-M08-001/E10.1; SC-M08-001/E10.2; SC-M08-001/E11.1; SC-M08-001/E11.2; SC-M08-001/E19.2; SC-M08-001/E19.3; SC-M08-001/E20.2; SC-M08-001/E20.3; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-03 | SC-M08-001/M2; SC-M08-001/M3; SC-M08-001/E3.2; SC-M08-001/E4.2; SC-M08-001/E5.2; SC-M08-001/E6.1; SC-M08-001/E6.2; SC-M08-001/E7.1; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.1; SC-M08-001/E9.2; SC-M08-001/E10.1; SC-M08-001/E10.2; SC-M08-001/E11.1; SC-M08-001/E11.2; SC-M08-001/E19.2; SC-M08-001/E19.3; SC-M08-001/E20.2; SC-M08-001/E20.3; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-04 | SC-M08-001/M2; SC-M08-001/M3; SC-M08-001/E3.2; SC-M08-001/E3.3; SC-M08-001/E4.2; SC-M08-001/E4.3; SC-M08-001/E5.2; SC-M08-001/E5.3; SC-M08-001/E6.1; SC-M08-001/E6.2; SC-M08-001/E7.1; SC-M08-001/E7.2; SC-M08-001/E8.1; SC-M08-001/E8.2; SC-M08-001/E9.1; SC-M08-001/E9.2; SC-M08-001/E10.1; SC-M08-001/E10.2; SC-M08-001/E11.1; SC-M08-001/E11.2; SC-M08-001/E19.2; SC-M08-001/E19.3; SC-M08-001/E20.2; SC-M08-001/E20.3; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-05 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E2.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E19.4; SC-M08-001/E20.4; SC-M08-003/E2.1; AUT-M08-004; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-06 | SC-M08-001/M4; SC-M08-001/E1.1; SC-M08-001/E2.1; SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-001/E19.4; SC-M08-001/E20.4; SC-M08-002/M2; SC-M08-002/E6.2; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; SC-M08-004/M2; SC-M08-004/E7.2; SC-M08-004/E11.2; SC-M08-004/E12.2; SC-M08-004/E14.2; SC-M08-004/E16.2; SC-M08-004/E27.2; SC-M08-004/E29.2; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; AUT-M08-004; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-07 | SC-M08-001/M4; SC-M08-001/E19.4; SC-M08-001/E20.4; SC-M08-002/M2; SC-M08-002/E2.1; SC-M08-002/E6.2; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; SC-M08-004/M2; SC-M08-004/E7.2; SC-M08-004/E11.2; SC-M08-004/E12.2; SC-M08-004/E14.2; SC-M08-004/E16.2; SC-M08-004/E27.2; SC-M08-004/E29.2; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-08 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E1.1; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E2.1; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E20.3; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-005/E10.3; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E10.3; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-007/E7.3; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-008/E14.3; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-010/E11.3; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-013/E4.3; SC-M08-014/E2.1; SC-M08-014/E3.1; SC-M08-014/E3.3; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-09 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-003/M2; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-014/E2.1; SC-M08-014/E3.1; AUT-M08-001; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-10 | SC-M08-004/M5; SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.1; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.5; SC-M08-004/E29.6; SC-M08-004/E32.5; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-11 | SC-M08-002/M3; SC-M08-002/M4; SC-M08-002/E6.3; SC-M08-002/E6.4; SC-M08-002/E9.3; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-12 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-13 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-14 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/M6; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E7.8; SC-M08-004/E11.4; SC-M08-004/E11.8; SC-M08-004/E12.4; SC-M08-004/E12.8; SC-M08-004/E14.4; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.4; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.4; SC-M08-004/E27.10; SC-M08-004/E29.4; SC-M08-004/E29.6; SC-M08-004/E32.4; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; AUT-M08-007; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-15 | SC-M08-002/M4; SC-M08-002/E1.1; SC-M08-002/E3.1; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-16 | SC-M08-004/E6.2; SC-M08-004/E7.6; SC-M08-004/E28.2; SC-M08-006/E1.2; SC-M08-006/E11.2; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E3.1; SC-M08-007/E8.2; SC-M08-007/E9.2; SC-M08-007/E10.2; SC-M08-007/E11.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-17 | SC-M08-001/E3.4; SC-M08-001/E4.4; SC-M08-001/E5.4; SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.1; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-18 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-19 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M4; SC-M08-004/E1.3; SC-M08-004/E7.4; SC-M08-004/E11.4; SC-M08-004/E12.4; SC-M08-004/E14.4; SC-M08-004/E16.4; SC-M08-004/E27.4; SC-M08-004/E29.4; SC-M08-004/E32.4; SC-M08-008/E5.1; RULE-M08-003 | Có vị trí đối soát; chưa phê duyệt; GAP001 tại mẫu số 0 |
 | BR-M08-20 | AUT-M08-002; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-21 | AUT-M08-002 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-22 | SC-M08-006/E6.1; AUT-M08-002 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-23 | SC-M08-004/E13.2; SC-M08-004/E13.4; SC-M08-004/E14.5; SC-M08-004/E16.5; SC-M08-004/E28.1; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.3; SC-M08-006/E5.2; SC-M08-006/E11.1; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V1.4; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-006/V4.4; AUT-M08-003 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-23 | SC-M08-004/E13.2; SC-M08-004/E13.4; SC-M08-004/E14.5; SC-M08-004/E16.5; SC-M08-004/E28.1; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.3; SC-M08-006/E5.2; SC-M08-006/E11.1; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E12.4; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-006/E15.4; AUT-M08-003 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-24 | AUT-M08-003; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-25 | AUT-M08-002; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-26 | SC-M08-002/E2.1; AUT-M08-002; AUT-M08-003; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-27 | AUT-M08-002; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-28 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; SC-M08-012/M2; SC-M08-012/E2.1; SC-M08-012/E3.1; AUT-M08-003; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-29 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-012/M2; SC-M08-012/E2.1; AUT-M08-003; AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-28 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; SC-M08-012/M2; SC-M08-012/E2.1; SC-M08-012/E3.1; AUT-M08-003; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-29 | SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-012/M2; SC-M08-012/E2.1; AUT-M08-003; AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-30 | SC-M08-012/E3.1; AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-31 | SC-M08-001/E17.1; SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-009/M2; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; SC-M08-012/M2; SC-M08-012/E2.1; AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-32 | SC-M08-001/V1.2; SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-012/M2; SC-M08-012/E1.1; SC-M08-012/E2.1; SC-M08-012/E3.1; SC-M08-012/V1.2; SC-M08-012/V2.2; SC-M08-012/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-33 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; AUT-M08-003; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-34 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.3; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; SC-M08-011/M2; SC-M08-011/V1.2; SC-M08-011/V2.2; SC-M08-011/V3.2; AUT-M08-008; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-35 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-36 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E13.2; SC-M08-004/E14.8; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-004/E27.8; SC-M08-004/E28.2; SC-M08-004/E28.4; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.6; SC-M08-006/E5.2; SC-M08-006/E5.3; SC-M08-006/E5.4; SC-M08-006/E11.2; SC-M08-006/E11.4; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.1; SC-M08-008/E9.3; SC-M08-008/E10.1; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; AUT-M08-003; AUT-M08-004; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt; GAP003 tại lô qua biên HEAVY |
+| BR-M08-31 | SC-M08-001/E17.1; SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-009/M2; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; SC-M08-012/M2; SC-M08-012/E2.1; AUT-M08-005; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-32 | SC-M08-001/E18.2; SC-M08-004/E8.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-012/M2; SC-M08-012/E1.1; SC-M08-012/E2.1; SC-M08-012/E3.1; SC-M08-012/E4.2; SC-M08-012/E5.2; SC-M08-012/E6.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-33 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; AUT-M08-003; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-34 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.3; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; SC-M08-011/M2; SC-M08-011/E2.2; SC-M08-011/E3.2; SC-M08-011/E4.2; AUT-M08-008; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-35 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-36 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E13.2; SC-M08-004/E14.8; SC-M08-004/E23.1; SC-M08-004/E23.2; SC-M08-004/E27.8; SC-M08-004/E28.2; SC-M08-004/E28.4; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.6; SC-M08-006/E5.2; SC-M08-006/E5.3; SC-M08-006/E5.4; SC-M08-006/E11.2; SC-M08-006/E11.4; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.1; SC-M08-008/E9.3; SC-M08-008/E10.1; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; AUT-M08-003; AUT-M08-004; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt; GAP003 tại lô qua biên HEAVY |
 | BR-M08-37 | AUT-M08-008; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-38 | SC-M08-010/E6.3; SC-M08-011/M2; SC-M08-011/V1.2; SC-M08-011/V2.2; SC-M08-011/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-39 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/V1.2; SC-M08-016/V1.4; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-40 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/V1.6; SC-M08-004/V4.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/V1.2; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-005/V4.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/V1.2; SC-M08-016/V1.4; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; SC-M08-016/V4.4; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-41 | SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E1.1; SC-M08-016/E2.2; SC-M08-016/V1.2; SC-M08-016/V1.4; SC-M08-016/V2.2; SC-M08-016/V3.2; SC-M08-016/V4.2; SC-M08-016/V4.4 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-38 | SC-M08-010/E6.3; SC-M08-011/M2; SC-M08-011/E2.2; SC-M08-011/E3.2; SC-M08-011/E4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-39 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E3.2; SC-M08-016/E3.4; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-40 | SC-M08-004/M6; SC-M08-004/E7.8; SC-M08-004/E11.8; SC-M08-004/E12.8; SC-M08-004/E14.10; SC-M08-004/E15.2; SC-M08-004/E16.8; SC-M08-004/E26.4; SC-M08-004/E27.10; SC-M08-004/E29.6; SC-M08-004/E32.6; SC-M08-005/M2; SC-M08-005/E3.2; SC-M08-005/E4.2; SC-M08-005/E5.2; SC-M08-005/E6.2; SC-M08-005/E11.2; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-005/E14.2; SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E2.2; SC-M08-016/E3.2; SC-M08-016/E3.4; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; SC-M08-016/E6.4; AUT-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-41 | SC-M08-016/M2; SC-M08-016/M4; SC-M08-016/E1.1; SC-M08-016/E2.2; SC-M08-016/E3.2; SC-M08-016/E3.4; SC-M08-016/E4.2; SC-M08-016/E5.2; SC-M08-016/E6.2; SC-M08-016/E6.4 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-42 | RULE-M08-004; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-43 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.3; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; SC-M08-012/M2; SC-M08-012/E2.1; SC-M08-016/M4; SC-M08-016/V1.4; AUT-M08-005; AUT-M08-008; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-44 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.4; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E11.6; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E12.6; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E27.6; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-005/V2.2; SC-M08-005/V3.2; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-007/V2.2; SC-M08-007/V3.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-009/V2.2; SC-M08-009/V3.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-011/V2.2; SC-M08-011/V3.2; SC-M08-013/M2; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; SC-M08-015/V2.2; SC-M08-015/V3.2; SC-M08-016/V2.2; SC-M08-016/V3.2; RULE-M08-001; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-43 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.3; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; SC-M08-012/M2; SC-M08-012/E2.1; SC-M08-016/M4; SC-M08-016/E3.4; AUT-M08-005; AUT-M08-008; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-44 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.4; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E11.6; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E12.6; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E27.6; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-005/E12.2; SC-M08-005/E13.2; SC-M08-006/M2; SC-M08-006/E2.2; SC-M08-006/E3.2; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-007/E9.2; SC-M08-007/E10.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-009/E4.2; SC-M08-009/E5.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-011/E3.2; SC-M08-011/E4.2; SC-M08-013/M2; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; SC-M08-015/E3.2; SC-M08-015/E4.2; SC-M08-016/E4.2; SC-M08-016/E5.2; RULE-M08-001; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
 | BR-M08-45 | SC-M08-001/E17.1; RULE-M08-002; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-46 | SC-M08-001/E12.1; SC-M08-001/E13.1; SC-M08-001/E14.1; SC-M08-001/E15.1; SC-M08-001/E16.1; SC-M08-002/M2; SC-M08-002/M4; SC-M08-002/E4.1; SC-M08-002/E5.1; SC-M08-002/V1.2; SC-M08-002/V1.4; SC-M08-002/V2.2; SC-M08-002/V3.2; SC-M08-002/V4.2; SC-M08-002/V4.4; SC-M08-002/V5.2; SC-M08-003/M2; SC-M08-003/E3.1; SC-M08-003/E4.1; SC-M08-003/V1.2; SC-M08-003/V2.2; SC-M08-003/V3.2; SC-M08-003/V4.2; SC-M08-003/V5.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E14.8; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E17.1; SC-M08-004/E18.1; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E27.8; SC-M08-004/E28.2; SC-M08-004/E28.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-004/V5.2; SC-M08-005/E7.1; SC-M08-005/E8.1; SC-M08-005/V5.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.6; SC-M08-006/E5.2; SC-M08-006/E7.1; SC-M08-006/E8.1; SC-M08-006/E11.2; SC-M08-006/E11.4; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-006/V5.2; SC-M08-007/E4.1; SC-M08-007/E5.1; SC-M08-007/V5.2; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E7.1; SC-M08-008/E8.1; SC-M08-008/E9.3; SC-M08-008/E11.1; SC-M08-008/E12.1; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-008/V5.2; SC-M08-008/V6.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E4.1; SC-M08-010/E5.1; SC-M08-010/E6.5; SC-M08-010/E8.1; SC-M08-010/E9.1; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; SC-M08-010/V5.2; SC-M08-010/V6.2; AUT-M08-003; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt; GAP004 tự nhắm nhóm |
-| BR-M08-47 | SC-M08-001/M2; SC-M08-001/M4; SC-M08-001/E2.1; SC-M08-001/E3.2; SC-M08-001/E4.2; SC-M08-001/E5.2; SC-M08-001/E12.1; SC-M08-001/E13.1; SC-M08-001/E14.1; SC-M08-001/E15.1; SC-M08-001/E16.1; SC-M08-001/E17.1; SC-M08-001/V2.2; SC-M08-001/V2.4; SC-M08-001/V3.2; SC-M08-001/V3.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt; GAP004 tự nhắm nhóm |
-| BR-M08-48 | SC-M08-002/M4; SC-M08-002/V1.4; SC-M08-002/V4.4; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E6.2; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E7.6; SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E11.6; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E12.6; SC-M08-004/E13.2; SC-M08-004/E13.4; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E14.8; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E27.6; SC-M08-004/E27.8; SC-M08-004/E28.2; SC-M08-004/E28.4; SC-M08-004/V1.2; SC-M08-004/V1.4; SC-M08-004/V2.2; SC-M08-004/V3.2; SC-M08-004/V4.2; SC-M08-004/V4.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.6; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E11.2; SC-M08-006/E11.4; SC-M08-006/V1.2; SC-M08-006/V1.4; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; SC-M08-006/V4.4; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-007/V1.2; SC-M08-007/V2.2; SC-M08-007/V3.2; SC-M08-007/V4.2; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.3; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-010/E12.1; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; SC-M08-011/M2; SC-M08-011/V1.2; SC-M08-011/V2.2; SC-M08-011/V3.2; SC-M08-013/M2; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/E2.1; SC-M08-014/E3.1; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; SC-M08-015/M2; SC-M08-015/V1.2; SC-M08-015/V2.2; SC-M08-015/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-49 | SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E5.4; SC-M08-006/E11.2; SC-M08-006/V1.2; SC-M08-006/V2.2; SC-M08-006/V3.2; SC-M08-006/V4.2; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-50 | SC-M08-001/E3.2; SC-M08-001/E3.4; SC-M08-001/E4.2; SC-M08-001/E4.4; SC-M08-001/E5.2; SC-M08-001/E5.4; SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-004/E27.7; SC-M08-008/E6.1; SC-M08-010/E12.1; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E2.1; SC-M08-013/V1.2; SC-M08-013/V2.2; SC-M08-013/V3.2; SC-M08-014/M2; SC-M08-014/E1.1; SC-M08-014/V1.2; SC-M08-014/V2.2; SC-M08-014/V3.2; SC-M08-015/M2; SC-M08-015/E1.1; SC-M08-015/V1.2; SC-M08-015/V2.2; SC-M08-015/V3.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt; GAP004 tự nhắm nhóm; GAP006 Owner thay đổi trong vụ |
+| BR-M08-46 | SC-M08-001/E12.1; SC-M08-001/E13.1; SC-M08-001/E14.1; SC-M08-001/E15.1; SC-M08-001/E16.1; SC-M08-002/M2; SC-M08-002/M4; SC-M08-002/E4.1; SC-M08-002/E5.1; SC-M08-002/E6.2; SC-M08-002/E6.4; SC-M08-002/E7.2; SC-M08-002/E8.2; SC-M08-002/E9.2; SC-M08-002/E9.4; SC-M08-002/E10.2; SC-M08-003/M2; SC-M08-003/E3.1; SC-M08-003/E4.1; SC-M08-003/E5.2; SC-M08-003/E6.2; SC-M08-003/E7.2; SC-M08-003/E8.2; SC-M08-003/E9.2; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E13.2; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E14.8; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E17.1; SC-M08-004/E18.1; SC-M08-004/E24.1; SC-M08-004/E24.2; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E27.8; SC-M08-004/E28.2; SC-M08-004/E28.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-004/E33.2; SC-M08-005/E7.1; SC-M08-005/E8.1; SC-M08-005/E15.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.6; SC-M08-006/E5.2; SC-M08-006/E7.1; SC-M08-006/E8.1; SC-M08-006/E11.2; SC-M08-006/E11.4; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-006/E16.2; SC-M08-007/E4.1; SC-M08-007/E5.1; SC-M08-007/E12.2; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E7.1; SC-M08-008/E8.1; SC-M08-008/E9.3; SC-M08-008/E11.1; SC-M08-008/E12.1; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-008/E19.2; SC-M08-008/E20.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E4.1; SC-M08-010/E5.1; SC-M08-010/E6.5; SC-M08-010/E8.1; SC-M08-010/E9.1; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; SC-M08-010/E17.2; SC-M08-010/E18.2; AUT-M08-003; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt; GAP004 tự nhắm nhóm |
+| BR-M08-47 | SC-M08-001/M2; SC-M08-001/M4; SC-M08-001/E2.1; SC-M08-001/E3.2; SC-M08-001/E4.2; SC-M08-001/E5.2; SC-M08-001/E12.1; SC-M08-001/E13.1; SC-M08-001/E14.1; SC-M08-001/E15.1; SC-M08-001/E16.1; SC-M08-001/E17.1; SC-M08-001/E19.2; SC-M08-001/E19.4; SC-M08-001/E20.2; SC-M08-001/E20.4; RULE-M08-002 | Có vị trí đối soát; chưa phê duyệt; GAP004 tự nhắm nhóm |
+| BR-M08-48 | SC-M08-002/M4; SC-M08-002/E6.4; SC-M08-002/E9.4; SC-M08-004/M2; SC-M08-004/M4; SC-M08-004/E1.1; SC-M08-004/E1.3; SC-M08-004/E6.2; SC-M08-004/E7.2; SC-M08-004/E7.4; SC-M08-004/E7.6; SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E11.2; SC-M08-004/E11.4; SC-M08-004/E11.6; SC-M08-004/E12.2; SC-M08-004/E12.4; SC-M08-004/E12.6; SC-M08-004/E13.2; SC-M08-004/E13.4; SC-M08-004/E14.2; SC-M08-004/E14.4; SC-M08-004/E14.8; SC-M08-004/E16.2; SC-M08-004/E16.4; SC-M08-004/E19.1; SC-M08-004/E20.1; SC-M08-004/E27.2; SC-M08-004/E27.4; SC-M08-004/E27.6; SC-M08-004/E27.8; SC-M08-004/E28.2; SC-M08-004/E28.4; SC-M08-004/E29.2; SC-M08-004/E29.4; SC-M08-004/E30.2; SC-M08-004/E31.2; SC-M08-004/E32.2; SC-M08-004/E32.4; SC-M08-005/E9.1; SC-M08-005/E10.1; SC-M08-006/M2; SC-M08-006/M4; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E4.6; SC-M08-006/E5.2; SC-M08-006/E9.1; SC-M08-006/E10.1; SC-M08-006/E11.2; SC-M08-006/E11.4; SC-M08-006/E12.2; SC-M08-006/E12.4; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; SC-M08-006/E15.4; SC-M08-007/M2; SC-M08-007/E1.2; SC-M08-007/E6.1; SC-M08-007/E7.1; SC-M08-007/E8.2; SC-M08-007/E9.2; SC-M08-007/E10.2; SC-M08-007/E11.2; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.3; SC-M08-008/E13.1; SC-M08-008/E14.1; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E10.1; SC-M08-010/E11.1; SC-M08-010/E12.1; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; SC-M08-011/M2; SC-M08-011/E2.2; SC-M08-011/E3.2; SC-M08-011/E4.2; SC-M08-013/M2; SC-M08-013/E3.1; SC-M08-013/E4.1; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E2.1; SC-M08-014/E3.1; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; SC-M08-015/M2; SC-M08-015/E2.2; SC-M08-015/E3.2; SC-M08-015/E4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-49 | SC-M08-004/E13.2; SC-M08-004/E28.2; SC-M08-006/M2; SC-M08-006/E1.1; SC-M08-006/E1.2; SC-M08-006/E2.2; SC-M08-006/E2.3; SC-M08-006/E2.4; SC-M08-006/E3.2; SC-M08-006/E3.3; SC-M08-006/E3.4; SC-M08-006/E4.2; SC-M08-006/E5.2; SC-M08-006/E5.4; SC-M08-006/E11.2; SC-M08-006/E12.2; SC-M08-006/E13.2; SC-M08-006/E14.2; SC-M08-006/E15.2; AUT-M08-004 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-50 | SC-M08-001/E3.2; SC-M08-001/E3.4; SC-M08-001/E4.2; SC-M08-001/E4.4; SC-M08-001/E5.2; SC-M08-001/E5.4; SC-M08-004/E11.6; SC-M08-004/E12.6; SC-M08-004/E27.6; SC-M08-004/E27.7; SC-M08-008/E6.1; SC-M08-010/E12.1; SC-M08-013/M2; SC-M08-013/E1.1; SC-M08-013/E2.1; SC-M08-013/E5.2; SC-M08-013/E6.2; SC-M08-013/E7.2; SC-M08-014/M2; SC-M08-014/E1.1; SC-M08-014/E4.2; SC-M08-014/E5.2; SC-M08-014/E6.2; SC-M08-015/M2; SC-M08-015/E1.1; SC-M08-015/E2.2; SC-M08-015/E3.2; SC-M08-015/E4.2; RULE-M08-006 | Có vị trí đối soát; chưa phê duyệt; GAP004 tự nhắm nhóm; GAP006 Owner thay đổi trong vụ |
 | BR-M08-51 | AUT-M08-002; AUT-M08-004; RULE-M08-004 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-52 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E25.1; SC-M08-004/E25.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.1; SC-M08-010/E6.5; SC-M08-010/E7.1; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-53 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.3; SC-M08-008/V1.2; SC-M08-008/V2.2; SC-M08-008/V3.2; SC-M08-008/V4.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/V1.2; SC-M08-010/V2.2; SC-M08-010/V3.2; SC-M08-010/V4.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
-| BR-M08-54 | SC-M08-006/E6.1; SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/V1.2; SC-M08-009/V2.2; SC-M08-009/V3.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt; GAP002 bỏ AI tại số lần 0 |
-| BR-M08-55 | SC-M08-001/M2; SC-M08-001/E12.1; SC-M08-001/E13.1; SC-M08-001/E14.1; SC-M08-001/E15.1; SC-M08-001/E16.1; SC-M08-001/V2.2; SC-M08-001/V3.2; SC-M08-001/V4.2; SC-M08-002/V5.2; SC-M08-003/V5.2; SC-M08-004/V5.2; SC-M08-005/V5.2; SC-M08-006/V5.2; SC-M08-007/V5.2; SC-M08-008/E8.1; SC-M08-008/V5.2; SC-M08-008/V6.2; SC-M08-010/E5.1; SC-M08-010/V5.2; SC-M08-010/V6.2; AUT-M08-002; AUT-M08-003; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-52 | SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E25.1; SC-M08-004/E25.2; SC-M08-008/E9.3; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.1; SC-M08-010/E6.5; SC-M08-010/E7.1; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-53 | SC-M08-004/E8.2; SC-M08-004/E9.2; SC-M08-004/E10.2; SC-M08-004/E14.8; SC-M08-004/E27.8; SC-M08-004/E28.4; SC-M08-006/E4.6; SC-M08-006/E11.4; SC-M08-008/M2; SC-M08-008/E1.1; SC-M08-008/E2.1; SC-M08-008/E3.1; SC-M08-008/E4.1; SC-M08-008/E5.2; SC-M08-008/E6.2; SC-M08-008/E9.3; SC-M08-008/E15.2; SC-M08-008/E16.2; SC-M08-008/E17.2; SC-M08-008/E18.2; SC-M08-010/M2; SC-M08-010/E1.1; SC-M08-010/E2.1; SC-M08-010/E3.2; SC-M08-010/E6.5; SC-M08-010/E12.2; SC-M08-010/E13.2; SC-M08-010/E14.2; SC-M08-010/E15.2; SC-M08-010/E16.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt |
+| BR-M08-54 | SC-M08-006/E6.1; SC-M08-009/M2; SC-M08-009/E2.1; SC-M08-009/E3.2; SC-M08-009/E4.2; SC-M08-009/E5.2; RULE-M08-005 | Có vị trí đối soát; chưa phê duyệt; GAP002 bỏ AI tại số lần 0 |
+| BR-M08-55 | SC-M08-001/M2; SC-M08-001/E12.1; SC-M08-001/E13.1; SC-M08-001/E14.1; SC-M08-001/E15.1; SC-M08-001/E16.1; SC-M08-001/E19.2; SC-M08-001/E20.2; SC-M08-001/E21.2; SC-M08-002/E10.2; SC-M08-003/E9.2; SC-M08-004/E33.2; SC-M08-005/E15.2; SC-M08-006/E16.2; SC-M08-007/E12.2; SC-M08-008/E8.1; SC-M08-008/E19.2; SC-M08-008/E20.2; SC-M08-010/E5.1; SC-M08-010/E17.2; SC-M08-010/E18.2; AUT-M08-002; AUT-M08-003; RULE-M08-001 | Có vị trí đối soát; chưa phê duyệt |
 
 
 | UC owner | Guard/lựa chọn | Nhánh | Đích |
@@ -3285,3 +3353,83 @@ Lớp tương đương: report bốn loại/giới hạn nhập; post–comment 
 
 
 Sáu GAP chặn kết luận đầy đủ chính những nhánh thiếu hợp đồng; phần đã đủ căn cứ vẫn triển khai và kiểm. Không dùng terminal REJECTED/HANDED_OFF để che phần nguồn chưa quyết. Trạng thái toàn tài liệu là Đang soạn; không tự sửa FR, US, register, skill hoặc module khác. [QA-M08.md](QA-M08.md) ghi số lượng/lệnh và giới hạn kiểm.
+
+
+## Chuyển đổi ID nhánh sau QA-SC-01
+
+Ngày 11/11/2026, các biến thể vai trò được đăng ký thành E tại M1 theo skill v1.4. Bảng này giữ ID lịch sử để đối chiếu các tài liệu đã dẫn V. Mỗi hàng ánh xạ cả nhánh và các bước cùng số thứ tự, ví dụ V1.2 sang bước .2 của E tương ứng.
+
+| ID lịch sử | ID hiện hành | Điểm thay | Số bước | Nguồn |
+| --- | --- | --- | --- | --- |
+| SC-M08-001/V1 | SC-M08-001/E18 | M1 | 2 | FR-M08-01.01, FR-M08-01.06, BR-M08-01, BR-M08-32 |
+| SC-M08-001/V2 | SC-M08-001/E19 | M1 | 4 | FR-M08-01.01, FR-M08-01.06, FR-M08-01.11, FR-M08-01.12, FR-M08-01.15, FR-M08-01.16, FR-M08-01.19, FR-M08-01.20, BR-M08-01, BR-M08-02, BR-M08-03, BR-M08-04, BR-M08-47, BR-M08-55, FR-M08-01.02, FR-M08-01.03, FR-M08-01.04, FR-M08-01.05, FR-M08-07.10, BR-M08-05, BR-M08-06, BR-M08-07 |
+| SC-M08-001/V3 | SC-M08-001/E20 | M1 | 4 | FR-M08-01.01, FR-M08-01.06, FR-M08-01.11, FR-M08-01.12, FR-M08-01.15, FR-M08-01.16, FR-M08-01.19, FR-M08-01.20, BR-M08-01, BR-M08-02, BR-M08-03, BR-M08-04, BR-M08-47, BR-M08-55, FR-M08-01.02, FR-M08-01.03, FR-M08-01.04, FR-M08-01.05, FR-M08-07.10, BR-M08-05, BR-M08-06, BR-M08-07 |
+| SC-M08-001/V4 | SC-M08-001/E21 | M1 | 2 | FR-M08-01.01, FR-M08-01.20, BR-M08-55 |
+| SC-M08-002/V1 | SC-M08-002/E6 | M1 | 4 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, FR-M08-04.01, BR-M08-11, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
+| SC-M08-002/V2 | SC-M08-002/E7 | M1 | 2 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, BR-M08-44 |
+| SC-M08-002/V3 | SC-M08-002/E8 | M1 | 2 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, BR-M08-44 |
+| SC-M08-002/V4 | SC-M08-002/E9 | M1 | 4 | FR-M08-02.01, FR-M08-02.02, FR-M08-02.03, FR-M08-02.04, FR-M08-02.05, FR-M08-02.06, FR-M08-02.07, FR-M08-02.08, FR-M08-02.09, BR-M08-06, BR-M08-07, BR-M08-46, FR-M08-04.01, BR-M08-11, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, BR-M08-48, BR-M08-44, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09 |
+| SC-M08-002/V5 | SC-M08-002/E10 | M1 | 2 | FR-M08-02.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| SC-M08-003/V1 | SC-M08-003/E5 | M1 | 2 | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46 |
+| SC-M08-003/V2 | SC-M08-003/E6 | M1 | 2 | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46, BR-M08-44 |
+| SC-M08-003/V3 | SC-M08-003/E7 | M1 | 2 | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46, BR-M08-44 |
+| SC-M08-003/V4 | SC-M08-003/E8 | M1 | 2 | FR-M08-03.01, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.05, FR-M08-03.06, FR-M08-03.07, FR-M08-03.08, FR-M08-03.09, FR-M08-16.07, BR-M08-08, BR-M08-09, BR-M08-46 |
+| SC-M08-003/V5 | SC-M08-003/E9 | M1 | 2 | FR-M08-03.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| SC-M08-004/V1 | SC-M08-004/E29 | M1 | 6 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07, FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, FR-M08-05.01, FR-M08-05.03, BR-M08-10, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-12, BR-M08-13, BR-M08-39, BR-M08-40 |
+| SC-M08-004/V2 | SC-M08-004/E30 | M1 | 2 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
+| SC-M08-004/V3 | SC-M08-004/E31 | M1 | 2 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07 |
+| SC-M08-004/V4 | SC-M08-004/E32 | M1 | 6 | FR-M08-02.01, FR-M08-03.01, BR-M08-44, BR-M08-46, BR-M08-48, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, BR-M08-06, BR-M08-07, FR-M08-04.01, FR-M08-04.02, FR-M08-04.03, FR-M08-04.04, FR-M08-04.05, FR-M08-04.06, FR-M08-04.07, FR-M08-04.08, FR-M08-04.09, FR-M08-04.10, BR-M08-11, BR-M08-14, BR-M08-15, BR-M08-19, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09, FR-M08-05.01, FR-M08-05.03, BR-M08-10, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-12, BR-M08-13, BR-M08-39, BR-M08-40 |
+| SC-M08-004/V5 | SC-M08-004/E33 | M1 | 2 | FR-M08-02.01, FR-M08-03.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| SC-M08-005/V1 | SC-M08-005/E11 | M1 | 2 | FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
+| SC-M08-005/V2 | SC-M08-005/E12 | M1 | 2 | FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40, BR-M08-44 |
+| SC-M08-005/V3 | SC-M08-005/E13 | M1 | 2 | FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40, BR-M08-44 |
+| SC-M08-005/V4 | SC-M08-005/E14 | M1 | 2 | FR-M08-05.01, FR-M08-05.03, FR-M08-05.02, FR-M08-05.04, FR-M08-05.05, FR-M08-05.06, FR-M08-05.07, FR-M08-05.08, FR-M08-05.09, FR-M08-05.10, FR-M08-05.11, FR-M08-16.01, FR-M08-16.03, FR-M08-16.06, FR-M08-18.11, BR-M08-10, BR-M08-12, BR-M08-13, BR-M08-14, BR-M08-39, BR-M08-40 |
+| SC-M08-005/V5 | SC-M08-005/E15 | M1 | 2 | FR-M08-05.01, FR-M08-05.03, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| SC-M08-006/V1 | SC-M08-006/E12 | M1 | 4 | FR-M08-07.06, FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| SC-M08-006/V2 | SC-M08-006/E13 | M1 | 2 | FR-M08-07.06, FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| SC-M08-006/V3 | SC-M08-006/E14 | M1 | 2 | FR-M08-07.06, FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| SC-M08-006/V4 | SC-M08-006/E15 | M1 | 4 | FR-M08-07.06, FR-M08-07.01, FR-M08-07.02, FR-M08-07.03, FR-M08-07.04, FR-M08-07.05, FR-M08-07.07, FR-M08-07.08, FR-M08-07.09, FR-M08-07.10, BR-M08-23, BR-M08-36, BR-M08-46, BR-M08-48, BR-M08-49, FR-M12-02.21, BR-M08-44, FR-M08-02.04, FR-M08-02.06, FR-M08-02.09, FR-M08-03.06, FR-M08-03.07, FR-M08-03.09, FR-M08-03.02, FR-M08-03.03, FR-M08-03.04, FR-M08-03.08, BR-M08-08, BR-M08-09 |
+| SC-M08-006/V5 | SC-M08-006/E16 | M1 | 2 | FR-M08-07.06, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| SC-M08-007/V1 | SC-M08-007/E8 | M1 | 2 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11 |
+| SC-M08-007/V2 | SC-M08-007/E9 | M1 | 2 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, BR-M08-44 |
+| SC-M08-007/V3 | SC-M08-007/E10 | M1 | 2 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11, BR-M08-44 |
+| SC-M08-007/V4 | SC-M08-007/E11 | M1 | 2 | FR-M08-06.01, FR-M08-06.02, FR-M08-06.03, FR-M08-06.04, FR-M08-06.05, FR-M08-06.06, BR-M08-16, BR-M08-48, FR-M12-02.10, FR-M12-02.11 |
+| SC-M08-007/V5 | SC-M08-007/E12 | M1 | 2 | FR-M08-06.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| SC-M08-008/V1 | SC-M08-008/E15 | M1 | 2 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
+| SC-M08-008/V2 | SC-M08-008/E16 | M1 | 2 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53, BR-M08-44 |
+| SC-M08-008/V3 | SC-M08-008/E17 | M1 | 2 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53, BR-M08-44 |
+| SC-M08-008/V4 | SC-M08-008/E18 | M1 | 2 | FR-M08-10.01, FR-M08-10.02, FR-M08-10.03, FR-M08-10.04, FR-M08-10.05, FR-M08-10.06, FR-M08-10.07, FR-M08-10.08, FR-M08-10.09, FR-M08-10.10, FR-M08-10.11, FR-M08-09.11, FR-M08-14.11, BR-M08-17, BR-M08-18, BR-M08-28, BR-M08-29, BR-M08-31, BR-M08-32, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-53 |
+| SC-M08-008/V5 | SC-M08-008/E19 | M1 | 2 | FR-M08-10.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| SC-M08-008/V6 | SC-M08-008/E20 | M1 | 2 | FR-M08-10.01, FR-M08-10.09, FR-M08-14.10, BR-M08-46, BR-M08-55 |
+| SC-M08-009/V1 | SC-M08-009/E3 | M1 | 2 | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54 |
+| SC-M08-009/V2 | SC-M08-009/E4 | M1 | 2 | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54, BR-M08-44 |
+| SC-M08-009/V3 | SC-M08-009/E5 | M1 | 2 | FR-M08-11.01, FR-M08-11.02, FR-M08-11.03, FR-M08-11.04, FR-M08-11.05, FR-M08-16.05, BR-M08-28, BR-M08-31, BR-M08-54, BR-M08-44 |
+| SC-M08-010/V1 | SC-M08-010/E13 | M1 | 2 | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01 |
+| SC-M08-010/V2 | SC-M08-010/E14 | M1 | 2 | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, BR-M08-44 |
+| SC-M08-010/V3 | SC-M08-010/E15 | M1 | 2 | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01, BR-M08-44 |
+| SC-M08-010/V4 | SC-M08-010/E16 | M1 | 2 | FR-M08-14.01, FR-M08-14.02, FR-M08-14.03, FR-M08-14.04, FR-M08-14.05, FR-M08-14.06, FR-M08-14.07, FR-M08-14.08, FR-M08-14.09, FR-M08-14.10, FR-M08-14.11, FR-M08-14.12, FR-M08-14.13, FR-M08-14.14, BR-M08-33, BR-M08-34, BR-M08-35, BR-M08-36, BR-M08-43, BR-M08-46, BR-M08-48, BR-M08-52, BR-M08-53, FR-M10-06.01 |
+| SC-M08-010/V5 | SC-M08-010/E17 | M1 | 2 | FR-M08-14.01, FR-M08-02.06, FR-M08-03.07, BR-M08-46, BR-M08-55 |
+| SC-M08-010/V6 | SC-M08-010/E18 | M1 | 2 | FR-M08-14.01, FR-M08-10.09, FR-M08-14.10, BR-M08-46, BR-M08-55 |
+| SC-M08-011/V1 | SC-M08-011/E2 | M1 | 2 | FR-M08-15.01, FR-M08-15.05, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02 |
+| SC-M08-011/V2 | SC-M08-011/E3 | M1 | 2 | FR-M08-15.01, FR-M08-15.05, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02, BR-M08-44 |
+| SC-M08-011/V3 | SC-M08-011/E4 | M1 | 2 | FR-M08-15.01, FR-M08-15.05, FR-M08-15.02, FR-M08-15.03, FR-M08-15.04, FR-M08-16.05, BR-M08-34, BR-M08-38, BR-M08-48, FR-M10-06.02, BR-M08-44 |
+| SC-M08-012/V1 | SC-M08-012/E4 | M1 | 2 | FR-M08-13.01, FR-M08-13.02, BR-M08-01, BR-M08-32 |
+| SC-M08-012/V2 | SC-M08-012/E5 | M1 | 2 | FR-M08-04.05, FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
+| SC-M08-012/V3 | SC-M08-012/E6 | M1 | 2 | FR-M08-04.05, FR-M08-13.02, FR-M08-13.03, BR-M08-32 |
+| SC-M08-013/V1 | SC-M08-013/E5 | M1 | 2 | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| SC-M08-013/V2 | SC-M08-013/E6 | M1 | 2 | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| SC-M08-013/V3 | SC-M08-013/E7 | M1 | 2 | FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.04, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| SC-M08-014/V1 | SC-M08-014/E4 | M1 | 2 | FR-M08-18.04, FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| SC-M08-014/V2 | SC-M08-014/E5 | M1 | 2 | FR-M08-18.04, FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| SC-M08-014/V3 | SC-M08-014/E6 | M1 | 2 | FR-M08-18.04, FR-M08-18.01, FR-M08-18.02, FR-M08-18.03, FR-M08-18.05, FR-M08-18.06, FR-M08-18.07, FR-M08-18.08, FR-M08-18.09, FR-M08-18.10, BR-M08-44, BR-M08-48, BR-M08-50, BR-M11-28 |
+| SC-M08-015/V1 | SC-M08-015/E2 | M1 | 2 | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28 |
+| SC-M08-015/V2 | SC-M08-015/E3 | M1 | 2 | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28, BR-M08-44 |
+| SC-M08-015/V3 | SC-M08-015/E4 | M1 | 2 | FR-M08-18.07, FR-M08-18.09, FR-M08-18.10, FR-M08-16.05, BR-M08-48, BR-M08-50, BR-M11-28, BR-M08-44 |
+| SC-M08-016/V1 | SC-M08-016/E3 | M1 | 4 | FR-M08-17.02, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-43 |
+| SC-M08-016/V2 | SC-M08-016/E4 | M1 | 2 | FR-M08-17.02, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-44 |
+| SC-M08-016/V3 | SC-M08-016/E5 | M1 | 2 | FR-M08-17.02, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, FR-M08-17.01, FR-M08-17.03, FR-M08-17.04, FR-M08-17.05, FR-M08-17.06, BR-M08-39, BR-M08-40, BR-M08-41, BR-M08-44 |
+| SC-M08-016/V4 | SC-M08-016/E6 | M1 | 4 | FR-M08-17.01, FR-M08-16.01, FR-M08-16.02, FR-M08-16.03, FR-M08-16.04, FR-M08-16.05, FR-M08-16.06, FR-M08-16.07, BR-M08-39, BR-M08-40, BR-M08-41, FR-M08-17.06 |
+
+## Dữ liệu điểm được đối soát sau QA-SC-02
+
+Bộ mẫu P81 có 5 Post Star hiệu lực. Mỗi Post Star cộng 2 điểm theo FR-M12-02.01, nên khoản điểm của bài bằng 10. Tác giả đang có 100 điểm trước khi bài bị staff ẩn, sau trừ còn 90, record khoản đã trừ của P81 bằng 10 điểm. Khi khiếu nại đủ điều kiện hoàn khoản này, căn cứ là record 10 điểm của lần xử lý đó. Comment Star có trọng số 1 điểm theo FR-M12-02.02 và giữ bộ dữ liệu riêng.

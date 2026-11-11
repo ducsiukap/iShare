@@ -107,6 +107,48 @@ class ScenarioValidationTests(unittest.TestCase):
     def test_replacement_subject_must_match(self):
         self.rejects(self.example.replace("| E2.1 | ACT-901 |", "| E2.1 | SYSTEM |"), "first subject")
 
+    def test_replacement_journey_accepts_another_registered_actor(self):
+        sid = "SC-M90-001"
+        block = "\n".join(f"#### {n}. Section\nContent.\n" for n in range(1, 7))
+
+        def step(identifier, subject, target):
+            return {"step": identifier, "subject": subject, "action": "Request or response",
+                    "data": "Synthetic business data", "sources": "FR-M90-01.01", "next": target}
+
+        data = {
+            f"sc:main {sid}": [step("M1", "ACT-901", "M2"), step("M2", "SYSTEM", "END:SUCCESS")],
+            f"sc:post {sid}": [{"result": "SUCCESS", "condition": "Actor receives completed result"},
+                                {"result": "REJECTED", "condition": "Actor receives refusal"}],
+            f"sc:exceptions {sid}": [{"id": "E1", "kind": "system", "at": "M1",
+                                      "condition": "ACT-902 has another role", "entry": "E1.1",
+                                      "sources": "FR-M90-01.01"}],
+            f"sc:branch {sid} E1": [step("E1.1", "ACT-902", "E1.2"),
+                                      step("E1.2", "SYSTEM", "END:REJECTED")],
+        }
+        errors = []
+        check_graph(sid, block, data, {"ACT-901", "ACT-902"}, errors)
+        self.assertEqual([], errors)
+        data[f"sc:branch {sid} E1"][0]["subject"] = "SYSTEM"
+        errors = []
+        check_graph(sid, block, data, {"ACT-901", "ACT-902"}, errors)
+        self.assertTrue(any("must start with a known actor" in error for error in errors), errors)
+        data[f"sc:branch {sid} E1"][0]["subject"] = "ACT-999"
+        errors = []
+        check_graph(sid, block, data, {"ACT-901", "ACT-902"}, errors)
+        self.assertTrue(any("invalid subject" in error for error in errors), errors)
+        data[f"sc:branch {sid} E1"][0]["subject"] = "ACT-902"
+        del data[f"sc:exceptions {sid}"][0]["sources"]
+        errors = []
+        check_graph(sid, block, data, {"ACT-901", "ACT-902"}, errors)
+        self.assertTrue(any("missing exception content" in error for error in errors), errors)
+
+    def test_nonstandard_alternative_marker_is_rejected(self):
+        for name in ("role-path", "variant", "path", "unregistered"):
+            self.rejects(self.example + f"\n<!-- sc:{name} SC-M90-001 V1 -->\n", "Unsupported scenario marker")
+
+    def test_terminal_requires_a_system_response(self):
+        self.rejects(self.example.replace("| E2.2 | SYSTEM |", "| E2.2 | ACT-902 |"), "outcome must be returned by SYSTEM")
+
     def test_orphan_branch_is_not_ignored(self):
         line = next(line for line in self.example.splitlines() if line.startswith("| E2 | user-choice |"))
         self.rejects(self.example.replace(line, ""), "orphan branch")

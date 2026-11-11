@@ -1,3 +1,24 @@
+# QA-M15 — Tái kiểm sau khắc phục
+
+[Vietnamese Doc] — 11/11/2026, skill scenarios v1.4. Trạng thái Đang soạn theo nguồn nghiệp vụ.
+
+## Kết quả hiện hành
+
+| Kiểm tra | Kết quả |
+| --- | --- |
+| Validator chuẩn | PASS 11 UC, 3 BF, 3 SC, 38 nhánh E |
+| Chuẩn hóa biến thể | 10 nhánh từ ID V lịch sử đã đăng ký E tại M1, bảng chuyển đổi ở cuối SC |
+| Bảo toàn nội dung | 77 bước main/E/V lịch sử được đối chiếu trước/sau, chỉ đổi ID nhánh, vị trí dẫn và dữ liệu đã xác nhận trong QA-SC-02/03 |
+| Phạm vi kiểm máy | Actor/nguồn, guard đăng ký, điểm thay/điểm vào, đích bước, luân phiên, khả năng kết thúc và hậu điều kiện của toàn bộ main/E |
+| GAP và phê duyệt | Các GAP nguồn còn mở được liệt kê trong SC và báo cáo tái kiểm toàn bộ, đầu ra giữ Đang soạn |
+
+
+Bản hiện hành [SC-M15.md](SC-M15.md). Kết quả toàn bộ và các quyết định còn chờ ở [báo cáo khắc phục](../QA-M01-M16-2026-11-11-khac-phuc.md).
+
+## Bằng chứng lần soạn trước
+
+Phần dưới lưu báo cáo của chính module này trước ngày chuyển đổi. Các số E/V và nhận xét giới hạn validator trong phần lịch sử phản ánh công cụ lúc soạn. Số liệu và kết quả áp dụng hiện tại nằm ở mục Kết quả hiện hành, các biến thể đã được kiểm bằng hợp đồng E.
+
 # QA — M15 Analytics & Stats
 
 [Vietnamese Doc] — 11/11/2026 — Skill scenarios v1.3.

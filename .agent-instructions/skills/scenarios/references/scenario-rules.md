@@ -88,7 +88,18 @@ Quy ước duy nhất để không nhập nhằng: `at=M4` nghĩa nhánh **thay 
 không phải chạy xong M4 rồi mới chạy lại phản hồi hệ thống ở đầu nhánh.
 Ví dụ M3 actor gửi → E1.1 SYSTEM từ chối → E1.2 actor sửa/gửi → M4 SYSTEM
 kiểm lại. Nếu lựa chọn ở M3: M2 SYSTEM đưa lựa chọn → E2.1 actor hủy → E2.2
-SYSTEM đóng thao tác. Bước đầu nhánh cùng chủ thể với bước nó thay thế.
+SYSTEM đóng thao tác. Bước đầu nhánh cùng chủ thể với bước nó thay thế,
+trừ nhánh `at=M1` thay hành trình từ đầu bằng một actor khởi tạo khác.
+Nhánh này vẫn dùng `E` trong `sc:exceptions` và `sc:branch`, ghi actor cùng
+guard cụ thể ở `condition`, và bắt đầu bằng actor có ID trong US. Các cạnh
+tiếp nối/nhập lại vẫn luân phiên chủ thể và mỗi kết thúc do SYSTEM trả kết
+quả theo hậu điều kiện. `system` dùng khi rẽ theo quyền/trạng thái, còn
+`user-choice` dùng khi có lựa chọn của actor trong nguồn. Actor/role khác
+giữ cùng mục tiêu chức năng của scenario bao chứa.
+
+Khi chuyển các nhánh lịch sử sang hợp đồng E, nối tiếp số E đang có, lưu
+bảng ID cũ → ID E mới và cập nhật vị trí truy vết. Mã phiên bản nội dung
+hoặc định danh nghiệp vụ trùng ký tự với ID nhánh giữ ý nghĩa dữ liệu gốc.
 
 Mỗi nhánh phải có:
 

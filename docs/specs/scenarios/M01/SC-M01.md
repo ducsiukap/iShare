@@ -1,6 +1,6 @@
 # Kịch bản nghiệp vụ — M01 Authentication & Account
 
-[Vietnamese Doc] — sửa theo scenarios v1.3, ngày 2026-11-08.
+[Vietnamese Doc] — Tái kiểm 11/11/2026 — Skill scenarios v1.4.
 
 **Phạm vi:** 6 nhóm UC chính, 19 UC con, 20 mapping của US-M01. Boundary là iShare; module nội bộ đều là SYSTEM. Đầu ra tập trung vào chức năng actor thực hiện hoàn chỉnh.
 
@@ -14,9 +14,9 @@
 |---|---|
 | module | M01 |
 | scope | ALL |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | docs/specs/scenarios/M01 |
-| date | 2026-11-08 |
+| date | 2026-11-11 |
 | status | Đang soạn |
 | completed_steps | 1, 2, 3, 4 |
 | approval_evidence | - |

@@ -12,7 +12,7 @@ Trong phạm vi: {{SCOPE}}. Ngoài phạm vi: {{OUT_OF_SCOPE}}.
 |---|---|
 | module | {{Mxx}} |
 | scope | {{ALL_or_COMMA_SEPARATED_UC_IDS}} |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | {{SOURCE_PACKAGE_ROOT}}/scenarios/{{Mxx}} |
 | status | Đang soạn |
 | completed_steps | - |
@@ -126,6 +126,10 @@ khác có hợp đồng tiếp nối rõ. Luồng chính kết thúc SUCCESS c�
 | E1 | system | M2 | {{SOURCE_BACKED_GUARD}} | E1.1 | {{SOURCE}} |
 
 `at` là bước **bị thay thế**. Luồng chính M1 → M2 trở thành M1 → E1.1.
+Biến thể đổi actor từ đầu ghi `at=M1`, `condition` chứa actor khởi tạo và
+điều kiện vai trò/trạng thái. Bảng `sc:branch` bắt đầu bằng actor đó, triển
+khai đủ bước đến kết quả. Khi kế thừa ID cũ, thêm bảng đối chiếu ngoài sáu
+phần của scenario để tra được ID E hiện hành.
 Nếu không có ngoại lệ trong nguồn: giữ bảng rỗng, ghi phạm vi đã rà và bằng
 chứng; xóa bảng branch minh họa. Thiếu thông tin phải ghi GAP, không ghi không có.
 

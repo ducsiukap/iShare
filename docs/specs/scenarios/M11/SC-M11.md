@@ -1,6 +1,6 @@
 # Kịch bản nghiệp vụ — M11 Group
 
-[Vietnamese Doc] — 2026-11-11 — Skill scenarios v1.3.
+[Vietnamese Doc] — Tái kiểm 11/11/2026 — Skill scenarios v1.4.
 
 **Phạm vi:** toàn M11 theo FR + US: 5 UC chính, 24 UC con, 30 mapping; 22 luồng nghiệp vụ/22 scenario, 19 UC sở hữu scenario, 6 UC embedded, 4 core Summary aggregate. Giữ 32 include, không extend/generalization UC; 6 SVG nguồn. Sáu AUT và sáu RULE giữ tác vụ/ràng buộc nền, không tính BF/SC.
 
@@ -18,7 +18,7 @@
 |---|---|
 | module | M11 |
 | scope | ALL |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | docs/specs/scenarios/M11 |
 | status | Đang soạn |
 | completed_steps | 1, 2, 3, 4 |
@@ -65,7 +65,7 @@ FR chính thức khớp byte bản chung .agents/.claude/system_analysis/output/
 
 | Bộ dữ liệu | Giá trị giả lập và quy ước |
 |---|---|
-| D-TIME | T=10/11/2026 10:00+07; mọi mốc giờ Việt Nam. Mỗi SC/E/V là snapshot độc lập, không bắt chạy các SC theo thứ tự. Tên, ID, URL ký hiệu và nội dung đều giả lập. |
+| D-TIME | T=10/11/2026 10:00+07; mọi mốc giờ Việt Nam. Mỗi SC/E là snapshot độc lập, không bắt chạy các SC theo thứ tự. Tên, ID, URL ký hiệu và nội dung đều giả lập. |
 | D-PEOPLE | An/U-A Owner; Bình/U-B và Dũng/U-D Group Mod; Chi/U-C và Lan/U-L Member; Phúc/U-P người ngoài nhóm. Guest ACT-001 chưa đăng nhập. Mod hệ thống Minh/U-M và Admin Hòa/U-H không tự là thành viên; nếu một đường cho họ vai trò nhóm thì ghi rõ. |
 | D-GROUP | N11: Ôn thi Toán, mô tả Trao đổi Toán lớp 11, Hoạt động/Bình thường; Public, không câu hỏi, duyệt trước Tắt, ẩn danh Bật. Một link chung LINK-N11 (ký hiệu giả lập), không hết hạn. N12 Private có câu hỏi Bạn học lớp mấy?. |
 | D-MEMBERS | An Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. |
@@ -73,7 +73,7 @@ FR chính thức khớp byte bản chung .agents/.claude/system_analysis/output/
 | D-BOUND | Tên A×100 được/A×101 từ chối; mô tả B×500 được/B×501 từ chối; dùng ASCII để không chốt Unicode/trim (GAP002). Câu hỏi/câu trả lời không đặt giới hạn ngoài nguồn. |
 
 
-Mỗi SC/E/V là một lần chạy độc lập; mã dùng lại không là một lịch sử bắt buộc xuyên các SC. Guard thay snapshot từ đầu; biến thể Private dùng nhóm/lối vào đã nêu. Vai trò nhóm thuộc đúng nhóm đang xét; ADMIN miễn cờ/AI vẫn cần vai trò nhóm, chịu Khóa và hạn tạo. Các mốc T2=10:11 ở nhánh nhận lại khác T chuẩn10:00 và được nêu tường minh.
+Mỗi SC/E là một lần chạy độc lập; mã dùng lại không là một lịch sử bắt buộc xuyên các SC. Guard thay snapshot từ đầu; biến thể Private dùng nhóm/lối vào đã nêu. Vai trò nhóm thuộc đúng nhóm đang xét; ADMIN miễn cờ/AI vẫn cần vai trò nhóm, chịu Khóa và hạn tạo. Các mốc T2=10:11 ở nhánh nhận lại khác T chuẩn10:00 và được nêu tường minh.
 
 | Bộ dữ liệu bổ sung | Giá trị giả lập |
 |---|---|
@@ -251,7 +251,7 @@ Tạo một nhóm và trở thành Owner đầu tiên — BF-M11-001; owner [UC-
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-002 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -279,7 +279,7 @@ Có dữ liệu yêu cầu tạo, phiên theo M01; đăng nhập/hạn mức/c�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-001 -->
 
@@ -292,6 +292,9 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E5 | user-choice | M1 | Người tạo đặt ngay cấu hình và dùng biên100/500 ASCII | E5.1 | FR-M11-01.01, FR-M11-01.10, FR-M11-01.11, FR-M11-01.12, BR-M11-31, FR-M11-01.02, FR-M11-01.03, FR-M11-01.04, FR-M11-01.05, FR-M11-01.06, FR-M11-01.07, FR-M11-01.08, FR-M11-01.09, FR-M11-05.06, BR-M11-03, BR-M11-04, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 | E6 | system | M1 | Nhóm tạo cũ đúng T−24h rời cửa sổ, không giới hạn tổng40 nhóm sở hữu | E6.1 | BR-M11-03, FR-M11-01.01, FR-M11-01.02, FR-M11-01.03, FR-M11-01.05, FR-M11-01.06, FR-M11-01.08, FR-M11-01.09, FR-M11-01.10, FR-M11-01.12, FR-M11-05.06, BR-M11-02, BR-M11-04, BR-M11-31, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 | E7 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E7.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
+| E8 | system | M1 | ACT-001 — Guest chưa đăng nhập yêu cầu tạo. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-01.04, FR-M11-01.03, FR-M11-01.07, BR-M11-03, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-007 — Hòa Admin có đủ 5 nhóm đã tạo trong 24h, kể cả cờ Tắt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-01.07, FR-M11-01.03, FR-M11-01.04, BR-M11-03, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-01.01, FR-M11-01.10, FR-M11-01.11, FR-M11-01.12, BR-M11-31, FR-M11-17.03, FR-M10-12.08, FR-M11-01.02, FR-M11-01.03, FR-M11-01.05, FR-M11-01.06, FR-M11-01.08, FR-M11-01.09, FR-M11-05.06, BR-M11-02, BR-M11-03, BR-M11-04, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-001 E1 -->
@@ -351,34 +354,34 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E7.1 | SYSTEM | Hệ thống từ chối với “Hệ thống đang bận, vui lòng thử lại sau”; giữ lối vào/dữ liệu và các việc tự làm/kiểm duyệt M08. Bật lại không làm bù lệnh này; muốn làm cần yêu cầu mới hợp lệ. | Group=false; người yêu cầu không ADMIN; không thực hiện chức năng của lần bị chặn | END:REJECTED | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập yêu cầu tạo. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Guest chưa đăng nhập yêu cầu tạo. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-001 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu tạo nhóm. | Tên Ôn thi Toán/Public; chưa đăng nhập | V1.2 | FR-M11-01.04 |
-| V1.2 | SYSTEM | Hệ thống từ chối vì chưa đăng nhập. | Chưa tạo nhóm mới | END:REJECTED | FR-M11-01.03, FR-M11-01.04, FR-M11-01.07, BR-M11-03, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Hòa Admin có đủ 5 nhóm đã tạo trong 24h, kể cả cờ Tắt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-001 V2 -->
+<!-- sc:branch SC-M11-001 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-007 | Hòa Admin yêu cầu tạo nhóm. | Tên Ôn thi Toán/Public; count24h=5; Group=false | V2.2 | FR-M11-01.07 |
-| V2.2 | SYSTEM | Hệ thống cho ADMIN qua cờ nhưng vẫn từ chối tạo vượt5 trong 24h. | Chưa tạo nhóm mới | END:REJECTED | FR-M11-01.03, FR-M11-01.04, FR-M11-01.07, BR-M11-03, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-001 | Guest yêu cầu tạo nhóm. | Tên Ôn thi Toán/Public; chưa đăng nhập | E8.2 | FR-M11-01.04 |
+| E8.2 | SYSTEM | Hệ thống từ chối vì chưa đăng nhập. | Chưa tạo nhóm mới | END:REJECTED | FR-M11-01.03, FR-M11-01.04, FR-M11-01.07, BR-M11-03, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Hòa Admin có đủ 5 nhóm đã tạo trong 24h, kể cả cờ Tắt. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-001 V3 -->
+<!-- sc:branch SC-M11-001 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-007 | Hòa gửi yêu cầu tạo nhóm với tên, mô tả và chế độ. | Tên=Ôn thi Toán; mô tả=Trao đổi Toán lớp 11; Public; không đặt hai công tắc/câu hỏi; T; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V3.2 | FR-M11-01.01, FR-M11-01.10, FR-M11-01.11, FR-M11-01.12, BR-M11-31, FR-M11-17.03, FR-M10-12.08 |
-| V3.2 | SYSTEM | Hệ thống kiểm đã đăng nhập/cờ, tên không trống và ≤100 ký tự, mô tả ≤500. Đếm 4 nhóm người này tạo trong 24 giờ ngay trước T, gồm đã xóa, không tính nhóm đúng T−24h; không giới hạn tổng sở hữu. Tạo N11 Hoạt động/Bình thường, Hòa là Owner duy nhất/thành viên đầu tiên với thời điểm tham gia=T; duyệt trước và ẩn danh mặc định Tắt, câu hỏi trống, một link chung không hết hạn. Trả nhóm đã tạo. | 4→5 nhóm trong khoảng; Owner=Hòa; tên trùng được; tồn tại=Hoạt động; kiểm duyệt=Bình thường; duyệt trước=false; ẩn danh=false; question=trống; LINK-N11 | END:SUCCESS | FR-M11-01.01, FR-M11-01.02, FR-M11-01.03, FR-M11-01.05, FR-M11-01.06, FR-M11-01.08, FR-M11-01.09, FR-M11-01.10, FR-M11-01.12, FR-M11-05.06, BR-M11-02, BR-M11-03, BR-M11-04, BR-M11-31, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-007 | Hòa Admin yêu cầu tạo nhóm. | Tên Ôn thi Toán/Public; count24h=5; Group=false | E9.2 | FR-M11-01.07 |
+| E9.2 | SYSTEM | Hệ thống cho ADMIN qua cờ nhưng vẫn từ chối tạo vượt5 trong 24h. | Chưa tạo nhóm mới | END:REJECTED | FR-M11-01.03, FR-M11-01.04, FR-M11-01.07, BR-M11-03, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-001 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-007 | Hòa gửi yêu cầu tạo nhóm với tên, mô tả và chế độ. | Tên=Ôn thi Toán; mô tả=Trao đổi Toán lớp 11; Public; không đặt hai công tắc/câu hỏi; T; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E10.2 | FR-M11-01.01, FR-M11-01.10, FR-M11-01.11, FR-M11-01.12, BR-M11-31, FR-M11-17.03, FR-M10-12.08 |
+| E10.2 | SYSTEM | Hệ thống kiểm đã đăng nhập/cờ, tên không trống và ≤100 ký tự, mô tả ≤500. Đếm 4 nhóm người này tạo trong 24 giờ ngay trước T, gồm đã xóa, không tính nhóm đúng T−24h; không giới hạn tổng sở hữu. Tạo N11 Hoạt động/Bình thường, Hòa là Owner duy nhất/thành viên đầu tiên với thời điểm tham gia=T; duyệt trước và ẩn danh mặc định Tắt, câu hỏi trống, một link chung không hết hạn. Trả nhóm đã tạo. | 4→5 nhóm trong khoảng; Owner=Hòa; tên trùng được; tồn tại=Hoạt động; kiểm duyệt=Bình thường; duyệt trước=false; ẩn danh=false; question=trống; LINK-N11 | END:SUCCESS | FR-M11-01.01, FR-M11-01.02, FR-M11-01.03, FR-M11-01.05, FR-M11-01.06, FR-M11-01.08, FR-M11-01.09, FR-M11-01.10, FR-M11-01.12, FR-M11-05.06, BR-M11-02, BR-M11-03, BR-M11-04, BR-M11-31, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
 <!-- sc:end SC-M11-001 -->
@@ -395,7 +398,7 @@ Sửa thông tin và cài đặt một nhóm — BF-M11-002; owner [UC-M11-002](
 
 #### 2. Actor thực hiện
 
-ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -425,7 +428,7 @@ Có nhóm và dữ liệu cần thay; kiểm Owner/quyền/trạng thái khi m�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-002 -->
 
@@ -443,6 +446,11 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E10 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E10.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E11 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E11.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 | E12 | system | M4 | Nhóm chuyển Bị khóa hoặc cờ Group Tắt với người không ADMIN sau lượt đọc nhưng trước lúc lưu | E12.1 | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
+| E13 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M11-02.01, FR-M11-02.02, FR-M11-17.03, FR-M10-12.08, FR-M11-02.09, FR-M11-02.10, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-02.05, FR-M11-02.06, FR-M11-02.07, FR-M11-02.08, BR-M11-31, FR-M11-02.03, FR-M11-02.04, FR-M11-02.11, FR-M11-02.12, FR-M11-02.13, FR-M11-02.14, FR-M11-02.15, BR-M11-08, BR-M11-15, BR-M11-16, BR-M11-18, BR-M11-32 |
+| E14 | system | M1 | ACT-010 — Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E15 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E15.1 | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E16 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E16.1 | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E17 | system | M1 | ACT-007 — Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E17.1 | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-002 E1 -->
@@ -540,56 +548,56 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E12.1 | SYSTEM | Hệ thống kiểm lại điều kiện hiện tại; nếu cờ Tắt từ chối đúng thông báo “Hệ thống đang bận, vui lòng thử lại sau”, nếu Khóa từ chối hành vi đã bị chặn. Không dùng lần đọc trước để hoàn tất thay đổi. | Không có thay đổi được yêu cầu của lần lưu này; trạng thái hiện tại giữ | END:REJECTED | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E13 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-002 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa mở chức năng sửa thông tin/cài đặt N11. | Hòa Owner; cấu hình cũ Public/duyệt trước Bật/ẩn danh Bật; một câu hỏi; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-02.01, FR-M11-02.02, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Chỉ Owner được sửa, nhóm không Bị khóa; trả thông tin và cài đặt hiện tại để thay. | Tên=Ôn thi Toán; mô tả cũ; Public; câu hỏi cũ; P-old/P-wait/R1/R2 giữ nguyên | V1.3 | FR-M11-02.01, FR-M11-02.02, FR-M11-02.09, FR-M11-02.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-| V1.3 | ACT-007 | Hòa đổi tên/mô tả, Public→Private, tắt duyệt trước và ẩn danh, sửa câu hỏi rồi lưu. | Tên=CLB Toán 11; mô tả=Cùng giải bài; Private; duyệt trước=false; ẩn danh=false; câu hỏi=Mục tiêu học tập của bạn? | V1.4 | FR-M11-02.01, FR-M11-02.02, FR-M11-02.05, FR-M11-02.06, FR-M11-02.07, FR-M11-02.08, BR-M11-31, FR-M11-17.03, FR-M10-12.08 |
-| V1.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Owner; tên không trống ≤100, mô tả ≤500, tối đa một câu hỏi, lưu đúng các giá trị tại T. Private áp yêu cầu mới: người ngoài đang đọc bản tải 09:55 chỉ đọc bản hiện sẵn, không bình luận/vote/báo cáo; tải feed/tìm sau T không trả bài, tải lại/link/bookmark/thông báo báo “Nội dung không tồn tại”. Duyệt trước mới chỉ áp bài gửi sau T, P-wait vẫn chờ. P-old vẫn ẩn danh, bài mới không chọn ẩn danh. Câu hỏi mới chỉ áp yêu cầu mới; R1/R2 vẫn chờ vì chưa thành vào ngay. Trả thông tin/cài đặt mới. | CLB Toán 11/Cùng giải bài/Private/false/false/Mục tiêu học tập của bạn?; P-old ẩn danh; P-wait/R1/R2 giữ trạng thái | END:SUCCESS | FR-M11-02.01, FR-M11-02.02, FR-M11-02.03, FR-M11-02.04, FR-M11-02.05, FR-M11-02.06, FR-M11-02.07, FR-M11-02.08, FR-M11-02.09, FR-M11-02.10, FR-M11-02.11, FR-M11-02.12, FR-M11-02.13, FR-M11-02.14, FR-M11-02.15, BR-M11-08, BR-M11-15, BR-M11-16, BR-M11-18, BR-M11-31, BR-M11-32, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-002 V2 -->
+<!-- sc:branch SC-M11-002 E13 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-010 | Bình Group Mod yêu cầu: Sửa thông tin và cài đặt một nhóm. | Đúng nhóm/đích của chức năng; Bình Group Mod không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-007 | Hòa mở chức năng sửa thông tin/cài đặt N11. | Hòa Owner; cấu hình cũ Public/duyệt trước Bật/ẩn danh Bật; một câu hỏi; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E13.2 | FR-M11-02.01, FR-M11-02.02, FR-M11-17.03, FR-M10-12.08 |
+| E13.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Chỉ Owner được sửa, nhóm không Bị khóa; trả thông tin và cài đặt hiện tại để thay. | Tên=Ôn thi Toán; mô tả cũ; Public; câu hỏi cũ; P-old/P-wait/R1/R2 giữ nguyên | E13.3 | FR-M11-02.01, FR-M11-02.02, FR-M11-02.09, FR-M11-02.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| E13.3 | ACT-007 | Hòa đổi tên/mô tả, Public→Private, tắt duyệt trước và ẩn danh, sửa câu hỏi rồi lưu. | Tên=CLB Toán 11; mô tả=Cùng giải bài; Private; duyệt trước=false; ẩn danh=false; câu hỏi=Mục tiêu học tập của bạn? | E13.4 | FR-M11-02.01, FR-M11-02.02, FR-M11-02.05, FR-M11-02.06, FR-M11-02.07, FR-M11-02.08, BR-M11-31, FR-M11-17.03, FR-M10-12.08 |
+| E13.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Owner; tên không trống ≤100, mô tả ≤500, tối đa một câu hỏi, lưu đúng các giá trị tại T. Private áp yêu cầu mới: người ngoài đang đọc bản tải 09:55 chỉ đọc bản hiện sẵn, không bình luận/vote/báo cáo; tải feed/tìm sau T không trả bài, tải lại/link/bookmark/thông báo báo “Nội dung không tồn tại”. Duyệt trước mới chỉ áp bài gửi sau T, P-wait vẫn chờ. P-old vẫn ẩn danh, bài mới không chọn ẩn danh. Câu hỏi mới chỉ áp yêu cầu mới; R1/R2 vẫn chờ vì chưa thành vào ngay. Trả thông tin/cài đặt mới. | CLB Toán 11/Cùng giải bài/Private/false/false/Mục tiêu học tập của bạn?; P-old ẩn danh; P-wait/R1/R2 giữ trạng thái | END:SUCCESS | FR-M11-02.01, FR-M11-02.02, FR-M11-02.03, FR-M11-02.04, FR-M11-02.05, FR-M11-02.06, FR-M11-02.07, FR-M11-02.08, FR-M11-02.09, FR-M11-02.10, FR-M11-02.11, FR-M11-02.12, FR-M11-02.13, FR-M11-02.14, FR-M11-02.15, BR-M11-08, BR-M11-15, BR-M11-16, BR-M11-18, BR-M11-31, BR-M11-32, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E14 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-002 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-009 | Chi Member yêu cầu: Sửa thông tin và cài đặt một nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-002 V4 -->
+<!-- sc:branch SC-M11-002 E14 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-002 | Phúc người ngoài yêu cầu: Sửa thông tin và cài đặt một nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-010 | Bình Group Mod yêu cầu: Sửa thông tin và cài đặt một nhóm. | Đúng nhóm/đích của chức năng; Bình Group Mod không có vai trò nhóm bắt buộc; Group=true | E14.2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06 |
+| E14.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E15 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-002 V5 -->
+<!-- sc:branch SC-M11-002 E15 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa ADMIN không Owner yêu cầu: Sửa thông tin và cài đặt một nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Owner không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E15.1 | ACT-009 | Chi Member yêu cầu: Sửa thông tin và cài đặt một nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E15.2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06 |
+| E15.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E16 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-002 E16 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E16.1 | ACT-002 | Phúc người ngoài yêu cầu: Sửa thông tin và cài đặt một nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E16.2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06 |
+| E16.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E17 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-002 E17 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E17.1 | ACT-007 | Hòa ADMIN không Owner yêu cầu: Sửa thông tin và cài đặt một nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Owner không có vai trò nhóm bắt buộc; Group=true | E17.2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06 |
+| E17.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-002 -->
@@ -606,7 +614,7 @@ Xóa mềm một nhóm do mình làm Owner — BF-M11-003; owner [UC-M11-003](..
 
 #### 2. Actor thực hiện
 
-ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -634,7 +642,7 @@ Có N11 Hoạt động/Bình thường và yêu cầu xóa; quyền Owner/cờ/K
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-003 -->
 
@@ -643,6 +651,11 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E1 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E1.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E2 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E2.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E3 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E3.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
+| E4 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M11-15.01, FR-M11-17.03, FR-M10-12.08, FR-M11-15.02, FR-M11-15.03, FR-M11-15.05, BR-M11-23, FR-M12-02.14, FR-M11-15.04, FR-M11-01.06, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E5 | system | M1 | ACT-010 — Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E6 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E7 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-007 — Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-003 E1 -->
@@ -666,54 +679,54 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E3.1 | SYSTEM | Hệ thống từ chối hành vi trong nhóm Bị khóa kể cả Owner/Group Mod hoặc ADMIN; quyền đọc/lưu/báo cáo/Member-Group Mod tự rời và tự kế nhiệm theo hợp đồng riêng vẫn giữ. | Nhóm Bị khóa; không thực hiện thay đổi/duyệt/nhận mở queue bị chặn | END:REJECTED | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-003 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa chọn xóa N11. | Hòa Owner; N11 có nhiều thành viên và nội dung; Chi 20 điểm; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-15.01, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Chỉ Owner được xóa, không Bị khóa. Áp xóa mềm UC022: nhóm→Đã xóa, nhóm và mọi nội dung không hiện với bất kỳ ai kể cả thành viên cũ; giữ dữ liệu, giữ điểm từng người (Chi có 20 điểm từ bài vẫn 20). Từ chối mở/tham gia/đăng vào nhóm đã xóa; nhóm vẫn tính vào lịch sử tạo trong 24 giờ nếu còn trong khoảng. Trả kết quả Đã xóa. | N11 Hoạt động→Đã xóa; dữ liệu giữ; Chi20→20; không tạo chức năng khôi phục | END:SUCCESS | FR-M11-15.01, FR-M11-15.02, FR-M11-15.03, FR-M11-15.05, BR-M11-23, FR-M12-02.14, FR-M11-15.04, FR-M11-01.06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-003 V2 -->
+<!-- sc:branch SC-M11-003 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-010 | Bình Group Mod yêu cầu: Xóa mềm một nhóm do mình làm Owner. | Đúng nhóm/đích của chức năng; Bình Group Mod không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-15.04, BR-M11-06 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-007 | Hòa chọn xóa N11. | Hòa Owner; N11 có nhiều thành viên và nội dung; Chi 20 điểm; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E4.2 | FR-M11-15.01, FR-M11-17.03, FR-M10-12.08 |
+| E4.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Chỉ Owner được xóa, không Bị khóa. Áp xóa mềm UC022: nhóm→Đã xóa, nhóm và mọi nội dung không hiện với bất kỳ ai kể cả thành viên cũ; giữ dữ liệu, giữ điểm từng người (Chi có 20 điểm từ bài vẫn 20). Từ chối mở/tham gia/đăng vào nhóm đã xóa; nhóm vẫn tính vào lịch sử tạo trong 24 giờ nếu còn trong khoảng. Trả kết quả Đã xóa. | N11 Hoạt động→Đã xóa; dữ liệu giữ; Chi20→20; không tạo chức năng khôi phục | END:SUCCESS | FR-M11-15.01, FR-M11-15.02, FR-M11-15.03, FR-M11-15.05, BR-M11-23, FR-M12-02.14, FR-M11-15.04, FR-M11-01.06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-003 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-009 | Chi Member yêu cầu: Xóa mềm một nhóm do mình làm Owner. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-15.04, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-003 V4 -->
+<!-- sc:branch SC-M11-003 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-002 | Phúc người ngoài yêu cầu: Xóa mềm một nhóm do mình làm Owner. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-15.04, BR-M11-06 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-010 | Bình Group Mod yêu cầu: Xóa mềm một nhóm do mình làm Owner. | Đúng nhóm/đích của chức năng; Bình Group Mod không có vai trò nhóm bắt buộc; Group=true | E5.2 | FR-M11-15.04, BR-M11-06 |
+| E5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-003 V5 -->
+<!-- sc:branch SC-M11-003 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa ADMIN không Owner yêu cầu: Xóa mềm một nhóm do mình làm Owner. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Owner không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-15.04, BR-M11-06 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-009 | Chi Member yêu cầu: Xóa mềm một nhóm do mình làm Owner. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E6.2 | FR-M11-15.04, BR-M11-06 |
+| E6.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E7 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-003 E7 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-002 | Phúc người ngoài yêu cầu: Xóa mềm một nhóm do mình làm Owner. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E7.2 | FR-M11-15.04, BR-M11-06 |
+| E7.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E8 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-003 E8 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-007 | Hòa ADMIN không Owner yêu cầu: Xóa mềm một nhóm do mình làm Owner. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Owner không có vai trò nhóm bắt buộc; Group=true | E8.2 | FR-M11-15.04, BR-M11-06 |
+| E8.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-003 -->
@@ -730,7 +743,7 @@ Xem danh sách các nhóm được phép xuất hiện — BF-M11-004; owner [UC
 
 #### 2. Actor thực hiện
 
-ACT-001 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-001 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -758,7 +771,7 @@ Không cần đăng nhập để xem Public. Bộ nhóm: N1 Public tạo 01/11, 
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-004 -->
 
@@ -766,6 +779,7 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 |---|---|---|---|---|---|
 | E1 | system | M2 | Không có nhóm nào còn đủ điều kiện hiển thị | E1.1 | FR-M11-03.01, FR-M11-03.02, FR-M11-03.16, FR-M11-03.17, BR-M11-11, BR-M11-35, FR-M11-16.01, FR-M11-15.01 |
 | E2 | system | M2 | Cờ Group Tắt, Guest vẫn xem danh sách như lối vào | E2.1 | FR-M11-03.01, FR-M11-03.02, FR-M11-03.16, FR-M11-03.17, FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, BR-M11-35 |
+| E3 | system | M1 | ACT-002 — Chi đăng nhập, là thành viên N3 Private, kể cả danh sách còn khi cờ Tắt. Actor khởi tạo ACT-002; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M11-03.03, FR-M11-03.16, FR-M11-03.01, FR-M11-03.02, FR-M11-03.17, FR-M11-17.07, BR-M11-11, BR-M11-35 |
 
 
 <!-- sc:branch SC-M11-004 E1 -->
@@ -782,14 +796,14 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E2.1 | SYSTEM | Hệ thống giữ lối vào/danh sách và lọc đúng quyền, trả N2,N1 mới nhất trước với tên/mô tả/chế độ. Không mở nhóm ở lần liệt kê này; Guest mở nhóm/bài hoặc tương tác sau đó bị chặn thông báo bận tại SC005, dữ liệu/việc tự làm giữ. | N2,N1 Public; không N3 Private/N4ẩn/N5xóa; Group=false | END:SUCCESS | FR-M11-03.01, FR-M11-03.02, FR-M11-03.16, FR-M11-03.17, FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, BR-M11-35 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Chi đăng nhập, là thành viên N3 Private, kể cả danh sách còn khi cờ Tắt. Actor khởi tạo ACT-002; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** Chi đăng nhập, là thành viên N3 Private, kể cả danh sách còn khi cờ Tắt. Actor khởi tạo ACT-002; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-004 V1 -->
+<!-- sc:branch SC-M11-004 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-002 | Chi mở danh sách nhóm. | Chi thành viên N3; Group=false; N1/N2 Public | V1.2 | FR-M11-03.03, FR-M11-03.16 |
-| V1.2 | SYSTEM | Hệ thống lọc theo thành viên/ẩn/xóa, vẫn giữ danh sách như lối vào khi cờ Tắt, trả N2(05/11),N3(03/11),N1(01/11), đủ tên/mô tả/chế độ. Không cấp quyền mở khi cờ Tắt. | N2 Public,N3 Private,N1 Public; mới nhất trước; chỉ đọc | END:SUCCESS | FR-M11-03.01, FR-M11-03.02, FR-M11-03.03, FR-M11-03.16, FR-M11-03.17, FR-M11-17.07, BR-M11-11, BR-M11-35 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-002 | Chi mở danh sách nhóm. | Chi thành viên N3; Group=false; N1/N2 Public | E3.2 | FR-M11-03.03, FR-M11-03.16 |
+| E3.2 | SYSTEM | Hệ thống lọc theo thành viên/ẩn/xóa, vẫn giữ danh sách như lối vào khi cờ Tắt, trả N2(05/11),N3(03/11),N1(01/11), đủ tên/mô tả/chế độ. Không cấp quyền mở khi cờ Tắt. | N2 Public,N3 Private,N1 Public; mới nhất trước; chỉ đọc | END:SUCCESS | FR-M11-03.01, FR-M11-03.02, FR-M11-03.03, FR-M11-03.16, FR-M11-03.17, FR-M11-17.07, BR-M11-11, BR-M11-35 |
 
 
 <!-- sc:end SC-M11-004 -->
@@ -806,7 +820,7 @@ Mở trang nhóm hoặc đọc nội dung nhóm theo quyền — BF-M11-005; own
 
 #### 2. Actor thực hiện
 
-ACT-001 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-001 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -834,7 +848,7 @@ Có nhóm/nội dung và lối vào; quyền Private và trạng thái không đ
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-005 -->
 
@@ -846,6 +860,17 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E4 | system | M2 | P11 đã bị gỡ khỏi nhóm; Guest không thuộc tập xem còn lại | E4.1 | FR-M11-14.01, BR-M11-30 |
 | E5 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E5.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E6 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E6.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
+| E7 | system | M1 | ACT-009 — Lan là Member N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-03.05, FR-M11-03.04, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-010 — Bình là Group Mod N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-03.05, FR-M11-03.04, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-011 — An là Owner N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-03.05, FR-M11-03.04, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-008 — Minh không là thành viên N12 Private, mở từ vụ báo cáo mình đang giữ M08. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-03.12, FR-M11-03.10, BR-M11-17, BR-M11-33, FR-M08-04.06 |
+| E11 | system | M1 | ACT-008 — Minh không là thành viên Private, mở trang thường. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E11.1 | FR-M11-03.11, FR-M11-03.06, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E12 | system | M1 | ACT-008 — Minh đọc Public, thấy danh tính thật; ADMIN có thể đọc khi cờ Tắt. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M11-03.04, FR-M11-03.10, FR-M11-17.03, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E13 | system | M1 | ACT-007 — Hòa không là thành viên N12 Private, mở từ vụ báo cáo mình đang giữ M08. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M11-03.12, FR-M11-03.10, BR-M11-17, BR-M11-33, FR-M08-04.06 |
+| E14 | system | M1 | ACT-007 — Hòa không là thành viên Private, mở trang thường. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M11-03.11, FR-M11-03.06, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E15 | system | M1 | ACT-007 — Hòa đọc Public, thấy danh tính thật; ADMIN có thể đọc khi cờ Tắt. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E15.1 | FR-M11-03.04, FR-M11-03.10, FR-M11-17.03, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E16 | system | M1 | ACT-002 — Phúc ngoài nhóm nhưng đã đăng nhập đọc Public. Actor khởi tạo ACT-002; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E16.1 | FR-M11-03.04, FR-M11-03.09, FR-M11-03.13, BR-M11-13, BR-M11-17, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E17 | system | M1 | ACT-009 — Chi đọc chính P11 bị gỡ ở nhóm Public còn hoạt động. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E17.1 | FR-M11-14.01, FR-M11-14.03, FR-M11-14.05, FR-M11-14.07, BR-M11-30, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-005 E1 -->
@@ -891,114 +916,114 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E6.1 | SYSTEM | Hệ thống không hiển thị nhóm/nội dung và không thực hiện hành vi trên nhóm không còn được mở; giữ dữ liệu theo xóa mềm/ẩn, không tự khôi phục. | Nhóm Đã xóa hoặc Bị ẩn; không nội dung được trả, dữ liệu giữ | END:REJECTED | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Lan là Member N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Lan là Member N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-005 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-009 | Lan mở trang N12 và P11. | N12 Private; Lan thành viên; P11 Đã đăng/không ẩn/gỡ; tác giả Chi; anonymous=true | V1.2 | FR-M11-03.05 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ/trạng thái, Private cho thành viên; trả tên/mô tả và P11 với nhãn tác giả Ẩn danh. Không hiện bài chờ cho người xem thường hoặc cấp quyền staff hệ thống từ role nhóm. | N12 Private; authorLabel=Ẩn danh; storedAuthor=Chi; membership=Member | END:SUCCESS | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Bình là Group Mod N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-005 V2 -->
+<!-- sc:branch SC-M11-005 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-010 | Bình mở trang N12 và P11. | N12 Private; Bình thành viên; P11 Đã đăng/không ẩn/gỡ; tác giả Chi; anonymous=true | V2.2 | FR-M11-03.05 |
-| V2.2 | SYSTEM | Hệ thống kiểm cờ/trạng thái, Private cho thành viên; trả tên/mô tả và P11 với nhãn tác giả Chi. Không hiện bài chờ cho người xem thường hoặc cấp quyền staff hệ thống từ role nhóm. | N12 Private; authorLabel=Chi; storedAuthor=Chi; membership=Group Mod | END:SUCCESS | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-009 | Lan mở trang N12 và P11. | N12 Private; Lan thành viên; P11 Đã đăng/không ẩn/gỡ; tác giả Chi; anonymous=true | E7.2 | FR-M11-03.05 |
+| E7.2 | SYSTEM | Hệ thống kiểm cờ/trạng thái, Private cho thành viên; trả tên/mô tả và P11 với nhãn tác giả Ẩn danh. Không hiện bài chờ cho người xem thường hoặc cấp quyền staff hệ thống từ role nhóm. | N12 Private; authorLabel=Ẩn danh; storedAuthor=Chi; membership=Member | END:SUCCESS | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** An là Owner N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Bình là Group Mod N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-005 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-011 | An mở trang N12 và P11. | N12 Private; An thành viên; P11 Đã đăng/không ẩn/gỡ; tác giả Chi; anonymous=true | V3.2 | FR-M11-03.05 |
-| V3.2 | SYSTEM | Hệ thống kiểm cờ/trạng thái, Private cho thành viên; trả tên/mô tả và P11 với nhãn tác giả Chi. Không hiện bài chờ cho người xem thường hoặc cấp quyền staff hệ thống từ role nhóm. | N12 Private; authorLabel=Chi; storedAuthor=Chi; membership=Owner | END:SUCCESS | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Minh không là thành viên N12 Private, mở từ vụ báo cáo mình đang giữ M08. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-005 V4 -->
+<!-- sc:branch SC-M11-005 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-008 | Minh mở nội dung P11 trong vụ báo cáo C11 mình đang giữ. | C11 đang giữ bởiMinh; targetP11/N12 Private/ẩn danh; không mở trang nhóm | V4.2 | FR-M11-03.12 |
-| V4.2 | SYSTEM | Hệ thống cho xem đúng nội dung Private trong ngữ cảnh vụ đang giữ và hiện tác giả thật Chi. Trả dữ liệu cho việc đọc nội dung trong vụ, không cấp trang nhóm/danh sách thành viên/queue nhóm. Việc xét và kết luận vụ vẫn thuộc M08. | P11 nội dung và author Chi trong C11; không phải quyền toàn N12 | END:SUCCESS | FR-M11-03.10, FR-M11-03.12, BR-M11-17, BR-M11-33, FR-M08-04.06 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-010 | Bình mở trang N12 và P11. | N12 Private; Bình thành viên; P11 Đã đăng/không ẩn/gỡ; tác giả Chi; anonymous=true | E8.2 | FR-M11-03.05 |
+| E8.2 | SYSTEM | Hệ thống kiểm cờ/trạng thái, Private cho thành viên; trả tên/mô tả và P11 với nhãn tác giả Chi. Không hiện bài chờ cho người xem thường hoặc cấp quyền staff hệ thống từ role nhóm. | N12 Private; authorLabel=Chi; storedAuthor=Chi; membership=Group Mod | END:SUCCESS | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Minh không là thành viên Private, mở trang thường. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** An là Owner N12 Private, P11 đủ quyền đọc và đăng ẩn danh. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-005 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-008 | Minh mở trang N12 Private bằng link thường. | Không thành viên/không ngữ cảnh vụ đang giữ; Group=true | V5.2 | FR-M11-03.11 |
-| V5.2 | SYSTEM | Hệ thống không trả trang/thông tin/nội dung Private vì không là thành viên. Quyền thấy danh tính thật không cấp quyền mở nhóm. | N12 Private; không tiết lộ nội dung | END:REJECTED | FR-M11-03.06, FR-M11-03.11, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** Minh đọc Public, thấy danh tính thật; ADMIN có thể đọc khi cờ Tắt. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-005 V6 -->
+<!-- sc:branch SC-M11-005 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-008 | Minh mở P11 của N11 Public. | N11 Public; P11 Đã đăng/ẩn danh; Group=true; Minh MODERATOR | V6.2 | FR-M11-03.04, FR-M11-03.10 |
-| V6.2 | SYSTEM | Hệ thống kiểm điều kiện mở, Public cho đọc; trả P11 với tác giả thật Chi theo quyền hệ thống, dữ liệu ẩn danh trong bài không bị xóa. | authorLabel=Chi; storedAuthorChi; anonymous=true; chỉ đọc | END:SUCCESS | FR-M11-03.04, FR-M11-03.10, FR-M11-17.03, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-011 | An mở trang N12 và P11. | N12 Private; An thành viên; P11 Đã đăng/không ẩn/gỡ; tác giả Chi; anonymous=true | E9.2 | FR-M11-03.05 |
+| E9.2 | SYSTEM | Hệ thống kiểm cờ/trạng thái, Private cho thành viên; trả tên/mô tả và P11 với nhãn tác giả Chi. Không hiện bài chờ cho người xem thường hoặc cấp quyền staff hệ thống từ role nhóm. | N12 Private; authorLabel=Chi; storedAuthor=Chi; membership=Owner | END:SUCCESS | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V7 — thay toàn bộ M1 đến kết thúc:** Hòa không là thành viên N12 Private, mở từ vụ báo cáo mình đang giữ M08. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E10 — thay toàn bộ M1 đến kết thúc:** Minh không là thành viên N12 Private, mở từ vụ báo cáo mình đang giữ M08. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-005 V7 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V7.1 | ACT-007 | Hòa mở nội dung P11 trong vụ báo cáo C11 mình đang giữ. | C11 đang giữ bởiHòa; targetP11/N12 Private/ẩn danh; không mở trang nhóm | V7.2 | FR-M11-03.12 |
-| V7.2 | SYSTEM | Hệ thống cho xem đúng nội dung Private trong ngữ cảnh vụ đang giữ và hiện tác giả thật Chi. Trả dữ liệu cho việc đọc nội dung trong vụ, không cấp trang nhóm/danh sách thành viên/queue nhóm. Việc xét và kết luận vụ vẫn thuộc M08. | P11 nội dung và author Chi trong C11; không phải quyền toàn N12 | END:SUCCESS | FR-M11-03.10, FR-M11-03.12, BR-M11-17, BR-M11-33, FR-M08-04.06 |
-
-
-**V8 — thay toàn bộ M1 đến kết thúc:** Hòa không là thành viên Private, mở trang thường. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-005 V8 -->
+<!-- sc:branch SC-M11-005 E10 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V8.1 | ACT-007 | Hòa mở trang N12 Private bằng link thường. | Không thành viên/không ngữ cảnh vụ đang giữ; Group=false nhưng có ADMIN | V8.2 | FR-M11-03.11 |
-| V8.2 | SYSTEM | Hệ thống cho ADMIN qua cờ rồi không trả trang/thông tin/nội dung Private vì không là thành viên. Quyền thấy danh tính thật không cấp quyền mở nhóm. | N12 Private; không tiết lộ nội dung | END:REJECTED | FR-M11-03.06, FR-M11-03.11, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-008 | Minh mở nội dung P11 trong vụ báo cáo C11 mình đang giữ. | C11 đang giữ bởiMinh; targetP11/N12 Private/ẩn danh; không mở trang nhóm | E10.2 | FR-M11-03.12 |
+| E10.2 | SYSTEM | Hệ thống cho xem đúng nội dung Private trong ngữ cảnh vụ đang giữ và hiện tác giả thật Chi. Trả dữ liệu cho việc đọc nội dung trong vụ, không cấp trang nhóm/danh sách thành viên/queue nhóm. Việc xét và kết luận vụ vẫn thuộc M08. | P11 nội dung và author Chi trong C11; không phải quyền toàn N12 | END:SUCCESS | FR-M11-03.10, FR-M11-03.12, BR-M11-17, BR-M11-33, FR-M08-04.06 |
 
 
-**V9 — thay toàn bộ M1 đến kết thúc:** Hòa đọc Public, thấy danh tính thật; ADMIN có thể đọc khi cờ Tắt. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E11 — thay toàn bộ M1 đến kết thúc:** Minh không là thành viên Private, mở trang thường. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-005 V9 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V9.1 | ACT-007 | Hòa mở P11 của N11 Public. | N11 Public; P11 Đã đăng/ẩn danh; Group=false; Hòa ADMIN | V9.2 | FR-M11-03.04, FR-M11-03.10 |
-| V9.2 | SYSTEM | Hệ thống kiểm điều kiện mở, cho ADMIN qua cờ, Public cho đọc; trả P11 với tác giả thật Chi theo quyền hệ thống, dữ liệu ẩn danh trong bài không bị xóa. | authorLabel=Chi; storedAuthorChi; anonymous=true; chỉ đọc | END:SUCCESS | FR-M11-03.04, FR-M11-03.10, FR-M11-17.03, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V10 — thay toàn bộ M1 đến kết thúc:** Phúc ngoài nhóm nhưng đã đăng nhập đọc Public. Actor khởi tạo ACT-002; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-005 V10 -->
+<!-- sc:branch SC-M11-005 E11 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V10.1 | ACT-002 | Phúc mở P11 của N11 Public. | Phúc không thành viên; P11 Đã đăng/ẩn danh; Group=true | V10.2 | FR-M11-03.04 |
-| V10.2 | SYSTEM | Hệ thống kiểm quyền, trả Public với nhãn Ẩn danh. Các yêu cầu bình luận/vote/báo cáo/bookmark được phép theo lớp nhóm, owner M04/M12/M08/M02 vẫn kiểm từng chức năng; không thực hiện tương tác chỉ vì đọc. | P11 authorLabel=Ẩn danh; Phúc không thể gửi bài mới vào nhóm nếu chưa tham gia | END:SUCCESS | FR-M11-03.04, FR-M11-03.09, FR-M11-03.13, BR-M11-13, BR-M11-17, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-008 | Minh mở trang N12 Private bằng link thường. | Không thành viên/không ngữ cảnh vụ đang giữ; Group=true | E11.2 | FR-M11-03.11 |
+| E11.2 | SYSTEM | Hệ thống không trả trang/thông tin/nội dung Private vì không là thành viên. Quyền thấy danh tính thật không cấp quyền mở nhóm. | N12 Private; không tiết lộ nội dung | END:REJECTED | FR-M11-03.06, FR-M11-03.11, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V11 — thay toàn bộ M1 đến kết thúc:** Chi đọc chính P11 bị gỡ ở nhóm Public còn hoạt động. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E12 — thay toàn bộ M1 đến kết thúc:** Minh đọc Public, thấy danh tính thật; ADMIN có thể đọc khi cờ Tắt. Actor khởi tạo ACT-008; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-005 V11 -->
+<!-- sc:branch SC-M11-005 E12 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V11.1 | ACT-009 | Chi mở P11 của mình sau khi bị nhóm gỡ. | Chi tác giả; N11 Public; P11 Đã đăng/removed=true; Group=true | V11.2 | FR-M11-14.01 |
-| V11.2 | SYSTEM | Hệ thống kiểm các lớp xem, Public và tập tác giả cho Chi đọc nội dung bị gỡ; giữ trạng thái Đã đăng và dấu gỡ/ẩn danh. Không cho tự hiện lại hoặc khiếu nại cấp nhóm. | Nội dung P11 trả cho tác giả; removed=true; điểm giữ 20 | END:SUCCESS | FR-M11-14.01, FR-M11-14.03, FR-M11-14.05, FR-M11-14.07, BR-M11-30, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-008 | Minh mở P11 của N11 Public. | N11 Public; P11 Đã đăng/ẩn danh; Group=true; Minh MODERATOR | E12.2 | FR-M11-03.04, FR-M11-03.10 |
+| E12.2 | SYSTEM | Hệ thống kiểm điều kiện mở, Public cho đọc; trả P11 với tác giả thật Chi theo quyền hệ thống, dữ liệu ẩn danh trong bài không bị xóa. | authorLabel=Chi; storedAuthorChi; anonymous=true; chỉ đọc | END:SUCCESS | FR-M11-03.04, FR-M11-03.10, FR-M11-17.03, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E13 — thay toàn bộ M1 đến kết thúc:** Hòa không là thành viên N12 Private, mở từ vụ báo cáo mình đang giữ M08. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-005 E13 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-007 | Hòa mở nội dung P11 trong vụ báo cáo C11 mình đang giữ. | C11 đang giữ bởiHòa; targetP11/N12 Private/ẩn danh; không mở trang nhóm | E13.2 | FR-M11-03.12 |
+| E13.2 | SYSTEM | Hệ thống cho xem đúng nội dung Private trong ngữ cảnh vụ đang giữ và hiện tác giả thật Chi. Trả dữ liệu cho việc đọc nội dung trong vụ, không cấp trang nhóm/danh sách thành viên/queue nhóm. Việc xét và kết luận vụ vẫn thuộc M08. | P11 nội dung và author Chi trong C11; không phải quyền toàn N12 | END:SUCCESS | FR-M11-03.10, FR-M11-03.12, BR-M11-17, BR-M11-33, FR-M08-04.06 |
+
+
+**E14 — thay toàn bộ M1 đến kết thúc:** Hòa không là thành viên Private, mở trang thường. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-005 E14 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-007 | Hòa mở trang N12 Private bằng link thường. | Không thành viên/không ngữ cảnh vụ đang giữ; Group=false nhưng có ADMIN | E14.2 | FR-M11-03.11 |
+| E14.2 | SYSTEM | Hệ thống cho ADMIN qua cờ rồi không trả trang/thông tin/nội dung Private vì không là thành viên. Quyền thấy danh tính thật không cấp quyền mở nhóm. | N12 Private; không tiết lộ nội dung | END:REJECTED | FR-M11-03.06, FR-M11-03.11, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E15 — thay toàn bộ M1 đến kết thúc:** Hòa đọc Public, thấy danh tính thật; ADMIN có thể đọc khi cờ Tắt. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-005 E15 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E15.1 | ACT-007 | Hòa mở P11 của N11 Public. | N11 Public; P11 Đã đăng/ẩn danh; Group=false; Hòa ADMIN | E15.2 | FR-M11-03.04, FR-M11-03.10 |
+| E15.2 | SYSTEM | Hệ thống kiểm điều kiện mở, cho ADMIN qua cờ, Public cho đọc; trả P11 với tác giả thật Chi theo quyền hệ thống, dữ liệu ẩn danh trong bài không bị xóa. | authorLabel=Chi; storedAuthorChi; anonymous=true; chỉ đọc | END:SUCCESS | FR-M11-03.04, FR-M11-03.10, FR-M11-17.03, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E16 — thay toàn bộ M1 đến kết thúc:** Phúc ngoài nhóm nhưng đã đăng nhập đọc Public. Actor khởi tạo ACT-002; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-005 E16 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E16.1 | ACT-002 | Phúc mở P11 của N11 Public. | Phúc không thành viên; P11 Đã đăng/ẩn danh; Group=true | E16.2 | FR-M11-03.04 |
+| E16.2 | SYSTEM | Hệ thống kiểm quyền, trả Public với nhãn Ẩn danh. Các yêu cầu bình luận/vote/báo cáo/bookmark được phép theo lớp nhóm, owner M04/M12/M08/M02 vẫn kiểm từng chức năng; không thực hiện tương tác chỉ vì đọc. | P11 authorLabel=Ẩn danh; Phúc không thể gửi bài mới vào nhóm nếu chưa tham gia | END:SUCCESS | FR-M11-03.04, FR-M11-03.09, FR-M11-03.13, BR-M11-13, BR-M11-17, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E17 — thay toàn bộ M1 đến kết thúc:** Chi đọc chính P11 bị gỡ ở nhóm Public còn hoạt động. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-005 E17 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E17.1 | ACT-009 | Chi mở P11 của mình sau khi bị nhóm gỡ. | Chi tác giả; N11 Public; P11 Đã đăng/removed=true; Group=true | E17.2 | FR-M11-14.01 |
+| E17.2 | SYSTEM | Hệ thống kiểm các lớp xem, Public và tập tác giả cho Chi đọc nội dung bị gỡ; giữ trạng thái Đã đăng và dấu gỡ/ẩn danh. Không cho tự hiện lại hoặc khiếu nại cấp nhóm. | Nội dung P11 trả cho tác giả; removed=true; điểm giữ 20 | END:SUCCESS | FR-M11-14.01, FR-M11-14.03, FR-M11-14.05, FR-M11-14.07, BR-M11-30, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-005 -->
@@ -1015,7 +1040,7 @@ Xem danh sách thành viên kèm vai trò nhóm — BF-M11-006; owner [UC-M11-00
 
 #### 2. Actor thực hiện
 
-ACT-001 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-001 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -1043,7 +1068,7 @@ Có nhóm và ngữ cảnh yêu cầu xem, không cần đăng nhập cho Public
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-006 -->
 
@@ -1051,6 +1076,11 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 |---|---|---|---|---|---|
 | E1 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E1.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E2 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E2.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
+| E3 | system | M1 | ACT-002 — Phúc ngoài N12 Private, kể cả chỉ có preview lời mời hoặc quyền hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E4 | system | M1 | ACT-009 — Chi có quyền trang N12 Private. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E5 | system | M1 | ACT-011 — An có quyền trang N12 Private. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E6 | system | M1 | ACT-007 — Hòa ngoài N12 Private, kể cả chỉ có preview lời mời hoặc quyền hệ thống. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E7 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng quyền Public; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-03.14, FR-M11-17.03, FR-M10-12.08, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-006 E1 -->
@@ -1067,54 +1097,54 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E2.1 | SYSTEM | Hệ thống không hiển thị nhóm/nội dung và không thực hiện hành vi trên nhóm không còn được mở; giữ dữ liệu theo xóa mềm/ẩn, không tự khôi phục. | Nhóm Đã xóa hoặc Bị ẩn; không nội dung được trả, dữ liệu giữ | END:REJECTED | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Phúc ngoài N12 Private, kể cả chỉ có preview lời mời hoặc quyền hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** Phúc ngoài N12 Private, kể cả chỉ có preview lời mời hoặc quyền hệ thống. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-006 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-002 | Phúc yêu cầu danh sách thành viên N12. | Private; thành viên=False; không ngữ cảnh xem trang được cấp từ vụ/preview | V1.2 | FR-M11-03.14, FR-M11-03.15 |
-| V1.2 | SYSTEM | Hệ thống kiểm quyền trang/nhóm/cờ và không trả danh sách vì không được xem trang Private; preview/vụ riêng không là quyền xem danh sách. | N12; danh sách không được tiết lộ | END:REJECTED | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Chi có quyền trang N12 Private. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-006 V2 -->
+<!-- sc:branch SC-M11-006 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-009 | Chi yêu cầu danh sách thành viên N12. | Private; thành viên=True; không ngữ cảnh xem trang được cấp từ vụ/preview | V2.2 | FR-M11-03.14, FR-M11-03.15 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền trang/nhóm/cờ và trả thành viên kèm vai trò của N12, không đổi role. | An Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | END:SUCCESS | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-002 | Phúc yêu cầu danh sách thành viên N12. | Private; thành viên=False; không ngữ cảnh xem trang được cấp từ vụ/preview | E3.2 | FR-M11-03.14, FR-M11-03.15 |
+| E3.2 | SYSTEM | Hệ thống kiểm quyền trang/nhóm/cờ và không trả danh sách vì không được xem trang Private; preview/vụ riêng không là quyền xem danh sách. | N12; danh sách không được tiết lộ | END:REJECTED | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** An có quyền trang N12 Private. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Chi có quyền trang N12 Private. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-006 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-011 | An yêu cầu danh sách thành viên N12. | Private; thành viên=True; không ngữ cảnh xem trang được cấp từ vụ/preview | V3.2 | FR-M11-03.14, FR-M11-03.15 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền trang/nhóm/cờ và trả thành viên kèm vai trò của N12, không đổi role. | An Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | END:SUCCESS | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Hòa ngoài N12 Private, kể cả chỉ có preview lời mời hoặc quyền hệ thống. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-006 V4 -->
+<!-- sc:branch SC-M11-006 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | Hòa yêu cầu danh sách thành viên N12. | Private; thành viên=False; không ngữ cảnh xem trang được cấp từ vụ/preview | V4.2 | FR-M11-03.14, FR-M11-03.15 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền trang/nhóm/cờ và không trả danh sách vì không được xem trang Private; preview/vụ riêng không là quyền xem danh sách. | N12; danh sách không được tiết lộ | END:REJECTED | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-009 | Chi yêu cầu danh sách thành viên N12. | Private; thành viên=True; không ngữ cảnh xem trang được cấp từ vụ/preview | E4.2 | FR-M11-03.14, FR-M11-03.15 |
+| E4.2 | SYSTEM | Hệ thống kiểm quyền trang/nhóm/cờ và trả thành viên kèm vai trò của N12, không đổi role. | An Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | END:SUCCESS | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng quyền Public; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** An có quyền trang N12 Private. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-006 V5 -->
+<!-- sc:branch SC-M11-006 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa yêu cầu xem danh sách thành viên N11. | N11 Public; Hòa; dữ liệu An Owner/Bình Group Mod/Chi Member; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V5.2 | FR-M11-03.14, FR-M11-17.03, FR-M10-12.08 |
-| V5.2 | SYSTEM | Hệ thống kiểm UC024 và quyền trang nhóm UC023; Public cho Hòa. Trả thành viên cùng vai trò trong N11: An Owner, Bình/Dũng Group Mod, Chi/Lan Member. Không tự cấp quyền bổ nhiệm/kick/chuyển Owner từ việc đọc danh sách. | An Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | END:SUCCESS | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-011 | An yêu cầu danh sách thành viên N12. | Private; thành viên=True; không ngữ cảnh xem trang được cấp từ vụ/preview | E5.2 | FR-M11-03.14, FR-M11-03.15 |
+| E5.2 | SYSTEM | Hệ thống kiểm quyền trang/nhóm/cờ và trả thành viên kèm vai trò của N12, không đổi role. | An Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | END:SUCCESS | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Hòa ngoài N12 Private, kể cả chỉ có preview lời mời hoặc quyền hệ thống. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-006 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-007 | Hòa yêu cầu danh sách thành viên N12. | Private; thành viên=False; không ngữ cảnh xem trang được cấp từ vụ/preview | E6.2 | FR-M11-03.14, FR-M11-03.15 |
+| E6.2 | SYSTEM | Hệ thống kiểm quyền trang/nhóm/cờ và không trả danh sách vì không được xem trang Private; preview/vụ riêng không là quyền xem danh sách. | N12; danh sách không được tiết lộ | END:REJECTED | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E7 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng quyền Public; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-006 E7 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-007 | Hòa yêu cầu xem danh sách thành viên N11. | N11 Public; Hòa; dữ liệu An Owner/Bình Group Mod/Chi Member; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E7.2 | FR-M11-03.14, FR-M11-17.03, FR-M10-12.08 |
+| E7.2 | SYSTEM | Hệ thống kiểm UC024 và quyền trang nhóm UC023; Public cho Hòa. Trả thành viên cùng vai trò trong N11: An Owner, Bình/Dũng Group Mod, Chi/Lan Member. Không tự cấp quyền bổ nhiệm/kick/chuyển Owner từ việc đọc danh sách. | An Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | END:SUCCESS | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
 <!-- sc:end SC-M11-006 -->
@@ -1131,7 +1161,7 @@ Tham gia nhóm hoặc gửi yêu cầu gia nhập theo cổng nhóm — BF-M11-0
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-002 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -1159,7 +1189,7 @@ Có nhóm/lối vào. Chuẩn Phúc chưa tham gia N11 Public không câu hỏi,
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-007 -->
 
@@ -1177,6 +1207,8 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E10 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E10.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E11 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E11.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E12 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E12.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
+| E13 | system | M1 | ACT-001 — Guest yêu cầu tham gia kể cả qua link mời. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M11-04.05, BR-M11-07 |
+| E14 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M11-04.01, FR-M11-05.05, FR-M11-17.03, FR-M10-12.08, FR-M11-04.06, FR-M11-04.07, FR-M11-04.09, FR-M11-05.04, FR-M11-06.08, BR-M11-03, BR-M11-07, BR-M11-09, BR-M11-10, BR-M11-12, BR-M11-37, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-007 E1 -->
@@ -1279,24 +1311,24 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E12.1 | SYSTEM | Hệ thống từ chối hành vi trong nhóm Bị khóa kể cả Owner/Group Mod hoặc ADMIN; quyền đọc/lưu/báo cáo/Member-Group Mod tự rời và tự kế nhiệm theo hợp đồng riêng vẫn giữ. | Nhóm Bị khóa; không thực hiện thay đổi/duyệt/nhận mở queue bị chặn | END:REJECTED | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu tham gia kể cả qua link mời. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E13 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu tham gia kể cả qua link mời. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-007 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest chọn tham gia N12 từ LINK-N12. | Guest chưa đăng nhập; nhóm Private/có câu hỏi | V1.2 | FR-M11-04.05 |
-| V1.2 | SYSTEM | Hệ thống từ chối và yêu cầu đăng nhập theo M01; chưa ghi yêu cầu/thành viên. Đây là từ chối hợp lệ của lần chưa đăng nhập, không tự include toàn phiên xác thực vào M11. | Chưa Member/chưa yêu cầu mới; muốn tiếp tục phải đăng nhập rồi chủ động thực hiện SC007 | END:REJECTED | FR-M11-04.05, BR-M11-07 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-007 V2 -->
+<!-- sc:branch SC-M11-007 E13 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-007 | Hòa chọn Tham gia N11. | N11 Public, không câu hỏi; Hòa người ngoài; T; có thể đến từ LINK-N11; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V2.2 | FR-M11-04.01, FR-M11-05.05, FR-M11-17.03, FR-M10-12.08 |
-| V2.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm đăng nhập, nhóm không Khóa, Hòa không bị nhóm chặn và không có yêu cầu Chờ duyệt trùng. Public không câu hỏi nên thêm ngay Member với thời điểm tham gia=lúc chọn T; không giới hạn tổng nhóm. Không phát thông báo vào ngay. Trả kết quả đã tham gia. | U-H ngoài nhóm→Member; joinAt=T; không tạo yêu cầu Chờ duyệt hoặc lời mời riêng | END:SUCCESS | FR-M11-04.01, FR-M11-04.06, FR-M11-04.07, FR-M11-04.09, FR-M11-05.04, FR-M11-05.05, FR-M11-06.08, BR-M11-03, BR-M11-07, BR-M11-09, BR-M11-10, BR-M11-12, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-001 | Guest chọn tham gia N12 từ LINK-N12. | Guest chưa đăng nhập; nhóm Private/có câu hỏi | E13.2 | FR-M11-04.05 |
+| E13.2 | SYSTEM | Hệ thống từ chối và yêu cầu đăng nhập theo M01; chưa ghi yêu cầu/thành viên. Đây là từ chối hợp lệ của lần chưa đăng nhập, không tự include toàn phiên xác thực vào M11. | Chưa Member/chưa yêu cầu mới; muốn tiếp tục phải đăng nhập rồi chủ động thực hiện SC007 | END:REJECTED | FR-M11-04.05, BR-M11-07 |
+
+
+**E14 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-007 E14 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-007 | Hòa chọn Tham gia N11. | N11 Public, không câu hỏi; Hòa người ngoài; T; có thể đến từ LINK-N11; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E14.2 | FR-M11-04.01, FR-M11-05.05, FR-M11-17.03, FR-M10-12.08 |
+| E14.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm đăng nhập, nhóm không Khóa, Hòa không bị nhóm chặn và không có yêu cầu Chờ duyệt trùng. Public không câu hỏi nên thêm ngay Member với thời điểm tham gia=lúc chọn T; không giới hạn tổng nhóm. Không phát thông báo vào ngay. Trả kết quả đã tham gia. | U-H ngoài nhóm→Member; joinAt=T; không tạo yêu cầu Chờ duyệt hoặc lời mời riêng | END:SUCCESS | FR-M11-04.01, FR-M11-04.06, FR-M11-04.07, FR-M11-04.09, FR-M11-05.04, FR-M11-05.05, FR-M11-06.08, BR-M11-03, BR-M11-07, BR-M11-09, BR-M11-10, BR-M11-12, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
 <!-- sc:end SC-M11-007 -->
@@ -1313,7 +1345,7 @@ Rút yêu cầu tham gia đang chờ của mình — BF-M11-008; owner [UC-M11-0
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-002 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -1341,7 +1373,7 @@ Có R11 của Phúc tới N12 Bình thường, đang Chờ duyệt, chưa là Me
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-008 -->
 
@@ -1351,6 +1383,7 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E2 | system | M1 | Phúc yêu cầu rút R-other của Xuân | E2.1 | FR-M11-04.10, BR-M11-36 |
 | E3 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E3.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E4 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E4.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
+| E5 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M11-04.10, FR-M11-17.03, FR-M10-12.08, BR-M11-36, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-008 E1 -->
@@ -1382,14 +1415,14 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E4.1 | SYSTEM | Hệ thống không hiển thị nhóm/nội dung và không thực hiện hành vi trên nhóm không còn được mở; giữ dữ liệu theo xóa mềm/ẩn, không tự khôi phục. | Nhóm Đã xóa hoặc Bị ẩn; không nội dung được trả, dữ liệu giữ | END:REJECTED | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng ngữ cảnh người dùng/người gửi; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-008 V1 -->
+<!-- sc:branch SC-M11-008 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa yêu cầu rút R11 của mình. | R11/U-H/N12/Chờ duyệt; không xóa bản ghi yêu cầu; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-04.10, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm R11 thuộc Hòa và còn Chờ duyệt; chuyển R11→Đã rút, giữ dữ liệu yêu cầu. Trả kết quả đã rút, không thêm Hòa làm Member. | R11 Chờ duyệt→Đã rút; U-H vẫn người ngoài N12 | END:SUCCESS | FR-M11-04.10, BR-M11-36, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-007 | Hòa yêu cầu rút R11 của mình. | R11/U-H/N12/Chờ duyệt; không xóa bản ghi yêu cầu; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E5.2 | FR-M11-04.10, FR-M11-17.03, FR-M10-12.08 |
+| E5.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm R11 thuộc Hòa và còn Chờ duyệt; chuyển R11→Đã rút, giữ dữ liệu yêu cầu. Trả kết quả đã rút, không thêm Hòa làm Member. | R11 Chờ duyệt→Đã rút; U-H vẫn người ngoài N12 | END:SUCCESS | FR-M11-04.10, BR-M11-36, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
 <!-- sc:end SC-M11-008 -->
@@ -1406,7 +1439,7 @@ Mời người khác đến nhóm bằng link chung hoặc lời mời — BF-M1
 
 #### 2. Actor thực hiện
 
-ACT-009 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-009 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -1434,7 +1467,7 @@ Có nhóm và người muốn mời; kiểm thành viên/cờ/Khóa. Chuẩn Chi
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-009 -->
 
@@ -1445,6 +1478,11 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E3 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E3.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E4 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E4.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E5 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E5.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
+| E6 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Member; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-05.01, FR-M11-05.02, FR-M11-17.03, FR-M10-12.08, FR-M11-05.04, FR-M11-05.05, FR-M11-05.06, FR-M11-05.07, BR-M11-12, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E7 | system | M1 | ACT-001 — Guest yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-008 — Minh MODERATOR không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-007 — Hòa ADMIN không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-009 E1 -->
@@ -1484,54 +1522,54 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E5.1 | SYSTEM | Hệ thống từ chối hành vi trong nhóm Bị khóa kể cả Owner/Group Mod hoặc ADMIN; quyền đọc/lưu/báo cáo/Member-Group Mod tự rời và tự kế nhiệm theo hợp đồng riêng vẫn giữ. | Nhóm Bị khóa; không thực hiện thay đổi/duyệt/nhận mở queue bị chặn | END:REJECTED | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Member; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Member; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-009 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa yêu cầu mời Phúc vào N12. | N12 Private; Hòa Member; người nhận=U-P; LINK-N12; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-05.01, FR-M11-05.02, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Hòa là thành viên và nhóm không Khóa, cung cấp M07 thông báo mời trong ứng dụng cho Phúc kèm LINK-N12. Trả đã gửi mời; đây là link chung không hết hạn/thu hồi/tạo lại, không tạo thực thể chấp nhận/từ chối hoặc tự thêm thành viên. Người nhận muốn tham gia thực hiện SC007 theo cổng hiện hành. | Người nhận=U-P; nhóm N12; tên/mô tả/link được preview; Phúc chưa Member; không bỏ câu hỏi/chặn/duyệt | END:SUCCESS | FR-M11-05.01, FR-M11-05.02, FR-M11-05.04, FR-M11-05.05, FR-M11-05.06, FR-M11-05.07, BR-M11-12, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-009 V2 -->
+<!-- sc:branch SC-M11-009 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-001 | Guest yêu cầu: Mời người khác đến nhóm bằng link chung hoặc lời mời. | Đúng nhóm/đích của chức năng; Guest không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-05.03, BR-M11-12 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-007 | Hòa yêu cầu mời Phúc vào N12. | N12 Private; Hòa Member; người nhận=U-P; LINK-N12; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E6.2 | FR-M11-05.01, FR-M11-05.02, FR-M11-17.03, FR-M10-12.08 |
+| E6.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Hòa là thành viên và nhóm không Khóa, cung cấp M07 thông báo mời trong ứng dụng cho Phúc kèm LINK-N12. Trả đã gửi mời; đây là link chung không hết hạn/thu hồi/tạo lại, không tạo thực thể chấp nhận/từ chối hoặc tự thêm thành viên. Người nhận muốn tham gia thực hiện SC007 theo cổng hiện hành. | Người nhận=U-P; nhóm N12; tên/mô tả/link được preview; Phúc chưa Member; không bỏ câu hỏi/chặn/duyệt | END:SUCCESS | FR-M11-05.01, FR-M11-05.02, FR-M11-05.04, FR-M11-05.05, FR-M11-05.06, FR-M11-05.07, BR-M11-12, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-009 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-002 | Phúc người ngoài yêu cầu: Mời người khác đến nhóm bằng link chung hoặc lời mời. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-05.03, BR-M11-12 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-009 V4 -->
+<!-- sc:branch SC-M11-009 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-008 | Minh MODERATOR không thành viên yêu cầu: Mời người khác đến nhóm bằng link chung hoặc lời mời. | Đúng nhóm/đích của chức năng; Minh MODERATOR không thành viên không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-05.03, BR-M11-12 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-001 | Guest yêu cầu: Mời người khác đến nhóm bằng link chung hoặc lời mời. | Đúng nhóm/đích của chức năng; Guest không có vai trò nhóm bắt buộc; Group=true | E7.2 | FR-M11-05.03, BR-M11-12 |
+| E7.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-009 V5 -->
+<!-- sc:branch SC-M11-009 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa ADMIN không thành viên yêu cầu: Mời người khác đến nhóm bằng link chung hoặc lời mời. | Đúng nhóm/đích của chức năng; Hòa ADMIN không thành viên không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-05.03, BR-M11-12 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-002 | Phúc người ngoài yêu cầu: Mời người khác đến nhóm bằng link chung hoặc lời mời. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E8.2 | FR-M11-05.03, BR-M11-12 |
+| E8.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-009 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-008 | Minh MODERATOR không thành viên yêu cầu: Mời người khác đến nhóm bằng link chung hoặc lời mời. | Đúng nhóm/đích của chức năng; Minh MODERATOR không thành viên không có vai trò nhóm bắt buộc; Group=true | E9.2 | FR-M11-05.03, BR-M11-12 |
+| E9.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-009 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-007 | Hòa ADMIN không thành viên yêu cầu: Mời người khác đến nhóm bằng link chung hoặc lời mời. | Đúng nhóm/đích của chức năng; Hòa ADMIN không thành viên không có vai trò nhóm bắt buộc; Group=true | E10.2 | FR-M11-05.03, BR-M11-12 |
+| E10.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-009 -->
@@ -1548,7 +1586,7 @@ Xét một yêu cầu tham gia nhóm — BF-M11-010; owner [UC-M11-010](../../us
 
 #### 2. Actor thực hiện
 
-ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -1578,7 +1616,7 @@ Có N12 Private/câu hỏi, R11 Chờ duyệt của Phúc trả lời 11; quyề
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-010 -->
 
@@ -1590,6 +1628,12 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E4 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E4.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E5 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E5.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 | E6 | system | M4 | Nhóm chuyển Bị khóa hoặc cờ Group Tắt với người không ADMIN sau lượt đọc nhưng trước lúc lưu | E6.1 | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
+| E7 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-06.01, FR-M11-17.03, FR-M10-12.08, FR-M11-06.05, BR-M11-08, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-06.02, FR-M11-06.04, FR-M11-06.06, BR-M11-07, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11 |
+| E8 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-008 — Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E11 | system | M1 | ACT-007 — Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E11.1 | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E12 | system | M1 | ACT-011 — An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M11-06.01, FR-M11-06.05, BR-M11-08, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-06.02, FR-M11-06.04, FR-M11-06.06, BR-M11-07, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11 |
 
 
 <!-- sc:branch SC-M11-010 E1 -->
@@ -1635,68 +1679,68 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E6.1 | SYSTEM | Hệ thống kiểm lại điều kiện hiện tại; nếu cờ Tắt từ chối đúng thông báo “Hệ thống đang bận, vui lòng thử lại sau”, nếu Khóa từ chối hành vi đã bị chặn. Không dùng lần đọc trước để hoàn tất thay đổi. | Không có thay đổi được yêu cầu của lần lưu này; trạng thái hiện tại giữ | END:REJECTED | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-010 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa mở danh sách yêu cầu tham gia N12. | Hòa Group Mod; N12 Private; R11 U-P Chờ duyệt; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-06.01, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod của đúng nhóm, không Khóa; trả các yêu cầu đang Chờ duyệt kèm câu trả lời. | R11 Phúc; câu trả lời=11; Chờ duyệt; không yêu cầu lý do bắt buộc khi từ chối | V1.3 | FR-M11-06.01, FR-M11-06.05, BR-M11-08, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-| V1.3 | ACT-007 | Hòa chọn Chấp nhận R11. | R11; U-P; lựa chọn=Chấp nhận; thời điểm T | V1.4 | FR-M11-06.02, FR-M11-17.03, FR-M10-12.08 |
-| V1.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Group Mod và R11 còn Chờ duyệt; R11→Đã chấp nhận, Phúc→Member với thời điểm tham gia=T; thông báo trong ứng dụng cho Phúc qua M07. Trả kết quả chấp nhận. | R11 Đã chấp nhận; U-P Member N12, joinAt=T; recipient=U-P | END:SUCCESS | FR-M11-06.02, FR-M11-06.04, FR-M11-06.06, BR-M11-07, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-010 V2 -->
+<!-- sc:branch SC-M11-010 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-009 | Chi Member yêu cầu: Xét một yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-06.05, BR-M11-06 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-007 | Hòa mở danh sách yêu cầu tham gia N12. | Hòa Group Mod; N12 Private; R11 U-P Chờ duyệt; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E7.2 | FR-M11-06.01, FR-M11-17.03, FR-M10-12.08 |
+| E7.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod của đúng nhóm, không Khóa; trả các yêu cầu đang Chờ duyệt kèm câu trả lời. | R11 Phúc; câu trả lời=11; Chờ duyệt; không yêu cầu lý do bắt buộc khi từ chối | E7.3 | FR-M11-06.01, FR-M11-06.05, BR-M11-08, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| E7.3 | ACT-007 | Hòa chọn Chấp nhận R11. | R11; U-P; lựa chọn=Chấp nhận; thời điểm T | E7.4 | FR-M11-06.02, FR-M11-17.03, FR-M10-12.08 |
+| E7.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Group Mod và R11 còn Chờ duyệt; R11→Đã chấp nhận, Phúc→Member với thời điểm tham gia=T; thông báo trong ứng dụng cho Phúc qua M07. Trả kết quả chấp nhận. | R11 Đã chấp nhận; U-P Member N12, joinAt=T; recipient=U-P | END:SUCCESS | FR-M11-06.02, FR-M11-06.04, FR-M11-06.06, BR-M11-07, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-010 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-002 | Phúc người ngoài yêu cầu: Xét một yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-06.05, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-010 V4 -->
+<!-- sc:branch SC-M11-010 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Xét một yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-06.05, BR-M11-06 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-009 | Chi Member yêu cầu: Xét một yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E8.2 | FR-M11-06.05, BR-M11-06 |
+| E8.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-010 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Xét một yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-06.05, BR-M11-06 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-010 V6 -->
+<!-- sc:branch SC-M11-010 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-011 | An mở danh sách yêu cầu tham gia N12. | An Owner; N12 Private; R11 U-P Chờ duyệt; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | V6.2 | FR-M11-06.01 |
-| V6.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner của đúng nhóm, không Khóa; trả các yêu cầu đang Chờ duyệt kèm câu trả lời. | R11 Phúc; câu trả lời=11; Chờ duyệt; không yêu cầu lý do bắt buộc khi từ chối | V6.3 | FR-M11-06.01, FR-M11-06.05, BR-M11-08, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-| V6.3 | ACT-011 | An chọn Chấp nhận R11. | R11; U-P; lựa chọn=Chấp nhận; thời điểm T | V6.4 | FR-M11-06.02 |
-| V6.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Group Mod và R11 còn Chờ duyệt; R11→Đã chấp nhận, Phúc→Member với thời điểm tham gia=T; thông báo trong ứng dụng cho Phúc qua M07. Trả kết quả chấp nhận. | R11 Đã chấp nhận; U-P Member N12, joinAt=T; recipient=U-P | END:SUCCESS | FR-M11-06.02, FR-M11-06.04, FR-M11-06.06, BR-M11-07, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-002 | Phúc người ngoài yêu cầu: Xét một yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E9.2 | FR-M11-06.05, BR-M11-06 |
+| E9.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-010 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Xét một yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | E10.2 | FR-M11-06.05, BR-M11-06 |
+| E10.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E11 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-010 E11 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Xét một yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | E11.2 | FR-M11-06.05, BR-M11-06 |
+| E11.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E12 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-010 E12 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-011 | An mở danh sách yêu cầu tham gia N12. | An Owner; N12 Private; R11 U-P Chờ duyệt; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | E12.2 | FR-M11-06.01 |
+| E12.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner của đúng nhóm, không Khóa; trả các yêu cầu đang Chờ duyệt kèm câu trả lời. | R11 Phúc; câu trả lời=11; Chờ duyệt; không yêu cầu lý do bắt buộc khi từ chối | E12.3 | FR-M11-06.01, FR-M11-06.05, BR-M11-08, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E12.3 | ACT-011 | An chọn Chấp nhận R11. | R11; U-P; lựa chọn=Chấp nhận; thời điểm T | E12.4 | FR-M11-06.02 |
+| E12.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Group Mod và R11 còn Chờ duyệt; R11→Đã chấp nhận, Phúc→Member với thời điểm tham gia=T; thông báo trong ứng dụng cho Phúc qua M07. Trả kết quả chấp nhận. | R11 Đã chấp nhận; U-P Member N12, joinAt=T; recipient=U-P | END:SUCCESS | FR-M11-06.02, FR-M11-06.04, FR-M11-06.06, BR-M11-07, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-010 -->
@@ -1713,7 +1757,7 @@ Chặn một người gửi yêu cầu tham gia nhóm — BF-M11-011; owner [UC-
 
 #### 2. Actor thực hiện
 
-ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -1741,7 +1785,7 @@ Có N12 và Phúc người gửi R11 Chờ duyệt; đây là chặn tham gia ri
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-011 -->
 
@@ -1751,6 +1795,11 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E2 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E2.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E3 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E3.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E4 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E4.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
+| E5 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M11-07.01, FR-M11-17.03, FR-M10-12.08, FR-M11-07.03, FR-M11-04.06, FR-M11-06.09, BR-M11-06, BR-M11-10, BR-M11-37, FR-M11-17.01, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E6 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E7 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-007 — Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-011 — An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-07.01, FR-M11-07.03, FR-M11-04.06, FR-M11-06.09, BR-M11-06, BR-M11-10, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-011 E1 -->
@@ -1781,54 +1830,54 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E4.1 | SYSTEM | Hệ thống từ chối hành vi trong nhóm Bị khóa kể cả Owner/Group Mod hoặc ADMIN; quyền đọc/lưu/báo cáo/Member-Group Mod tự rời và tự kế nhiệm theo hợp đồng riêng vẫn giữ. | Nhóm Bị khóa; không thực hiện thay đổi/duyệt/nhận mở queue bị chặn | END:REJECTED | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-011 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa chọn chặn Phúc gửi yêu cầu tới N12. | Hòa Group Mod N12; U-P; R11 Chờ duyệt; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-07.01, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm, không Khóa; ghi U-P vào danh sách chặn N12, R11 Chờ duyệt→Đã từ chối. Không gửi thông báo từ chối yêu cầu. Chặn mọi cách gia nhập N12: vào ngay/gửi yêu cầu/lời mời; nhóm khác không bị tác động, không cooldown. Trả kết quả đã chặn. | N12.blocked có U-P; R11 Đã từ chối; Phúc không Member | END:SUCCESS | FR-M11-07.01, FR-M11-07.03, FR-M11-04.06, FR-M11-06.09, BR-M11-06, BR-M11-10, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-011 V2 -->
+<!-- sc:branch SC-M11-011 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-009 | Chi Member yêu cầu: Chặn một người gửi yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-07.02, BR-M11-06 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-007 | Hòa chọn chặn Phúc gửi yêu cầu tới N12. | Hòa Group Mod N12; U-P; R11 Chờ duyệt; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E5.2 | FR-M11-07.01, FR-M11-17.03, FR-M10-12.08 |
+| E5.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm, không Khóa; ghi U-P vào danh sách chặn N12, R11 Chờ duyệt→Đã từ chối. Không gửi thông báo từ chối yêu cầu. Chặn mọi cách gia nhập N12: vào ngay/gửi yêu cầu/lời mời; nhóm khác không bị tác động, không cooldown. Trả kết quả đã chặn. | N12.blocked có U-P; R11 Đã từ chối; Phúc không Member | END:SUCCESS | FR-M11-07.01, FR-M11-07.03, FR-M11-04.06, FR-M11-06.09, BR-M11-06, BR-M11-10, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-011 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-002 | Phúc người ngoài yêu cầu: Chặn một người gửi yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-07.02, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-011 V4 -->
+<!-- sc:branch SC-M11-011 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Chặn một người gửi yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-07.02, BR-M11-06 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-009 | Chi Member yêu cầu: Chặn một người gửi yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E6.2 | FR-M11-07.02, BR-M11-06 |
+| E6.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-011 V5 -->
+<!-- sc:branch SC-M11-011 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-011 | An chọn chặn Phúc gửi yêu cầu tới N12. | An Owner N12; U-P; R11 Chờ duyệt; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | V5.2 | FR-M11-07.01 |
-| V5.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner đúng nhóm, không Khóa; ghi U-P vào danh sách chặn N12, R11 Chờ duyệt→Đã từ chối. Không gửi thông báo từ chối yêu cầu. Chặn mọi cách gia nhập N12: vào ngay/gửi yêu cầu/lời mời; nhóm khác không bị tác động, không cooldown. Trả kết quả đã chặn. | N12.blocked có U-P; R11 Đã từ chối; Phúc không Member | END:SUCCESS | FR-M11-07.01, FR-M11-07.03, FR-M11-04.06, FR-M11-06.09, BR-M11-06, BR-M11-10, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-002 | Phúc người ngoài yêu cầu: Chặn một người gửi yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E7.2 | FR-M11-07.02, BR-M11-06 |
+| E7.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E8 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-011 E8 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Chặn một người gửi yêu cầu tham gia nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | E8.2 | FR-M11-07.02, BR-M11-06 |
+| E8.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-011 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-011 | An chọn chặn Phúc gửi yêu cầu tới N12. | An Owner N12; U-P; R11 Chờ duyệt; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | E9.2 | FR-M11-07.01 |
+| E9.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner đúng nhóm, không Khóa; ghi U-P vào danh sách chặn N12, R11 Chờ duyệt→Đã từ chối. Không gửi thông báo từ chối yêu cầu. Chặn mọi cách gia nhập N12: vào ngay/gửi yêu cầu/lời mời; nhóm khác không bị tác động, không cooldown. Trả kết quả đã chặn. | N12.blocked có U-P; R11 Đã từ chối; Phúc không Member | END:SUCCESS | FR-M11-07.01, FR-M11-07.03, FR-M11-04.06, FR-M11-06.09, BR-M11-06, BR-M11-10, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-011 -->
@@ -1845,7 +1894,7 @@ Xem danh sách người bị chặn tham gia nhóm — BF-M11-012; owner [UC-M11
 
 #### 2. Actor thực hiện
 
-ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -1873,7 +1922,7 @@ Có N12 Bình thường và yêu cầu xem; quyền/cờ kiểm. Snapshot danh s
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-012 -->
 
@@ -1882,6 +1931,10 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E1 | system | M2 | Danh sách chặn N12 hiện rỗng | E1.1 | FR-M11-07.02, FR-M11-07.04, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 | E2 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E2.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E3 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E3.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
+| E4 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M11-07.04, FR-M11-17.03, FR-M10-12.08, FR-M11-07.02, BR-M11-06, BR-M11-10, FR-M11-17.01, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E5 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E6 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E7 | system | M1 | ACT-011 — An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-07.04, FR-M11-07.02, BR-M11-06, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-012 E1 -->
@@ -1905,44 +1958,44 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E3.1 | SYSTEM | Hệ thống không hiển thị nhóm/nội dung và không thực hiện hành vi trên nhóm không còn được mở; giữ dữ liệu theo xóa mềm/ẩn, không tự khôi phục. | Nhóm Đã xóa hoặc Bị ẩn; không nội dung được trả, dữ liệu giữ | END:REJECTED | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-012 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa mở danh sách chặn N12. | Hòa Group Mod; N12.blocked={U-P,U-X}; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-07.04, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm, trả những người đang bị nhóm chặn. Chỉ xem không bỏ chặn hoặc đổi yêu cầu/thành viên. | U-P/Phúc và U-X/Xuân đang bị chặn N12; dữ liệu trước=sau | END:SUCCESS | FR-M11-07.02, FR-M11-07.04, BR-M11-06, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-012 V2 -->
+<!-- sc:branch SC-M11-012 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-009 | Chi Member yêu cầu: Xem danh sách người bị chặn tham gia nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-07.02, BR-M11-06 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-007 | Hòa mở danh sách chặn N12. | Hòa Group Mod; N12.blocked={U-P,U-X}; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E4.2 | FR-M11-07.04, FR-M11-17.03, FR-M10-12.08 |
+| E4.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm, trả những người đang bị nhóm chặn. Chỉ xem không bỏ chặn hoặc đổi yêu cầu/thành viên. | U-P/Phúc và U-X/Xuân đang bị chặn N12; dữ liệu trước=sau | END:SUCCESS | FR-M11-07.02, FR-M11-07.04, BR-M11-06, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-012 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-002 | Phúc người ngoài yêu cầu: Xem danh sách người bị chặn tham gia nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-07.02, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-012 V4 -->
+<!-- sc:branch SC-M11-012 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-011 | An mở danh sách chặn N12. | An Owner; N12.blocked={U-P,U-X}; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | V4.2 | FR-M11-07.04 |
-| V4.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner đúng nhóm, trả những người đang bị nhóm chặn. Chỉ xem không bỏ chặn hoặc đổi yêu cầu/thành viên. | U-P/Phúc và U-X/Xuân đang bị chặn N12; dữ liệu trước=sau | END:SUCCESS | FR-M11-07.02, FR-M11-07.04, BR-M11-06, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-009 | Chi Member yêu cầu: Xem danh sách người bị chặn tham gia nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E5.2 | FR-M11-07.02, BR-M11-06 |
+| E5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-012 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-002 | Phúc người ngoài yêu cầu: Xem danh sách người bị chặn tham gia nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E6.2 | FR-M11-07.02, BR-M11-06 |
+| E6.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E7 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-012 E7 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-011 | An mở danh sách chặn N12. | An Owner; N12.blocked={U-P,U-X}; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | E7.2 | FR-M11-07.04 |
+| E7.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner đúng nhóm, trả những người đang bị nhóm chặn. Chỉ xem không bỏ chặn hoặc đổi yêu cầu/thành viên. | U-P/Phúc và U-X/Xuân đang bị chặn N12; dữ liệu trước=sau | END:SUCCESS | FR-M11-07.02, FR-M11-07.04, BR-M11-06, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-012 -->
@@ -1959,7 +2012,7 @@ Bỏ chặn một người khỏi danh sách chặn tham gia — BF-M11-013; own
 
 #### 2. Actor thực hiện
 
-ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -1989,7 +2042,7 @@ Có N12, U-P đang bị chặn, R11 Đã từ chối do chặn; kiểm quyền/t
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-013 -->
 
@@ -1998,6 +2051,10 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E1 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E1.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E2 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E2.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E3 | system | M4 | Nhóm chuyển Bị khóa hoặc cờ Group Tắt với người không ADMIN sau lượt đọc nhưng trước lúc lưu | E3.1 | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
+| E4 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M11-07.04, FR-M11-07.05, FR-M11-17.03, FR-M10-12.08, FR-M11-07.02, BR-M11-10, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E5 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E6 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E7 | system | M1 | ACT-011 — An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-07.04, FR-M11-07.05, FR-M11-07.02, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-013 E1 -->
@@ -2021,48 +2078,48 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E3.1 | SYSTEM | Hệ thống kiểm lại điều kiện hiện tại; nếu cờ Tắt từ chối đúng thông báo “Hệ thống đang bận, vui lòng thử lại sau”, nếu Khóa từ chối hành vi đã bị chặn. Không dùng lần đọc trước để hoàn tất thay đổi. | Không có thay đổi được yêu cầu của lần lưu này; trạng thái hiện tại giữ | END:REJECTED | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-013 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa mở danh sách chặn N12 để chọn người bỏ chặn. | Group Mod Hòa; N12 Hòa thường; blocked U-P; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-07.04, FR-M11-07.05, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod; trả danh sách chặn hiện tại đúng N12 để chọn. | U-P Phúc, U-X Xuân; R11 vẫn Đã từ chối | V1.3 | FR-M11-07.02, FR-M11-07.04, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-| V1.3 | ACT-007 | Hòa chọn bỏ chặn Phúc. | N12/U-P; thao tác=Bỏ chặn | V1.4 | FR-M11-07.05, FR-M11-17.03, FR-M10-12.08 |
-| V1.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại vai trò và nhóm không Khóa; bỏ chặn U-P, cho Phúc gia nhập lại theo cổng hiện hành SC007 ngay. Không khôi phục yêu cầu Đã từ chối hoặc tự thành Member; trả đã bỏ chặn. | blocked N12 không còn U-P; R11 vẫn Đã từ chối; Phúc vẫn người ngoài, có thể gửi R12 mới | END:SUCCESS | FR-M11-07.05, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-013 V2 -->
+<!-- sc:branch SC-M11-013 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-009 | Chi Member yêu cầu: Bỏ chặn một người khỏi danh sách chặn tham gia. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-07.02, BR-M11-06 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-007 | Hòa mở danh sách chặn N12 để chọn người bỏ chặn. | Group Mod Hòa; N12 Hòa thường; blocked U-P; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E4.2 | FR-M11-07.04, FR-M11-07.05, FR-M11-17.03, FR-M10-12.08 |
+| E4.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod; trả danh sách chặn hiện tại đúng N12 để chọn. | U-P Phúc, U-X Xuân; R11 vẫn Đã từ chối | E4.3 | FR-M11-07.02, FR-M11-07.04, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| E4.3 | ACT-007 | Hòa chọn bỏ chặn Phúc. | N12/U-P; thao tác=Bỏ chặn | E4.4 | FR-M11-07.05, FR-M11-17.03, FR-M10-12.08 |
+| E4.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại vai trò và nhóm không Khóa; bỏ chặn U-P, cho Phúc gia nhập lại theo cổng hiện hành SC007 ngay. Không khôi phục yêu cầu Đã từ chối hoặc tự thành Member; trả đã bỏ chặn. | blocked N12 không còn U-P; R11 vẫn Đã từ chối; Phúc vẫn người ngoài, có thể gửi R12 mới | END:SUCCESS | FR-M11-07.05, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-013 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-002 | Phúc người ngoài yêu cầu: Bỏ chặn một người khỏi danh sách chặn tham gia. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-07.02, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-013 V4 -->
+<!-- sc:branch SC-M11-013 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-011 | An mở danh sách chặn N12 để chọn người bỏ chặn. | Group Mod An; N12 An thường; blocked U-P; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | V4.2 | FR-M11-07.04, FR-M11-07.05 |
-| V4.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner; trả danh sách chặn hiện tại đúng N12 để chọn. | U-P Phúc, U-X Xuân; R11 vẫn Đã từ chối | V4.3 | FR-M11-07.02, FR-M11-07.04, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-| V4.3 | ACT-011 | An chọn bỏ chặn Phúc. | N12/U-P; thao tác=Bỏ chặn | V4.4 | FR-M11-07.05 |
-| V4.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại vai trò và nhóm không Khóa; bỏ chặn U-P, cho Phúc gia nhập lại theo cổng hiện hành SC007 ngay. Không khôi phục yêu cầu Đã từ chối hoặc tự thành Member; trả đã bỏ chặn. | blocked N12 không còn U-P; R11 vẫn Đã từ chối; Phúc vẫn người ngoài, có thể gửi R12 mới | END:SUCCESS | FR-M11-07.05, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-009 | Chi Member yêu cầu: Bỏ chặn một người khỏi danh sách chặn tham gia. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E5.2 | FR-M11-07.02, BR-M11-06 |
+| E5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-013 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-002 | Phúc người ngoài yêu cầu: Bỏ chặn một người khỏi danh sách chặn tham gia. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E6.2 | FR-M11-07.02, BR-M11-06 |
+| E6.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E7 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-013 E7 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-011 | An mở danh sách chặn N12 để chọn người bỏ chặn. | Group Mod An; N12 An thường; blocked U-P; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | E7.2 | FR-M11-07.04, FR-M11-07.05 |
+| E7.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner; trả danh sách chặn hiện tại đúng N12 để chọn. | U-P Phúc, U-X Xuân; R11 vẫn Đã từ chối | E7.3 | FR-M11-07.02, FR-M11-07.04, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E7.3 | ACT-011 | An chọn bỏ chặn Phúc. | N12/U-P; thao tác=Bỏ chặn | E7.4 | FR-M11-07.05 |
+| E7.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại vai trò và nhóm không Khóa; bỏ chặn U-P, cho Phúc gia nhập lại theo cổng hiện hành SC007 ngay. Không khôi phục yêu cầu Đã từ chối hoặc tự thành Member; trả đã bỏ chặn. | blocked N12 không còn U-P; R11 vẫn Đã từ chối; Phúc vẫn người ngoài, có thể gửi R12 mới | END:SUCCESS | FR-M11-07.05, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-013 -->
@@ -2079,7 +2136,7 @@ Bổ nhiệm một thành viên làm Group Mod — BF-M11-014; owner [UC-M11-012
 
 #### 2. Actor thực hiện
 
-ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -2109,7 +2166,7 @@ Có N11 và ý định bổ nhiệm; quyền Owner, đích và trạng thái ki�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-014 -->
 
@@ -2120,6 +2177,11 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E3 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E3.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E4 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E4.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 | E5 | system | M4 | Nhóm chuyển Bị khóa hoặc cờ Group Tắt với người không ADMIN sau lượt đọc nhưng trước lúc lưu | E5.1 | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
+| E6 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-08.01, FR-M11-17.03, FR-M10-12.08, FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-08.03, FR-M11-11.06, BR-M11-05, BR-M11-26, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11 |
+| E7 | system | M1 | ACT-010 — Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-009 — Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-007 — Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-014 E1 -->
@@ -2157,56 +2219,56 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E5.1 | SYSTEM | Hệ thống kiểm lại điều kiện hiện tại; nếu cờ Tắt từ chối đúng thông báo “Hệ thống đang bận, vui lòng thử lại sau”, nếu Khóa từ chối hành vi đã bị chặn. Không dùng lần đọc trước để hoàn tất thay đổi. | Không có thay đổi được yêu cầu của lần lưu này; trạng thái hiện tại giữ | END:REJECTED | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-014 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa mở chức năng bổ nhiệm Group Mod trong N11. | Hòa Owner N11; hành vi=Bổ nhiệm; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-08.01, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner, không Khóa; mở UC006/023 trả thành viên kèm vai trò để Owner chọn. | Hòa Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | V1.3 | FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-| V1.3 | ACT-007 | Hòa chọn Chi và yêu cầu bổ nhiệm. | Chi Member; N11; T | V1.4 | FR-M11-08.01, FR-M11-17.03, FR-M10-12.08 |
-| V1.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Owner/đích đúng Member thuộc nhóm, không Khóa. Chuyển Chi→Group Mod. Ghi thời điểm bổ nhiệm lần này=T để tính thâm niên, kể cả từng bị giáng; gửi thông báo trong ứng dụng cho Chi. Trả kết quả bổ nhiệm. | Chi Member→Group Mod; appointedAt=T; recipient=Chi | END:SUCCESS | FR-M11-08.01, FR-M11-08.03, FR-M11-11.06, BR-M11-05, BR-M11-06, BR-M11-26, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-014 V2 -->
+<!-- sc:branch SC-M11-014 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-010 | Bình Group Mod yêu cầu: Bổ nhiệm một thành viên làm Group Mod. | Đúng nhóm/đích của chức năng; Bình Group Mod không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-08.04, BR-M11-06 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-007 | Hòa mở chức năng bổ nhiệm Group Mod trong N11. | Hòa Owner N11; hành vi=Bổ nhiệm; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E6.2 | FR-M11-08.01, FR-M11-17.03, FR-M10-12.08 |
+| E6.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner, không Khóa; mở UC006/023 trả thành viên kèm vai trò để Owner chọn. | Hòa Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | E6.3 | FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| E6.3 | ACT-007 | Hòa chọn Chi và yêu cầu bổ nhiệm. | Chi Member; N11; T | E6.4 | FR-M11-08.01, FR-M11-17.03, FR-M10-12.08 |
+| E6.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Owner/đích đúng Member thuộc nhóm, không Khóa. Chuyển Chi→Group Mod. Ghi thời điểm bổ nhiệm lần này=T để tính thâm niên, kể cả từng bị giáng; gửi thông báo trong ứng dụng cho Chi. Trả kết quả bổ nhiệm. | Chi Member→Group Mod; appointedAt=T; recipient=Chi | END:SUCCESS | FR-M11-08.01, FR-M11-08.03, FR-M11-11.06, BR-M11-05, BR-M11-06, BR-M11-26, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-014 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-009 | Lan Member yêu cầu: Bổ nhiệm một thành viên làm Group Mod. | Đúng nhóm/đích của chức năng; Lan Member không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-08.04, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-014 V4 -->
+<!-- sc:branch SC-M11-014 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-002 | Phúc người ngoài yêu cầu: Bổ nhiệm một thành viên làm Group Mod. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-08.04, BR-M11-06 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-010 | Bình Group Mod yêu cầu: Bổ nhiệm một thành viên làm Group Mod. | Đúng nhóm/đích của chức năng; Bình Group Mod không có vai trò nhóm bắt buộc; Group=true | E7.2 | FR-M11-08.04, BR-M11-06 |
+| E7.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-014 V5 -->
+<!-- sc:branch SC-M11-014 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa ADMIN không Owner yêu cầu: Bổ nhiệm một thành viên làm Group Mod. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Owner không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-08.04, BR-M11-06 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-009 | Lan Member yêu cầu: Bổ nhiệm một thành viên làm Group Mod. | Đúng nhóm/đích của chức năng; Lan Member không có vai trò nhóm bắt buộc; Group=true | E8.2 | FR-M11-08.04, BR-M11-06 |
+| E8.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-014 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-002 | Phúc người ngoài yêu cầu: Bổ nhiệm một thành viên làm Group Mod. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E9.2 | FR-M11-08.04, BR-M11-06 |
+| E9.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Owner yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-014 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-007 | Hòa ADMIN không Owner yêu cầu: Bổ nhiệm một thành viên làm Group Mod. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Owner không có vai trò nhóm bắt buộc; Group=true | E10.2 | FR-M11-08.04, BR-M11-06 |
+| E10.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-014 -->
@@ -2223,7 +2285,7 @@ Giáng một thành viên từ Group Mod về Member — BF-M11-015; owner [UC-M
 
 #### 2. Actor thực hiện
 
-ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -2253,7 +2315,7 @@ Có N11 và ý định giáng; quyền Owner, đích và trạng thái kiểm kh
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-015 -->
 
@@ -2264,6 +2326,10 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E3 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E3.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E4 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E4.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 | E5 | system | M4 | Nhóm chuyển Bị khóa hoặc cờ Group Tắt với người không ADMIN sau lượt đọc nhưng trước lúc lưu | E5.1 | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
+| E6 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-08.02, FR-M11-17.03, FR-M10-12.08, FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-08.06, FR-M11-11.06, BR-M11-05, BR-M11-26, BR-M11-37 |
+| E7 | system | M1 | ACT-010 — Dũng Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-015 E1 -->
@@ -2301,46 +2367,46 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E5.1 | SYSTEM | Hệ thống kiểm lại điều kiện hiện tại; nếu cờ Tắt từ chối đúng thông báo “Hệ thống đang bận, vui lòng thử lại sau”, nếu Khóa từ chối hành vi đã bị chặn. Không dùng lần đọc trước để hoàn tất thay đổi. | Không có thay đổi được yêu cầu của lần lưu này; trạng thái hiện tại giữ | END:REJECTED | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-015 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa mở chức năng giáng Group Mod trong N11. | Hòa Owner N11; hành vi=Giáng; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-08.02, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner, không Khóa; mở UC006/023 trả thành viên kèm vai trò để Owner chọn. | Hòa Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | V1.3 | FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-| V1.3 | ACT-007 | Hòa chọn Bình và yêu cầu giáng. | Bình Group Mod; N11; T | V1.4 | FR-M11-08.02, FR-M11-17.03, FR-M10-12.08 |
-| V1.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Owner/đích đúng Group Mod thuộc nhóm, không Khóa. Chuyển Bình→Member. Không gửi thông báo cho người bị giáng; nếu bổ nhiệm lại thì thâm niên tính từ lần mới, không cộng lần cũ. Trả kết quả giáng. | Bình Group Mod→Member; không thông báo giáng | END:SUCCESS | FR-M11-08.02, FR-M11-08.06, FR-M11-11.06, BR-M11-05, BR-M11-06, BR-M11-26, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Dũng Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-015 V2 -->
+<!-- sc:branch SC-M11-015 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-010 | Dũng Group Mod yêu cầu: Giáng một thành viên từ Group Mod về Member. | Đúng nhóm/đích của chức năng; Dũng Group Mod không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-08.04, BR-M11-06 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-007 | Hòa mở chức năng giáng Group Mod trong N11. | Hòa Owner N11; hành vi=Giáng; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E6.2 | FR-M11-08.02, FR-M11-17.03, FR-M10-12.08 |
+| E6.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner, không Khóa; mở UC006/023 trả thành viên kèm vai trò để Owner chọn. | Hòa Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | E6.3 | FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| E6.3 | ACT-007 | Hòa chọn Bình và yêu cầu giáng. | Bình Group Mod; N11; T | E6.4 | FR-M11-08.02, FR-M11-17.03, FR-M10-12.08 |
+| E6.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Owner/đích đúng Group Mod thuộc nhóm, không Khóa. Chuyển Bình→Member. Không gửi thông báo cho người bị giáng; nếu bổ nhiệm lại thì thâm niên tính từ lần mới, không cộng lần cũ. Trả kết quả giáng. | Bình Group Mod→Member; không thông báo giáng | END:SUCCESS | FR-M11-08.02, FR-M11-08.06, FR-M11-11.06, BR-M11-05, BR-M11-06, BR-M11-26, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Dũng Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-015 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-009 | Chi Member yêu cầu: Giáng một thành viên từ Group Mod về Member. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-08.04, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-015 V4 -->
+<!-- sc:branch SC-M11-015 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-002 | Phúc người ngoài yêu cầu: Giáng một thành viên từ Group Mod về Member. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-08.04, BR-M11-06 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-010 | Dũng Group Mod yêu cầu: Giáng một thành viên từ Group Mod về Member. | Đúng nhóm/đích của chức năng; Dũng Group Mod không có vai trò nhóm bắt buộc; Group=true | E7.2 | FR-M11-08.04, BR-M11-06 |
+| E7.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E8 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-015 E8 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-009 | Chi Member yêu cầu: Giáng một thành viên từ Group Mod về Member. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E8.2 | FR-M11-08.04, BR-M11-06 |
+| E8.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-015 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-002 | Phúc người ngoài yêu cầu: Giáng một thành viên từ Group Mod về Member. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E9.2 | FR-M11-08.04, BR-M11-06 |
+| E9.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-015 -->
@@ -2357,7 +2423,7 @@ Kick một thành viên thuộc thẩm quyền khỏi nhóm — BF-M11-016; owne
 
 #### 2. Actor thực hiện
 
-ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -2387,7 +2453,7 @@ Có N11, An Owner muốn kick Chi Member; dữ liệu P11/C11 của Chi vẫn c�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-016 -->
 
@@ -2400,6 +2466,13 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E5 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E5.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E6 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E6.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 | E7 | system | M4 | Nhóm chuyển Bị khóa hoặc cờ Group Tắt với người không ADMIN sau lượt đọc nhưng trước lúc lưu | E7.1 | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-010 — Bình Group Mod kick Chi Member. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-09.02, FR-M11-09.05, FR-M11-09.06, FR-M11-09.07, FR-M11-10.08, BR-M11-05, BR-M11-24, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-010 — Bình Group Mod cố kick An Owner. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-09.03, BR-M11-05 |
+| E10 | system | M1 | ACT-010 — Bình Group Mod cố kick Dũng Group Mod. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-09.03, BR-M11-05 |
+| E11 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E11.1 | FR-M11-09.01, FR-M11-17.03, FR-M10-12.08, FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-09.05, FR-M11-09.06, FR-M11-09.07, FR-M11-10.08, BR-M11-05, BR-M11-24, BR-M11-37, FR-M12-02.15, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11 |
+| E12 | system | M1 | ACT-009 — Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E13 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E14 | system | M1 | ACT-008 — Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-016 E1 -->
@@ -2455,76 +2528,76 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E7.1 | SYSTEM | Hệ thống kiểm lại điều kiện hiện tại; nếu cờ Tắt từ chối đúng thông báo “Hệ thống đang bận, vui lòng thử lại sau”, nếu Khóa từ chối hành vi đã bị chặn. Không dùng lần đọc trước để hoàn tất thay đổi. | Không có thay đổi được yêu cầu của lần lưu này; trạng thái hiện tại giữ | END:REJECTED | FR-M11-16.07, FR-M11-17.01, FR-M11-17.08, BR-M11-28, BR-M11-29 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod kick Chi Member. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod kick Chi Member. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-016 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-010 | Bình chọn kick Chi khỏi N11. | Bình Group Mod; Chi Member; không bắt bước danh sách chọn riêng của Owner | V1.2 | FR-M11-09.02 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm/Chi thấp hơn/không Khóa, đưa Chi ra; giữ nội dung/tác giả/ẩn danh/điểm 20; thông báo Chi; không tự chặn, cho quay lại theo cổng. Public còn quyền sửa/xóa nội dung mình. | Chi Member→người ngoài N11; điểm 20; P11/C11 giữ; recipient U-C | END:SUCCESS | FR-M11-09.02, FR-M11-09.05, FR-M11-09.06, FR-M11-09.07, FR-M11-10.08, BR-M11-05, BR-M11-24, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod cố kick An Owner. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-016 V2 -->
+<!-- sc:branch SC-M11-016 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-010 | Bình yêu cầu kick An Owner. | N11; actorGroup Mod; target ngang/cao hơn | V2.2 | FR-M11-09.03 |
-| V2.2 | SYSTEM | Hệ thống từ chối kick vì thứ bậc, không đưa đích ra khỏi nhóm. | Membership/role của An Owner giữ | END:REJECTED | FR-M11-09.03, BR-M11-05 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-010 | Bình chọn kick Chi khỏi N11. | Bình Group Mod; Chi Member; không bắt bước danh sách chọn riêng của Owner | E8.2 | FR-M11-09.02 |
+| E8.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm/Chi thấp hơn/không Khóa, đưa Chi ra; giữ nội dung/tác giả/ẩn danh/điểm 20; thông báo Chi; không tự chặn, cho quay lại theo cổng. Public còn quyền sửa/xóa nội dung mình. | Chi Member→người ngoài N11; điểm 20; P11/C11 giữ; recipient U-C | END:SUCCESS | FR-M11-09.02, FR-M11-09.05, FR-M11-09.06, FR-M11-09.07, FR-M11-10.08, BR-M11-05, BR-M11-24, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod cố kick Dũng Group Mod. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod cố kick An Owner. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-016 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-010 | Bình yêu cầu kick Dũng Group Mod. | N11; actorGroup Mod; target ngang/cao hơn | V3.2 | FR-M11-09.03 |
-| V3.2 | SYSTEM | Hệ thống từ chối kick vì thứ bậc, không đưa đích ra khỏi nhóm. | Membership/role của Dũng Group Mod giữ | END:REJECTED | FR-M11-09.03, BR-M11-05 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-016 V4 -->
+<!-- sc:branch SC-M11-016 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-007 | Hòa mở chức năng kick thành viên N11. | Hòa Owner; N11 Hoạt động/Bình thường; Chi Member; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V4.2 | FR-M11-09.01, FR-M11-17.03, FR-M10-12.08 |
-| V4.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner và nhóm không Khóa; chèn UC006/023 trả thành viên kèm vai trò để chọn. | Hòa Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | V4.3 | FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-| V4.3 | ACT-007 | Hòa chọn kick Chi khỏi N11. | target=U-C Member N11; Hòa Owner; T | V4.4 | FR-M11-09.01, FR-M11-17.03, FR-M10-12.08 |
-| V4.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Owner và đích thấp hơn, đưa Chi ra khỏi nhóm; giữ P11/C11, tên tác giả như trước (P11 vẫn ẩn danh), điểm 20 giữ 20. Gửi thông báo kick cho Chi, không tự chặn. N11 Public nên quyền sửa/xóa nội dung mình còn theo M03/M04; quay lại qua cổng tham gia nếu không bị chặn. Trả kết quả đã kick. | U-C Member→người ngoài N11; P11/C11 giữ; 20→20; thông báo U-C; không blocked | END:SUCCESS | FR-M11-09.01, FR-M11-09.05, FR-M11-09.06, FR-M11-09.07, FR-M11-10.08, BR-M11-05, BR-M11-06, BR-M11-24, BR-M11-37, FR-M12-02.15, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-010 | Bình yêu cầu kick An Owner. | N11; actorGroup Mod; target ngang/cao hơn | E9.2 | FR-M11-09.03 |
+| E9.2 | SYSTEM | Hệ thống từ chối kick vì thứ bậc, không đưa đích ra khỏi nhóm. | Membership/role của An Owner giữ | END:REJECTED | FR-M11-09.03, BR-M11-05 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E10 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod cố kick Dũng Group Mod. Actor khởi tạo ACT-010; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-016 V5 -->
+<!-- sc:branch SC-M11-016 E10 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-009 | Lan Member yêu cầu: Kick một thành viên thuộc thẩm quyền khỏi nhóm. | Đúng nhóm/đích của chức năng; Lan Member không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-09.04, BR-M11-06 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-010 | Bình yêu cầu kick Dũng Group Mod. | N11; actorGroup Mod; target ngang/cao hơn | E10.2 | FR-M11-09.03 |
+| E10.2 | SYSTEM | Hệ thống từ chối kick vì thứ bậc, không đưa đích ra khỏi nhóm. | Membership/role của Dũng Group Mod giữ | END:REJECTED | FR-M11-09.03, BR-M11-05 |
 
 
-**V6 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E11 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Owner; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-016 V6 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-002 | Phúc người ngoài yêu cầu: Kick một thành viên thuộc thẩm quyền khỏi nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V6.2 | FR-M11-09.04, BR-M11-06 |
-| V6.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V7 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-016 V7 -->
+<!-- sc:branch SC-M11-016 E11 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V7.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Kick một thành viên thuộc thẩm quyền khỏi nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | V7.2 | FR-M11-09.04, BR-M11-06 |
-| V7.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-007 | Hòa mở chức năng kick thành viên N11. | Hòa Owner; N11 Hoạt động/Bình thường; Chi Member; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E11.2 | FR-M11-09.01, FR-M11-17.03, FR-M10-12.08 |
+| E11.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner và nhóm không Khóa; chèn UC006/023 trả thành viên kèm vai trò để chọn. | Hòa Owner, Bình Group Mod bổ nhiệm 01/09/2026 09:00+07, Dũng Group Mod bổ nhiệm lại 20/10/2026 09:00+07 (lần trước không tính), Chi Member vào 01/08/2026, Lan Member vào 01/07/2026. Đây là snapshot chuẩn, từng chức năng có thể thay dữ liệu đích ghi ngay tại bước. | E11.3 | FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| E11.3 | ACT-007 | Hòa chọn kick Chi khỏi N11. | target=U-C Member N11; Hòa Owner; T | E11.4 | FR-M11-09.01, FR-M11-17.03, FR-M10-12.08 |
+| E11.4 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm lại Owner và đích thấp hơn, đưa Chi ra khỏi nhóm; giữ P11/C11, tên tác giả như trước (P11 vẫn ẩn danh), điểm 20 giữ 20. Gửi thông báo kick cho Chi, không tự chặn. N11 Public nên quyền sửa/xóa nội dung mình còn theo M03/M04; quay lại qua cổng tham gia nếu không bị chặn. Trả kết quả đã kick. | U-C Member→người ngoài N11; P11/C11 giữ; 20→20; thông báo U-C; không blocked | END:SUCCESS | FR-M11-09.01, FR-M11-09.05, FR-M11-09.06, FR-M11-09.07, FR-M11-10.08, BR-M11-05, BR-M11-06, BR-M11-24, BR-M11-37, FR-M12-02.15, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+
+
+**E12 — thay toàn bộ M1 đến kết thúc:** Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-016 E12 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-009 | Lan Member yêu cầu: Kick một thành viên thuộc thẩm quyền khỏi nhóm. | Đúng nhóm/đích của chức năng; Lan Member không có vai trò nhóm bắt buộc; Group=true | E12.2 | FR-M11-09.04, BR-M11-06 |
+| E12.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E13 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-016 E13 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-002 | Phúc người ngoài yêu cầu: Kick một thành viên thuộc thẩm quyền khỏi nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E13.2 | FR-M11-09.04, BR-M11-06 |
+| E13.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E14 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-016 E14 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Kick một thành viên thuộc thẩm quyền khỏi nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | E14.2 | FR-M11-09.04, BR-M11-06 |
+| E14.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-016 -->
@@ -2541,7 +2614,7 @@ Tự rời nhóm, bảo toàn nội dung và kế nhiệm khi cần — BF-M11-0
 
 #### 2. Actor thực hiện
 
-ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-011 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -2572,7 +2645,7 @@ Có nhóm và thành viên muốn rời; chuẩn An Owner N11 Public còn Bình/
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-017 -->
 
@@ -2584,6 +2657,10 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E4 | user-choice | M1 | Owner cuối chọn rời, xác nhận cảnh báo xóa | E4.1 | FR-M11-10.06, BR-M11-25, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-15.01, FR-M11-15.02, FR-M11-15.03, FR-M11-15.05, FR-M12-02.14, FR-M11-01.06 |
 | E5 | user-choice | M1 | Owner cuối không xác nhận cảnh báo xóa | E5.1 | FR-M11-10.06, BR-M11-25, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 | E6 | system | M1 | Owner muốn rời khi nhóm Bị khóa | E6.1 | FR-M11-16.08, BR-M11-28 |
+| E7 | system | M1 | ACT-010 — Bình Group Mod tự rời kể cả nhóm Bị khóa. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-16.09, FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, BR-M11-24, BR-M11-28, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
+| E8 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Member; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-10.01, FR-M11-17.03, FR-M10-12.08, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M12-02.15, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
+| E9 | system | M1 | ACT-009 — Chi tự rời N12 Private, nội dung giữ nhưng không sửa/xóa sau rời. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-10.01, FR-M11-10.02, FR-M11-10.09, BR-M11-24, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-009 — Chi Member tự rời N11 Public, kể cả Bị khóa nếu cờ cho phép. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M12-02.15, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-017 E1 -->
@@ -2638,44 +2715,44 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E6.2 | SYSTEM | Hệ thống từ chối Owner rời nhóm Bị khóa; không chuyển Owner hoặc xóa nhóm theo yêu cầu này. | An chưa rời; nhóm/role giữ | END:REJECTED | FR-M11-16.08, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod tự rời kể cả nhóm Bị khóa. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Bình Group Mod tự rời kể cả nhóm Bị khóa. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-017 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-010 | Bình chọn rời N11 Bị khóa. | Bình Group Mod; không Owner; Group=true | V1.2 | FR-M11-16.09 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Group Mod được tự rời nhóm Khóa, đưa Bình ra; giữ nội dung/tác giả/ẩn danh/điểm. Public còn quyền nội dung mình, quay lại theo cổng khi điều kiện cho phép. Trả đã rời. | Bình→người ngoài; không chuyển/xóaOwner; dữ liệu/điểm giữ | END:SUCCESS | FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Member; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-017 V2 -->
+<!-- sc:branch SC-M11-017 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-007 | Hòa chọn rời N11. | Hòa Member N11; P11 ẩn danh/C11; 20 điểm; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V2.2 | FR-M11-10.01, FR-M11-17.03, FR-M10-12.08 |
-| V2.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Hòa là thành viên, Member được tự rời kể cả Bị khóa; đưa Hòa ra. Giữ nội dung/tác giả/ẩn danh và điểm. N11 Public nên vẫn sửa/xóa nội dung mình qua M03/M04; quay lại theo SC007, không đặt giới hạn nhóm hoặc tự khôi phục role. Trả đã rời. | Hòa Member→người ngoài; P11/C11 giữ; 20→20; Public; không chặn | END:SUCCESS | FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M12-02.15, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29, FR-M10-12.08 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-010 | Bình chọn rời N11 Bị khóa. | Bình Group Mod; không Owner; Group=true | E7.2 | FR-M11-16.09 |
+| E7.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Group Mod được tự rời nhóm Khóa, đưa Bình ra; giữ nội dung/tác giả/ẩn danh/điểm. Public còn quyền nội dung mình, quay lại theo cổng khi điều kiện cho phép. Trả đã rời. | Bình→người ngoài; không chuyển/xóaOwner; dữ liệu/điểm giữ | END:SUCCESS | FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Chi tự rời N12 Private, nội dung giữ nhưng không sửa/xóa sau rời. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Member; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-017 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-009 | Chi chọn rời N12 Private. | Chi Member; N12 Private; P11/C11 củaChi; 20 điểm | V3.2 | FR-M11-10.01 |
-| V3.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Member; đưa Chi ra, giữ nội dung/tác giả/ẩn danh/điểm. Vì Private, sau rời không sửa/xóa nội dung mình; tham gia lại theo cổng nếu đủ điều kiện. Trả đã rời. | Chi ngoài N12; P11/C11 giữ; 20→20; không tự chặn | END:SUCCESS | FR-M11-10.01, FR-M11-10.02, FR-M11-10.09, BR-M11-24, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Chi Member tự rời N11 Public, kể cả Bị khóa nếu cờ cho phép. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-017 V4 -->
+<!-- sc:branch SC-M11-017 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-009 | Chi chọn rời N11. | Chi Member N11; P11 ẩn danh/C11; 20 điểm | V4.2 | FR-M11-10.01 |
-| V4.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Chi là thành viên, Member được tự rời kể cả Bị khóa; đưa Chi ra. Giữ nội dung/tác giả/ẩn danh và điểm. N11 Public nên vẫn sửa/xóa nội dung mình qua M03/M04; quay lại theo SC007, không đặt giới hạn nhóm hoặc tự khôi phục role. Trả đã rời. | Chi Member→người ngoài; P11/C11 giữ; 20→20; Public; không chặn | END:SUCCESS | FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M12-02.15, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-007 | Hòa chọn rời N11. | Hòa Member N11; P11 ẩn danh/C11; 20 điểm; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E8.2 | FR-M11-10.01, FR-M11-17.03, FR-M10-12.08 |
+| E8.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Hòa là thành viên, Member được tự rời kể cả Bị khóa; đưa Hòa ra. Giữ nội dung/tác giả/ẩn danh và điểm. N11 Public nên vẫn sửa/xóa nội dung mình qua M03/M04; quay lại theo SC007, không đặt giới hạn nhóm hoặc tự khôi phục role. Trả đã rời. | Hòa Member→người ngoài; P11/C11 giữ; 20→20; Public; không chặn | END:SUCCESS | FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M12-02.15, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29, FR-M10-12.08 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** Chi tự rời N12 Private, nội dung giữ nhưng không sửa/xóa sau rời. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-017 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-009 | Chi chọn rời N12 Private. | Chi Member; N12 Private; P11/C11 củaChi; 20 điểm | E9.2 | FR-M11-10.01 |
+| E9.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Member; đưa Chi ra, giữ nội dung/tác giả/ẩn danh/điểm. Vì Private, sau rời không sửa/xóa nội dung mình; tham gia lại theo cổng nếu đủ điều kiện. Trả đã rời. | Chi ngoài N12; P11/C11 giữ; 20→20; không tự chặn | END:SUCCESS | FR-M11-10.01, FR-M11-10.02, FR-M11-10.09, BR-M11-24, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** Chi Member tự rời N11 Public, kể cả Bị khóa nếu cờ cho phép. Actor khởi tạo ACT-009; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-017 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-009 | Chi chọn rời N11. | Chi Member N11; P11 ẩn danh/C11; 20 điểm | E10.2 | FR-M11-10.01 |
+| E10.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Chi là thành viên, Member được tự rời kể cả Bị khóa; đưa Chi ra. Giữ nội dung/tác giả/ẩn danh và điểm. N11 Public nên vẫn sửa/xóa nội dung mình qua M03/M04; quay lại theo SC007, không đặt giới hạn nhóm hoặc tự khôi phục role. Trả đã rời. | Chi Member→người ngoài; P11/C11 giữ; 20→20; Public; không chặn | END:SUCCESS | FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M12-02.15, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-017 -->
@@ -2692,7 +2769,7 @@ Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm — BF-M11-
 
 #### 2. Actor thực hiện
 
-ACT-009 là actor chính của đường chuẩn. ACT-006 hỗ trợ khi có quét AI; không khởi tạo mục tiêu đăng bài. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-009 là actor chính của đường chuẩn. ACT-006 hỗ trợ khi có quét AI; không khởi tạo mục tiêu đăng bài. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -2722,7 +2799,7 @@ M03 cung cấp P18 đã soạn/đã sửa và tác giả thật; không triển 
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-018 -->
 
@@ -2751,6 +2828,21 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E21 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E21.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E22 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E22.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 | E23 | system | M1 | Dịch vụ AI im lặng cả hai lần, duyệt trước Tắt | E23.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E24 | system | M1 | ACT-010 — Bình có vai trò nhóm Group Mod; biến thể {'preapproval': False}. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E24.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| E25 | system | M1 | ACT-011 — An có vai trò nhóm Owner; biến thể {'preapproval': False}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E25.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| E26 | system | M1 | ACT-011 — An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.5}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E26.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| E27 | system | M1 | ACT-011 — An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.89}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E27.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| E28 | system | M1 | ACT-011 — An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.9}. Actor khởi tạo ACT-011; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E28.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| E29 | system | M1 | ACT-011 — An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'failed'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E29.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| E30 | system | M1 | ACT-011 — An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'off'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E30.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| E31 | system | M1 | ACT-011 — An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'retry-ok'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E31.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| E32 | system | M1 | ACT-007 — Hòa có vai trò nhóm Member; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': False}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E32.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| E33 | system | M1 | ACT-007 — Hòa có vai trò nhóm Member; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': True}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E33.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| E34 | system | M1 | ACT-007 — Hòa có vai trò nhóm Owner; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': False}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E34.1 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| E35 | system | M1 | ACT-001 — Guest yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E35.1 | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E36 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E36.1 | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E37 | system | M1 | ACT-008 — Minh MODERATOR không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E37.1 | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E38 | system | M1 | ACT-007 — Hòa ADMIN không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E38.1 | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-018 E1 -->
@@ -2957,172 +3049,172 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E23.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/tác giả/dữ liệu M03, gắn N11 và giữ Chi/ẩn danh; chuyển đang quét, gửi lần1 tại T. Sau5 giây không có kết quả tính lỗi, đợi2 giây gửi lần2, sau5 giây nữa vẫn không kết quả; công tắc giữ nguyên, không thử thêm. Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt (chờ nhóm duyệt), đưa vào hàng chờ riêng N12 hoặc N11 đang xét, không trộn queue báo cáo/Mod hệ thống. Trả đã ghi nhận bài chờ nhóm; chỉ tác giả/người duyệt theo quyền biết trạng thái, người xem thường không thấy, chưa đăng. Giữ nhóm đích và tác giả thật Chi, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/chờ nhóm duyệt; group=N11 Public; author=Chi; anonymous=True; score=không có sau 2 lỗi; timeline T, T+5s lỗi1, T+7s gọi2, T+12s lỗi2 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Bình có vai trò nhóm Group Mod; biến thể {'preapproval': False}. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E24 — thay toàn bộ M1 đến kết thúc:** Bình có vai trò nhóm Group Mod; biến thể {'preapproval': False}. Actor khởi tạo ACT-010; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-018 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-010 | Bình gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=Bình; roleNhóm=Group Mod; Nháp→gửi; anonymous=True; duyệt trước=False; AI tổng/Moderation=đều Bật | V1.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật Bình và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=Bình; anonymous=True; attempt=1 | V1.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V1.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.3; khoảng=thấp; nhóm vi phạm=[] | V1.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V1.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật Bình, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=Bình; anonymous=True; score=0.3 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': False}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-018 V2 -->
+<!-- sc:branch SC-M11-018 E24 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=False; AI tổng/Moderation=đều Bật | V2.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V2.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | V2.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V2.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.3; khoảng=thấp; nhóm vi phạm=[] | V2.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V2.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=An; anonymous=True; score=0.3 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| --- | --- | --- | --- | --- | --- |
+| E24.1 | ACT-010 | Bình gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=Bình; roleNhóm=Group Mod; Nháp→gửi; anonymous=True; duyệt trước=False; AI tổng/Moderation=đều Bật | E24.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E24.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật Bình và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=Bình; anonymous=True; attempt=1 | E24.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E24.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.3; khoảng=thấp; nhóm vi phạm=[] | E24.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E24.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật Bình, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=Bình; anonymous=True; score=0.3 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.5}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E25 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': False}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-018 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | V3.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V3.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | V3.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V3.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.5; khoảng=trung bình; nhóm vi phạm=[] | V3.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V3.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt và đưa vào hàng chờ Mod hệ thống M03 vì tác giả Owner, không vào queue nhóm dù duyệt trước Bật. Trả đã ghi nhận bài chờ đúng hàng; M03 sở hữu việc staff xét tiếp, không giả đã đăng. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/Mod hệ thống; group=N11 Public; author=An; anonymous=True; score=0.5 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.89}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-018 V4 -->
+<!-- sc:branch SC-M11-018 E25 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | V4.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V4.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | V4.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V4.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.89; khoảng=trung bình; nhóm vi phạm=[] | V4.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V4.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt và đưa vào hàng chờ Mod hệ thống M03 vì tác giả Owner, không vào queue nhóm dù duyệt trước Bật. Trả đã ghi nhận bài chờ đúng hàng; M03 sở hữu việc staff xét tiếp, không giả đã đăng. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/Mod hệ thống; group=N11 Public; author=An; anonymous=True; score=0.89 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| --- | --- | --- | --- | --- | --- |
+| E25.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=False; AI tổng/Moderation=đều Bật | E25.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E25.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | E25.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E25.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.3; khoảng=thấp; nhóm vi phạm=[] | E25.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E25.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=An; anonymous=True; score=0.3 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.9}. Actor khởi tạo ACT-011; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E26 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.5}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-018 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | V5.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V5.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | V5.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V5.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.9; khoảng=cao; nhóm vi phạm=[Quấy rối] | V5.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V5.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Chuyển P18→Bị từ chối bởi AI, cung cấp nhóm vi phạm quét trả về cho tác giả qua M03 và sự kiện bài bị từ chối M07; không coi là nhóm từ chối. Tác giả được sửa/gửi lại hoặc khiếu nại M09 (luồng khác), chưa đăng bài. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Bị từ chối/nguồn AI; group=N11 Public; author=An; anonymous=True; score=0.9 | END:REJECTED | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'failed'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-018 V6 -->
+<!-- sc:branch SC-M11-018 E26 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | V6.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V6.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | V6.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V6.3 | ACT-006 | Dịch vụ AI trả lỗi lần thử đầu. | P18 attempt1=error; chưa có điểm; không tự đổi công tắc | V6.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V6.4 | SYSTEM | Hệ thống ghi nhận lỗi lần đầu, đợi 2 giây rồi gửi lại đúng một lần, không song song và không đổi công tắc. Mỗi lần chấm không có kết quả sau 5 giây cũng tính lỗi. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; attempt=2; cùng bài/tác giả/nhóm; hai công tắc vẫn Bật | V6.5 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V6.5 | ACT-006 | Dịch vụ AI trả lỗi lần thử thứ hai. | P18 attempt2=error; không điểm | V6.6 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V6.6 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt và đưa vào hàng chờ Mod hệ thống M03 vì tác giả Owner, không vào queue nhóm dù duyệt trước Bật. Trả đã ghi nhận bài chờ đúng hàng; M03 sở hữu việc staff xét tiếp, không giả đã đăng. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/Mod hệ thống; group=N11 Public; author=An; anonymous=True; score=không có sau 2 lỗi | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| --- | --- | --- | --- | --- | --- |
+| E26.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | E26.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E26.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | E26.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E26.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.5; khoảng=trung bình; nhóm vi phạm=[] | E26.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E26.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt và đưa vào hàng chờ Mod hệ thống M03 vì tác giả Owner, không vào queue nhóm dù duyệt trước Bật. Trả đã ghi nhận bài chờ đúng hàng; M03 sở hữu việc staff xét tiếp, không giả đã đăng. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/Mod hệ thống; group=N11 Public; author=An; anonymous=True; score=0.5 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
 
 
-**V7 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'off'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E27 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.89}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-018 V7 -->
+<!-- sc:branch SC-M11-018 E27 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V7.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=có một cờ Tắt | V7.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V7.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. AI tổng hoặc Moderation tắt nên không gọi AI, khác lỗi quét. Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=An; anonymous=True; score=không quét | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| --- | --- | --- | --- | --- | --- |
+| E27.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | E27.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E27.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | E27.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E27.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.89; khoảng=trung bình; nhóm vi phạm=[] | E27.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E27.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt và đưa vào hàng chờ Mod hệ thống M03 vì tác giả Owner, không vào queue nhóm dù duyệt trước Bật. Trả đã ghi nhận bài chờ đúng hàng; M03 sở hữu việc staff xét tiếp, không giả đã đăng. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/Mod hệ thống; group=N11 Public; author=An; anonymous=True; score=0.89 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
 
 
-**V8 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'retry-ok'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E28 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'score': 0.9}. Actor khởi tạo ACT-011; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-018 V8 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V8.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | V8.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V8.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | V8.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V8.3 | ACT-006 | Dịch vụ AI trả lỗi lần thử đầu. | P18 attempt1=error; chưa có điểm; không tự đổi công tắc | V8.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V8.4 | SYSTEM | Hệ thống ghi nhận lỗi lần đầu, đợi 2 giây rồi gửi lại đúng một lần, không song song và không đổi công tắc. Mỗi lần chấm không có kết quả sau 5 giây cũng tính lỗi. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; attempt=2; cùng bài/tác giả/nhóm; hai công tắc vẫn Bật | V8.5 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V8.5 | ACT-006 | Dịch vụ AI trả điểm quét sau lần thử thứ hai. | P18 attempt2=ok; score=0.3; nhóm vi phạm=[] | V8.6 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
-| V8.6 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=An; anonymous=True; score=0.3 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
-
-
-**V9 — thay toàn bộ M1 đến kết thúc:** Hòa có vai trò nhóm Member; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': False}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-018 V9 -->
+<!-- sc:branch SC-M11-018 E28 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V9.1 | ACT-007 | Hòa gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=Hòa; roleNhóm=Member; Nháp→gửi; anonymous=True; duyệt trước=False; AI tổng/Moderation=đều Bật; ADMIN; Group=false; vai trò nhóm=Member | V9.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V9.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật Hòa và lựa chọn ẩn danh=True hợp lệ với công tắc. Admin không quét. Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật Hòa, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=Hòa; anonymous=True; score=không quét | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| --- | --- | --- | --- | --- | --- |
+| E28.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | E28.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E28.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | E28.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E28.3 | ACT-006 | Dịch vụ AI trả điểm quét và nhóm vi phạm cho P18. | P18 score=0.9; khoảng=cao; nhóm vi phạm=[Quấy rối] | E28.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E28.4 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Chuyển P18→Bị từ chối bởi AI, cung cấp nhóm vi phạm quét trả về cho tác giả qua M03 và sự kiện bài bị từ chối M07; không coi là nhóm từ chối. Tác giả được sửa/gửi lại hoặc khiếu nại M09 (luồng khác), chưa đăng bài. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Bị từ chối/nguồn AI; group=N11 Public; author=An; anonymous=True; score=0.9 | END:REJECTED | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
 
 
-**V10 — thay toàn bộ M1 đến kết thúc:** Hòa có vai trò nhóm Member; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': True}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E29 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'failed'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-018 V10 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V10.1 | ACT-007 | Hòa gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=Hòa; roleNhóm=Member; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật; ADMIN; Group=false; vai trò nhóm=Member | V10.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V10.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật Hòa và lựa chọn ẩn danh=True hợp lệ với công tắc. Admin không quét. Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt (chờ nhóm duyệt), đưa vào hàng chờ riêng N12 hoặc N11 đang xét, không trộn queue báo cáo/Mod hệ thống. Trả đã ghi nhận bài chờ nhóm; chỉ tác giả/người duyệt theo quyền biết trạng thái, người xem thường không thấy, chưa đăng. Giữ nhóm đích và tác giả thật Hòa, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/chờ nhóm duyệt; group=N11 Public; author=Hòa; anonymous=True; score=không quét | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
-
-
-**V11 — thay toàn bộ M1 đến kết thúc:** Hòa có vai trò nhóm Owner; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': False}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-018 V11 -->
+<!-- sc:branch SC-M11-018 E29 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V11.1 | ACT-007 | Hòa gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=Hòa; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=False; AI tổng/Moderation=đều Bật; ADMIN; Group=false; vai trò nhóm=Owner | V11.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
-| V11.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật Hòa và lựa chọn ẩn danh=True hợp lệ với công tắc. Admin không quét. Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật Hòa, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=Hòa; anonymous=True; score=không quét | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| --- | --- | --- | --- | --- | --- |
+| E29.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | E29.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E29.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | E29.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E29.3 | ACT-006 | Dịch vụ AI trả lỗi lần thử đầu. | P18 attempt1=error; chưa có điểm; không tự đổi công tắc | E29.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E29.4 | SYSTEM | Hệ thống ghi nhận lỗi lần đầu, đợi 2 giây rồi gửi lại đúng một lần, không song song và không đổi công tắc. Mỗi lần chấm không có kết quả sau 5 giây cũng tính lỗi. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; attempt=2; cùng bài/tác giả/nhóm; hai công tắc vẫn Bật | E29.5 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E29.5 | ACT-006 | Dịch vụ AI trả lỗi lần thử thứ hai. | P18 attempt2=error; không điểm | E29.6 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E29.6 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt và đưa vào hàng chờ Mod hệ thống M03 vì tác giả Owner, không vào queue nhóm dù duyệt trước Bật. Trả đã ghi nhận bài chờ đúng hàng; M03 sở hữu việc staff xét tiếp, không giả đã đăng. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/Mod hệ thống; group=N11 Public; author=An; anonymous=True; score=không có sau 2 lỗi | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
 
 
-**V12 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E30 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'off'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-018 V12 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V12.1 | ACT-001 | Guest yêu cầu: Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm. | Đúng nhóm/đích của chức năng; Guest không có vai trò nhóm bắt buộc; Group=true | V12.2 | FR-M11-12.11, BR-M11-06 |
-| V12.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V13 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-018 V13 -->
+<!-- sc:branch SC-M11-018 E30 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V13.1 | ACT-002 | Phúc người ngoài yêu cầu: Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V13.2 | FR-M11-12.11, BR-M11-06 |
-| V13.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E30.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=có một cờ Tắt | E30.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E30.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. AI tổng hoặc Moderation tắt nên không gọi AI, khác lỗi quét. Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=An; anonymous=True; score=không quét | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
 
 
-**V14 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E31 — thay toàn bộ M1 đến kết thúc:** An có vai trò nhóm Owner; biến thể {'preapproval': True, 'mode': 'retry-ok'}. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-018 V14 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V14.1 | ACT-008 | Minh MODERATOR không thành viên yêu cầu: Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không thành viên không có vai trò nhóm bắt buộc; Group=true | V14.2 | FR-M11-12.11, BR-M11-06 |
-| V14.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V15 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-018 V15 -->
+<!-- sc:branch SC-M11-018 E31 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V15.1 | ACT-007 | Hòa ADMIN không thành viên yêu cầu: Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không thành viên không có vai trò nhóm bắt buộc; Group=true | V15.2 | FR-M11-12.11, BR-M11-06 |
-| V15.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E31.1 | ACT-011 | An gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=An; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật | E31.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E31.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật An và lựa chọn ẩn danh=True hợp lệ với công tắc. Đưa P18 vào Chờ duyệt (đang quét), không hiện cho người xem thường; qua lớp nội bộ M13 gửi tiêu đề/nội dung/poll/ảnh hiện có cho dịch vụ AI, chờ điểm và nhóm vi phạm. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; group=N11; author=An; anonymous=True; attempt=1 | E31.3 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E31.3 | ACT-006 | Dịch vụ AI trả lỗi lần thử đầu. | P18 attempt1=error; chưa có điểm; không tự đổi công tắc | E31.4 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E31.4 | SYSTEM | Hệ thống ghi nhận lỗi lần đầu, đợi 2 giây rồi gửi lại đúng một lần, không song song và không đổi công tắc. Mỗi lần chấm không có kết quả sau 5 giây cũng tính lỗi. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; attempt=2; cùng bài/tác giả/nhóm; hai công tắc vẫn Bật | E31.5 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E31.5 | ACT-006 | Dịch vụ AI trả điểm quét sau lần thử thứ hai. | P18 attempt2=ok; score=0.3; nhóm vi phạm=[] | E31.6 | FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08 |
+| E31.6 | SYSTEM | Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật An, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=An; anonymous=True; score=0.3 | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+
+
+**E32 — thay toàn bộ M1 đến kết thúc:** Hòa có vai trò nhóm Member; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': False}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-018 E32 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E32.1 | ACT-007 | Hòa gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=Hòa; roleNhóm=Member; Nháp→gửi; anonymous=True; duyệt trước=False; AI tổng/Moderation=đều Bật; ADMIN; Group=false; vai trò nhóm=Member | E32.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E32.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật Hòa và lựa chọn ẩn danh=True hợp lệ với công tắc. Admin không quét. Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật Hòa, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=Hòa; anonymous=True; score=không quét | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+
+
+**E33 — thay toàn bộ M1 đến kết thúc:** Hòa có vai trò nhóm Member; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': True}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-018 E33 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E33.1 | ACT-007 | Hòa gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=Hòa; roleNhóm=Member; Nháp→gửi; anonymous=True; duyệt trước=True; AI tổng/Moderation=đều Bật; ADMIN; Group=false; vai trò nhóm=Member | E33.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E33.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật Hòa và lựa chọn ẩn danh=True hợp lệ với công tắc. Admin không quét. Hệ thống nhận kết quả cổng UC016. Giữ P18 Chờ duyệt (chờ nhóm duyệt), đưa vào hàng chờ riêng N12 hoặc N11 đang xét, không trộn queue báo cáo/Mod hệ thống. Trả đã ghi nhận bài chờ nhóm; chỉ tác giả/người duyệt theo quyền biết trạng thái, người xem thường không thấy, chưa đăng. Giữ nhóm đích và tác giả thật Hòa, lựa chọn ẩn danh=True. | P18; state=Chờ duyệt/chờ nhóm duyệt; group=N11 Public; author=Hòa; anonymous=True; score=không quét | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+
+
+**E34 — thay toàn bộ M1 đến kết thúc:** Hòa có vai trò nhóm Owner; ADMIN miễn quét/qua cờ, vẫn kiểm membership/Khóa; biến thể {'preapproval': False}. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-018 E34 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E34.1 | ACT-007 | Hòa gửi bài nháp P18 đã soạn qua M03 vào N11. | P18; title=Cùng giải phương trình bậc hai; body=Mình chia sẻ cách tính biệt thức và kiểm tra nghiệm.; Lớp=11; không poll/tệp; không có trường bắt buộc khác do M11 đặt; author=Hòa; roleNhóm=Owner; Nháp→gửi; anonymous=True; duyệt trước=False; AI tổng/Moderation=đều Bật; ADMIN; Group=false; vai trò nhóm=Owner | E34.2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10 |
+| E34.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm thành viên/nhóm không Khóa, người gửi đúng tác giả, bài Nháp hoặc Bị từ chối, tiêu đề/nội dung và mức cảnh cáo theo M03. Gắn tối đa một nhóm N11, giữ tác giả thật Hòa và lựa chọn ẩn danh=True hợp lệ với công tắc. Admin không quét. Hệ thống nhận kết quả cổng UC016. Chuyển P18→Đã đăng, trả kết quả đăng; cung cấp sự kiện bài được đăng M03/M07 và mốc tạo embedding M13 theo cờ của owner. Public: xem ở trang nhóm, tab Group của thành viên; đủ điều kiện thì Trending/Following theo M14, không Newest. Bài ẩn danh không vào Following nhờ theo dõi tác giả. Giữ nhóm đích và tác giả thật Hòa, lựa chọn ẩn danh=True. | P18; state=Đã đăng; group=N11 Public; author=Hòa; anonymous=True; score=không quét | END:SUCCESS | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+
+
+**E35 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-018 E35 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E35.1 | ACT-001 | Guest yêu cầu: Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm. | Đúng nhóm/đích của chức năng; Guest không có vai trò nhóm bắt buộc; Group=true | E35.2 | FR-M11-12.11, BR-M11-06 |
+| E35.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E36 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-018 E36 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E36.1 | ACT-002 | Phúc người ngoài yêu cầu: Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E36.2 | FR-M11-12.11, BR-M11-06 |
+| E36.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E37 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-018 E37 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E37.1 | ACT-008 | Minh MODERATOR không thành viên yêu cầu: Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không thành viên không có vai trò nhóm bắt buộc; Group=true | E37.2 | FR-M11-12.11, BR-M11-06 |
+| E37.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E38 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không thành viên yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-018 E38 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E38.1 | ACT-007 | Hòa ADMIN không thành viên yêu cầu: Gửi bài mới hoặc gửi lại bài bị từ chối vào nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không thành viên không có vai trò nhóm bắt buộc; Group=true | E38.2 | FR-M11-12.11, BR-M11-06 |
+| E38.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-018 -->
@@ -3139,7 +3231,7 @@ Tra cứu hàng chờ duyệt riêng của một nhóm — BF-M11-019; owner [UC
 
 #### 2. Actor thực hiện
 
-ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -3167,7 +3259,7 @@ Có N11, Bình Group Mod; P19 của Chi chờ nhóm duyệt, P20 của Bình cũ
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-019 -->
 
@@ -3177,6 +3269,12 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E2 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E2.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E3 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E3.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E4 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E4.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
+| E5 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M11-13.01, FR-M11-17.03, FR-M10-12.08, FR-M11-13.08, FR-M11-13.09, BR-M11-17, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E6 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E7 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-008 — Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-007 — Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-011 — An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-17, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-019 E1 -->
@@ -3207,64 +3305,64 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E4.1 | SYSTEM | Hệ thống từ chối hành vi trong nhóm Bị khóa kể cả Owner/Group Mod hoặc ADMIN; quyền đọc/lưu/báo cáo/Member-Group Mod tự rời và tự kế nhiệm theo hợp đồng riêng vẫn giữ. | Nhóm Bị khóa; không thực hiện thay đổi/duyệt/nhận mở queue bị chặn | END:REJECTED | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-019 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa mở hàng chờ duyệt N11. | Hòa Group Mod N11; không tự nhận P19/P20; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-13.01, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm/không Khóa, UC021 pha xem không cần giữ và không cấm nhìn bài mình. Trả P19/P20 đang chờ nhóm duyệt riêng N11, thông tin nội dung/tác giả thật cho Group Mod; không P21 queue Mod hệ thống/P22 nhóm khác/vụ báo cáo. Chỉ xem chưa nhận hoặc kết luận. | queueN11={P19 Chi,P20 Hòa}; holder không đổi; P21/P22 không thuộc tập | END:SUCCESS | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-17, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-019 V2 -->
+<!-- sc:branch SC-M11-019 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-009 | Chi Member yêu cầu: Tra cứu hàng chờ duyệt riêng của một nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-007 | Hòa mở hàng chờ duyệt N11. | Hòa Group Mod N11; không tự nhận P19/P20; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E5.2 | FR-M11-13.01, FR-M11-17.03, FR-M10-12.08 |
+| E5.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm/không Khóa, UC021 pha xem không cần giữ và không cấm nhìn bài mình. Trả P19/P20 đang chờ nhóm duyệt riêng N11, thông tin nội dung/tác giả thật cho Group Mod; không P21 queue Mod hệ thống/P22 nhóm khác/vụ báo cáo. Chỉ xem chưa nhận hoặc kết luận. | queueN11={P19 Chi,P20 Hòa}; holder không đổi; P21/P22 không thuộc tập | END:SUCCESS | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-17, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-019 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-002 | Phúc người ngoài yêu cầu: Tra cứu hàng chờ duyệt riêng của một nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-019 V4 -->
+<!-- sc:branch SC-M11-019 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Tra cứu hàng chờ duyệt riêng của một nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-009 | Chi Member yêu cầu: Tra cứu hàng chờ duyệt riêng của một nhóm. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E6.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E6.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-019 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Tra cứu hàng chờ duyệt riêng của một nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-019 V6 -->
+<!-- sc:branch SC-M11-019 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-011 | An mở hàng chờ duyệt N11. | An Owner; P19 Chi/P20 Bình chờ nhóm; P21 củaAn chờMod hệ thống | V6.2 | FR-M11-13.01 |
-| V6.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner và UC021 pha xem, trả P19/P20 đúng queue nhóm với tác giả thật. P21 của An nằm queue Mod hệ thống nên không có ở đây. Chưa nhận/kết luận bài. | queueN11={P19 Chi Member,P20 Bình Group Mod}; P21 không thuộc queue nhóm | END:SUCCESS | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-17, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-002 | Phúc người ngoài yêu cầu: Tra cứu hàng chờ duyệt riêng của một nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E7.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E7.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E8 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-019 E8 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Tra cứu hàng chờ duyệt riêng của một nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | E8.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E8.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-019 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Tra cứu hàng chờ duyệt riêng của một nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | E9.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E9.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-019 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-011 | An mở hàng chờ duyệt N11. | An Owner; P19 Chi/P20 Bình chờ nhóm; P21 củaAn chờMod hệ thống | E10.2 | FR-M11-13.01 |
+| E10.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner và UC021 pha xem, trả P19/P20 đúng queue nhóm với tác giả thật. P21 của An nằm queue Mod hệ thống nên không có ở đây. Chưa nhận/kết luận bài. | queueN11={P19 Chi Member,P20 Bình Group Mod}; P21 không thuộc queue nhóm | END:SUCCESS | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-17, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-019 -->
@@ -3281,7 +3379,7 @@ Nhận giữ một bài chờ nhóm duyệt để xử lý — BF-M11-020; owner
 
 #### 2. Actor thực hiện
 
-ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -3309,7 +3407,7 @@ Có N11/P19 của Chi Chờ duyệt (chờ nhóm duyệt); quyền và holder ki
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-020 -->
 
@@ -3322,6 +3420,12 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E5 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E5.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E6 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E6.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E7 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E7.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
+| E8 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-13.02, FR-M11-17.03, FR-M10-12.08, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E11 | system | M1 | ACT-008 — Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E11.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E12 | system | M1 | ACT-007 — Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E13 | system | M1 | ACT-011 — An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-020 E1 -->
@@ -3374,64 +3478,64 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E7.1 | SYSTEM | Hệ thống từ chối hành vi trong nhóm Bị khóa kể cả Owner/Group Mod hoặc ADMIN; quyền đọc/lưu/báo cáo/Member-Group Mod tự rời và tự kế nhiệm theo hợp đồng riêng vẫn giữ. | Nhóm Bị khóa; không thực hiện thay đổi/duyệt/nhận mở queue bị chặn | END:REJECTED | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-020 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa chọn nhận P19 trong hàng chờ N11. | Hòa Group Mod; P19/Chi; holder=trống; T; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-13.02, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. UC021 pha nhận: kiểm bài đúng queue, không tự nhận bài mình, chưa người khác giữ; ghi Hòa là holder P19 và mốc thao tác cuối=T. Trả đã nhận giữ; người khác không kết luận được. Không biến nhận bài thành chấp nhận. Nếu không thao tác đủ 30 phút sẽ tự nhả; chỉ lượt người giữ mở xem/chấp nhận/từ chối cập nhật mốc theo nguồn. | P19 vẫn Chờ duyệt; holder=U-H; lastActionAt=10:00+07; không thao tác thêm thì 10:30 tự nhả | END:SUCCESS | FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-020 V2 -->
+<!-- sc:branch SC-M11-020 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-009 | Chi Member yêu cầu: Nhận giữ một bài chờ nhóm duyệt để xử lý. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-007 | Hòa chọn nhận P19 trong hàng chờ N11. | Hòa Group Mod; P19/Chi; holder=trống; T; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E8.2 | FR-M11-13.02, FR-M11-17.03, FR-M10-12.08 |
+| E8.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. UC021 pha nhận: kiểm bài đúng queue, không tự nhận bài mình, chưa người khác giữ; ghi Hòa là holder P19 và mốc thao tác cuối=T. Trả đã nhận giữ; người khác không kết luận được. Không biến nhận bài thành chấp nhận. Nếu không thao tác đủ 30 phút sẽ tự nhả; chỉ lượt người giữ mở xem/chấp nhận/từ chối cập nhật mốc theo nguồn. | P19 vẫn Chờ duyệt; holder=U-H; lastActionAt=10:00+07; không thao tác thêm thì 10:30 tự nhả | END:SUCCESS | FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-020 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-002 | Phúc người ngoài yêu cầu: Nhận giữ một bài chờ nhóm duyệt để xử lý. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-020 V4 -->
+<!-- sc:branch SC-M11-020 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Nhận giữ một bài chờ nhóm duyệt để xử lý. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-009 | Chi Member yêu cầu: Nhận giữ một bài chờ nhóm duyệt để xử lý. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E9.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E9.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E10 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-020 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Nhận giữ một bài chờ nhóm duyệt để xử lý. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-020 V6 -->
+<!-- sc:branch SC-M11-020 E10 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-011 | An chọn nhận P19 trong hàng chờ N11. | An Owner; P19/Chi; holder=trống; T; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | V6.2 | FR-M11-13.02 |
-| V6.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. UC021 pha nhận: kiểm bài đúng queue, không tự nhận bài mình, chưa người khác giữ; ghi An là holder P19 và mốc thao tác cuối=T. Trả đã nhận giữ; người khác không kết luận được. Không biến nhận bài thành chấp nhận. Nếu không thao tác đủ 30 phút sẽ tự nhả; chỉ lượt người giữ mở xem/chấp nhận/từ chối cập nhật mốc theo nguồn. | P19 vẫn Chờ duyệt; holder=U-A; lastActionAt=10:00+07; không thao tác thêm thì 10:30 tự nhả | END:SUCCESS | FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-002 | Phúc người ngoài yêu cầu: Nhận giữ một bài chờ nhóm duyệt để xử lý. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E10.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E10.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E11 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-020 E11 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Nhận giữ một bài chờ nhóm duyệt để xử lý. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | E11.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E11.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E12 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-020 E12 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Nhận giữ một bài chờ nhóm duyệt để xử lý. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | E12.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E12.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E13 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-020 E13 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-011 | An chọn nhận P19 trong hàng chờ N11. | An Owner; P19/Chi; holder=trống; T; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | E13.2 | FR-M11-13.02 |
+| E13.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. UC021 pha nhận: kiểm bài đúng queue, không tự nhận bài mình, chưa người khác giữ; ghi An là holder P19 và mốc thao tác cuối=T. Trả đã nhận giữ; người khác không kết luận được. Không biến nhận bài thành chấp nhận. Nếu không thao tác đủ 30 phút sẽ tự nhả; chỉ lượt người giữ mở xem/chấp nhận/từ chối cập nhật mốc theo nguồn. | P19 vẫn Chờ duyệt; holder=U-A; lastActionAt=10:00+07; không thao tác thêm thì 10:30 tự nhả | END:SUCCESS | FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-020 -->
@@ -3448,7 +3552,7 @@ Kết luận một bài đang chờ nhóm duyệt — BF-M11-021; owner [UC-M11-
 
 #### 2. Actor thực hiện
 
-ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -3476,7 +3580,7 @@ Có N11/P19 của Chi Chờ duyệt (chờ nhóm duyệt), Bình Group Mod đang
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-021 -->
 
@@ -3490,6 +3594,12 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E6 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E6.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E7 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E7.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E8 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E8.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
+| E9 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-13.05, FR-M11-17.03, FR-M10-12.08, FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, FR-M11-12.12, FR-M11-12.13, BR-M11-17, BR-M11-18, BR-M11-20, BR-M11-33, BR-M11-39, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-009 — Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E11 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E11.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E12 | system | M1 | ACT-008 — Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E13 | system | M1 | ACT-007 — Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E14 | system | M1 | ACT-011 — An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M11-13.05, FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, FR-M11-12.12, FR-M11-12.13, BR-M11-17, BR-M11-18, BR-M11-20, BR-M11-33, BR-M11-39, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-021 E1 -->
@@ -3553,64 +3663,64 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E8.1 | SYSTEM | Hệ thống từ chối hành vi trong nhóm Bị khóa kể cả Owner/Group Mod hoặc ADMIN; quyền đọc/lưu/báo cáo/Member-Group Mod tự rời và tự kế nhiệm theo hợp đồng riêng vẫn giữ. | Nhóm Bị khóa; không thực hiện thay đổi/duyệt/nhận mở queue bị chặn | END:REJECTED | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-021 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-007 | Hòa chọn Chấp nhận P19 đang giữ. | P19 của Chi; Hòa holder; lastAction09:50; T10:00; Chấp nhận; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V1.2 | FR-M11-13.05, FR-M11-17.03, FR-M10-12.08 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. UC021 pha kết luận: kiểm Hòa còn Group Mod, P19 đang chờ đúng nhóm và Hòa đúng holder, không tự duyệt. Chuyển P19→Đã đăng/ra khỏi tập chờ nhóm, cập nhật mốc thao tác cuối theo nguồn. Trả đã chấp nhận, cung cấp sự kiện bài được đăng M03/M07 và mốc embedding M13; Public theo phạm vi/ẩn danh của bài, không mặc định ra Newest. | P19 Chờ duyệt→Đã đăng; tác giả Chi; anonymous=true; group N11; không đổi quyết định kiểm duyệt hệ thống | END:SUCCESS | FR-M11-13.03, FR-M11-13.05, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, FR-M11-12.12, FR-M11-12.13, BR-M11-17, BR-M11-18, BR-M11-20, BR-M11-33, BR-M11-39, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-021 V2 -->
+<!-- sc:branch SC-M11-021 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-009 | Chi Member yêu cầu: Kết luận một bài đang chờ nhóm duyệt. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | V2.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-007 | Hòa chọn Chấp nhận P19 đang giữ. | P19 của Chi; Hòa holder; lastAction09:50; T10:00; Chấp nhận; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E9.2 | FR-M11-13.05, FR-M11-17.03, FR-M10-12.08 |
+| E9.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. UC021 pha kết luận: kiểm Hòa còn Group Mod, P19 đang chờ đúng nhóm và Hòa đúng holder, không tự duyệt. Chuyển P19→Đã đăng/ra khỏi tập chờ nhóm, cập nhật mốc thao tác cuối theo nguồn. Trả đã chấp nhận, cung cấp sự kiện bài được đăng M03/M07 và mốc embedding M13; Public theo phạm vi/ẩn danh của bài, không mặc định ra Newest. | P19 Chờ duyệt→Đã đăng; tác giả Chi; anonymous=true; group N11; không đổi quyết định kiểm duyệt hệ thống | END:SUCCESS | FR-M11-13.03, FR-M11-13.05, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, FR-M11-12.12, FR-M11-12.13, BR-M11-17, BR-M11-18, BR-M11-20, BR-M11-33, BR-M11-39, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E10 — thay toàn bộ M1 đến kết thúc:** Chi Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-021 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-002 | Phúc người ngoài yêu cầu: Kết luận một bài đang chờ nhóm duyệt. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-021 V4 -->
+<!-- sc:branch SC-M11-021 E10 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Kết luận một bài đang chờ nhóm duyệt. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-009 | Chi Member yêu cầu: Kết luận một bài đang chờ nhóm duyệt. | Đúng nhóm/đích của chức năng; Chi Member không có vai trò nhóm bắt buộc; Group=true | E10.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E10.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E11 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-021 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Kết luận một bài đang chờ nhóm duyệt. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-021 V6 -->
+<!-- sc:branch SC-M11-021 E11 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-011 | An chọn Chấp nhận P19 đang giữ. | P19 của Chi; An holder; lastAction09:50; T10:00; Chấp nhận; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | V6.2 | FR-M11-13.05 |
-| V6.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. UC021 pha kết luận: kiểm An còn Owner, P19 đang chờ đúng nhóm và An đúng holder, không tự duyệt. Chuyển P19→Đã đăng/ra khỏi tập chờ nhóm, cập nhật mốc thao tác cuối theo nguồn. Trả đã chấp nhận, cung cấp sự kiện bài được đăng M03/M07 và mốc embedding M13; Public theo phạm vi/ẩn danh của bài, không mặc định ra Newest. | P19 Chờ duyệt→Đã đăng; tác giả Chi; anonymous=true; group N11; không đổi quyết định kiểm duyệt hệ thống | END:SUCCESS | FR-M11-13.03, FR-M11-13.05, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, FR-M11-12.12, FR-M11-12.13, BR-M11-17, BR-M11-18, BR-M11-20, BR-M11-33, BR-M11-39, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-002 | Phúc người ngoài yêu cầu: Kết luận một bài đang chờ nhóm duyệt. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E11.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E11.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E12 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-021 E12 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Kết luận một bài đang chờ nhóm duyệt. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | E12.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E12.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E13 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-021 E13 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Kết luận một bài đang chờ nhóm duyệt. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | E13.2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33 |
+| E13.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E14 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-021 E14 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-011 | An chọn Chấp nhận P19 đang giữ. | P19 của Chi; An holder; lastAction09:50; T10:00; Chấp nhận; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | E14.2 | FR-M11-13.05 |
+| E14.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. UC021 pha kết luận: kiểm An còn Owner, P19 đang chờ đúng nhóm và An đúng holder, không tự duyệt. Chuyển P19→Đã đăng/ra khỏi tập chờ nhóm, cập nhật mốc thao tác cuối theo nguồn. Trả đã chấp nhận, cung cấp sự kiện bài được đăng M03/M07 và mốc embedding M13; Public theo phạm vi/ẩn danh của bài, không mặc định ra Newest. | P19 Chờ duyệt→Đã đăng; tác giả Chi; anonymous=true; group N11; không đổi quyết định kiểm duyệt hệ thống | END:SUCCESS | FR-M11-13.03, FR-M11-13.05, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, FR-M11-12.12, FR-M11-12.13, BR-M11-17, BR-M11-18, BR-M11-20, BR-M11-33, BR-M11-39, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-021 -->
@@ -3627,7 +3737,7 @@ Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm — BF-M11-0
 
 #### 2. Actor thực hiện
 
-ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường V ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
+ACT-010 là actor chính của đường chuẩn. Actor kế thừa vẫn chịu guard của nhóm đích. Đường E tại M1 ghi đầy đủ từ yêu cầu đầu khi người khởi tạo khác; SYSTEM là iShare, không thêm actor module/queue/DB/clock.
 
 #### 3. Tiền điều kiện
 
@@ -3655,7 +3765,7 @@ Có N11/P11 Đã đăng của Chi Member, ẩn danh, Chi20 điểm từ P11; Bì
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. V thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
+E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu, không cộng các trạng thái loại trừ. Đổi nhóm/đích/lựa chọn từ đầu có đường thay M1; trạng thái đổi trong lúc thao tác được nêu rõ. E tại M1 thay toàn bộ M1 đến kết thúc khi actor khởi tạo khác. Mỗi đường đi đến kết quả hoặc điểm nhập lại cụ thể; các trường hợp thiếu hợp đồng chỉ ghi GAP, không tự dựng nhánh cho/chặn hoặc chuyển giao để cắt mục tiêu.
 
 <!-- sc:exceptions SC-M11-022 -->
 
@@ -3667,6 +3777,13 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E4 | system | M2 | Cờ Group Tắt và người yêu cầu không có vai trò hệ thống ADMIN | E4.1 | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07 |
 | E5 | system | M2 | Nhóm đích Đã xóa hoặc Bị ẩn tại lúc mở/thực hiện | E5.1 | FR-M11-15.01, FR-M11-15.02, FR-M11-15.05, FR-M11-16.01, FR-M11-16.02, BR-M11-23, BR-M11-27 |
 | E6 | system | M2 | Nhóm đích Bị khóa, hành vi này thuộc tập bị chặn | E6.1 | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
+| E7 | system | M1 | ACT-011 — An Owner gỡ bài của Bình Group Mod thấp hơn. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M11-14.01, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, BR-M11-05, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E8 | system | M1 | ACT-007 — Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M11-14.01, FR-M11-17.03, FR-M10-12.08, FR-M11-14.02, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M12-02.16, FR-M15-02.27, FR-M11-17.01, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E9 | system | M1 | ACT-009 — Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E10 | system | M1 | ACT-002 — Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E11 | system | M1 | ACT-008 — Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E11.1 | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E12 | system | M1 | ACT-007 — Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E12.1 | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| E13 | system | M1 | ACT-011 — An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M11-14.01, FR-M11-14.02, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M12-02.16, FR-M15-02.27, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:branch SC-M11-022 E1 -->
@@ -3714,74 +3831,74 @@ E thay đúng bước at. Guard thay dữ liệu của lần chạy từ đầu,
 | E6.1 | SYSTEM | Hệ thống từ chối hành vi trong nhóm Bị khóa kể cả Owner/Group Mod hoặc ADMIN; quyền đọc/lưu/báo cáo/Member-Group Mod tự rời và tự kế nhiệm theo hợp đồng riêng vẫn giữ. | Nhóm Bị khóa; không thực hiện thay đổi/duyệt/nhận mở queue bị chặn | END:REJECTED | FR-M11-16.04, FR-M11-16.07, BR-M11-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** An Owner gỡ bài của Bình Group Mod thấp hơn. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** An Owner gỡ bài của Bình Group Mod thấp hơn. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-022 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-011 | An chọn gỡ P-B của Bình khỏi N11. | OwnerAn; Group ModBình là tác giả; P-B Đã đăng; chưa gỡ | V1.2 | FR-M11-14.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner/không Khóa/thứ bậc, đặt dấu gỡ xóa mềm P-B, giữ trạng thái Đã đăng/dữ liệu/điểm. Thu hẹp tập xem theo lớp quyền, báo ứng dụng cho Bình. Không khiếu nại/hiện lại cấp nhóm; trả đã gỡ. | P-B.removed=true; stateĐã đăng; recipient Bình; dữ liệu/điểm giữ | END:SUCCESS | FR-M11-14.01, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, BR-M11-05, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-022 V2 -->
+<!-- sc:branch SC-M11-022 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-007 | Hòa chọn gỡ P11 của Chi khỏi N11. | P11 Đã đăng, chưa mang dấu gỡ; author=U-C Member; actor=U-H Group Mod; không nhập lý do bắt buộc do nguồn không đặt; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | V2.2 | FR-M11-14.01, FR-M11-17.03, FR-M10-12.08 |
-| V2.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm/không Khóa và tác giả thấp hơn, đặt dấu Bị gỡ khỏi nhóm/xóa mềm; giữ dữ liệu và trạng thái đăng Đã đăng của P11. Tập xem bị giới hạn thêm: tác giả, Owner/Group Mod của nhóm, Mod/Admin theo quyền ngữ cảnh; dấu gỡ không cấp quyền mở Private hoặc nhóm Ẩn/Xóa. Thông báo ứng dụng cho Chi, không trừ20 điểm. Trả đã gỡ, tác giả không tự hiện lại/khiếu nại cấp nhóm; báo cáo/can thiệp M08 vẫn áp dụng. | P11 state Đã đăng→Đã đăng; removedFromGroup=false→true; author Chi; 20→20; recipient U-C; dữ liệu giữ | END:SUCCESS | FR-M11-14.01, FR-M11-14.02, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M12-02.16, FR-M15-02.27, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-011 | An chọn gỡ P-B của Bình khỏi N11. | OwnerAn; Group ModBình là tác giả; P-B Đã đăng; chưa gỡ | E7.2 | FR-M11-14.01 |
+| E7.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner/không Khóa/thứ bậc, đặt dấu gỡ xóa mềm P-B, giữ trạng thái Đã đăng/dữ liệu/điểm. Thu hẹp tập xem theo lớp quyền, báo ứng dụng cho Bình. Không khiếu nại/hiện lại cấp nhóm; trả đã gỡ. | P-B.removed=true; stateĐã đăng; recipient Bình; dữ liệu/điểm giữ | END:SUCCESS | FR-M11-14.01, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, BR-M11-05, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN qua cờ Group Tắt, có đúng Group Mod; vẫn chịu Khóa/Private/hạn/quyền đích. Actor khởi tạo ACT-007; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-022 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-009 | Lan Member yêu cầu: Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm. | Đúng nhóm/đích của chức năng; Lan Member không có vai trò nhóm bắt buộc; Group=true | V3.2 | FR-M11-14.02, BR-M11-06 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-022 V4 -->
+<!-- sc:branch SC-M11-022 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-002 | Phúc người ngoài yêu cầu: Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | V4.2 | FR-M11-14.02, BR-M11-06 |
-| V4.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-007 | Hòa chọn gỡ P11 của Chi khỏi N11. | P11 Đã đăng, chưa mang dấu gỡ; author=U-C Member; actor=U-H Group Mod; không nhập lý do bắt buộc do nguồn không đặt; Hòa ADMIN hệ thống, Group=false; đúng vai trò nhóm cần cho chức năng như đường chuẩn, các điều kiện khác giữ | E8.2 | FR-M11-14.01, FR-M11-17.03, FR-M10-12.08 |
+| E8.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Group Mod đúng nhóm/không Khóa và tác giả thấp hơn, đặt dấu Bị gỡ khỏi nhóm/xóa mềm; giữ dữ liệu và trạng thái đăng Đã đăng của P11. Tập xem bị giới hạn thêm: tác giả, Owner/Group Mod của nhóm, Mod/Admin theo quyền ngữ cảnh; dấu gỡ không cấp quyền mở Private hoặc nhóm Ẩn/Xóa. Thông báo ứng dụng cho Chi, không trừ20 điểm. Trả đã gỡ, tác giả không tự hiện lại/khiếu nại cấp nhóm; báo cáo/can thiệp M08 vẫn áp dụng. | P11 state Đã đăng→Đã đăng; removedFromGroup=false→true; author Chi; 20→20; recipient U-C; dữ liệu giữ | END:SUCCESS | FR-M11-14.01, FR-M11-14.02, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M12-02.16, FR-M15-02.27, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M10-12.08 |
 
 
-**V5 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Lan Member yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-009; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-022 V5 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V5.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | V5.2 | FR-M11-14.02, BR-M11-06 |
-| V5.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
-
-
-**V6 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M11-022 V6 -->
+<!-- sc:branch SC-M11-022 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V6.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | V6.2 | FR-M11-14.02, BR-M11-06 |
-| V6.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-009 | Lan Member yêu cầu: Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm. | Đúng nhóm/đích của chức năng; Lan Member không có vai trò nhóm bắt buộc; Group=true | E9.2 | FR-M11-14.02, BR-M11-06 |
+| E9.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
-**V7 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+**E10 — thay toàn bộ M1 đến kết thúc:** Phúc người ngoài yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-002; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M11-022 V7 -->
+<!-- sc:branch SC-M11-022 E10 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V7.1 | ACT-011 | An chọn gỡ P11 của Chi khỏi N11. | P11 Đã đăng, chưa mang dấu gỡ; author=U-C Member; actor=U-A Owner; không nhập lý do bắt buộc do nguồn không đặt; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | V7.2 | FR-M11-14.01 |
-| V7.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner đúng nhóm/không Khóa và tác giả thấp hơn, đặt dấu Bị gỡ khỏi nhóm/xóa mềm; giữ dữ liệu và trạng thái đăng Đã đăng của P11. Tập xem bị giới hạn thêm: tác giả, Owner/Group Mod của nhóm, Mod/Admin theo quyền ngữ cảnh; dấu gỡ không cấp quyền mở Private hoặc nhóm Ẩn/Xóa. Thông báo ứng dụng cho Chi, không trừ20 điểm. Trả đã gỡ, tác giả không tự hiện lại/khiếu nại cấp nhóm; báo cáo/can thiệp M08 vẫn áp dụng. | P11 state Đã đăng→Đã đăng; removedFromGroup=false→true; author Chi; 20→20; recipient U-C; dữ liệu giữ | END:SUCCESS | FR-M11-14.01, FR-M11-14.02, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M12-02.16, FR-M15-02.27, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-002 | Phúc người ngoài yêu cầu: Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm. | Đúng nhóm/đích của chức năng; Phúc người ngoài không có vai trò nhóm bắt buộc; Group=true | E10.2 | FR-M11-14.02, BR-M11-06 |
+| E10.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E11 — thay toàn bộ M1 đến kết thúc:** Minh MODERATOR không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-008; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-022 E11 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-008 | Minh MODERATOR không Group Mod yêu cầu: Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm. | Đúng nhóm/đích của chức năng; Minh MODERATOR không Group Mod không có vai trò nhóm bắt buộc; Group=true | E11.2 | FR-M11-14.02, BR-M11-06 |
+| E11.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E12 — thay toàn bộ M1 đến kết thúc:** Hòa ADMIN không Group Mod yêu cầu chức năng bằng quyền nhóm không có. Actor khởi tạo ACT-007; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-022 E12 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E12.1 | ACT-007 | Hòa ADMIN không Group Mod yêu cầu: Gỡ một bài hoặc bình luận khỏi nhóm theo quyền nhóm. | Đúng nhóm/đích của chức năng; Hòa ADMIN không Group Mod không có vai trò nhóm bắt buộc; Group=true | E12.2 | FR-M11-14.02, BR-M11-06 |
+| E12.2 | SYSTEM | Hệ thống kiểm quyền nhóm đúng hành vi và từ chối; quyền hệ thống không cấp membership/Owner/Group Mod. Không thực hiện thay đổi hoặc tiết lộ dữ liệu quản trị theo yêu cầu này. | Không có kết quả chức năng hợp lệ mới; dữ liệu trước giữ | END:REJECTED | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+
+
+**E13 — thay toàn bộ M1 đến kết thúc:** An Owner thực hiện chức năng kiểm duyệt/quản lý nhóm, vẫn đúng đích và holder khi cần. Actor khởi tạo ACT-011; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M11-022 E13 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-011 | An chọn gỡ P11 của Chi khỏi N11. | P11 Đã đăng, chưa mang dấu gỡ; author=U-C Member; actor=U-A Owner; không nhập lý do bắt buộc do nguồn không đặt; An Owner; nếu có holder của bài đang xét thì holder=An, tác giả vẫn Chi | E13.2 | FR-M11-14.01 |
+| E13.2 | SYSTEM | Hệ thống kiểm cờ Group cho phép (nếu Tắt chỉ ADMIN qua rào cờ), nhóm Hoạt động/không Bị ẩn, điều kiện Khóa và quyền hiện tại đúng hành vi. Kiểm Owner đúng nhóm/không Khóa và tác giả thấp hơn, đặt dấu Bị gỡ khỏi nhóm/xóa mềm; giữ dữ liệu và trạng thái đăng Đã đăng của P11. Tập xem bị giới hạn thêm: tác giả, Owner/Group Mod của nhóm, Mod/Admin theo quyền ngữ cảnh; dấu gỡ không cấp quyền mở Private hoặc nhóm Ẩn/Xóa. Thông báo ứng dụng cho Chi, không trừ20 điểm. Trả đã gỡ, tác giả không tự hiện lại/khiếu nại cấp nhóm; báo cáo/can thiệp M08 vẫn áp dụng. | P11 state Đã đăng→Đã đăng; removedFromGroup=false→true; author Chi; 20→20; recipient U-C; dữ liệu giữ | END:SUCCESS | FR-M11-14.01, FR-M11-14.02, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M12-02.16, FR-M15-02.27, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
 
 
 <!-- sc:end SC-M11-022 -->
@@ -3810,175 +3927,175 @@ Không có scenario phụ chỉ SYSTEM hoặc chỉ SYSTEM–AI. Tự động kh
 
 | Mã hiệu lực | SC/bước/nhánh hoặc AUT/RULE | Mức đối soát |
 |---|---|---|
-| FR-M11-01 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E2.3; SC-M11-001/E3.3; SC-M11-001/E4.3; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.1; SC-M11-001/V3.2; RULE-M11-001; SC-M11-001/E1.1; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-003/M2; SC-M11-003/V1.2; SC-M11-017/E4.4; AUT-M11-002; SC-M11-001/E2.1; SC-M11-001/E2.2; SC-M11-001/E3.1; SC-M11-001/E3.2; SC-M11-001/E4.1; SC-M11-001/E4.2; SC-M11-001/V1.1; SC-M11-001/V2.1 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02 | SC-M11-002/M1; SC-M11-002/M2; SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E6.3; SC-M11-002/E7.3; SC-M11-002/E8.3; SC-M11-002/V1.1; SC-M11-002/V1.2; SC-M11-002/V1.3; SC-M11-002/V1.4; SC-M11-002/E1.1; SC-M11-002/E2.1; RULE-M11-002; SC-M11-002/V2.1; SC-M11-002/V2.2; SC-M11-002/V3.1; SC-M11-002/V3.2; SC-M11-002/V4.1; SC-M11-002/V4.2; SC-M11-002/V5.1; SC-M11-002/V5.2; SC-M11-002/E4.1; SC-M11-002/E4.2; RULE-M11-004; SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-018/E15.2; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/E6.1; SC-M11-002/E6.2; SC-M11-002/E7.1; SC-M11-002/E7.2; SC-M11-002/E8.1; SC-M11-002/E8.2; SC-M11-005/E3.1; SC-M11-002/E1.2; SC-M11-002/E2.2; AUT-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03 | SC-M11-004/M1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/V1.2; RULE-M11-002; SC-M11-004/V1.1; SC-M11-005/M1; SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V6.1; SC-M11-005/V6.2; SC-M11-005/V9.1; SC-M11-005/V9.2; SC-M11-005/V10.1; SC-M11-005/V10.2; SC-M11-005/V1.1; SC-M11-005/V2.1; SC-M11-005/V3.1; SC-M11-005/E1.2; SC-M11-005/E2.1; SC-M11-005/V5.2; SC-M11-005/V8.2; SC-M11-005/V4.2; SC-M11-005/V7.2; SC-M11-005/V5.1; SC-M11-005/V8.1; SC-M11-005/V4.1; SC-M11-005/V7.1; SC-M11-005/E1.1; SC-M11-006/M1; SC-M11-006/M2; SC-M11-006/V1.1; SC-M11-006/V1.2; SC-M11-006/V2.1; SC-M11-006/V2.2; SC-M11-006/V3.1; SC-M11-006/V3.2; SC-M11-006/V4.1; SC-M11-006/V4.2; SC-M11-006/V5.1; SC-M11-006/V5.2; SC-M11-014/M2; SC-M11-014/V1.2; SC-M11-015/M2; SC-M11-015/V1.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/V4.2; SC-M11-017/M2; SC-M11-017/E3.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-04 | SC-M11-005/E1.2; SC-M11-007/V1.1; SC-M11-007/V1.2; RULE-M11-003; SC-M11-007/M1; SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/V2.1; SC-M11-007/V2.2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E6.1; SC-M11-007/E6.2; SC-M11-007/E7.1; SC-M11-007/E7.2; SC-M11-007/E8.1; SC-M11-007/E8.2; SC-M11-011/M2; SC-M11-011/V1.2; SC-M11-011/V5.2; SC-M11-007/E9.1; SC-M11-007/E5.1; SC-M11-007/E4.3; SC-M11-007/E4.4; SC-M11-010/E1.2; SC-M11-008/M1; SC-M11-008/M2; SC-M11-008/E1.1; SC-M11-008/E2.1; SC-M11-008/E2.2; SC-M11-008/V1.1; SC-M11-008/V1.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-05 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.2; SC-M11-009/M2; SC-M11-009/E1.1; SC-M11-009/E1.2; SC-M11-009/E2.2; SC-M11-009/V1.2; RULE-M11-003; SC-M11-007/M1; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/V2.1; SC-M11-007/V2.2; SC-M11-009/M1; SC-M11-009/V1.1; AUT-M11-005; SC-M11-009/E2.1; SC-M11-009/V2.1; SC-M11-009/V2.2; SC-M11-009/V3.1; SC-M11-009/V3.2; SC-M11-009/V4.1; SC-M11-009/V4.2; SC-M11-009/V5.1; SC-M11-009/V5.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-06 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-010/M3; SC-M11-010/M4; SC-M11-010/V1.3; SC-M11-010/V1.4; SC-M11-010/V6.3; SC-M11-010/V6.4; RULE-M11-003; AUT-M11-005; SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/V2.2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-010/M1; SC-M11-010/M2; SC-M11-010/V1.1; SC-M11-010/V1.2; SC-M11-010/V6.1; SC-M11-010/V6.2; SC-M11-010/V2.1; SC-M11-010/V2.2; SC-M11-010/V3.1; SC-M11-010/V3.2; SC-M11-010/V4.1; SC-M11-010/V4.2; SC-M11-010/V5.1; SC-M11-010/V5.2; SC-M11-010/E1.2; SC-M11-010/E2.1; SC-M11-010/E1.1; SC-M11-011/M2; SC-M11-011/V1.2; SC-M11-011/V5.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-07 | SC-M11-011/M1; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/V1.1; SC-M11-011/V1.2; SC-M11-011/V5.1; SC-M11-011/V5.2; RULE-M11-003; SC-M11-011/V2.1; SC-M11-011/V2.2; SC-M11-011/V3.1; SC-M11-011/V3.2; SC-M11-011/V4.1; SC-M11-011/V4.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/V1.2; SC-M11-012/V2.1; SC-M11-012/V2.2; SC-M11-012/V3.1; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/V1.2; SC-M11-013/V2.1; SC-M11-013/V2.2; SC-M11-013/V3.1; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-012/M1; SC-M11-012/V1.1; SC-M11-012/V4.1; SC-M11-013/M1; SC-M11-013/V1.1; SC-M11-013/V4.1; SC-M11-013/M3; SC-M11-013/M4; SC-M11-013/V1.3; SC-M11-013/V1.4; SC-M11-013/V4.3; SC-M11-013/V4.4 | Đã đối soát phần đủ căn cứ |
-| FR-M11-08 | SC-M11-014/M1; SC-M11-014/M3; SC-M11-014/M4; SC-M11-014/E1.1; SC-M11-014/V1.1; SC-M11-014/V1.3; SC-M11-014/V1.4; SC-M11-015/E1.1; RULE-M11-001; SC-M11-014/M2; SC-M11-014/V1.2; SC-M11-015/M2; SC-M11-015/V1.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/V4.2; SC-M11-017/M2; SC-M11-017/E3.2; AUT-M11-005; SC-M11-015/M1; SC-M11-015/M3; SC-M11-015/M4; SC-M11-015/V1.1; SC-M11-015/V1.3; SC-M11-015/V1.4; SC-M11-014/V2.1; SC-M11-014/V2.2; SC-M11-014/V3.1; SC-M11-014/V3.2; SC-M11-014/V4.1; SC-M11-014/V4.2; SC-M11-014/V5.1; SC-M11-014/V5.2; SC-M11-015/V2.1; SC-M11-015/V2.2; SC-M11-015/V3.1; SC-M11-015/V3.2; SC-M11-015/V4.1; SC-M11-015/V4.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-09 | SC-M11-007/E9.1; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/V1.2; SC-M11-016/V4.4; RULE-M11-005; SC-M11-016/M1; SC-M11-016/M3; SC-M11-016/E1.1; SC-M11-016/E2.1; SC-M11-016/E3.1; SC-M11-016/E3.3; SC-M11-016/V4.1; SC-M11-016/V4.3; AUT-M11-005; SC-M11-016/V2.1; SC-M11-016/V2.2; SC-M11-016/V3.1; SC-M11-016/V3.2; SC-M11-016/V1.1; SC-M11-016/V5.1; SC-M11-016/V5.2; SC-M11-016/V6.1; SC-M11-016/V6.2; SC-M11-016/V7.1; SC-M11-016/V7.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-10 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/V1.2; SC-M11-016/V4.4; SC-M11-017/M4; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V4.2; RULE-M11-005; SC-M11-016/E3.4; SC-M11-017/V3.2; SC-M11-017/M1; SC-M11-017/M2; SC-M11-017/E3.1; SC-M11-017/E3.2; SC-M11-017/M3; AUT-M11-005; SC-M11-017/E3.3; SC-M11-017/E3.4; SC-M11-017/E4.1; SC-M11-017/E4.2; SC-M11-017/E4.3; SC-M11-017/E4.4; SC-M11-017/E5.1; SC-M11-017/E5.2; SC-M11-017/E5.3; SC-M11-017/E5.4; SC-M11-017/V2.1; SC-M11-017/V3.1; SC-M11-017/V4.1 | Đã đối soát phần đủ căn cứ |
-| FR-M11-11 | SC-M11-014/M4; SC-M11-014/V1.4; SC-M11-015/M4; SC-M11-015/V1.4; AUT-M11-002; AUT-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12 | SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004; SC-M11-018/E15.1; SC-M11-018/E15.2; SC-M11-018/V12.1; SC-M11-018/V12.2; SC-M11-018/V13.1; SC-M11-018/V13.2; SC-M11-018/V14.1; SC-M11-018/V14.2; SC-M11-018/V15.1; SC-M11-018/V15.2; SC-M11-021/M2; SC-M11-021/V1.2; SC-M11-021/V6.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13 | SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.4; SC-M11-018/E7.6; SC-M11-018/E8.6; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.4; SC-M11-018/E12.4; SC-M11-018/E13.4; SC-M11-018/E14.4; SC-M11-018/E15.6; SC-M11-018/E19.6; SC-M11-018/E23.2; SC-M11-018/V1.4; SC-M11-018/V2.4; SC-M11-018/V3.4; SC-M11-018/V4.4; SC-M11-018/V5.4; SC-M11-018/V6.6; SC-M11-018/V7.2; SC-M11-018/V8.6; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; AUT-M11-004; RULE-M11-004; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-019/M1; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/V1.1; SC-M11-019/V1.2; SC-M11-019/V6.1; SC-M11-019/V6.2; SC-M11-020/E3.1; SC-M11-019/V2.1; SC-M11-019/V2.2; SC-M11-019/V3.1; SC-M11-019/V3.2; SC-M11-019/V4.1; SC-M11-019/V4.2; SC-M11-019/V5.1; SC-M11-019/V5.2; SC-M11-020/M2; SC-M11-020/V1.2; SC-M11-020/V2.1; SC-M11-020/V2.2; SC-M11-020/V3.1; SC-M11-020/V3.2; SC-M11-020/V4.1; SC-M11-020/V4.2; SC-M11-020/V5.1; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E4.1; SC-M11-021/V1.2; SC-M11-021/V2.1; SC-M11-021/V2.2; SC-M11-021/V3.1; SC-M11-021/V3.2; SC-M11-021/V4.1; SC-M11-021/V4.2; SC-M11-021/V5.1; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-020/M1; SC-M11-020/E1.1; SC-M11-020/E4.1; SC-M11-020/V1.1; SC-M11-020/V6.1; AUT-M11-003; SC-M11-021/E3.1; SC-M11-020/E2.1; SC-M11-020/E2.2; SC-M11-021/E5.1; SC-M11-021/E5.2; SC-M11-021/M1; SC-M11-021/V1.1; SC-M11-021/V6.1; SC-M11-021/E1.1; SC-M11-021/E2.3; SC-M11-021/E2.1; SC-M11-021/E2.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-14 | SC-M11-005/E4.1; SC-M11-005/V11.1; SC-M11-005/V11.2; SC-M11-022/M1; SC-M11-022/M2; SC-M11-022/E1.1; SC-M11-022/E1.2; SC-M11-022/V1.1; SC-M11-022/V1.2; SC-M11-022/V2.1; SC-M11-022/V2.2; SC-M11-022/V7.1; SC-M11-022/V7.2; RULE-M11-002; RULE-M11-005; SC-M11-022/V3.1; SC-M11-022/V3.2; SC-M11-022/V4.1; SC-M11-022/V4.2; SC-M11-022/V5.1; SC-M11-022/V5.2; SC-M11-022/V6.1; SC-M11-022/V6.2; AUT-M11-005; SC-M11-022/E2.1; SC-M11-022/E2.2; SC-M11-022/E3.1; SC-M11-022/E3.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-15 | SC-M11-002/E10.1; SC-M11-003/M1; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/V1.1; SC-M11-003/V1.2; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-017/E4.4; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-002; RULE-M11-005; SC-M11-003/V2.1; SC-M11-003/V2.2; SC-M11-003/V3.1; SC-M11-003/V3.2; SC-M11-003/V4.1; SC-M11-003/V4.2; SC-M11-003/V5.1; SC-M11-003/V5.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-16 | SC-M11-002/E10.1; SC-M11-003/E2.1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-006; RULE-M11-006; SC-M11-002/E11.1; SC-M11-003/E3.1; SC-M11-007/E12.1; SC-M11-009/E5.1; SC-M11-010/E5.1; SC-M11-011/E4.1; SC-M11-014/E4.1; SC-M11-015/E4.1; SC-M11-016/E6.1; SC-M11-018/E22.1; SC-M11-019/E4.1; SC-M11-020/E7.1; SC-M11-021/E8.1; SC-M11-022/E6.1; SC-M11-002/E12.1; SC-M11-010/E6.1; SC-M11-013/E3.1; SC-M11-014/E5.1; SC-M11-015/E5.1; SC-M11-016/E7.1; SC-M11-005/M2; SC-M11-017/E6.1; SC-M11-017/E6.2; SC-M11-017/V1.1; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V4.2; AUT-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-17 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E7.1; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E9.1; SC-M11-002/E12.1; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.2; SC-M11-002/V3.2; SC-M11-002/V4.2; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/E1.1; SC-M11-003/V1.2; SC-M11-003/V2.2; SC-M11-003/V3.2; SC-M11-003/V4.2; SC-M11-003/V5.2; SC-M11-004/E2.1; SC-M11-005/E1.2; SC-M11-005/E5.1; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/E1.1; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E10.1; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/E3.1; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E3.1; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E3.1; SC-M11-010/E6.1; SC-M11-010/V1.2; SC-M11-010/V1.4; SC-M11-010/V2.2; SC-M11-010/V3.2; SC-M11-010/V4.2; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E2.1; SC-M11-011/V1.2; SC-M11-011/V2.2; SC-M11-011/V3.2; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E2.1; SC-M11-012/V1.2; SC-M11-012/V2.2; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E1.1; SC-M11-013/E3.1; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V2.2; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E2.1; SC-M11-014/E5.1; SC-M11-014/V1.2; SC-M11-014/V1.4; SC-M11-014/V2.2; SC-M11-014/V3.2; SC-M11-014/V4.2; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E2.1; SC-M11-015/E5.1; SC-M11-015/V1.2; SC-M11-015/V1.4; SC-M11-015/V2.2; SC-M11-015/V3.2; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E4.1; SC-M11-016/E7.1; SC-M11-016/V1.2; SC-M11-016/V4.2; SC-M11-016/V4.4; SC-M11-016/V5.2; SC-M11-016/V6.2; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E1.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E20.1; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.2; SC-M11-018/V13.2; SC-M11-018/V14.2; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E2.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E5.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E6.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E4.1; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V3.2; SC-M11-022/V4.2; SC-M11-022/V5.2; SC-M11-022/V6.2; SC-M11-022/V7.2; RULE-M11-006; SC-M11-001/V3.1; SC-M11-002/V1.1; SC-M11-002/V1.3; SC-M11-003/V1.1; SC-M11-006/V5.1; SC-M11-007/V2.1; SC-M11-008/V1.1; SC-M11-009/V1.1; SC-M11-010/V1.1; SC-M11-010/V1.3; SC-M11-011/V1.1; SC-M11-012/V1.1; SC-M11-013/V1.1; SC-M11-013/V1.3; SC-M11-014/V1.1; SC-M11-014/V1.3; SC-M11-015/V1.1; SC-M11-015/V1.3; SC-M11-016/V4.1; SC-M11-016/V4.3; SC-M11-017/V2.1; SC-M11-019/V1.1; SC-M11-020/V1.1; SC-M11-021/V1.1; SC-M11-022/V2.1; SC-M11-004/M2; SC-M11-004/V1.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.01 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E2.3; SC-M11-001/E3.3; SC-M11-001/E4.3; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.1; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.02 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.03 | SC-M11-001/M2; SC-M11-001/E1.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.04 | SC-M11-001/E5.2; SC-M11-001/V1.1; SC-M11-001/V1.2; SC-M11-001/V2.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.05 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.06 | SC-M11-001/M2; SC-M11-001/E1.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.2; SC-M11-003/M2; SC-M11-003/V1.2; SC-M11-017/E4.4; AUT-M11-002; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.07 | SC-M11-001/E5.2; SC-M11-001/V1.2; SC-M11-001/V2.1; SC-M11-001/V2.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.08 | SC-M11-001/M2; SC-M11-001/E2.1; SC-M11-001/E2.2; SC-M11-001/E3.1; SC-M11-001/E3.2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
-| FR-M11-01.09 | SC-M11-001/M2; SC-M11-001/E4.1; SC-M11-001/E4.2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
-| FR-M11-01.10 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.1; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.11 | SC-M11-001/M1; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/V3.1; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-01.12 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E5.1; SC-M11-001/E6.2; SC-M11-001/V3.1; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.01 | SC-M11-002/M1; SC-M11-002/M2; SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E6.3; SC-M11-002/E7.3; SC-M11-002/E8.3; SC-M11-002/V1.1; SC-M11-002/V1.2; SC-M11-002/V1.3; SC-M11-002/V1.4 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.02 | SC-M11-002/M1; SC-M11-002/M2; SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E1.1; SC-M11-002/E2.1; SC-M11-002/E6.3; SC-M11-002/E7.3; SC-M11-002/E8.3; SC-M11-002/V1.1; SC-M11-002/V1.2; SC-M11-002/V1.3; SC-M11-002/V1.4; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.03 | SC-M11-002/M4; SC-M11-002/V1.4; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.04 | SC-M11-002/M4; SC-M11-002/V1.4; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.05 | SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E4.1; SC-M11-002/E4.2; SC-M11-002/V1.3; SC-M11-002/V1.4; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
-| FR-M11-02.06 | SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-002/V1.3; SC-M11-002/V1.4; SC-M11-018/E15.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.07 | SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E1.1; SC-M11-002/E2.1; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/V1.3; SC-M11-002/V1.4 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.08 | SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/V1.3; SC-M11-002/V1.4 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.09 | SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.1; SC-M11-002/V2.2; SC-M11-002/V3.1; SC-M11-002/V3.2; SC-M11-002/V4.1; SC-M11-002/V4.2; SC-M11-002/V5.1; SC-M11-002/V5.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.10 | SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.1; SC-M11-002/V2.2; SC-M11-002/V3.1; SC-M11-002/V3.2; SC-M11-002/V4.1; SC-M11-002/V4.2; SC-M11-002/V5.1; SC-M11-002/V5.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.11 | SC-M11-002/M4; SC-M11-002/E6.1; SC-M11-002/E6.2; SC-M11-002/E7.1; SC-M11-002/E7.2; SC-M11-002/E8.1; SC-M11-002/E8.2; SC-M11-002/V1.4 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
-| FR-M11-02.12 | SC-M11-002/M4; SC-M11-002/V1.4; SC-M11-005/E3.1; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.13 | SC-M11-002/M4; SC-M11-002/V1.4; SC-M11-005/E3.1; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-02.14 | SC-M11-002/M4; SC-M11-002/E1.1; SC-M11-002/E1.2; SC-M11-002/E2.1; SC-M11-002/E2.2; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/V1.4; AUT-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-007 |
-| FR-M11-02.15 | SC-M11-002/M4; SC-M11-002/E4.1; SC-M11-002/E4.2; SC-M11-002/V1.4; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
-| FR-M11-03.01 | SC-M11-004/M1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/V1.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.02 | SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/V1.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.03 | SC-M11-004/V1.1; SC-M11-004/V1.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.04 | SC-M11-005/M1; SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V6.1; SC-M11-005/V6.2; SC-M11-005/V9.1; SC-M11-005/V9.2; SC-M11-005/V10.1; SC-M11-005/V10.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.05 | SC-M11-005/M2; SC-M11-005/V1.1; SC-M11-005/V1.2; SC-M11-005/V2.1; SC-M11-005/V2.2; SC-M11-005/V3.1; SC-M11-005/V3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.06 | SC-M11-005/M2; SC-M11-005/E1.2; SC-M11-005/E2.1; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V8.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E2.3; SC-M11-001/E3.3; SC-M11-001/E4.3; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.1; SC-M11-001/E10.2; RULE-M11-001; SC-M11-001/E1.1; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-003/M2; SC-M11-003/E4.2; SC-M11-017/E4.4; AUT-M11-002; SC-M11-001/E2.1; SC-M11-001/E2.2; SC-M11-001/E3.1; SC-M11-001/E3.2; SC-M11-001/E4.1; SC-M11-001/E4.2; SC-M11-001/E8.1; SC-M11-001/E9.1 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02 | SC-M11-002/M1; SC-M11-002/M2; SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E6.3; SC-M11-002/E7.3; SC-M11-002/E8.3; SC-M11-002/E13.1; SC-M11-002/E13.2; SC-M11-002/E13.3; SC-M11-002/E13.4; SC-M11-002/E1.1; SC-M11-002/E2.1; RULE-M11-002; SC-M11-002/E14.1; SC-M11-002/E14.2; SC-M11-002/E15.1; SC-M11-002/E15.2; SC-M11-002/E16.1; SC-M11-002/E16.2; SC-M11-002/E17.1; SC-M11-002/E17.2; SC-M11-002/E4.1; SC-M11-002/E4.2; RULE-M11-004; SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-018/E15.2; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/E6.1; SC-M11-002/E6.2; SC-M11-002/E7.1; SC-M11-002/E7.2; SC-M11-002/E8.1; SC-M11-002/E8.2; SC-M11-005/E3.1; SC-M11-002/E1.2; SC-M11-002/E2.2; AUT-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03 | SC-M11-004/M1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/E3.2; RULE-M11-002; SC-M11-004/E3.1; SC-M11-005/M1; SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E12.1; SC-M11-005/E12.2; SC-M11-005/E15.1; SC-M11-005/E15.2; SC-M11-005/E16.1; SC-M11-005/E16.2; SC-M11-005/E7.1; SC-M11-005/E8.1; SC-M11-005/E9.1; SC-M11-005/E1.2; SC-M11-005/E2.1; SC-M11-005/E11.2; SC-M11-005/E14.2; SC-M11-005/E10.2; SC-M11-005/E13.2; SC-M11-005/E11.1; SC-M11-005/E14.1; SC-M11-005/E10.1; SC-M11-005/E13.1; SC-M11-005/E1.1; SC-M11-006/M1; SC-M11-006/M2; SC-M11-006/E3.1; SC-M11-006/E3.2; SC-M11-006/E4.1; SC-M11-006/E4.2; SC-M11-006/E5.1; SC-M11-006/E5.2; SC-M11-006/E6.1; SC-M11-006/E6.2; SC-M11-006/E7.1; SC-M11-006/E7.2; SC-M11-014/M2; SC-M11-014/E6.2; SC-M11-015/M2; SC-M11-015/E6.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/E11.2; SC-M11-017/M2; SC-M11-017/E3.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-04 | SC-M11-005/E1.2; SC-M11-007/E13.1; SC-M11-007/E13.2; RULE-M11-003; SC-M11-007/M1; SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/E14.1; SC-M11-007/E14.2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E6.1; SC-M11-007/E6.2; SC-M11-007/E7.1; SC-M11-007/E7.2; SC-M11-007/E8.1; SC-M11-007/E8.2; SC-M11-011/M2; SC-M11-011/E5.2; SC-M11-011/E9.2; SC-M11-007/E9.1; SC-M11-007/E5.1; SC-M11-007/E4.3; SC-M11-007/E4.4; SC-M11-010/E1.2; SC-M11-008/M1; SC-M11-008/M2; SC-M11-008/E1.1; SC-M11-008/E2.1; SC-M11-008/E2.2; SC-M11-008/E5.1; SC-M11-008/E5.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-05 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.2; SC-M11-009/M2; SC-M11-009/E1.1; SC-M11-009/E1.2; SC-M11-009/E2.2; SC-M11-009/E6.2; RULE-M11-003; SC-M11-007/M1; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E14.1; SC-M11-007/E14.2; SC-M11-009/M1; SC-M11-009/E6.1; AUT-M11-005; SC-M11-009/E2.1; SC-M11-009/E7.1; SC-M11-009/E7.2; SC-M11-009/E8.1; SC-M11-009/E8.2; SC-M11-009/E9.1; SC-M11-009/E9.2; SC-M11-009/E10.1; SC-M11-009/E10.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-06 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-010/M3; SC-M11-010/M4; SC-M11-010/E7.3; SC-M11-010/E7.4; SC-M11-010/E12.3; SC-M11-010/E12.4; RULE-M11-003; AUT-M11-005; SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/E14.2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-010/M1; SC-M11-010/M2; SC-M11-010/E7.1; SC-M11-010/E7.2; SC-M11-010/E12.1; SC-M11-010/E12.2; SC-M11-010/E8.1; SC-M11-010/E8.2; SC-M11-010/E9.1; SC-M11-010/E9.2; SC-M11-010/E10.1; SC-M11-010/E10.2; SC-M11-010/E11.1; SC-M11-010/E11.2; SC-M11-010/E1.2; SC-M11-010/E2.1; SC-M11-010/E1.1; SC-M11-011/M2; SC-M11-011/E5.2; SC-M11-011/E9.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-07 | SC-M11-011/M1; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E5.1; SC-M11-011/E5.2; SC-M11-011/E9.1; SC-M11-011/E9.2; RULE-M11-003; SC-M11-011/E6.1; SC-M11-011/E6.2; SC-M11-011/E7.1; SC-M11-011/E7.2; SC-M11-011/E8.1; SC-M11-011/E8.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E4.2; SC-M11-012/E5.1; SC-M11-012/E5.2; SC-M11-012/E6.1; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/E4.2; SC-M11-013/E5.1; SC-M11-013/E5.2; SC-M11-013/E6.1; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-012/M1; SC-M11-012/E4.1; SC-M11-012/E7.1; SC-M11-013/M1; SC-M11-013/E4.1; SC-M11-013/E7.1; SC-M11-013/M3; SC-M11-013/M4; SC-M11-013/E4.3; SC-M11-013/E4.4; SC-M11-013/E7.3; SC-M11-013/E7.4 | Đã đối soát phần đủ căn cứ |
+| FR-M11-08 | SC-M11-014/M1; SC-M11-014/M3; SC-M11-014/M4; SC-M11-014/E1.1; SC-M11-014/E6.1; SC-M11-014/E6.3; SC-M11-014/E6.4; SC-M11-015/E1.1; RULE-M11-001; SC-M11-014/M2; SC-M11-014/E6.2; SC-M11-015/M2; SC-M11-015/E6.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/E11.2; SC-M11-017/M2; SC-M11-017/E3.2; AUT-M11-005; SC-M11-015/M1; SC-M11-015/M3; SC-M11-015/M4; SC-M11-015/E6.1; SC-M11-015/E6.3; SC-M11-015/E6.4; SC-M11-014/E7.1; SC-M11-014/E7.2; SC-M11-014/E8.1; SC-M11-014/E8.2; SC-M11-014/E9.1; SC-M11-014/E9.2; SC-M11-014/E10.1; SC-M11-014/E10.2; SC-M11-015/E7.1; SC-M11-015/E7.2; SC-M11-015/E8.1; SC-M11-015/E8.2; SC-M11-015/E9.1; SC-M11-015/E9.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-09 | SC-M11-007/E9.1; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/E8.2; SC-M11-016/E11.4; RULE-M11-005; SC-M11-016/M1; SC-M11-016/M3; SC-M11-016/E1.1; SC-M11-016/E2.1; SC-M11-016/E3.1; SC-M11-016/E3.3; SC-M11-016/E11.1; SC-M11-016/E11.3; AUT-M11-005; SC-M11-016/E9.1; SC-M11-016/E9.2; SC-M11-016/E10.1; SC-M11-016/E10.2; SC-M11-016/E8.1; SC-M11-016/E12.1; SC-M11-016/E12.2; SC-M11-016/E13.1; SC-M11-016/E13.2; SC-M11-016/E14.1; SC-M11-016/E14.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-10 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E8.2; SC-M11-016/E11.4; SC-M11-017/M4; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E10.2; RULE-M11-005; SC-M11-016/E3.4; SC-M11-017/E9.2; SC-M11-017/M1; SC-M11-017/M2; SC-M11-017/E3.1; SC-M11-017/E3.2; SC-M11-017/M3; AUT-M11-005; SC-M11-017/E3.3; SC-M11-017/E3.4; SC-M11-017/E4.1; SC-M11-017/E4.2; SC-M11-017/E4.3; SC-M11-017/E4.4; SC-M11-017/E5.1; SC-M11-017/E5.2; SC-M11-017/E5.3; SC-M11-017/E5.4; SC-M11-017/E8.1; SC-M11-017/E9.1; SC-M11-017/E10.1 | Đã đối soát phần đủ căn cứ |
+| FR-M11-11 | SC-M11-014/M4; SC-M11-014/E6.4; SC-M11-015/M4; SC-M11-015/E6.4; AUT-M11-002; AUT-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12 | SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004; SC-M11-018/E15.1; SC-M11-018/E15.2; SC-M11-018/E35.1; SC-M11-018/E35.2; SC-M11-018/E36.1; SC-M11-018/E36.2; SC-M11-018/E37.1; SC-M11-018/E37.2; SC-M11-018/E38.1; SC-M11-018/E38.2; SC-M11-021/M2; SC-M11-021/E9.2; SC-M11-021/E14.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13 | SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.4; SC-M11-018/E7.6; SC-M11-018/E8.6; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.4; SC-M11-018/E12.4; SC-M11-018/E13.4; SC-M11-018/E14.4; SC-M11-018/E15.6; SC-M11-018/E19.6; SC-M11-018/E23.2; SC-M11-018/E24.4; SC-M11-018/E25.4; SC-M11-018/E26.4; SC-M11-018/E27.4; SC-M11-018/E28.4; SC-M11-018/E29.6; SC-M11-018/E30.2; SC-M11-018/E31.6; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; AUT-M11-004; RULE-M11-004; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-019/M1; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E5.1; SC-M11-019/E5.2; SC-M11-019/E10.1; SC-M11-019/E10.2; SC-M11-020/E3.1; SC-M11-019/E6.1; SC-M11-019/E6.2; SC-M11-019/E7.1; SC-M11-019/E7.2; SC-M11-019/E8.1; SC-M11-019/E8.2; SC-M11-019/E9.1; SC-M11-019/E9.2; SC-M11-020/M2; SC-M11-020/E8.2; SC-M11-020/E9.1; SC-M11-020/E9.2; SC-M11-020/E10.1; SC-M11-020/E10.2; SC-M11-020/E11.1; SC-M11-020/E11.2; SC-M11-020/E12.1; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E4.1; SC-M11-021/E9.2; SC-M11-021/E10.1; SC-M11-021/E10.2; SC-M11-021/E11.1; SC-M11-021/E11.2; SC-M11-021/E12.1; SC-M11-021/E12.2; SC-M11-021/E13.1; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-020/M1; SC-M11-020/E1.1; SC-M11-020/E4.1; SC-M11-020/E8.1; SC-M11-020/E13.1; AUT-M11-003; SC-M11-021/E3.1; SC-M11-020/E2.1; SC-M11-020/E2.2; SC-M11-021/E5.1; SC-M11-021/E5.2; SC-M11-021/M1; SC-M11-021/E9.1; SC-M11-021/E14.1; SC-M11-021/E1.1; SC-M11-021/E2.3; SC-M11-021/E2.1; SC-M11-021/E2.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-14 | SC-M11-005/E4.1; SC-M11-005/E17.1; SC-M11-005/E17.2; SC-M11-022/M1; SC-M11-022/M2; SC-M11-022/E1.1; SC-M11-022/E1.2; SC-M11-022/E7.1; SC-M11-022/E7.2; SC-M11-022/E8.1; SC-M11-022/E8.2; SC-M11-022/E13.1; SC-M11-022/E13.2; RULE-M11-002; RULE-M11-005; SC-M11-022/E9.1; SC-M11-022/E9.2; SC-M11-022/E10.1; SC-M11-022/E10.2; SC-M11-022/E11.1; SC-M11-022/E11.2; SC-M11-022/E12.1; SC-M11-022/E12.2; AUT-M11-005; SC-M11-022/E2.1; SC-M11-022/E2.2; SC-M11-022/E3.1; SC-M11-022/E3.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-15 | SC-M11-002/E10.1; SC-M11-003/M1; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/E4.1; SC-M11-003/E4.2; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-017/E4.4; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-002; RULE-M11-005; SC-M11-003/E5.1; SC-M11-003/E5.2; SC-M11-003/E6.1; SC-M11-003/E6.2; SC-M11-003/E7.1; SC-M11-003/E7.2; SC-M11-003/E8.1; SC-M11-003/E8.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-16 | SC-M11-002/E10.1; SC-M11-003/E2.1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-006; RULE-M11-006; SC-M11-002/E11.1; SC-M11-003/E3.1; SC-M11-007/E12.1; SC-M11-009/E5.1; SC-M11-010/E5.1; SC-M11-011/E4.1; SC-M11-014/E4.1; SC-M11-015/E4.1; SC-M11-016/E6.1; SC-M11-018/E22.1; SC-M11-019/E4.1; SC-M11-020/E7.1; SC-M11-021/E8.1; SC-M11-022/E6.1; SC-M11-002/E12.1; SC-M11-010/E6.1; SC-M11-013/E3.1; SC-M11-014/E5.1; SC-M11-015/E5.1; SC-M11-016/E7.1; SC-M11-005/M2; SC-M11-017/E6.1; SC-M11-017/E6.2; SC-M11-017/E7.1; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E10.2; AUT-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-17 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E7.1; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E9.1; SC-M11-002/E12.1; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.2; SC-M11-002/E15.2; SC-M11-002/E16.2; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E1.1; SC-M11-003/E4.2; SC-M11-003/E5.2; SC-M11-003/E6.2; SC-M11-003/E7.2; SC-M11-003/E8.2; SC-M11-004/E2.1; SC-M11-005/E1.2; SC-M11-005/E5.1; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E1.1; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E10.1; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E3.1; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E3.1; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E3.1; SC-M11-010/E6.1; SC-M11-010/E7.2; SC-M11-010/E7.4; SC-M11-010/E8.2; SC-M11-010/E9.2; SC-M11-010/E10.2; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E2.1; SC-M11-011/E5.2; SC-M11-011/E6.2; SC-M11-011/E7.2; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E2.1; SC-M11-012/E4.2; SC-M11-012/E5.2; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E1.1; SC-M11-013/E3.1; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E5.2; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E2.1; SC-M11-014/E5.1; SC-M11-014/E6.2; SC-M11-014/E6.4; SC-M11-014/E7.2; SC-M11-014/E8.2; SC-M11-014/E9.2; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E2.1; SC-M11-015/E5.1; SC-M11-015/E6.2; SC-M11-015/E6.4; SC-M11-015/E7.2; SC-M11-015/E8.2; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E4.1; SC-M11-016/E7.1; SC-M11-016/E8.2; SC-M11-016/E11.2; SC-M11-016/E11.4; SC-M11-016/E12.2; SC-M11-016/E13.2; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E1.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E20.1; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.2; SC-M11-018/E36.2; SC-M11-018/E37.2; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E2.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E5.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E6.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E4.1; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E9.2; SC-M11-022/E10.2; SC-M11-022/E11.2; SC-M11-022/E12.2; SC-M11-022/E13.2; RULE-M11-006; SC-M11-001/E10.1; SC-M11-002/E13.1; SC-M11-002/E13.3; SC-M11-003/E4.1; SC-M11-006/E7.1; SC-M11-007/E14.1; SC-M11-008/E5.1; SC-M11-009/E6.1; SC-M11-010/E7.1; SC-M11-010/E7.3; SC-M11-011/E5.1; SC-M11-012/E4.1; SC-M11-013/E4.1; SC-M11-013/E4.3; SC-M11-014/E6.1; SC-M11-014/E6.3; SC-M11-015/E6.1; SC-M11-015/E6.3; SC-M11-016/E11.1; SC-M11-016/E11.3; SC-M11-017/E8.1; SC-M11-019/E5.1; SC-M11-020/E8.1; SC-M11-021/E9.1; SC-M11-022/E8.1; SC-M11-004/M2; SC-M11-004/E3.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.01 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E2.3; SC-M11-001/E3.3; SC-M11-001/E4.3; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.1; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.02 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.03 | SC-M11-001/M2; SC-M11-001/E1.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.04 | SC-M11-001/E5.2; SC-M11-001/E8.1; SC-M11-001/E8.2; SC-M11-001/E9.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.05 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.06 | SC-M11-001/M2; SC-M11-001/E1.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.2; SC-M11-003/M2; SC-M11-003/E4.2; SC-M11-017/E4.4; AUT-M11-002; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.07 | SC-M11-001/E5.2; SC-M11-001/E8.2; SC-M11-001/E9.1; SC-M11-001/E9.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.08 | SC-M11-001/M2; SC-M11-001/E2.1; SC-M11-001/E2.2; SC-M11-001/E3.1; SC-M11-001/E3.2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
+| FR-M11-01.09 | SC-M11-001/M2; SC-M11-001/E4.1; SC-M11-001/E4.2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
+| FR-M11-01.10 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.1; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.11 | SC-M11-001/M1; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E10.1; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-01.12 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E5.1; SC-M11-001/E6.2; SC-M11-001/E10.1; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.01 | SC-M11-002/M1; SC-M11-002/M2; SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E6.3; SC-M11-002/E7.3; SC-M11-002/E8.3; SC-M11-002/E13.1; SC-M11-002/E13.2; SC-M11-002/E13.3; SC-M11-002/E13.4 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.02 | SC-M11-002/M1; SC-M11-002/M2; SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E1.1; SC-M11-002/E2.1; SC-M11-002/E6.3; SC-M11-002/E7.3; SC-M11-002/E8.3; SC-M11-002/E13.1; SC-M11-002/E13.2; SC-M11-002/E13.3; SC-M11-002/E13.4; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.03 | SC-M11-002/M4; SC-M11-002/E13.4; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.04 | SC-M11-002/M4; SC-M11-002/E13.4; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.05 | SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E4.1; SC-M11-002/E4.2; SC-M11-002/E13.3; SC-M11-002/E13.4; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
+| FR-M11-02.06 | SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-002/E13.3; SC-M11-002/E13.4; SC-M11-018/E15.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.07 | SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E1.1; SC-M11-002/E2.1; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/E13.3; SC-M11-002/E13.4 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.08 | SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/E13.3; SC-M11-002/E13.4 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.09 | SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.1; SC-M11-002/E14.2; SC-M11-002/E15.1; SC-M11-002/E15.2; SC-M11-002/E16.1; SC-M11-002/E16.2; SC-M11-002/E17.1; SC-M11-002/E17.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.10 | SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.1; SC-M11-002/E14.2; SC-M11-002/E15.1; SC-M11-002/E15.2; SC-M11-002/E16.1; SC-M11-002/E16.2; SC-M11-002/E17.1; SC-M11-002/E17.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.11 | SC-M11-002/M4; SC-M11-002/E6.1; SC-M11-002/E6.2; SC-M11-002/E7.1; SC-M11-002/E7.2; SC-M11-002/E8.1; SC-M11-002/E8.2; SC-M11-002/E13.4 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
+| FR-M11-02.12 | SC-M11-002/M4; SC-M11-002/E13.4; SC-M11-005/E3.1; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.13 | SC-M11-002/M4; SC-M11-002/E13.4; SC-M11-005/E3.1; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-02.14 | SC-M11-002/M4; SC-M11-002/E1.1; SC-M11-002/E1.2; SC-M11-002/E2.1; SC-M11-002/E2.2; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/E13.4; AUT-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-007 |
+| FR-M11-02.15 | SC-M11-002/M4; SC-M11-002/E4.1; SC-M11-002/E4.2; SC-M11-002/E13.4; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
+| FR-M11-03.01 | SC-M11-004/M1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.02 | SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.03 | SC-M11-004/E3.1; SC-M11-004/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.04 | SC-M11-005/M1; SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E12.1; SC-M11-005/E12.2; SC-M11-005/E15.1; SC-M11-005/E15.2; SC-M11-005/E16.1; SC-M11-005/E16.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.05 | SC-M11-005/M2; SC-M11-005/E7.1; SC-M11-005/E7.2; SC-M11-005/E8.1; SC-M11-005/E8.2; SC-M11-005/E9.1; SC-M11-005/E9.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.06 | SC-M11-005/M2; SC-M11-005/E1.2; SC-M11-005/E2.1; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E14.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
 | FR-M11-03.07 | RULE-M11-002 | Đã đối soát phần đủ căn cứ |
 | FR-M11-03.08 | RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.09 | SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V10.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.10 | SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V4.2; SC-M11-005/V6.1; SC-M11-005/V6.2; SC-M11-005/V7.2; SC-M11-005/V9.1; SC-M11-005/V9.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.11 | SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.1; SC-M11-005/V5.2; SC-M11-005/V8.1; SC-M11-005/V8.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.12 | SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V4.1; SC-M11-005/V4.2; SC-M11-005/V7.1; SC-M11-005/V7.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.13 | SC-M11-005/V10.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.14 | SC-M11-006/M1; SC-M11-006/M2; SC-M11-006/V1.1; SC-M11-006/V1.2; SC-M11-006/V2.1; SC-M11-006/V2.2; SC-M11-006/V3.1; SC-M11-006/V3.2; SC-M11-006/V4.1; SC-M11-006/V4.2; SC-M11-006/V5.1; SC-M11-006/V5.2; SC-M11-014/M2; SC-M11-014/V1.2; SC-M11-015/M2; SC-M11-015/V1.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/V4.2; SC-M11-017/M2; SC-M11-017/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.15 | SC-M11-006/M2; SC-M11-006/V1.1; SC-M11-006/V1.2; SC-M11-006/V2.1; SC-M11-006/V2.2; SC-M11-006/V3.1; SC-M11-006/V3.2; SC-M11-006/V4.1; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-014/M2; SC-M11-014/V1.2; SC-M11-015/M2; SC-M11-015/V1.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/V4.2; SC-M11-017/M2; SC-M11-017/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.16 | SC-M11-004/M1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/V1.1; SC-M11-004/V1.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.17 | SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/V1.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-03.18 | SC-M11-005/M2; SC-M11-005/E1.1; SC-M11-005/E1.2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-04.01 | SC-M11-007/M1; SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/V2.1; SC-M11-007/V2.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.09 | SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E16.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.10 | SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E10.2; SC-M11-005/E12.1; SC-M11-005/E12.2; SC-M11-005/E13.2; SC-M11-005/E15.1; SC-M11-005/E15.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.11 | SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.1; SC-M11-005/E11.2; SC-M11-005/E14.1; SC-M11-005/E14.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.12 | SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E10.1; SC-M11-005/E10.2; SC-M11-005/E13.1; SC-M11-005/E13.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.13 | SC-M11-005/E16.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.14 | SC-M11-006/M1; SC-M11-006/M2; SC-M11-006/E3.1; SC-M11-006/E3.2; SC-M11-006/E4.1; SC-M11-006/E4.2; SC-M11-006/E5.1; SC-M11-006/E5.2; SC-M11-006/E6.1; SC-M11-006/E6.2; SC-M11-006/E7.1; SC-M11-006/E7.2; SC-M11-014/M2; SC-M11-014/E6.2; SC-M11-015/M2; SC-M11-015/E6.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/E11.2; SC-M11-017/M2; SC-M11-017/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.15 | SC-M11-006/M2; SC-M11-006/E3.1; SC-M11-006/E3.2; SC-M11-006/E4.1; SC-M11-006/E4.2; SC-M11-006/E5.1; SC-M11-006/E5.2; SC-M11-006/E6.1; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-014/M2; SC-M11-014/E6.2; SC-M11-015/M2; SC-M11-015/E6.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/E11.2; SC-M11-017/M2; SC-M11-017/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.16 | SC-M11-004/M1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/E3.1; SC-M11-004/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.17 | SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-03.18 | SC-M11-005/M2; SC-M11-005/E1.1; SC-M11-005/E1.2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-04.01 | SC-M11-007/M1; SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/E14.1; SC-M11-007/E14.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
 | FR-M11-04.02 | SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
 | FR-M11-04.03 | SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
 | FR-M11-04.04 | SC-M11-007/E9.1; SC-M11-010/E1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-04.05 | SC-M11-005/E1.2; SC-M11-007/V1.1; SC-M11-007/V1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-04.06 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E6.1; SC-M11-007/E6.2; SC-M11-007/E7.1; SC-M11-007/E7.2; SC-M11-007/E8.1; SC-M11-007/E8.2; SC-M11-007/E9.2; SC-M11-007/V2.2; SC-M11-011/M2; SC-M11-011/V1.2; SC-M11-011/V5.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-04.07 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.1; SC-M11-007/E9.2; SC-M11-007/V2.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-04.05 | SC-M11-005/E1.2; SC-M11-007/E13.1; SC-M11-007/E13.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-04.06 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E6.1; SC-M11-007/E6.2; SC-M11-007/E7.1; SC-M11-007/E7.2; SC-M11-007/E8.1; SC-M11-007/E8.2; SC-M11-007/E9.2; SC-M11-007/E14.2; SC-M11-011/M2; SC-M11-011/E5.2; SC-M11-011/E9.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-04.07 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.1; SC-M11-007/E9.2; SC-M11-007/E14.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
 | FR-M11-04.08 | SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.3; SC-M11-007/E4.4; SC-M11-007/E4.5; SC-M11-007/E4.6; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-04.09 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E5.1; SC-M11-007/E9.2; SC-M11-007/V2.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-04.10 | SC-M11-008/M1; SC-M11-008/M2; SC-M11-008/E1.1; SC-M11-008/E2.1; SC-M11-008/E2.2; SC-M11-008/V1.1; SC-M11-008/V1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-05.01 | SC-M11-009/M1; SC-M11-009/M2; SC-M11-009/E1.1; SC-M11-009/E1.2; SC-M11-009/V1.1; SC-M11-009/V1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-05.02 | SC-M11-009/M1; SC-M11-009/M2; SC-M11-009/V1.1; SC-M11-009/V1.2; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-05.03 | SC-M11-009/V2.1; SC-M11-009/V2.2; SC-M11-009/V3.1; SC-M11-009/V3.2; SC-M11-009/V4.1; SC-M11-009/V4.2; SC-M11-009/V5.1; SC-M11-009/V5.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-05.04 | SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/V2.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/V1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-05.05 | SC-M11-007/M1; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/V2.1; SC-M11-007/V2.2; SC-M11-009/M2; SC-M11-009/V1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-05.06 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.2; SC-M11-009/M2; SC-M11-009/E1.1; SC-M11-009/E1.2; SC-M11-009/E2.2; SC-M11-009/V1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-05.07 | SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E2.1; SC-M11-009/E2.2; SC-M11-009/V1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-06.01 | SC-M11-010/M1; SC-M11-010/M2; SC-M11-010/V1.1; SC-M11-010/V1.2; SC-M11-010/V6.1; SC-M11-010/V6.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-06.02 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-010/M3; SC-M11-010/M4; SC-M11-010/V1.3; SC-M11-010/V1.4; SC-M11-010/V6.3; SC-M11-010/V6.4; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-04.09 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E5.1; SC-M11-007/E9.2; SC-M11-007/E14.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-04.10 | SC-M11-008/M1; SC-M11-008/M2; SC-M11-008/E1.1; SC-M11-008/E2.1; SC-M11-008/E2.2; SC-M11-008/E5.1; SC-M11-008/E5.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-05.01 | SC-M11-009/M1; SC-M11-009/M2; SC-M11-009/E1.1; SC-M11-009/E1.2; SC-M11-009/E6.1; SC-M11-009/E6.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-05.02 | SC-M11-009/M1; SC-M11-009/M2; SC-M11-009/E6.1; SC-M11-009/E6.2; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-05.03 | SC-M11-009/E7.1; SC-M11-009/E7.2; SC-M11-009/E8.1; SC-M11-009/E8.2; SC-M11-009/E9.1; SC-M11-009/E9.2; SC-M11-009/E10.1; SC-M11-009/E10.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-05.04 | SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/E14.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E6.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-05.05 | SC-M11-007/M1; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E14.1; SC-M11-007/E14.2; SC-M11-009/M2; SC-M11-009/E6.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-05.06 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.2; SC-M11-009/M2; SC-M11-009/E1.1; SC-M11-009/E1.2; SC-M11-009/E2.2; SC-M11-009/E6.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-05.07 | SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E2.1; SC-M11-009/E2.2; SC-M11-009/E6.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-06.01 | SC-M11-010/M1; SC-M11-010/M2; SC-M11-010/E7.1; SC-M11-010/E7.2; SC-M11-010/E12.1; SC-M11-010/E12.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-06.02 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-010/M3; SC-M11-010/M4; SC-M11-010/E7.3; SC-M11-010/E7.4; SC-M11-010/E12.3; SC-M11-010/E12.4; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
 | FR-M11-06.03 | SC-M11-010/E1.1; SC-M11-010/E1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-06.04 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-010/M4; SC-M11-010/V1.4; SC-M11-010/V6.4; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-06.05 | SC-M11-010/M2; SC-M11-010/V1.2; SC-M11-010/V2.1; SC-M11-010/V2.2; SC-M11-010/V3.1; SC-M11-010/V3.2; SC-M11-010/V4.1; SC-M11-010/V4.2; SC-M11-010/V5.1; SC-M11-010/V5.2; SC-M11-010/V6.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-06.06 | SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E2.1; SC-M11-010/V1.4; SC-M11-010/V6.4; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-06.04 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-010/M4; SC-M11-010/E7.4; SC-M11-010/E12.4; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-06.05 | SC-M11-010/M2; SC-M11-010/E7.2; SC-M11-010/E8.1; SC-M11-010/E8.2; SC-M11-010/E9.1; SC-M11-010/E9.2; SC-M11-010/E10.1; SC-M11-010/E10.2; SC-M11-010/E11.1; SC-M11-010/E11.2; SC-M11-010/E12.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-06.06 | SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E2.1; SC-M11-010/E7.4; SC-M11-010/E12.4; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
 | FR-M11-06.07 | SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-06.08 | SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/V2.2; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-06.09 | SC-M11-010/E1.2; SC-M11-011/M2; SC-M11-011/V1.2; SC-M11-011/V5.2; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-07.01 | SC-M11-011/M1; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/V1.1; SC-M11-011/V1.2; SC-M11-011/V5.1; SC-M11-011/V5.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-07.02 | SC-M11-011/V2.1; SC-M11-011/V2.2; SC-M11-011/V3.1; SC-M11-011/V3.2; SC-M11-011/V4.1; SC-M11-011/V4.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/V1.2; SC-M11-012/V2.1; SC-M11-012/V2.2; SC-M11-012/V3.1; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/V1.2; SC-M11-013/V2.1; SC-M11-013/V2.2; SC-M11-013/V3.1; SC-M11-013/V3.2; SC-M11-013/V4.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-07.03 | SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/V1.2; SC-M11-011/V5.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-07.04 | SC-M11-012/M1; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/V1.1; SC-M11-012/V1.2; SC-M11-012/V4.1; SC-M11-012/V4.2; SC-M11-013/M1; SC-M11-013/M2; SC-M11-013/V1.1; SC-M11-013/V1.2; SC-M11-013/V4.1; SC-M11-013/V4.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-004 |
-| FR-M11-07.05 | SC-M11-013/M1; SC-M11-013/M3; SC-M11-013/M4; SC-M11-013/V1.1; SC-M11-013/V1.3; SC-M11-013/V1.4; SC-M11-013/V4.1; SC-M11-013/V4.3; SC-M11-013/V4.4; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| FR-M11-08.01 | SC-M11-014/M1; SC-M11-014/M3; SC-M11-014/M4; SC-M11-014/E1.1; SC-M11-014/V1.1; SC-M11-014/V1.3; SC-M11-014/V1.4; SC-M11-015/E1.1; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-08.02 | SC-M11-014/E1.1; SC-M11-015/M1; SC-M11-015/M3; SC-M11-015/M4; SC-M11-015/E1.1; SC-M11-015/V1.1; SC-M11-015/V1.3; SC-M11-015/V1.4; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-08.03 | SC-M11-014/M4; SC-M11-014/V1.4; AUT-M11-005; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-08.04 | SC-M11-014/V2.1; SC-M11-014/V2.2; SC-M11-014/V3.1; SC-M11-014/V3.2; SC-M11-014/V4.1; SC-M11-014/V4.2; SC-M11-014/V5.1; SC-M11-014/V5.2; SC-M11-015/V2.1; SC-M11-015/V2.2; SC-M11-015/V3.1; SC-M11-015/V3.2; SC-M11-015/V4.1; SC-M11-015/V4.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-08.05 | SC-M11-014/M2; SC-M11-014/V1.2; SC-M11-015/M2; SC-M11-015/V1.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/V4.2; SC-M11-017/M2; SC-M11-017/E3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-08.06 | SC-M11-015/M4; SC-M11-015/V1.4; AUT-M11-005; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| FR-M11-09.01 | SC-M11-016/M1; SC-M11-016/M3; SC-M11-016/M4; SC-M11-016/E1.1; SC-M11-016/E1.2; SC-M11-016/E2.1; SC-M11-016/E3.1; SC-M11-016/E3.3; SC-M11-016/E3.4; SC-M11-016/V4.1; SC-M11-016/V4.3; SC-M11-016/V4.4 | Đã đối soát phần đủ căn cứ |
-| FR-M11-09.02 | SC-M11-016/V1.1; SC-M11-016/V1.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-09.03 | SC-M11-016/E2.1; SC-M11-016/V2.1; SC-M11-016/V2.2; SC-M11-016/V3.1; SC-M11-016/V3.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-09.04 | SC-M11-016/V5.1; SC-M11-016/V5.2; SC-M11-016/V6.1; SC-M11-016/V6.2; SC-M11-016/V7.1; SC-M11-016/V7.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-09.05 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/V1.2; SC-M11-016/V4.4; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-09.06 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/V1.2; SC-M11-016/V4.4; AUT-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-09.07 | SC-M11-007/E9.1; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/V1.2; SC-M11-016/V4.4; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-10.01 | SC-M11-017/V1.2; SC-M11-017/V2.1; SC-M11-017/V2.2; SC-M11-017/V3.1; SC-M11-017/V3.2; SC-M11-017/V4.1; SC-M11-017/V4.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-10.02 | SC-M11-017/M4; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-06.08 | SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/E14.2; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-06.09 | SC-M11-010/E1.2; SC-M11-011/M2; SC-M11-011/E5.2; SC-M11-011/E9.2; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-07.01 | SC-M11-011/M1; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E5.1; SC-M11-011/E5.2; SC-M11-011/E9.1; SC-M11-011/E9.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-07.02 | SC-M11-011/E6.1; SC-M11-011/E6.2; SC-M11-011/E7.1; SC-M11-011/E7.2; SC-M11-011/E8.1; SC-M11-011/E8.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E4.2; SC-M11-012/E5.1; SC-M11-012/E5.2; SC-M11-012/E6.1; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/E4.2; SC-M11-013/E5.1; SC-M11-013/E5.2; SC-M11-013/E6.1; SC-M11-013/E6.2; SC-M11-013/E7.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-07.03 | SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E5.2; SC-M11-011/E9.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-07.04 | SC-M11-012/M1; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E4.1; SC-M11-012/E4.2; SC-M11-012/E7.1; SC-M11-012/E7.2; SC-M11-013/M1; SC-M11-013/M2; SC-M11-013/E4.1; SC-M11-013/E4.2; SC-M11-013/E7.1; SC-M11-013/E7.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-004 |
+| FR-M11-07.05 | SC-M11-013/M1; SC-M11-013/M3; SC-M11-013/M4; SC-M11-013/E4.1; SC-M11-013/E4.3; SC-M11-013/E4.4; SC-M11-013/E7.1; SC-M11-013/E7.3; SC-M11-013/E7.4; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| FR-M11-08.01 | SC-M11-014/M1; SC-M11-014/M3; SC-M11-014/M4; SC-M11-014/E1.1; SC-M11-014/E6.1; SC-M11-014/E6.3; SC-M11-014/E6.4; SC-M11-015/E1.1; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-08.02 | SC-M11-014/E1.1; SC-M11-015/M1; SC-M11-015/M3; SC-M11-015/M4; SC-M11-015/E1.1; SC-M11-015/E6.1; SC-M11-015/E6.3; SC-M11-015/E6.4; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-08.03 | SC-M11-014/M4; SC-M11-014/E6.4; AUT-M11-005; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-08.04 | SC-M11-014/E7.1; SC-M11-014/E7.2; SC-M11-014/E8.1; SC-M11-014/E8.2; SC-M11-014/E9.1; SC-M11-014/E9.2; SC-M11-014/E10.1; SC-M11-014/E10.2; SC-M11-015/E7.1; SC-M11-015/E7.2; SC-M11-015/E8.1; SC-M11-015/E8.2; SC-M11-015/E9.1; SC-M11-015/E9.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-08.05 | SC-M11-014/M2; SC-M11-014/E6.2; SC-M11-015/M2; SC-M11-015/E6.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/E11.2; SC-M11-017/M2; SC-M11-017/E3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-08.06 | SC-M11-015/M4; SC-M11-015/E6.4; AUT-M11-005; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| FR-M11-09.01 | SC-M11-016/M1; SC-M11-016/M3; SC-M11-016/M4; SC-M11-016/E1.1; SC-M11-016/E1.2; SC-M11-016/E2.1; SC-M11-016/E3.1; SC-M11-016/E3.3; SC-M11-016/E3.4; SC-M11-016/E11.1; SC-M11-016/E11.3; SC-M11-016/E11.4 | Đã đối soát phần đủ căn cứ |
+| FR-M11-09.02 | SC-M11-016/E8.1; SC-M11-016/E8.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-09.03 | SC-M11-016/E2.1; SC-M11-016/E9.1; SC-M11-016/E9.2; SC-M11-016/E10.1; SC-M11-016/E10.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-09.04 | SC-M11-016/E12.1; SC-M11-016/E12.2; SC-M11-016/E13.1; SC-M11-016/E13.2; SC-M11-016/E14.1; SC-M11-016/E14.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-09.05 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/E8.2; SC-M11-016/E11.4; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-09.06 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/E8.2; SC-M11-016/E11.4; AUT-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-09.07 | SC-M11-007/E9.1; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/E8.2; SC-M11-016/E11.4; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-10.01 | SC-M11-017/E7.2; SC-M11-017/E8.1; SC-M11-017/E8.2; SC-M11-017/E9.1; SC-M11-017/E9.2; SC-M11-017/E10.1; SC-M11-017/E10.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-10.02 | SC-M11-017/M4; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
 | FR-M11-10.03 | SC-M11-017/M1; SC-M11-017/M2; SC-M11-017/E3.1; SC-M11-017/E3.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
 | FR-M11-10.04 | SC-M11-017/M3; SC-M11-017/M4; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-007 |
 | FR-M11-10.05 | SC-M11-017/E3.3; SC-M11-017/E3.4; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
 | FR-M11-10.06 | SC-M11-017/E4.1; SC-M11-017/E4.2; SC-M11-017/E4.3; SC-M11-017/E4.4; SC-M11-017/E5.1; SC-M11-017/E5.2; SC-M11-017/E5.3; SC-M11-017/E5.4; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
 | FR-M11-10.07 | SC-M11-017/M4; AUT-M11-005; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-10.08 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/V1.2; SC-M11-016/V4.4; SC-M11-017/M4; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V4.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-10.09 | SC-M11-016/E3.4; SC-M11-017/V3.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-10.08 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E8.2; SC-M11-016/E11.4; SC-M11-017/M4; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E10.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-10.09 | SC-M11-016/E3.4; SC-M11-017/E9.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
 | FR-M11-11.01 | AUT-M11-002 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-001 |
 | FR-M11-11.02 | AUT-M11-002 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-001 |
 | FR-M11-11.03 | AUT-M11-002 | Đã đối soát phần đủ căn cứ |
 | FR-M11-11.04 | AUT-M11-002 | Đã đối soát phần đủ căn cứ |
 | FR-M11-11.05 | AUT-M11-002 | Đã đối soát phần đủ căn cứ |
-| FR-M11-11.06 | SC-M11-014/M4; SC-M11-014/V1.4; SC-M11-015/M4; SC-M11-015/V1.4; AUT-M11-002 | Đã đối soát phần đủ căn cứ |
+| FR-M11-11.06 | SC-M11-014/M4; SC-M11-014/E6.4; SC-M11-015/M4; SC-M11-015/E6.4; AUT-M11-002 | Đã đối soát phần đủ căn cứ |
 | FR-M11-11.07 | AUT-M11-002; AUT-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.01 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.02 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.03 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.04 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.05 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.06 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.07 | SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.08 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.1; SC-M11-018/E15.2; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.09 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.10 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.11 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; SC-M11-018/V12.1; SC-M11-018/V12.2; SC-M11-018/V13.1; SC-M11-018/V13.2; SC-M11-018/V14.1; SC-M11-018/V14.2; SC-M11-018/V15.1; SC-M11-018/V15.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.12 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; SC-M11-021/M2; SC-M11-021/V1.2; SC-M11-021/V6.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.13 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; SC-M11-021/M2; SC-M11-021/V1.2; SC-M11-021/V6.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.14 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.15 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.16 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.17 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.18 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.19 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-12.20 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.01 | SC-M11-019/M1; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/V1.1; SC-M11-019/V1.2; SC-M11-019/V6.1; SC-M11-019/V6.2; SC-M11-020/E3.1; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.02 | SC-M11-020/M1; SC-M11-020/M2; SC-M11-020/E1.1; SC-M11-020/E3.1; SC-M11-020/E4.1; SC-M11-020/V1.1; SC-M11-020/V1.2; SC-M11-020/V6.1; SC-M11-020/V6.2; AUT-M11-003; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.03 | SC-M11-020/M2; SC-M11-020/E1.1; SC-M11-020/E4.1; SC-M11-020/V1.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E3.1; SC-M11-021/V1.2; SC-M11-021/V6.2; AUT-M11-003; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.04 | SC-M11-020/M2; SC-M11-020/E1.1; SC-M11-020/E4.1; SC-M11-020/V1.2; SC-M11-020/V6.2; SC-M11-021/E3.1; AUT-M11-003; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.05 | SC-M11-021/M1; SC-M11-021/M2; SC-M11-021/V1.1; SC-M11-021/V1.2; SC-M11-021/V6.1; SC-M11-021/V6.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.01 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.02 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.03 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.04 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.05 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.06 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.07 | SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.08 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.1; SC-M11-018/E15.2; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.09 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.10 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.11 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; SC-M11-018/E35.1; SC-M11-018/E35.2; SC-M11-018/E36.1; SC-M11-018/E36.2; SC-M11-018/E37.1; SC-M11-018/E37.2; SC-M11-018/E38.1; SC-M11-018/E38.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.12 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; SC-M11-021/M2; SC-M11-021/E9.2; SC-M11-021/E14.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.13 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; SC-M11-021/M2; SC-M11-021/E9.2; SC-M11-021/E14.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.14 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.15 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.16 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.17 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.18 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.19 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-12.20 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.01 | SC-M11-019/M1; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E5.1; SC-M11-019/E5.2; SC-M11-019/E10.1; SC-M11-019/E10.2; SC-M11-020/E3.1; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.02 | SC-M11-020/M1; SC-M11-020/M2; SC-M11-020/E1.1; SC-M11-020/E3.1; SC-M11-020/E4.1; SC-M11-020/E8.1; SC-M11-020/E8.2; SC-M11-020/E13.1; SC-M11-020/E13.2; AUT-M11-003; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.03 | SC-M11-020/M2; SC-M11-020/E1.1; SC-M11-020/E4.1; SC-M11-020/E8.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E3.1; SC-M11-021/E9.2; SC-M11-021/E14.2; AUT-M11-003; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.04 | SC-M11-020/M2; SC-M11-020/E1.1; SC-M11-020/E4.1; SC-M11-020/E8.2; SC-M11-020/E13.2; SC-M11-021/E3.1; AUT-M11-003; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.05 | SC-M11-021/M1; SC-M11-021/M2; SC-M11-021/E9.1; SC-M11-021/E9.2; SC-M11-021/E14.1; SC-M11-021/E14.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
 | FR-M11-13.06 | SC-M11-021/E1.1; SC-M11-021/E1.2; SC-M11-021/E2.3; SC-M11-021/E2.4; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
 | FR-M11-13.07 | SC-M11-021/E1.2; SC-M11-021/E2.4; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.08 | SC-M11-019/M2; SC-M11-019/V1.2; SC-M11-019/V2.1; SC-M11-019/V2.2; SC-M11-019/V3.1; SC-M11-019/V3.2; SC-M11-019/V4.1; SC-M11-019/V4.2; SC-M11-019/V5.1; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/V1.2; SC-M11-020/V2.1; SC-M11-020/V2.2; SC-M11-020/V3.1; SC-M11-020/V3.2; SC-M11-020/V4.1; SC-M11-020/V4.2; SC-M11-020/V5.1; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E4.1; SC-M11-021/V1.2; SC-M11-021/V2.1; SC-M11-021/V2.2; SC-M11-021/V3.1; SC-M11-021/V3.2; SC-M11-021/V4.1; SC-M11-021/V4.2; SC-M11-021/V5.1; SC-M11-021/V5.2; SC-M11-021/V6.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.09 | SC-M11-019/M2; SC-M11-019/V1.2; SC-M11-019/V2.1; SC-M11-019/V2.2; SC-M11-019/V3.1; SC-M11-019/V3.2; SC-M11-019/V4.1; SC-M11-019/V4.2; SC-M11-019/V5.1; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/V1.2; SC-M11-020/V2.1; SC-M11-020/V2.2; SC-M11-020/V3.1; SC-M11-020/V3.2; SC-M11-020/V4.1; SC-M11-020/V4.2; SC-M11-020/V5.1; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/V1.2; SC-M11-021/V2.1; SC-M11-021/V2.2; SC-M11-021/V3.1; SC-M11-021/V3.2; SC-M11-021/V4.1; SC-M11-021/V4.2; SC-M11-021/V5.1; SC-M11-021/V5.2; SC-M11-021/V6.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.08 | SC-M11-019/M2; SC-M11-019/E5.2; SC-M11-019/E6.1; SC-M11-019/E6.2; SC-M11-019/E7.1; SC-M11-019/E7.2; SC-M11-019/E8.1; SC-M11-019/E8.2; SC-M11-019/E9.1; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E8.2; SC-M11-020/E9.1; SC-M11-020/E9.2; SC-M11-020/E10.1; SC-M11-020/E10.2; SC-M11-020/E11.1; SC-M11-020/E11.2; SC-M11-020/E12.1; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E4.1; SC-M11-021/E9.2; SC-M11-021/E10.1; SC-M11-021/E10.2; SC-M11-021/E11.1; SC-M11-021/E11.2; SC-M11-021/E12.1; SC-M11-021/E12.2; SC-M11-021/E13.1; SC-M11-021/E13.2; SC-M11-021/E14.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.09 | SC-M11-019/M2; SC-M11-019/E5.2; SC-M11-019/E6.1; SC-M11-019/E6.2; SC-M11-019/E7.1; SC-M11-019/E7.2; SC-M11-019/E8.1; SC-M11-019/E8.2; SC-M11-019/E9.1; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E8.2; SC-M11-020/E9.1; SC-M11-020/E9.2; SC-M11-020/E10.1; SC-M11-020/E10.2; SC-M11-020/E11.1; SC-M11-020/E11.2; SC-M11-020/E12.1; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E9.2; SC-M11-021/E10.1; SC-M11-021/E10.2; SC-M11-021/E11.1; SC-M11-021/E11.2; SC-M11-021/E12.1; SC-M11-021/E12.2; SC-M11-021/E13.1; SC-M11-021/E13.2; SC-M11-021/E14.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
 | FR-M11-13.10 | SC-M11-021/E1.2; SC-M11-021/E2.1; SC-M11-021/E2.2; SC-M11-021/E2.4; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
 | FR-M11-13.11 | SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-021/E1.2; SC-M11-021/E2.4; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.12 | SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.4; SC-M11-018/E7.6; SC-M11-018/E8.6; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.4; SC-M11-018/E12.4; SC-M11-018/E13.4; SC-M11-018/E14.4; SC-M11-018/E15.6; SC-M11-018/E19.6; SC-M11-018/E23.2; SC-M11-018/V1.4; SC-M11-018/V2.4; SC-M11-018/V3.4; SC-M11-018/V4.4; SC-M11-018/V5.4; SC-M11-018/V6.6; SC-M11-018/V7.2; SC-M11-018/V8.6; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; AUT-M11-004; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| FR-M11-13.13 | SC-M11-020/M2; SC-M11-020/E2.1; SC-M11-020/E2.2; SC-M11-020/E4.1; SC-M11-020/V1.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E5.1; SC-M11-021/E5.2; SC-M11-021/V1.2; SC-M11-021/V6.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.12 | SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.4; SC-M11-018/E7.6; SC-M11-018/E8.6; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.4; SC-M11-018/E12.4; SC-M11-018/E13.4; SC-M11-018/E14.4; SC-M11-018/E15.6; SC-M11-018/E19.6; SC-M11-018/E23.2; SC-M11-018/E24.4; SC-M11-018/E25.4; SC-M11-018/E26.4; SC-M11-018/E27.4; SC-M11-018/E28.4; SC-M11-018/E29.6; SC-M11-018/E30.2; SC-M11-018/E31.6; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; AUT-M11-004; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| FR-M11-13.13 | SC-M11-020/M2; SC-M11-020/E2.1; SC-M11-020/E2.2; SC-M11-020/E4.1; SC-M11-020/E8.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E5.1; SC-M11-021/E5.2; SC-M11-021/E9.2; SC-M11-021/E14.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
 | FR-M11-13.14 | AUT-M11-004; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
-| FR-M11-14.01 | SC-M11-005/E4.1; SC-M11-005/V11.1; SC-M11-005/V11.2; SC-M11-022/M1; SC-M11-022/M2; SC-M11-022/E1.1; SC-M11-022/E1.2; SC-M11-022/V1.1; SC-M11-022/V1.2; SC-M11-022/V2.1; SC-M11-022/V2.2; SC-M11-022/V7.1; SC-M11-022/V7.2; RULE-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-003 |
-| FR-M11-14.02 | SC-M11-022/M2; SC-M11-022/V2.2; SC-M11-022/V3.1; SC-M11-022/V3.2; SC-M11-022/V4.1; SC-M11-022/V4.2; SC-M11-022/V5.1; SC-M11-022/V5.2; SC-M11-022/V6.1; SC-M11-022/V6.2; SC-M11-022/V7.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-14.03 | SC-M11-005/V11.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-14.04 | SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-14.05 | SC-M11-005/V11.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-14.06 | SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; AUT-M11-005; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-14.07 | SC-M11-005/V11.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-14.08 | SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E2.1; SC-M11-022/E2.2; SC-M11-022/E3.1; SC-M11-022/E3.2; SC-M11-022/V2.2; SC-M11-022/V7.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-003 |
-| FR-M11-15.01 | SC-M11-002/E10.1; SC-M11-003/M1; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/V1.1; SC-M11-003/V1.2; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-017/E4.4; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-007 |
-| FR-M11-15.02 | SC-M11-002/E10.1; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/V1.2; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-017/E4.4; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-15.03 | SC-M11-003/M2; SC-M11-003/V1.2; SC-M11-017/E4.4; AUT-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| FR-M11-15.04 | SC-M11-003/M2; SC-M11-003/V1.2; SC-M11-003/V2.1; SC-M11-003/V2.2; SC-M11-003/V3.1; SC-M11-003/V3.2; SC-M11-003/V4.1; SC-M11-003/V4.2; SC-M11-003/V5.1; SC-M11-003/V5.2 | Đã đối soát phần đủ căn cứ |
-| FR-M11-15.05 | SC-M11-002/E10.1; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/V1.2; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-017/E4.4; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-14.01 | SC-M11-005/E4.1; SC-M11-005/E17.1; SC-M11-005/E17.2; SC-M11-022/M1; SC-M11-022/M2; SC-M11-022/E1.1; SC-M11-022/E1.2; SC-M11-022/E7.1; SC-M11-022/E7.2; SC-M11-022/E8.1; SC-M11-022/E8.2; SC-M11-022/E13.1; SC-M11-022/E13.2; RULE-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-003 |
+| FR-M11-14.02 | SC-M11-022/M2; SC-M11-022/E8.2; SC-M11-022/E9.1; SC-M11-022/E9.2; SC-M11-022/E10.1; SC-M11-022/E10.2; SC-M11-022/E11.1; SC-M11-022/E11.2; SC-M11-022/E12.1; SC-M11-022/E12.2; SC-M11-022/E13.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-14.03 | SC-M11-005/E17.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E13.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-14.04 | SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E13.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-14.05 | SC-M11-005/E17.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E13.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-14.06 | SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E13.2; AUT-M11-005; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-14.07 | SC-M11-005/E17.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E13.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-14.08 | SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E2.1; SC-M11-022/E2.2; SC-M11-022/E3.1; SC-M11-022/E3.2; SC-M11-022/E8.2; SC-M11-022/E13.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-003 |
+| FR-M11-15.01 | SC-M11-002/E10.1; SC-M11-003/M1; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/E4.1; SC-M11-003/E4.2; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-017/E4.4; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-007 |
+| FR-M11-15.02 | SC-M11-002/E10.1; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/E4.2; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-017/E4.4; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-15.03 | SC-M11-003/M2; SC-M11-003/E4.2; SC-M11-017/E4.4; AUT-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-15.04 | SC-M11-003/M2; SC-M11-003/E4.2; SC-M11-003/E5.1; SC-M11-003/E5.2; SC-M11-003/E6.1; SC-M11-003/E6.2; SC-M11-003/E7.1; SC-M11-003/E7.2; SC-M11-003/E8.1; SC-M11-003/E8.2 | Đã đối soát phần đủ căn cứ |
+| FR-M11-15.05 | SC-M11-002/E10.1; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/E4.2; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-017/E4.4; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
 | FR-M11-16.01 | SC-M11-002/E10.1; SC-M11-003/E2.1; SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
 | FR-M11-16.02 | SC-M11-002/E10.1; SC-M11-003/E2.1; SC-M11-005/E6.1; SC-M11-006/E2.1; SC-M11-007/E11.1; SC-M11-008/E4.1; SC-M11-009/E4.1; SC-M11-010/E4.1; SC-M11-011/E3.1; SC-M11-012/E3.1; SC-M11-013/E2.1; SC-M11-014/E3.1; SC-M11-015/E3.1; SC-M11-016/E5.1; SC-M11-017/E2.1; SC-M11-018/E21.1; SC-M11-019/E3.1; SC-M11-020/E6.1; SC-M11-021/E7.1; SC-M11-022/E5.1; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
 | FR-M11-16.03 | SC-M11-005/M2; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
@@ -3987,56 +4104,56 @@ Không có scenario phụ chỉ SYSTEM hoặc chỉ SYSTEM–AI. Tự động kh
 | FR-M11-16.06 | AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
 | FR-M11-16.07 | SC-M11-002/E11.1; SC-M11-002/E12.1; SC-M11-003/E3.1; SC-M11-007/E12.1; SC-M11-009/E5.1; SC-M11-010/E5.1; SC-M11-010/E6.1; SC-M11-011/E4.1; SC-M11-013/E3.1; SC-M11-014/E4.1; SC-M11-014/E5.1; SC-M11-015/E4.1; SC-M11-015/E5.1; SC-M11-016/E6.1; SC-M11-016/E7.1; SC-M11-018/E22.1; SC-M11-019/E4.1; SC-M11-020/E7.1; SC-M11-021/E8.1; SC-M11-022/E6.1; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
 | FR-M11-16.08 | SC-M11-017/E6.1; SC-M11-017/E6.2; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
-| FR-M11-16.09 | SC-M11-017/V1.1; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V4.2; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
+| FR-M11-16.09 | SC-M11-017/E7.1; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E10.2; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
 | FR-M11-16.10 | AUT-M11-002; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
-| FR-M11-17.01 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E7.1; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E9.1; SC-M11-002/E12.1; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.2; SC-M11-002/V3.2; SC-M11-002/V4.2; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/E1.1; SC-M11-003/V1.2; SC-M11-003/V2.2; SC-M11-003/V3.2; SC-M11-003/V4.2; SC-M11-003/V5.2; SC-M11-004/E2.1; SC-M11-005/E1.2; SC-M11-005/E5.1; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/E1.1; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E10.1; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/E3.1; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E3.1; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E3.1; SC-M11-010/E6.1; SC-M11-010/V1.2; SC-M11-010/V1.4; SC-M11-010/V2.2; SC-M11-010/V3.2; SC-M11-010/V4.2; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E2.1; SC-M11-011/V1.2; SC-M11-011/V2.2; SC-M11-011/V3.2; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E2.1; SC-M11-012/V1.2; SC-M11-012/V2.2; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E1.1; SC-M11-013/E3.1; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V2.2; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E2.1; SC-M11-014/E5.1; SC-M11-014/V1.2; SC-M11-014/V1.4; SC-M11-014/V2.2; SC-M11-014/V3.2; SC-M11-014/V4.2; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E2.1; SC-M11-015/E5.1; SC-M11-015/V1.2; SC-M11-015/V1.4; SC-M11-015/V2.2; SC-M11-015/V3.2; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E4.1; SC-M11-016/E7.1; SC-M11-016/V1.2; SC-M11-016/V4.2; SC-M11-016/V4.4; SC-M11-016/V5.2; SC-M11-016/V6.2; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E1.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E20.1; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.2; SC-M11-018/V13.2; SC-M11-018/V14.2; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E2.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E5.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E6.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E4.1; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V3.2; SC-M11-022/V4.2; SC-M11-022/V5.2; SC-M11-022/V6.2; SC-M11-022/V7.2; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-005 |
+| FR-M11-17.01 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E7.1; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E9.1; SC-M11-002/E12.1; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.2; SC-M11-002/E15.2; SC-M11-002/E16.2; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E1.1; SC-M11-003/E4.2; SC-M11-003/E5.2; SC-M11-003/E6.2; SC-M11-003/E7.2; SC-M11-003/E8.2; SC-M11-004/E2.1; SC-M11-005/E1.2; SC-M11-005/E5.1; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E1.1; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E10.1; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E3.1; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E3.1; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E3.1; SC-M11-010/E6.1; SC-M11-010/E7.2; SC-M11-010/E7.4; SC-M11-010/E8.2; SC-M11-010/E9.2; SC-M11-010/E10.2; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E2.1; SC-M11-011/E5.2; SC-M11-011/E6.2; SC-M11-011/E7.2; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E2.1; SC-M11-012/E4.2; SC-M11-012/E5.2; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E1.1; SC-M11-013/E3.1; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E5.2; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E2.1; SC-M11-014/E5.1; SC-M11-014/E6.2; SC-M11-014/E6.4; SC-M11-014/E7.2; SC-M11-014/E8.2; SC-M11-014/E9.2; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E2.1; SC-M11-015/E5.1; SC-M11-015/E6.2; SC-M11-015/E6.4; SC-M11-015/E7.2; SC-M11-015/E8.2; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E4.1; SC-M11-016/E7.1; SC-M11-016/E8.2; SC-M11-016/E11.2; SC-M11-016/E11.4; SC-M11-016/E12.2; SC-M11-016/E13.2; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E1.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E20.1; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.2; SC-M11-018/E36.2; SC-M11-018/E37.2; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E2.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E5.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E6.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E4.1; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E9.2; SC-M11-022/E10.2; SC-M11-022/E11.2; SC-M11-022/E12.2; SC-M11-022/E13.2; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-005 |
 | FR-M11-17.02 | SC-M11-001/E7.1; SC-M11-002/E9.1; SC-M11-003/E1.1; SC-M11-004/M2; SC-M11-004/E2.1; SC-M11-005/E5.1; SC-M11-006/E1.1; SC-M11-007/E10.1; SC-M11-008/E3.1; SC-M11-009/E3.1; SC-M11-010/E3.1; SC-M11-011/E2.1; SC-M11-012/E2.1; SC-M11-013/E1.1; SC-M11-014/E2.1; SC-M11-015/E2.1; SC-M11-016/E4.1; SC-M11-017/E1.1; SC-M11-018/E20.1; SC-M11-019/E2.1; SC-M11-020/E5.1; SC-M11-021/E6.1; SC-M11-022/E4.1; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
-| FR-M11-17.03 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.1; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/V1.1; SC-M11-002/V1.2; SC-M11-002/V1.3; SC-M11-002/V1.4; SC-M11-002/V2.2; SC-M11-002/V3.2; SC-M11-002/V4.2; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/V1.1; SC-M11-003/V1.2; SC-M11-003/V2.2; SC-M11-003/V3.2; SC-M11-003/V4.2; SC-M11-003/V5.2; SC-M11-005/E1.2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.1; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/V2.1; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/V1.1; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/V1.1; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/V1.1; SC-M11-010/V1.2; SC-M11-010/V1.3; SC-M11-010/V1.4; SC-M11-010/V2.2; SC-M11-010/V3.2; SC-M11-010/V4.2; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/V1.1; SC-M11-011/V1.2; SC-M11-011/V2.2; SC-M11-011/V3.2; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/V1.1; SC-M11-012/V1.2; SC-M11-012/V2.2; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/V1.1; SC-M11-013/V1.2; SC-M11-013/V1.3; SC-M11-013/V1.4; SC-M11-013/V2.2; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/V1.1; SC-M11-014/V1.2; SC-M11-014/V1.3; SC-M11-014/V1.4; SC-M11-014/V2.2; SC-M11-014/V3.2; SC-M11-014/V4.2; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/V1.1; SC-M11-015/V1.2; SC-M11-015/V1.3; SC-M11-015/V1.4; SC-M11-015/V2.2; SC-M11-015/V3.2; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/V1.2; SC-M11-016/V4.1; SC-M11-016/V4.2; SC-M11-016/V4.3; SC-M11-016/V4.4; SC-M11-016/V5.2; SC-M11-016/V6.2; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/V1.2; SC-M11-017/V2.1; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.2; SC-M11-018/V13.2; SC-M11-018/V14.2; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/V1.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/V1.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/V1.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V1.2; SC-M11-022/V2.1; SC-M11-022/V2.2; SC-M11-022/V3.2; SC-M11-022/V4.2; SC-M11-022/V5.2; SC-M11-022/V6.2; SC-M11-022/V7.2; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
+| FR-M11-17.03 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.1; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E13.1; SC-M11-002/E13.2; SC-M11-002/E13.3; SC-M11-002/E13.4; SC-M11-002/E14.2; SC-M11-002/E15.2; SC-M11-002/E16.2; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E4.1; SC-M11-003/E4.2; SC-M11-003/E5.2; SC-M11-003/E6.2; SC-M11-003/E7.2; SC-M11-003/E8.2; SC-M11-005/E1.2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.1; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E14.1; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E5.1; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E6.1; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E7.1; SC-M11-010/E7.2; SC-M11-010/E7.3; SC-M11-010/E7.4; SC-M11-010/E8.2; SC-M11-010/E9.2; SC-M11-010/E10.2; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E5.1; SC-M11-011/E5.2; SC-M11-011/E6.2; SC-M11-011/E7.2; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E4.1; SC-M11-012/E4.2; SC-M11-012/E5.2; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E4.1; SC-M11-013/E4.2; SC-M11-013/E4.3; SC-M11-013/E4.4; SC-M11-013/E5.2; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E6.1; SC-M11-014/E6.2; SC-M11-014/E6.3; SC-M11-014/E6.4; SC-M11-014/E7.2; SC-M11-014/E8.2; SC-M11-014/E9.2; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E6.1; SC-M11-015/E6.2; SC-M11-015/E6.3; SC-M11-015/E6.4; SC-M11-015/E7.2; SC-M11-015/E8.2; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E8.2; SC-M11-016/E11.1; SC-M11-016/E11.2; SC-M11-016/E11.3; SC-M11-016/E11.4; SC-M11-016/E12.2; SC-M11-016/E13.2; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E7.2; SC-M11-017/E8.1; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.2; SC-M11-018/E36.2; SC-M11-018/E37.2; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E5.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E8.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E9.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E7.2; SC-M11-022/E8.1; SC-M11-022/E8.2; SC-M11-022/E9.2; SC-M11-022/E10.2; SC-M11-022/E11.2; SC-M11-022/E12.2; SC-M11-022/E13.2; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
 | FR-M11-17.04 | SC-M11-001/E7.1; SC-M11-002/E9.1; SC-M11-003/E1.1; SC-M11-004/E2.1; SC-M11-005/E5.1; SC-M11-006/E1.1; SC-M11-007/E10.1; SC-M11-008/E3.1; SC-M11-009/E3.1; SC-M11-010/E3.1; SC-M11-011/E2.1; SC-M11-012/E2.1; SC-M11-013/E1.1; SC-M11-014/E2.1; SC-M11-015/E2.1; SC-M11-016/E4.1; SC-M11-017/E1.1; SC-M11-018/E20.1; SC-M11-019/E2.1; SC-M11-020/E5.1; SC-M11-021/E6.1; SC-M11-022/E4.1; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
 | FR-M11-17.05 | SC-M11-001/E7.1; SC-M11-002/E9.1; SC-M11-003/E1.1; SC-M11-004/E2.1; SC-M11-005/E5.1; SC-M11-006/E1.1; SC-M11-007/E10.1; SC-M11-008/E3.1; SC-M11-009/E3.1; SC-M11-010/E3.1; SC-M11-011/E2.1; SC-M11-012/E2.1; SC-M11-013/E1.1; SC-M11-014/E2.1; SC-M11-015/E2.1; SC-M11-016/E4.1; SC-M11-017/E1.1; SC-M11-018/E20.1; SC-M11-019/E2.1; SC-M11-020/E5.1; SC-M11-021/E6.1; SC-M11-022/E4.1; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
 | FR-M11-17.06 | SC-M11-001/E7.1; SC-M11-002/E9.1; SC-M11-003/E1.1; SC-M11-004/E2.1; SC-M11-005/E5.1; SC-M11-006/E1.1; SC-M11-007/E10.1; SC-M11-008/E3.1; SC-M11-009/E3.1; SC-M11-010/E3.1; SC-M11-011/E2.1; SC-M11-012/E2.1; SC-M11-013/E1.1; SC-M11-014/E2.1; SC-M11-015/E2.1; SC-M11-016/E4.1; SC-M11-017/E1.1; SC-M11-018/E20.1; SC-M11-019/E2.1; SC-M11-020/E5.1; SC-M11-021/E6.1; SC-M11-022/E4.1; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
-| FR-M11-17.07 | SC-M11-001/E7.1; SC-M11-002/E9.1; SC-M11-003/E1.1; SC-M11-004/M2; SC-M11-004/E2.1; SC-M11-004/V1.2; SC-M11-005/E5.1; SC-M11-006/E1.1; SC-M11-007/E10.1; SC-M11-008/E3.1; SC-M11-009/E3.1; SC-M11-010/E3.1; SC-M11-011/E2.1; SC-M11-012/E2.1; SC-M11-013/E1.1; SC-M11-014/E2.1; SC-M11-015/E2.1; SC-M11-016/E4.1; SC-M11-017/E1.1; SC-M11-018/E20.1; SC-M11-019/E2.1; SC-M11-020/E5.1; SC-M11-021/E6.1; SC-M11-022/E4.1; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-005 |
-| FR-M11-17.08 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E7.1; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E9.1; SC-M11-002/E12.1; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.2; SC-M11-002/V3.2; SC-M11-002/V4.2; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/E1.1; SC-M11-003/V1.2; SC-M11-003/V2.2; SC-M11-003/V3.2; SC-M11-003/V4.2; SC-M11-003/V5.2; SC-M11-004/E2.1; SC-M11-005/E1.2; SC-M11-005/E5.1; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/E1.1; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E10.1; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/E3.1; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E3.1; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E3.1; SC-M11-010/E6.1; SC-M11-010/V1.2; SC-M11-010/V1.4; SC-M11-010/V2.2; SC-M11-010/V3.2; SC-M11-010/V4.2; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E2.1; SC-M11-011/V1.2; SC-M11-011/V2.2; SC-M11-011/V3.2; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E2.1; SC-M11-012/V1.2; SC-M11-012/V2.2; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E1.1; SC-M11-013/E3.1; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V2.2; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E2.1; SC-M11-014/E5.1; SC-M11-014/V1.2; SC-M11-014/V1.4; SC-M11-014/V2.2; SC-M11-014/V3.2; SC-M11-014/V4.2; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E2.1; SC-M11-015/E5.1; SC-M11-015/V1.2; SC-M11-015/V1.4; SC-M11-015/V2.2; SC-M11-015/V3.2; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E4.1; SC-M11-016/E7.1; SC-M11-016/V1.2; SC-M11-016/V4.2; SC-M11-016/V4.4; SC-M11-016/V5.2; SC-M11-016/V6.2; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E1.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E20.1; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.2; SC-M11-018/V13.2; SC-M11-018/V14.2; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E2.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E5.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E6.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E4.1; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V3.2; SC-M11-022/V4.2; SC-M11-022/V5.2; SC-M11-022/V6.2; SC-M11-022/V7.2; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-005 |
-| BR-M11-01 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| BR-M11-02 | SC-M11-001/M2; SC-M11-001/E6.2; SC-M11-001/V3.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| BR-M11-03 | SC-M11-001/M2; SC-M11-001/E1.1; SC-M11-001/E5.2; SC-M11-001/E6.1; SC-M11-001/E6.2; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/V2.2; RULE-M11-001; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| BR-M11-04 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; AUT-M11-002; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| BR-M11-05 | SC-M11-014/M4; SC-M11-014/E1.1; SC-M11-014/V1.4; SC-M11-015/M4; SC-M11-015/E1.1; SC-M11-015/V1.4; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E2.1; SC-M11-016/V1.2; SC-M11-016/V2.2; SC-M11-016/V3.2; SC-M11-016/V4.4; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E2.2; SC-M11-022/E3.2; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-003 |
-| BR-M11-06 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.1; SC-M11-002/V2.2; SC-M11-002/V3.1; SC-M11-002/V3.2; SC-M11-002/V4.1; SC-M11-002/V4.2; SC-M11-002/V5.1; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/V1.2; SC-M11-003/V2.1; SC-M11-003/V2.2; SC-M11-003/V3.1; SC-M11-003/V3.2; SC-M11-003/V4.1; SC-M11-003/V4.2; SC-M11-003/V5.1; SC-M11-003/V5.2; SC-M11-005/E1.2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/V1.2; SC-M11-010/V1.4; SC-M11-010/V2.1; SC-M11-010/V2.2; SC-M11-010/V3.1; SC-M11-010/V3.2; SC-M11-010/V4.1; SC-M11-010/V4.2; SC-M11-010/V5.1; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/V1.2; SC-M11-011/V2.1; SC-M11-011/V2.2; SC-M11-011/V3.1; SC-M11-011/V3.2; SC-M11-011/V4.1; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/V1.2; SC-M11-012/V2.1; SC-M11-012/V2.2; SC-M11-012/V3.1; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V2.1; SC-M11-013/V2.2; SC-M11-013/V3.1; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E1.1; SC-M11-014/V1.2; SC-M11-014/V1.4; SC-M11-014/V2.1; SC-M11-014/V2.2; SC-M11-014/V3.1; SC-M11-014/V3.2; SC-M11-014/V4.1; SC-M11-014/V4.2; SC-M11-014/V5.1; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E1.1; SC-M11-015/V1.2; SC-M11-015/V1.4; SC-M11-015/V2.1; SC-M11-015/V2.2; SC-M11-015/V3.1; SC-M11-015/V3.2; SC-M11-015/V4.1; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E2.1; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/V1.2; SC-M11-016/V4.2; SC-M11-016/V4.4; SC-M11-016/V5.1; SC-M11-016/V5.2; SC-M11-016/V6.1; SC-M11-016/V6.2; SC-M11-016/V7.1; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.1; SC-M11-018/V12.2; SC-M11-018/V13.1; SC-M11-018/V13.2; SC-M11-018/V14.1; SC-M11-018/V14.2; SC-M11-018/V15.1; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E4.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V3.1; SC-M11-022/V3.2; SC-M11-022/V4.1; SC-M11-022/V4.2; SC-M11-022/V5.1; SC-M11-022/V5.2; SC-M11-022/V6.1; SC-M11-022/V6.2; SC-M11-022/V7.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
-| BR-M11-07 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/V1.2; SC-M11-007/V2.2; SC-M11-010/M4; SC-M11-010/V1.4; SC-M11-010/V6.4; AUT-M11-001; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| BR-M11-08 | SC-M11-002/M4; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/V1.4; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.4; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-010/M2; SC-M11-010/V1.2; SC-M11-010/V6.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
-| BR-M11-09 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E5.1; SC-M11-007/E9.2; SC-M11-007/V2.2; SC-M11-010/E1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| BR-M11-10 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E6.2; SC-M11-007/E7.2; SC-M11-007/E8.2; SC-M11-007/E9.2; SC-M11-007/V2.2; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/V1.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/V1.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V4.2; SC-M11-013/V4.4; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| BR-M11-11 | SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/V1.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| BR-M11-12 | SC-M11-005/E1.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/V2.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E2.2; SC-M11-009/V1.2; SC-M11-009/V2.1; SC-M11-009/V2.2; SC-M11-009/V3.1; SC-M11-009/V3.2; SC-M11-009/V4.1; SC-M11-009/V4.2; SC-M11-009/V5.1; SC-M11-009/V5.2; RULE-M11-002; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| BR-M11-13 | SC-M11-005/M2; SC-M11-005/E1.2; SC-M11-005/E2.1; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V10.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| BR-M11-14 | SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| BR-M11-15 | SC-M11-002/M4; SC-M11-002/V1.4; SC-M11-005/E2.1; SC-M11-005/E3.1; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| BR-M11-16 | SC-M11-002/M4; SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-002/V1.4; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.2; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| BR-M11-17 | SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V4.2; SC-M11-005/V6.2; SC-M11-005/V7.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; SC-M11-019/M2; SC-M11-019/V1.2; SC-M11-019/V6.2; SC-M11-021/M2; SC-M11-021/V1.2; SC-M11-021/V6.2; RULE-M11-002; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| BR-M11-18 | SC-M11-002/M4; SC-M11-002/E4.1; SC-M11-002/E4.2; SC-M11-002/V1.4; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; SC-M11-021/M2; SC-M11-021/V1.2; SC-M11-021/V6.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| BR-M11-19 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| BR-M11-20 | SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/V1.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E1.1; SC-M11-020/E3.1; SC-M11-020/E4.1; SC-M11-020/V1.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E3.1; SC-M11-021/E4.1; SC-M11-021/V1.2; SC-M11-021/V6.2; AUT-M11-003; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
-| BR-M11-21 | SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; AUT-M11-004; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| BR-M11-22 | SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| BR-M11-23 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E10.1; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.2; SC-M11-002/V3.2; SC-M11-002/V4.2; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/V1.2; SC-M11-003/V2.2; SC-M11-003/V3.2; SC-M11-003/V4.2; SC-M11-003/V5.2; SC-M11-004/M2; SC-M11-005/E1.2; SC-M11-005/E6.1; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/E2.1; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E11.1; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/E4.1; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E4.1; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E4.1; SC-M11-010/V1.2; SC-M11-010/V1.4; SC-M11-010/V2.2; SC-M11-010/V3.2; SC-M11-010/V4.2; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E3.1; SC-M11-011/V1.2; SC-M11-011/V2.2; SC-M11-011/V3.2; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E3.1; SC-M11-012/V1.2; SC-M11-012/V2.2; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E2.1; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V2.2; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E3.1; SC-M11-014/V1.2; SC-M11-014/V1.4; SC-M11-014/V2.2; SC-M11-014/V3.2; SC-M11-014/V4.2; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E3.1; SC-M11-015/V1.2; SC-M11-015/V1.4; SC-M11-015/V2.2; SC-M11-015/V3.2; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E5.1; SC-M11-016/V1.2; SC-M11-016/V4.2; SC-M11-016/V4.4; SC-M11-016/V5.2; SC-M11-016/V6.2; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E2.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E21.1; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.2; SC-M11-018/V13.2; SC-M11-018/V14.2; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E3.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E6.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E7.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E5.1; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V3.2; SC-M11-022/V4.2; SC-M11-022/V5.2; SC-M11-022/V6.2; SC-M11-022/V7.2; AUT-M11-002; RULE-M11-005; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
-| BR-M11-24 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/V1.2; SC-M11-016/V4.4; SC-M11-017/M4; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| FR-M11-17.07 | SC-M11-001/E7.1; SC-M11-002/E9.1; SC-M11-003/E1.1; SC-M11-004/M2; SC-M11-004/E2.1; SC-M11-004/E3.2; SC-M11-005/E5.1; SC-M11-006/E1.1; SC-M11-007/E10.1; SC-M11-008/E3.1; SC-M11-009/E3.1; SC-M11-010/E3.1; SC-M11-011/E2.1; SC-M11-012/E2.1; SC-M11-013/E1.1; SC-M11-014/E2.1; SC-M11-015/E2.1; SC-M11-016/E4.1; SC-M11-017/E1.1; SC-M11-018/E20.1; SC-M11-019/E2.1; SC-M11-020/E5.1; SC-M11-021/E6.1; SC-M11-022/E4.1; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-005 |
+| FR-M11-17.08 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E7.1; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E9.1; SC-M11-002/E12.1; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.2; SC-M11-002/E15.2; SC-M11-002/E16.2; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E1.1; SC-M11-003/E4.2; SC-M11-003/E5.2; SC-M11-003/E6.2; SC-M11-003/E7.2; SC-M11-003/E8.2; SC-M11-004/E2.1; SC-M11-005/E1.2; SC-M11-005/E5.1; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E1.1; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E10.1; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E3.1; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E3.1; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E3.1; SC-M11-010/E6.1; SC-M11-010/E7.2; SC-M11-010/E7.4; SC-M11-010/E8.2; SC-M11-010/E9.2; SC-M11-010/E10.2; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E2.1; SC-M11-011/E5.2; SC-M11-011/E6.2; SC-M11-011/E7.2; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E2.1; SC-M11-012/E4.2; SC-M11-012/E5.2; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E1.1; SC-M11-013/E3.1; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E5.2; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E2.1; SC-M11-014/E5.1; SC-M11-014/E6.2; SC-M11-014/E6.4; SC-M11-014/E7.2; SC-M11-014/E8.2; SC-M11-014/E9.2; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E2.1; SC-M11-015/E5.1; SC-M11-015/E6.2; SC-M11-015/E6.4; SC-M11-015/E7.2; SC-M11-015/E8.2; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E4.1; SC-M11-016/E7.1; SC-M11-016/E8.2; SC-M11-016/E11.2; SC-M11-016/E11.4; SC-M11-016/E12.2; SC-M11-016/E13.2; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E1.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E20.1; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.2; SC-M11-018/E36.2; SC-M11-018/E37.2; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E2.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E5.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E6.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E4.1; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E9.2; SC-M11-022/E10.2; SC-M11-022/E11.2; SC-M11-022/E12.2; SC-M11-022/E13.2; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-005 |
+| BR-M11-01 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| BR-M11-02 | SC-M11-001/M2; SC-M11-001/E6.2; SC-M11-001/E10.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| BR-M11-03 | SC-M11-001/M2; SC-M11-001/E1.1; SC-M11-001/E5.2; SC-M11-001/E6.1; SC-M11-001/E6.2; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-007/M2; SC-M11-007/E9.2; SC-M11-007/E14.2; RULE-M11-001; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| BR-M11-04 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; AUT-M11-002; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| BR-M11-05 | SC-M11-014/M4; SC-M11-014/E1.1; SC-M11-014/E6.4; SC-M11-015/M4; SC-M11-015/E1.1; SC-M11-015/E6.4; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E2.1; SC-M11-016/E8.2; SC-M11-016/E9.2; SC-M11-016/E10.2; SC-M11-016/E11.4; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E2.2; SC-M11-022/E3.2; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E13.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-003 |
+| BR-M11-06 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.1; SC-M11-002/E14.2; SC-M11-002/E15.1; SC-M11-002/E15.2; SC-M11-002/E16.1; SC-M11-002/E16.2; SC-M11-002/E17.1; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E4.2; SC-M11-003/E5.1; SC-M11-003/E5.2; SC-M11-003/E6.1; SC-M11-003/E6.2; SC-M11-003/E7.1; SC-M11-003/E7.2; SC-M11-003/E8.1; SC-M11-003/E8.2; SC-M11-005/E1.2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E7.2; SC-M11-010/E7.4; SC-M11-010/E8.1; SC-M11-010/E8.2; SC-M11-010/E9.1; SC-M11-010/E9.2; SC-M11-010/E10.1; SC-M11-010/E10.2; SC-M11-010/E11.1; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E5.2; SC-M11-011/E6.1; SC-M11-011/E6.2; SC-M11-011/E7.1; SC-M11-011/E7.2; SC-M11-011/E8.1; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E4.2; SC-M11-012/E5.1; SC-M11-012/E5.2; SC-M11-012/E6.1; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E5.1; SC-M11-013/E5.2; SC-M11-013/E6.1; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E1.1; SC-M11-014/E6.2; SC-M11-014/E6.4; SC-M11-014/E7.1; SC-M11-014/E7.2; SC-M11-014/E8.1; SC-M11-014/E8.2; SC-M11-014/E9.1; SC-M11-014/E9.2; SC-M11-014/E10.1; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E1.1; SC-M11-015/E6.2; SC-M11-015/E6.4; SC-M11-015/E7.1; SC-M11-015/E7.2; SC-M11-015/E8.1; SC-M11-015/E8.2; SC-M11-015/E9.1; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E2.1; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E8.2; SC-M11-016/E11.2; SC-M11-016/E11.4; SC-M11-016/E12.1; SC-M11-016/E12.2; SC-M11-016/E13.1; SC-M11-016/E13.2; SC-M11-016/E14.1; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.1; SC-M11-018/E35.2; SC-M11-018/E36.1; SC-M11-018/E36.2; SC-M11-018/E37.1; SC-M11-018/E37.2; SC-M11-018/E38.1; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E4.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E9.1; SC-M11-022/E9.2; SC-M11-022/E10.1; SC-M11-022/E10.2; SC-M11-022/E11.1; SC-M11-022/E11.2; SC-M11-022/E12.1; SC-M11-022/E12.2; SC-M11-022/E13.2; RULE-M11-001 | Đã đối soát phần đủ căn cứ |
+| BR-M11-07 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E13.2; SC-M11-007/E14.2; SC-M11-010/M4; SC-M11-010/E7.4; SC-M11-010/E12.4; AUT-M11-001; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| BR-M11-08 | SC-M11-002/M4; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/E13.4; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.4; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-010/M2; SC-M11-010/E7.2; SC-M11-010/E12.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
+| BR-M11-09 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E5.1; SC-M11-007/E9.2; SC-M11-007/E14.2; SC-M11-010/E1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| BR-M11-10 | SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E6.2; SC-M11-007/E7.2; SC-M11-007/E8.2; SC-M11-007/E9.2; SC-M11-007/E14.2; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E5.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E4.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E7.2; SC-M11-013/E7.4; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| BR-M11-11 | SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| BR-M11-12 | SC-M11-005/E1.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E14.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E2.2; SC-M11-009/E6.2; SC-M11-009/E7.1; SC-M11-009/E7.2; SC-M11-009/E8.1; SC-M11-009/E8.2; SC-M11-009/E9.1; SC-M11-009/E9.2; SC-M11-009/E10.1; SC-M11-009/E10.2; RULE-M11-002; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| BR-M11-13 | SC-M11-005/M2; SC-M11-005/E1.2; SC-M11-005/E2.1; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E16.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| BR-M11-14 | SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| BR-M11-15 | SC-M11-002/M4; SC-M11-002/E13.4; SC-M11-005/E2.1; SC-M11-005/E3.1; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| BR-M11-16 | SC-M11-002/M4; SC-M11-002/E5.1; SC-M11-002/E5.2; SC-M11-002/E13.4; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.2; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| BR-M11-17 | SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E10.2; SC-M11-005/E12.2; SC-M11-005/E13.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; SC-M11-019/M2; SC-M11-019/E5.2; SC-M11-019/E10.2; SC-M11-021/M2; SC-M11-021/E9.2; SC-M11-021/E14.2; RULE-M11-002; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| BR-M11-18 | SC-M11-002/M4; SC-M11-002/E4.1; SC-M11-002/E4.2; SC-M11-002/E13.4; SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; SC-M11-021/M2; SC-M11-021/E9.2; SC-M11-021/E14.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| BR-M11-19 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| BR-M11-20 | SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E5.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E1.1; SC-M11-020/E3.1; SC-M11-020/E4.1; SC-M11-020/E8.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E3.1; SC-M11-021/E4.1; SC-M11-021/E9.2; SC-M11-021/E14.2; AUT-M11-003; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
+| BR-M11-21 | SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E8.2; SC-M11-022/E13.2; AUT-M11-004; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| BR-M11-22 | SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E8.2; SC-M11-022/E13.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| BR-M11-23 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E10.1; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.2; SC-M11-002/E15.2; SC-M11-002/E16.2; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/E4.2; SC-M11-003/E5.2; SC-M11-003/E6.2; SC-M11-003/E7.2; SC-M11-003/E8.2; SC-M11-004/M2; SC-M11-005/E1.2; SC-M11-005/E6.1; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E2.1; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E11.1; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E4.1; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E4.1; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E4.1; SC-M11-010/E7.2; SC-M11-010/E7.4; SC-M11-010/E8.2; SC-M11-010/E9.2; SC-M11-010/E10.2; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E3.1; SC-M11-011/E5.2; SC-M11-011/E6.2; SC-M11-011/E7.2; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E3.1; SC-M11-012/E4.2; SC-M11-012/E5.2; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E2.1; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E5.2; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E3.1; SC-M11-014/E6.2; SC-M11-014/E6.4; SC-M11-014/E7.2; SC-M11-014/E8.2; SC-M11-014/E9.2; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E3.1; SC-M11-015/E6.2; SC-M11-015/E6.4; SC-M11-015/E7.2; SC-M11-015/E8.2; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E5.1; SC-M11-016/E8.2; SC-M11-016/E11.2; SC-M11-016/E11.4; SC-M11-016/E12.2; SC-M11-016/E13.2; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E2.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E21.1; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.2; SC-M11-018/E36.2; SC-M11-018/E37.2; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E3.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E6.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E7.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E5.1; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E9.2; SC-M11-022/E10.2; SC-M11-022/E11.2; SC-M11-022/E12.2; SC-M11-022/E13.2; AUT-M11-002; RULE-M11-005; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
+| BR-M11-24 | SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/E8.2; SC-M11-016/E11.4; SC-M11-017/M4; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
 | BR-M11-25 | SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; SC-M11-017/E3.4; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E5.4; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| BR-M11-26 | SC-M11-014/M4; SC-M11-014/V1.4; SC-M11-015/M4; SC-M11-015/V1.4; AUT-M11-002; RULE-M11-001; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-001 |
-| BR-M11-27 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E10.1; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.2; SC-M11-002/V3.2; SC-M11-002/V4.2; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/V1.2; SC-M11-003/V2.2; SC-M11-003/V3.2; SC-M11-003/V4.2; SC-M11-003/V5.2; SC-M11-004/M2; SC-M11-005/E1.2; SC-M11-005/E6.1; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/E2.1; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E11.1; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/E4.1; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E4.1; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E4.1; SC-M11-010/V1.2; SC-M11-010/V1.4; SC-M11-010/V2.2; SC-M11-010/V3.2; SC-M11-010/V4.2; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E3.1; SC-M11-011/V1.2; SC-M11-011/V2.2; SC-M11-011/V3.2; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E3.1; SC-M11-012/V1.2; SC-M11-012/V2.2; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E2.1; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V2.2; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E3.1; SC-M11-014/V1.2; SC-M11-014/V1.4; SC-M11-014/V2.2; SC-M11-014/V3.2; SC-M11-014/V4.2; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E3.1; SC-M11-015/V1.2; SC-M11-015/V1.4; SC-M11-015/V2.2; SC-M11-015/V3.2; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E5.1; SC-M11-016/V1.2; SC-M11-016/V4.2; SC-M11-016/V4.4; SC-M11-016/V5.2; SC-M11-016/V6.2; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E2.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E21.1; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.2; SC-M11-018/V13.2; SC-M11-018/V14.2; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E3.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E6.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E7.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E5.1; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V3.2; SC-M11-022/V4.2; SC-M11-022/V5.2; SC-M11-022/V6.2; SC-M11-022/V7.2; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
-| BR-M11-28 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E11.1; SC-M11-002/E12.1; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.2; SC-M11-002/V3.2; SC-M11-002/V4.2; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/E3.1; SC-M11-003/V1.2; SC-M11-003/V2.2; SC-M11-003/V3.2; SC-M11-003/V4.2; SC-M11-003/V5.2; SC-M11-005/E1.2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E12.1; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E5.1; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E5.1; SC-M11-010/E6.1; SC-M11-010/V1.2; SC-M11-010/V1.4; SC-M11-010/V2.2; SC-M11-010/V3.2; SC-M11-010/V4.2; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E4.1; SC-M11-011/V1.2; SC-M11-011/V2.2; SC-M11-011/V3.2; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/V1.2; SC-M11-012/V2.2; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E3.1; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V2.2; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E4.1; SC-M11-014/E5.1; SC-M11-014/V1.2; SC-M11-014/V1.4; SC-M11-014/V2.2; SC-M11-014/V3.2; SC-M11-014/V4.2; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E4.1; SC-M11-015/E5.1; SC-M11-015/V1.2; SC-M11-015/V1.4; SC-M11-015/V2.2; SC-M11-015/V3.2; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E6.1; SC-M11-016/E7.1; SC-M11-016/V1.2; SC-M11-016/V4.2; SC-M11-016/V4.4; SC-M11-016/V5.2; SC-M11-016/V6.2; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E6.2; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E22.1; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.2; SC-M11-018/V13.2; SC-M11-018/V14.2; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E4.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E7.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E8.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E6.1; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V3.2; SC-M11-022/V4.2; SC-M11-022/V5.2; SC-M11-022/V6.2; SC-M11-022/V7.2; AUT-M11-002; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-004 |
-| BR-M11-29 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E7.1; SC-M11-001/V1.2; SC-M11-001/V2.2; SC-M11-001/V3.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E9.1; SC-M11-002/E12.1; SC-M11-002/V1.2; SC-M11-002/V1.4; SC-M11-002/V2.2; SC-M11-002/V3.2; SC-M11-002/V4.2; SC-M11-002/V5.2; SC-M11-003/M2; SC-M11-003/E1.1; SC-M11-003/V1.2; SC-M11-003/V2.2; SC-M11-003/V3.2; SC-M11-003/V4.2; SC-M11-003/V5.2; SC-M11-004/E2.1; SC-M11-005/E1.2; SC-M11-005/E5.1; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-005/V10.2; SC-M11-005/V11.2; SC-M11-006/M2; SC-M11-006/E1.1; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E10.1; SC-M11-007/V2.2; SC-M11-008/M2; SC-M11-008/E3.1; SC-M11-008/V1.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E3.1; SC-M11-009/V1.2; SC-M11-009/V2.2; SC-M11-009/V3.2; SC-M11-009/V4.2; SC-M11-009/V5.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E3.1; SC-M11-010/E6.1; SC-M11-010/V1.2; SC-M11-010/V1.4; SC-M11-010/V2.2; SC-M11-010/V3.2; SC-M11-010/V4.2; SC-M11-010/V5.2; SC-M11-010/V6.2; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E2.1; SC-M11-011/V1.2; SC-M11-011/V2.2; SC-M11-011/V3.2; SC-M11-011/V4.2; SC-M11-011/V5.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E2.1; SC-M11-012/V1.2; SC-M11-012/V2.2; SC-M11-012/V3.2; SC-M11-012/V4.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E1.1; SC-M11-013/E3.1; SC-M11-013/V1.2; SC-M11-013/V1.4; SC-M11-013/V2.2; SC-M11-013/V3.2; SC-M11-013/V4.2; SC-M11-013/V4.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E2.1; SC-M11-014/E5.1; SC-M11-014/V1.2; SC-M11-014/V1.4; SC-M11-014/V2.2; SC-M11-014/V3.2; SC-M11-014/V4.2; SC-M11-014/V5.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E2.1; SC-M11-015/E5.1; SC-M11-015/V1.2; SC-M11-015/V1.4; SC-M11-015/V2.2; SC-M11-015/V3.2; SC-M11-015/V4.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E4.1; SC-M11-016/E7.1; SC-M11-016/V1.2; SC-M11-016/V4.2; SC-M11-016/V4.4; SC-M11-016/V5.2; SC-M11-016/V6.2; SC-M11-016/V7.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E1.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/V1.2; SC-M11-017/V2.2; SC-M11-017/V3.2; SC-M11-017/V4.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E20.1; SC-M11-018/E23.2; SC-M11-018/V1.2; SC-M11-018/V2.2; SC-M11-018/V3.2; SC-M11-018/V4.2; SC-M11-018/V5.2; SC-M11-018/V6.2; SC-M11-018/V7.2; SC-M11-018/V8.2; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-018/V12.2; SC-M11-018/V13.2; SC-M11-018/V14.2; SC-M11-018/V15.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E2.1; SC-M11-019/V1.2; SC-M11-019/V2.2; SC-M11-019/V3.2; SC-M11-019/V4.2; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E5.1; SC-M11-020/V1.2; SC-M11-020/V2.2; SC-M11-020/V3.2; SC-M11-020/V4.2; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E6.1; SC-M11-021/V1.2; SC-M11-021/V2.2; SC-M11-021/V3.2; SC-M11-021/V4.2; SC-M11-021/V5.2; SC-M11-021/V6.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E4.1; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V3.2; SC-M11-022/V4.2; SC-M11-022/V5.2; SC-M11-022/V6.2; SC-M11-022/V7.2; AUT-M11-002; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-005 |
-| BR-M11-30 | SC-M11-005/E4.1; SC-M11-005/V11.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/V1.2; SC-M11-022/V2.2; SC-M11-022/V7.2; RULE-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
-| BR-M11-31 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E2.2; SC-M11-001/E3.2; SC-M11-001/E4.2; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/V3.1; SC-M11-001/V3.2; SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E6.2; SC-M11-002/E7.2; SC-M11-002/E8.2; SC-M11-002/V1.3; SC-M11-002/V1.4; RULE-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
-| BR-M11-32 | SC-M11-002/M4; SC-M11-002/E1.1; SC-M11-002/E1.2; SC-M11-002/E2.1; SC-M11-002/E2.2; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/V1.4; AUT-M11-001; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
-| BR-M11-33 | SC-M11-005/M2; SC-M11-005/V1.2; SC-M11-005/V2.2; SC-M11-005/V3.2; SC-M11-005/V4.2; SC-M11-005/V5.2; SC-M11-005/V6.2; SC-M11-005/V7.2; SC-M11-005/V8.2; SC-M11-005/V9.2; SC-M11-019/M2; SC-M11-019/V1.2; SC-M11-019/V2.1; SC-M11-019/V2.2; SC-M11-019/V3.1; SC-M11-019/V3.2; SC-M11-019/V4.1; SC-M11-019/V4.2; SC-M11-019/V5.1; SC-M11-019/V5.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E3.1; SC-M11-020/V1.2; SC-M11-020/V2.1; SC-M11-020/V2.2; SC-M11-020/V3.1; SC-M11-020/V3.2; SC-M11-020/V4.1; SC-M11-020/V4.2; SC-M11-020/V5.1; SC-M11-020/V5.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/V1.2; SC-M11-021/V2.1; SC-M11-021/V2.2; SC-M11-021/V3.1; SC-M11-021/V3.2; SC-M11-021/V4.1; SC-M11-021/V4.2; SC-M11-021/V5.1; SC-M11-021/V5.2; SC-M11-021/V6.2; RULE-M11-001; RULE-M11-002 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-008 |
-| BR-M11-34 | SC-M11-006/M2; SC-M11-006/V1.2; SC-M11-006/V2.2; SC-M11-006/V3.2; SC-M11-006/V4.2; SC-M11-006/V5.2; SC-M11-014/M2; SC-M11-014/V1.2; SC-M11-015/M2; SC-M11-015/V1.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/V4.2; SC-M11-017/M2; SC-M11-017/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| BR-M11-35 | SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/V1.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
-| BR-M11-36 | SC-M11-008/M2; SC-M11-008/E1.1; SC-M11-008/E2.2; SC-M11-008/V1.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-004 |
-| BR-M11-37 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/V2.2; SC-M11-009/M2; SC-M11-009/V1.2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/V1.4; SC-M11-010/V6.4; SC-M11-011/M2; SC-M11-011/V1.2; SC-M11-011/V5.2; SC-M11-014/M4; SC-M11-014/V1.4; SC-M11-015/M4; SC-M11-015/V1.4; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/V1.2; SC-M11-016/V4.4; SC-M11-017/M4; AUT-M11-001; AUT-M11-002; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-007 |
-| BR-M11-38 | SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.4; SC-M11-018/E7.6; SC-M11-018/E8.6; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.4; SC-M11-018/E12.4; SC-M11-018/E13.4; SC-M11-018/E14.4; SC-M11-018/E15.6; SC-M11-018/E19.6; SC-M11-018/E23.2; SC-M11-018/V1.4; SC-M11-018/V2.4; SC-M11-018/V3.4; SC-M11-018/V4.4; SC-M11-018/V5.4; SC-M11-018/V6.6; SC-M11-018/V7.2; SC-M11-018/V8.6; SC-M11-018/V9.2; SC-M11-018/V10.2; SC-M11-018/V11.2; SC-M11-021/E1.2; SC-M11-021/E2.2; SC-M11-021/E2.4; AUT-M11-004; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
-| BR-M11-39 | SC-M11-019/M2; SC-M11-019/V1.2; SC-M11-019/V6.2; SC-M11-020/M2; SC-M11-020/E2.2; SC-M11-020/E4.1; SC-M11-020/V1.2; SC-M11-020/V6.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E5.2; SC-M11-021/V1.2; SC-M11-021/V6.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
-| BR-M11-40 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/V1.1; SC-M11-018/V1.2; SC-M11-018/V1.4; SC-M11-018/V2.1; SC-M11-018/V2.2; SC-M11-018/V2.4; SC-M11-018/V3.1; SC-M11-018/V3.2; SC-M11-018/V3.4; SC-M11-018/V4.1; SC-M11-018/V4.2; SC-M11-018/V4.4; SC-M11-018/V5.1; SC-M11-018/V5.2; SC-M11-018/V5.4; SC-M11-018/V6.1; SC-M11-018/V6.2; SC-M11-018/V6.6; SC-M11-018/V7.1; SC-M11-018/V7.2; SC-M11-018/V8.1; SC-M11-018/V8.2; SC-M11-018/V8.6; SC-M11-018/V9.1; SC-M11-018/V9.2; SC-M11-018/V10.1; SC-M11-018/V10.2; SC-M11-018/V11.1; SC-M11-018/V11.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006, GAP-SC-M11-008 |
+| BR-M11-26 | SC-M11-014/M4; SC-M11-014/E6.4; SC-M11-015/M4; SC-M11-015/E6.4; AUT-M11-002; RULE-M11-001; RULE-M11-005 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-001 |
+| BR-M11-27 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E10.1; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.2; SC-M11-002/E15.2; SC-M11-002/E16.2; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E2.1; SC-M11-003/E4.2; SC-M11-003/E5.2; SC-M11-003/E6.2; SC-M11-003/E7.2; SC-M11-003/E8.2; SC-M11-004/M2; SC-M11-005/E1.2; SC-M11-005/E6.1; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E2.1; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E11.1; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E4.1; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E4.1; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E4.1; SC-M11-010/E7.2; SC-M11-010/E7.4; SC-M11-010/E8.2; SC-M11-010/E9.2; SC-M11-010/E10.2; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E3.1; SC-M11-011/E5.2; SC-M11-011/E6.2; SC-M11-011/E7.2; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E3.1; SC-M11-012/E4.2; SC-M11-012/E5.2; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E2.1; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E5.2; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E3.1; SC-M11-014/E6.2; SC-M11-014/E6.4; SC-M11-014/E7.2; SC-M11-014/E8.2; SC-M11-014/E9.2; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E3.1; SC-M11-015/E6.2; SC-M11-015/E6.4; SC-M11-015/E7.2; SC-M11-015/E8.2; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E5.1; SC-M11-016/E8.2; SC-M11-016/E11.2; SC-M11-016/E11.4; SC-M11-016/E12.2; SC-M11-016/E13.2; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E2.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E21.1; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.2; SC-M11-018/E36.2; SC-M11-018/E37.2; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E3.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E6.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E7.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E5.1; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E9.2; SC-M11-022/E10.2; SC-M11-022/E11.2; SC-M11-022/E12.2; SC-M11-022/E13.2; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ |
+| BR-M11-28 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E11.1; SC-M11-002/E12.1; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.2; SC-M11-002/E15.2; SC-M11-002/E16.2; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E3.1; SC-M11-003/E4.2; SC-M11-003/E5.2; SC-M11-003/E6.2; SC-M11-003/E7.2; SC-M11-003/E8.2; SC-M11-005/E1.2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E12.1; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E5.1; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E5.1; SC-M11-010/E6.1; SC-M11-010/E7.2; SC-M11-010/E7.4; SC-M11-010/E8.2; SC-M11-010/E9.2; SC-M11-010/E10.2; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E4.1; SC-M11-011/E5.2; SC-M11-011/E6.2; SC-M11-011/E7.2; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E4.2; SC-M11-012/E5.2; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E3.1; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E5.2; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E4.1; SC-M11-014/E5.1; SC-M11-014/E6.2; SC-M11-014/E6.4; SC-M11-014/E7.2; SC-M11-014/E8.2; SC-M11-014/E9.2; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E4.1; SC-M11-015/E5.1; SC-M11-015/E6.2; SC-M11-015/E6.4; SC-M11-015/E7.2; SC-M11-015/E8.2; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E6.1; SC-M11-016/E7.1; SC-M11-016/E8.2; SC-M11-016/E11.2; SC-M11-016/E11.4; SC-M11-016/E12.2; SC-M11-016/E13.2; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E6.2; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E22.1; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.2; SC-M11-018/E36.2; SC-M11-018/E37.2; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E4.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E7.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E8.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E6.1; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E9.2; SC-M11-022/E10.2; SC-M11-022/E11.2; SC-M11-022/E12.2; SC-M11-022/E13.2; AUT-M11-002; AUT-M11-006; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-004 |
+| BR-M11-29 | SC-M11-001/M2; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E7.1; SC-M11-001/E8.2; SC-M11-001/E9.2; SC-M11-001/E10.2; SC-M11-002/M2; SC-M11-002/M4; SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-002/E3.2; SC-M11-002/E4.2; SC-M11-002/E5.2; SC-M11-002/E9.1; SC-M11-002/E12.1; SC-M11-002/E13.2; SC-M11-002/E13.4; SC-M11-002/E14.2; SC-M11-002/E15.2; SC-M11-002/E16.2; SC-M11-002/E17.2; SC-M11-003/M2; SC-M11-003/E1.1; SC-M11-003/E4.2; SC-M11-003/E5.2; SC-M11-003/E6.2; SC-M11-003/E7.2; SC-M11-003/E8.2; SC-M11-004/E2.1; SC-M11-005/E1.2; SC-M11-005/E5.1; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-005/E16.2; SC-M11-005/E17.2; SC-M11-006/M2; SC-M11-006/E1.1; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E10.1; SC-M11-007/E14.2; SC-M11-008/M2; SC-M11-008/E3.1; SC-M11-008/E5.2; SC-M11-009/M2; SC-M11-009/E1.2; SC-M11-009/E3.1; SC-M11-009/E6.2; SC-M11-009/E7.2; SC-M11-009/E8.2; SC-M11-009/E9.2; SC-M11-009/E10.2; SC-M11-010/M2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E3.1; SC-M11-010/E6.1; SC-M11-010/E7.2; SC-M11-010/E7.4; SC-M11-010/E8.2; SC-M11-010/E9.2; SC-M11-010/E10.2; SC-M11-010/E11.2; SC-M11-010/E12.2; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E1.1; SC-M11-011/E2.1; SC-M11-011/E5.2; SC-M11-011/E6.2; SC-M11-011/E7.2; SC-M11-011/E8.2; SC-M11-011/E9.2; SC-M11-012/M2; SC-M11-012/E1.1; SC-M11-012/E2.1; SC-M11-012/E4.2; SC-M11-012/E5.2; SC-M11-012/E6.2; SC-M11-012/E7.2; SC-M11-013/M2; SC-M11-013/M4; SC-M11-013/E1.1; SC-M11-013/E3.1; SC-M11-013/E4.2; SC-M11-013/E4.4; SC-M11-013/E5.2; SC-M11-013/E6.2; SC-M11-013/E7.2; SC-M11-013/E7.4; SC-M11-014/M2; SC-M11-014/M4; SC-M11-014/E2.1; SC-M11-014/E5.1; SC-M11-014/E6.2; SC-M11-014/E6.4; SC-M11-014/E7.2; SC-M11-014/E8.2; SC-M11-014/E9.2; SC-M11-014/E10.2; SC-M11-015/M2; SC-M11-015/M4; SC-M11-015/E2.1; SC-M11-015/E5.1; SC-M11-015/E6.2; SC-M11-015/E6.4; SC-M11-015/E7.2; SC-M11-015/E8.2; SC-M11-015/E9.2; SC-M11-016/M2; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.2; SC-M11-016/E3.4; SC-M11-016/E4.1; SC-M11-016/E7.1; SC-M11-016/E8.2; SC-M11-016/E11.2; SC-M11-016/E11.4; SC-M11-016/E12.2; SC-M11-016/E13.2; SC-M11-016/E14.2; SC-M11-017/M2; SC-M11-017/M4; SC-M11-017/E1.1; SC-M11-017/E3.2; SC-M11-017/E4.2; SC-M11-017/E4.4; SC-M11-017/E5.2; SC-M11-017/E7.2; SC-M11-017/E8.2; SC-M11-017/E9.2; SC-M11-017/E10.2; SC-M11-018/M2; SC-M11-018/E6.2; SC-M11-018/E7.2; SC-M11-018/E8.2; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.2; SC-M11-018/E12.2; SC-M11-018/E13.2; SC-M11-018/E14.2; SC-M11-018/E15.4; SC-M11-018/E19.4; SC-M11-018/E20.1; SC-M11-018/E23.2; SC-M11-018/E24.2; SC-M11-018/E25.2; SC-M11-018/E26.2; SC-M11-018/E27.2; SC-M11-018/E28.2; SC-M11-018/E29.2; SC-M11-018/E30.2; SC-M11-018/E31.2; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-018/E35.2; SC-M11-018/E36.2; SC-M11-018/E37.2; SC-M11-018/E38.2; SC-M11-019/M2; SC-M11-019/E1.1; SC-M11-019/E2.1; SC-M11-019/E5.2; SC-M11-019/E6.2; SC-M11-019/E7.2; SC-M11-019/E8.2; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E4.1; SC-M11-020/E5.1; SC-M11-020/E8.2; SC-M11-020/E9.2; SC-M11-020/E10.2; SC-M11-020/E11.2; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E6.1; SC-M11-021/E9.2; SC-M11-021/E10.2; SC-M11-021/E11.2; SC-M11-021/E12.2; SC-M11-021/E13.2; SC-M11-021/E14.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E4.1; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E9.2; SC-M11-022/E10.2; SC-M11-022/E11.2; SC-M11-022/E12.2; SC-M11-022/E13.2; AUT-M11-002; RULE-M11-006 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-005 |
+| BR-M11-30 | SC-M11-005/E4.1; SC-M11-005/E17.2; SC-M11-022/M2; SC-M11-022/E1.2; SC-M11-022/E7.2; SC-M11-022/E8.2; SC-M11-022/E13.2; RULE-M11-002; RULE-M11-005 | Đã đối soát phần đủ căn cứ |
+| BR-M11-31 | SC-M11-001/M1; SC-M11-001/M2; SC-M11-001/E2.2; SC-M11-001/E3.2; SC-M11-001/E4.2; SC-M11-001/E5.1; SC-M11-001/E5.2; SC-M11-001/E6.2; SC-M11-001/E10.1; SC-M11-001/E10.2; SC-M11-002/M3; SC-M11-002/M4; SC-M11-002/E6.2; SC-M11-002/E7.2; SC-M11-002/E8.2; SC-M11-002/E13.3; SC-M11-002/E13.4; RULE-M11-001 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-002 |
+| BR-M11-32 | SC-M11-002/M4; SC-M11-002/E1.1; SC-M11-002/E1.2; SC-M11-002/E2.1; SC-M11-002/E2.2; SC-M11-002/E3.1; SC-M11-002/E3.2; SC-M11-002/E13.4; AUT-M11-001; RULE-M11-003 | Đã đối soát phần đủ căn cứ |
+| BR-M11-33 | SC-M11-005/M2; SC-M11-005/E7.2; SC-M11-005/E8.2; SC-M11-005/E9.2; SC-M11-005/E10.2; SC-M11-005/E11.2; SC-M11-005/E12.2; SC-M11-005/E13.2; SC-M11-005/E14.2; SC-M11-005/E15.2; SC-M11-019/M2; SC-M11-019/E5.2; SC-M11-019/E6.1; SC-M11-019/E6.2; SC-M11-019/E7.1; SC-M11-019/E7.2; SC-M11-019/E8.1; SC-M11-019/E8.2; SC-M11-019/E9.1; SC-M11-019/E9.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E3.1; SC-M11-020/E8.2; SC-M11-020/E9.1; SC-M11-020/E9.2; SC-M11-020/E10.1; SC-M11-020/E10.2; SC-M11-020/E11.1; SC-M11-020/E11.2; SC-M11-020/E12.1; SC-M11-020/E12.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E9.2; SC-M11-021/E10.1; SC-M11-021/E10.2; SC-M11-021/E11.1; SC-M11-021/E11.2; SC-M11-021/E12.1; SC-M11-021/E12.2; SC-M11-021/E13.1; SC-M11-021/E13.2; SC-M11-021/E14.2; RULE-M11-001; RULE-M11-002 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-008 |
+| BR-M11-34 | SC-M11-006/M2; SC-M11-006/E3.2; SC-M11-006/E4.2; SC-M11-006/E5.2; SC-M11-006/E6.2; SC-M11-006/E7.2; SC-M11-014/M2; SC-M11-014/E6.2; SC-M11-015/M2; SC-M11-015/E6.2; SC-M11-016/M2; SC-M11-016/E3.2; SC-M11-016/E11.2; SC-M11-017/M2; SC-M11-017/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| BR-M11-35 | SC-M11-004/M2; SC-M11-004/E1.1; SC-M11-004/E2.1; SC-M11-004/E3.2; RULE-M11-002 | Đã đối soát phần đủ căn cứ |
+| BR-M11-36 | SC-M11-008/M2; SC-M11-008/E1.1; SC-M11-008/E2.2; SC-M11-008/E5.2; RULE-M11-003 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-004 |
+| BR-M11-37 | SC-M11-002/E1.2; SC-M11-002/E2.2; SC-M11-007/M2; SC-M11-007/E1.1; SC-M11-007/E1.2; SC-M11-007/E1.3; SC-M11-007/E1.4; SC-M11-007/E2.1; SC-M11-007/E2.2; SC-M11-007/E3.1; SC-M11-007/E3.2; SC-M11-007/E3.3; SC-M11-007/E3.4; SC-M11-007/E4.1; SC-M11-007/E4.2; SC-M11-007/E4.5; SC-M11-007/E4.6; SC-M11-007/E9.2; SC-M11-007/E14.2; SC-M11-009/M2; SC-M11-009/E6.2; SC-M11-010/M4; SC-M11-010/E1.2; SC-M11-010/E7.4; SC-M11-010/E12.4; SC-M11-011/M2; SC-M11-011/E5.2; SC-M11-011/E9.2; SC-M11-014/M4; SC-M11-014/E6.4; SC-M11-015/M4; SC-M11-015/E6.4; SC-M11-016/M4; SC-M11-016/E1.2; SC-M11-016/E3.4; SC-M11-016/E8.2; SC-M11-016/E11.4; SC-M11-017/M4; AUT-M11-001; AUT-M11-002; AUT-M11-005; RULE-M11-003 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-007 |
+| BR-M11-38 | SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.4; SC-M11-018/E7.6; SC-M11-018/E8.6; SC-M11-018/E9.2; SC-M11-018/E10.2; SC-M11-018/E11.4; SC-M11-018/E12.4; SC-M11-018/E13.4; SC-M11-018/E14.4; SC-M11-018/E15.6; SC-M11-018/E19.6; SC-M11-018/E23.2; SC-M11-018/E24.4; SC-M11-018/E25.4; SC-M11-018/E26.4; SC-M11-018/E27.4; SC-M11-018/E28.4; SC-M11-018/E29.6; SC-M11-018/E30.2; SC-M11-018/E31.6; SC-M11-018/E32.2; SC-M11-018/E33.2; SC-M11-018/E34.2; SC-M11-021/E1.2; SC-M11-021/E2.2; SC-M11-021/E2.4; AUT-M11-004; RULE-M11-004 | Đã đối soát phần đủ căn cứ |
+| BR-M11-39 | SC-M11-019/M2; SC-M11-019/E5.2; SC-M11-019/E10.2; SC-M11-020/M2; SC-M11-020/E2.2; SC-M11-020/E4.1; SC-M11-020/E8.2; SC-M11-020/E13.2; SC-M11-021/M2; SC-M11-021/E1.2; SC-M11-021/E2.4; SC-M11-021/E5.2; SC-M11-021/E9.2; SC-M11-021/E14.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006 |
+| BR-M11-40 | SC-M11-018/M1; SC-M11-018/M2; SC-M11-018/M4; SC-M11-018/E1.2; SC-M11-018/E2.2; SC-M11-018/E3.2; SC-M11-018/E4.2; SC-M11-018/E5.2; SC-M11-018/E6.1; SC-M11-018/E6.2; SC-M11-018/E6.4; SC-M11-018/E7.1; SC-M11-018/E7.2; SC-M11-018/E7.6; SC-M11-018/E8.1; SC-M11-018/E8.2; SC-M11-018/E8.6; SC-M11-018/E9.1; SC-M11-018/E9.2; SC-M11-018/E10.1; SC-M11-018/E10.2; SC-M11-018/E11.1; SC-M11-018/E11.2; SC-M11-018/E11.4; SC-M11-018/E12.1; SC-M11-018/E12.2; SC-M11-018/E12.4; SC-M11-018/E13.1; SC-M11-018/E13.2; SC-M11-018/E13.4; SC-M11-018/E14.1; SC-M11-018/E14.2; SC-M11-018/E14.4; SC-M11-018/E15.3; SC-M11-018/E15.4; SC-M11-018/E15.6; SC-M11-018/E19.3; SC-M11-018/E19.4; SC-M11-018/E19.6; SC-M11-018/E23.1; SC-M11-018/E23.2; SC-M11-018/E24.1; SC-M11-018/E24.2; SC-M11-018/E24.4; SC-M11-018/E25.1; SC-M11-018/E25.2; SC-M11-018/E25.4; SC-M11-018/E26.1; SC-M11-018/E26.2; SC-M11-018/E26.4; SC-M11-018/E27.1; SC-M11-018/E27.2; SC-M11-018/E27.4; SC-M11-018/E28.1; SC-M11-018/E28.2; SC-M11-018/E28.4; SC-M11-018/E29.1; SC-M11-018/E29.2; SC-M11-018/E29.6; SC-M11-018/E30.1; SC-M11-018/E30.2; SC-M11-018/E31.1; SC-M11-018/E31.2; SC-M11-018/E31.6; SC-M11-018/E32.1; SC-M11-018/E32.2; SC-M11-018/E33.1; SC-M11-018/E33.2; SC-M11-018/E34.1; SC-M11-018/E34.2; RULE-M11-004 | Đã đối soát phần đủ căn cứ; giới hạn GAP-SC-M11-006, GAP-SC-M11-008 |
 
 
 | UC owner | Guard/lựa chọn | SC/nhánh | Đích |
@@ -4214,3 +4331,128 @@ Không có scenario phụ chỉ SYSTEM hoặc chỉ SYSTEM–AI. Tự động kh
 
 
 GAP005 ghi cách áp yêu cầu cụ thể đã có, không chặn liệt kê lối vào. Các GAP khác chặn đúng tình huống chưa có hợp đồng, không dừng các đường độc lập đủ căn cứ. TBD-M11-01 đã đóng, không mở lại. [QA-M11.md](QA-M11.md) ghi lệnh kiểm và kết quả thực tế; chưa có phê duyệt stakeholder.
+
+
+## Chuyển đổi ID nhánh sau QA-SC-01
+
+Ngày 11/11/2026, các biến thể vai trò được đăng ký thành E tại M1 theo skill v1.4. Bảng này giữ ID lịch sử để đối chiếu các tài liệu đã dẫn V. Mỗi hàng ánh xạ cả nhánh và các bước cùng số thứ tự, ví dụ V1.2 sang bước .2 của E tương ứng.
+
+| ID lịch sử | ID hiện hành | Điểm thay | Số bước | Nguồn |
+| --- | --- | --- | --- | --- |
+| SC-M11-001/V1 | SC-M11-001/E8 | M1 | 2 | FR-M11-01.04, FR-M11-01.03, FR-M11-01.07, BR-M11-03, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-001/V2 | SC-M11-001/E9 | M1 | 2 | FR-M11-01.07, FR-M11-01.03, FR-M11-01.04, BR-M11-03, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-001/V3 | SC-M11-001/E10 | M1 | 2 | FR-M11-01.01, FR-M11-01.10, FR-M11-01.11, FR-M11-01.12, BR-M11-31, FR-M11-17.03, FR-M10-12.08, FR-M11-01.02, FR-M11-01.03, FR-M11-01.05, FR-M11-01.06, FR-M11-01.08, FR-M11-01.09, FR-M11-05.06, BR-M11-02, BR-M11-03, BR-M11-04, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-002/V1 | SC-M11-002/E13 | M1 | 4 | FR-M11-02.01, FR-M11-02.02, FR-M11-17.03, FR-M10-12.08, FR-M11-02.09, FR-M11-02.10, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-02.05, FR-M11-02.06, FR-M11-02.07, FR-M11-02.08, BR-M11-31, FR-M11-02.03, FR-M11-02.04, FR-M11-02.11, FR-M11-02.12, FR-M11-02.13, FR-M11-02.14, FR-M11-02.15, BR-M11-08, BR-M11-15, BR-M11-16, BR-M11-18, BR-M11-32 |
+| SC-M11-002/V2 | SC-M11-002/E14 | M1 | 2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-002/V3 | SC-M11-002/E15 | M1 | 2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-002/V4 | SC-M11-002/E16 | M1 | 2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-002/V5 | SC-M11-002/E17 | M1 | 2 | FR-M11-02.09, FR-M11-02.10, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-003/V1 | SC-M11-003/E4 | M1 | 2 | FR-M11-15.01, FR-M11-17.03, FR-M10-12.08, FR-M11-15.02, FR-M11-15.03, FR-M11-15.05, BR-M11-23, FR-M12-02.14, FR-M11-15.04, FR-M11-01.06, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-003/V2 | SC-M11-003/E5 | M1 | 2 | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-003/V3 | SC-M11-003/E6 | M1 | 2 | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-003/V4 | SC-M11-003/E7 | M1 | 2 | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-003/V5 | SC-M11-003/E8 | M1 | 2 | FR-M11-15.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-004/V1 | SC-M11-004/E3 | M1 | 2 | FR-M11-03.03, FR-M11-03.16, FR-M11-03.01, FR-M11-03.02, FR-M11-03.17, FR-M11-17.07, BR-M11-11, BR-M11-35 |
+| SC-M11-005/V1 | SC-M11-005/E7 | M1 | 2 | FR-M11-03.05, FR-M11-03.04, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-005/V2 | SC-M11-005/E8 | M1 | 2 | FR-M11-03.05, FR-M11-03.04, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-005/V3 | SC-M11-005/E9 | M1 | 2 | FR-M11-03.05, FR-M11-03.04, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-005/V4 | SC-M11-005/E10 | M1 | 2 | FR-M11-03.12, FR-M11-03.10, BR-M11-17, BR-M11-33, FR-M08-04.06 |
+| SC-M11-005/V5 | SC-M11-005/E11 | M1 | 2 | FR-M11-03.11, FR-M11-03.06, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-005/V6 | SC-M11-005/E12 | M1 | 2 | FR-M11-03.04, FR-M11-03.10, FR-M11-17.03, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-005/V7 | SC-M11-005/E13 | M1 | 2 | FR-M11-03.12, FR-M11-03.10, BR-M11-17, BR-M11-33, FR-M08-04.06 |
+| SC-M11-005/V8 | SC-M11-005/E14 | M1 | 2 | FR-M11-03.11, FR-M11-03.06, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-005/V9 | SC-M11-005/E15 | M1 | 2 | FR-M11-03.04, FR-M11-03.10, FR-M11-17.03, BR-M11-17, BR-M11-33, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-005/V10 | SC-M11-005/E16 | M1 | 2 | FR-M11-03.04, FR-M11-03.09, FR-M11-03.13, BR-M11-13, BR-M11-17, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-005/V11 | SC-M11-005/E17 | M1 | 2 | FR-M11-14.01, FR-M11-14.03, FR-M11-14.05, FR-M11-14.07, BR-M11-30, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-006/V1 | SC-M11-006/E3 | M1 | 2 | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-006/V2 | SC-M11-006/E4 | M1 | 2 | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-006/V3 | SC-M11-006/E5 | M1 | 2 | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-006/V4 | SC-M11-006/E6 | M1 | 2 | FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-006/V5 | SC-M11-006/E7 | M1 | 2 | FR-M11-03.14, FR-M11-17.03, FR-M10-12.08, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-007/V1 | SC-M11-007/E13 | M1 | 2 | FR-M11-04.05, BR-M11-07 |
+| SC-M11-007/V2 | SC-M11-007/E14 | M1 | 2 | FR-M11-04.01, FR-M11-05.05, FR-M11-17.03, FR-M10-12.08, FR-M11-04.06, FR-M11-04.07, FR-M11-04.09, FR-M11-05.04, FR-M11-06.08, BR-M11-03, BR-M11-07, BR-M11-09, BR-M11-10, BR-M11-12, BR-M11-37, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-008/V1 | SC-M11-008/E5 | M1 | 2 | FR-M11-04.10, FR-M11-17.03, FR-M10-12.08, BR-M11-36, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-009/V1 | SC-M11-009/E6 | M1 | 2 | FR-M11-05.01, FR-M11-05.02, FR-M11-17.03, FR-M10-12.08, FR-M11-05.04, FR-M11-05.05, FR-M11-05.06, FR-M11-05.07, BR-M11-12, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-009/V2 | SC-M11-009/E7 | M1 | 2 | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-009/V3 | SC-M11-009/E8 | M1 | 2 | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-009/V4 | SC-M11-009/E9 | M1 | 2 | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-009/V5 | SC-M11-009/E10 | M1 | 2 | FR-M11-05.03, BR-M11-12, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-010/V1 | SC-M11-010/E7 | M1 | 4 | FR-M11-06.01, FR-M11-17.03, FR-M10-12.08, FR-M11-06.05, BR-M11-08, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-06.02, FR-M11-06.04, FR-M11-06.06, BR-M11-07, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11 |
+| SC-M11-010/V2 | SC-M11-010/E8 | M1 | 2 | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-010/V3 | SC-M11-010/E9 | M1 | 2 | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-010/V4 | SC-M11-010/E10 | M1 | 2 | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-010/V5 | SC-M11-010/E11 | M1 | 2 | FR-M11-06.05, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-010/V6 | SC-M11-010/E12 | M1 | 4 | FR-M11-06.01, FR-M11-06.05, BR-M11-08, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-06.02, FR-M11-06.04, FR-M11-06.06, BR-M11-07, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11 |
+| SC-M11-011/V1 | SC-M11-011/E5 | M1 | 2 | FR-M11-07.01, FR-M11-17.03, FR-M10-12.08, FR-M11-07.03, FR-M11-04.06, FR-M11-06.09, BR-M11-06, BR-M11-10, BR-M11-37, FR-M11-17.01, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-011/V2 | SC-M11-011/E6 | M1 | 2 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-011/V3 | SC-M11-011/E7 | M1 | 2 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-011/V4 | SC-M11-011/E8 | M1 | 2 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-011/V5 | SC-M11-011/E9 | M1 | 2 | FR-M11-07.01, FR-M11-07.03, FR-M11-04.06, FR-M11-06.09, BR-M11-06, BR-M11-10, BR-M11-37, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-012/V1 | SC-M11-012/E4 | M1 | 2 | FR-M11-07.04, FR-M11-17.03, FR-M10-12.08, FR-M11-07.02, BR-M11-06, BR-M11-10, FR-M11-17.01, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-012/V2 | SC-M11-012/E5 | M1 | 2 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-012/V3 | SC-M11-012/E6 | M1 | 2 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-012/V4 | SC-M11-012/E7 | M1 | 2 | FR-M11-07.04, FR-M11-07.02, BR-M11-06, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-013/V1 | SC-M11-013/E4 | M1 | 4 | FR-M11-07.04, FR-M11-07.05, FR-M11-17.03, FR-M10-12.08, FR-M11-07.02, BR-M11-10, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-013/V2 | SC-M11-013/E5 | M1 | 2 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-013/V3 | SC-M11-013/E6 | M1 | 2 | FR-M11-07.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-013/V4 | SC-M11-013/E7 | M1 | 4 | FR-M11-07.04, FR-M11-07.05, FR-M11-07.02, BR-M11-10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-014/V1 | SC-M11-014/E6 | M1 | 4 | FR-M11-08.01, FR-M11-17.03, FR-M10-12.08, FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-08.03, FR-M11-11.06, BR-M11-05, BR-M11-26, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11 |
+| SC-M11-014/V2 | SC-M11-014/E7 | M1 | 2 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-014/V3 | SC-M11-014/E8 | M1 | 2 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-014/V4 | SC-M11-014/E9 | M1 | 2 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-014/V5 | SC-M11-014/E10 | M1 | 2 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-015/V1 | SC-M11-015/E6 | M1 | 4 | FR-M11-08.02, FR-M11-17.03, FR-M10-12.08, FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-08.06, FR-M11-11.06, BR-M11-05, BR-M11-26, BR-M11-37 |
+| SC-M11-015/V2 | SC-M11-015/E7 | M1 | 2 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-015/V3 | SC-M11-015/E8 | M1 | 2 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-015/V4 | SC-M11-015/E9 | M1 | 2 | FR-M11-08.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-016/V1 | SC-M11-016/E8 | M1 | 2 | FR-M11-09.02, FR-M11-09.05, FR-M11-09.06, FR-M11-09.07, FR-M11-10.08, BR-M11-05, BR-M11-24, BR-M11-37, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-016/V2 | SC-M11-016/E9 | M1 | 2 | FR-M11-09.03, BR-M11-05 |
+| SC-M11-016/V3 | SC-M11-016/E10 | M1 | 2 | FR-M11-09.03, BR-M11-05 |
+| SC-M11-016/V4 | SC-M11-016/E11 | M1 | 4 | FR-M11-09.01, FR-M11-17.03, FR-M10-12.08, FR-M11-08.05, FR-M11-03.14, FR-M11-03.15, BR-M11-34, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-09.05, FR-M11-09.06, FR-M11-09.07, FR-M11-10.08, BR-M11-05, BR-M11-24, BR-M11-37, FR-M12-02.15, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11 |
+| SC-M11-016/V5 | SC-M11-016/E12 | M1 | 2 | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-016/V6 | SC-M11-016/E13 | M1 | 2 | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-016/V7 | SC-M11-016/E14 | M1 | 2 | FR-M11-09.04, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-017/V1 | SC-M11-017/E7 | M1 | 2 | FR-M11-16.09, FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, BR-M11-24, BR-M11-28, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
+| SC-M11-017/V2 | SC-M11-017/E8 | M1 | 2 | FR-M11-10.01, FR-M11-17.03, FR-M10-12.08, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M12-02.15, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
+| SC-M11-017/V3 | SC-M11-017/E9 | M1 | 2 | FR-M11-10.01, FR-M11-10.02, FR-M11-10.09, BR-M11-24, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-017/V4 | SC-M11-017/E10 | M1 | 2 | FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-16.09, BR-M11-24, BR-M11-28, FR-M12-02.15, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-29 |
+| SC-M11-018/V1 | SC-M11-018/E24 | M1 | 4 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| SC-M11-018/V2 | SC-M11-018/E25 | M1 | 4 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| SC-M11-018/V3 | SC-M11-018/E26 | M1 | 4 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| SC-M11-018/V4 | SC-M11-018/E27 | M1 | 4 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| SC-M11-018/V5 | SC-M11-018/E28 | M1 | 4 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| SC-M11-018/V6 | SC-M11-018/E29 | M1 | 6 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| SC-M11-018/V7 | SC-M11-018/E30 | M1 | 2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| SC-M11-018/V8 | SC-M11-018/E31 | M1 | 6 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.01, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M13-01.07, FR-M13-02.01, FR-M13-02.08, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09 |
+| SC-M11-018/V9 | SC-M11-018/E32 | M1 | 2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| SC-M11-018/V10 | SC-M11-018/E33 | M1 | 2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| SC-M11-018/V11 | SC-M11-018/E34 | M1 | 2 | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, FR-M11-12.11, FR-M11-12.12, FR-M11-12.13, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-40, FR-M03-04.04, FR-M03-04.05, FR-M03-04.06, FR-M03-04.07, FR-M03-04.08, FR-M03-04.09, FR-M03-04.10, FR-M11-13.12, BR-M11-38, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M03-04.02, BR-M03-46, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M13-01.02, FR-M13-01.03, FR-M13-02.11 |
+| SC-M11-018/V12 | SC-M11-018/E35 | M1 | 2 | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-018/V13 | SC-M11-018/E36 | M1 | 2 | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-018/V14 | SC-M11-018/E37 | M1 | 2 | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-018/V15 | SC-M11-018/E38 | M1 | 2 | FR-M11-12.11, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-019/V1 | SC-M11-019/E5 | M1 | 2 | FR-M11-13.01, FR-M11-17.03, FR-M10-12.08, FR-M11-13.08, FR-M11-13.09, BR-M11-17, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-019/V2 | SC-M11-019/E6 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-019/V3 | SC-M11-019/E7 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-019/V4 | SC-M11-019/E8 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-019/V5 | SC-M11-019/E9 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-019/V6 | SC-M11-019/E10 | M1 | 2 | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-17, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-020/V1 | SC-M11-020/E8 | M1 | 2 | FR-M11-13.02, FR-M11-17.03, FR-M10-12.08, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-020/V2 | SC-M11-020/E9 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-020/V3 | SC-M11-020/E10 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-020/V4 | SC-M11-020/E11 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-020/V5 | SC-M11-020/E12 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-020/V6 | SC-M11-020/E13 | M1 | 2 | FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-021/V1 | SC-M11-021/E9 | M1 | 2 | FR-M11-13.05, FR-M11-17.03, FR-M10-12.08, FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, FR-M11-12.12, FR-M11-12.13, BR-M11-17, BR-M11-18, BR-M11-20, BR-M11-33, BR-M11-39, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-021/V2 | SC-M11-021/E10 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-021/V3 | SC-M11-021/E11 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-021/V4 | SC-M11-021/E12 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-021/V5 | SC-M11-021/E13 | M1 | 2 | FR-M11-13.08, FR-M11-13.09, BR-M11-33, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-021/V6 | SC-M11-021/E14 | M1 | 2 | FR-M11-13.05, FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, FR-M11-12.12, FR-M11-12.13, BR-M11-17, BR-M11-18, BR-M11-20, BR-M11-33, BR-M11-39, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M13-03.01, FR-M14-04.09, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-022/V1 | SC-M11-022/E7 | M1 | 2 | FR-M11-14.01, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, BR-M11-05, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-06, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-022/V2 | SC-M11-022/E8 | M1 | 2 | FR-M11-14.01, FR-M11-17.03, FR-M10-12.08, FR-M11-14.02, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M12-02.16, FR-M15-02.27, FR-M11-17.01, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-022/V3 | SC-M11-022/E9 | M1 | 2 | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-022/V4 | SC-M11-022/E10 | M1 | 2 | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-022/V5 | SC-M11-022/E11 | M1 | 2 | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-022/V6 | SC-M11-022/E12 | M1 | 2 | FR-M11-14.02, BR-M11-06, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |
+| SC-M11-022/V7 | SC-M11-022/E13 | M1 | 2 | FR-M11-14.01, FR-M11-14.02, FR-M11-14.03, FR-M11-14.04, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30, FR-M07-02.01, FR-M07-02.02, FR-M07-02.11, FR-M12-02.16, FR-M15-02.27, FR-M11-17.01, FR-M11-17.03, FR-M11-17.08, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29 |

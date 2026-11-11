@@ -38,6 +38,14 @@ chỉ bước luồng chính bị thay thế. Nhánh lồng được triển kha
 chuyển tiếp sang scenario khác để bỏ qua phần cần đặc tả: viết điểm chuyển
 giao và hậu điều kiện có nguồn; review ngữ nghĩa liên kết với scenario nhận.
 
+Từ v1.4, biến thể actor khởi tạo dùng E với `at=M1`. Actor đầu nhánh có thể
+khác actor đầu luồng chính, phải có trong US và được ghi rõ trong điều kiện.
+Các bước sau, điểm nhập lại và kết thúc được kiểm bằng cùng đồ thị main/E.
+Nhánh từ các bước khác M1 giữ quy tắc chủ thể đầu bằng chủ thể bị thay thế.
+Công cụ báo lỗi marker scenario ngoài hợp đồng, nhánh thiếu cột/dữ liệu
+đăng ký hoặc kết thúc thiếu phản hồi SYSTEM. ID V lịch sử được tra qua bảng
+chuyển đổi trong SC sau khi di chuyển thành E.
+
 Từ v1.1, bảng luồng yêu cầu `primary`, `completion`, `covered_ucs`, `rationale`
 bên cạnh các cột cũ. Luồng chính bắt đầu bằng actor chính, có cả actor và
 SYSTEM, kết thúc bằng SYSTEM trả END:SUCCESS. Lỗi/từ chối/hủy là nhánh,

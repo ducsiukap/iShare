@@ -1,6 +1,6 @@
 # Kịch bản nghiệp vụ — M03 Post & Content
 
-[Vietnamese Doc] — 2026-11-08 — Skill scenarios v1.3.
+[Vietnamese Doc] — Tái kiểm 11/11/2026 — Skill scenarios v1.4.
 
 Mục đích: triển khai chức năng actor thực hiện hoàn chỉnh từ FR + US. Boundary là toàn iShare; M01–M15 là các thành phần SYSTEM, ACT-006 là nhà cung cấp AI ngoài boundary. Không có actor Scheduler/DAO/controller.
 
@@ -18,11 +18,11 @@ Mục đích: triển khai chức năng actor thực hiện hoàn chỉnh từ F
 |---|---|
 | module | M03 |
 | scope | ALL |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | docs/specs/scenarios/M03 |
 | status | Đang soạn |
 | completed_steps | 1, 2, 3, 4 |
-| date | 2026-11-08 |
+| date | 2026-11-11 |
 | approval_evidence | - |
 
 
@@ -182,7 +182,7 @@ Soạn và lưu bài nháp — BF-M03-001. UC owner: [UC-M03-001](../../us/US-M0
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -242,6 +242,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E20 | user-choice | M3 | EP-DRAFT-POLL: Người tạo khác tác giả | E20.1 | FR-M03-03.08 |
 | E21 | user-choice | M3 | Trong khi còn nháp, tác giả chọn sửa poll đang có | E21.1 | FR-M03-03.10, FR-M03-03.03, FR-M03-03.05, FR-M03-03.09, BR-M03-11, BR-M03-44, FR-M03-01.01 |
 | E22 | user-choice | M3 | Trong khi còn nháp, tác giả chọn bỏ poll | E22.1 | FR-M03-03.10, BR-M03-44, FR-M03-01.01 |
+| E23 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E23.1 | FR-M03-07.06 |
 
 
 <!-- sc:branch SC-M03-001 E1 -->
@@ -432,14 +433,14 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E22.3 | ACT-002 | Lan chọn Lưu nháp không có poll. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; poll=không | M6 | FR-M03-01.01 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E23 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-001 V1 -->
+<!-- sc:branch SC-M03-001 E23 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu soạn và lưu bài nháp. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+| --- | --- | --- | --- | --- | --- |
+| E23.1 | ACT-001 | Guest yêu cầu soạn và lưu bài nháp. | Không có phiên đăng nhập | E23.2 | FR-M03-07.06 |
+| E23.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
 <!-- sc:end SC-M03-001 -->
@@ -456,7 +457,7 @@ Gửi hoặc gửi lại bài để đăng theo chính sách — BF-M03-004. UC 
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -522,6 +523,10 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E27 | system | M3 | Sau khi bị AI tự từ chối, tác giả chọn khiếu nại M09 | E27.1 | FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, FR-M03-05.03, FR-M03-05.12, BR-M03-46 |
 | E28 | system | M2 | Quét bài nhóm member lỗi cả hai lần | E28.1 | FR-M03-04.05, FR-M13-01.01, FR-M13-02.01, FR-M13-02.02, FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M03-05.04, BR-M03-25, FR-M11-12.15 |
 | E29 | system | M2 | Quét bài nhóm Owner lỗi cả hai lần | E29.1 | FR-M03-04.05, FR-M13-01.01, FR-M13-02.01, FR-M13-02.02, FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M03-05.04, BR-M03-25, FR-M11-12.18 |
+| E30 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E30.1 | FR-M03-07.06 |
+| E31 | system | M1 | ACT-003 — ADMIN thực sự gửi/gửi lại bài của mình ngoài nhóm. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E31.1 | FR-M03-04.11, FR-M03-05.15, BR-M03-51 |
+| E32 | system | M1 | ACT-003 — Admin gửi bài nhóm, không phải Owner. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E32.1 | FR-M03-04.05, BR-M03-51, FR-M11-12.06 |
+| E33 | system | M1 | ACT-003 — Admin gửi bài nhóm, là Owner. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E33.1 | FR-M03-04.05, BR-M03-51, FR-M11-12.20 |
 
 
 <!-- sc:branch SC-M03-004 E1 -->
@@ -767,44 +772,44 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E29.5 | SYSTEM | Hệ thống giữ Chờ duyệt, đưa bài vào hàng Mod hệ thống và trả trạng thái đang chờ. | P301 Chờ duyệt, chưa công khai | END:SUCCESS | FR-M03-05.04, BR-M03-25, FR-M11-12.18 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E30 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-004 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu gửi hoặc gửi lại bài để đăng theo chính sách. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** ADMIN thực sự gửi/gửi lại bài của mình ngoài nhóm. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-004 V2 -->
+<!-- sc:branch SC-M03-004 E30 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Admin gửi P301 Nháp hoặc bản Bị từ chối đã sửa của chính mình. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; author=U-ADMIN | V2.2 | FR-M03-04.11 |
-| V2.2 | SYSTEM | Hệ thống kiểm điều kiện nội dung và sở hữu, chuyển Đã đăng ngay không quét và không hàng duyệt, trả kết quả cho Admin. Miễn quét không áp cho Mod. | P301 ngoài nhóm Đã đăng/Bình thường; hai cờ vẫn bật | END:SUCCESS | FR-M03-04.11, FR-M03-05.15, BR-M03-51 |
+| --- | --- | --- | --- | --- | --- |
+| E30.1 | ACT-001 | Guest yêu cầu gửi hoặc gửi lại bài để đăng theo chính sách. | Không có phiên đăng nhập | E30.2 | FR-M03-07.06 |
+| E30.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Admin gửi bài nhóm, không phải Owner. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+**E31 — thay toàn bộ M1 đến kết thúc:** ADMIN thực sự gửi/gửi lại bài của mình ngoài nhóm. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-004 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-003 | Admin gửi bài nhóm của chính mình. | P301 thuộc G31; tác giả Admin chỉ là thành viên, không Owner | V3.2 | FR-M03-04.05, BR-M03-51 |
-| V3.2 | SYSTEM | Hệ thống không quét; đưa theo cổng duyệt trước: bật thì Chờ duyệt hàng nhóm, tắt thì Đã đăng. Không miễn duyệt nhóm chỉ vì là Admin. Trả trạng thái cụ thể cho tác giả. | G31; snapshot duyệt trước=true; Chờ duyệt hàng nhóm | END:SUCCESS | FR-M11-12.06 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Admin gửi bài nhóm, là Owner. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-004 V4 -->
+<!-- sc:branch SC-M03-004 E31 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-003 | Admin gửi bài nhóm của chính mình. | P301 thuộc G31; tác giả Admin là Owner | V4.2 | FR-M03-04.05, BR-M03-51 |
-| V4.2 | SYSTEM | Hệ thống không quét; Owner Admin được Đã đăng ngay, bỏ hàng nhóm. Trả trạng thái cụ thể cho tác giả. | G31; snapshot duyệt trước=true; Đã đăng | END:SUCCESS | FR-M11-12.20 |
+| --- | --- | --- | --- | --- | --- |
+| E31.1 | ACT-003 | Admin gửi P301 Nháp hoặc bản Bị từ chối đã sửa của chính mình. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; author=U-ADMIN | E31.2 | FR-M03-04.11 |
+| E31.2 | SYSTEM | Hệ thống kiểm điều kiện nội dung và sở hữu, chuyển Đã đăng ngay không quét và không hàng duyệt, trả kết quả cho Admin. Miễn quét không áp cho Mod. | P301 ngoài nhóm Đã đăng/Bình thường; hai cờ vẫn bật | END:SUCCESS | FR-M03-04.11, FR-M03-05.15, BR-M03-51 |
+
+
+**E32 — thay toàn bộ M1 đến kết thúc:** Admin gửi bài nhóm, không phải Owner. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-004 E32 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E32.1 | ACT-003 | Admin gửi bài nhóm của chính mình. | P301 thuộc G31; tác giả Admin chỉ là thành viên, không Owner | E32.2 | FR-M03-04.05, BR-M03-51 |
+| E32.2 | SYSTEM | Hệ thống không quét; đưa theo cổng duyệt trước: bật thì Chờ duyệt hàng nhóm, tắt thì Đã đăng. Không miễn duyệt nhóm chỉ vì là Admin. Trả trạng thái cụ thể cho tác giả. | G31; snapshot duyệt trước=true; Chờ duyệt hàng nhóm | END:SUCCESS | FR-M11-12.06 |
+
+
+**E33 — thay toàn bộ M1 đến kết thúc:** Admin gửi bài nhóm, là Owner. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-004 E33 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E33.1 | ACT-003 | Admin gửi bài nhóm của chính mình. | P301 thuộc G31; tác giả Admin là Owner | E33.2 | FR-M03-04.05, BR-M03-51 |
+| E33.2 | SYSTEM | Hệ thống không quét; Owner Admin được Đã đăng ngay, bỏ hàng nhóm. Trả trạng thái cụ thể cho tác giả. | G31; snapshot duyệt trước=true; Đã đăng | END:SUCCESS | FR-M11-12.20 |
 
 
 <!-- sc:end SC-M03-004 -->
@@ -821,7 +826,7 @@ Duyệt bài đang nằm trong hàng chờ Mod hệ thống — BF-M03-006. UC o
 
 #### 2. Actor thực hiện
 
-ACT-003 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-003 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -862,6 +867,8 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E3 | system | M2 | Vai trò Mod/Admin không còn hợp lệ lúc kiểm tra | E3.1 | FR-M03-06.06 |
 | E4 | system | M4 | Vai trò Mod/Admin không còn hợp lệ lúc kiểm tra | E4.1 | FR-M03-06.06 |
 | E5 | system | M4 | P301 không còn Chờ duyệt khi quyết định được gửi | E5.1 | FR-M03-06.07 |
+| E6 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E6.1 | FR-M03-07.06 |
+| E7 | system | M1 | ACT-002 — User không có vai trò Mod/Admin thử duyệt. Actor khởi tạo ACT-002; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E7.1 | FR-M03-06.06 |
 
 
 <!-- sc:branch SC-M03-006 E1 -->
@@ -903,24 +910,24 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E5.1 | SYSTEM | Hệ thống từ chối quyết định, không ghi đè trạng thái mới. | P301 đã được người khác duyệt hoặc tác giả xóa | END:REJECTED | FR-M03-06.07 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-006 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu duyệt bài đang nằm trong hàng chờ mod hệ thống. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** User không có vai trò Mod/Admin thử duyệt. Actor khởi tạo ACT-002; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-006 V2 -->
+<!-- sc:branch SC-M03-006 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-002 | User yêu cầu chấp nhận P301 trong hàng duyệt. | actor=U-LAN, role=USER | V2.2 | FR-M03-06.06 |
-| V2.2 | SYSTEM | Hệ thống từ chối quyết định do không có quyền, không công bố bài. | P301 vẫn Chờ duyệt | END:REJECTED | FR-M03-06.06 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-001 | Guest yêu cầu duyệt bài đang nằm trong hàng chờ mod hệ thống. | Không có phiên đăng nhập | E6.2 | FR-M03-07.06 |
+| E6.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+
+
+**E7 — thay toàn bộ M1 đến kết thúc:** User không có vai trò Mod/Admin thử duyệt. Actor khởi tạo ACT-002; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-006 E7 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-002 | User yêu cầu chấp nhận P301 trong hàng duyệt. | actor=U-LAN, role=USER | E7.2 | FR-M03-06.06 |
+| E7.2 | SYSTEM | Hệ thống từ chối quyết định do không có quyền, không công bố bài. | P301 vẫn Chờ duyệt | END:REJECTED | FR-M03-06.06 |
 
 
 <!-- sc:end SC-M03-006 -->
@@ -937,7 +944,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -980,6 +987,8 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E7 | system | M2 | Poll đã đóng, bất kể tùy chọn hiện kết quả trước vote | E7.1 | FR-M03-07.01, FR-M03-07.02, FR-M03-07.03, FR-M03-07.04, FR-M03-07.05, FR-M03-07.07, BR-M03-17, BR-M03-18, BR-M03-39, BR-M03-49, FR-M03-08.07, FR-M03-08.08, FR-M03-08.09, FR-M03-08.10, FR-M03-08.12, BR-M03-15 |
 | E8 | user-choice | M2 | EP-READ-VOTE: người đang đọc quyết định vote | E8.1 | FR-M03-07.01, FR-M03-07.02, FR-M03-07.03, FR-M03-07.04, FR-M03-07.05, FR-M03-07.07, BR-M03-17, BR-M03-18, BR-M03-39, BR-M03-49, FR-M03-08.07, FR-M03-08.01, FR-M03-08.03, FR-M03-08.09, FR-M03-08.12, FR-M03-08.13, BR-M03-11, BR-M03-15 |
 | E9 | user-choice | M2 | EP-READ-HISTORY: người xem chọn lịch sử sau khi bài đã được trả | E9.1 | FR-M03-12.01, FR-M03-12.02, FR-M03-12.03, FR-M03-12.04, BR-M03-27 |
+| E10 | system | M1 | ACT-001 — Guest có quyền đọc bài công khai; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E10.1 | FR-M03-07.01, FR-M03-07.02, FR-M03-07.03, FR-M03-07.04, FR-M03-07.05, FR-M03-07.07, BR-M03-17, BR-M03-18, BR-M03-39, BR-M03-49, FR-M03-08.07, FR-M03-08.08, FR-M03-08.09, FR-M03-08.10, FR-M03-08.12, BR-M03-15 |
+| E11 | system | M1 | ACT-001 — Guest không có quyền đọc bài do Private/trạng thái; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E11.1 | FR-M03-07.01, FR-M03-07.02, FR-M03-12.04, FR-M03-07.05 |
 
 
 <!-- sc:branch SC-M03-007 E1 -->
@@ -1049,24 +1058,24 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E9.3 | SYSTEM | Hệ thống kiểm lại quyền đọc, trả nội dung các phiên bản trước cùng người sửa/thời điểm trong ngữ cảnh bài. | Phiên bản trước V1: nội dung "Cách giải thứ nhất", U-LAN sửa 08/11 09:00; V2: "Cách giải thứ hai", U-LAN sửa 08/11 10:00; nội dung hiện hành "Cách giải thứ ba" | END:SUCCESS | FR-M03-12.02, FR-M03-12.03, FR-M03-12.04, BR-M03-27 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest có quyền đọc bài công khai; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+**E10 — thay toàn bộ M1 đến kết thúc:** Guest có quyền đọc bài công khai; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-007 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest mở P301 công khai. | Đã đăng/Bình thường ngoài nhóm hoặc nhóm Public; không bị ẩn bởi module khác | V1.2 | FR-M03-07.01 |
-| V1.2 | SYSTEM | Hệ thống kiểm quyền rồi trả tiêu đề/nội dung/tác giả/Lớp/tệp/poll; poll mở ẩn kết quả và Guest chưa vote thì không trả kết quả, poll đóng tổng>0 thì trả phần trăm. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; Q301: A="Phương pháp thế", B="Phân tích nhân tử", C="Dùng công thức"; chọn nhiều; ẩn kết quả trước vote; hạn 09/11/2026 10:00 +07; hiện 08/11/2026 10:00 +07 | END:SUCCESS | FR-M03-07.01, FR-M03-07.02, FR-M03-07.03, FR-M03-07.04, FR-M03-07.05, FR-M03-07.07, BR-M03-17, BR-M03-18, BR-M03-39, BR-M03-49, FR-M03-08.07, FR-M03-08.08, FR-M03-08.09, FR-M03-08.10, FR-M03-08.12, BR-M03-15 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền đọc bài do Private/trạng thái; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-007 V2 -->
+<!-- sc:branch SC-M03-007 E10 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-001 | Guest yêu cầu đọc bài hoặc lịch sử P301. | G31 Private, Guest không là thành viên; hoặc bài không công khai | V2.2 | FR-M03-07.01, FR-M03-07.02, FR-M03-12.04 |
-| V2.2 | SYSTEM | Hệ thống không cung cấp nội dung bài/lịch sử; không để quyền đọc công khai vượt quyền nhóm/trạng thái. | Không có dữ liệu riêng tư trả cho Guest | END:REJECTED | FR-M03-07.01, FR-M03-07.02, FR-M03-07.05, FR-M03-12.04 |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-001 | Guest mở P301 công khai. | Đã đăng/Bình thường ngoài nhóm hoặc nhóm Public; không bị ẩn bởi module khác | E10.2 | FR-M03-07.01 |
+| E10.2 | SYSTEM | Hệ thống kiểm quyền rồi trả tiêu đề/nội dung/tác giả/Lớp/tệp/poll; poll mở ẩn kết quả và Guest chưa vote thì không trả kết quả, poll đóng tổng>0 thì trả phần trăm. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; Q301: A="Phương pháp thế", B="Phân tích nhân tử", C="Dùng công thức"; chọn nhiều; ẩn kết quả trước vote; hạn 09/11/2026 10:00 +07; hiện 08/11/2026 10:00 +07 | END:SUCCESS | FR-M03-07.01, FR-M03-07.02, FR-M03-07.03, FR-M03-07.04, FR-M03-07.05, FR-M03-07.07, BR-M03-17, BR-M03-18, BR-M03-39, BR-M03-49, FR-M03-08.07, FR-M03-08.08, FR-M03-08.09, FR-M03-08.10, FR-M03-08.12, BR-M03-15 |
+
+
+**E11 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền đọc bài do Private/trạng thái; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-007 E11 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E11.1 | ACT-001 | Guest yêu cầu đọc bài hoặc lịch sử P301. | G31 Private, Guest không là thành viên; hoặc bài không công khai | E11.2 | FR-M03-07.01, FR-M03-07.02, FR-M03-12.04 |
+| E11.2 | SYSTEM | Hệ thống không cung cấp nội dung bài/lịch sử; không để quyền đọc công khai vượt quyền nhóm/trạng thái. | Không có dữ liệu riêng tư trả cho Guest | END:REJECTED | FR-M03-07.01, FR-M03-07.02, FR-M03-07.05, FR-M03-12.04 |
 
 
 <!-- sc:end SC-M03-007 -->
@@ -1083,7 +1092,7 @@ Ghi, đổi hoặc bỏ phiếu poll của mình — BF-M03-008. UC owner: [UC-M
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -1123,6 +1132,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E4 | user-choice | M1 | Người đã vote muốn bỏ chọn trong khi poll còn mở | E4.1 | FR-M03-08.05, FR-M03-08.07, BR-M03-16 |
 | E5 | system | M2 | Phiếu không đúng chế độ hoặc chứa lựa chọn không có sẵn | E5.1 | FR-M03-08.02, FR-M03-08.03, BR-M03-10, BR-M03-11 |
 | E6 | system | M2 | Tác giả bình chọn poll của chính bài mình | E6.1 | FR-M03-08.01, FR-M03-08.11, BR-M03-45 |
+| E7 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E7.1 | FR-M03-07.06 |
 
 
 <!-- sc:branch SC-M03-008 E1 -->
@@ -1170,14 +1180,14 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E6.1 | SYSTEM | Hệ thống áp cùng điều kiện poll/mức khóa, ghi phiếu hợp lệ cho tác giả; không từ chối chỉ vì là chủ bài. | U-LAN chọn [A]; phiếu thuộc Lan; Không khóa, Q301 mở | END:SUCCESS | FR-M03-08.01, FR-M03-08.11, BR-M03-45 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-008 V1 -->
+<!-- sc:branch SC-M03-008 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu ghi, đổi hoặc bỏ phiếu poll của mình. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-001 | Guest yêu cầu ghi, đổi hoặc bỏ phiếu poll của mình. | Không có phiên đăng nhập | E7.2 | FR-M03-07.06 |
+| E7.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
 <!-- sc:end SC-M03-008 -->
@@ -1194,7 +1204,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -1233,6 +1243,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E3 | system | M2 | Poll đã đóng | E3.1 | FR-M03-09.03, FR-M03-09.08, BR-M03-13, BR-M03-14, BR-M03-44 |
 | E4 | system | M2 | Hạn mới trước hiện tại | E4.1 | FR-M03-09.05 |
 | E5 | system | M2 | Hạn mới đúng thời điểm hiện tại | E5.1 | FR-M03-09.01, FR-M03-09.02, FR-M03-10.02, BR-M03-13, BR-M03-14 |
+| E6 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E6.1 | FR-M03-07.06 |
 
 
 <!-- sc:branch SC-M03-009 E1 -->
@@ -1270,14 +1281,14 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E5.1 | SYSTEM | Hệ thống nhận hạn bằng hiện tại là kết thúc ngay, chuyển poll Đã đóng, gửi sự kiện kết thúc và trả kết quả. | hiện=deadline=08/11 10:00; từ lúc này không nhận/đổi/bỏ phiếu | END:SUCCESS | FR-M03-09.01, FR-M03-09.02, FR-M03-10.02, BR-M03-13, BR-M03-14 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-009 V1 -->
+<!-- sc:branch SC-M03-009 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu đổi hạn kết thúc của poll đang mở. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-001 | Guest yêu cầu đổi hạn kết thúc của poll đang mở. | Không có phiên đăng nhập | E6.2 | FR-M03-07.06 |
+| E6.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
 <!-- sc:end SC-M03-009 -->
@@ -1294,7 +1305,7 @@ Sửa và lưu phiên bản bài đã gửi của mình — BF-M03-011. UC owner
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -1351,6 +1362,8 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E17 | system | M4 | Bộ Topic sau sửa trống hoặc quá3 | E17.1 | FR-M05-01.07 |
 | E18 | system | M5 | Quét lại lỗi lần đầu, lần thử lại sạch | E18.1 | FR-M13-01.04, FR-M13-01.05, FR-M13-02.04, FR-M03-05.10, BR-M03-26 |
 | E19 | system | M5 | Quét lại lỗi lần đầu, lần thử lại cũng lỗi | E19.1 | FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M03-05.11, BR-M03-26 |
+| E20 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E20.1 | FR-M03-07.06 |
+| E21 | system | M1 | ACT-003 — ADMIN sửa bài Đã đăng của mình khi hai cờ bật. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E21.1 | FR-M03-11.01, FR-M03-11.04, FR-M03-11.07, BR-M03-47, FR-M03-11.02, FR-M03-12.01, FR-M03-05.15, BR-M03-51 |
 
 
 <!-- sc:branch SC-M03-011 E1 -->
@@ -1511,26 +1524,26 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E19.4 | SYSTEM | Hệ thống giữ nguyên trạng thái và tiếp tục hiển thị theo quyền; trả kết quả quét lại thất bại, không tự gắn cờ/chờ duyệt. | P301 Đã đăng/Bình thường theo snapshot | END:SUCCESS | FR-M03-05.11, BR-M03-26 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E20 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-011 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu sửa và lưu phiên bản bài đã gửi của mình. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** ADMIN sửa bài Đã đăng của mình khi hai cờ bật. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-011 V2 -->
+<!-- sc:branch SC-M03-011 E20 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Admin mở sửa bài của chính mình. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; author=U-ADMIN | V2.2 | FR-M03-11.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm chủ/trạng thái và trả các trường được sửa. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa | V2.3 | FR-M03-11.01, FR-M03-11.04, FR-M03-11.07, BR-M03-47 |
-| V2.3 | ACT-003 | Admin sửa nội dung hợp lệ rồi gửi lưu. | body=Cách giải thứ hai; Topic/Lớp hợp lệ | V2.4 | FR-M03-11.01 |
-| V2.4 | SYSTEM | Hệ thống lưu bản trước vào lịch sử và lưu bản mới, hiển thị nhãn lịch sử, giữ trạng thái/khóa, trả kết quả; không gọi quét lại vì tác giả là ADMIN. | P301 Đã đăng/Bình thường; V1 trước sửa và người sửa U-ADMIN/thời điểm được ghi | END:SUCCESS | FR-M03-11.02, FR-M03-12.01, FR-M03-05.15, BR-M03-51 |
+| --- | --- | --- | --- | --- | --- |
+| E20.1 | ACT-001 | Guest yêu cầu sửa và lưu phiên bản bài đã gửi của mình. | Không có phiên đăng nhập | E20.2 | FR-M03-07.06 |
+| E20.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+
+
+**E21 — thay toàn bộ M1 đến kết thúc:** ADMIN sửa bài Đã đăng của mình khi hai cờ bật. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-011 E21 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E21.1 | ACT-003 | Admin mở sửa bài của chính mình. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; author=U-ADMIN | E21.2 | FR-M03-11.01 |
+| E21.2 | SYSTEM | Hệ thống kiểm chủ/trạng thái và trả các trường được sửa. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa | E21.3 | FR-M03-11.01, FR-M03-11.04, FR-M03-11.07, BR-M03-47 |
+| E21.3 | ACT-003 | Admin sửa nội dung hợp lệ rồi gửi lưu. | body=Cách giải thứ hai; Topic/Lớp hợp lệ | E21.4 | FR-M03-11.01 |
+| E21.4 | SYSTEM | Hệ thống lưu bản trước vào lịch sử và lưu bản mới, hiển thị nhãn lịch sử, giữ trạng thái/khóa, trả kết quả; không gọi quét lại vì tác giả là ADMIN. | P301 Đã đăng/Bình thường; V1 trước sửa và người sửa U-ADMIN/thời điểm được ghi | END:SUCCESS | FR-M03-11.02, FR-M03-12.01, FR-M03-05.15, BR-M03-51 |
 
 
 <!-- sc:end SC-M03-011 -->
@@ -1547,7 +1560,7 @@ Xem các phiên bản lịch sử sửa bài — BF-M03-012. UC owner: [UC-M03-0
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -1582,6 +1595,8 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | id | kind | at | condition | entry | sources |
 |---|---|---|---|---|---|
 | E1 | system | M2 | Người xem không còn quyền xem bài theo trạng thái/nhóm | E1.1 | FR-M03-12.04 |
+| E2 | system | M1 | ACT-001 — Guest có quyền đọc bài công khai; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E2.1 | FR-M03-12.03, FR-M03-12.02, FR-M03-12.04, BR-M03-27 |
+| E3 | system | M1 | ACT-001 — Guest không có quyền đọc bài do Private/trạng thái; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E3.1 | FR-M03-07.01, FR-M03-07.02, FR-M03-12.04, FR-M03-07.05 |
 
 
 <!-- sc:branch SC-M03-012 E1 -->
@@ -1591,24 +1606,24 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E1.1 | SYSTEM | Hệ thống không hiển thị lịch sử. | P301 không còn công khai cho Minh hoặc Minh không thuộc Private | END:REJECTED | FR-M03-12.04 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest có quyền đọc bài công khai; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+**E2 — thay toàn bộ M1 đến kết thúc:** Guest có quyền đọc bài công khai; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-012 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest chọn Xem lịch sử của P301 công khai. | Đã đăng/Bình thường ngoài nhóm hoặc nhóm Public; không bị ẩn bởi module khác | V1.2 | FR-M03-12.03 |
-| V1.2 | SYSTEM | Hệ thống kiểm quyền rồi trả các nội dung phiên bản trước, người sửa và thời điểm, không cho Guest sửa lịch sử. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; Phiên bản trước V1: nội dung "Cách giải thứ nhất", U-LAN sửa 08/11 09:00; V2: "Cách giải thứ hai", U-LAN sửa 08/11 10:00; nội dung hiện hành "Cách giải thứ ba" | END:SUCCESS | FR-M03-12.02, FR-M03-12.03, FR-M03-12.04, BR-M03-27 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền đọc bài do Private/trạng thái; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-012 V2 -->
+<!-- sc:branch SC-M03-012 E2 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-001 | Guest yêu cầu đọc bài hoặc lịch sử P301. | G31 Private, Guest không là thành viên; hoặc bài không công khai | V2.2 | FR-M03-07.01, FR-M03-07.02, FR-M03-12.04 |
-| V2.2 | SYSTEM | Hệ thống không cung cấp nội dung bài/lịch sử; không để quyền đọc công khai vượt quyền nhóm/trạng thái. | Không có dữ liệu riêng tư trả cho Guest | END:REJECTED | FR-M03-07.01, FR-M03-07.02, FR-M03-07.05, FR-M03-12.04 |
+| --- | --- | --- | --- | --- | --- |
+| E2.1 | ACT-001 | Guest chọn Xem lịch sử của P301 công khai. | Đã đăng/Bình thường ngoài nhóm hoặc nhóm Public; không bị ẩn bởi module khác | E2.2 | FR-M03-12.03 |
+| E2.2 | SYSTEM | Hệ thống kiểm quyền rồi trả các nội dung phiên bản trước, người sửa và thời điểm, không cho Guest sửa lịch sử. | P301 của U-LAN, ngoài nhóm; tiêu đề="Giải phương trình bậc hai"; nội dung chữ="x^2 + 2x + 1 = 0" (7 từ); Lớp bài=10, Lớp hồ sơ=12; Topic Toán trong danh mục; Tag #daiso; không có Accepted Answer/ảnh bìa; Phiên bản trước V1: nội dung "Cách giải thứ nhất", U-LAN sửa 08/11 09:00; V2: "Cách giải thứ hai", U-LAN sửa 08/11 10:00; nội dung hiện hành "Cách giải thứ ba" | END:SUCCESS | FR-M03-12.02, FR-M03-12.03, FR-M03-12.04, BR-M03-27 |
+
+
+**E3 — thay toàn bộ M1 đến kết thúc:** Guest không có quyền đọc bài do Private/trạng thái; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-012 E3 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-001 | Guest yêu cầu đọc bài hoặc lịch sử P301. | G31 Private, Guest không là thành viên; hoặc bài không công khai | E3.2 | FR-M03-07.01, FR-M03-07.02, FR-M03-12.04 |
+| E3.2 | SYSTEM | Hệ thống không cung cấp nội dung bài/lịch sử; không để quyền đọc công khai vượt quyền nhóm/trạng thái. | Không có dữ liệu riêng tư trả cho Guest | END:REJECTED | FR-M03-07.01, FR-M03-07.02, FR-M03-07.05, FR-M03-12.04 |
 
 
 <!-- sc:end SC-M03-012 -->
@@ -1625,7 +1640,7 @@ Tự ẩn bài đang đăng của mình — BF-M03-013. UC owner: [UC-M03-013](.
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -1661,6 +1676,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 |---|---|---|---|---|---|
 | E1 | system | M2 | Không phải tác giả | E1.1 | FR-M03-13.03 |
 | E2 | system | M2 | Bài không Đã đăng | E2.1 | FR-M03-13.04 |
+| E3 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E3.1 | FR-M03-07.06 |
 
 
 <!-- sc:branch SC-M03-013 E1 -->
@@ -1677,14 +1693,14 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E2.1 | SYSTEM | Hệ thống từ chối tự ẩn bài với yêu cầu này. | Nháp/Chờ duyệt/Bị từ chối/Tự ẩn/Đã xóa | END:REJECTED | FR-M03-13.04 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-013 V1 -->
+<!-- sc:branch SC-M03-013 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu tự ẩn bài đang đăng của mình. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-001 | Guest yêu cầu tự ẩn bài đang đăng của mình. | Không có phiên đăng nhập | E3.2 | FR-M03-07.06 |
+| E3.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
 <!-- sc:end SC-M03-013 -->
@@ -1701,7 +1717,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -1738,6 +1754,9 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E1 | system | M2 | Người khóa là Mod/Admin và tác giả muốn mở hoặc đổi mức | E1.1 | FR-M03-14.09, BR-M03-32 |
 | E2 | system | M2 | Người yêu cầu không là tác giả, Mod hoặc Admin | E2.1 | FR-M03-14.11 |
 | E3 | system | M2 | Người không phải Mod/Admin yêu cầu Khóa toàn bộ | E3.1 | FR-M03-14.10 |
+| E4 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E4.1 | FR-M03-07.06 |
+| E5 | system | M1 | ACT-003 — Mod/Admin đặt Khóa bình luận. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E5.1 | FR-M03-14.02, FR-M03-14.04, FR-M03-14.05, FR-M03-14.06, FR-M03-14.12, BR-M03-30, BR-M03-31, BR-M03-32 |
+| E6 | system | M1 | ACT-003 — Mod/Admin đặt Khóa toàn bộ. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E6.1 | FR-M03-14.03, FR-M03-14.04, FR-M03-14.05, FR-M03-14.06, FR-M03-14.12, BR-M03-30, BR-M03-31, BR-M03-32 |
 
 
 <!-- sc:branch SC-M03-014 E1 -->
@@ -1761,34 +1780,34 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E3.1 | SYSTEM | Hệ thống từ chối đặt Khóa toàn bộ. | actor=Lan tác giả nhưng không Mod/Admin | END:REJECTED | FR-M03-14.10 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-014 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu đặt mức khóa cho bài viết. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin đặt Khóa bình luận. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-014 V2 -->
+<!-- sc:branch SC-M03-014 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Minh đặt Khóa bình luận cho P301. | Actor thực sự có vai trò MOD/ADMIN; P301 của Lan | V2.2 | FR-M03-14.02 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền rồi ghi mức khóa và người khóa là Mod/Admin hiện tại, trả kết quả; không ẩn bài. Áp chặn tương tác theo mức, giữ bình luận cũ. | level=Khóa bình luận; locker=U-MOD; Khóa toàn bộ chặn cả đổi/bỏ vote và rút upvote, không chặn bookmark/báo cáo | END:SUCCESS | FR-M03-14.02, FR-M03-14.04, FR-M03-14.05, FR-M03-14.06, FR-M03-14.12, BR-M03-30, BR-M03-31, BR-M03-32 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Guest yêu cầu đặt mức khóa cho bài viết. | Không có phiên đăng nhập | E4.2 | FR-M03-07.06 |
+| E4.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Mod/Admin đặt Khóa toàn bộ. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Mod/Admin đặt Khóa bình luận. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-014 V3 -->
+<!-- sc:branch SC-M03-014 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-003 | Mod Minh đặt Khóa toàn bộ cho P301. | Actor thực sự có vai trò MOD/ADMIN; P301 của Lan | V3.2 | FR-M03-14.03 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền rồi ghi mức khóa và người khóa là Mod/Admin hiện tại, trả kết quả; không ẩn bài. Áp chặn tương tác theo mức, giữ bình luận cũ. | level=Khóa toàn bộ; locker=U-MOD; Khóa toàn bộ chặn cả đổi/bỏ vote và rút upvote, không chặn bookmark/báo cáo | END:SUCCESS | FR-M03-14.03, FR-M03-14.04, FR-M03-14.05, FR-M03-14.06, FR-M03-14.12, BR-M03-30, BR-M03-31, BR-M03-32 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-003 | Mod Minh đặt Khóa bình luận cho P301. | Actor thực sự có vai trò MOD/ADMIN; P301 của Lan | E5.2 | FR-M03-14.02 |
+| E5.2 | SYSTEM | Hệ thống kiểm quyền rồi ghi mức khóa và người khóa là Mod/Admin hiện tại, trả kết quả; không ẩn bài. Áp chặn tương tác theo mức, giữ bình luận cũ. | level=Khóa bình luận; locker=U-MOD; Khóa toàn bộ chặn cả đổi/bỏ vote và rút upvote, không chặn bookmark/báo cáo | END:SUCCESS | FR-M03-14.02, FR-M03-14.04, FR-M03-14.05, FR-M03-14.06, FR-M03-14.12, BR-M03-30, BR-M03-31, BR-M03-32 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Mod/Admin đặt Khóa toàn bộ. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-014 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-003 | Mod Minh đặt Khóa toàn bộ cho P301. | Actor thực sự có vai trò MOD/ADMIN; P301 của Lan | E6.2 | FR-M03-14.03 |
+| E6.2 | SYSTEM | Hệ thống kiểm quyền rồi ghi mức khóa và người khóa là Mod/Admin hiện tại, trả kết quả; không ẩn bài. Áp chặn tương tác theo mức, giữ bình luận cũ. | level=Khóa toàn bộ; locker=U-MOD; Khóa toàn bộ chặn cả đổi/bỏ vote và rút upvote, không chặn bookmark/báo cáo | END:SUCCESS | FR-M03-14.03, FR-M03-14.04, FR-M03-14.05, FR-M03-14.06, FR-M03-14.12, BR-M03-30, BR-M03-31, BR-M03-32 |
 
 
 <!-- sc:end SC-M03-014 -->
@@ -1805,7 +1824,7 @@ Xóa mềm bài của mình — BF-M03-015. UC owner: [UC-M03-015](../../us/US-M
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -1842,6 +1861,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E1 | system | M2 | Không phải tác giả | E1.1 | FR-M03-15.04 |
 | E2 | system | M2 | Bài đã Đã xóa | E2.1 | FR-M03-15.05 |
 | E3 | system | M2 | Bài đang Chờ duyệt và nằm trong hàng Mod hệ thống | E3.1 | FR-M03-15.01, FR-M03-15.02, FR-M03-15.03, FR-M03-15.06, FR-M03-06.07, BR-M03-34 |
+| E4 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E4.1 | FR-M03-07.06 |
 
 
 <!-- sc:branch SC-M03-015 E1 -->
@@ -1865,14 +1885,14 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E3.1 | SYSTEM | Hệ thống xóa mềm, ghi thời điểm/trạng thái trước Chờ duyệt và đưa bài khỏi hàng chờ Mod; không để quyết định duyệt cũ công bố bài. | P301 Đã xóa; prior=Chờ duyệt; không còn trong hàng; các lần duyệt sau bị từ chối vì sai trạng thái | END:SUCCESS | FR-M03-15.01, FR-M03-15.02, FR-M03-15.03, FR-M03-15.06, FR-M03-06.07, BR-M03-34 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-015 V1 -->
+<!-- sc:branch SC-M03-015 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu xóa mềm bài của mình. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Guest yêu cầu xóa mềm bài của mình. | Không có phiên đăng nhập | E4.2 | FR-M03-07.06 |
+| E4.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
 <!-- sc:end SC-M03-015 -->
@@ -1889,7 +1909,7 @@ Khôi phục bài đã xóa trong thời hạn — BF-M03-016. UC owner: [UC-M03
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -1929,6 +1949,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E4 | system | M2 | Bài không ở trạng thái Đã xóa | E4.1 | FR-M03-16.01 |
 | E5 | system | M2 | Trước khi xóa, bài đang Chờ duyệt | E5.1 | FR-M03-16.01, FR-M03-16.06, BR-M03-35 |
 | E6 | system | M2 | Trạng thái trước xóa là Nháp/Bị từ chối/Tự ẩn | E6.1 | FR-M03-16.01, BR-M03-35 |
+| E7 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E7.1 | FR-M03-07.06 |
 
 
 <!-- sc:branch SC-M03-016 E1 -->
@@ -1973,14 +1994,14 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E6.1 | SYSTEM | Hệ thống kiểm điều kiện rồi khôi phục đúng trạng thái trước đó, không tự đổi sang Đã đăng; giữ dữ liệu/kiểm duyệt/khóa. | Snapshot thay thế prior=Nháp hoặc Bị từ chối hoặc Tự ẩn; sau=đúng prior | END:SUCCESS | FR-M03-16.01, BR-M03-35 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E7 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-016 V1 -->
+<!-- sc:branch SC-M03-016 E7 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu khôi phục bài đã xóa trong thời hạn. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-001 | Guest yêu cầu khôi phục bài đã xóa trong thời hạn. | Không có phiên đăng nhập | E7.2 | FR-M03-07.06 |
+| E7.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
 <!-- sc:end SC-M03-016 -->
@@ -1997,7 +2018,7 @@ Hiện lại bài đã tự ẩn — BF-M03-017. UC owner: [UC-M03-017](../../us
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -2039,6 +2060,8 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E6 | system | M2 | Bài tự ẩn đã sửa nhưng một trong hai cờ AI tắt | E6.1 | FR-M03-13.02, FR-M03-13.06, FR-M03-05.08, FR-M03-05.09, BR-M03-22, BR-M03-26 |
 | E7 | system | M2 | Quét lại lỗi lần đầu, lần thử lại sạch | E7.1 | FR-M03-13.02, FR-M03-13.06, FR-M03-05.05, FR-M03-05.06, FR-M13-01.01, FR-M13-02.01, FR-M13-02.02, FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, BR-M03-26, FR-M13-01.04, FR-M13-01.05, FR-M03-05.10 |
 | E8 | system | M2 | Quét lại lỗi lần đầu, lần thử lại cũng lỗi | E8.1 | FR-M03-13.02, FR-M03-13.06, FR-M03-05.05, FR-M03-05.06, FR-M13-01.01, FR-M13-02.01, FR-M13-02.02, FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, BR-M03-26, FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, FR-M03-05.11 |
+| E9 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E9.1 | FR-M03-07.06 |
+| E10 | system | M1 | ACT-003 — ADMIN hiện lại bài tự ẩn đã sửa của mình. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E10.1 | FR-M03-13.02, FR-M03-13.06, FR-M03-05.15, BR-M03-51 |
 
 
 <!-- sc:branch SC-M03-017 E1 -->
@@ -2109,24 +2132,24 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E8.5 | SYSTEM | Hệ thống giữ nguyên trạng thái và tiếp tục hiển thị theo quyền; trả kết quả quét lại thất bại, không tự gắn cờ/chờ duyệt. | P301 Đã đăng/Bình thường theo snapshot | END:SUCCESS | FR-M03-05.11, BR-M03-26 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-017 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu hiện lại bài đã tự ẩn. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** ADMIN hiện lại bài tự ẩn đã sửa của mình. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-017 V2 -->
+<!-- sc:branch SC-M03-017 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Admin yêu cầu hiện lại P301. | P301 Tự ẩn/Bình thường, dirty=true; author=U-ADMIN | V2.2 | FR-M03-13.02 |
-| V2.2 | SYSTEM | Hệ thống kiểm chủ/Tự ẩn và kiểm duyệt hợp lệ, chuyển Đã đăng, giữ khóa, trả kết quả; không quét lại vì tác giả ADMIN. | P301 Đã đăng/Bình thường; không vượt ràng buộc nhóm/tài khoản | END:SUCCESS | FR-M03-13.02, FR-M03-13.06, FR-M03-05.15, BR-M03-51 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-001 | Guest yêu cầu hiện lại bài đã tự ẩn. | Không có phiên đăng nhập | E9.2 | FR-M03-07.06 |
+| E9.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** ADMIN hiện lại bài tự ẩn đã sửa của mình. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-017 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-003 | Admin yêu cầu hiện lại P301. | P301 Tự ẩn/Bình thường, dirty=true; author=U-ADMIN | E10.2 | FR-M03-13.02 |
+| E10.2 | SYSTEM | Hệ thống kiểm chủ/Tự ẩn và kiểm duyệt hợp lệ, chuyển Đã đăng, giữ khóa, trả kết quả; không quét lại vì tác giả ADMIN. | P301 Đã đăng/Bình thường; không vượt ràng buộc nhóm/tài khoản | END:SUCCESS | FR-M03-13.02, FR-M03-13.06, FR-M03-05.15, BR-M03-51 |
 
 
 <!-- sc:end SC-M03-017 -->
@@ -2143,7 +2166,7 @@ Xem lại bài từ ngữ cảnh xử lý hoặc khiếu nại liên quan — BF
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -2179,6 +2202,10 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 |---|---|---|---|---|---|
 | E1 | system | M2 | Người mở không phải tác giả trên đường xem lại dành cho tác giả | E1.1 | FR-M03-07.10 |
 | E2 | system | M2 | Không có thông báo/khiếu nại hợp lệ liên quan bài | E2.1 | FR-M03-07.08, FR-M03-17.04, BR-M03-49 |
+| E3 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E3.1 | FR-M03-07.06 |
+| E4 | system | M1 | ACT-003 — Mod/Admin mở đúng bài từ báo cáo/lịch sử báo cáo/khiếu nại liên quan. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E4.1 | FR-M03-07.11, FR-M03-17.04, FR-M03-07.02, FR-M03-17.02, BR-M03-37, BR-M03-49 |
+| E5 | system | M1 | ACT-003 — Mở Nháp/Bị từ chối người khác. Actor khởi tạo ACT-003; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E5.1 | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04, BR-M03-49 |
+| E6 | system | M1 | ACT-003 — Mở Tự ẩn/Đã xóa/xóa hẳn ngoài vụ liên quan. Actor khởi tạo ACT-003; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E6.1 | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04, BR-M03-49 |
 
 
 <!-- sc:branch SC-M03-018 E1 -->
@@ -2195,44 +2222,44 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E2.1 | SYSTEM | Hệ thống không mở đường xem lại đặc biệt; URL thông thường phải theo quyền đọc. | Ngữ cảnh giả hoặc vụ việc liên quan P999 khác P301 | END:REJECTED | FR-M03-07.08, FR-M03-17.04, BR-M03-49 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-018 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu xem lại bài từ ngữ cảnh xử lý hoặc khiếu nại liên quan. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin mở đúng bài từ báo cáo/lịch sử báo cáo/khiếu nại liên quan. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-018 V2 -->
+<!-- sc:branch SC-M03-018 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Minh mở P301 từ vụ việc liên quan chính P301. | Case C301 trỏ P301, Mod có quyền xử lý/tra cứu theo M08/M09; không browse bài riêng tư | V2.2 | FR-M03-07.11, FR-M03-17.04 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền và liên kết bài–vụ việc, trả nội dung được giữ của bài Tự ẩn/Đã xóa/Đã xóa hẳn trong ngữ cảnh vụ; Bị gắn cờ/Bị Mod ẩn theo đường M08/M09. Không biến hành vi đọc thành khôi phục hoặc công khai. | Snapshot P301 permanent=true, dữ liệu còn; chỉ vụ C301 đang xem | END:SUCCESS | FR-M03-07.02, FR-M03-07.11, FR-M03-17.02, FR-M03-17.04, BR-M03-37, BR-M03-49 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-001 | Guest yêu cầu xem lại bài từ ngữ cảnh xử lý hoặc khiếu nại liên quan. | Không có phiên đăng nhập | E3.2 | FR-M03-07.06 |
+| E3.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Mở Nháp/Bị từ chối người khác. Actor khởi tạo ACT-003; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Mod/Admin mở đúng bài từ báo cáo/lịch sử báo cáo/khiếu nại liên quan. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-018 V3 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-003 | Mod yêu cầu đọc P301. | P301 Nháp hoặc Bị từ chối của Lan | V3.2 | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04 |
-| V3.2 | SYSTEM | Hệ thống từ chối đường truy cập không được phép; không có danh mục tìm/browse bài đã xóa. | P301 Nháp hoặc Bị từ chối của Lan | END:REJECTED | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04, BR-M03-49 |
-
-
-**V4 — thay toàn bộ M1 đến kết thúc:** Mở Tự ẩn/Đã xóa/xóa hẳn ngoài vụ liên quan. Actor khởi tạo ACT-003; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-018 V4 -->
+<!-- sc:branch SC-M03-018 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V4.1 | ACT-003 | Mod yêu cầu đọc P301. | P301 Tự ẩn/Đã xóa/permanent, URL trực tiếp không vụ liên quan | V4.2 | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04 |
-| V4.2 | SYSTEM | Hệ thống từ chối đường truy cập không được phép; không có danh mục tìm/browse bài đã xóa. | P301 Tự ẩn/Đã xóa/permanent, URL trực tiếp không vụ liên quan | END:REJECTED | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04, BR-M03-49 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-003 | Mod Minh mở P301 từ vụ việc liên quan chính P301. | Case C301 trỏ P301, Mod có quyền xử lý/tra cứu theo M08/M09; không browse bài riêng tư | E4.2 | FR-M03-07.11, FR-M03-17.04 |
+| E4.2 | SYSTEM | Hệ thống kiểm quyền và liên kết bài–vụ việc, trả nội dung được giữ của bài Tự ẩn/Đã xóa/Đã xóa hẳn trong ngữ cảnh vụ; Bị gắn cờ/Bị Mod ẩn theo đường M08/M09. Không biến hành vi đọc thành khôi phục hoặc công khai. | Snapshot P301 permanent=true, dữ liệu còn; chỉ vụ C301 đang xem | END:SUCCESS | FR-M03-07.02, FR-M03-07.11, FR-M03-17.02, FR-M03-17.04, BR-M03-37, BR-M03-49 |
+
+
+**E5 — thay toàn bộ M1 đến kết thúc:** Mở Nháp/Bị từ chối người khác. Actor khởi tạo ACT-003; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-018 E5 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-003 | Mod yêu cầu đọc P301. | P301 Nháp hoặc Bị từ chối của Lan | E5.2 | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04 |
+| E5.2 | SYSTEM | Hệ thống từ chối đường truy cập không được phép; không có danh mục tìm/browse bài đã xóa. | P301 Nháp hoặc Bị từ chối của Lan | END:REJECTED | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04, BR-M03-49 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Mở Tự ẩn/Đã xóa/xóa hẳn ngoài vụ liên quan. Actor khởi tạo ACT-003; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-018 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-003 | Mod yêu cầu đọc P301. | P301 Tự ẩn/Đã xóa/permanent, URL trực tiếp không vụ liên quan | E6.2 | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04 |
+| E6.2 | SYSTEM | Hệ thống từ chối đường truy cập không được phép; không có danh mục tìm/browse bài đã xóa. | P301 Tự ẩn/Đã xóa/permanent, URL trực tiếp không vụ liên quan | END:REJECTED | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04, BR-M03-49 |
 
 
 <!-- sc:end SC-M03-018 -->
@@ -2249,7 +2276,7 @@ Kết thúc poll ngay — BF-M03-019. UC owner: [UC-M03-009](../../us/US-M03.md#
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -2285,6 +2312,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 |---|---|---|---|---|---|
 | E1 | system | M2 | Người thao tác không phải tác giả | E1.1 | FR-M03-09.04 |
 | E2 | system | M2 | Poll đã đóng | E2.1 | FR-M03-09.03, FR-M03-09.08, BR-M03-13, BR-M03-14, BR-M03-44 |
+| E3 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E3.1 | FR-M03-07.06 |
 
 
 <!-- sc:branch SC-M03-019 E1 -->
@@ -2301,14 +2329,14 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E2.1 | SYSTEM | Hệ thống từ chối đổi hạn/mở lại/đóng lại/thêm lựa chọn; không làm poll mở lại. | Q301 Đã đóng | END:REJECTED | FR-M03-09.03, FR-M03-09.08, BR-M03-13, BR-M03-14, BR-M03-44 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-019 V1 -->
+<!-- sc:branch SC-M03-019 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu kết thúc poll ngay. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-001 | Guest yêu cầu kết thúc poll ngay. | Không có phiên đăng nhập | E3.2 | FR-M03-07.06 |
+| E3.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
 <!-- sc:end SC-M03-019 -->
@@ -2325,7 +2353,7 @@ Thêm lựa chọn vào poll đang mở của bài đã gửi — BF-M03-020. UC
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -2364,6 +2392,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E3 | system | M2 | Thêm lựa chọn khiến tổng vượt 10 | E3.1 | FR-M03-09.07 |
 | E4 | system | M2 | Tác giả yêu cầu thêm/bỏ cả poll, sửa/xóa lựa chọn cũ hoặc đổi cấu hình sau gửi | E4.1 | FR-M03-03.11, BR-M03-11, BR-M03-44 |
 | E5 | system | M2 | Thêm lựa chọn thứ10 khi poll còn mở | E5.1 | FR-M03-09.06, FR-M03-09.07, BR-M03-44 |
+| E6 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E6.1 | FR-M03-07.06 |
 
 
 <!-- sc:branch SC-M03-020 E1 -->
@@ -2401,14 +2430,14 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E5.1 | SYSTEM | Hệ thống nhận lựa chọn mới của tác giả vì tổng vẫn trong giới hạn, trả poll 10 lựa chọn. | 9 lựa chọn cũ + lựa chọn thứ10 hợp lệ; giữ phiếu | END:SUCCESS | FR-M03-09.06, FR-M03-09.07, BR-M03-44 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-020 V1 -->
+<!-- sc:branch SC-M03-020 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu thêm lựa chọn vào poll đang mở của bài đã gửi. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-001 | Guest yêu cầu thêm lựa chọn vào poll đang mở của bài đã gửi. | Không có phiên đăng nhập | E6.2 | FR-M03-07.06 |
+| E6.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
 <!-- sc:end SC-M03-020 -->
@@ -2425,7 +2454,7 @@ Mở khóa hoặc hạ mức khóa bài viết — BF-M03-021. UC owner: [UC-M03
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường V trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
+ACT-002 là actor chính. ACT-003 kế thừa User theo US, nhưng chỉ ADMIN thật sự được miễn quét. ACT-006 chỉ xuất hiện khi có lời gọi nhà cung cấp qua M13. Các đường E tại M1 trong mục 6 ghi riêng actor khởi tạo thay thế, không thêm BF theo vai trò.
 
 #### 3. Tiền điều kiện
 
@@ -2461,6 +2490,9 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 |---|---|---|---|---|---|
 | E1 | system | M2 | Người khóa là Mod/Admin và tác giả muốn mở hoặc đổi mức | E1.1 | FR-M03-14.09, BR-M03-32 |
 | E2 | system | M2 | Người yêu cầu không là tác giả, Mod hoặc Admin | E2.1 | FR-M03-14.11 |
+| E3 | system | M1 | ACT-001 — Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4. | E3.1 | FR-M03-07.06 |
+| E4 | system | M1 | ACT-003 — Mod/Admin mở hoặc hạ mức xuống Không khóa. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E4.1 | FR-M03-14.08, BR-M03-32 |
+| E5 | system | M1 | ACT-003 — Mod/Admin mở hoặc hạ mức xuống Khóa bình luận. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4. | E5.1 | FR-M03-14.08, BR-M03-32 |
 
 
 <!-- sc:branch SC-M03-021 E1 -->
@@ -2477,34 +2509,34 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | E2.1 | SYSTEM | Hệ thống từ chối thao tác khóa/mở khóa bình luận của người khác. | actor=Minh thường; author=Lan | END:REJECTED | FR-M03-14.11 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
+**E3 — thay toàn bộ M1 đến kết thúc:** Guest yêu cầu chức năng này; thay toàn bộ đường chính. Actor khởi tạo ACT-001; kết quả END:REJECTED, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-021 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu mở khóa hoặc hạ mức khóa bài viết. | Không có phiên đăng nhập | V1.2 | FR-M03-07.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin mở hoặc hạ mức xuống Không khóa. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
-
-<!-- sc:role-path SC-M03-021 V2 -->
+<!-- sc:branch SC-M03-021 E3 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Minh yêu cầu đặt mức mới Không khóa. | P301 hiện Khóa toàn bộ bởi Mod, hoặc khóa bình luận bởi tác giả | V2.2 | FR-M03-14.08 |
-| V2.2 | SYSTEM | Hệ thống kiểm quyền Mod/Admin rồi đặt mức mới, trả kết quả; không đổi trạng thái đăng/kiểm duyệt. Khi mức mới còn hạn chế, cập nhật người khóa theo chủ thể đặt hạn chế. | level=Không khóa; không cho tác giả vượt khóa của Mod | END:SUCCESS | FR-M03-14.08, BR-M03-32 |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-001 | Guest yêu cầu mở khóa hoặc hạ mức khóa bài viết. | Không có phiên đăng nhập | E3.2 | FR-M03-07.06 |
+| E3.2 | SYSTEM | Hệ thống từ chối thao tác khi chưa đăng nhập; không tự chạy đăng nhập hoặc thay đổi bài/poll/phiếu. | Giữ dữ liệu trước yêu cầu, chưa hoàn tất chức năng | END:REJECTED | FR-M03-07.06 |
 
 
-**V3 — thay toàn bộ M1 đến kết thúc:** Mod/Admin mở hoặc hạ mức xuống Khóa bình luận. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Mod/Admin mở hoặc hạ mức xuống Không khóa. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
 
-<!-- sc:role-path SC-M03-021 V3 -->
+<!-- sc:branch SC-M03-021 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V3.1 | ACT-003 | Mod Minh yêu cầu đặt mức mới Khóa bình luận. | P301 hiện Khóa toàn bộ bởi Mod, hoặc khóa bình luận bởi tác giả | V3.2 | FR-M03-14.08 |
-| V3.2 | SYSTEM | Hệ thống kiểm quyền Mod/Admin rồi đặt mức mới, trả kết quả; không đổi trạng thái đăng/kiểm duyệt. Khi mức mới còn hạn chế, cập nhật người khóa theo chủ thể đặt hạn chế. | level=Khóa bình luận; không cho tác giả vượt khóa của Mod | END:SUCCESS | FR-M03-14.08, BR-M03-32 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-003 | Mod Minh yêu cầu đặt mức mới Không khóa. | P301 hiện Khóa toàn bộ bởi Mod, hoặc khóa bình luận bởi tác giả | E4.2 | FR-M03-14.08 |
+| E4.2 | SYSTEM | Hệ thống kiểm quyền Mod/Admin rồi đặt mức mới, trả kết quả; không đổi trạng thái đăng/kiểm duyệt. Khi mức mới còn hạn chế, cập nhật người khóa theo chủ thể đặt hạn chế. | level=Không khóa; không cho tác giả vượt khóa của Mod | END:SUCCESS | FR-M03-14.08, BR-M03-32 |
+
+
+**E5 — thay toàn bộ M1 đến kết thúc:** Mod/Admin mở hoặc hạ mức xuống Khóa bình luận. Actor khởi tạo ACT-003; kết quả END:SUCCESS, dùng hậu điều kiện tương ứng ở mục 4.
+
+<!-- sc:branch SC-M03-021 E5 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-003 | Mod Minh yêu cầu đặt mức mới Khóa bình luận. | P301 hiện Khóa toàn bộ bởi Mod, hoặc khóa bình luận bởi tác giả | E5.2 | FR-M03-14.08 |
+| E5.2 | SYSTEM | Hệ thống kiểm quyền Mod/Admin rồi đặt mức mới, trả kết quả; không đổi trạng thái đăng/kiểm duyệt. Khi mức mới còn hạn chế, cập nhật người khóa theo chủ thể đặt hạn chế. | level=Khóa bình luận; không cho tác giả vượt khóa của Mod | END:SUCCESS | FR-M03-14.08, BR-M03-32 |
 
 
 <!-- sc:end SC-M03-021 -->
@@ -2533,20 +2565,20 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | FR-M03-01 | SC-M03-001/M1; SC-M03-001/M5; SC-M03-001/M6; SC-M03-001/E4.1; SC-M03-001/E5.1; SC-M03-001/E5.2; SC-M03-001/E5.3; SC-M03-001/E5.4; SC-M03-001/E7.4; SC-M03-001/E8.3; SC-M03-001/E9.3; SC-M03-001/E10.3; SC-M03-001/E11.3; SC-M03-001/E12.3; SC-M03-001/E13.3; SC-M03-001/E15.4; SC-M03-001/E21.3; SC-M03-001/E22.3; SC-M03-001/M2; SC-M03-001/M4; RULE-M03-002; SC-M03-001/M3; SC-M03-001/E6.1; SC-M03-001/E6.2; SC-M03-001/E6.3; SC-M03-001/E6.4; SC-M03-001/E6.5; SC-M03-004/M2; SC-M03-004/E7.1; SC-M03-004/E7.2; SC-M03-011/M2; SC-M03-011/E5.1; SC-M03-011/E5.2; SC-M03-011/E5.3; SC-M03-011/E5.4; SC-M03-011/E5.5; SC-M03-001/E3.1; SC-M03-001/E1.1; SC-M03-001/E2.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-02 | SC-M03-001/E7.1; SC-M03-001/E7.2; SC-M03-001/E7.3; SC-M03-001/E7.4; SC-M03-001/E8.3; SC-M03-001/E9.3; SC-M03-001/E10.3; SC-M03-001/E11.3; SC-M03-001/E12.3; SC-M03-001/E13.3; SC-M03-011/E10.2; SC-M03-011/E10.1; SC-M03-011/E11.3; SC-M03-011/E12.3; SC-M03-011/E13.3; SC-M03-011/E14.3; SC-M03-011/E15.3; SC-M03-011/E16.3; SC-M03-007/M2; SC-M03-001/E8.1; SC-M03-001/E8.2; SC-M03-011/E11.1; SC-M03-011/E11.2; SC-M03-001/E9.1; SC-M03-001/E9.2; SC-M03-011/E12.1; SC-M03-011/E12.2; SC-M03-001/E10.1; SC-M03-001/E10.2; SC-M03-011/E13.1; SC-M03-011/E13.2; SC-M03-001/E11.1; SC-M03-001/E11.2; SC-M03-011/E14.1; SC-M03-011/E14.2; SC-M03-001/E12.1; SC-M03-001/E12.2; SC-M03-011/E15.1; SC-M03-011/E15.2; SC-M03-001/E13.1; SC-M03-001/E13.2; SC-M03-011/E16.1; SC-M03-011/E16.2; SC-M03-001/E14.1; SC-M03-011/E1.1; SC-M03-011/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-03 | SC-M03-001/E15.1; SC-M03-001/E15.4; SC-M03-001/E15.2; SC-M03-001/E21.2; SC-M03-001/E15.3; SC-M03-001/E18.1; SC-M03-001/E18.2; SC-M03-001/E16.1; SC-M03-001/E16.2; SC-M03-001/E17.1; SC-M03-001/E17.2; SC-M03-001/E20.1; SC-M03-001/E20.2; SC-M03-001/E19.1; SC-M03-001/E19.2; SC-M03-001/E21.1; SC-M03-001/E22.1; SC-M03-001/E22.2; SC-M03-011/M2; SC-M03-020/E4.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-04 | SC-M03-004/M1; SC-M03-004/M2; SC-M03-004/E11.2; SC-M03-004/E1.1; SC-M03-004/E2.1; SC-M03-004/E4.1; SC-M03-004/E5.1; SC-M03-004/E10.1; SC-M03-004/E3.1; SC-M03-004/E8.1; SC-M03-004/E9.1; RULE-M03-005; SC-M03-004/E13.1; SC-M03-004/E26.3; SC-M03-011/E7.1; SC-M03-004/E18.1; SC-M03-004/E19.1; SC-M03-004/E20.1; SC-M03-004/E21.1; SC-M03-004/E22.1; SC-M03-004/E23.1; SC-M03-004/E24.1; SC-M03-004/E28.1; SC-M03-004/E29.1; SC-M03-004/V3.1; SC-M03-004/V4.1; RULE-M03-GROUP; SC-M03-004/V2.1; SC-M03-004/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-05 | SC-M03-004/M4; SC-M03-004/E14.4; AUT-M03-001; RULE-M03-005; SC-M03-004/E8.1; SC-M03-011/E8.1; SC-M03-017/E6.1; SC-M03-004/E11.2; SC-M03-004/E16.4; SC-M03-004/E12.2; SC-M03-004/E17.4; SC-M03-004/E26.2; SC-M03-004/E27.2; SC-M03-004/E13.1; SC-M03-004/E26.3; SC-M03-004/E15.4; SC-M03-004/E28.5; SC-M03-004/E29.5; SC-M03-004/V2.2; SC-M03-011/V2.4; SC-M03-017/V2.2; SC-M03-011/M4; SC-M03-017/E4.1; SC-M03-017/E5.1; SC-M03-017/E7.1; SC-M03-017/E8.1; SC-M03-011/M6; SC-M03-011/E18.4; SC-M03-017/E4.3; SC-M03-017/E7.5; SC-M03-011/E6.1; SC-M03-011/E9.2; SC-M03-017/E5.3; SC-M03-011/E19.4; SC-M03-017/E8.5 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-06 | SC-M03-006/M1; SC-M03-006/M2; SC-M03-006/M4; SC-M03-006/E1.2; SC-M03-006/E2.4; SC-M03-006/E3.1; SC-M03-006/E4.1; SC-M03-006/V2.1; SC-M03-006/V2.2; SC-M03-006/M3; RULE-M03-005; SC-M03-006/E5.1; SC-M03-015/E3.1; SC-M03-006/E1.1; SC-M03-006/E2.3; SC-M03-007/E5.1; SC-M03-006/E2.1; SC-M03-006/E2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07 | SC-M03-001/V1.1; SC-M03-001/V1.2; SC-M03-004/V1.1; SC-M03-004/V1.2; SC-M03-006/V1.1; SC-M03-006/V1.2; SC-M03-008/V1.1; SC-M03-008/V1.2; SC-M03-009/V1.1; SC-M03-009/V1.2; SC-M03-011/V1.1; SC-M03-011/V1.2; SC-M03-013/V1.1; SC-M03-013/V1.2; SC-M03-014/V1.1; SC-M03-014/V1.2; SC-M03-015/V1.1; SC-M03-015/V1.2; SC-M03-016/V1.1; SC-M03-016/V1.2; SC-M03-017/V1.1; SC-M03-017/V1.2; SC-M03-018/V1.1; SC-M03-018/V1.2; SC-M03-019/V1.1; SC-M03-019/V1.2; SC-M03-020/V1.1; SC-M03-020/V1.2; SC-M03-021/V1.1; SC-M03-021/V1.2; RULE-M03-001; SC-M03-007/M1; SC-M03-007/M2; SC-M03-007/E3.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.1; SC-M03-007/V1.2; SC-M03-007/V2.1; SC-M03-007/V2.2; SC-M03-012/V2.1; SC-M03-012/V2.2; SC-M03-007/E1.1; SC-M03-018/V2.2; SC-M03-007/E5.1; SC-M03-007/E4.1; SC-M03-018/V3.1; SC-M03-018/V3.2; SC-M03-018/V4.1; SC-M03-018/V4.2; SC-M03-018/M1; SC-M03-018/M2; SC-M03-018/E2.1; SC-M03-018/E1.1; SC-M03-018/V2.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-08 | SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; SC-M03-008/E4.2; RULE-M03-003; SC-M03-007/E8.3; SC-M03-008/M2; SC-M03-008/E3.2; SC-M03-019/M2; AUT-M03-002; SC-M03-007/E8.2; SC-M03-008/M1; SC-M03-008/E6.1; SC-M03-008/E5.1; SC-M03-008/E2.1; RULE-M03-004; SC-M03-008/E1.1; SC-M03-008/E3.1; SC-M03-008/E4.1; SC-M03-008/E5.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-04 | SC-M03-004/M1; SC-M03-004/M2; SC-M03-004/E11.2; SC-M03-004/E1.1; SC-M03-004/E2.1; SC-M03-004/E4.1; SC-M03-004/E5.1; SC-M03-004/E10.1; SC-M03-004/E3.1; SC-M03-004/E8.1; SC-M03-004/E9.1; RULE-M03-005; SC-M03-004/E13.1; SC-M03-004/E26.3; SC-M03-011/E7.1; SC-M03-004/E18.1; SC-M03-004/E19.1; SC-M03-004/E20.1; SC-M03-004/E21.1; SC-M03-004/E22.1; SC-M03-004/E23.1; SC-M03-004/E24.1; SC-M03-004/E28.1; SC-M03-004/E29.1; SC-M03-004/E32.1; SC-M03-004/E33.1; RULE-M03-GROUP; SC-M03-004/E31.1; SC-M03-004/E31.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-05 | SC-M03-004/M4; SC-M03-004/E14.4; AUT-M03-001; RULE-M03-005; SC-M03-004/E8.1; SC-M03-011/E8.1; SC-M03-017/E6.1; SC-M03-004/E11.2; SC-M03-004/E16.4; SC-M03-004/E12.2; SC-M03-004/E17.4; SC-M03-004/E26.2; SC-M03-004/E27.2; SC-M03-004/E13.1; SC-M03-004/E26.3; SC-M03-004/E15.4; SC-M03-004/E28.5; SC-M03-004/E29.5; SC-M03-004/E31.2; SC-M03-011/E21.4; SC-M03-017/E10.2; SC-M03-011/M4; SC-M03-017/E4.1; SC-M03-017/E5.1; SC-M03-017/E7.1; SC-M03-017/E8.1; SC-M03-011/M6; SC-M03-011/E18.4; SC-M03-017/E4.3; SC-M03-017/E7.5; SC-M03-011/E6.1; SC-M03-011/E9.2; SC-M03-017/E5.3; SC-M03-011/E19.4; SC-M03-017/E8.5 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-06 | SC-M03-006/M1; SC-M03-006/M2; SC-M03-006/M4; SC-M03-006/E1.2; SC-M03-006/E2.4; SC-M03-006/E3.1; SC-M03-006/E4.1; SC-M03-006/E7.1; SC-M03-006/E7.2; SC-M03-006/M3; RULE-M03-005; SC-M03-006/E5.1; SC-M03-015/E3.1; SC-M03-006/E1.1; SC-M03-006/E2.3; SC-M03-007/E5.1; SC-M03-006/E2.1; SC-M03-006/E2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07 | SC-M03-001/E23.1; SC-M03-001/E23.2; SC-M03-004/E30.1; SC-M03-004/E30.2; SC-M03-006/E6.1; SC-M03-006/E6.2; SC-M03-008/E7.1; SC-M03-008/E7.2; SC-M03-009/E6.1; SC-M03-009/E6.2; SC-M03-011/E20.1; SC-M03-011/E20.2; SC-M03-013/E3.1; SC-M03-013/E3.2; SC-M03-014/E4.1; SC-M03-014/E4.2; SC-M03-015/E4.1; SC-M03-015/E4.2; SC-M03-016/E7.1; SC-M03-016/E7.2; SC-M03-017/E9.1; SC-M03-017/E9.2; SC-M03-018/E3.1; SC-M03-018/E3.2; SC-M03-019/E3.1; SC-M03-019/E3.2; SC-M03-020/E6.1; SC-M03-020/E6.2; SC-M03-021/E3.1; SC-M03-021/E3.2; RULE-M03-001; SC-M03-007/M1; SC-M03-007/M2; SC-M03-007/E3.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.1; SC-M03-007/E10.2; SC-M03-007/E11.1; SC-M03-007/E11.2; SC-M03-012/E3.1; SC-M03-012/E3.2; SC-M03-007/E1.1; SC-M03-018/E4.2; SC-M03-007/E5.1; SC-M03-007/E4.1; SC-M03-018/E5.1; SC-M03-018/E5.2; SC-M03-018/E6.1; SC-M03-018/E6.2; SC-M03-018/M1; SC-M03-018/M2; SC-M03-018/E2.1; SC-M03-018/E1.1; SC-M03-018/E4.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-08 | SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; SC-M03-008/E4.2; RULE-M03-003; SC-M03-007/E8.3; SC-M03-008/M2; SC-M03-008/E3.2; SC-M03-019/M2; AUT-M03-002; SC-M03-007/E8.2; SC-M03-008/M1; SC-M03-008/E6.1; SC-M03-008/E5.1; SC-M03-008/E2.1; RULE-M03-004; SC-M03-008/E1.1; SC-M03-008/E3.1; SC-M03-008/E4.1; SC-M03-008/E5.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-09 | SC-M03-009/M1; SC-M03-009/M2; SC-M03-009/E1.1; SC-M03-009/E5.1; SC-M03-009/E3.1; SC-M03-019/E2.1; SC-M03-020/E2.1; SC-M03-009/E2.1; SC-M03-019/M2; SC-M03-019/E1.1; SC-M03-020/M2; SC-M03-020/E1.1; SC-M03-009/E4.1; SC-M03-019/M1; SC-M03-020/M1; SC-M03-020/E5.1; SC-M03-020/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-10 | SC-M03-009/E5.1; SC-M03-019/M2; AUT-M03-004; AUT-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-11 | SC-M03-011/M1; SC-M03-011/M2; SC-M03-011/M3; SC-M03-011/M4; SC-M03-011/E6.1; SC-M03-011/E7.1; SC-M03-011/E10.1; SC-M03-011/E10.3; SC-M03-011/E11.3; SC-M03-011/E12.3; SC-M03-011/E13.3; SC-M03-011/E14.3; SC-M03-011/E15.3; SC-M03-011/E16.3; SC-M03-011/V2.1; SC-M03-011/V2.2; SC-M03-011/V2.3; SC-M03-011/E1.1; SC-M03-011/E3.1; SC-M03-011/E2.1; SC-M03-011/E4.1; SC-M03-011/M6; SC-M03-011/E8.1; SC-M03-011/V2.4; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-12 | SC-M03-007/M2; SC-M03-007/E9.1; SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/V2.4; SC-M03-012/M2; RULE-M03-005; SC-M03-007/E9.2; SC-M03-007/E9.3; SC-M03-012/M1; SC-M03-012/V1.2; SC-M03-012/V1.1; SC-M03-007/V2.1; SC-M03-007/V2.2; SC-M03-012/E1.1; SC-M03-012/V2.1; SC-M03-012/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-13 | SC-M03-013/M1; SC-M03-013/M2; SC-M03-013/E1.1; SC-M03-017/M2; SC-M03-017/E1.1; SC-M03-013/E2.1; SC-M03-017/M1; SC-M03-017/E2.1; SC-M03-017/E4.1; SC-M03-017/E5.1; SC-M03-017/E6.1; SC-M03-017/E7.1; SC-M03-017/E8.1; SC-M03-017/V2.1; SC-M03-017/V2.2; SC-M03-017/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-14 | SC-M03-014/M1; SC-M03-014/M2; RULE-M03-004; SC-M03-014/V2.2; SC-M03-014/V3.2; SC-M03-014/E1.1; SC-M03-021/E1.1; SC-M03-014/E2.1; SC-M03-021/E2.1; SC-M03-014/E3.1; SC-M03-014/V2.1; SC-M03-014/V3.1; SC-M03-021/M1; SC-M03-021/M2; SC-M03-021/V2.1; SC-M03-021/V2.2; SC-M03-021/V3.1; SC-M03-021/V3.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-11 | SC-M03-011/M1; SC-M03-011/M2; SC-M03-011/M3; SC-M03-011/M4; SC-M03-011/E6.1; SC-M03-011/E7.1; SC-M03-011/E10.1; SC-M03-011/E10.3; SC-M03-011/E11.3; SC-M03-011/E12.3; SC-M03-011/E13.3; SC-M03-011/E14.3; SC-M03-011/E15.3; SC-M03-011/E16.3; SC-M03-011/E21.1; SC-M03-011/E21.2; SC-M03-011/E21.3; SC-M03-011/E1.1; SC-M03-011/E3.1; SC-M03-011/E2.1; SC-M03-011/E4.1; SC-M03-011/M6; SC-M03-011/E8.1; SC-M03-011/E21.4; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-12 | SC-M03-007/M2; SC-M03-007/E9.1; SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/E21.4; SC-M03-012/M2; RULE-M03-005; SC-M03-007/E9.2; SC-M03-007/E9.3; SC-M03-012/M1; SC-M03-012/E2.2; SC-M03-012/E2.1; SC-M03-007/E11.1; SC-M03-007/E11.2; SC-M03-012/E1.1; SC-M03-012/E3.1; SC-M03-012/E3.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-13 | SC-M03-013/M1; SC-M03-013/M2; SC-M03-013/E1.1; SC-M03-017/M2; SC-M03-017/E1.1; SC-M03-013/E2.1; SC-M03-017/M1; SC-M03-017/E2.1; SC-M03-017/E4.1; SC-M03-017/E5.1; SC-M03-017/E6.1; SC-M03-017/E7.1; SC-M03-017/E8.1; SC-M03-017/E10.1; SC-M03-017/E10.2; SC-M03-017/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-14 | SC-M03-014/M1; SC-M03-014/M2; RULE-M03-004; SC-M03-014/E5.2; SC-M03-014/E6.2; SC-M03-014/E1.1; SC-M03-021/E1.1; SC-M03-014/E2.1; SC-M03-021/E2.1; SC-M03-014/E3.1; SC-M03-014/E5.1; SC-M03-014/E6.1; SC-M03-021/M1; SC-M03-021/M2; SC-M03-021/E4.1; SC-M03-021/E4.2; SC-M03-021/E5.1; SC-M03-021/E5.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-15 | SC-M03-015/M1; SC-M03-015/M2; SC-M03-015/E3.1; SC-M03-015/E1.1; SC-M03-015/E2.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-16 | SC-M03-015/M2; SC-M03-016/M2; AUT-M03-003; SC-M03-016/M1; SC-M03-016/E4.1; SC-M03-016/E5.1; SC-M03-016/E6.1; SC-M03-016/E1.1; SC-M03-016/E2.1; SC-M03-016/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-17 | SC-M03-018/M2; SC-M03-018/V2.2; AUT-M03-003; SC-M03-018/E2.1; SC-M03-018/V2.1; SC-M03-018/V3.1; SC-M03-018/V3.2; SC-M03-018/V4.1; SC-M03-018/V4.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-17 | SC-M03-018/M2; SC-M03-018/E4.2; AUT-M03-003; SC-M03-018/E2.1; SC-M03-018/E4.1; SC-M03-018/E5.1; SC-M03-018/E5.2; SC-M03-018/E6.1; SC-M03-018/E6.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-01.01 | SC-M03-001/M1; SC-M03-001/M5; SC-M03-001/M6; SC-M03-001/E4.1; SC-M03-001/E5.1; SC-M03-001/E5.2; SC-M03-001/E5.3; SC-M03-001/E5.4; SC-M03-001/E7.4; SC-M03-001/E8.3; SC-M03-001/E9.3; SC-M03-001/E10.3; SC-M03-001/E11.3; SC-M03-001/E12.3; SC-M03-001/E13.3; SC-M03-001/E15.4; SC-M03-001/E21.3; SC-M03-001/E22.3 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-01.02 | SC-M03-001/M2; SC-M03-001/M4; SC-M03-001/E5.2; RULE-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-01.03 | SC-M03-001/M2; SC-M03-001/M3; SC-M03-001/M4; RULE-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
@@ -2590,13 +2622,13 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | FR-M03-04.02 | SC-M03-004/M2; SC-M03-004/E11.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-04.03 | SC-M03-004/E8.1; SC-M03-004/E9.1; SC-M03-004/E10.1; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-04.04 | SC-M03-004/E9.1; SC-M03-004/E13.1; SC-M03-004/E26.3; SC-M03-011/E7.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-04.05 | SC-M03-004/E18.1; SC-M03-004/E19.1; SC-M03-004/E20.1; SC-M03-004/E21.1; SC-M03-004/E22.1; SC-M03-004/E23.1; SC-M03-004/E24.1; SC-M03-004/E28.1; SC-M03-004/E29.1; SC-M03-004/V3.1; SC-M03-004/V4.1; RULE-M03-GROUP | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-04.05 | SC-M03-004/E18.1; SC-M03-004/E19.1; SC-M03-004/E20.1; SC-M03-004/E21.1; SC-M03-004/E22.1; SC-M03-004/E23.1; SC-M03-004/E24.1; SC-M03-004/E28.1; SC-M03-004/E29.1; SC-M03-004/E32.1; SC-M03-004/E33.1; RULE-M03-GROUP | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-04.06 | SC-M03-004/M2; SC-M03-004/E1.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-04.07 | SC-M03-004/M2; SC-M03-004/E2.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-04.08 | SC-M03-004/M2; SC-M03-004/E4.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-04.09 | SC-M03-004/M2; SC-M03-004/E5.1; SC-M03-004/E10.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-04.10 | SC-M03-004/M2; SC-M03-004/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-04.11 | SC-M03-004/V2.1; SC-M03-004/V2.2; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-04.11 | SC-M03-004/E31.1; SC-M03-004/E31.2; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-05.01 | SC-M03-004/M4; SC-M03-004/E14.4; AUT-M03-001; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-05.02 | SC-M03-004/E11.2; SC-M03-004/E16.4; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-05.03 | SC-M03-004/E12.2; SC-M03-004/E17.4; SC-M03-004/E26.2; SC-M03-004/E27.2; AUT-M03-001; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
@@ -2611,37 +2643,37 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | FR-M03-05.12 | SC-M03-004/E12.2; SC-M03-004/E17.4; SC-M03-004/E26.2; SC-M03-004/E27.2; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-05.13 | SC-M03-004/E12.2; SC-M03-004/E13.1; SC-M03-004/E26.3; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-05.14 | SC-M03-011/E6.1; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-05.15 | SC-M03-004/V2.2; SC-M03-011/V2.4; SC-M03-017/V2.2; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-05.15 | SC-M03-004/E31.2; SC-M03-011/E21.4; SC-M03-017/E10.2; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-06.01 | SC-M03-006/M1; SC-M03-006/M2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-06.02 | SC-M03-006/M3; SC-M03-006/M4; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-06.03 | SC-M03-006/E1.1; SC-M03-006/E1.2; SC-M03-006/E2.3; SC-M03-006/E2.4; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-06.04 | SC-M03-006/E2.1; SC-M03-006/E2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-06.05 | SC-M03-006/E1.2; SC-M03-006/E2.4; SC-M03-007/E5.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-06.06 | SC-M03-006/M2; SC-M03-006/M4; SC-M03-006/E1.2; SC-M03-006/E2.4; SC-M03-006/E3.1; SC-M03-006/E4.1; SC-M03-006/V2.1; SC-M03-006/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-06.06 | SC-M03-006/M2; SC-M03-006/M4; SC-M03-006/E1.2; SC-M03-006/E2.4; SC-M03-006/E3.1; SC-M03-006/E4.1; SC-M03-006/E7.1; SC-M03-006/E7.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-06.07 | SC-M03-006/M4; SC-M03-006/E1.2; SC-M03-006/E2.4; SC-M03-006/E5.1; SC-M03-015/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07.01 | SC-M03-007/M1; SC-M03-007/M2; SC-M03-007/E3.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.1; SC-M03-007/V1.2; SC-M03-007/V2.1; SC-M03-007/V2.2; SC-M03-012/V2.1; SC-M03-012/V2.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07.02 | SC-M03-007/M2; SC-M03-007/E1.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; SC-M03-007/V2.1; SC-M03-007/V2.2; SC-M03-012/V2.1; SC-M03-012/V2.2; SC-M03-018/V2.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07.03 | SC-M03-007/M2; SC-M03-007/E5.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07.04 | SC-M03-007/M2; SC-M03-007/E5.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07.05 | SC-M03-007/M2; SC-M03-007/E4.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; SC-M03-007/V2.2; SC-M03-012/V2.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07.06 | SC-M03-001/V1.1; SC-M03-001/V1.2; SC-M03-004/V1.1; SC-M03-004/V1.2; SC-M03-006/V1.1; SC-M03-006/V1.2; SC-M03-008/V1.1; SC-M03-008/V1.2; SC-M03-009/V1.1; SC-M03-009/V1.2; SC-M03-011/V1.1; SC-M03-011/V1.2; SC-M03-013/V1.1; SC-M03-013/V1.2; SC-M03-014/V1.1; SC-M03-014/V1.2; SC-M03-015/V1.1; SC-M03-015/V1.2; SC-M03-016/V1.1; SC-M03-016/V1.2; SC-M03-017/V1.1; SC-M03-017/V1.2; SC-M03-018/V1.1; SC-M03-018/V1.2; SC-M03-019/V1.1; SC-M03-019/V1.2; SC-M03-020/V1.1; SC-M03-020/V1.2; SC-M03-021/V1.1; SC-M03-021/V1.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07.07 | SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; SC-M03-018/V3.1; SC-M03-018/V3.2; SC-M03-018/V4.1; SC-M03-018/V4.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07.01 | SC-M03-007/M1; SC-M03-007/M2; SC-M03-007/E3.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.1; SC-M03-007/E10.2; SC-M03-007/E11.1; SC-M03-007/E11.2; SC-M03-012/E3.1; SC-M03-012/E3.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07.02 | SC-M03-007/M2; SC-M03-007/E1.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; SC-M03-007/E11.1; SC-M03-007/E11.2; SC-M03-012/E3.1; SC-M03-012/E3.2; SC-M03-018/E4.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07.03 | SC-M03-007/M2; SC-M03-007/E5.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07.04 | SC-M03-007/M2; SC-M03-007/E5.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07.05 | SC-M03-007/M2; SC-M03-007/E4.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; SC-M03-007/E11.2; SC-M03-012/E3.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07.06 | SC-M03-001/E23.1; SC-M03-001/E23.2; SC-M03-004/E30.1; SC-M03-004/E30.2; SC-M03-006/E6.1; SC-M03-006/E6.2; SC-M03-008/E7.1; SC-M03-008/E7.2; SC-M03-009/E6.1; SC-M03-009/E6.2; SC-M03-011/E20.1; SC-M03-011/E20.2; SC-M03-013/E3.1; SC-M03-013/E3.2; SC-M03-014/E4.1; SC-M03-014/E4.2; SC-M03-015/E4.1; SC-M03-015/E4.2; SC-M03-016/E7.1; SC-M03-016/E7.2; SC-M03-017/E9.1; SC-M03-017/E9.2; SC-M03-018/E3.1; SC-M03-018/E3.2; SC-M03-019/E3.1; SC-M03-019/E3.2; SC-M03-020/E6.1; SC-M03-020/E6.2; SC-M03-021/E3.1; SC-M03-021/E3.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07.07 | SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; SC-M03-018/E5.1; SC-M03-018/E5.2; SC-M03-018/E6.1; SC-M03-018/E6.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-07.08 | SC-M03-018/M1; SC-M03-018/M2; SC-M03-018/E2.1; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-07.09 | SC-M03-018/M2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-07.10 | SC-M03-018/M2; SC-M03-018/E1.1; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-07.11 | SC-M03-018/V2.1; SC-M03-018/V2.2; SC-M03-018/V3.1; SC-M03-018/V3.2; SC-M03-018/V4.1; SC-M03-018/V4.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-07.11 | SC-M03-018/E4.1; SC-M03-018/E4.2; SC-M03-018/E5.1; SC-M03-018/E5.2; SC-M03-018/E6.1; SC-M03-018/E6.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-08.01 | SC-M03-007/E8.2; SC-M03-007/E8.3; SC-M03-008/M1; SC-M03-008/M2; SC-M03-008/E6.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-08.02 | SC-M03-008/E5.1; SC-M03-008/E5.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-08.03 | SC-M03-007/E8.3; SC-M03-008/M1; SC-M03-008/M2; SC-M03-008/E5.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-08.04 | SC-M03-008/E3.1; SC-M03-008/E3.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-08.05 | SC-M03-008/E4.1; SC-M03-008/E4.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-08.06 | SC-M03-008/E1.1; SC-M03-019/M2; AUT-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-08.07 | SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; SC-M03-008/E4.2; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-08.08 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/V1.2; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-08.09 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.3; SC-M03-007/V1.2; SC-M03-008/M2; SC-M03-008/E3.2; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-08.10 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/V1.2; SC-M03-019/M2; AUT-M03-002; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-08.07 | SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; SC-M03-008/E4.2; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-08.08 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E10.2; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-08.09 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.3; SC-M03-007/E10.2; SC-M03-008/M2; SC-M03-008/E3.2; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-08.10 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E10.2; SC-M03-019/M2; AUT-M03-002; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-08.11 | SC-M03-008/M2; SC-M03-008/E6.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-08.12 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.3; SC-M03-007/V1.2; SC-M03-008/M2; SC-M03-008/E3.2; SC-M03-019/M2; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-08.12 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.3; SC-M03-007/E10.2; SC-M03-008/M2; SC-M03-008/E3.2; SC-M03-019/M2; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-08.13 | SC-M03-007/E8.3; SC-M03-008/M2; SC-M03-008/E2.1; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-09.01 | SC-M03-009/M1; SC-M03-009/M2; SC-M03-009/E1.1; SC-M03-009/E5.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-09.02 | SC-M03-009/E5.1; SC-M03-019/M1; SC-M03-019/M2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
@@ -2653,35 +2685,35 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | FR-M03-09.08 | SC-M03-009/E3.1; SC-M03-019/E2.1; SC-M03-020/M2; SC-M03-020/E2.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-10.01 | AUT-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-10.02 | SC-M03-009/E5.1; SC-M03-019/M2; AUT-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-11.01 | SC-M03-011/M1; SC-M03-011/M2; SC-M03-011/M3; SC-M03-011/M4; SC-M03-011/E6.1; SC-M03-011/E7.1; SC-M03-011/E10.1; SC-M03-011/E10.3; SC-M03-011/E11.3; SC-M03-011/E12.3; SC-M03-011/E13.3; SC-M03-011/E14.3; SC-M03-011/E15.3; SC-M03-011/E16.3; SC-M03-011/V2.1; SC-M03-011/V2.2; SC-M03-011/V2.3 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-11.02 | SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/E6.1; SC-M03-011/E7.1; SC-M03-011/E8.1; SC-M03-011/V2.4; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-11.01 | SC-M03-011/M1; SC-M03-011/M2; SC-M03-011/M3; SC-M03-011/M4; SC-M03-011/E6.1; SC-M03-011/E7.1; SC-M03-011/E10.1; SC-M03-011/E10.3; SC-M03-011/E11.3; SC-M03-011/E12.3; SC-M03-011/E13.3; SC-M03-011/E14.3; SC-M03-011/E15.3; SC-M03-011/E16.3; SC-M03-011/E21.1; SC-M03-011/E21.2; SC-M03-011/E21.3 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-11.02 | SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/E6.1; SC-M03-011/E7.1; SC-M03-011/E8.1; SC-M03-011/E21.4; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-11.03 | SC-M03-011/M4 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-11.04 | SC-M03-011/M2; SC-M03-011/M4; SC-M03-011/E1.1; SC-M03-011/E3.1; SC-M03-011/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-11.04 | SC-M03-011/M2; SC-M03-011/M4; SC-M03-011/E1.1; SC-M03-011/E3.1; SC-M03-011/E21.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-11.05 | RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-11.06 | RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-11.07 | SC-M03-011/M2; SC-M03-011/M4; SC-M03-011/E2.1; SC-M03-011/E4.1; SC-M03-011/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-12.01 | SC-M03-007/M2; SC-M03-007/E9.1; SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/V2.4; SC-M03-012/M2; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-12.02 | SC-M03-007/E9.2; SC-M03-007/E9.3; SC-M03-012/M1; SC-M03-012/M2; SC-M03-012/V1.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-12.03 | SC-M03-007/E9.3; SC-M03-012/M2; SC-M03-012/V1.1; SC-M03-012/V1.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-12.04 | SC-M03-007/E9.3; SC-M03-007/V2.1; SC-M03-007/V2.2; SC-M03-012/M2; SC-M03-012/E1.1; SC-M03-012/V1.2; SC-M03-012/V2.1; SC-M03-012/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-11.07 | SC-M03-011/M2; SC-M03-011/M4; SC-M03-011/E2.1; SC-M03-011/E4.1; SC-M03-011/E21.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-12.01 | SC-M03-007/M2; SC-M03-007/E9.1; SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/E21.4; SC-M03-012/M2; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-12.02 | SC-M03-007/E9.2; SC-M03-007/E9.3; SC-M03-012/M1; SC-M03-012/M2; SC-M03-012/E2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-12.03 | SC-M03-007/E9.3; SC-M03-012/M2; SC-M03-012/E2.1; SC-M03-012/E2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-12.04 | SC-M03-007/E9.3; SC-M03-007/E11.1; SC-M03-007/E11.2; SC-M03-012/M2; SC-M03-012/E1.1; SC-M03-012/E2.2; SC-M03-012/E3.1; SC-M03-012/E3.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-13.01 | SC-M03-013/M1; SC-M03-013/M2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-13.02 | SC-M03-017/M1; SC-M03-017/M2; SC-M03-017/E2.1; SC-M03-017/E4.1; SC-M03-017/E5.1; SC-M03-017/E6.1; SC-M03-017/E7.1; SC-M03-017/E8.1; SC-M03-017/V2.1; SC-M03-017/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-13.02 | SC-M03-017/M1; SC-M03-017/M2; SC-M03-017/E2.1; SC-M03-017/E4.1; SC-M03-017/E5.1; SC-M03-017/E6.1; SC-M03-017/E7.1; SC-M03-017/E8.1; SC-M03-017/E10.1; SC-M03-017/E10.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-13.03 | SC-M03-013/M2; SC-M03-013/E1.1; SC-M03-017/M2; SC-M03-017/E1.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-13.04 | SC-M03-013/M2; SC-M03-013/E2.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-13.05 | SC-M03-017/M2; SC-M03-017/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-13.06 | SC-M03-017/M2; SC-M03-017/E4.1; SC-M03-017/E5.1; SC-M03-017/E6.1; SC-M03-017/E7.1; SC-M03-017/E8.1; SC-M03-017/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-13.06 | SC-M03-017/M2; SC-M03-017/E4.1; SC-M03-017/E5.1; SC-M03-017/E6.1; SC-M03-017/E7.1; SC-M03-017/E8.1; SC-M03-017/E10.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-14.01 | SC-M03-014/M1; SC-M03-014/M2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-14.02 | SC-M03-014/V2.1; SC-M03-014/V2.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-14.03 | SC-M03-014/V3.1; SC-M03-014/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-14.04 | SC-M03-014/M2; SC-M03-014/V2.2; SC-M03-014/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-14.05 | SC-M03-014/M2; SC-M03-014/V2.2; SC-M03-014/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-14.06 | SC-M03-014/V2.2; SC-M03-014/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-14.02 | SC-M03-014/E5.1; SC-M03-014/E5.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-14.03 | SC-M03-014/E6.1; SC-M03-014/E6.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-14.04 | SC-M03-014/M2; SC-M03-014/E5.2; SC-M03-014/E6.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-14.05 | SC-M03-014/M2; SC-M03-014/E5.2; SC-M03-014/E6.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-14.06 | SC-M03-014/E5.2; SC-M03-014/E6.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-14.07 | SC-M03-021/M1; SC-M03-021/M2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-14.08 | SC-M03-021/V2.1; SC-M03-021/V2.2; SC-M03-021/V3.1; SC-M03-021/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-14.08 | SC-M03-021/E4.1; SC-M03-021/E4.2; SC-M03-021/E5.1; SC-M03-021/E5.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-14.09 | SC-M03-014/E1.1; SC-M03-021/E1.1; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-14.10 | SC-M03-014/E3.1; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-14.11 | SC-M03-014/E2.1; SC-M03-021/E2.1; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-14.12 | SC-M03-014/V2.2; SC-M03-014/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-14.12 | SC-M03-014/E5.2; SC-M03-014/E6.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-15.01 | SC-M03-015/M1; SC-M03-015/M2; SC-M03-015/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-15.02 | SC-M03-015/M2; SC-M03-015/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-15.03 | SC-M03-015/M2; SC-M03-015/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
@@ -2695,9 +2727,9 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | FR-M03-16.05 | SC-M03-016/M2; SC-M03-016/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-16.06 | SC-M03-016/E5.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-17.01 | AUT-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-17.02 | SC-M03-018/M2; SC-M03-018/V2.2; AUT-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-17.02 | SC-M03-018/M2; SC-M03-018/E4.2; AUT-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | FR-M03-17.03 | SC-M03-018/M2; AUT-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| FR-M03-17.04 | SC-M03-018/E2.1; SC-M03-018/V2.1; SC-M03-018/V2.2; SC-M03-018/V3.1; SC-M03-018/V3.2; SC-M03-018/V4.1; SC-M03-018/V4.2; AUT-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| FR-M03-17.04 | SC-M03-018/E2.1; SC-M03-018/E4.1; SC-M03-018/E4.2; SC-M03-018/E5.1; SC-M03-018/E5.2; SC-M03-018/E6.1; SC-M03-018/E6.2; AUT-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-01 | SC-M03-001/M2; RULE-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-02 | SC-M03-001/M2; SC-M03-001/E8.2; SC-M03-001/E9.2; SC-M03-001/E10.2; SC-M03-001/E11.2; SC-M03-001/E12.2; SC-M03-001/E13.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-03 | SC-M03-001/M2; SC-M03-001/M4; RULE-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
@@ -2712,10 +2744,10 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | BR-M03-12 | SC-M03-001/E15.4; SC-M03-009/M2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-13 | SC-M03-008/E1.1; SC-M03-009/E3.1; SC-M03-009/E5.1; SC-M03-019/M2; SC-M03-019/E2.1; SC-M03-020/E2.1; AUT-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-14 | SC-M03-009/M2; SC-M03-009/E1.1; SC-M03-009/E3.1; SC-M03-009/E5.1; SC-M03-019/M2; SC-M03-019/E2.1; SC-M03-020/E2.1; AUT-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-15 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.3; SC-M03-007/V1.2; SC-M03-008/M2; SC-M03-019/M2; AUT-M03-002; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-15 | SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.3; SC-M03-007/E10.2; SC-M03-008/M2; SC-M03-019/M2; AUT-M03-002; RULE-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-16 | SC-M03-008/E3.2; SC-M03-008/E4.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-17 | SC-M03-001/M6; SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; SC-M03-014/M2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-18 | SC-M03-007/M2; SC-M03-007/E1.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-17 | SC-M03-001/M6; SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; SC-M03-014/M2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-18 | SC-M03-007/M2; SC-M03-007/E1.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-19 | SC-M03-004/M2; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-20 | SC-M03-004/M4; SC-M03-004/E11.2; SC-M03-004/E12.2; SC-M03-004/E14.4; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-21 | SC-M03-004/E15.4; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
@@ -2724,19 +2756,19 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | BR-M03-24 | SC-M03-004/E9.1; SC-M03-004/E13.1; SC-M03-004/E26.3; SC-M03-011/E7.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-25 | SC-M03-004/E18.1; SC-M03-004/E19.1; SC-M03-004/E20.1; SC-M03-004/E21.1; SC-M03-004/E22.1; SC-M03-004/E23.1; SC-M03-004/E24.1; SC-M03-004/E28.5; SC-M03-004/E29.5; SC-M03-006/M2; RULE-M03-GROUP | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-26 | SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/E6.1; SC-M03-011/E9.2; SC-M03-011/E18.4; SC-M03-011/E19.4; SC-M03-017/M2; SC-M03-017/E4.1; SC-M03-017/E4.3; SC-M03-017/E5.1; SC-M03-017/E5.3; SC-M03-017/E6.1; SC-M03-017/E7.1; SC-M03-017/E7.5; SC-M03-017/E8.1; SC-M03-017/E8.5; AUT-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-27 | SC-M03-007/E9.3; SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/E6.1; SC-M03-011/E7.1; SC-M03-011/E8.1; SC-M03-012/M2; SC-M03-012/V1.2; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-27 | SC-M03-007/E9.3; SC-M03-011/M4; SC-M03-011/M6; SC-M03-011/E6.1; SC-M03-011/E7.1; SC-M03-011/E8.1; SC-M03-012/M2; SC-M03-012/E2.2; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-28 | RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-29 | SC-M03-013/M2; SC-M03-017/M2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-30 | SC-M03-014/M2; SC-M03-014/V2.2; SC-M03-014/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-31 | SC-M03-014/V2.2; SC-M03-014/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-32 | SC-M03-014/M2; SC-M03-014/E1.1; SC-M03-014/V2.2; SC-M03-014/V3.2; SC-M03-021/M2; SC-M03-021/E1.1; SC-M03-021/V2.2; SC-M03-021/V3.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-30 | SC-M03-014/M2; SC-M03-014/E5.2; SC-M03-014/E6.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-31 | SC-M03-014/E5.2; SC-M03-014/E6.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-32 | SC-M03-014/M2; SC-M03-014/E1.1; SC-M03-014/E5.2; SC-M03-014/E6.2; SC-M03-021/M2; SC-M03-021/E1.1; SC-M03-021/E4.2; SC-M03-021/E5.2; RULE-M03-004 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-33 | SC-M03-017/M2; SC-M03-017/E1.1; SC-M03-017/E2.1; SC-M03-017/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-34 | SC-M03-015/M2; SC-M03-015/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-35 | SC-M03-015/M2; SC-M03-016/M2; SC-M03-016/E1.1; SC-M03-016/E2.1; SC-M03-016/E3.1; SC-M03-016/E5.1; SC-M03-016/E6.1; AUT-M03-003 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-36 | SC-M03-016/M2; SC-M03-016/E1.1; SC-M03-016/E2.1; SC-M03-016/E3.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-37 | SC-M03-018/M2; SC-M03-018/V2.2; AUT-M03-003; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-37 | SC-M03-018/M2; SC-M03-018/E4.2; AUT-M03-003; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-38 | SC-M03-001/M6; SC-M03-001/E1.1; SC-M03-011/M4; SC-M03-016/M2; RULE-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-39 | SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-39 | SC-M03-007/M2; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-40 | SC-M03-004/M2; SC-M03-004/E10.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-41 | SC-M03-001/M6; SC-M03-001/E2.1; SC-M03-001/E4.1; SC-M03-001/E5.4 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-42 | SC-M03-001/M4; SC-M03-001/M6; SC-M03-001/E5.4; SC-M03-001/E6.1; SC-M03-001/E6.2; SC-M03-001/E6.3; SC-M03-001/E6.4; SC-M03-001/E6.5; SC-M03-004/M2; SC-M03-004/E7.1; SC-M03-004/E7.2; SC-M03-011/E5.1; SC-M03-011/E5.2; SC-M03-011/E5.3; SC-M03-011/E5.4; SC-M03-011/E5.5; RULE-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
@@ -2744,11 +2776,11 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | BR-M03-44 | SC-M03-001/E15.4; SC-M03-001/E21.2; SC-M03-001/E22.2; SC-M03-009/E3.1; SC-M03-019/E2.1; SC-M03-020/M2; SC-M03-020/E2.1; SC-M03-020/E4.1; SC-M03-020/E5.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-45 | SC-M03-008/M2; SC-M03-008/E6.1 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-46 | SC-M03-004/E12.2; SC-M03-004/E13.1; SC-M03-004/E17.4; SC-M03-004/E26.2; SC-M03-004/E26.3; SC-M03-004/E27.2; SC-M03-004/E27.3; SC-M03-004/E27.4; RULE-M03-005 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-47 | SC-M03-001/E5.1; SC-M03-001/E5.2; SC-M03-001/E5.4; SC-M03-011/M2; SC-M03-011/M4; SC-M03-011/E2.1; SC-M03-011/E4.1; SC-M03-011/E7.1; SC-M03-011/V2.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-47 | SC-M03-001/E5.1; SC-M03-001/E5.2; SC-M03-001/E5.4; SC-M03-011/M2; SC-M03-011/M4; SC-M03-011/E2.1; SC-M03-011/E4.1; SC-M03-011/E7.1; SC-M03-011/E21.2 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-48 | SC-M03-001/M6 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-49 | SC-M03-007/M2; SC-M03-007/E1.1; SC-M03-007/E5.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/V1.2; SC-M03-018/E2.1; SC-M03-018/V2.2; SC-M03-018/V3.2; SC-M03-018/V4.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-49 | SC-M03-007/M2; SC-M03-007/E1.1; SC-M03-007/E5.1; SC-M03-007/E6.1; SC-M03-007/E7.1; SC-M03-007/E8.1; SC-M03-007/E10.2; SC-M03-018/E2.1; SC-M03-018/E4.2; SC-M03-018/E5.2; SC-M03-018/E6.2; RULE-M03-001 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 | BR-M03-50 | SC-M03-001/M2; RULE-M03-002 | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
-| BR-M03-51 | SC-M03-004/V2.2; SC-M03-004/V3.1; SC-M03-004/V4.1; SC-M03-011/V2.4; SC-M03-017/V2.2; AUT-M03-001; RULE-M03-GROUP | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
+| BR-M03-51 | SC-M03-004/E31.2; SC-M03-004/E32.1; SC-M03-004/E33.1; SC-M03-011/E21.4; SC-M03-017/E10.2; AUT-M03-001; RULE-M03-GROUP | Có vị trí triển khai theo nguồn; cần review ngữ nghĩa |
 
 
 | UC | Guard/lựa chọn | Vị trí | Điểm tiếp tục |
@@ -2884,7 +2916,7 @@ E thay đúng bước at, không chạy sau bước đó. Guard thay dữ liệu
 | UC-M03-014 | Người yêu cầu không là tác giả, Mod hoặc Admin | SC-M03-021/E2 | END:REJECTED |
 
 
-Truy vết ngược nằm tại sources của từng bước. V là đường thay toàn bộ theo actor khác trong cùng mục tiêu; không tạo thêm BF và không nối một bước Guest vào giữa đường User. Hậu điều kiện áp theo kết quả và dữ liệu cụ thể trong nhánh, không áp đồng thời mọi snapshot.
+Truy vết ngược nằm tại sources của từng bước. E tại M1 là đường thay toàn bộ theo actor khác trong cùng mục tiêu; không tạo thêm BF và không nối một bước Guest vào giữa đường User. Hậu điều kiện áp theo kết quả và dữ liệu cụ thể trong nhánh, không áp đồng thời mọi snapshot.
 
 ## 7. Giới hạn nguồn và trạng thái
 
@@ -2903,3 +2935,43 @@ Không sửa FR/US/register hoặc tuyên bố nguồn đã duyệt. Các phần
 ## 8. Kiểm tra và bàn giao
 
 Kết quả thực tế, lệnh và giới hạn ở [QA-M03.md](QA-M03.md). Chưa có phê duyệt cuối. Chỉ tạo thư mục M03 khi ghi đầu ra.
+
+
+## Chuyển đổi ID nhánh sau QA-SC-01
+
+Ngày 11/11/2026, các biến thể vai trò được đăng ký thành E tại M1 theo skill v1.4. Bảng này giữ ID lịch sử để đối chiếu các tài liệu đã dẫn V. Mỗi hàng ánh xạ cả nhánh và các bước cùng số thứ tự, ví dụ V1.2 sang bước .2 của E tương ứng.
+
+| ID lịch sử | ID hiện hành | Điểm thay | Số bước | Nguồn |
+| --- | --- | --- | --- | --- |
+| SC-M03-001/V1 | SC-M03-001/E23 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-004/V1 | SC-M03-004/E30 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-004/V2 | SC-M03-004/E31 | M1 | 2 | FR-M03-04.11, FR-M03-05.15, BR-M03-51 |
+| SC-M03-004/V3 | SC-M03-004/E32 | M1 | 2 | FR-M03-04.05, BR-M03-51, FR-M11-12.06 |
+| SC-M03-004/V4 | SC-M03-004/E33 | M1 | 2 | FR-M03-04.05, BR-M03-51, FR-M11-12.20 |
+| SC-M03-006/V1 | SC-M03-006/E6 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-006/V2 | SC-M03-006/E7 | M1 | 2 | FR-M03-06.06 |
+| SC-M03-007/V1 | SC-M03-007/E10 | M1 | 2 | FR-M03-07.01, FR-M03-07.02, FR-M03-07.03, FR-M03-07.04, FR-M03-07.05, FR-M03-07.07, BR-M03-17, BR-M03-18, BR-M03-39, BR-M03-49, FR-M03-08.07, FR-M03-08.08, FR-M03-08.09, FR-M03-08.10, FR-M03-08.12, BR-M03-15 |
+| SC-M03-007/V2 | SC-M03-007/E11 | M1 | 2 | FR-M03-07.01, FR-M03-07.02, FR-M03-12.04, FR-M03-07.05 |
+| SC-M03-008/V1 | SC-M03-008/E7 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-009/V1 | SC-M03-009/E6 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-011/V1 | SC-M03-011/E20 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-011/V2 | SC-M03-011/E21 | M1 | 4 | FR-M03-11.01, FR-M03-11.04, FR-M03-11.07, BR-M03-47, FR-M03-11.02, FR-M03-12.01, FR-M03-05.15, BR-M03-51 |
+| SC-M03-012/V1 | SC-M03-012/E2 | M1 | 2 | FR-M03-12.03, FR-M03-12.02, FR-M03-12.04, BR-M03-27 |
+| SC-M03-012/V2 | SC-M03-012/E3 | M1 | 2 | FR-M03-07.01, FR-M03-07.02, FR-M03-12.04, FR-M03-07.05 |
+| SC-M03-013/V1 | SC-M03-013/E3 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-014/V1 | SC-M03-014/E4 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-014/V2 | SC-M03-014/E5 | M1 | 2 | FR-M03-14.02, FR-M03-14.04, FR-M03-14.05, FR-M03-14.06, FR-M03-14.12, BR-M03-30, BR-M03-31, BR-M03-32 |
+| SC-M03-014/V3 | SC-M03-014/E6 | M1 | 2 | FR-M03-14.03, FR-M03-14.04, FR-M03-14.05, FR-M03-14.06, FR-M03-14.12, BR-M03-30, BR-M03-31, BR-M03-32 |
+| SC-M03-015/V1 | SC-M03-015/E4 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-016/V1 | SC-M03-016/E7 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-017/V1 | SC-M03-017/E9 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-017/V2 | SC-M03-017/E10 | M1 | 2 | FR-M03-13.02, FR-M03-13.06, FR-M03-05.15, BR-M03-51 |
+| SC-M03-018/V1 | SC-M03-018/E3 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-018/V2 | SC-M03-018/E4 | M1 | 2 | FR-M03-07.11, FR-M03-17.04, FR-M03-07.02, FR-M03-17.02, BR-M03-37, BR-M03-49 |
+| SC-M03-018/V3 | SC-M03-018/E5 | M1 | 2 | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04, BR-M03-49 |
+| SC-M03-018/V4 | SC-M03-018/E6 | M1 | 2 | FR-M03-07.07, FR-M03-07.11, FR-M03-17.04, BR-M03-49 |
+| SC-M03-019/V1 | SC-M03-019/E3 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-020/V1 | SC-M03-020/E6 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-021/V1 | SC-M03-021/E3 | M1 | 2 | FR-M03-07.06 |
+| SC-M03-021/V2 | SC-M03-021/E4 | M1 | 2 | FR-M03-14.08, BR-M03-32 |
+| SC-M03-021/V3 | SC-M03-021/E5 | M1 | 2 | FR-M03-14.08, BR-M03-32 |

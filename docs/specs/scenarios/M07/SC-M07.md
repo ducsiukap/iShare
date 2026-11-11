@@ -1,6 +1,6 @@
 # Kịch bản nghiệp vụ — M07 Notification
 
-[Vietnamese Doc] — 2026-11-09 — Skill scenarios v1.3.
+[Vietnamese Doc] — Tái kiểm 11/11/2026 — Skill scenarios v1.4.
 
 Mục đích: triển khai mô tả chức năng và phân tích UC thành các hành trình actor hoàn thành cùng iShare. Boundary là toàn iShare; các module nội bộ vẫn là SYSTEM. ACT-005 gửi email là dịch vụ ngoài hỗ trợ tác vụ nền, không tạo BF chỉ SYSTEM–dịch vụ.
 
@@ -18,11 +18,11 @@ Mục đích: triển khai mô tả chức năng và phân tích UC thành các 
 |---|---|
 | module | M07 |
 | scope | ALL |
-| skill_version | 1.3 |
+| skill_version | 1.4 |
 | output_dir | docs/specs/scenarios/M07 |
 | status | Đang soạn |
 | completed_steps | 1, 2, 3, 4 |
-| date | 2026-11-09 |
+| date | 2026-11-11 |
 | approval_evidence | - |
 
 
@@ -52,7 +52,7 @@ FR chính thức và bản làm việc chung khớp byte/hash. US-overview hiệ
 | ACT-005 | Dịch vụ gửi email bên ngoài | external-system | FR-M07-04.01, FR-M07-04.02, FR-M07-04.09, BR-M07-11, BR-M07-26 |
 
 
-ACT-003 kế thừa ACT-002 ở quyền cá nhân, không xem thông báo người khác. Đề xuất làm Mod không được dùng cho người đã là Mod/Admin; đường V của UC006 dùng đề xuất Admin còn hiệu lực cho Mod hợp lệ. Guest chỉ có đường từ chối.
+ACT-003 kế thừa ACT-002 ở quyền cá nhân, không xem thông báo người khác. Đề xuất làm Mod không được dùng cho người đã là Mod/Admin; đường E tại M1 của UC006 dùng đề xuất Admin còn hiệu lực cho Mod hợp lệ. Guest chỉ có đường từ chối.
 
 | Bộ giả lập | Giá trị | Điểm đối soát |
 |---|---|---|
@@ -157,7 +157,7 @@ Theo dõi người dùng hoặc Topic — BF-M07-001; owner [UC-M07-001](../../u
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -185,7 +185,7 @@ ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-0
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-001 -->
 
@@ -198,6 +198,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E5 | system | M2 | Target là bài viết | E5.1 | FR-M07-01.02, BR-M07-15 |
 | E6 | system | M2 | Theo dõi chính mình | E6.1 | FR-M07-01.11, BR-M07-15 |
 | E7 | system | M2 | Bắt đầu theo dõi tài khoản BANNED | E7.1 | FR-M07-01.12, BR-M07-15 |
+| E8 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E8.1 | FR-M07-01.03 |
+| E9 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M07-01.01, FR-M07-01.04, FR-M07-01.11, FR-M07-01.12, FR-M07-02.01, FR-M07-02.02, FR-M07-02.25, FR-M07-03.01, FR-M07-03.02, BR-M07-15, BR-M07-24, BR-M07-25 |
 
 
 <!-- sc:branch SC-M07-001 E1 -->
@@ -250,24 +252,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E7.1 | SYSTEM | Hệ thống từ chối tạo quan hệ theo dõi cho yêu cầu bị cấm; không tăng số theo dõi hoặc tạo sự kiện follow. | target=U-BINH BANNED | END:REJECTED | FR-M07-01.12, BR-M07-15 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E8 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-001 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu theo dõi người dùng hoặc topic. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-01.03 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-01.03 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-001 V2 -->
+<!-- sc:branch SC-M07-001 E8 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai bấm Theo dõi trên hồ sơ Bình. | actor=U-MAI; target=U-BINH ACTIVE; Bình có 10 người theo dõi; cặp này chưa từng được báo | V2.2 | FR-M07-01.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm đăng nhập, target là người dùng khác mình và không BANNED; tạo quan hệ Mod Mai–Bình kèm thời điểm bắt đầu. Ghi nhận sự kiện người theo dõi mới lần đầu của cặp, lưu thông báo chưa đọc cho Bình theo AUT001 trước khi đẩy theo AUT003; trả quan hệ đã theo dõi cho Mod Mai. | Quan hệ U-MAI→U-BINH, bắt đầu09/11 10:00+07; count Bình10→11; thông báo của Bình có causer Mod Mai, không phải thông báo cho Mod Mai; không email | END:SUCCESS | FR-M07-01.01, FR-M07-01.04, FR-M07-01.11, FR-M07-01.12, FR-M07-02.01, FR-M07-02.02, FR-M07-02.25, FR-M07-03.01, FR-M07-03.02, BR-M07-15, BR-M07-24, BR-M07-25 |
+| --- | --- | --- | --- | --- | --- |
+| E8.1 | ACT-001 | Guest yêu cầu theo dõi người dùng hoặc topic. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E8.2 | FR-M07-01.03 |
+| E8.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-01.03 |
+
+
+**E9 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-001 E9 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-003 | Mod Mai bấm Theo dõi trên hồ sơ Bình. | actor=U-MAI; target=U-BINH ACTIVE; Bình có 10 người theo dõi; cặp này chưa từng được báo | E9.2 | FR-M07-01.01 |
+| E9.2 | SYSTEM | Hệ thống kiểm đăng nhập, target là người dùng khác mình và không BANNED; tạo quan hệ Mod Mai–Bình kèm thời điểm bắt đầu. Ghi nhận sự kiện người theo dõi mới lần đầu của cặp, lưu thông báo chưa đọc cho Bình theo AUT001 trước khi đẩy theo AUT003; trả quan hệ đã theo dõi cho Mod Mai. | Quan hệ U-MAI→U-BINH, bắt đầu09/11 10:00+07; count Bình10→11; thông báo của Bình có causer Mod Mai, không phải thông báo cho Mod Mai; không email | END:SUCCESS | FR-M07-01.01, FR-M07-01.04, FR-M07-01.11, FR-M07-01.12, FR-M07-02.01, FR-M07-02.02, FR-M07-02.25, FR-M07-03.01, FR-M07-03.02, BR-M07-15, BR-M07-24, BR-M07-25 |
 
 
 <!-- sc:end SC-M07-001 -->
@@ -284,7 +286,7 @@ Bỏ theo dõi người dùng hoặc Topic — BF-M07-002; owner [UC-M07-002](..
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -312,7 +314,7 @@ Có quan hệ đang theo dõi của chính người thao tác; kiểm phiên tro
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-002 -->
 
@@ -321,6 +323,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E1 | user-choice | M1 | Lan bỏ theo dõi Topic đang theo dõi | E1.1 | FR-M07-01.08, FR-M07-01.09, BR-M07-25 |
 | E2 | system | M2 | Target đã chuyển BANNED nhưng quan hệ cũ vẫn còn | E2.1 | FR-M07-01.08, FR-M07-01.09, FR-M07-01.13, BR-M07-15, BR-M07-25 |
 | E3 | system | M2 | Target đã chuyển DEACTIVATED nhưng quan hệ cũ vẫn còn | E3.1 | FR-M07-01.08, FR-M07-01.09, FR-M07-01.13, BR-M07-15, BR-M07-25 |
+| E4 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M07-01.03 |
+| E5 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M07-01.08, FR-M07-01.09, FR-M07-01.10, BR-M07-25 |
 
 
 <!-- sc:branch SC-M07-002 E1 -->
@@ -345,24 +349,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E3.1 | SYSTEM | Hệ thống không coi trạng thái target là đã tự xóa follow; kiểm quan hệ hiện có của Lan rồi thực hiện yêu cầu bỏ theo dõi và giảm count. Không phát thông báo. | U-BINH=DEACTIVATED; quan hệ cũ có thật, count 11→10; không thêm lệnh cấm unfollow như lệnh cấm bắt đầu follow BANNED | END:SUCCESS | FR-M07-01.08, FR-M07-01.09, FR-M07-01.13, BR-M07-15, BR-M07-25 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-002 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu bỏ theo dõi người dùng hoặc topic. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-01.03 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-01.03 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-002 V2 -->
+<!-- sc:branch SC-M07-002 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai bấm Bỏ theo dõi Bình. | Quan hệ U-MAI→U-BINH đang tồn tại; Bình ACTIVE | V2.2 | FR-M07-01.08 |
-| V2.2 | SYSTEM | Hệ thống kiểm phiên và quan hệ của Mod Mai, xóa quan hệ này, giảm số người theo dõi Bình một đơn vị và trả đã bỏ theo dõi. Không tạo thông báo cho ai; giữ dấu đã từng báo follow để lần theo dõi lại không phát lặp. | U-MAI→U-BINH không còn; count 11→10; không xóa thông báo follow đã lưu trước đây | END:SUCCESS | FR-M07-01.08, FR-M07-01.09, FR-M07-01.10, BR-M07-25 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Guest yêu cầu bỏ theo dõi người dùng hoặc topic. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E4.2 | FR-M07-01.03 |
+| E4.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-01.03 |
+
+
+**E5 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-002 E5 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-003 | Mod Mai bấm Bỏ theo dõi Bình. | Quan hệ U-MAI→U-BINH đang tồn tại; Bình ACTIVE | E5.2 | FR-M07-01.08 |
+| E5.2 | SYSTEM | Hệ thống kiểm phiên và quan hệ của Mod Mai, xóa quan hệ này, giảm số người theo dõi Bình một đơn vị và trả đã bỏ theo dõi. Không tạo thông báo cho ai; giữ dấu đã từng báo follow để lần theo dõi lại không phát lặp. | U-MAI→U-BINH không còn; count 11→10; không xóa thông báo follow đã lưu trước đây | END:SUCCESS | FR-M07-01.08, FR-M07-01.09, FR-M07-01.10, BR-M07-25 |
 
 
 <!-- sc:end SC-M07-002 -->
@@ -379,7 +383,7 @@ Xem chuông và danh sách thông báo của mình — BF-M07-003; owner [UC-M07
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -407,7 +411,7 @@ Có yêu cầu đọc danh sách; phiên/trạng thái tài khoản được ki�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-003 -->
 
@@ -421,6 +425,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E6 | system | M2 | Thông báo upvote đã đọc được gộp thêm trong cửa sổ5 phút | E6.1 | FR-M07-02.03, FR-M07-02.04, FR-M07-02.18, FR-M07-02.20, FR-M07-03.04, FR-M07-05.01, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24, BR-M07-05 |
 | E7 | system | M2 | Lan ACTIVE trở lại sau thời gian DEACTIVATED hoặc BANNED | E7.1 | FR-M07-02.26, FR-M07-05.05, FR-M07-05.09, FR-M07-03.04, FR-M07-05.01, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24 |
 | E8 | system | M2 | Người yêu cầu đang BANNED | E8.1 | FR-M07-05.09, FR-M07-02.26, BR-M07-24 |
+| E9 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M07-05.06 |
+| E10 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M07-05.01, FR-M07-03.04, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24 |
 
 
 <!-- sc:branch SC-M07-003 E1 -->
@@ -484,24 +490,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E8.1 | SYSTEM | Hệ thống không cho xem chuông/trang Thông báo; các bản ghi được tạo và giữ theo quy tắc người nhận, không xóa do bị từ chối xem. | Lan BANNED; D-NOT vẫn lưu | END:REJECTED | FR-M07-05.09, FR-M07-02.26, BR-M07-24 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-003 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu xem chuông và danh sách thông báo của mình. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-05.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-05.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-003 V2 -->
+<!-- sc:branch SC-M07-003 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai bấm chuông thông báo. | D-NOT: N001…N055 đều thuộc Mod Mai/U-MAI, cập nhật cuối của N thứ i là T−i phút, T=09/11/2026 10:00+07. N001, N003, N011 chưa đọc; 52 bản còn lại đã đọc. N001: upvote bài P701; N003: trả lời bình luận C701 trong P701; N011: nhắc tên. Các đích chuẩn còn tồn tại và Mod Mai được xem; không có bản ghi Chat trong tập này. | V2.2 | FR-M07-05.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm phiên và tài khoản không BANNED, tải thông báo của Mod Mai từ nguồn đã lưu dù đẩy trước đó có lỗi. Trả10 mục gần nhất theo lần cập nhật cuối, nhãn read/unread, giờ Việt Nam và số chưa đọc của toàn tập; chỉ mở chuông nên không đánh dấu đọc. | Hiện N001…N010; chuông=3 (gồm N011 ngoài 10 mục); N001/N003/N011 vẫn chưa đọc; Chat=3 cuộc, không cộng vào chuông | END:SUCCESS | FR-M07-03.04, FR-M07-05.01, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-001 | Guest yêu cầu xem chuông và danh sách thông báo của mình. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E9.2 | FR-M07-05.06 |
+| E9.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-05.06 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-003 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-003 | Mod Mai bấm chuông thông báo. | D-NOT: N001…N055 đều thuộc Mod Mai/U-MAI, cập nhật cuối của N thứ i là T−i phút, T=09/11/2026 10:00+07. N001, N003, N011 chưa đọc; 52 bản còn lại đã đọc. N001: upvote bài P701; N003: trả lời bình luận C701 trong P701; N011: nhắc tên. Các đích chuẩn còn tồn tại và Mod Mai được xem; không có bản ghi Chat trong tập này. | E10.2 | FR-M07-05.01 |
+| E10.2 | SYSTEM | Hệ thống kiểm phiên và tài khoản không BANNED, tải thông báo của Mod Mai từ nguồn đã lưu dù đẩy trước đó có lỗi. Trả10 mục gần nhất theo lần cập nhật cuối, nhãn read/unread, giờ Việt Nam và số chưa đọc của toàn tập; chỉ mở chuông nên không đánh dấu đọc. | Hiện N001…N010; chuông=3 (gồm N011 ngoài 10 mục); N001/N003/N011 vẫn chưa đọc; Chat=3 cuộc, không cộng vào chuông | END:SUCCESS | FR-M07-03.04, FR-M07-05.01, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24 |
 
 
 <!-- sc:end SC-M07-003 -->
@@ -518,7 +524,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -546,7 +552,7 @@ Lan có ngữ cảnh một thông báo; kiểm quyền sở hữu/phiên trướ
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-004 -->
 
@@ -560,6 +566,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E6 | user-choice | M1 | Tác giả mở thông báo bình luận của mình bị ẩn | E6.1 | FR-M07-05.13, FR-M07-06.01, FR-M07-06.02, FR-M07-05.05, FR-M07-06.04, BR-M07-14, BR-M07-27, FR-M04-06.01, FR-M04-06.04 |
 | E7 | system | M2 | Yêu cầu trỏ thông báo của người khác | E7.1 | FR-M07-05.05 |
 | E8 | system | M2 | Lan đang BANNED | E8.1 | FR-M07-05.09 |
+| E9 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E9.1 | FR-M07-05.06, FR-M07-06.06 |
+| E10 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E10.1 | FR-M07-06.01, FR-M07-06.02, FR-M07-05.05, FR-M07-05.13, FR-M07-06.04, BR-M07-14, BR-M07-27 |
 
 
 <!-- sc:branch SC-M07-004 E1 -->
@@ -620,24 +628,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E8.1 | SYSTEM | Hệ thống từ chối truy cập thông báo, không cập nhật read bằng đường trực tiếp khi tài khoản không được xem. | Lan BANNED; N003 của Lan chưa đọc vẫn giữ | END:REJECTED | FR-M07-05.09 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E9 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-004 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu đọc một thông báo và mở nội dung liên quan. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-05.06, FR-M07-06.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-05.06, FR-M07-06.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-004 V2 -->
+<!-- sc:branch SC-M07-004 E9 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai bấm N003 trong danh sách thông báo của mình. | N003 unread; target=C701 trong P701; unread tổng 3 | V2.2 | FR-M07-06.01, FR-M07-06.02 |
-| V2.2 | SYSTEM | Hệ thống kiểm phiên/quyền thông báo của Mod Mai, chuyển N003 thành đã đọc rồi kiểm đích/quyền hiện tại và đưa Mod Mai tới C701/P701 được phép xem. Giữ bản ghi thông báo và trạng thái đọc của Chat. | N003 read; chuông 3→2; bản ghi vẫn55; Chat vẫn3 cuộc; không tự đánh dấu thông báo khác | END:SUCCESS | FR-M07-05.05, FR-M07-05.13, FR-M07-06.01, FR-M07-06.02, FR-M07-06.04, BR-M07-14, BR-M07-27 |
+| --- | --- | --- | --- | --- | --- |
+| E9.1 | ACT-001 | Guest yêu cầu đọc một thông báo và mở nội dung liên quan. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E9.2 | FR-M07-05.06, FR-M07-06.06 |
+| E9.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-05.06, FR-M07-06.06 |
+
+
+**E10 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-004 E10 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E10.1 | ACT-003 | Mod Mai bấm N003 trong danh sách thông báo của mình. | N003 unread; target=C701 trong P701; unread tổng 3 | E10.2 | FR-M07-06.01, FR-M07-06.02 |
+| E10.2 | SYSTEM | Hệ thống kiểm phiên/quyền thông báo của Mod Mai, chuyển N003 thành đã đọc rồi kiểm đích/quyền hiện tại và đưa Mod Mai tới C701/P701 được phép xem. Giữ bản ghi thông báo và trạng thái đọc của Chat. | N003 read; chuông 3→2; bản ghi vẫn55; Chat vẫn3 cuộc; không tự đánh dấu thông báo khác | END:SUCCESS | FR-M07-05.05, FR-M07-05.13, FR-M07-06.01, FR-M07-06.02, FR-M07-06.04, BR-M07-14, BR-M07-27 |
 
 
 <!-- sc:end SC-M07-004 -->
@@ -654,7 +662,7 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -682,7 +690,7 @@ Có ngữ cảnh người thao tác; không yêu cầu đã tải toàn bộ b�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-005 -->
 
@@ -691,6 +699,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E1 | system | M2 | Tập thông báo đã đọc hết hoặc rỗng | E1.1 | FR-M07-06.03, FR-M07-06.05, FR-M07-05.05, BR-M07-14 |
 | E2 | system | M2 | Yêu cầu muốn đánh dấu dữ liệu của người khác | E2.1 | FR-M07-05.05 |
 | E3 | system | M2 | Tài khoản không được truy cập thông báo vì BANNED | E3.1 | FR-M07-05.09, FR-M07-06.06 |
+| E4 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E4.1 | FR-M07-06.06 |
+| E5 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M07-06.03, FR-M07-05.05, FR-M07-06.05, FR-M07-06.06, BR-M07-14 |
 
 
 <!-- sc:branch SC-M07-005 E1 -->
@@ -714,24 +724,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E3.1 | SYSTEM | Hệ thống áp quyền truy cập trước cập nhật, từ chối đường đánh dấu từ trang thông báo không được phép xem. | Lan BANNED; không thay unread từ yêu cầu này | END:REJECTED | FR-M07-05.09, FR-M07-06.06 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E4 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-005 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu đánh dấu tất cả thông báo của mình đã đọc. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-06.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-06.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-005 V2 -->
+<!-- sc:branch SC-M07-005 E4 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai bấm Đánh dấu tất cả đã đọc. | Người thao tác U-MAI; D-NOT55; chỉ đang thấy10 mục chuông | V2.2 | FR-M07-06.03 |
-| V2.2 | SYSTEM | Hệ thống kiểm phiên và phạm vi dữ liệu của Mod Mai; chuyển mọi thông báo chưa đọc của Mod Mai thành đã đọc kể cả ngoài phần đang hiển thị, giữ các bản vốn đã đọc. Trả chuông 0 và giữ mốc đọc/số cuộc Chat, không xóa thông báo. | N001, N003, N011 đều read; unread 3→0; vẫn55 bản; thông báo Bình không đổi; Chat 3 cuộc/8 tin được thấy chưa đọc giữ nguyên | END:SUCCESS | FR-M07-05.05, FR-M07-06.03, FR-M07-06.05, FR-M07-06.06, BR-M07-14 |
+| --- | --- | --- | --- | --- | --- |
+| E4.1 | ACT-001 | Guest yêu cầu đánh dấu tất cả thông báo của mình đã đọc. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E4.2 | FR-M07-06.06 |
+| E4.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-06.06 |
+
+
+**E5 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-005 E5 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-003 | Mod Mai bấm Đánh dấu tất cả đã đọc. | Người thao tác U-MAI; D-NOT55; chỉ đang thấy10 mục chuông | E5.2 | FR-M07-06.03 |
+| E5.2 | SYSTEM | Hệ thống kiểm phiên và phạm vi dữ liệu của Mod Mai; chuyển mọi thông báo chưa đọc của Mod Mai thành đã đọc kể cả ngoài phần đang hiển thị, giữ các bản vốn đã đọc. Trả chuông 0 và giữ mốc đọc/số cuộc Chat, không xóa thông báo. | N001, N003, N011 đều read; unread 3→0; vẫn55 bản; thông báo Bình không đổi; Chat 3 cuộc/8 tin được thấy chưa đọc giữ nguyên | END:SUCCESS | FR-M07-05.05, FR-M07-06.03, FR-M07-06.05, FR-M07-06.06, BR-M07-14 |
 
 
 <!-- sc:end SC-M07-005 -->
@@ -748,7 +758,7 @@ Phản hồi đề xuất làm Mod hoặc Admin — BF-M07-006; owner [UC-M07-00
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -778,7 +788,7 @@ ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-0
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-006 -->
 
@@ -796,6 +806,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E10 | user-choice | M1 | Đề xuất đã bị thay thế trước khi mở danh sách | E10.1 | FR-M07-05.02, FR-M07-02.30, FR-M07-02.32, BR-M07-20, FR-M10-02.08, FR-M07-05.05 |
 | E11 | system | M2 | Thông báo đề xuất không thuộc người đang xem | E11.1 | FR-M07-05.05, FR-M10-03.07 |
 | E12 | system | M4 | Người gửi lựa chọn khác người được đề xuất | E12.1 | FR-M10-03.07 |
+| E13 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E13.1 | FR-M07-05.06 |
+| E14 | system | M1 | ACT-003 — Người đang MODERATOR chấp nhận đề xuất làm Admin của ADMIN gốc. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E14.1 | FR-M07-05.02, FR-M07-02.14, FR-M07-03.04, FR-M07-05.01, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32, BR-M07-20, FR-M10-07.05, FR-M10-03.02, FR-M10-03.09, FR-M10-03.10, FR-M10-03.11 |
 
 
 <!-- sc:branch SC-M07-006 E1 -->
@@ -889,26 +901,26 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E12.1 | SYSTEM | Hệ thống từ chối phản hồi, không đổi vai trò hoặc quyết định của người nhận thật. | Lan gửi lựa chọn cho R841 của Bình | END:REJECTED | FR-M10-03.07 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E13 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-006 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu phản hồi đề xuất làm mod hoặc admin. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-05.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-05.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Người đang MODERATOR chấp nhận đề xuất làm Admin của ADMIN gốc. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-006 V2 -->
+<!-- sc:branch SC-M07-006 E13 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai mở thông báo đề xuất làm Admin của mình. | N844/R844 do ADMIN gốc gửi, còn hiệu lực, chưa trả lời; Mai ACTIVE/MODERATOR | V2.2 | FR-M07-05.02, FR-M07-02.14 |
-| V2.2 | SYSTEM | Hệ thống kiểm đúng Mai, tải đề xuất làm Admin hiện tại và hai lựa chọn. | N844 thuộc Mai, R844 còn hiệu lực; không phải đề xuất làm Mod cho một Mod | V2.3 | FR-M07-03.04, FR-M07-05.01, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24, FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32, BR-M07-20, FR-M10-07.05 |
-| V2.3 | ACT-003 | Mod Mai chọn Chấp nhận R844. | Mai vẫn ACTIVE/MODERATOR; đúng người nhận | V2.4 | FR-M07-02.15 |
-| V2.4 | SYSTEM | Hệ thống kiểm điều kiện M10 và đổi vai trò ADMIN ngay, ghi Đã chấp nhận, hiện lựa chọn/khóa chọn lại và giữ N844. | Mai MODERATOR→ADMIN; R844 Đã chấp nhận | END:SUCCESS | FR-M07-02.15, FR-M07-02.28, BR-M07-20, FR-M10-03.02, FR-M10-03.09, FR-M10-03.10, FR-M10-03.11 |
+| --- | --- | --- | --- | --- | --- |
+| E13.1 | ACT-001 | Guest yêu cầu phản hồi đề xuất làm mod hoặc admin. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E13.2 | FR-M07-05.06 |
+| E13.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-05.06 |
+
+
+**E14 — thay toàn bộ M1 đến kết thúc:** Người đang MODERATOR chấp nhận đề xuất làm Admin của ADMIN gốc. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-006 E14 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E14.1 | ACT-003 | Mod Mai mở thông báo đề xuất làm Admin của mình. | N844/R844 do ADMIN gốc gửi, còn hiệu lực, chưa trả lời; Mai ACTIVE/MODERATOR | E14.2 | FR-M07-05.02, FR-M07-02.14 |
+| E14.2 | SYSTEM | Hệ thống kiểm đúng Mai, tải đề xuất làm Admin hiện tại và hai lựa chọn. | N844 thuộc Mai, R844 còn hiệu lực; không phải đề xuất làm Mod cho một Mod | E14.3 | FR-M07-03.04, FR-M07-05.01, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24, FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32, BR-M07-20, FR-M10-07.05 |
+| E14.3 | ACT-003 | Mod Mai chọn Chấp nhận R844. | Mai vẫn ACTIVE/MODERATOR; đúng người nhận | E14.4 | FR-M07-02.15 |
+| E14.4 | SYSTEM | Hệ thống kiểm điều kiện M10 và đổi vai trò ADMIN ngay, ghi Đã chấp nhận, hiện lựa chọn/khóa chọn lại và giữ N844. | Mai MODERATOR→ADMIN; R844 Đã chấp nhận | END:SUCCESS | FR-M07-02.15, FR-M07-02.28, BR-M07-20, FR-M10-03.02, FR-M10-03.09, FR-M10-03.10, FR-M10-03.11 |
 
 
 <!-- sc:end SC-M07-006 -->
@@ -925,7 +937,7 @@ Kiểm tra số cuộc trò chuyện chưa đọc và mở hộp thư — BF-M07
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -953,7 +965,7 @@ Có ngữ cảnh yêu cầu kiểm tra tin mới; phiên và dữ liệu tin đ�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-007 -->
 
@@ -964,6 +976,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E3 | system | M2 | Cờ Chat tắt | E3.1 | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
 | E4 | system | M2 | Chỉ nhóm cũ có tin mới sau lúc rời, không còn tin chưa đọc được thấy | E4.1 | FR-M07-07.02, BR-M07-02, FR-M16-07.10 |
 | E5 | system | M2 | Chỉ một cuộc nhận nhiều tin chưa đọc | E5.1 | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
+| E6 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M07-07.04 |
+| E7 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E7.1 | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
 
 
 <!-- sc:branch SC-M07-007 E1 -->
@@ -1003,24 +1017,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E5.1 | SYSTEM | Hệ thống đếm cuộc có tin chưa đọc, không đếm số tin; trả1 và giữ số chuông độc lập. | C71 có 5 tin được thấy chưa đọc; mọi cuộc khác không unread; badge 1, không5 | END:SUCCESS | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E6 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-007 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu kiểm tra số cuộc trò chuyện chưa đọc và mở hộp thư. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-07.04 |
-| V1.2 | SYSTEM | Hệ thống không hiện biểu tượng Tin nhắn cho Guest; không trả dữ liệu cuộc trò chuyện. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-07.04 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-007 V2 -->
+<!-- sc:branch SC-M07-007 E6 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai mở ứng dụng để kiểm tra tin nhắn mới. | D-CHAT: C71 (1-1 với Bình) có 5 tin chưa đọc được thấy; C72 (nhóm đang là thành viên) có 2; C73 (nhóm đã rời09:00) có 1 tin08:50 chưa đọc, 1 tin09:10 không được thấy, mốc đọc08:30. C74 không có quyền nên không tính; C75 là nhóm cũ chỉ có tin sau lúc rời nên không tính. Số cuộc chưa đọc=3, số tin chưa đọc được thấy=8. C71 mute riêng, C72 Đang nhận, global mute=false. | V2.2 | FR-M07-07.01, FR-M07-07.02 |
-| V2.2 | SYSTEM | Hệ thống xác định Mod Mai có phiên, lấy mốc đọc và tin được thấy từ M16; đếm mỗi cuộc có ít nhất một tin chưa đọc được thấy một lần, kể cả cuộc mute. Hiện biểu tượng Tin nhắn riêng với số3, tách chuông; không tự đánh dấu tin hay thông báo đã đọc. | C71, C72, C73 đóng góp3; C74/C75 không góp; 8 tin được thấy không biến thành badge 8; chuông 3 giữ riêng | END:SUCCESS | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-001 | Guest yêu cầu kiểm tra số cuộc trò chuyện chưa đọc và mở hộp thư. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E6.2 | FR-M07-07.04 |
+| E6.2 | SYSTEM | Hệ thống không hiện biểu tượng Tin nhắn cho Guest; không trả dữ liệu cuộc trò chuyện. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-07.04 |
+
+
+**E7 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-007 E7 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E7.1 | ACT-003 | Mod Mai mở ứng dụng để kiểm tra tin nhắn mới. | D-CHAT: C71 (1-1 với Bình) có 5 tin chưa đọc được thấy; C72 (nhóm đang là thành viên) có 2; C73 (nhóm đã rời09:00) có 1 tin08:50 chưa đọc, 1 tin09:10 không được thấy, mốc đọc08:30. C74 không có quyền nên không tính; C75 là nhóm cũ chỉ có tin sau lúc rời nên không tính. Số cuộc chưa đọc=3, số tin chưa đọc được thấy=8. C71 mute riêng, C72 Đang nhận, global mute=false. | E7.2 | FR-M07-07.01, FR-M07-07.02 |
+| E7.2 | SYSTEM | Hệ thống xác định Mod Mai có phiên, lấy mốc đọc và tin được thấy từ M16; đếm mỗi cuộc có ít nhất một tin chưa đọc được thấy một lần, kể cả cuộc mute. Hiện biểu tượng Tin nhắn riêng với số3, tách chuông; không tự đánh dấu tin hay thông báo đã đọc. | C71, C72, C73 đóng góp3; C74/C75 không góp; 8 tin được thấy không biến thành badge 8; chuông 3 giữ riêng | END:SUCCESS | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
 
 
 <!-- sc:end SC-M07-007 -->
@@ -1037,7 +1051,7 @@ Bật hoặc tắt nhận thông báo tương tác theo bài — BF-M07-008; own
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -1067,13 +1081,15 @@ Có bài và người thao tác; không cần là tác giả hoặc đã từng 
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-008 -->
 
 | id | kind | at | condition | entry | sources |
 |---|---|---|---|---|---|
 | E1 | user-choice | M2 | Bài đang mute, Lan chọn nhận lại | E1.1 | FR-M07-08.01, FR-M07-08.03, FR-M07-08.04, BR-M07-07 |
+| E2 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E2.1 | FR-M07-08.05 |
+| E3 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M07-08.01, FR-M07-08.02, FR-M07-08.03, FR-M07-08.04, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, BR-M07-06, BR-M07-07 |
 
 
 <!-- sc:branch SC-M07-008 E1 -->
@@ -1085,26 +1101,26 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E1.3 | SYSTEM | Hệ thống bỏ ghi nhận mute Lan–P701, trả đang nhận; các sự kiện đủ điều kiện từ thời điểm này được nhận bình thường. Không tự phát lại các sự kiện đã bị chặn trước đó vì nguồn chưa có chính sách đó. | mute=false từ09/11 10:00; thông báo cũ/read-unread giữ theo dữ liệu đang có | END:SUCCESS | FR-M07-08.03, FR-M07-08.04, BR-M07-07 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E2 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-008 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu bật hoặc tắt nhận thông báo tương tác theo bài. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-08.05 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-08.05 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-008 V2 -->
+<!-- sc:branch SC-M07-008 E2 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai mở P701 để thay cài đặt nhận thông báo cho bài này. | D-POST: P701 của Bình, Đã đăng/Bình thường, ngoài nhóm, Mod Mai được xem; Mod Mai chưa từng tương tác và đang nhận thông báo bài. Bình và các người dùng khác có cài đặt riêng, không đổi theo Mod Mai. | V2.2 | FR-M07-08.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm ngữ cảnh đăng nhập/quyền bài và hiện công tắc Tắt thông báo cho bài này cùng cài đặt cá nhân hiện tại. Không buộc Mod Mai đã viết/vote bài. | U-MAI/P701: đang nhận; công tắc Tắt đang=false | V2.3 | FR-M07-08.01 |
-| V2.3 | ACT-003 | Mod Mai bật Tắt thông báo cho bài này. | U-MAI/P701: muốn mute=true | V2.4 | FR-M07-08.02 |
-| V2.4 | SYSTEM | Hệ thống lưu mute cho cặp Mod Mai–P701, trả cài đặt đã tắt. Từ hiệu lực cài đặt chặn bình luận mới, trả lời, upvote bài và upvote bình luận của Mod Mai trong bài; nhắc tên/thông báo xử lý khác vẫn theo quyền/người nhận chung. Người khác và thông báo đã lưu không bị đổi. | mute(U-MAI, P701)=true; Bình vẫn nhận theo cài đặt của Bình; D-NOT55 vẫn giữ, unread 3 không tự về0 | END:SUCCESS | FR-M07-08.01, FR-M07-08.02, FR-M07-08.03, FR-M07-08.04, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, BR-M07-06, BR-M07-07 |
+| --- | --- | --- | --- | --- | --- |
+| E2.1 | ACT-001 | Guest yêu cầu bật hoặc tắt nhận thông báo tương tác theo bài. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E2.2 | FR-M07-08.05 |
+| E2.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-08.05 |
+
+
+**E3 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-008 E3 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-003 | Mod Mai mở P701 để thay cài đặt nhận thông báo cho bài này. | D-POST: P701 của Bình, Đã đăng/Bình thường, ngoài nhóm, Mod Mai được xem; Mod Mai chưa từng tương tác và đang nhận thông báo bài. Bình và các người dùng khác có cài đặt riêng, không đổi theo Mod Mai. | E3.2 | FR-M07-08.01 |
+| E3.2 | SYSTEM | Hệ thống kiểm ngữ cảnh đăng nhập/quyền bài và hiện công tắc Tắt thông báo cho bài này cùng cài đặt cá nhân hiện tại. Không buộc Mod Mai đã viết/vote bài. | U-MAI/P701: đang nhận; công tắc Tắt đang=false | E3.3 | FR-M07-08.01 |
+| E3.3 | ACT-003 | Mod Mai bật Tắt thông báo cho bài này. | U-MAI/P701: muốn mute=true | E3.4 | FR-M07-08.02 |
+| E3.4 | SYSTEM | Hệ thống lưu mute cho cặp Mod Mai–P701, trả cài đặt đã tắt. Từ hiệu lực cài đặt chặn bình luận mới, trả lời, upvote bài và upvote bình luận của Mod Mai trong bài; nhắc tên/thông báo xử lý khác vẫn theo quyền/người nhận chung. Người khác và thông báo đã lưu không bị đổi. | mute(U-MAI, P701)=true; Bình vẫn nhận theo cài đặt của Bình; D-NOT55 vẫn giữ, unread 3 không tự về0 | END:SUCCESS | FR-M07-08.01, FR-M07-08.02, FR-M07-08.03, FR-M07-08.04, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, BR-M07-06, BR-M07-07 |
 
 
 <!-- sc:end SC-M07-008 -->
@@ -1121,7 +1137,7 @@ Bật hoặc tắt popup riêng của một cuộc trò chuyện — BF-M07-009;
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -1149,7 +1165,7 @@ Có cuộc C71 và người thao tác; đăng nhập/thành viên được kiể
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-009 -->
 
@@ -1159,6 +1175,8 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E2 | user-choice | M1 | Lan bật lại riêng C71; global mute=true | E2.1 | FR-M07-09.02, FR-M07-09.03, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
 | E3 | user-choice | M1 | Thành viên tắt popup cho nhóm chat thay cuộc1-1 | E3.1 | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
 | E4 | system | M2 | Lan không còn là thành viên cuộc | E4.1 | FR-M07-09.05 |
+| E5 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E5.1 | FR-M07-09.06 |
+| E6 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E6.1 | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
 
 
 <!-- sc:branch SC-M07-009 E1 -->
@@ -1192,24 +1210,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E4.1 | SYSTEM | Hệ thống từ chối tắt thông báo cuộc đó; không coi quyền xem tin cũ của thành viên cũ là quyền đổi cài đặt cuộc đang tham gia. | Lan đã rời C72 hoặc không thuộc C71 tại lúc xử lý | END:REJECTED | FR-M07-09.05 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E5 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-009 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu bật hoặc tắt popup riêng của một cuộc trò chuyện. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-09.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-09.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-009 V2 -->
+<!-- sc:branch SC-M07-009 E5 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai chọn tắt thông báo C71 đang là thành viên. | C71 1-1; per mute=false; global mute=false; badge 3 | V2.2 | FR-M07-09.01 |
-| V2.2 | SYSTEM | Hệ thống kiểm phiên và thành viên hiện tại, ghi mute riêng cho Mod Mai–C71, trả cài đặt đã tắt. Tin mới C71 không popup cho Mod Mai; badge vẫn đếm C71 nếu có tin chưa đọc được thấy, không đổi người khác hoặc mốc đọc. | per mute(U-MAI, C71)=true; global=false; badge 3→3; không thêm tin Chat vào chuông/email | END:SUCCESS | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
+| --- | --- | --- | --- | --- | --- |
+| E5.1 | ACT-001 | Guest yêu cầu bật hoặc tắt popup riêng của một cuộc trò chuyện. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E5.2 | FR-M07-09.06 |
+| E5.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-09.06 |
+
+
+**E6 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-009 E6 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E6.1 | ACT-003 | Mod Mai chọn tắt thông báo C71 đang là thành viên. | C71 1-1; per mute=false; global mute=false; badge 3 | E6.2 | FR-M07-09.01 |
+| E6.2 | SYSTEM | Hệ thống kiểm phiên và thành viên hiện tại, ghi mute riêng cho Mod Mai–C71, trả cài đặt đã tắt. Tin mới C71 không popup cho Mod Mai; badge vẫn đếm C71 nếu có tin chưa đọc được thấy, không đổi người khác hoặc mốc đọc. | per mute(U-MAI, C71)=true; global=false; badge 3→3; không thêm tin Chat vào chuông/email | END:SUCCESS | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
 
 
 <!-- sc:end SC-M07-009 -->
@@ -1226,7 +1244,7 @@ Bật hoặc tắt popup toàn bộ Chat — BF-M07-010; owner [UC-M07-011](../.
 
 #### 2. Actor thực hiện
 
-ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường V ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
+ACT-002 là actor chính, chủ động yêu cầu và nhận kết quả. ACT-003 kế thừa quyền cá nhân User; đường E tại M1 ghi rõ dữ liệu thuộc actor đó. ACT-001 chỉ có đường từ chối. ACT-005 không tham gia chức năng actor này; email nằm ở AUT004/005.
 
 #### 3. Tiền điều kiện
 
@@ -1254,13 +1272,15 @@ Có người thao tác và cài đặt cá nhân; kiểm phiên. Đường chu�
 
 #### 6. Các ngoại lệ
 
-E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. V thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
+E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. Guard và dữ liệu nhánh thay snapshot chuẩn cho lần chạy này; không áp đồng thời các snapshot. Mỗi đường ghi đầy đủ bước tới terminal hoặc điểm nhập lại. E tại M1 thay toàn bộ đường khi actor khởi tạo khác, không đổi danh tính giữa chừng. Không tự thêm nút OK/hủy/retry hoặc cơ chế rollback chưa có nguồn.
 
 <!-- sc:exceptions SC-M07-010 -->
 
 | id | kind | at | condition | entry | sources |
 |---|---|---|---|---|---|
 | E1 | user-choice | M1 | Lan bỏ Tắt toàn bộ Chat để nhận lại theo từng cuộc | E1.1 | FR-M07-09.04, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
+| E2 | system | M1 | ACT-001 — Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4. | E2.1 | FR-M07-09.06 |
+| E3 | system | M1 | ACT-003 — Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4. | E3.1 | FR-M07-09.03, FR-M07-09.04, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
 
 
 <!-- sc:branch SC-M07-010 E1 -->
@@ -1271,24 +1291,24 @@ E thay đúng bước at, không chạy sau khi bước đó đã hoàn tất. G
 | E1.2 | SYSTEM | Hệ thống bỏ global mute, giữ nguyên từng cài đặt riêng; trả global=false. Tin mới C71 vẫn không popup vì mute riêng; C72 có thể popup nếu đủ điều kiện, badge vẫn3. | global=false; per C71=true, C72=false; không tự bật nhận mọi cuộc | END:SUCCESS | FR-M07-09.04, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
 
 
-**V1 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
+**E2 — thay toàn bộ M1 đến kết thúc:** Guest chưa có phiên yêu cầu chức năng này. Actor khởi tạo ACT-001; END:REJECTED; dùng hậu điều kiện tương ứng mục 4.
 
-<!-- sc:role-path SC-M07-010 V1 -->
-
-| step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V1.1 | ACT-001 | Guest yêu cầu bật hoặc tắt popup toàn bộ chat. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | V1.2 | FR-M07-09.06 |
-| V1.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-09.06 |
-
-
-**V2 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
-
-<!-- sc:role-path SC-M07-010 V2 -->
+<!-- sc:branch SC-M07-010 E2 -->
 
 | step | subject | action | data | next | sources |
-|---|---|---|---|---|---|
-| V2.1 | ACT-003 | Mod Mai bật Tắt thông báo cho toàn bộ Chat. | Global false→true; C71 mute riêng=true, C72=false | V2.2 | FR-M07-09.03 |
-| V2.2 | SYSTEM | Hệ thống ghi global mute cho Mod Mai, trả đã tắt popup mọi cuộc1-1/nhóm chat, không có ngoại lệ. Giữ mute riêng từng cuộc, badge/read marker, chuông và cài đặt người khác. | global=true; per C71=true, C72=false giữ; Chat badge 3→3; chuông 3 giữ | END:SUCCESS | FR-M07-09.03, FR-M07-09.04, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
+| --- | --- | --- | --- | --- | --- |
+| E2.1 | ACT-001 | Guest yêu cầu bật hoặc tắt popup toàn bộ chat. | Chưa có phiên, không mượn dữ liệu/cài đặt của Lan | E2.2 | FR-M07-09.06 |
+| E2.2 | SYSTEM | Hệ thống từ chối thao tác cần phiên và yêu cầu đăng nhập; không tự đăng nhập hoặc sửa dữ liệu. | Không có kết quả cá nhân hoặc thay đổi từ yêu cầu Guest | END:REJECTED | FR-M07-09.06 |
+
+
+**E3 — thay toàn bộ M1 đến kết thúc:** Mod/Admin thực hiện chức năng cá nhân như User; snapshot dữ liệu/cài đặt thuộc Mod Mai thay Lan, không cấp quyền với dữ liệu người khác. Actor khởi tạo ACT-003; END:SUCCESS; dùng hậu điều kiện tương ứng mục 4.
+
+<!-- sc:branch SC-M07-010 E3 -->
+
+| step | subject | action | data | next | sources |
+| --- | --- | --- | --- | --- | --- |
+| E3.1 | ACT-003 | Mod Mai bật Tắt thông báo cho toàn bộ Chat. | Global false→true; C71 mute riêng=true, C72=false | E3.2 | FR-M07-09.03 |
+| E3.2 | SYSTEM | Hệ thống ghi global mute cho Mod Mai, trả đã tắt popup mọi cuộc1-1/nhóm chat, không có ngoại lệ. Giữ mute riêng từng cuộc, badge/read marker, chuông và cài đặt người khác. | global=true; per C71=true, C72=false giữ; Chat badge 3→3; chuông 3 giữ | END:SUCCESS | FR-M07-09.03, FR-M07-09.04, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
 
 
 <!-- sc:end SC-M07-010 -->
@@ -1350,38 +1370,38 @@ Bảng quy tắc/đối soát mô tả phản ứng theo sự kiện, không là
 
 | Mã hiệu lực | SC/bước/nhánh/quy tắc | Mức đối soát |
 |---|---|---|
-| FR-M07-01 | SC-M07-001/M1; SC-M07-001/M2; SC-M07-001/E1.1; SC-M07-001/E1.2; SC-M07-001/E2.1; SC-M07-001/V2.1; SC-M07-001/V2.2; RULE-M07-003; SC-M07-001/E6.1; SC-M07-001/E7.1; SC-M07-002/M2; SC-M07-002/V2.2; SC-M07-001/E3.1; SC-M07-001/E4.1; SC-M07-001/E5.1; SC-M07-001/V1.1; SC-M07-001/V1.2; SC-M07-002/V1.1; SC-M07-002/V1.2; SC-M07-002/M1; SC-M07-002/E1.1; SC-M07-002/E1.2; SC-M07-002/E2.1; SC-M07-002/E3.1; SC-M07-002/V2.1 | Có vị trí; chưa phê duyệt |
-| FR-M07-02 | SC-M07-001/M2; SC-M07-001/V2.2; AUT-M07-001; RULE-M07-001; SC-M07-001/E1.2; AUT-M07-006; SC-M07-003/E6.1; AUT-M07-002; SC-M07-003/E7.1; SC-M07-003/E8.1; SC-M07-006/M2; SC-M07-006/E2.1; SC-M07-006/E2.2; SC-M07-006/V2.1; SC-M07-006/V2.2; AUT-M07-007; SC-M07-006/M3; SC-M07-006/M4; SC-M07-006/E2.3; SC-M07-006/E2.4; SC-M07-006/V2.3; SC-M07-006/V2.4; SC-M07-006/E1.1; SC-M07-006/E1.2; SC-M07-006/E3.1; SC-M07-006/E8.2; SC-M07-006/E5.1; SC-M07-006/E10.2; SC-M07-006/E4.1; SC-M07-006/E9.2; SC-M07-008/M4; SC-M07-008/V2.4; RULE-M07-005; AUT-M07-008 | Có vị trí; chưa phê duyệt |
-| FR-M07-03 | SC-M07-001/M2; SC-M07-001/V2.2; AUT-M07-003; SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2 | Có vị trí; chưa phê duyệt |
+| FR-M07-01 | SC-M07-001/M1; SC-M07-001/M2; SC-M07-001/E1.1; SC-M07-001/E1.2; SC-M07-001/E2.1; SC-M07-001/E9.1; SC-M07-001/E9.2; RULE-M07-003; SC-M07-001/E6.1; SC-M07-001/E7.1; SC-M07-002/M2; SC-M07-002/E5.2; SC-M07-001/E3.1; SC-M07-001/E4.1; SC-M07-001/E5.1; SC-M07-001/E8.1; SC-M07-001/E8.2; SC-M07-002/E4.1; SC-M07-002/E4.2; SC-M07-002/M1; SC-M07-002/E1.1; SC-M07-002/E1.2; SC-M07-002/E2.1; SC-M07-002/E3.1; SC-M07-002/E5.1 | Có vị trí; chưa phê duyệt |
+| FR-M07-02 | SC-M07-001/M2; SC-M07-001/E9.2; AUT-M07-001; RULE-M07-001; SC-M07-001/E1.2; AUT-M07-006; SC-M07-003/E6.1; AUT-M07-002; SC-M07-003/E7.1; SC-M07-003/E8.1; SC-M07-006/M2; SC-M07-006/E2.1; SC-M07-006/E2.2; SC-M07-006/E14.1; SC-M07-006/E14.2; AUT-M07-007; SC-M07-006/M3; SC-M07-006/M4; SC-M07-006/E2.3; SC-M07-006/E2.4; SC-M07-006/E14.3; SC-M07-006/E14.4; SC-M07-006/E1.1; SC-M07-006/E1.2; SC-M07-006/E3.1; SC-M07-006/E8.2; SC-M07-006/E5.1; SC-M07-006/E10.2; SC-M07-006/E4.1; SC-M07-006/E9.2; SC-M07-008/M4; SC-M07-008/E3.4; RULE-M07-005; AUT-M07-008 | Có vị trí; chưa phê duyệt |
+| FR-M07-03 | SC-M07-001/M2; SC-M07-001/E9.2; AUT-M07-003; SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2 | Có vị trí; chưa phê duyệt |
 | FR-M07-04 | AUT-M07-004; AUT-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-05 | SC-M07-003/M1; SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002; SC-M07-003/E1.1; SC-M07-003/E1.3; SC-M07-003/E1.4; SC-M07-003/E1.5; SC-M07-003/E1.6; SC-M07-006/M1; SC-M07-006/E2.1; SC-M07-006/E8.1; SC-M07-006/E9.1; SC-M07-006/E10.1; SC-M07-006/V2.1; SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/E7.1; SC-M07-004/V2.2; SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/E2.1; SC-M07-005/V2.2; SC-M07-006/E8.2; SC-M07-006/E9.2; SC-M07-006/E10.2; SC-M07-006/E11.1; SC-M07-003/E8.1; SC-M07-004/E8.1; SC-M07-005/E3.1; SC-M07-003/V1.1; SC-M07-003/V1.2; SC-M07-004/V1.1; SC-M07-004/V1.2; SC-M07-006/V1.1; SC-M07-006/V1.2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.1; SC-M07-004/E6.1 | Có vị trí; chưa phê duyệt |
-| FR-M07-06 | SC-M07-004/M1; SC-M07-004/M2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.1; SC-M07-004/E5.2; SC-M07-004/E6.1; SC-M07-004/E6.2; SC-M07-004/V2.1; SC-M07-004/V2.2; RULE-M07-002; SC-M07-004/E1.1; SC-M07-004/V1.1; SC-M07-004/V1.2; SC-M07-005/M2; SC-M07-005/E3.1; SC-M07-005/V1.1; SC-M07-005/V1.2; SC-M07-005/V2.2; SC-M07-005/M1; SC-M07-005/E1.1; SC-M07-005/V2.1 | Có vị trí; chưa phê duyệt |
-| FR-M07-07 | SC-M07-007/M1; SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/V2.1; SC-M07-007/V2.2; AUT-M07-008; SC-M07-007/E4.1; RULE-M07-004; SC-M07-007/E1.2; SC-M07-007/E1.3; SC-M07-007/V1.1; SC-M07-007/V1.2; SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/V2.2 | Có vị trí; chưa phê duyệt |
-| FR-M07-08 | SC-M07-008/M1; SC-M07-008/M2; SC-M07-008/M4; SC-M07-008/E1.1; SC-M07-008/V2.1; SC-M07-008/V2.2; SC-M07-008/V2.4; RULE-M07-005; SC-M07-008/M3; SC-M07-008/V2.3; SC-M07-008/E1.2; SC-M07-008/E1.3; SC-M07-008/V1.1; SC-M07-008/V1.2 | Có vị trí; chưa phê duyệt |
-| FR-M07-09 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/V2.2; SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/V2.2; AUT-M07-008; RULE-M07-004; SC-M07-010/M1; SC-M07-010/V2.1; AUT-M07-009; SC-M07-009/M1; SC-M07-009/E3.1; SC-M07-009/V2.1; SC-M07-009/E1.1; SC-M07-009/E2.1; SC-M07-009/E4.1; SC-M07-009/V1.1; SC-M07-009/V1.2; SC-M07-010/V1.1; SC-M07-010/V1.2; SC-M07-010/E1.1 | Có vị trí; chưa phê duyệt |
-| FR-M07-01.01 | SC-M07-001/M1; SC-M07-001/M2; SC-M07-001/E1.1; SC-M07-001/E1.2; SC-M07-001/E2.1; SC-M07-001/V2.1; SC-M07-001/V2.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-05 | SC-M07-003/M1; SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002; SC-M07-003/E1.1; SC-M07-003/E1.3; SC-M07-003/E1.4; SC-M07-003/E1.5; SC-M07-003/E1.6; SC-M07-006/M1; SC-M07-006/E2.1; SC-M07-006/E8.1; SC-M07-006/E9.1; SC-M07-006/E10.1; SC-M07-006/E14.1; SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/E7.1; SC-M07-004/E10.2; SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/E2.1; SC-M07-005/E5.2; SC-M07-006/E8.2; SC-M07-006/E9.2; SC-M07-006/E10.2; SC-M07-006/E11.1; SC-M07-003/E8.1; SC-M07-004/E8.1; SC-M07-005/E3.1; SC-M07-003/E9.1; SC-M07-003/E9.2; SC-M07-004/E9.1; SC-M07-004/E9.2; SC-M07-006/E13.1; SC-M07-006/E13.2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.1; SC-M07-004/E6.1 | Có vị trí; chưa phê duyệt |
+| FR-M07-06 | SC-M07-004/M1; SC-M07-004/M2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.1; SC-M07-004/E5.2; SC-M07-004/E6.1; SC-M07-004/E6.2; SC-M07-004/E10.1; SC-M07-004/E10.2; RULE-M07-002; SC-M07-004/E1.1; SC-M07-004/E9.1; SC-M07-004/E9.2; SC-M07-005/M2; SC-M07-005/E3.1; SC-M07-005/E4.1; SC-M07-005/E4.2; SC-M07-005/E5.2; SC-M07-005/M1; SC-M07-005/E1.1; SC-M07-005/E5.1 | Có vị trí; chưa phê duyệt |
+| FR-M07-07 | SC-M07-007/M1; SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/E7.1; SC-M07-007/E7.2; AUT-M07-008; SC-M07-007/E4.1; RULE-M07-004; SC-M07-007/E1.2; SC-M07-007/E1.3; SC-M07-007/E6.1; SC-M07-007/E6.2; SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/E3.2 | Có vị trí; chưa phê duyệt |
+| FR-M07-08 | SC-M07-008/M1; SC-M07-008/M2; SC-M07-008/M4; SC-M07-008/E1.1; SC-M07-008/E3.1; SC-M07-008/E3.2; SC-M07-008/E3.4; RULE-M07-005; SC-M07-008/M3; SC-M07-008/E3.3; SC-M07-008/E1.2; SC-M07-008/E1.3; SC-M07-008/E2.1; SC-M07-008/E2.2 | Có vị trí; chưa phê duyệt |
+| FR-M07-09 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/E7.2; SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/E3.2; AUT-M07-008; RULE-M07-004; SC-M07-010/M1; SC-M07-010/E3.1; AUT-M07-009; SC-M07-009/M1; SC-M07-009/E3.1; SC-M07-009/E6.1; SC-M07-009/E1.1; SC-M07-009/E2.1; SC-M07-009/E4.1; SC-M07-009/E5.1; SC-M07-009/E5.2; SC-M07-010/E2.1; SC-M07-010/E2.2; SC-M07-010/E1.1 | Có vị trí; chưa phê duyệt |
+| FR-M07-01.01 | SC-M07-001/M1; SC-M07-001/M2; SC-M07-001/E1.1; SC-M07-001/E1.2; SC-M07-001/E2.1; SC-M07-001/E9.1; SC-M07-001/E9.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
 | FR-M07-01.02 | SC-M07-001/E3.1; SC-M07-001/E4.1; SC-M07-001/E5.1; RULE-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-01.03 | SC-M07-001/V1.1; SC-M07-001/V1.2; SC-M07-002/V1.1; SC-M07-002/V1.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-01.04 | SC-M07-001/M2; SC-M07-001/V2.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-01.08 | SC-M07-002/M1; SC-M07-002/M2; SC-M07-002/E1.1; SC-M07-002/E1.2; SC-M07-002/E2.1; SC-M07-002/E3.1; SC-M07-002/V2.1; SC-M07-002/V2.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-01.09 | SC-M07-002/M2; SC-M07-002/E1.2; SC-M07-002/E2.1; SC-M07-002/E3.1; SC-M07-002/V2.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-01.10 | SC-M07-001/E2.1; SC-M07-002/M2; SC-M07-002/V2.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-01.11 | SC-M07-001/M2; SC-M07-001/E6.1; SC-M07-001/V2.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-01.12 | SC-M07-001/M2; SC-M07-001/E7.1; SC-M07-001/V2.2; RULE-M07-003 | Có vị trí; chưa phê duyệt; GAP002 ở bắt đầu follow DEACTIVATED |
+| FR-M07-01.03 | SC-M07-001/E8.1; SC-M07-001/E8.2; SC-M07-002/E4.1; SC-M07-002/E4.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-01.04 | SC-M07-001/M2; SC-M07-001/E9.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-01.08 | SC-M07-002/M1; SC-M07-002/M2; SC-M07-002/E1.1; SC-M07-002/E1.2; SC-M07-002/E2.1; SC-M07-002/E3.1; SC-M07-002/E5.1; SC-M07-002/E5.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-01.09 | SC-M07-002/M2; SC-M07-002/E1.2; SC-M07-002/E2.1; SC-M07-002/E3.1; SC-M07-002/E5.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-01.10 | SC-M07-001/E2.1; SC-M07-002/M2; SC-M07-002/E5.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-01.11 | SC-M07-001/M2; SC-M07-001/E6.1; SC-M07-001/E9.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-01.12 | SC-M07-001/M2; SC-M07-001/E7.1; SC-M07-001/E9.2; RULE-M07-003 | Có vị trí; chưa phê duyệt; GAP002 ở bắt đầu follow DEACTIVATED |
 | FR-M07-01.13 | SC-M07-002/E2.1; SC-M07-002/E3.1; RULE-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.01 | SC-M07-001/M2; SC-M07-001/V2.2; AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.02 | SC-M07-001/M2; SC-M07-001/V2.2; AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.01 | SC-M07-001/M2; SC-M07-001/E9.2; AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.02 | SC-M07-001/M2; SC-M07-001/E9.2; AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.03 | SC-M07-003/E6.1; AUT-M07-002 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.04 | SC-M07-003/E6.1; AUT-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.07 | SC-M07-008/M4; SC-M07-008/V2.4; AUT-M07-001; RULE-M07-001; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.08 | SC-M07-008/M4; SC-M07-008/V2.4; AUT-M07-001; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.09 | SC-M07-008/M4; SC-M07-008/V2.4; AUT-M07-001; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.07 | SC-M07-008/M4; SC-M07-008/E3.4; AUT-M07-001; RULE-M07-001; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.08 | SC-M07-008/M4; SC-M07-008/E3.4; AUT-M07-001; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.09 | SC-M07-008/M4; SC-M07-008/E3.4; AUT-M07-001; RULE-M07-005 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.10 | AUT-M07-001; AUT-M07-008; RULE-M07-001 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.11 | AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.13 | AUT-M07-001 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.14 | SC-M07-006/M2; SC-M07-006/E2.1; SC-M07-006/E2.2; SC-M07-006/V2.1; SC-M07-006/V2.2; AUT-M07-001; AUT-M07-007 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.15 | SC-M07-006/M2; SC-M07-006/M3; SC-M07-006/M4; SC-M07-006/E2.2; SC-M07-006/E2.3; SC-M07-006/E2.4; SC-M07-006/V2.2; SC-M07-006/V2.3; SC-M07-006/V2.4 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.16 | SC-M07-006/M2; SC-M07-006/E1.1; SC-M07-006/E1.2; SC-M07-006/E2.2; SC-M07-006/V2.2 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.14 | SC-M07-006/M2; SC-M07-006/E2.1; SC-M07-006/E2.2; SC-M07-006/E14.1; SC-M07-006/E14.2; AUT-M07-001; AUT-M07-007 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.15 | SC-M07-006/M2; SC-M07-006/M3; SC-M07-006/M4; SC-M07-006/E2.2; SC-M07-006/E2.3; SC-M07-006/E2.4; SC-M07-006/E14.2; SC-M07-006/E14.3; SC-M07-006/E14.4 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.16 | SC-M07-006/M2; SC-M07-006/E1.1; SC-M07-006/E1.2; SC-M07-006/E2.2; SC-M07-006/E14.2 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.17 | AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.18 | SC-M07-003/E6.1; AUT-M07-002 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.19 | AUT-M07-002 | Có vị trí; chưa phê duyệt |
@@ -1390,17 +1410,17 @@ Bảng quy tắc/đối soát mô tả phản ứng theo sự kiện, không là
 | FR-M07-02.22 | AUT-M07-006 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.23 | AUT-M07-006 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.24 | SC-M07-001/E1.2; AUT-M07-001; AUT-M07-006; RULE-M07-001 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.25 | SC-M07-001/M2; SC-M07-001/V2.2; AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt; GAP001 ở causer bảo mật |
+| FR-M07-02.25 | SC-M07-001/M2; SC-M07-001/E9.2; AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt; GAP001 ở causer bảo mật |
 | FR-M07-02.26 | SC-M07-003/E7.1; SC-M07-003/E8.1; AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
 | FR-M07-02.27 | AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.28 | SC-M07-006/M2; SC-M07-006/M4; SC-M07-006/E1.2; SC-M07-006/E2.2; SC-M07-006/E2.4; SC-M07-006/E3.1; SC-M07-006/E8.2; SC-M07-006/V2.2; SC-M07-006/V2.4; AUT-M07-007 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.30 | SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E5.1; SC-M07-006/E10.2; SC-M07-006/V2.2; AUT-M07-001; AUT-M07-007 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.31 | SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E4.1; SC-M07-006/E9.2; SC-M07-006/V2.2; AUT-M07-007 | Có vị trí; chưa phê duyệt |
-| FR-M07-02.32 | SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E5.1; SC-M07-006/E10.2; SC-M07-006/V2.2; AUT-M07-007 | Có vị trí; chưa phê duyệt |
-| FR-M07-03.01 | SC-M07-001/M2; SC-M07-001/V2.2; AUT-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-03.02 | SC-M07-001/M2; SC-M07-001/V2.2; AUT-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.28 | SC-M07-006/M2; SC-M07-006/M4; SC-M07-006/E1.2; SC-M07-006/E2.2; SC-M07-006/E2.4; SC-M07-006/E3.1; SC-M07-006/E8.2; SC-M07-006/E14.2; SC-M07-006/E14.4; AUT-M07-007 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.30 | SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E5.1; SC-M07-006/E10.2; SC-M07-006/E14.2; AUT-M07-001; AUT-M07-007 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.31 | SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E4.1; SC-M07-006/E9.2; SC-M07-006/E14.2; AUT-M07-007 | Có vị trí; chưa phê duyệt |
+| FR-M07-02.32 | SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E5.1; SC-M07-006/E10.2; SC-M07-006/E14.2; AUT-M07-007 | Có vị trí; chưa phê duyệt |
+| FR-M07-03.01 | SC-M07-001/M2; SC-M07-001/E9.2; AUT-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-03.02 | SC-M07-001/M2; SC-M07-001/E9.2; AUT-M07-003 | Có vị trí; chưa phê duyệt |
 | FR-M07-03.03 | SC-M07-003/E3.1; AUT-M07-003 | Có vị trí; chưa phê duyệt |
-| FR-M07-03.04 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; AUT-M07-003 | Có vị trí; chưa phê duyệt |
+| FR-M07-03.04 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; AUT-M07-003 | Có vị trí; chưa phê duyệt |
 | FR-M07-04.01 | AUT-M07-004 | Có vị trí; chưa phê duyệt |
 | FR-M07-04.02 | AUT-M07-005 | Có vị trí; chưa phê duyệt |
 | FR-M07-04.03 | AUT-M07-004 | Có vị trí; chưa phê duyệt |
@@ -1409,69 +1429,69 @@ Bảng quy tắc/đối soát mô tả phản ứng theo sự kiện, không là
 | FR-M07-04.08 | AUT-M07-004 | Có vị trí; chưa phê duyệt |
 | FR-M07-04.09 | AUT-M07-005 | Có vị trí; chưa phê duyệt |
 | FR-M07-04.10 | AUT-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.01 | SC-M07-003/M1; SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.02 | SC-M07-003/M2; SC-M07-003/E1.1; SC-M07-003/E1.2; SC-M07-003/E1.3; SC-M07-003/E1.4; SC-M07-003/E1.5; SC-M07-003/E1.6; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M1; SC-M07-006/M2; SC-M07-006/E2.1; SC-M07-006/E2.2; SC-M07-006/E8.1; SC-M07-006/E9.1; SC-M07-006/E10.1; SC-M07-006/V2.1; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.03 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.04 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.05 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/E7.1; SC-M07-004/V2.2; SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/E2.1; SC-M07-005/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E8.2; SC-M07-006/E9.2; SC-M07-006/E10.2; SC-M07-006/E11.1; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.06 | SC-M07-003/V1.1; SC-M07-003/V1.2; SC-M07-004/V1.1; SC-M07-004/V1.2; SC-M07-006/V1.1; SC-M07-006/V1.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.07 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.01 | SC-M07-003/M1; SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.02 | SC-M07-003/M2; SC-M07-003/E1.1; SC-M07-003/E1.2; SC-M07-003/E1.3; SC-M07-003/E1.4; SC-M07-003/E1.5; SC-M07-003/E1.6; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M1; SC-M07-006/M2; SC-M07-006/E2.1; SC-M07-006/E2.2; SC-M07-006/E8.1; SC-M07-006/E9.1; SC-M07-006/E10.1; SC-M07-006/E14.1; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.03 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.04 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.05 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/E7.1; SC-M07-004/E10.2; SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/E2.1; SC-M07-005/E5.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E8.2; SC-M07-006/E9.2; SC-M07-006/E10.2; SC-M07-006/E11.1; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.06 | SC-M07-003/E9.1; SC-M07-003/E9.2; SC-M07-004/E9.1; SC-M07-004/E9.2; SC-M07-006/E13.1; SC-M07-006/E13.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.07 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
 | FR-M07-05.09 | SC-M07-003/E7.1; SC-M07-003/E8.1; SC-M07-004/E8.1; SC-M07-005/E3.1; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.10 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.11 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.12 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-05.13 | SC-M07-004/M2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.1; SC-M07-004/E5.2; SC-M07-004/E6.1; SC-M07-004/E6.2; SC-M07-004/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-06.01 | SC-M07-004/M1; SC-M07-004/M2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.1; SC-M07-004/E5.2; SC-M07-004/E6.1; SC-M07-004/E6.2; SC-M07-004/V2.1; SC-M07-004/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-06.02 | SC-M07-004/M1; SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.1; SC-M07-004/E5.2; SC-M07-004/E6.1; SC-M07-004/E6.2; SC-M07-004/V2.1; SC-M07-004/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-06.03 | SC-M07-005/M1; SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/V2.1; SC-M07-005/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-06.04 | SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-06.05 | SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-06.06 | SC-M07-004/V1.1; SC-M07-004/V1.2; SC-M07-005/M2; SC-M07-005/E3.1; SC-M07-005/V1.1; SC-M07-005/V1.2; SC-M07-005/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| FR-M07-07.01 | SC-M07-007/M1; SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/V2.1; SC-M07-007/V2.2; AUT-M07-008 | Có vị trí; chưa phê duyệt |
-| FR-M07-07.02 | SC-M07-007/M1; SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E4.1; SC-M07-007/E5.1; SC-M07-007/V2.1; SC-M07-007/V2.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-07.03 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E1.2; SC-M07-007/E1.3; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/V2.2; AUT-M07-008 | Có vị trí; chưa phê duyệt |
-| FR-M07-07.04 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/V1.1; SC-M07-007/V1.2; SC-M07-007/V2.2; AUT-M07-008 | Có vị trí; chưa phê duyệt |
-| FR-M07-07.05 | SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/V2.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-07.06 | SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/V2.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-07.07 | SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/V2.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-08.01 | SC-M07-008/M1; SC-M07-008/M2; SC-M07-008/M4; SC-M07-008/E1.1; SC-M07-008/V2.1; SC-M07-008/V2.2; SC-M07-008/V2.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-08.02 | SC-M07-008/M3; SC-M07-008/M4; SC-M07-008/V2.3; SC-M07-008/V2.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-08.03 | SC-M07-008/M4; SC-M07-008/E1.2; SC-M07-008/E1.3; SC-M07-008/V2.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-08.04 | SC-M07-008/M4; SC-M07-008/E1.3; SC-M07-008/V2.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-08.05 | SC-M07-008/V1.1; SC-M07-008/V1.2; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| FR-M07-09.01 | SC-M07-009/M1; SC-M07-009/M2; SC-M07-009/E3.1; SC-M07-009/E3.2; SC-M07-009/V2.1; SC-M07-009/V2.2; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-09.02 | SC-M07-009/M2; SC-M07-009/E1.1; SC-M07-009/E1.2; SC-M07-009/E2.1; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-09.03 | SC-M07-007/E2.1; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-010/M1; SC-M07-010/M2; SC-M07-010/V2.1; SC-M07-010/V2.2; AUT-M07-009; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-09.04 | SC-M07-010/M2; SC-M07-010/E1.1; SC-M07-010/E1.2; SC-M07-010/V2.2; AUT-M07-009; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-09.05 | SC-M07-009/M2; SC-M07-009/E3.2; SC-M07-009/E4.1; SC-M07-009/V2.2; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-09.06 | SC-M07-009/V1.1; SC-M07-009/V1.2; SC-M07-010/V1.1; SC-M07-010/V1.2; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| FR-M07-09.07 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/V2.2; SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/V2.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.10 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.11 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.12 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-05.13 | SC-M07-004/M2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.1; SC-M07-004/E5.2; SC-M07-004/E6.1; SC-M07-004/E6.2; SC-M07-004/E10.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-06.01 | SC-M07-004/M1; SC-M07-004/M2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.1; SC-M07-004/E5.2; SC-M07-004/E6.1; SC-M07-004/E6.2; SC-M07-004/E10.1; SC-M07-004/E10.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-06.02 | SC-M07-004/M1; SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.1; SC-M07-004/E5.2; SC-M07-004/E6.1; SC-M07-004/E6.2; SC-M07-004/E10.1; SC-M07-004/E10.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-06.03 | SC-M07-005/M1; SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/E5.1; SC-M07-005/E5.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-06.04 | SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/E10.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-06.05 | SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/E5.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-06.06 | SC-M07-004/E9.1; SC-M07-004/E9.2; SC-M07-005/M2; SC-M07-005/E3.1; SC-M07-005/E4.1; SC-M07-005/E4.2; SC-M07-005/E5.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| FR-M07-07.01 | SC-M07-007/M1; SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/E7.1; SC-M07-007/E7.2; AUT-M07-008 | Có vị trí; chưa phê duyệt |
+| FR-M07-07.02 | SC-M07-007/M1; SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E4.1; SC-M07-007/E5.1; SC-M07-007/E7.1; SC-M07-007/E7.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-07.03 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E1.2; SC-M07-007/E1.3; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/E7.2; AUT-M07-008 | Có vị trí; chưa phê duyệt |
+| FR-M07-07.04 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/E6.1; SC-M07-007/E6.2; SC-M07-007/E7.2; AUT-M07-008 | Có vị trí; chưa phê duyệt |
+| FR-M07-07.05 | SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/E3.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-07.06 | SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/E3.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-07.07 | SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/E3.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-08.01 | SC-M07-008/M1; SC-M07-008/M2; SC-M07-008/M4; SC-M07-008/E1.1; SC-M07-008/E3.1; SC-M07-008/E3.2; SC-M07-008/E3.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| FR-M07-08.02 | SC-M07-008/M3; SC-M07-008/M4; SC-M07-008/E3.3; SC-M07-008/E3.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| FR-M07-08.03 | SC-M07-008/M4; SC-M07-008/E1.2; SC-M07-008/E1.3; SC-M07-008/E3.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| FR-M07-08.04 | SC-M07-008/M4; SC-M07-008/E1.3; SC-M07-008/E3.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| FR-M07-08.05 | SC-M07-008/E2.1; SC-M07-008/E2.2; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| FR-M07-09.01 | SC-M07-009/M1; SC-M07-009/M2; SC-M07-009/E3.1; SC-M07-009/E3.2; SC-M07-009/E6.1; SC-M07-009/E6.2; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-09.02 | SC-M07-009/M2; SC-M07-009/E1.1; SC-M07-009/E1.2; SC-M07-009/E2.1; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-09.03 | SC-M07-007/E2.1; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-010/M1; SC-M07-010/M2; SC-M07-010/E3.1; SC-M07-010/E3.2; AUT-M07-009; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-09.04 | SC-M07-010/M2; SC-M07-010/E1.1; SC-M07-010/E1.2; SC-M07-010/E3.2; AUT-M07-009; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-09.05 | SC-M07-009/M2; SC-M07-009/E3.2; SC-M07-009/E4.1; SC-M07-009/E6.2; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-09.06 | SC-M07-009/E5.1; SC-M07-009/E5.2; SC-M07-010/E2.1; SC-M07-010/E2.2; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| FR-M07-09.07 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/E7.2; SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/E3.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
 | FR-M07-09.08 | AUT-M07-009; RULE-M07-004 | Có vị trí; chưa phê duyệt |
 | BR-M07-01 | AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt; GAP001 ở causer bảo mật |
-| BR-M07-02 | SC-M07-003/E2.1; SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E1.3; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E4.1; SC-M07-007/E5.1; SC-M07-007/V2.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| BR-M07-02 | SC-M07-003/E2.1; SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E1.3; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E4.1; SC-M07-007/E5.1; SC-M07-007/E7.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
 | BR-M07-03 | AUT-M07-004; RULE-M07-001 | Có vị trí; chưa phê duyệt; GAP001 ở causer bảo mật |
 | BR-M07-04 | AUT-M07-004 | Có vị trí; chưa phê duyệt |
 | BR-M07-05 | SC-M07-003/E6.1; AUT-M07-002 | Có vị trí; chưa phê duyệt |
-| BR-M07-06 | SC-M07-008/M4; SC-M07-008/V2.4; AUT-M07-001; RULE-M07-001; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| BR-M07-07 | SC-M07-008/M4; SC-M07-008/E1.3; SC-M07-008/V2.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
-| BR-M07-08 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/V2.2; SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/V2.2; AUT-M07-008; AUT-M07-009; RULE-M07-004 | Có vị trí; chưa phê duyệt |
-| BR-M07-09 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; AUT-M07-003; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| BR-M07-06 | SC-M07-008/M4; SC-M07-008/E3.4; AUT-M07-001; RULE-M07-001; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| BR-M07-07 | SC-M07-008/M4; SC-M07-008/E1.3; SC-M07-008/E3.4; RULE-M07-005 | Có vị trí; chưa phê duyệt |
+| BR-M07-08 | SC-M07-007/M2; SC-M07-007/E1.1; SC-M07-007/E2.1; SC-M07-007/E3.1; SC-M07-007/E5.1; SC-M07-007/E7.2; SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/E3.2; AUT-M07-008; AUT-M07-009; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| BR-M07-09 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; AUT-M07-003; RULE-M07-002 | Có vị trí; chưa phê duyệt |
 | BR-M07-10 | AUT-M07-003 | Có vị trí; chưa phê duyệt |
 | BR-M07-11 | AUT-M07-004; AUT-M07-005 | Có vị trí; chưa phê duyệt |
-| BR-M07-12 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| BR-M07-13 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| BR-M07-14 | SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/V2.2; SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| BR-M07-15 | SC-M07-001/M2; SC-M07-001/E1.2; SC-M07-001/E3.1; SC-M07-001/E4.1; SC-M07-001/E5.1; SC-M07-001/E6.1; SC-M07-001/E7.1; SC-M07-001/V2.2; SC-M07-002/E2.1; SC-M07-002/E3.1; RULE-M07-003 | Có vị trí; chưa phê duyệt; GAP002 ở bắt đầu follow DEACTIVATED |
+| BR-M07-12 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E2.1; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| BR-M07-13 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| BR-M07-14 | SC-M07-004/M2; SC-M07-004/E1.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/E10.2; SC-M07-005/M2; SC-M07-005/E1.1; SC-M07-005/E5.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| BR-M07-15 | SC-M07-001/M2; SC-M07-001/E1.2; SC-M07-001/E3.1; SC-M07-001/E4.1; SC-M07-001/E5.1; SC-M07-001/E6.1; SC-M07-001/E7.1; SC-M07-001/E9.2; SC-M07-002/E2.1; SC-M07-002/E3.1; RULE-M07-003 | Có vị trí; chưa phê duyệt; GAP002 ở bắt đầu follow DEACTIVATED |
 | BR-M07-18 | AUT-M07-001; AUT-M07-006; RULE-M07-001 | Có vị trí; chưa phê duyệt |
-| BR-M07-20 | SC-M07-006/M2; SC-M07-006/M4; SC-M07-006/E1.2; SC-M07-006/E2.2; SC-M07-006/E2.4; SC-M07-006/E4.1; SC-M07-006/E5.1; SC-M07-006/E9.2; SC-M07-006/E10.2; SC-M07-006/V2.2; SC-M07-006/V2.4; AUT-M07-007 | Có vị trí; chưa phê duyệt |
+| BR-M07-20 | SC-M07-006/M2; SC-M07-006/M4; SC-M07-006/E1.2; SC-M07-006/E2.2; SC-M07-006/E2.4; SC-M07-006/E4.1; SC-M07-006/E5.1; SC-M07-006/E9.2; SC-M07-006/E10.2; SC-M07-006/E14.2; SC-M07-006/E14.4; AUT-M07-007 | Có vị trí; chưa phê duyệt |
 | BR-M07-21 | AUT-M07-001; RULE-M07-001 | Có vị trí; chưa phê duyệt |
-| BR-M07-22 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| BR-M07-22 | SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E1.4; SC-M07-003/E1.6; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
 | BR-M07-23 | AUT-M07-006 | Có vị trí; chưa phê duyệt |
-| BR-M07-24 | SC-M07-001/M2; SC-M07-001/V2.2; SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E8.1; SC-M07-003/V2.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/V2.2; AUT-M07-001; RULE-M07-001; RULE-M07-002 | Có vị trí; chưa phê duyệt; GAP001 ở causer bảo mật |
-| BR-M07-25 | SC-M07-001/M2; SC-M07-001/E2.1; SC-M07-001/V2.2; SC-M07-002/M2; SC-M07-002/E1.2; SC-M07-002/E2.1; SC-M07-002/E3.1; SC-M07-002/V2.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
+| BR-M07-24 | SC-M07-001/M2; SC-M07-001/E9.2; SC-M07-003/M2; SC-M07-003/E1.2; SC-M07-003/E3.1; SC-M07-003/E4.1; SC-M07-003/E5.1; SC-M07-003/E6.1; SC-M07-003/E7.1; SC-M07-003/E8.1; SC-M07-003/E10.2; SC-M07-006/M2; SC-M07-006/E2.2; SC-M07-006/E14.2; AUT-M07-001; RULE-M07-001; RULE-M07-002 | Có vị trí; chưa phê duyệt; GAP001 ở causer bảo mật |
+| BR-M07-25 | SC-M07-001/M2; SC-M07-001/E2.1; SC-M07-001/E9.2; SC-M07-002/M2; SC-M07-002/E1.2; SC-M07-002/E2.1; SC-M07-002/E3.1; SC-M07-002/E5.2; RULE-M07-003 | Có vị trí; chưa phê duyệt |
 | BR-M07-26 | AUT-M07-005 | Có vị trí; chưa phê duyệt |
-| BR-M07-27 | SC-M07-004/M2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/V2.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
-| BR-M07-28 | SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/V2.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/V2.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
+| BR-M07-27 | SC-M07-004/M2; SC-M07-004/E2.1; SC-M07-004/E3.1; SC-M07-004/E4.1; SC-M07-004/E5.2; SC-M07-004/E6.2; SC-M07-004/E10.2; RULE-M07-002 | Có vị trí; chưa phê duyệt |
+| BR-M07-28 | SC-M07-009/M2; SC-M07-009/E1.2; SC-M07-009/E2.2; SC-M07-009/E3.2; SC-M07-009/E6.2; SC-M07-010/M2; SC-M07-010/E1.2; SC-M07-010/E3.2; AUT-M07-008; RULE-M07-004 | Có vị trí; chưa phê duyệt |
 
 
 | Mã đã bỏ | Cách xử lý |
@@ -1547,7 +1567,7 @@ Bảng quy tắc/đối soát mô tả phản ứng theo sự kiện, không là
 | UC-M07-011 | Lan bỏ Tắt toàn bộ Chat để nhận lại theo từng cuộc | SC-M07-010/E1 | END:SUCCESS |
 
 
-Truy vết ngược tại sources từng bước. E thay bước chính, V thay toàn bộ theo actor; mọi đường chính hoàn tất chức năng với SYSTEM/SUCCESS. Mở thông báo có đích mất quyền kết thúc REJECTED đối với mở đích, nhưng hậu điều kiện vẫn ghi đã đọc/giữ bản; không biến trạng thái đọc thành rollback. Khác phân loại kết quả trong SC không thay phản ứng FR/US.
+Truy vết ngược tại sources từng bước. E thay bước chính, E tại M1 thay toàn bộ theo actor; mọi đường chính hoàn tất chức năng với SYSTEM/SUCCESS. Mở thông báo có đích mất quyền kết thúc REJECTED đối với mở đích, nhưng hậu điều kiện vẫn ghi đã đọc/giữ bản; không biến trạng thái đọc thành rollback. Khác phân loại kết quả trong SC không thay phản ứng FR/US.
 
 Các lớp tương đương độc lập không nhân mọi giá trị: target người/Topic trong follow, trạng thái causer trong hiển thị, loại lỗi đích cùng read-before-open, scope mute và read marker riêng. Tổ hợp thay kết quả đã xét: unread/read + đích mất quyền; đề xuất hết hạn/thay thế/role đổi sau lúc xem; global mute + bật riêng; thành viên cũ + tin trước/sau rời; mark-all + Chat unread; upvote gộp + đã đọc. Biên đồng thời và quy tắc chưa có nguồn không được tự lấp bằng thứ tự API/rollback.
 
@@ -1564,3 +1584,31 @@ Các lớp tương đương độc lập không nhân mọi giá trị: target n
 
 
 Đầu ra ở trạng thái Đang soạn; chưa thể coi hai phần thiếu hợp đồng đã được giải quyết chỉ vì validator PASS. Báo cáo/lệnh và số lượng kiểm thực tế ở [QA-M07.md](QA-M07.md). Không sửa FR/US/register hay scenario module khác.
+
+
+## Chuyển đổi ID nhánh sau QA-SC-01
+
+Ngày 11/11/2026, các biến thể vai trò được đăng ký thành E tại M1 theo skill v1.4. Bảng này giữ ID lịch sử để đối chiếu các tài liệu đã dẫn V. Mỗi hàng ánh xạ cả nhánh và các bước cùng số thứ tự, ví dụ V1.2 sang bước .2 của E tương ứng.
+
+| ID lịch sử | ID hiện hành | Điểm thay | Số bước | Nguồn |
+| --- | --- | --- | --- | --- |
+| SC-M07-001/V1 | SC-M07-001/E8 | M1 | 2 | FR-M07-01.03 |
+| SC-M07-001/V2 | SC-M07-001/E9 | M1 | 2 | FR-M07-01.01, FR-M07-01.04, FR-M07-01.11, FR-M07-01.12, FR-M07-02.01, FR-M07-02.02, FR-M07-02.25, FR-M07-03.01, FR-M07-03.02, BR-M07-15, BR-M07-24, BR-M07-25 |
+| SC-M07-002/V1 | SC-M07-002/E4 | M1 | 2 | FR-M07-01.03 |
+| SC-M07-002/V2 | SC-M07-002/E5 | M1 | 2 | FR-M07-01.08, FR-M07-01.09, FR-M07-01.10, BR-M07-25 |
+| SC-M07-003/V1 | SC-M07-003/E9 | M1 | 2 | FR-M07-05.06 |
+| SC-M07-003/V2 | SC-M07-003/E10 | M1 | 2 | FR-M07-05.01, FR-M07-03.04, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24 |
+| SC-M07-004/V1 | SC-M07-004/E9 | M1 | 2 | FR-M07-05.06, FR-M07-06.06 |
+| SC-M07-004/V2 | SC-M07-004/E10 | M1 | 2 | FR-M07-06.01, FR-M07-06.02, FR-M07-05.05, FR-M07-05.13, FR-M07-06.04, BR-M07-14, BR-M07-27 |
+| SC-M07-005/V1 | SC-M07-005/E4 | M1 | 2 | FR-M07-06.06 |
+| SC-M07-005/V2 | SC-M07-005/E5 | M1 | 2 | FR-M07-06.03, FR-M07-05.05, FR-M07-06.05, FR-M07-06.06, BR-M07-14 |
+| SC-M07-006/V1 | SC-M07-006/E13 | M1 | 2 | FR-M07-05.06 |
+| SC-M07-006/V2 | SC-M07-006/E14 | M1 | 4 | FR-M07-05.02, FR-M07-02.14, FR-M07-03.04, FR-M07-05.01, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.11, FR-M07-05.12, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32, BR-M07-20, FR-M10-07.05, FR-M10-03.02, FR-M10-03.09, FR-M10-03.10, FR-M10-03.11 |
+| SC-M07-007/V1 | SC-M07-007/E6 | M1 | 2 | FR-M07-07.04 |
+| SC-M07-007/V2 | SC-M07-007/E7 | M1 | 2 | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
+| SC-M07-008/V1 | SC-M07-008/E2 | M1 | 2 | FR-M07-08.05 |
+| SC-M07-008/V2 | SC-M07-008/E3 | M1 | 4 | FR-M07-08.01, FR-M07-08.02, FR-M07-08.03, FR-M07-08.04, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, BR-M07-06, BR-M07-07 |
+| SC-M07-009/V1 | SC-M07-009/E5 | M1 | 2 | FR-M07-09.06 |
+| SC-M07-009/V2 | SC-M07-009/E6 | M1 | 2 | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |
+| SC-M07-010/V1 | SC-M07-010/E2 | M1 | 2 | FR-M07-09.06 |
+| SC-M07-010/V2 | SC-M07-010/E3 | M1 | 2 | FR-M07-09.03, FR-M07-09.04, FR-M07-09.07, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-08, BR-M07-28 |

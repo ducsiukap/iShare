@@ -14,6 +14,7 @@ SC = re.compile(r"<!-- sc:scenario (SC-M\d{2}-\d{3}) -->")
 MARK = re.compile(r"<!-- ((?:sc|uc):[^\n>]+?) -->")
 TERMINALS = {"SUCCESS", "REJECTED", "CANCELLED", "HANDED_OFF"}
 STEP_COLUMNS = {"step", "subject", "action", "data", "next", "sources"}
+EXCEPTION_COLUMNS = {"id", "kind", "at", "condition", "entry", "sources"}
 
 
 def cells(line: str) -> list[str]:
@@ -132,6 +133,8 @@ def check_graph(sid: str, block: str, data: dict, actors: set[str], errors: list
             if result not in post or result not in TERMINALS:
                 errors.append(f"{sid}/{step}: terminal without postcondition {target}")
             terminal_nodes.add(step)
+            if row.get("subject") != "SYSTEM":
+                errors.append(f"{sid}/{step}: outcome must be returned by SYSTEM")
         elif target not in nodes:
             errors.append(f"{sid}/{step}: unknown next step {target}")
         else:
@@ -145,6 +148,8 @@ def check_graph(sid: str, block: str, data: dict, actors: set[str], errors: list
     roots = {main[0].get("step", "")}
     for eid, branch in exceptions.items():
         at, entry = branch.get("at", ""), branch.get("entry", "")
+        if EXCEPTION_COLUMNS - branch.keys() or any(not branch.get(c, "").strip(" -") for c in EXCEPTION_COLUMNS):
+            errors.append(f"{sid}/{eid}: missing exception content/columns")
         if not re.fullmatch(r"E[1-9]\d*", eid):
             errors.append(f"{sid}: invalid exception ID {eid}")
         if branch.get("kind") not in {"system", "user-choice"} or not branch.get("condition", "").strip(" -"):
@@ -153,14 +158,19 @@ def check_graph(sid: str, block: str, data: dict, actors: set[str], errors: list
         if at not in main_ids or not steps or entry != steps[0].get("step"):
             errors.append(f"{sid}/{eid}: invalid replacement point or branch entry")
             continue
-        if nodes[at].get("subject") != nodes[entry].get("subject"):
+        first_step = main[0].get("step")
+        if at == first_step and nodes[entry].get("subject") not in actors:
+            errors.append(f"{sid}/{eid}: replacement journey must start with a known actor")
+        elif at != first_step and nodes[at].get("subject") != nodes[entry].get("subject"):
             errors.append(f"{sid}/{eid}: first subject must match the replaced step")
-        if at == main[0].get("step"):
+        if at == first_step:
             roots.add(entry)
         # Include retry edges that re-enter a step with exceptions.
         for step, row in nodes.items():
             if row.get("next") == at:
                 graph[step].add(entry)
+                if row.get("subject") == nodes[entry].get("subject"):
+                    errors.append(f"{sid}: same subject on replacement edge {step} -> {entry}")
     unreachable = set(nodes) - reachable(roots, graph)
     if unreachable:
         errors.append(f"{sid}: unreachable steps {sorted(unreachable)}")
@@ -178,6 +188,11 @@ def validate(text: str, fr_texts: list[str], us_text: str, final: bool = False) 
     """Validate an authored document against supplied FR and US snapshots."""
     errors = []
     data = tables(text, errors)
+    allowed_markers = {"document", "actors", "decomposition", "ucs", "flows", "scenario", "post", "main", "exceptions", "branch", "end"}
+    for marker in MARK.finditer(text):
+        name = marker[1].split()[0]
+        if name.startswith("sc:") and name[3:] not in allowed_markers:
+            errors.append(f"Unsupported scenario marker: {marker[1]}; register alternatives as exceptions/branch")
     upstream = tables(us_text, errors)
     meta = {r.get("key"): r.get("value", "") for r in data.get("sc:document", [])}
     if not re.fullmatch(r"M\d{2}", meta.get("module", "")):

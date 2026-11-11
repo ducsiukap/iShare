@@ -11,7 +11,7 @@ description: >
 
 # Xây dựng scenario từ FR + US
 
-[Vietnamese Doc] — Skill v1.3. Hướng dẫn và scenario viết bằng tiếng Việt;
+[Vietnamese Doc] — Skill v1.4. Hướng dẫn và scenario viết bằng tiếng Việt;
 giữ ID và thuật ngữ nguồn. Thuộc pha System Analysis, đầu ra Markdown.
 
 Đọc [quy tắc chung](../../COMMON-RULES.md) và
@@ -43,6 +43,10 @@ Không chạy lại các cổng sản xuất FR/US chỉ vì đang đọc chúng
    tiếp nối, điểm nhập lại hoặc kết thúc, hậu điều kiện và nguồn**. Bao phủ
    cả ngoại lệ hệ thống và lựa chọn người dùng nếu nguồn có. Không bắt buộc
    tạo nhánh không có căn cứ để đủ hai loại.
+   Biến thể đổi actor khởi tạo cũng đăng ký bằng `E` với `at=M1`, actor cụ
+   thể và điều kiện trong bảng ngoại lệ. Bước đầu là actor hợp lệ từ US,
+   các bước tiếp nối đến SYSTEM trả kết quả hoặc nhập lại luồng chính.
+   Khi chuyển ID nhánh cũ sang E, giữ bảng đối chiếu ID để bảo toàn truy vết.
 5. Không dừng nhánh ở “báo lỗi”, “quay lại” hoặc “xử lý tương tự”. Chỉ rõ
    actor có thể làm gì tiếp và hệ thống đáp lại thế nào theo nguồn. Nhánh có
    thể kết thúc hợp lệ bằng thành công, từ chối, hủy hoặc chuyển giao đã xác
