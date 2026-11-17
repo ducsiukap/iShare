@@ -266,7 +266,9 @@ def check_step3(d, rep, fr_text, system, classes):
                     elif not any((x["Lớp A"], x["Lớp B"]) in ((lc, p), (p, lc)) for x in d["rows"]["3.4"]):
                         rep.error("3.3", "%s: thiếu quan hệ 1-n giữa %s và %s ở mục 3.4" % (lc, p, lc))
     for c, r in classes.items():
-        if r["Nhóm"] == "Liên kết" and c not in link_rows:
+        # External association classes keep their owning module's definition;
+        # this module may only declare the half touching one of its own classes.
+        if r["Nhóm"] == "Liên kết" and c not in link_rows and (system or r["Sở hữu"] == mod):
             rep.error("3.3", "lớp %s có Nhóm = Liên kết nhưng không có dòng ở mục 3.3" % c)
         if (system or r["Sở hữu"] == mod) and c not in linked:
             rep.warn("3.4", "lớp %s không có quan hệ với lớp nào (lớp mồ côi)" % c)
