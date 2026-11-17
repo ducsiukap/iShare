@@ -47,7 +47,7 @@ khác đã nằm đúng lớp.
    hữu, cột id chỉ còn `Có`, `Kế thừa` hoặc `Không` (không còn `Ngoài`).
 3. Lớp, thuộc tính, quan hệ phải khớp `EC-SYS.md`. Quan hệ `R-SYS-nn` mới: làm đủ bước 3 (chọn thành phần – toàn
    thể, loại) và bước 4 (thuộc tính đối tượng).
-4. Chạy `gen_puml.py --cd $M/cd/CD-SYS.md --inplace` và
+4. Chạy `gen_puml.py --cd $M/cd/CD-SYS.md` (sinh `diagrams/CD-SYS.puml`, `.png` và nhúng ảnh vào mục 5) và
    `check_cd.py --cd $M/cd/CD-SYS.md --system --final --ec $M/ec/EC-SYS.md`.
 
 **Cổng B:** trình bản hợp nhất và các thay đổi so với tài liệu module.

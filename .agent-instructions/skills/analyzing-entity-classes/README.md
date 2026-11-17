@@ -17,8 +17,14 @@ số lượng và quan hệ đối tượng. Đầu ra là **một tệp** `EC-M
 
 ## Nguyên tắc
 
-- **Chỉ bám tài liệu FR đã chốt.** Không thêm lớp, thuộc tính, quan hệ FR không nói. Không tự thêm `createdAt`,
+- **Chỉ bám tài liệu FR đã chốt.** Không thêm lớp, quan hệ hay hành vi FR không nói. Không tự thêm `createdAt`,
   `updatedAt` cho mọi lớp.
+- **Mỗi lớp có đủ thuộc tính để bạn duyệt.** Thuộc tính FR gọi tên ghi Căn cứ `Nguồn nêu`. Thuộc tính FR không gọi
+  tên nhưng một chức năng hay quy tắc của FR cần tới (tên để hiện danh sách, thời điểm để lọc "7 ngày gần nhất") ghi
+  `Đề xuất`, kèm lý do và chức năng cần nó; bạn duyệt các đề xuất ở cổng bước 2. Thuộc tính của lớp module khác mà
+  module này đọc hoặc ghi ghi `Tham chiếu`.
+- **Tài liệu viết cho người đọc.** Đoạn mô tả là văn xuôi thường, không chèn mã câu. Sơ đồ là ảnh PNG; mã PlantUML
+  nằm ở tệp riêng.
 - **Đúng trình tự của phương pháp.** Danh từ lấy từ đoạn mô tả, cộng một lượt quét bổ sung trên FR để không sót
   thuộc tính (những danh từ này được ghi rõ "Quét: …"). Mục "Dữ liệu nghiệp vụ" của FR chỉ dùng để đối chiếu sau.
 - **Mỗi bước dừng chờ bạn xác nhận.** Không bước nào tự chạy tiếp, trừ khi bạn nói rõ cho làm liền nhiều bước.
@@ -43,9 +49,8 @@ Làm bước 1 rồi dừng ở cổng xác nhận. Chưa sang bước 2.
 ```
 
 Tên lớp viết PascalCase và tên thuộc tính viết camelCase (bạn đã chốt). Ở module **đầu tiên**, cổng bước 1 có thêm
-phần xác nhận hai quy ước còn chờ (QU-10 sơ đồ PlantUML, QU-11 cách viết bội số, trong `input/CONVENTIONS.md`). Bạn
-xác nhận hoặc đổi một lần; kết quả được ghi vào `.agents/.claude/system_analysis/output/data-model/conventions.md` và
-dùng cho mọi module sau.
+phần xác nhận quy ước còn chờ (QU-11 cách viết bội số, trong `input/CONVENTIONS.md`). Bạn xác nhận hoặc đổi một lần;
+kết quả được ghi vào `.agents/.claude/system_analysis/output/data-model/conventions.md` và dùng cho mọi module sau.
 
 **Ở mỗi cổng**, trả lời một trong ba cách:
 
@@ -61,9 +66,9 @@ Ba bước và việc của bạn ở từng cổng:
 
 | Bước | Agent làm | Bạn kiểm ở cổng |
 |---|---|---|
-| 1. Mô tả chức năng | Viết một đoạn văn đánh số câu, phủ mọi chức năng ở mục 4.4 của FR | Đoạn văn đã gọi tên đủ các đối tượng dữ liệu chưa; có câu nào nói điều FR không nói không |
-| 2. Danh từ và phân loại | Trích mọi danh từ, quét bổ sung trên FR, phân loại: Lớp, Thuộc tính, Loại bỏ; lập bảng lớp và thuộc tính; đối chiếu với mục Dữ liệu nghiệp vụ của FR | **Danh từ bị loại và lý do**; lớp nào thật ra là thuộc tính (hoặc ngược lại); thuộc tính dẫn xuất; các dòng lệch với FR |
-| 3. Quan hệ | Ma trận cặp lớp; mỗi quan hệ viết hai câu theo hai chiều; tách n-n bằng lớp liên kết; xét gộp 1-1; chọn loại quan hệ; sinh sơ đồ | Bội số hai đầu; lớp liên kết mới; các dòng Hợp thành; bên toàn thể; nói `Chốt EC-M05` khi đồng ý |
+| 1. Mô tả chức năng | Viết đoạn văn xuôi phủ mọi chức năng ở mục Danh sách chức năng của FR; bảng 1.2 tách đoạn văn thành từng câu (Câu 1, 2…) kèm nguồn FR | Đoạn văn đã gọi tên đủ các đối tượng dữ liệu chưa; có câu nào nói điều FR không nói không |
+| 2. Danh từ và phân loại | Trích mọi danh từ, quét bổ sung trên FR, phân loại: Lớp, Thuộc tính, Loại bỏ; lập bảng lớp, **mỗi lớp kèm đủ thuộc tính** (Nguồn nêu, Đề xuất, Tham chiếu); đối chiếu với mục Dữ liệu nghiệp vụ của FR | **Danh từ bị loại và lý do**; lớp nào thật ra là thuộc tính (hoặc ngược lại); **danh sách thuộc tính của từng lớp, nhất là các dòng Đề xuất**; thuộc tính dẫn xuất; các dòng lệch với FR |
+| 3. Quan hệ | Ma trận cặp lớp; mỗi quan hệ viết hai câu theo hai chiều; tách n-n bằng lớp liên kết (cũng có đủ thuộc tính); xét gộp 1-1; chọn loại quan hệ; sinh sơ đồ PNG | Ảnh sơ đồ; bội số hai đầu; lớp liên kết mới và thuộc tính của nó; các dòng Hợp thành; bên toàn thể; nói `Chốt EC-M05` khi đồng ý |
 
 **Sau khi chốt `EC-Mxx`**, làm module kế tiếp bằng chính skill này. Xong mọi module thì chạy lượt gộp `EC-SYS`, rồi
 mới sang `designing-entity-classes`.
@@ -117,16 +122,18 @@ EC đổi thì `CD-Mxx` và `DB-Mxx` của module đó cũng phải làm lại t
 |---|---|
 | Nguồn | `.agents/.claude/system_analysis/output/fr/FR-Mxx.md` (Đã chốt), `registers/glossary.md` |
 | Đầu ra của module | `.agents/.claude/system_analysis/output/data-model/ec/EC-Mxx.md` |
-| Bản gộp | `.agents/.claude/system_analysis/output/data-model/ec/EC-SYS.md` |
+| Sơ đồ của module | `.agents/.claude/system_analysis/output/data-model/ec/diagrams/EC-Mxx.puml` và `EC-Mxx.png` (tool sinh) |
+| Bản gộp | `.agents/.claude/system_analysis/output/data-model/ec/EC-SYS.md` (sơ đồ: `diagrams/EC-SYS.*`) |
 | Quy ước đã xác nhận | `.agents/.claude/system_analysis/output/data-model/conventions.md` |
 | Tệp tạm của tool | `.agents/.claude/system_analysis/output/data-model/ec/.work/` (xóa được) |
 
 ## Cấu trúc tệp EC
 
-1. Mô tả chức năng: đoạn mô tả, truy vết câu
-2. Danh từ và phân loại: sổ danh từ, lớp, thuộc tính, đối chiếu với FR
+1. Mô tả chức năng: đoạn mô tả (văn xuôi), bảng tách câu kèm nguồn FR
+2. Danh từ và phân loại: sổ danh từ, bảng lớp (kèm danh sách thuộc tính), bảng thuộc tính (kèm Căn cứ), đối chiếu
+   với FR
 3. Quan hệ: ma trận cặp lớp, quan hệ số lượng, lớp liên kết, bảng quan hệ
-4. Sơ đồ lớp phân tích (mã PlantUML, do tool sinh)
+4. Sơ đồ lớp phân tích: ảnh PNG, kèm liên kết tới tệp `.puml` (cả hai do tool sinh, không sửa tay)
 5. Liên module
 6. Câu hỏi và điểm chưa chốt
 7. Lịch sử sửa đổi
@@ -150,8 +157,9 @@ analyzing-entity-classes/
 │   ├── INPUTS.md         nguồn đầu vào, phần nào của FR dùng ở bước nào
 │   └── CONVENTIONS.md    quy ước chung của cả ba skill: nơi lưu, mã, QU-01…11, liên module
 ├── steps/                01, 02, 03 và 90-system-merge
-├── output/               ec-template.md, ec-system-template.md, example.md
+├── output/               ec-template.md, ec-system-template.md, example.md, diagrams/ của ví dụ
 └── tools/                script Python 3, chỉ dùng thư viện chuẩn
+    └── vendor/           (tự tạo) chỗ đặt plantuml.jar; không commit
 ```
 
 `.claude/skills/analyzing-entity-classes/SKILL.md` chỉ là tệp trỏ về đây.
@@ -172,8 +180,9 @@ python3 $SK/tools/merge_ec.py --dir $D --list --exclude M05
 python3 $SK/tools/check_ec.py --ec $D/EC-M05.md --step 2 --fr $FR/FR-M05.md --others $D
 python3 $SK/tools/check_ec.py --ec $D/EC-M05.md --final  --fr $FR/FR-M05.md --others $D
 
-# Sinh sơ đồ lớp phân tích (PlantUML) từ các bảng
-python3 $SK/tools/gen_puml.py --ec $D/EC-M05.md --inplace
+# Sinh sơ đồ lớp phân tích: ghi diagrams/EC-M05.puml, render diagrams/EC-M05.png, nhúng ảnh vào mục 4
+python3 $SK/tools/gen_puml.py --ec $D/EC-M05.md
+python3 $SK/tools/gen_puml.py --ec $D/EC-M05.md --no-render   # chỉ ghi .puml, chưa render
 
 # Lượt gộp hệ thống
 python3 $SK/tools/merge_ec.py --dir $D --out-md $D/.work/merge-ec.md
@@ -181,7 +190,23 @@ python3 $SK/tools/check_ec.py --ec $D/EC-SYS.md --system --final
 ```
 
 `check_ec.py` trả mã thoát 1 khi có ERROR. Thử nhanh trên ví dụ:
-`python3 $SK/tools/check_ec.py --ec $SK/output/example.md --final`.
+`python3 $SK/tools/check_ec.py --ec $SK/output/example.md --final`. Lần đầu, ví dụ báo thiếu ảnh PNG cho tới khi bạn
+chạy `python3 $SK/tools/gen_puml.py --ec $SK/output/example.md` (cần cài trình render, xem mục dưới).
+
+### Render ảnh sơ đồ
+
+`gen_puml.py` (và `gen_puml.py` của skill 2, `build_schema.py` của skill 3) render ảnh theo thứ tự:
+
+1. **Java + `plantuml.jar`** (khuyên dùng, chạy offline). Cài Java 11 trở lên. Tải `plantuml.jar` từ trang chính
+   thức <https://plantuml.com/download>, đặt vào `$SK/tools/vendor/plantuml.jar` (một bản dùng cho cả ba skill), hoặc
+   đặt ở chỗ khác rồi trỏ biến môi trường `PLANTUML_JAR` tới nó. Tool tìm `java` qua `PATH`, `JAVA_HOME` hoặc
+   `~/.jdks` (JDK do IntelliJ hay Android Studio tải về).
+2. **Lệnh `plantuml`** trên `PATH` (ví dụ `scoop install plantuml` hoặc `choco install plantuml` trên Windows).
+3. **Máy chủ PlantUML**, chỉ khi bạn chỉ định: `--server https://www.plantuml.com/plantuml` hoặc biến
+   `PLANTUML_SERVER`. Cách này gửi nội dung sơ đồ lên máy chủ đó, nên agent chỉ dùng khi bạn đồng ý.
+
+Không có Graphviz (`dot`) thì tool tự thêm `-Playout=smetana` (bộ dàn trang có sẵn trong jar). Không render được thì
+tool vẫn ghi tệp `.puml`, in hướng dẫn cài và trả mã thoát 2; agent báo lại bạn, không tự tìm cách khác.
 
 ## Câu hỏi thường gặp
 
@@ -195,8 +220,17 @@ Agent đọc thêm thuật ngữ, yêu cầu cấp dưới, quy tắc và bảng
 danh từ nào không đến từ đoạn mô tả. Nếu bạn muốn làm đúng nguyên bản phương pháp (chỉ lấy từ đoạn mô tả), nói:
 `Không quét bổ sung; chỉ trích danh từ từ đoạn mô tả.` Khi đó đoạn mô tả ở bước 1 phải viết đầy đủ hơn.
 
-**Lớp của module khác thì sao?** Vẫn có mặt trong bảng lớp với cột Sở hữu là module kia, để quan hệ có hai đầu, nhưng
-không liệt kê thuộc tính. Lượt gộp hệ thống sẽ nối chúng lại.
+**Lớp của module khác thì sao?** Vẫn có mặt trong bảng lớp với cột Sở hữu là module kia, để quan hệ có hai đầu. Chỉ
+liệt kê thuộc tính module này đọc hoặc ghi (Căn cứ `Tham chiếu`) và thuộc tính FR của module này định nghĩa trên lớp
+đó. Lượt gộp hệ thống nối chúng lại và báo thuộc tính được tham chiếu mà module sở hữu chưa khai.
+
+**`Đề xuất` khác yêu cầu mới thế nào?** Đề xuất chỉ làm cho chức năng FR đã có chạy được: FR nói "hiển thị danh
+sách Topic" thì Topic cần `name`; FR nói "trong 7 ngày gần nhất" thì cần một thời điểm để lọc. Thứ người dùng sẽ thấy
+hoặc nhập mà FR chưa nói (một trường mới trên form, một trạng thái mới) là yêu cầu mới: agent hỏi và bạn cập nhật FR.
+Bạn có thể bỏ bất kỳ đề xuất nào ở cổng bước 2.
+
+**Vì sao không chép mã PlantUML vào tài liệu?** Mã sơ đồ dài và khó đọc khi review. Tài liệu chỉ nhúng ảnh; tệp
+`.puml` nằm cạnh để sửa sơ đồ thì sửa bảng rồi chạy lại tool, và `check_ec.py` báo khi ảnh hoặc `.puml` lệch bảng.
 
 **FR đổi sau khi đã làm vài bước?** Agent so phiên bản FR ghi ở `nguon` với FR hiện tại và báo trước khi làm tiếp.
 
@@ -207,6 +241,8 @@ không liệt kê thuộc tính. Lượt gộp hệ thống sẽ nối chúng l�
 | Agent không nhận ra skill | Kiểm đang mở **gốc** repo; gọi đúng tên `analyzing-entity-classes` |
 | `python3: command not found` | Nhắn agent: "dùng `python` thay cho `python3`" |
 | `UnicodeEncodeError` khi chạy tool | Đặt `PYTHONUTF8=1` rồi mở lại |
+| `gen_puml.py` trả mã 2, báo "Không render được ảnh" | Cài Java và đặt `plantuml.jar` như mục Render ảnh sơ đồ, rồi chạy lại |
+| Tool báo ảnh PNG cũ hơn tệp `.puml` | Chạy lại `gen_puml.py`; không sửa tay tệp `.puml` |
 | Tool báo "bảng thiếu cột" | Có cột bị đổi tên hoặc xóa; khôi phục theo `output/ec-template.md` |
 | Agent làm luôn sang bước sau | Nhắc: "Theo quy tắc cổng của skill, chỉ làm một bước rồi dừng" |
 | Agent chép mục Dữ liệu nghiệp vụ của FR thành kết quả | Nhắc: "Theo bước 2, mục đó chỉ dùng để đối chiếu ở việc 2.6" |

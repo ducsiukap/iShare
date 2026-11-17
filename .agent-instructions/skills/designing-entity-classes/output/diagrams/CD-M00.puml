@@ -1,0 +1,117 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Hotel {
+  -id : int
+  -name : String
+  -starLevel : int
+  -address : String
+  -description : String
+  -rooms : Room[]
+}
+class Room {
+  -id : int
+  -name : String
+  -type : String
+  -price : float
+  -description : String
+}
+class Client {
+  -id : int
+  -idCard : String
+  -fullName : String
+  -address : String
+  -email : String
+  -tel : String
+  -note : String
+}
+class User {
+  -id : int
+  -username : String
+  -password : String
+  -fullName : String
+  -position : String
+}
+class Booking {
+  -id : int
+  -bookDay : Date
+  -/totalAmount : float
+  -note : String
+  -client : Client
+  -bookedRooms : BookedRoom[]
+  -user : User
+}
+class BookedRoom {
+  -id : int
+  -checkin : Date
+  -checkout : Date
+  -price : float
+  -note : String
+  -/amount : float
+  -isCheckedIn : boolean
+  -room : Room
+  -usedServices : UsedService[]
+}
+class Bill {
+  -id : int
+  -paymentDate : Date
+  -amount : float
+  -paymentType : String
+  -note : String
+  -booking : Booking
+  -user : User
+}
+class Service {
+  -id : int
+  -name : String
+  -unity : String
+  -price : float
+}
+class UsedService {
+  -id : int
+  -price : float
+  -quantity : int
+  -/totalAmount : float
+  -service : Service
+}
+class HotelStat <<stat>> {
+  -/revenue : float
+  -/fillRate : float
+}
+class RoomStat <<stat>> {
+  -/fillDay : int
+  -/fillRate : float
+  -/revenue : float
+}
+class ClientStat <<stat>> {
+  -/day : int
+  -/payment : float
+}
+class ServiceStat <<stat>> {
+  -/amount : int
+  -/revenue : float
+}
+class IncomeStat <<stat>> {
+  -/period : String
+  -/client : int
+  -/revenue : float
+}
+
+Hotel "1" *-- "0..*" Room
+Booking "0..*" o-- "1" Client
+Booking "1" o-- "1..*" BookedRoom
+BookedRoom "0..*" o-- "1" Room
+Bill "0..*" o-- "1" Booking
+Bill "0..*" o-- "1" User
+Booking "0..*" o-- "1" User
+BookedRoom "1" o-- "0..*" UsedService
+UsedService "0..*" o-- "1" Service
+Hotel <|-- HotelStat
+Room <|-- RoomStat
+Service <|-- ServiceStat
+Client <|-- ClientStat
+IncomeStat ..> Bill
+
+@enduml

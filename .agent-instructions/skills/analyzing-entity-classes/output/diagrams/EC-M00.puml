@@ -1,0 +1,97 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Hotel {
+  -name
+  -starLevel
+  -address
+  -description
+}
+class Room {
+  -name
+  -type
+  -price
+  -description
+}
+class Client {
+  -idCard
+  -fullName
+  -address
+  -email
+  -tel
+  -note
+}
+class User {
+  -username
+  -password
+  -fullName
+  -position
+}
+class Booking {
+  -bookDay
+  -/totalAmount
+  -note
+}
+class BookedRoom {
+  -checkin
+  -checkout
+  -price
+  -note
+  -/amount
+  -isCheckedIn
+}
+class Bill {
+  -paymentDate
+  -amount
+  -paymentType
+  -note
+}
+class Service {
+  -name
+  -unity
+  -price
+}
+class UsedService {
+  -price
+  -quantity
+  -/totalAmount
+}
+class HotelStat <<stat>> {
+  -/revenue
+  -/fillRate
+}
+class RoomStat <<stat>> {
+  -/fillDay
+  -/fillRate
+  -/revenue
+}
+class ClientStat <<stat>> {
+  -/day
+  -/payment
+}
+class ServiceStat <<stat>> {
+  -/amount
+  -/revenue
+}
+class IncomeStat <<stat>> {
+  -/period
+  -/client
+  -/revenue
+}
+
+(Room, Booking) .. BookedRoom
+(BookedRoom, Service) .. UsedService
+Hotel "1" *-- "0..*" Room
+Booking "0..*" o-- "1" Client
+Bill "0..*" o-- "1" Booking
+Bill "0..*" o-- "1" User
+Booking "0..*" o-- "1" User
+Hotel <|-- HotelStat
+Room <|-- RoomStat
+Service <|-- ServiceStat
+Client <|-- ClientStat
+IncomeStat ..> Bill
+
+@enduml

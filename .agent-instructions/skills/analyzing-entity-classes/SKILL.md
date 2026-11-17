@@ -29,21 +29,28 @@ quan hệ phải truy được về một mã trong tài liệu FR.
 
 ## Nguyên tắc cốt lõi
 
-1. **Nguồn duy nhất là tài liệu FR đã chốt của module** (và thuật ngữ trong đó). Không thêm lớp, thuộc tính, quan hệ
-   hay bội số mà FR không nói. Không tự thêm `createdAt`, `updatedAt`, `deletedAt` cho mọi lớp: chỉ ghi khi FR nói tới.
-2. **Đi đúng trình tự của phương pháp.** Danh từ được trích từ đoạn mô tả (bước 1), cộng một lượt quét bổ sung trên
+1. **Nguồn là tài liệu FR đã chốt của module** (và thuật ngữ trong đó). Không thêm lớp, quan hệ hay bội số mà FR
+   không nói.
+2. **Mỗi lớp phải có đủ thuộc tính để duyệt được.** Khi một danh từ được kết luận là lớp, đưa ra luôn các thuộc tính
+   của nó: thuộc tính FR nêu (Căn cứ `Nguồn nêu`), và thuộc tính FR không gọi tên nhưng một chức năng hoặc quy tắc
+   của FR cần mới chạy được (Căn cứ `Đề xuất`, ghi rõ chức năng nào cần). Lớp ngoài thì ghi các thuộc tính module
+   này đọc hoặc ghi (Căn cứ `Tham chiếu`). Đề xuất không được tạo hành vi mới; không thêm `createdAt`, `updatedAt`
+   cho mọi lớp theo thói quen. Người dùng duyệt các đề xuất ở cổng bước 2.
+3. **Đi đúng trình tự của phương pháp.** Danh từ được trích từ đoạn mô tả (bước 1), cộng một lượt quét bổ sung trên
    FR để không sót thuộc tính; mục "Dữ liệu nghiệp vụ" của FR chỉ dùng để **đối chiếu sau khi đã phân loại**, không
    dùng làm đáp án chép sẵn.
-3. **Mỗi danh từ được xét đúng một lần** và có một kết luận: Lớp, Thuộc tính, hoặc Loại bỏ kèm lý do.
-4. **Ở bước phân tích chưa có id, chưa có kiểu dữ liệu, chưa có khóa ngoại, chưa có tên bảng.** "Tác giả của bài viết"
+4. **Mỗi danh từ được xét đúng một lần** và có một kết luận: Lớp, Thuộc tính, hoặc Loại bỏ kèm lý do.
+5. **Ở bước phân tích chưa có id, chưa có kiểu dữ liệu, chưa có khóa ngoại, chưa có tên bảng.** "Tác giả của bài viết"
    là một quan hệ giữa hai lớp, không phải thuộc tính `authorId`.
-5. **Mỗi lớp có đúng một module sở hữu.** Lớp của module khác chỉ được tham chiếu (xem `input/CONVENTIONS.md`,
+6. **Mỗi lớp có đúng một module sở hữu.** Lớp của module khác chỉ được tham chiếu (xem `input/CONVENTIONS.md`,
    mục Liên module).
-6. **Thiếu thì hỏi, không tự chốt.** Chỗ FR không đủ để quyết định mô hình là GAP: nêu ở cổng kèm đề xuất rút từ
+7. **Thiếu thì hỏi, không tự chốt.** Chỗ FR không đủ để quyết định mô hình là GAP: nêu ở cổng kèm đề xuất rút từ
    dữ liệu hiện có. Không hỏi lan sang điều FR không nhắc tới.
-7. **Không sửa tài liệu FR.** Thấy FR sai hoặc thiếu thì báo người dùng; việc sửa FR làm bằng skill
+8. **Không sửa tài liệu FR.** Thấy FR sai hoặc thiếu thì báo người dùng; việc sửa FR làm bằng skill
    `analyzing-functional-requirements` (mục "Sửa sau khi đã chốt").
-8. **Không tự tuyên bố tài liệu đạt.** Chỉ người dùng chốt.
+9. **Tài liệu viết cho người đọc.** Đoạn mô tả là văn xuôi bình thường, không chèn mã câu `(S1)`. Sơ đồ là ảnh
+   PNG trong tài liệu; mã PlantUML nằm ở tệp `.puml` riêng, không chép vào tài liệu.
+10. **Không tự tuyên bố tài liệu đạt.** Chỉ người dùng chốt.
 
 ## Quy tắc cổng xác nhận (bắt buộc)
 
@@ -87,14 +94,22 @@ Trên Windows dùng `python` hoặc `py` nếu không có `python3`, và đặt 
 |---|---|---|
 | `merge_ec.py --list` | 2 | `python3 $SK/tools/merge_ec.py --dir $D --list --exclude Mxx` (các lớp module khác đã có, để dùng lại đúng tên) |
 | `check_ec.py` | 1, 2, 3 | `python3 $SK/tools/check_ec.py --ec $D/EC-Mxx.md --step N --fr $FR/FR-Mxx.md --others $D` |
-| `gen_puml.py` | 3 | `python3 $SK/tools/gen_puml.py --ec $D/EC-Mxx.md --inplace` (sinh sơ đồ từ bảng, không viết tay) |
+| `gen_puml.py` | 3 | `python3 $SK/tools/gen_puml.py --ec $D/EC-Mxx.md` (ghi `diagrams/EC-Mxx.puml`, render `diagrams/EC-Mxx.png`, đặt ảnh vào mục 4) |
 | `check_ec.py --final` | 3 | `python3 $SK/tools/check_ec.py --ec $D/EC-Mxx.md --final --fr $FR/FR-Mxx.md --others $D` |
 | `merge_ec.py` | Gộp | `python3 $SK/tools/merge_ec.py --dir $D --out-md $D/.work/merge-ec.md` |
 
-Tool chỉ bắt lỗi cơ học: thiếu cột, tên sai dạng, danh từ trùng, nguồn không có trong FR, chức năng chưa được đoạn mô
-tả nói tới, còn quan hệ n-n, hợp thành sai bội số, lớp mồ côi. Phân loại danh từ đúng hay sai, loại quan hệ đúng hay
+Tool chỉ bắt lỗi cơ học: thiếu cột, tên sai dạng, đoạn mô tả còn mã `(S…)` hoặc lệch bảng truy vết câu, danh từ
+trùng, nguồn không có trong FR, chức năng chưa được đoạn mô tả nói tới, lớp chưa có thuộc tính, đề xuất thiếu lý do,
+cột Thuộc tính của bảng lớp lệch bảng thuộc tính, còn quan hệ n-n, hợp thành sai bội số, lớp mồ côi, ảnh sơ đồ thiếu
+hoặc cũ hơn tệp `.puml`. Phân loại danh từ đúng hay sai, loại quan hệ đúng hay
 sai là việc của bạn (theo phần "Tự kiểm" của từng bước) và của người dùng ở cổng.
 Tool báo ERROR thì sửa trước khi trình cổng. WARN được giữ lại phải có lý do ghi ở cổng.
+
+**Render ảnh sơ đồ** cần một trong ba thứ: Java cùng tệp `plantuml.jar` (đặt ở `$SK/tools/vendor/plantuml.jar`, thư
+mục đã được `.gitignore`, hoặc biến môi trường `PLANTUML_JAR`); lệnh `plantuml` trong PATH; hoặc tham số
+`--server <URL>` (gửi nội dung sơ đồ lên máy chủ PlantUML, chỉ dùng khi người dùng đồng ý). Không có Graphviz thì
+tool tự dùng bố cục Smetana của PlantUML. Không render được thì `gen_puml.py` trả mã thoát 2 và in hướng dẫn: báo
+người dùng, không tự cài gì.
 
 ## Cách hỏi người dùng
 
@@ -136,6 +151,7 @@ Tăng phiên bản (1.1, 1.2…), trạng thái về Bản nháp, làm lại t�
 ## Không làm
 
 - Không thêm id, kiểu dữ liệu, thuộc tính đối tượng, bảng, khóa: đó là việc của hai skill sau.
+- Không chép mã PlantUML vào tài liệu; không sửa tay tệp `.puml` hay ảnh.
 - Không chép mục "Dữ liệu nghiệp vụ" của FR thành kết quả mà bỏ qua trích danh từ.
 - Không sửa `EC-Myy.md` của module khác; lệch thì ghi ở cổng.
 - Không chạy lượt gộp hệ thống khi còn module chưa chốt, trừ khi người dùng yêu cầu gộp thử.

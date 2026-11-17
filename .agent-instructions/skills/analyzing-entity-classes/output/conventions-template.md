@@ -18,5 +18,5 @@
 | QU-07 | Tên cột | snake_case của tên thuộc tính | Người dùng chốt khi dựng skill | 2026-11-15 |
 | QU-08 | Tên khóa ngoại | snake_case, kết thúc bằng `_id`; cách ghép tên: (chờ xác nhận ở cổng bước 1, DB-Mxx) | Người dùng chốt snake_case khi dựng skill | 2026-11-15 |
 | QU-09 | Kiểu cột (PostgreSQL) | | Cổng bước 1, DB-Mxx | |
-| QU-10 | Sơ đồ | | Cổng bước 1, EC-Mxx | |
+| QU-10 | Sơ đồ | Tệp riêng `diagrams/<mã tài liệu>.puml` do tool sinh từ các bảng, render thành `.png`; tài liệu chỉ nhúng ảnh, không chép mã PlantUML | Góp ý của người dùng sau lần chạy thử M05 | 2026-11-17 |
 | QU-11 | Bội số | | Cổng bước 1, EC-Mxx | |

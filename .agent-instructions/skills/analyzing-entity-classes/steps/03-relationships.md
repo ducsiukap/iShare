@@ -63,7 +63,11 @@ Cách tách n-n:
    `Liên kết`.
 3. Chuyển vào lớp liên kết những thuộc tính **thuộc về cặp**: thời điểm gắn, số lượng, giá lúc đó, thứ tự, trạng
    thái của lần gắn. Phép thử: "giá trị này có đổi khi đổi A mà giữ B không? có đổi khi đổi B mà giữ A không?" Cả
-   hai đều có thì nó thuộc cặp. Chỉ chuyển thuộc tính FR đã nói; không thêm.
+   hai đều có thì nó thuộc cặp.
+   Rồi đi qua 8 câu hỏi ở việc 2.5 của bước 2 cho lớp liên kết mới, như với mọi lớp: thuộc tính FR nêu ghi `Nguồn
+   nêu`, thuộc tính FR không nêu nhưng chức năng cần thì ghi `Đề xuất` kèm lý do. Thêm các thuộc tính vào mục 2.3 và
+   cột Thuộc tính của lớp đó ở mục 2.2. Lớp liên kết thật sự không có thuộc tính nào (chỉ nối hai lớp) thì ghi rõ vì
+   sao ở cột "Thuộc tính riêng của liên kết" của mục 3.3, ví dụ "Không có: FR chỉ nêu bài viết và Topic".
 4. Thêm hai dòng 1-n mới vào mục 3.2 (A – X và B – X) và viết đủ hai câu cho mỗi dòng.
 5. **Xét lại lớp vừa thêm với các lớp còn lại.** Có thể lại gặp n-n và phải tách tiếp (case study: Client – Room →
    Booking; Booking – Room vẫn n-n → BookedRoom). Lặp tới khi không còn n-n.
@@ -103,16 +107,24 @@ Quy tắc đi kèm:
    - Bội số A = số đối tượng A ứng với **một** đối tượng B (con số ghi ở đầu A trên sơ đồ); Bội số B tương tự.
    - Dạng đọc theo thứ tự A–B. Kế thừa và Phụ thuộc ghi `—` ở ba cột bội số và dạng.
    - Căn cứ: một câu vì sao chọn loại này (dẫn điều kiện ở bảng trên). Nguồn: mã FR.
-2. Chạy `gen_puml.py --ec … --inplace` để sinh sơ đồ vào mục 4. Lớp liên kết được vẽ theo ký pháp lớp liên kết
-   (nối nét đứt vào đường liên kết), giống sơ đồ phân tích của case study. Không sửa tay mã sơ đồ; muốn đổi sơ đồ
-   thì sửa bảng rồi chạy lại.
+2. Chạy `gen_puml.py --ec …` để sinh sơ đồ lớp phân tích. Tool ghi mã PlantUML vào tệp riêng
+   `diagrams/EC-Mxx.puml` (cạnh tài liệu), render ra `diagrams/EC-Mxx.png`, và đặt **ảnh** vào mục 4 cùng liên kết
+   tới tệp `.puml`. Tài liệu không chứa mã PlantUML. Lớp liên kết được vẽ theo ký pháp lớp liên kết (nối nét đứt vào
+   đường liên kết), giống sơ đồ phân tích của case study. Không sửa tay tệp `.puml` hay ảnh; muốn đổi sơ đồ thì sửa
+   bảng rồi chạy lại.
+   - Tool trả mã thoát 2 khi không render được ảnh (thiếu Java, `plantuml.jar` hoặc lệnh `plantuml`); tệp `.puml` vẫn
+     được ghi. Khi đó báo người dùng nguyên văn hướng dẫn tool in ra và hỏi họ chọn cách nào (cài `plantuml.jar`,
+     cài lệnh `plantuml`, hoặc dùng `--server`, tức là gửi nội dung sơ đồ lên máy chủ PlantUML). Không tự dùng
+     `--server` khi người dùng chưa đồng ý.
+   - Mở ảnh PNG vừa render để nhìn lại: lớp nào đứng riêng, đường nào cắt chéo khó đọc thì nêu ở cổng.
 3. Điền **mục 5 Liên module**: mỗi lớp ngoài một dòng (module sở hữu, module này dùng thế nào, thuộc tính module
    này bổ sung nếu có).
 4. Chạy `check_ec.py --ec … --final --fr … --others $D`.
 
 ## Ghi vào tệp EC
 
-Mục 2.2 và 2.3 (lớp liên kết và thuộc tính của nó), 3.1–3.4, 4, 5, 6.
+Mục 2.2 và 2.3 (lớp liên kết và thuộc tính của nó), 3.1–3.4, 4 (ảnh sơ đồ), 5, 6. Tệp `diagrams/EC-Mxx.puml` và
+`diagrams/EC-Mxx.png` cạnh tài liệu.
 
 ## Tự kiểm trước cổng
 
@@ -126,10 +138,12 @@ Mục 2.2 và 2.3 (lớp liên kết và thuộc tính của nó), 3.1–3.4, 4,
 
 ## Trình ở cổng
 
+- Ảnh sơ đồ (gửi tệp PNG cho người dùng nếu có thể) và đường dẫn tệp `.puml`.
+
 - Bảng quan hệ số lượng, nêu riêng các dòng n-n và cách tách, các dòng 1-1 và quyết định gộp hay giữ.
 - Bảng quan hệ, mỗi dòng kèm câu đọc. Nêu riêng: mọi dòng Hợp thành (kèm căn cứ), mọi dòng mà bên toàn thể là
   phán đoán của bạn.
-- Lớp liên kết mới và thuộc tính của nó.
+- Lớp liên kết mới và thuộc tính của nó (đánh dấu thuộc tính `Đề xuất`).
 - Quan hệ với lớp ngoài.
 - GAP; WARN giữ lại kèm lý do.
 - Hỏi người dùng có chốt `EC-Mxx` không.

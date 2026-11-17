@@ -55,6 +55,7 @@ def load_ec_min(path):
     d = {"fm": mdtab.frontmatter(text), "rows": {}}
     for num in EC_COLS:
         _, d["rows"][num] = mdtab.table(text, num)
+    d["module"] = d["fm"].get("module", "")
     return d
 
 
@@ -242,9 +243,9 @@ def check_step4(d, rep, classes, attrs, rels, system):
     for (h, c) in holds:
         if h != c and (c, h) in holds:
             rep.warn("4", "%s và %s chứa lẫn nhau (tham chiếu vòng); xem lại bên toàn thể" % (h, c))
+    from gen_puml import build
     s5 = mdtab.section_with_children(d["text"], "5")
-    if "@startuml" not in s5:
-        rep.error("5", "chưa có mã PlantUML của sơ đồ lớp thiết kế (chạy gen_puml.py)")
+    mdtab.check_diagram(rep, "5", d["path"], mdtab.doc_id_of(d["fm"], d["path"]), s5, build(d))
 
 
 def check_against_ec(d, rep, ec, classes, attrs, rels, upto, system):
@@ -266,7 +267,11 @@ def check_against_ec(d, rep, ec, classes, attrs, rels, upto, system):
             rep.error("1", "lớp %s không có ở bản phân tích; lớp mới phải được thêm ở bước phân tích" % c)
     if upto < 2:
         return
-    ec_attrs = {(r["Lớp"], r["Thuộc tính"]): r for r in ec["rows"]["2.3"]}
+    # Thuộc tính của lớp ngoài (Căn cứ = Tham chiếu, hoặc lớp do module khác sở hữu) không chép sang CD của module:
+    # module sở hữu lớp đó mới thiết kế chúng.
+    own_classes = set(r["Lớp"] for r in ec["rows"]["2.2"] if system or r["Sở hữu"] == ec["module"])
+    ec_attrs = {(r["Lớp"], r["Thuộc tính"]): r for r in ec["rows"]["2.3"]
+                if r["Lớp"] in own_classes and r.get("Căn cứ") != "Tham chiếu"}
     for k, r in ec_attrs.items():
         if k not in attrs:
             rep.error("2.1", "%s.%s có ở bản phân tích nhưng thiếu ở đây" % k)

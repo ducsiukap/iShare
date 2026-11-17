@@ -60,13 +60,19 @@ bảng đó không nên bị loại, hoặc khóa ngoại kia cũng phải đư�
 
 ### 5.4 Dựng lược đồ cuối
 
-1. Chạy `build_schema.py --db … --inplace`: tool dựng mục 6.1 (bảng và cột cuối cùng) và mục 6.2 (sơ đồ quan hệ,
-   mã PlantUML) từ mục 1, 2.1, 4.1, 4.2 trừ đi 5.1, 5.2. Không sửa tay mục 6.
-2. Chạy `check_db.py --db … --final --cd …`.
+1. Chạy `build_schema.py --db …`: tool dựng mục 6.1 (bảng và cột cuối cùng) từ mục 1, 2.1, 4.1, 4.2 trừ đi 5.1,
+   5.2; ghi mã PlantUML của sơ đồ quan hệ vào tệp riêng `diagrams/DB-Mxx.puml`, render thành `diagrams/DB-Mxx.png`
+   và đặt ảnh kèm liên kết tới tệp `.puml` vào mục 6.2. Tài liệu không chứa mã PlantUML. Không sửa tay mục 6, tệp
+   `.puml` hay ảnh.
+   Tool trả mã 2 khi không render được: báo người dùng hướng dẫn tool in ra và hỏi cách xử lý (cài Java +
+   `plantuml.jar`, cài lệnh `plantuml`, hoặc `--server`, tức là gửi nội dung sơ đồ lên máy chủ PlantUML). Không tự
+   tải hay chạy phần mềm khác, không tự dùng `--server`.
+2. Mở ảnh PNG để xem sơ đồ có đọc được không, rồi chạy `check_db.py --db … --final --cd …`.
 
 ## Ghi vào tệp DB
 
-Mục 5.1, 5.2, 5.3, 5.4, 6 (do tool), 8 (quyết định thiết kế), 9 (câu hỏi).
+Mục 5.1, 5.2, 5.3, 5.4, 6 (do tool), 8 (quyết định thiết kế), 9 (câu hỏi). Tệp `diagrams/DB-Mxx.puml` và
+`diagrams/DB-Mxx.png` (tool sinh).
 
 ## Tự kiểm trước cổng
 
@@ -83,7 +89,7 @@ Mục 5.1, 5.2, 5.3, 5.4, 6 (do tool), 8 (quyết định thiết kế), 9 (câu
 - **Các cột dẫn xuất mà FR yêu cầu lưu**: từng cột, mã FR, đề xuất giữ hay loại. Đây là quyết định của người dùng.
 - Các cặp đã xét nhưng không coi là dư thừa.
 - Bảng bị loại và lý do.
-- Lược đồ cuối: số bảng, danh sách bảng và cột; sơ đồ.
+- Lược đồ cuối: số bảng, danh sách bảng và cột; ảnh sơ đồ quan hệ (đường dẫn tệp PNG).
 - WARN giữ lại kèm lý do. Hỏi người dùng có chốt `DB-Mxx` không.
 
 ## Khi người dùng nói "Chốt DB-Mxx"

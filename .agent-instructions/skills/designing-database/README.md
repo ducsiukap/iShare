@@ -81,7 +81,8 @@ module khác), kiểm mọi khóa ngoại liên module, và dựng `DB-SYS.md`.
 3. Quan hệ giữa các bảng
 4. Khóa: khóa chính; khóa ngoại
 5. Loại dư thừa: cột bị loại; bảng bị loại; dẫn xuất nhưng giữ lại; đã xét nhưng không coi là dư thừa
-6. Lược đồ cuối: bảng và cột; sơ đồ quan hệ (do tool sinh)
+6. Lược đồ cuối: bảng và cột (6.1); sơ đồ quan hệ (6.2) là ảnh PNG kèm liên kết tới tệp `diagrams/DB-Mxx.puml`, cả
+   hai do tool sinh
 7. Liên module: bảng ngoài; khóa ngoại đề nghị
 8. Quyết định thiết kế (`DD-Mxx-nn`)
 9. Câu hỏi và điểm chưa chốt
@@ -114,13 +115,16 @@ python3 $SK/tools/merge_db.py --dir $M/db --list --exclude M05
 python3 $SK/tools/check_db.py --db $M/db/DB-M05.md --step 4 --cd $M/cd/CD-M05.md
 python3 $SK/tools/check_db.py --db $M/db/DB-M05.md --final  --cd $M/cd/CD-M05.md
 
-# Dựng lược đồ cuối (mục 6.1) và sơ đồ quan hệ (mục 6.2) từ các bảng bước 1–5
-python3 $SK/tools/build_schema.py --db $M/db/DB-M05.md --inplace
+# Dựng lược đồ cuối (mục 6.1) và sơ đồ quan hệ (ghi diagrams/DB-M05.puml, render .png, nhúng ảnh vào mục 6.2)
+python3 $SK/tools/build_schema.py --db $M/db/DB-M05.md
 
 # Lượt gộp hệ thống
 python3 $SK/tools/merge_db.py --dir $M/db --out-md $M/db/.work/merge-db.md
 python3 $SK/tools/check_db.py --db $M/db/DB-SYS.md --system --final --cd $M/cd/CD-SYS.md
 ```
+
+Cài trình render ảnh (Java + `plantuml.jar`, hoặc lệnh `plantuml`) theo mục "Render ảnh sơ đồ" trong
+[README của skill 1](../analyzing-entity-classes/README.md); một bản `plantuml.jar` dùng cho cả ba skill.
 
 `check_db.py` mặc định kiểm tên theo snake_case. Đổi quy ước thì dùng `--table-style tbl` (kiểu phương pháp gốc) hoặc
 `--table-style none` (không kiểm tên).

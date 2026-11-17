@@ -66,7 +66,7 @@ Làm việc A rồi dừng ở cổng.
 2. Thuộc tính và kiểu; kiểu liệt kê
 3. Chuyển quan hệ: quan hệ thành phần – toàn thể; quan hệ giữ nguyên (kế thừa, phụ thuộc)
 4. Thuộc tính đối tượng
-5. Sơ đồ lớp thiết kế (mã PlantUML, do tool sinh)
+5. Sơ đồ lớp thiết kế: ảnh PNG, kèm liên kết tới tệp `diagrams/CD-Mxx.puml` (cả hai do tool sinh, không sửa tay)
 6. Liên module
 7. Quyết định thiết kế (`DD-Mxx-nn`)
 8. Câu hỏi và điểm chưa chốt
@@ -101,8 +101,8 @@ python3 $SK/tools/merge_cd.py --dir $M/cd --list --exclude M05
 python3 $SK/tools/check_cd.py --cd $M/cd/CD-M05.md --step 2 --ec $M/ec/EC-M05.md
 python3 $SK/tools/check_cd.py --cd $M/cd/CD-M05.md --final  --ec $M/ec/EC-M05.md
 
-# Sinh sơ đồ lớp thiết kế
-python3 $SK/tools/gen_puml.py --cd $M/cd/CD-M05.md --inplace
+# Sinh sơ đồ lớp thiết kế: ghi diagrams/CD-M05.puml, render diagrams/CD-M05.png, nhúng ảnh vào mục 5
+python3 $SK/tools/gen_puml.py --cd $M/cd/CD-M05.md
 
 # Lượt gộp hệ thống
 python3 $SK/tools/merge_cd.py --dir $M/cd --out-md $M/cd/.work/merge-cd.md
@@ -111,6 +111,10 @@ python3 $SK/tools/check_cd.py --cd $M/cd/CD-SYS.md --system --final --ec $M/ec/E
 
 Thử nhanh trên ví dụ:
 `python3 $SK/tools/check_cd.py --cd $SK/output/example.md --final --ec .agent-instructions/skills/analyzing-entity-classes/output/example.md`.
+Ví dụ báo thiếu ảnh PNG cho tới khi chạy `python3 $SK/tools/gen_puml.py --cd $SK/output/example.md`.
+
+Cài trình render ảnh (Java + `plantuml.jar`, hoặc lệnh `plantuml`) theo mục "Render ảnh sơ đồ" trong
+[README của skill 1](../analyzing-entity-classes/README.md); một bản `plantuml.jar` dùng cho cả ba skill.
 
 ## Câu hỏi thường gặp
 

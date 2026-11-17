@@ -40,12 +40,16 @@ Mục 3.1 của `CD-Mxx.md` đã duyệt; `data-model/conventions.md` (QU-05).
 4. **Thuộc tính đối tượng có kiểu là lớp ngoài** (lớp thành phần do module khác sở hữu, lớp toàn thể của module
    này): ghi bình thường ở mục 4; lớp ngoài đã có ở mục 1 và mục 6.
 5. Điền mục 6 Liên module: mỗi lớp ngoài một dòng.
-6. Chạy `gen_puml.py --cd … --inplace` để sinh sơ đồ lớp thiết kế vào mục 5 (không sửa tay), rồi
-   `check_cd.py --cd … --final --ec …`.
+6. Chạy `gen_puml.py --cd …`. Tool ghi mã PlantUML vào tệp riêng `diagrams/CD-Mxx.puml` cạnh tài liệu, render
+   thành `diagrams/CD-Mxx.png` và đặt ảnh kèm liên kết tới tệp `.puml` vào mục 5. Tài liệu không chứa mã PlantUML;
+   không sửa tay tệp `.puml` hay ảnh. Tool trả mã 2 khi không render được: báo người dùng hướng dẫn tool in ra và
+   hỏi cách xử lý (cài Java + `plantuml.jar`, cài lệnh `plantuml`, hoặc `--server`, tức là gửi nội dung sơ đồ lên
+   máy chủ PlantUML). Không tự tải hay chạy phần mềm khác, không tự dùng `--server`.
+7. Mở ảnh PNG để xem sơ đồ có đọc được không, rồi chạy `check_cd.py --cd … --final --ec …`.
 
 ## Ghi vào tệp CD
 
-Mục 4, 5, 6; mục 7 và 8 nếu có.
+Mục 4, 5, 6; mục 7 và 8 nếu có. Tệp `diagrams/CD-Mxx.puml` và `diagrams/CD-Mxx.png` (tool sinh).
 
 ## Tự kiểm trước cổng
 
@@ -61,6 +65,7 @@ Mục 4, 5, 6; mục 7 và 8 nếu có.
 ## Trình ở cổng
 
 - Bảng thuộc tính đối tượng kèm câu quy tắc.
+- Ảnh sơ đồ lớp thiết kế (đường dẫn tệp PNG).
 - Danh sách từng lớp với đủ thuộc tính (thường và đối tượng), tức nội dung của sơ đồ.
 - Thuộc tính đề nghị cho lớp của module khác.
 - Tên đặt theo vai trò (để người dùng kiểm vai trò).
