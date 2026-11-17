@@ -150,8 +150,14 @@ def check_step2(d, rep, fr_text, system):
             owned = system or r["Sở hữu"] == mod
             if owned and n == 0:
                 if r["Nhóm"] == "Thực thể":
-                    rep.error("2.3", "lớp %s không có thuộc tính nào: xem lại nó có phải thuộc tính của lớp khác, "
-                                     "hoặc nêu GAP ở cổng" % c)
+                    has_gap = any(
+                        q.get("Loại") in ("Thiếu", "Lệch")
+                        and re.search(r"\b" + re.escape(c) + r"\b", q.get("Câu hỏi", ""))
+                        for q in d["rows"]["6"]
+                    )
+                    report = rep.warn if has_gap else rep.error
+                    report("2.3", "lớp %s không có thuộc tính nào: xem lại nó có phải thuộc tính của lớp khác, "
+                                  "hoặc nêu GAP ở cổng%s" % (c, " (đã ghi GAP ở mục 6)" if has_gap else ""))
                 else:
                     rep.warn("2.3", "lớp %s (%s) không có thuộc tính riêng" % (c, r["Nhóm"]))
             if not owned and n > 0:
