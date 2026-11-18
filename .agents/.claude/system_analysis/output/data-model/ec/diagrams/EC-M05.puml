@@ -1,0 +1,77 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Topic {
+  -name
+  -deletedAt
+}
+class Tag {
+  -name
+  -status
+  -createdAt
+}
+class TopicSuggestion {
+  -status
+  -createdAt
+}
+class TopicSuggestionFeedback {
+  -recordedAt
+}
+class TopicTrendingStat <<stat>> {
+  -/score
+  -/newPostCount
+  -/rank
+  -/computedAt
+}
+class TagTrendingStat <<stat>> {
+  -/score
+  -/newPostCount
+  -/rank
+  -/computedAt
+}
+class PostTopic {
+}
+class PostTag {
+}
+class SuggestedTopic {
+}
+class ChosenTopic {
+}
+class Post <<M03>> {
+  -title
+  -plainText
+  -publishStatus
+  -moderationStatus
+  -publishedAt
+}
+class User <<M01>> {
+  -role
+  -status
+}
+class Follow <<M07>> {
+}
+class ModerationLog <<M08>> {
+  -actionType
+  -reason
+  -createdAt
+}
+class AdminLog <<M10>> {
+  -actionType
+}
+
+(Post, Topic) .. PostTopic
+(Post, Tag) .. PostTag
+(TopicSuggestion, Topic) .. SuggestedTopic
+(TopicSuggestionFeedback, Topic) .. ChosenTopic
+TopicSuggestionFeedback "0..1" o-- "1" TopicSuggestion
+TopicSuggestion "0..*" o-- "1" Post
+TopicSuggestion "0..*" o-- "0..1" User
+Follow "0..*" o-- "0..1" Topic
+AdminLog "0..*" o-- "0..1" Topic
+ModerationLog "0..*" o-- "0..1" Tag
+Topic <|-- TopicTrendingStat
+Tag <|-- TagTrendingStat
+
+@enduml
