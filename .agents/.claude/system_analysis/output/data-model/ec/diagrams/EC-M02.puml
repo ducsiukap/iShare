@@ -1,0 +1,32 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Profile {
+  -avatar
+  -bio
+  -gradeLevel
+  -/followerCount
+  -/followingCount
+}
+class Bookmark {
+  -savedAt
+}
+class User <<M01>> {
+  -username
+  -displayName
+  -createdAt
+  -status
+}
+class Post <<M03>> {
+  -createdAt
+  -publishStatus
+  -moderationStatus
+  -isAnonymous
+}
+
+(User, Post) .. Bookmark
+User "1" o-- "1" Profile
+
+@enduml
