@@ -1,0 +1,34 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Comment {
+  -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+}
+class Post <<M03>> {
+  -lockLevel
+  -/isPubliclyVisible
+  -/commentCount
+}
+class User <<M01>> {
+  -displayName
+}
+class Upvote <<M12>> {
+}
+
+Post "1" o-- "0..*" Comment
+Comment "0..*" o-- "1" User
+Comment "0..1" o-- "0..*" Comment
+Comment "0..*" o-- "0..1" Comment
+Comment "0..1" o-- "0..*" Upvote
+
+@enduml
