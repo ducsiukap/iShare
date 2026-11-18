@@ -32,13 +32,22 @@ def build(d):
         out.extend(attrs.get(r["Lớp"], []))
         out.append("}")
     out.append("")
-    # lớp liên kết vẽ theo ký pháp association class, như sơ đồ phân tích của case study
-    skip = set()
+    # Khi cùng hai đầu có nhiều quan hệ, vẽ hai nhánh 1-n của từng lớp liên kết
+    # để PlantUML không gắn các lớp liên kết vào cùng một đường quan hệ.
+    association_rows = []
+    pair_counts = {}
     for r in d["rows"]["3.3"]:
         pair = mdtab.split_pair(r["Tách từ quan hệ n-n"])
-        if not pair:
+        if pair:
+            association_rows.append((pair, r["Lớp liên kết"]))
+            key = frozenset(pair)
+            pair_counts[key] = pair_counts.get(key, 0) + 1
+    direct_pairs = {frozenset((r["Lớp A"], r["Lớp B"])) for r in d["rows"]["3.4"]}
+    skip = set()
+    for pair, lc in association_rows:
+        key = frozenset(pair)
+        if pair_counts[key] > 1 or key in direct_pairs:
             continue
-        lc = r["Lớp liên kết"]
         out.append("(%s, %s) .. %s" % (pair[0], pair[1], lc))
         for p in pair:
             skip.add(frozenset((lc, p)))
