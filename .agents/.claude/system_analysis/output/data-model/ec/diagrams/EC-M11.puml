@@ -1,0 +1,56 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Group {
+  -name
+  -description
+  -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
+  -modState
+  -inviteLink
+  -/isInstantJoin
+}
+class GroupMember {
+  -role
+  -joinedAt
+  -modAppointedAt
+}
+class JoinRequest {
+  -answer
+  -status
+}
+class GroupJoinBlock {
+}
+class User <<M01>> {
+  -role
+  -status
+  -displayName
+}
+class Post <<M03>> {
+  -publishState
+  -rejectionReason
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+}
+class Comment <<M04>> {
+  -isRemovedFromGroup
+}
+
+(User, Group) .. GroupMember
+(User, Group) .. GroupJoinBlock
+Group "0..*" o-- "1" User
+JoinRequest "0..*" o-- "1" User
+Group "1" o-- "0..*" JoinRequest
+Group "0..1" o-- "0..*" Post
+Post "0..*" o-- "0..1" GroupMember
+
+@enduml
