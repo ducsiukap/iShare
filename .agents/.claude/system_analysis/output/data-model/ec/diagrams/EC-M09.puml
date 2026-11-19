@@ -1,0 +1,61 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Appeal {
+  -type
+  -explanation
+  -submittedAt
+  -status
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+  -/roleAtAction
+}
+class AppealEvidence {
+  -image
+}
+class User <<M01>> {
+  -role
+  -status
+  -username
+}
+class Warning <<M08>> {
+  -reason
+  -issuedAt
+  -isIssuedByAi
+  -levelAfter
+  -status
+}
+class Ban <<M08>> {
+  -kind
+  -duration
+  -startedAt
+  -reason
+  -status
+}
+class ReportCase <<M08>> {
+  -conclusionReason
+  -concludedAt
+}
+class Post <<M03>> {
+  -title
+  -content
+  -modState
+  -publishState
+  -violationCategory
+  -rejectedAt
+}
+
+Appeal "1" o-- "0..3" AppealEvidence
+Appeal "0..*" o-- "1" User
+Appeal "0..*" o-- "0..1" User
+Appeal "0..*" o-- "0..1" User
+Appeal "0..1" o-- "0..1" Warning
+Appeal "0..1" o-- "0..1" Ban
+Appeal "0..1" o-- "0..1" ReportCase
+Appeal "0..*" o-- "0..1" Post
+
+@enduml
