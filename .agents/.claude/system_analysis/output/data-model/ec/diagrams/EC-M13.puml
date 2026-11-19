@@ -1,0 +1,44 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class AiDecisionLog {
+  -callType
+  -isSuccess
+  -rawOutput
+  -createdAt
+  -/scanScore
+  -/violationCategory
+  -/scoreBand
+}
+class PostSummary {
+  -content
+  -createdAt
+}
+class TopicSuggestionStat <<stat>> {
+  -period
+  -/suggestedCount
+  -/keptCount
+  -/retentionRate
+}
+class Post <<M03>> {
+  -title
+  -/contentText
+  -publishState
+  -embedding
+  -needsEmbedding
+}
+class Comment <<M04>> {
+  -content
+}
+class TopicSuggestionFeedback <<M05>> {
+  -recordedAt
+}
+
+AiDecisionLog "0..*" o-- "0..1" Post
+AiDecisionLog "0..*" o-- "0..1" Comment
+Post "1" o-- "0..1" PostSummary
+TopicSuggestionStat ..> TopicSuggestionFeedback
+
+@enduml
