@@ -1,0 +1,91 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Notification {
+  -eventType
+  -isRead
+  -occurredAt
+  -lastUpdatedAt
+  -appealLink
+  -/isUpvoteWindowOpen
+  -/otherUpvoterCount
+}
+class Follow {
+  -followedAt
+}
+class NotificationEmail {
+  -eventType
+  -queuedAt
+  -status
+  -retryCount
+  -appealLink
+}
+class NotificationSetting {
+  -isAllChatMuted
+}
+class CountedUpvoter {
+}
+class MutedPost {
+}
+class MutedConversation {
+}
+class User <<M01>> {
+  -displayName
+  -status
+  -email
+  -/unreadNotificationCount
+}
+class Topic <<M05>> {
+}
+class Post <<M03>> {
+  -isAnonymous
+  -/isPubliclyVisible
+}
+class Comment <<M04>> {
+  -/isVisible
+}
+class Group <<M11>> {
+  -inviteLink
+}
+class Report <<M08>> {
+}
+class Warning <<M08>> {
+}
+class Ban <<M08>> {
+}
+class Appeal <<M09>> {
+}
+class Proposal <<M10>> {
+  -status
+}
+class Badge <<M12>> {
+}
+class Title <<M12>> {
+}
+class Conversation <<M16>> {
+}
+
+(Notification, User) .. CountedUpvoter
+(User, Post) .. MutedPost
+(User, Conversation) .. MutedConversation
+Notification "0..*" o-- "1" User
+Notification "0..*" o-- "0..1" User
+Notification "0..*" o-- "0..1" Post
+Notification "0..*" o-- "0..1" Comment
+Notification "0..*" o-- "0..1" Group
+Notification "0..*" o-- "0..1" Report
+Notification "0..1" o-- "0..1" Warning
+Notification "0..2" o-- "0..1" Ban
+Notification "0..1" o-- "0..1" Appeal
+Notification "1" o-- "0..1" Proposal
+Notification "0..*" o-- "0..1" Badge
+Notification "0..*" o-- "0..1" Title
+Follow "0..*" o-- "1" User
+Follow "0..*" o-- "0..1" User
+Follow "0..*" o-- "0..1" Topic
+NotificationEmail "0..*" o-- "1" User
+User "1" o-- "0..1" NotificationSetting
+
+@enduml
