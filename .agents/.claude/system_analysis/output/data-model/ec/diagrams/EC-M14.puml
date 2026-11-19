@@ -1,0 +1,36 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class PostTrendingStat <<stat>> {
+  -/score
+  -/age
+  -/computedAt
+}
+class Post <<M03>> {
+  -/isPubliclyVisible
+  -publishedAt
+  -/upvoteCount
+  -/commentCount
+  -/bookmarkCount
+  -isAnonymous
+}
+class User <<M01>> {
+  -status
+}
+class Group <<M11>> {
+  -privacy
+}
+class TopicTrendingStat <<M05>> {
+  -/score
+  -/rank
+}
+class TagTrendingStat <<M05>> {
+  -/score
+  -/rank
+}
+
+Post <|-- PostTrendingStat
+
+@enduml
