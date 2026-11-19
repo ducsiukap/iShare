@@ -1,0 +1,65 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Proposal {
+  -type
+  -sentAt
+  -status
+}
+class ConfigSwitch {
+  -name
+  -status
+}
+class Banner {
+  -content
+  -status
+}
+class BannerDismissal {
+}
+class AdminLog {
+  -actionType
+  -reason
+  -createdAt
+  -isBySystem
+}
+class User <<M01>> {
+  -role
+  -isRoot
+  -username
+  -displayName
+  -status
+  -verificationLevel
+}
+class Post <<M03>> {
+}
+class Comment <<M04>> {
+}
+class Group <<M11>> {
+}
+class ReportCase <<M08>> {
+}
+class Appeal <<M09>> {
+}
+class Topic <<M05>> {
+}
+class Tag <<M05>> {
+}
+
+(User, Banner) .. BannerDismissal
+Proposal "0..*" o-- "1" User
+Proposal "0..*" o-- "1" User
+AdminLog "0..*" o-- "0..1" User
+AdminLog "0..*" o-- "0..1" User
+AdminLog "0..*" o-- "0..1" ConfigSwitch
+AdminLog "0..*" o-- "0..1" Banner
+AdminLog "0..*" o-- "0..1" Post
+AdminLog "0..*" o-- "0..1" Comment
+AdminLog "0..*" o-- "0..1" Group
+AdminLog "0..*" o-- "0..1" ReportCase
+AdminLog "0..*" o-- "0..1" Appeal
+AdminLog "0..*" o-- "0..1" Topic
+AdminLog "0..*" o-- "0..1" Tag
+
+@enduml
