@@ -2,9 +2,9 @@
 module: M13
 ten_module: AI Layer
 ma_tai_lieu: EC-M13
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-11-19
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M13 v1.3
 steps_completed: [1, 2, 3]
@@ -19,8 +19,8 @@ steps_completed: [1, 2, 3]
 | Module | M13 — AI Layer |
 | Đầu vào | FR-M13 phiên bản 1.3 |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-11-19 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -197,8 +197,8 @@ lại cho bảng thống kê của M15.
 | AiDecisionLog | Bản ghi nhật ký quyết định AI | Thực thể | M13 | Bản ghi của một lời gọi chấm điểm kiểm duyệt, embedding bài hoặc gợi ý Topic, kể cả lời gọi thất bại; gắn với một bài viết hoặc một bình luận; giữ vĩnh viễn | callType, isSuccess, rawOutput, createdAt, /scanScore, /violationCategory, /scoreBand | FR-M13-08.01, FR-M13-08.02, FR-M13-08.03 |
 | PostSummary | Kết quả tóm tắt đang giữ | Thực thể | M13 | Tóm tắt AI của một bài viết, giữ tạm và dùng chung cho mọi người yêu cầu; bị bỏ khi hết hạn hoặc bài đổi | content, createdAt | FR-M13-06.02, FR-M13-06.04, FR-M13-06.05 |
 | TopicSuggestionStat | Thống kê chất lượng gợi ý Topic | Thống kê | M13 | Tỷ lệ Topic gợi ý được giữ lại trong một khoảng thời gian, tính lại từ các phản hồi gợi ý Topic | period, /suggestedCount, /keptCount, /retentionRate | FR-M13-10.01, FR-M13-10.02 |
-| Post | Bài viết | Thực thể | M03 | Bài được quét, có embedding, có kết quả tóm tắt đang giữ và bản ghi nhật ký quyết định AI | title, contentText, publishState, embedding, needsEmbedding | FR-M13-02.01, FR-M13-03.01, FR-M13-06.01 |
-| Comment | Bình luận | Thực thể | M04 | Bình luận được quét khi M08 kích hoạt quét luồng; có bản ghi nhật ký quyết định AI | content | FR-M13-02.03, FR-M13-08.04 |
+| Post | Bài viết | Thực thể | M03 | Bài được quét, có embedding, có kết quả tóm tắt đang giữ và bản ghi nhật ký quyết định AI | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M13-02.01, FR-M13-03.01, FR-M13-06.01 |
+| Comment | Bình luận | Thực thể | M04 | Bình luận được quét khi M08 kích hoạt quét luồng; có bản ghi nhật ký quyết định AI | content, publishedAt, editedAt, modState, deletedAt, /isDeleted, /isEdited, /isVisible, /upvoteCount, scannedAt, /isScannedCurrent, /replyRate, isRemovedFromGroup, isPointsDeducted | FR-M13-02.03, FR-M13-08.04 |
 | TopicSuggestionFeedback | Phản hồi gợi ý | Thực thể | M05 | Phản hồi gợi ý Topic mà M13 dùng để tính tỷ lệ Topic gợi ý được giữ lại | recordedAt | FR-M13-10.01 |
 
 ### 2.3 Thuộc tính
@@ -206,7 +206,8 @@ lại cho bảng thống kê của M15.
 <!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
      Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
      Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
-             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa).
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
      Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
              — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
      Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
@@ -228,11 +229,52 @@ lại cho bảng thống kê của M15.
 | TopicSuggestionStat | keptCount | Số Topic được giữ lại | Dẫn xuất | Nguồn nêu | Số Topic AI gợi ý có trong các Topic tác giả chọn cuối, trên cùng các phản hồi (BR-M13-29) | FR-M13-10.01, BR-M13-29 | — |
 | TopicSuggestionStat | retentionRate | Tỷ lệ Topic gợi ý được giữ lại | Dẫn xuất | Nguồn nêu | keptCount ÷ suggestedCount; không có giá trị khi khoảng không có phản hồi nào (FR-M13-10.03, BR-M13-29) | FR-M13-10.01, FR-M13-10.03, BR-M13-29 | Cung cấp cho bảng thống kê Nội dung của M15, chỉ Admin xem (FR-M13-10.04) |
 | Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M13-02.01, FR-M13-05.01, FR-M13-06.01, FR-M13-03.02, FR-M13-06.05 | Gửi cho AI kiểm duyệt, gợi ý Topic, tóm tắt và dùng để tạo embedding; đổi tiêu đề thì tạo lại embedding và bỏ kết quả tóm tắt đang giữ |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
 | Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M13-02.01, FR-M13-05.01, FR-M13-06.01, FR-M13-07.02 | Như Post.title; đếm số từ (cùng tiêu đề) để hiện nút "Tóm tắt" và bỏ kết quả khi bài còn dưới 300 từ (BR-M13-20, BR-M13-27) |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
 | Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.05 | Tạo embedding khi bài chuyển sang Đã đăng; không tạo cho bài Nháp, Chờ duyệt, Bị từ chối |
-| Post | embedding | Embedding | Lưu | Nguồn nêu | Mỗi bài Đã đăng đúng một embedding, biểu diễn tiêu đề và nội dung chữ; tạo lại khi tiêu đề hoặc nội dung chữ đổi và thay embedding cũ; không tạo lại khi chỉ đổi Tag, Topic, ảnh, tài liệu; không có ở bài chưa Đã đăng (BR-M13-17, BR-M13-18) | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Thực thể "Embedding bài viết" của FR (Q-01); M06 so với embedding của truy vấn (EC-M06). EC-M03 chưa có; M13 bổ sung trên lớp ngoài Post (mục 5) |
-| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Nguồn nêu | Đúng khi bài Đã đăng chưa có embedding theo nội dung hiện tại vì công tắc AI tổng hoặc Search tắt, hoặc vì lời gọi thất bại; về sai khi đã tạo embedding theo nội dung hiện tại (BR-M13-26) | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Thực thể "Hàng chờ tạo bù embedding" của FR (Q-01). EC-M03 chưa có; M13 bổ sung trên lớp ngoài Post (mục 5) |
-| Comment | content | Nội dung | Lưu | Tham chiếu | — | FR-M13-02.03 | Nội dung chữ gửi cho AI kiểm duyệt khi M08 kích hoạt quét luồng bình luận |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M03-01.12, FR-M03-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M03-07.01, BR-M03-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | Mỗi bài Đã đăng đúng một embedding, biểu diễn tiêu đề và nội dung chữ; tạo lại khi tiêu đề hoặc nội dung chữ đổi và thay embedding cũ; không tạo lại khi chỉ đổi Tag, Topic, ảnh, tài liệu; không có ở bài chưa Đã đăng (BR-M13-17, BR-M13-18) | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | M13 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Thực thể "Embedding bài viết" của FR (Q-01); M06 so với embedding của truy vấn (EC-M06) |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | Đúng khi bài Đã đăng chưa có embedding theo nội dung hiện tại vì công tắc AI tổng hoặc Search tắt, hoặc vì lời gọi thất bại; về sai khi đã tạo embedding theo nội dung hiện tại (BR-M13-26) | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | M13 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Thực thể "Hàng chờ tạo bù embedding" của FR (Q-01) |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Comment | content | Nội dung bình luận | Lưu | Tham chiếu | — | FR-M13-02.03 | Nội dung chữ gửi cho AI kiểm duyệt khi M08 kích hoạt quét luồng bình luận |
+| Comment | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M04-02.01, FR-M04-04.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | editedAt | Thời điểm sửa | Lưu | Tham chiếu | — | FR-M04-04.02, BR-M04-07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M04-01.09, FR-M04-02.02, FR-M04-03.04 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isDeleted | Đã xóa | Dẫn xuất | Tham chiếu | — | FR-M04-05.01, FR-M04-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M04-01.06 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isVisible | Hiển thị bình thường | Dẫn xuất | Tham chiếu | — | FR-M04-01.07, FR-M04-03.01, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M04-01.03, FR-M04-01.14, BR-M04-05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | scannedAt | Thời điểm quét gần nhất | Lưu | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isScannedCurrent | Đã quét với nội dung hiện tại | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | replyRate | Tốc độ trả lời | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, BR-M08-20 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.11, FR-M12-02.19, FR-M12-02.20, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
 | TopicSuggestionFeedback | recordedAt | Thời điểm ghi | Lưu | Tham chiếu | — | FR-M13-10.02 | Xếp mỗi phản hồi vào khoảng thời gian Admin chọn, theo giờ Việt Nam (BR-M13-29) |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
@@ -318,7 +360,7 @@ Mã nguồn sơ đồ: [diagrams/EC-M13.puml](diagrams/EC-M13.puml). Ảnh và t
 
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| Post | M03 | Bài được quét, tạo embedding, gợi ý Topic, tóm tắt; có bản ghi nhật ký quyết định AI (R-M13-01) và kết quả tóm tắt đang giữ (R-M13-03). Đọc title, contentText, publishState; ghi embedding và needsEmbedding | embedding, needsEmbedding |
+| Post | M03 | Bài được quét, tạo embedding, gợi ý Topic, tóm tắt; có bản ghi nhật ký quyết định AI (R-M13-01) và kết quả tóm tắt đang giữ (R-M13-03). Đọc title, contentText, publishState; ghi embedding và needsEmbedding | embedding, needsEmbedding — đã đưa vào lớp của EC-M03 (MD-05) |
 | Comment | M04 | Bình luận được chấm điểm khi M08 quét luồng; có bản ghi nhật ký quyết định AI (R-M13-02). Đọc content | — |
 | TopicSuggestionFeedback | M05 | Dữ liệu của lớp thống kê TopicSuggestionStat (R-M13-04). Đọc recordedAt; đọc các Topic gợi ý và Topic chọn cuối qua SuggestedTopic, ChosenTopic của EC-M05 | — |
 
@@ -336,3 +378,4 @@ Mã nguồn sơ đồ: [diagrams/EC-M13.puml](diagrams/EC-M13.puml). Ảnh và t
 |---|---|---|---|
 | 0.1 | 2026-11-19 | Tạo mới; làm liền 3 bước theo yêu cầu của người dùng (không dừng ở cổng), chờ duyệt và trả lời Q-01 | Phạm Văn Đức |
 | 1.0 | 2026-11-19 | Chốt sau 3 bước: 3 lớp của M13, 3 lớp ngoài, 4 quan hệ (R-M13-01 đến R-M13-04); Q-01 đã trả lời; đề xuất AiDecisionLog.createdAt được duyệt | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-05: dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: Post.embedding, Post.needsEmbedding, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 41 dòng Tham chiếu, tên tiếng Việt của thuộc tính lớp ngoài theo module sở hữu: Comment.content: Nội dung → Nội dung bình luận | Phạm Văn Đức |

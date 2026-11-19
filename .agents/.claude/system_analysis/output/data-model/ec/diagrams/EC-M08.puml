@@ -11,6 +11,7 @@ class Report {
   -/status
   -/conclusion
   -/concentrationIndex
+  -reportedAt
 }
 class ReportEvidence {
   -image
@@ -46,6 +47,7 @@ class Ban {
   -/endsAt
   -reason
   -status
+  -/appealDeadline
 }
 class ModerationLog {
   -actionType
@@ -54,30 +56,91 @@ class ModerationLog {
   -isByAi
 }
 class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
   -role
   -status
-  -username
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
   -/banCount
+  -isRoot
+  -totalPoints
 }
 class Post <<M03>> {
-  -modState
   -title
   -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
 }
 class Comment <<M04>> {
-  -modState
   -content
   -publishedAt
   -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
   -scannedAt
   -/isScannedCurrent
   -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
 }
 class Group <<M11>> {
+  -name
+  -description
+  -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
   -modState
+  -inviteLink
+  -/isInstantJoin
 }
 class Tag <<M05>> {
   -name
+  -status
+  -createdAt
 }
 
 ReportCase "1" o-- "1..*" Report

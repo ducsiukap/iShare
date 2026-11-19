@@ -91,7 +91,11 @@ Một module thường chạm tới dữ liệu của module khác (M05 gán Top
      chưa.
    - Thuộc tính mà **FR của module đang làm định nghĩa** nhưng nằm trên lớp ngoài: Căn cứ = `Nguồn nêu` hoặc
      `Đề xuất`, và ghi ở mục Liên module (cột "Thuộc tính module này bổ sung").
-   Không liệt kê các thuộc tính khác của lớp ngoài. Các skill sau (CD, DB) không chép thuộc tính của lớp ngoài.
+   Trong lúc phân tích từng module, không liệt kê các thuộc tính khác của lớp ngoài. **Sau lượt gộp hệ thống**
+   (việc C, người dùng chốt 2026-11-20, `MD-05` của EC-SYS): mỗi lớp ngoài trong `EC-Mxx.md` được ghi **đủ thuộc tính
+   như `EC-SYS.md`**, Căn cứ = `Tham chiếu`, Tên tiếng Việt và Tính chất theo module sở hữu. Dòng module này thật sự
+   đọc hoặc ghi giữ Ghi chú nói nó dùng làm gì; dòng thêm cho đủ ghi "Ghi đủ lớp sau gộp (MD-05)", ràng buộc để ở
+   module sở hữu (ghi "—"). Các skill sau (CD, DB) không chép thuộc tính của lớp ngoài.
 3. **Tên lớp ngoài**: chạy `merge_ec.py --list` để lấy đúng tên nếu module sở hữu đã có EC; chưa có thì lấy theo
    `glossary.md` và ghi chú "tên tạm, chờ EC-Myy".
 4. **Quan hệ giữa lớp của module này và lớp ngoài** được ghi ở module mà FR của nó nói tới quan hệ đó. Hai module

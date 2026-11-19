@@ -2,9 +2,9 @@
 module: M10
 ten_module: Admin Panel
 ma_tai_lieu: EC-M10
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-11-19
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M10 v1.4
 steps_completed: [1, 2, 3]
@@ -19,8 +19,8 @@ steps_completed: [1, 2, 3]
 | Module | M10 — Admin Panel |
 | Đầu vào | FR-M10 phiên bản 1.4 |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-11-19 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -242,21 +242,22 @@ trò.
 | Banner | Banner thông báo toàn trang | Thực thể | M10 | Thông báo văn bản do Admin đặt, hiện trên mọi trang cho mọi người; nhiều nhất một banner đang hiện | content, status | FR-M10-13.01, FR-M10-13.02, FR-M10-13.09 |
 | BannerDismissal | Lượt đóng banner | Liên kết | M10 | Một người dùng đã đóng một banner; tách từ quan hệ n-n User – Banner | — | FR-M10-13.07, FR-M10-13.08 |
 | AdminLog | Mục nhật ký thao tác Admin | Thực thể | M10 | Một thao tác làm đổi dữ liệu của Admin hoặc một lần đổi vai trò; chỉ ghi thêm, giữ vĩnh viễn | actionType, reason, createdAt, isBySystem | FR-M10-14.01, FR-M10-14.06, FR-M10-14.07 |
-| User | Người dùng (tài khoản) | Thực thể | M01 | Người gửi, người được đề xuất, người làm và đối tượng của mục nhật ký, người đã đóng banner; vai trò do M10 đổi | role, isRoot, username, displayName, status, verificationLevel | FR-M10-01.05, FR-M10-02.01, FR-M10-03.01, FR-M10-14.01 |
-| Post | Bài viết | Thực thể | M03 | Đối tượng của mục nhật ký khi Admin ẩn bài hoặc đổi Topic, Tag trên bài người khác | — | FR-M10-14.02 |
-| Comment | Bình luận | Thực thể | M04 | Đối tượng của mục nhật ký khi Admin ẩn bình luận | — | FR-M10-14.02 |
-| Group | Nhóm | Thực thể | M11 | Đối tượng của mục nhật ký khi Admin ẩn, khóa, mở khóa nhóm (tên tạm, chờ EC-M11) | — | FR-M10-14.02 |
-| ReportCase | Vụ báo cáo | Thực thể | M08 | Đối tượng của mục nhật ký khi Admin kết luận vụ báo cáo | — | FR-M10-14.02 |
-| Appeal | Khiếu nại | Thực thể | M09 | Đối tượng của mục nhật ký khi Admin kết luận khiếu nại | — | FR-M10-14.02 |
-| Topic | Topic | Thực thể | M05 | Đối tượng của mục nhật ký khi Admin thêm, gộp, xóa Topic | — | FR-M10-14.02 |
-| Tag | Tag | Thực thể | M05 | Đối tượng của mục nhật ký khi Admin vô hiệu hóa, kích hoạt lại Tag | — | FR-M10-14.02 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Người gửi, người được đề xuất, người làm và đối tượng của mục nhật ký, người đã đóng banner; vai trò do M10 đổi | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M10-01.05, FR-M10-02.01, FR-M10-03.01, FR-M10-14.01 |
+| Post | Bài viết | Thực thể | M03 | Đối tượng của mục nhật ký khi Admin ẩn bài hoặc đổi Topic, Tag trên bài người khác | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M10-14.02 |
+| Comment | Bình luận | Thực thể | M04 | Đối tượng của mục nhật ký khi Admin ẩn bình luận | content, publishedAt, editedAt, modState, deletedAt, /isDeleted, /isEdited, /isVisible, /upvoteCount, scannedAt, /isScannedCurrent, /replyRate, isRemovedFromGroup, isPointsDeducted | FR-M10-14.02 |
+| Group | Nhóm | Thực thể | M11 | Đối tượng của mục nhật ký khi Admin ẩn, khóa, mở khóa nhóm | name, description, privacy, joinQuestion, isPreApprovalOn, isAnonymousOn, createdAt, isDeleted, modState, inviteLink, /isInstantJoin | FR-M10-14.02 |
+| ReportCase | Vụ báo cáo | Thực thể | M08 | Đối tượng của mục nhật ký khi Admin kết luận vụ báo cáo | targetType, status, openedAt, /reportCount, /priorityScore, isBanRequest, lastHolderActionAt, conclusion, conclusionReason, concludedAt | FR-M10-14.02 |
+| Appeal | Khiếu nại | Thực thể | M09 | Đối tượng của mục nhật ký khi Admin kết luận khiếu nại | type, explanation, submittedAt, status, lastHolderActionAt, conclusion, conclusionReason, concludedAt, /roleAtAction | FR-M10-14.02 |
+| Topic | Topic | Thực thể | M05 | Đối tượng của mục nhật ký khi Admin thêm, gộp, xóa Topic | name, deletedAt | FR-M10-14.02 |
+| Tag | Tag | Thực thể | M05 | Đối tượng của mục nhật ký khi Admin vô hiệu hóa, kích hoạt lại Tag | name, status, createdAt | FR-M10-14.02 |
 
 ### 2.3 Thuộc tính
 
 <!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
      Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
      Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
-             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa).
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
      Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
              — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
      Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
@@ -275,12 +276,104 @@ trò.
 | AdminLog | reason | Lý do | Lưu | Nguồn nêu | Tùy chọn; với thao tác mà module gốc bắt buộc lý do thì lấy đúng lý do đó (BR-M10-23, FR-M10-14.09) | FR-M10-14.01, FR-M10-14.09 | — |
 | AdminLog | createdAt | Thời điểm | Lưu | Nguồn nêu | Lúc thao tác hoàn tất và được ghi nhận (TN:Thời điểm (của mục nhật ký)); hiển thị theo giờ Việt Nam, mục mới nhất trước (BR-M10-23); không sửa, không xóa, giữ vĩnh viễn (BR-M10-22) | FR-M10-14.01, FR-M10-15.01, FR-M10-15.04 | Tên createdAt như ModerationLog.createdAt của EC-M08 |
 | AdminLog | isBySystem | Người làm là Hệ thống | Lưu | Nguồn nêu | Đúng khi Mod mất vai trò do bị ban (FR-M10-14.07, BR-M10-21) | FR-M10-14.07, BR-M10-21 | Khi đúng thì mục nhật ký không có người làm là tài khoản (bước 3); cùng cách ModerationLog.isByAi của EC-M08 |
-| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M10-01.04, FR-M10-03.01, FR-M10-03.09, FR-M10-04.01, FR-M10-05.01, FR-M10-06.01, FR-M10-08.03 | M10 ghi: đổi vai trò khi chấp nhận đề xuất, giáng cấp, tự từ chức, thu hồi vai trò Mod khi bị ban, thu hồi vai trò Admin (mục Chuyển trạng thái: Vai trò của tài khoản); đọc để kiểm quyền Admin, lọc người dùng theo vai trò và xét vai trò còn hợp lệ khi chấp nhận (BR-M10-27). Cách viết giá trị MOD hay MODERATOR: Q-03 |
-| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Nguồn nêu | Chỉ đúng ở một tài khoản, tạo sẵn khi khởi tạo hệ thống, mang vai trò ADMIN (BR-M10-10); tài khoản này không bị thu hồi vai trò, không tự từ chức, là tài khoản duy nhất gửi đề xuất làm Admin và thu hồi vai trò Admin (BR-M10-10, BR-M10-11) | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | FR-M10 ghi "dấu gốc — phần M10 quản lý" trên Tài khoản (M01); EC-M01 chưa có, M10 bổ sung trên lớp ngoài User (mục 5) |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M10-01.03, FR-M10-01.05 | Tìm (khớp như tìm người dùng ở M06) và hiển thị người dùng trong Admin Panel |
 | User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M10-01.03, FR-M10-01.05 | Tìm (khớp như tìm người dùng ở M06) và hiển thị người dùng trong Admin Panel |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M10-01.04, FR-M10-03.01, FR-M10-03.09, FR-M10-04.01, FR-M10-05.01, FR-M10-06.01, FR-M10-08.03 | M10 ghi: đổi vai trò khi chấp nhận đề xuất, giáng cấp, tự từ chức, thu hồi vai trò Mod khi bị ban, thu hồi vai trò Admin (mục Chuyển trạng thái: Vai trò của tài khoản); đọc để kiểm quyền Admin, lọc người dùng theo vai trò và xét vai trò còn hợp lệ khi chấp nhận (BR-M10-27). Cách viết giá trị MOD hay MODERATOR: Q-03 |
 | User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M10-01.05, FR-M10-02.09, FR-M10-07.08, FR-M10-03.11 | Hiển thị trong Admin Panel; chỉ tài khoản ACTIVE nhận và chấp nhận được đề xuất (BR-M10-05) |
 | User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M10-02.09, FR-M10-07.08 | Chỉ gửi đề xuất cho tài khoản đã hoàn tất bước 3 đăng ký, tức mức SETUP_COMPLETED (BR-M10-05) |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | Chỉ đúng ở một tài khoản, tạo sẵn khi khởi tạo hệ thống, mang vai trò ADMIN (BR-M10-10); tài khoản này không bị thu hồi vai trò, không tự từ chức, là tài khoản duy nhất gửi đề xuất làm Admin và thu hồi vai trò Admin (BR-M10-10, BR-M10-11) | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | M10 định nghĩa; đã đưa vào lớp User của EC-M01 (MD-05). FR-M10 ghi "dấu gốc — phần M10 quản lý" trên Tài khoản (M01) |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M03-01.12, FR-M03-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M03-07.01, BR-M03-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Comment | content | Nội dung bình luận | Lưu | Tham chiếu | — | FR-M04-04.01, FR-M04-05.07, BR-M04-01, BR-M04-19 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M04-02.01, FR-M04-04.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | editedAt | Thời điểm sửa | Lưu | Tham chiếu | — | FR-M04-04.02, BR-M04-07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M04-01.09, FR-M04-02.02, FR-M04-03.04 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isDeleted | Đã xóa | Dẫn xuất | Tham chiếu | — | FR-M04-05.01, FR-M04-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M04-01.06 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isVisible | Hiển thị bình thường | Dẫn xuất | Tham chiếu | — | FR-M04-01.07, FR-M04-03.01, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M04-01.03, FR-M04-01.14, BR-M04-05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | scannedAt | Thời điểm quét gần nhất | Lưu | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isScannedCurrent | Đã quét với nội dung hiện tại | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | replyRate | Tốc độ trả lời | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, BR-M08-20 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.11, FR-M12-02.19, FR-M12-02.20, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Group | name | Tên nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.08, FR-M11-02.01, BR-M11-31 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | description | Mô tả nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.09, FR-M11-02.01 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | privacy | Chế độ | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-02.02, BR-M11-15 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | joinQuestion | Câu hỏi tham gia | Lưu | Tham chiếu | — | FR-M11-01.11, FR-M11-02.07, FR-M11-02.08, BR-M11-08 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isPreApprovalOn | Công tắc duyệt trước | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.05, FR-M11-02.15, BR-M11-18 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isAnonymousOn | Công tắc ẩn danh | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.06, BR-M11-16 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M11-01.03, FR-M11-03.17, BR-M11-03, BR-M11-35 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isDeleted | Đã xóa | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-15.01, FR-M11-10.06, FR-M11-11.03 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | modState | Trạng thái kiểm duyệt của nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-16.01, FR-M11-16.04, FR-M11-16.06, FR-M08-18.01, FR-M08-18.04, FR-M08-18.07 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | inviteLink | Link mời | Lưu | Tham chiếu | — | FR-M11-05.01, FR-M11-05.06, FR-M11-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isInstantJoin | Nhóm vào ngay | Dẫn xuất | Tham chiếu | — | FR-M11-04.01, FR-M11-02.14, BR-M11-32 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| ReportCase | targetType | Loại đối tượng | Lưu | Tham chiếu | — | FR-M08-01.02, FR-M08-01.04 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | status | Trạng thái | Lưu | Tham chiếu | — | FR-M08-01.04, FR-M08-05.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | openedAt | Thời điểm mở | Lưu | Tham chiếu | — | FR-M08-02.07, BR-M08-07 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | reportCount | Số báo cáo trong vụ | Dẫn xuất | Tham chiếu | — | BR-M08-06 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | priorityScore | Điểm ưu tiên | Dẫn xuất | Tham chiếu | — | FR-M08-01.05, BR-M08-06 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | isBanRequest | Yêu cầu ban | Lưu | Tham chiếu | — | FR-M08-14.11, FR-M08-02.08 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | lastHolderActionAt | Thời điểm thao tác cuối của người giữ | Lưu | Tham chiếu | — | FR-M08-03.04, FR-M08-03.08 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | conclusion | Kết luận | Lưu | Tham chiếu | — | FR-M08-05.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | conclusionReason | Lý do kết luận | Lưu | Tham chiếu | — | FR-M08-05.01, FR-M08-05.09 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | concludedAt | Thời điểm kết luận | Lưu | Tham chiếu | — | FR-M08-05.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Appeal | type | Loại khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.03, BR-M09-10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | explanation | Lời giải thích | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | submittedAt | Thời điểm gửi khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.13, BR-M09-10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | status | Trạng thái khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | lastHolderActionAt | Thời điểm thao tác cuối của người giữ | Lưu | Tham chiếu | — | FR-M09-04.01, FR-M09-04.06, FR-M09-04.07, BR-M09-11 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | conclusion | Kết luận | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | conclusionReason | Lý do kết luận khiếu nại | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02, FR-M09-07.11 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | concludedAt | Thời điểm kết luận | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | roleAtAction | Vai trò lúc bị xử lý | Dẫn xuất | Tham chiếu | — | TN:Vai trò lúc bị xử lý, FR-M09-03.08, BR-M09-12 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Topic | name | Tên Topic | Lưu | Tham chiếu | — | FR-M05-06.01, BR-M05-05 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| Topic | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M05-07.05, FR-M05-08.01, FR-M05-02.22 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| Tag | name | Tên Tag chuẩn hóa | Lưu | Tham chiếu | — | BR-M05-20, BR-M05-23, BR-M05-24 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| Tag | status | Trạng thái | Lưu | Tham chiếu | — | FR-M05-03.02, FR-M05-09.01, FR-M05-10.01 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| Tag | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M05-03.02 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -387,10 +480,10 @@ Mã nguồn sơ đồ: [diagrams/EC-M10.puml](diagrams/EC-M10.puml). Ảnh và t
 
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| User | M01 | Người gửi, người được đề xuất (R-M10-01, R-M10-02); người làm và đối tượng của mục nhật ký (R-M10-03, R-M10-04); người đã đóng banner (R-M10-15). Ghi role khi chấp nhận đề xuất, giáng cấp, tự từ chức, thu hồi vai trò Mod khi bị ban, thu hồi vai trò Admin; đọc username, displayName, status, verificationLevel để tìm, hiển thị người dùng và xét người nhận đề xuất. Tài khoản ADMIN gốc tạo sẵn khi khởi tạo (FR-M10-07.04) | isRoot |
+| User | M01 | Người gửi, người được đề xuất (R-M10-01, R-M10-02); người làm và đối tượng của mục nhật ký (R-M10-03, R-M10-04); người đã đóng banner (R-M10-15). Ghi role khi chấp nhận đề xuất, giáng cấp, tự từ chức, thu hồi vai trò Mod khi bị ban, thu hồi vai trò Admin; đọc username, displayName, status, verificationLevel để tìm, hiển thị người dùng và xét người nhận đề xuất. Tài khoản ADMIN gốc tạo sẵn khi khởi tạo (FR-M10-07.04) | isRoot — đã đưa vào lớp của EC-M01 (MD-05) |
 | Post | M03 | Đối tượng của mục nhật ký khi Admin ẩn bài hoặc đổi Topic, Tag (R-M10-07); không đọc, không ghi thuộc tính | — |
 | Comment | M04 | Đối tượng của mục nhật ký khi Admin ẩn bình luận (R-M10-08); không đọc, không ghi thuộc tính | — |
-| Group | M11 | Đối tượng của mục nhật ký khi Admin ẩn, khóa, mở khóa nhóm (R-M10-09); không đọc, không ghi thuộc tính. Tên tạm, chờ EC-M11 | — |
+| Group | M11 | Đối tượng của mục nhật ký khi Admin ẩn, khóa, mở khóa nhóm (R-M10-09); không đọc, không ghi thuộc tính | — |
 | ReportCase | M08 | Đối tượng của mục nhật ký khi Admin kết luận vụ (R-M10-10); không đọc, không ghi thuộc tính | — |
 | Appeal | M09 | Đối tượng của mục nhật ký khi Admin kết luận khiếu nại (R-M10-11); không đọc, không ghi thuộc tính | — |
 | Topic | M05 | Đối tượng của mục nhật ký khi Admin thêm, gộp, xóa Topic (R-M10-12, trùng R-M05-13); không đọc, không ghi thuộc tính | — |
@@ -412,3 +505,4 @@ Mã nguồn sơ đồ: [diagrams/EC-M10.puml](diagrams/EC-M10.puml). Ảnh và t
 |---|---|---|---|
 | 0.1 | 2026-11-19 | Tạo mới; làm liền 3 bước theo yêu cầu của người dùng (không dừng ở cổng), chờ duyệt và trả lời Q-01 đến Q-03 | Phạm Văn Đức |
 | 1.0 | 2026-11-19 | Chốt sau 3 bước: 5 lớp của M10, 8 lớp ngoài, 15 quan hệ (R-M10-01 đến R-M10-15); Q-01 đến Q-03 đã trả lời | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-05: dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: User.isRoot, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 92 dòng Tham chiếu; bỏ các ghi chú "tên tạm, chờ EC-…" đã hết hiệu lực ở mô tả lớp và mục Liên module | Phạm Văn Đức |

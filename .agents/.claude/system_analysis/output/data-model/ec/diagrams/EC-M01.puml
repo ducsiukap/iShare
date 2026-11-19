@@ -16,6 +16,10 @@ class User {
   -/deactivationEndsAt
   -/isGoogleAccount
   -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
 }
 class MagicLink {
   -purpose
@@ -49,24 +53,80 @@ class PolicyConsent {
   -agreedAt
 }
 class Profile <<M02>> {
+  -avatar
   -bio
   -gradeLevel
-  -avatar
+  -/followerCount
+  -/followingCount
 }
 class Bookmark <<M02>> {
+  -savedAt
 }
 class Post <<M03>> {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
 }
 class Comment <<M04>> {
+  -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
 }
 class Follow <<M07>> {
+  -followedAt
 }
 class Ban <<M08>> {
+  -kind
+  -duration
+  -startedAt
+  -/endsAt
   -reason
-  -endsAt
+  -status
   -/appealDeadline
 }
 class Upvote <<M12>> {
+  -upvotedAt
 }
 
 (User, PolicyVersion) .. PolicyConsent
@@ -77,7 +137,7 @@ Mention "0..*" o-- "1" User
 Post "0..1" o-- "0..*" Mention
 Comment "0..1" o-- "0..*" Mention
 User "1" o-- "1" Profile
-Bookmark "0..*" o-- "1" User
+User "1" -- "0..*" Bookmark
 Post "0..*" o-- "1" User
 Comment "0..*" o-- "1" User
 Follow "0..*" o-- "1" User

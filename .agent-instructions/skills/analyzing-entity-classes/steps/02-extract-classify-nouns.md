@@ -121,7 +121,7 @@ Quy tắc khi đề xuất:
 
 Với **lớp ngoài**: ghi các thuộc tính mà module này đọc hoặc ghi, Căn cứ = `Tham chiếu` (ví dụ M05 đọc tiêu đề và nội
 dung chữ của bài viết để gợi ý Topic; M05 ghi lý do và thời điểm vào dòng nhật ký kiểm duyệt). Không liệt kê thuộc
-tính khác của lớp ngoài. Thuộc tính mà **FR của module này định nghĩa** nhưng nằm trên lớp ngoài thì Căn cứ là
+tính khác của lớp ngoài (lượt gộp hệ thống sẽ ghi đủ, xem `input/CONVENTIONS.md` mục 5). Thuộc tính mà **FR của module này định nghĩa** nhưng nằm trên lớp ngoài thì Căn cứ là
 `Nguồn nêu` hoặc `Đề xuất`, và ghi thêm ở mục 5 Liên module (cột "Thuộc tính module này bổ sung").
 
 Rồi điền hai bảng:

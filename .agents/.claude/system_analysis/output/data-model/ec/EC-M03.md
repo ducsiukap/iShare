@@ -2,9 +2,9 @@
 module: M03
 ten_module: Post & Content
 ma_tai_lieu: EC-M03
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-11-18
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M03 v1.10
 steps_completed: [1, 2, 3]
@@ -20,7 +20,7 @@ steps_completed: [1, 2, 3]
 | Đầu vào | FR-M03 phiên bản 1.10 |
 | Trạng thái | Bản nháp |
 | Phiên bản | 0.1 |
-| Ngày | 2026-11-18 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -232,21 +232,22 @@ dữ liệu của bài viết.
 
 | Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
 |---|---|---|---|---|---|---|
-| Post | Bài viết | Thực thể | M03 | Đơn vị nội dung trung tâm, một loại duy nhất, có ba trạng thái độc lập: trạng thái đăng, trạng thái kiểm duyệt, mức khóa | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited | FR-M03-01, FR-M03-04, FR-M03-15, BR-M03-17 |
+| Post | Bài viết | Thực thể | M03 | Đơn vị nội dung trung tâm, một loại duy nhất, có ba trạng thái độc lập: trạng thái đăng, trạng thái kiểm duyệt, mức khóa | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M03-01, FR-M03-04, FR-M03-15, BR-M03-17 |
 | PostAttachment | Tệp đính kèm | Thực thể | M03 | Một ảnh hoặc tài liệu đính kèm ở phần dưới nội dung bài viết | kind, fileFormat, fileSize, fileUrl, fileName | FR-M03-02, BR-M03-07, BR-M03-08 |
 | Poll | Poll | Thực thể | M03 | Bình chọn đóng tùy chọn trong bài viết, tối đa một poll mỗi bài | allowMultiple, showResultBeforeVote, expiresAt, isClosed, /totalSelectionCount | FR-M03-03, FR-M03-09, FR-M03-10, BR-M03-09 |
 | PollOption | Lựa chọn | Thực thể | M03 | Một lựa chọn do tác giả đặt trong poll | label, /selectionCount, /percentage | FR-M03-03.02, FR-M03-09.06, BR-M03-44 |
 | PollSelection | Lượt chọn | Liên kết | M03 | Một lựa chọn một người dùng đã chọn trong poll; phiếu của một người là các lượt chọn của người đó trong poll (Q-01) | — | FR-M03-08.01, FR-M03-08.04, FR-M03-08.05, BR-M03-15 |
 | PostRevision | Phiên bản sửa | Thực thể | M03 | Một phiên bản trong lịch sử sửa, ghi mỗi lần tác giả lưu bản sửa của bài đã gửi | content, title, editedAt | FR-M03-11.02, FR-M03-12.02, BR-M03-27 |
-| User | Người dùng (tài khoản) | Thực thể | M01 | Tác giả bài viết, người sửa, người bình chọn; Mod, Admin duyệt và khóa bài | role, status | FR-M03-01.08, FR-M03-08.01, FR-M03-11.02 |
-| Group | Nhóm | Thực thể | M11 | Nhóm mà bài viết có thể thuộc về (tên tạm, chờ EC-M11) | privacy | FR-M03-04.05, FR-M03-07.01 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Tác giả bài viết, người sửa, người bình chọn; Mod, Admin duyệt và khóa bài | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M03-01.08, FR-M03-08.01, FR-M03-11.02 |
+| Group | Nhóm | Thực thể | M11 | Nhóm mà bài viết có thể thuộc về | name, description, privacy, joinQuestion, isPreApprovalOn, isAnonymousOn, createdAt, isDeleted, modState, inviteLink, /isInstantJoin | FR-M03-04.05, FR-M03-07.01 |
 
 ### 2.3 Thuộc tính
 
 <!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
      Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
      Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
-             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa).
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
      Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
              — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
      Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
@@ -260,8 +261,8 @@ dữ liệu của bài viết.
 | Post | gradeLevel | Lớp/Khối | Lưu | Nguồn nêu | Tùy chọn; 10, 11 hoặc 12 (BR-M03-06); độc lập với Profile.gradeLevel của M02 | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | — |
 | Post | createdAt | Thời điểm tạo | Lưu | Nguồn nêu | — | FR-M03-01.08 | M02 xếp tab Bài viết, M15 thống kê |
 | Post | updatedAt | Thời điểm cập nhật | Lưu | Nguồn nêu | — | FR-M03-01.08 | — |
-| Post | publishState | Trạng thái đăng | Lưu | Nguồn nêu | Nháp, Chờ duyệt, Đã đăng, Tự ẩn, Bị từ chối, Đã xóa (TN:Trạng thái đăng); bài mới là Nháp; chuyển theo mục Chuyển trạng thái của FR | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Register gọi publish_state; EC-M02, EC-M05 đang tạm gọi publishStatus |
-| Post | modState | Trạng thái kiểm duyệt | Lưu | Nguồn nêu | Bình thường, Bị gắn cờ, Bị Mod ẩn; bài mới là Bình thường (BR-M03-48); sang Bị gắn cờ khi quét lại sau khi sửa cho điểm từ 0.5 (BR-M03-26); M08, M09 đổi các bước còn lại | FR-M03-01.12, FR-M03-05.07 | Register gọi mod_state; EC-M02, EC-M05 đang tạm gọi moderationStatus |
+| Post | publishState | Trạng thái đăng | Lưu | Nguồn nêu | Nháp, Chờ duyệt, Đã đăng, Tự ẩn, Bị từ chối, Đã xóa (TN:Trạng thái đăng); bài mới là Nháp; chuyển theo mục Chuyển trạng thái của FR | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Register gọi publish_state; EC-M02, EC-M05 từng gọi tạm publishStatus, đã đổi theo MD-03 |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Nguồn nêu | Bình thường, Bị gắn cờ, Bị Mod ẩn; bài mới là Bình thường (BR-M03-48); sang Bị gắn cờ khi quét lại sau khi sửa cho điểm từ 0.5 (BR-M03-26); M08, M09 đổi các bước còn lại | FR-M03-01.12, FR-M03-05.07 | Register gọi mod_state; EC-M02, EC-M05 từng gọi tạm moderationStatus, đã đổi theo MD-03 |
 | Post | lockLevel | Mức khóa | Lưu | Nguồn nêu | Không khóa, Khóa bình luận, Khóa toàn bộ; bài mới là Không khóa (FR-M03-01.09); chỉ Mod, Admin đặt Khóa toàn bộ (BR-M03-31) | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | M04 đọc để chặn bình luận mới, M12 để chặn upvote |
 | Post | lockedBy | Người khóa | Lưu | Nguồn nêu | Tác giả hoặc Mod (TN:Mức khóa); Admin khóa cũng ghi Mod (FR-M03-14.02); chỉ có khi lockLevel khác Không khóa; người khóa là Mod thì tác giả không mở hay đổi mức khóa (BR-M03-32) | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi vai trò của người khóa, không ghi người dùng cụ thể |
 | Post | publishedAt | Thời điểm đăng | Lưu | Nguồn nêu | Lúc bài chuyển sang Đã đăng lần đầu (TN:Đã đăng); không đổi khi hiện lại sau Tự ẩn hay khôi phục (Q-02) | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | M14 xếp feed và tính tuổi bài, M15 thống kê, M13 tạo embedding, M05 tính Trending (mục Giao tiếp của FR) |
@@ -274,6 +275,19 @@ dữ liệu của bài viết.
 | Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Nguồn nêu | Gắn khi bài Đã xóa hết thời hạn khôi phục (BR-M03-37); chỉ là cờ, mọi dữ liệu của bài được giữ (FR-M03-17.02); không gỡ được | FR-M03-17.01, FR-M03-17.02 | M12 trừ điểm, M02 bỏ bookmark tại lúc gắn cờ (mục Giao tiếp của FR) |
 | Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Nguồn nêu | publishState là Đã đăng và modState là Bình thường; không phụ thuộc mức khóa (BR-M03-18) | FR-M03-07.01, BR-M03-18 | — |
 | Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Nguồn nêu | Bài có ít nhất một PostRevision (BR-M03-27); Mod, Admin đổi Topic, Tag không tính (BR-M03-28) | FR-M03-12.01 | Điều kiện hiện nhãn "(đã chỉnh sửa)" và nút "Xem lịch sử" |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Nguồn nêu | Số bình luận gốc và trả lời của bài có isVisible; không tính dấu "[Bình luận đã bị xóa]" và bình luận bị ẩn; mọi người xem thấy cùng một số (BR-M04-18) | FR-M04-01.10, BR-M04-18 | Bổ sung từ EC-M04 (MD-05). M04 bổ sung trên lớp của M03 (mục 5); hiện trên bài viết; M05, M06, M14 dùng số bình luận cho Trending và xếp hạng |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Đề xuất | Hạn khiếu nại bài bị AI tự từ chối bằng hạn của cảnh cáo AI ra cùng lần; không có cảnh cáo đi kèm thì 3 × 24 giờ kể từ thời điểm này, theo giờ Việt Nam (BR-M09-04) | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Bổ sung từ EC-M09 (MD-05). BR-M09-04 tính hạn 3 ngày từ lúc bài bị AI tự từ chối khi không có cảnh cáo đi kèm (tác giả đang HEAVY), và FR-M09-06.02 hiển thị thời điểm của xử lý. Bài được sửa, gửi lại và bị từ chối nhiều lần (BR-M09-24), nên cần thời điểm lần từ chối gần nhất để biết khiếu nại thuộc lần nào (FR-M09-01.14) và bài đã được gửi lại trước lúc kết luận chưa (FR-M09-08.14). EC-M03 chưa có; M09 bổ sung trên lớp ngoài Post (mục 5) |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Nguồn nêu | Có, Không; chỉ chọn được khi bài thuộc nhóm có công tắc ẩn danh bật (BR-M11-16); giữ nguyên khi công tắc tắt sau đó; danh tính thật luôn được giữ (BR-M11-17) | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | Bổ sung từ EC-M11 (MD-05). M11 bổ sung trên lớp ngoài Post (mục 5); M02, M14 đọc (mục Giao tiếp) |
+| Post | scanScore | Điểm quét | Lưu | Nguồn nêu | 0 đến 1, do M13 trả về (TN:Điểm quét); cổng duyệt của nhóm dùng ngưỡng 0.9 và 0.5 (BR-M11-18); không có khi AI tắt, quét thất bại hoặc tác giả là Admin | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Bổ sung từ EC-M11 (MD-05). Mục Dữ liệu nghiệp vụ ghi trên phần M11 của bài viết; EC-M03 dòng 36 để M11 bổ sung (mục 5) |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Nguồn nêu | Đúng khi bài ở giai đoạn Chờ duyệt (chờ nhóm duyệt), sai khi Chờ duyệt (đang quét) hoặc bài đã ra khỏi hàng chờ của nhóm (TN:Chờ duyệt (đang quét), Chờ duyệt (chờ nhóm duyệt)) | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Bổ sung từ EC-M11 (MD-05). Hàng chờ duyệt của nhóm là các bài nhóm có giá trị này đúng (cùng cách Post.isInReviewQueue của EC-M03 cho hàng chờ của Mod); M11 bổ sung (mục 5) |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Nguồn nêu | Đặt lúc nhận bài và mỗi lần người giữ mở xem, chấp nhận, từ chối; 30 phút không thao tác thì bài tự được nhả về hàng chờ (TN:Thời điểm thao tác cuối, BR-M11-20) | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Bổ sung từ EC-M11 (MD-05). Cùng tên và cơ chế với ReportCase.lastHolderActionAt (EC-M08), Appeal.lastHolderActionAt (EC-M09); M11 bổ sung (mục 5) |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Nguồn nêu | Đặt khi Owner, Group Mod gỡ khỏi nhóm (xóa mềm); không phải trạng thái đăng; tác giả không tự bỏ được (TN:Bị gỡ khỏi nhóm, BR-M11-30) | FR-M11-14.01, FR-M11-14.05 | Bổ sung từ EC-M11 (MD-05). Nội dung chỉ còn hiện với tác giả, Owner, Group Mod của nhóm, Mod, Admin (FR-M11-14.01); M11 bổ sung (mục 5) |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Nguồn nêu | Đang tính điểm (sai), Đã trừ điểm (đúng) (TN:Đang tính điểm, Đã trừ điểm); về Đang tính điểm khi khiếu nại bài bị gỡ được chấp nhận; upvote trên bài đã trừ điểm không được cộng, bài không bị trừ lại (FR-M12-02.18) | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Bổ sung từ EC-M12 (MD-05). M12 bổ sung trên lớp ngoài Post (mục 5) |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Nguồn nêu | Điểm từ các upvote có hiệu lực trên bài tại thời điểm trừ (BR-M12-09); dùng để hoàn đúng số đó (BR-M12-10) | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Bổ sung từ EC-M12 (MD-05). Thực thể "Điểm đã trừ của nội dung" của FR (Q-02); chỉ bài viết cần, vì điểm bình luận không được hoàn (FR-M12-02.13); M12 bổ sung (mục 5) |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Nguồn nêu | Số upvote đang có hiệu lực trên bài viết (mục Giao tiếp, dòng Cung cấp M03, M04; BR-M12-02) | FR-M12-01.01, FR-M12-01.02 | Bổ sung từ EC-M12 (MD-05). M12 cung cấp cho M03 hiển thị và cho M05, M06, M14 tính Trending, xếp hạng (mục Giao tiếp); EC-M06 đã tham chiếu tên upvoteCount chờ EC-M12; bình luận đã có Comment./upvoteCount ở EC-M04. M12 bổ sung trên lớp ngoài Post (mục 5) |
+| Post | embedding | Embedding | Lưu | Nguồn nêu | Mỗi bài Đã đăng đúng một embedding, biểu diễn tiêu đề và nội dung chữ; tạo lại khi tiêu đề hoặc nội dung chữ đổi và thay embedding cũ; không tạo lại khi chỉ đổi Tag, Topic, ảnh, tài liệu; không có ở bài chưa Đã đăng (BR-M13-17, BR-M13-18) | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Bổ sung từ EC-M13 (MD-05). Thực thể "Embedding bài viết" của FR (Q-01); M06 so với embedding của truy vấn (EC-M06). EC-M03 chưa có; M13 bổ sung trên lớp ngoài Post (mục 5) |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Nguồn nêu | Đúng khi bài Đã đăng chưa có embedding theo nội dung hiện tại vì công tắc AI tổng hoặc Search tắt, hoặc vì lời gọi thất bại; về sai khi đã tạo embedding theo nội dung hiện tại (BR-M13-26) | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Bổ sung từ EC-M13 (MD-05). Thực thể "Hàng chờ tạo bù embedding" của FR (Q-01). EC-M03 chưa có; M13 bổ sung trên lớp ngoài Post (mục 5) |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Nguồn nêu | Số bookmark bài đang có; bookmark đã bỏ không tính (BR-M14-10) | FR-M14-03.02, FR-M14-03.10 | Bổ sung từ EC-M14 (MD-05). Mục Dữ liệu nghiệp vụ ghi "số bookmark" trên Bài viết (M03); tính từ Bookmark của EC-M02; chưa EC nào có, M14 bổ sung trên lớp ngoài Post (mục 5) |
 | PostAttachment | kind | Loại tệp | Lưu | Nguồn nêu | Ảnh hoặc tài liệu; mỗi bài tối đa 10 ảnh và 3 tài liệu, tính riêng (BR-M03-07, BR-M03-08) | FR-M03-02.06, FR-M03-02.09, FR-M03-02.10 | — |
 | PostAttachment | fileFormat | Định dạng tệp | Lưu | Nguồn nêu | Ảnh: JPEG, PNG, WebP (BR-M03-07); tài liệu: PDF, DOCX, XLSX, PPTX (BR-M03-08) | FR-M03-02.04, FR-M03-02.07 | — |
 | PostAttachment | fileSize | Dung lượng | Lưu | Nguồn nêu | Ảnh tối đa 5 MB, tài liệu tối đa 20 MB (BR-M03-07, BR-M03-08) | FR-M03-02.05, FR-M03-02.08 | — |
@@ -290,9 +304,33 @@ dữ liệu của bài viết.
 | PostRevision | content | Nội dung trước lần sửa | Lưu | Nguồn nêu | Nội dung bài ngay trước lần lưu bản sửa (BR-M03-27); không sửa được | FR-M03-11.02, FR-M03-12.02 | Phiên bản lưu tiêu đề và nội dung, không lưu Lớp/Khối và tệp đính kèm (Q-03) |
 | PostRevision | title | Tiêu đề trước lần sửa | Lưu | Đề xuất | — | FR-M03-11.01, FR-M03-12.02 | FR-M03-11.01 cho sửa cả tiêu đề, FR-M03-12.02 hiển thị các phiên bản của bài: phiên bản cần tiêu đề cũ (Q-03) |
 | PostRevision | editedAt | Thời điểm sửa | Lưu | Nguồn nêu | — | FR-M03-11.02, FR-M03-12.02 | — |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.12, FR-M01-03.13, FR-M01-03.14, FR-M01-04.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | User | role | Vai trò | Lưu | Tham chiếu | — | FR-M03-04.11, FR-M03-06.06, FR-M03-14.10 | M03 đọc để cho Mod, Admin duyệt bài và khóa toàn bộ, và không quét bài của Admin (BR-M03-51) |
 | User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M03-07.01 | M03 không hiển thị bài của tài khoản DEACTIVATED, DELETED |
-| Group | privacy | Chế độ nhóm | Lưu | Tham chiếu | — | FR-M03-07.01, BR-M03-39 | M03 cho mọi người xem bài nhóm Public, chỉ thành viên xem bài nhóm Private; tên tạm, chờ EC-M11 (FR-M11 gọi "chế độ") |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Group | name | Tên nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.08, FR-M11-02.01, BR-M11-31 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | description | Mô tả nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.09, FR-M11-02.01 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | privacy | Chế độ | Lưu | Tham chiếu | — | FR-M03-07.01, BR-M03-39 | M03 cho mọi người xem bài nhóm Public, chỉ thành viên xem bài nhóm Private; tên tạm, chờ EC-M11 (FR-M11 gọi "chế độ") |
+| Group | joinQuestion | Câu hỏi tham gia | Lưu | Tham chiếu | — | FR-M11-01.11, FR-M11-02.07, FR-M11-02.08, BR-M11-08 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isPreApprovalOn | Công tắc duyệt trước | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.05, FR-M11-02.15, BR-M11-18 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isAnonymousOn | Công tắc ẩn danh | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.06, BR-M11-16 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M11-01.03, FR-M11-03.17, BR-M11-03, BR-M11-35 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isDeleted | Đã xóa | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-15.01, FR-M11-10.06, FR-M11-11.03 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | modState | Trạng thái kiểm duyệt của nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-16.01, FR-M11-16.04, FR-M11-16.06, FR-M08-18.01, FR-M08-18.04, FR-M08-18.07 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | inviteLink | Link mời | Lưu | Tham chiếu | — | FR-M11-05.01, FR-M11-05.06, FR-M11-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isInstantJoin | Nhóm vào ngay | Dẫn xuất | Tham chiếu | — | FR-M11-04.01, FR-M11-02.14, BR-M11-32 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -368,7 +406,7 @@ của bài và lấy được qua Post – User.
 | R-M03-03 | Poll | 1 | PollOption | 2..10 | 1-n | Hợp thành | Poll | (i) lựa chọn do tác giả đặt trong poll, không có ngoài poll; (ii) mỗi lựa chọn thuộc đúng một poll, không chuyển, không sửa hay xóa riêng sau khi gửi; (iii) bỏ poll khi bài còn nháp thì bỏ cả các lựa chọn: mục Dữ liệu nghiệp vụ ghi lựa chọn là thành phần của Poll ("Các lựa chọn (2–10)") | FR-M03-03.02, FR-M03-03.10, BR-M03-09, BR-M03-44 |
 | R-M03-04 | Post | 1 | PostRevision | 0..* | 1-n | Kết tập | Post | Bài viết giữ lịch sử sửa gồm các phiên bản; không ghi hợp thành vì bài không bao giờ bị xóa dữ liệu, bài Đã xóa hẳn giữ nguyên lịch sử sửa | FR-M03-11.02, BR-M03-27, FR-M03-17.02 |
 | R-M03-05 | User | 1 | Post | 0..* | 1-n | Kết tập | Post | Bài viết ghi lại tác giả; tài khoản tồn tại độc lập. Cùng loại và chiều với R-M01-11 | FR-M03-01.08, FR-M03-11.02 |
-| R-M03-06 | Group | 0..1 | Post | 0..* | 1-n | Kết tập | Group | Nhóm chứa các bài đăng trong nhóm; bài tồn tại độc lập: bị gỡ khỏi nhóm vẫn giữ trạng thái đăng (mục Giao tiếp, dòng Dùng M11). Tên lớp tạm, chờ EC-M11 | FR-M03-04.05, FR-M03-07.01 |
+| R-M03-06 | Group | 0..1 | Post | 0..* | 1-n | Kết tập | Group | Nhóm chứa các bài đăng trong nhóm; bài tồn tại độc lập: bị gỡ khỏi nhóm vẫn giữ trạng thái đăng (mục Giao tiếp, dòng Dùng M11) | FR-M03-04.05, FR-M03-07.01 |
 | R-M03-07 | PollOption | 1 | PollSelection | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n PollOption – User đã tách qua lớp liên kết PollSelection; số lượt chọn của lựa chọn là kết quả poll | FR-M03-08.01, BR-M03-15 |
 | R-M03-08 | User | 1 | PollSelection | 0..* | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n PollOption – User; trong một poll, đúng 1 lượt chọn khi poll không cho chọn nhiều, từ 1 tới mọi lựa chọn khi cho chọn nhiều | FR-M03-08.01, FR-M03-08.02, FR-M03-08.03 |
 
@@ -405,3 +443,4 @@ Mã nguồn sơ đồ: [diagrams/EC-M03.puml](diagrams/EC-M03.puml). Ảnh và t
 |---|---|---|---|
 | 0.1 | 2026-11-18 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-11-18 | Chốt: 3 bước; Q-01 đến Q-03 đã trả lời (phiếu bình chọn mô hình bằng lớp liên kết PollSelection; thời điểm đăng là lần đầu; phiên bản sửa lưu tiêu đề và nội dung) | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-03: ghi chú của Post.publishState, Post.modState ghi tên cũ đã đổi; MD-05: thêm Post.commentCount, thêm Post.rejectedAt, thêm Post.isAnonymous, thêm Post.scanScore, thêm Post.isAwaitingGroupReview, thêm Post.lastHolderActionAt, thêm Post.isRemovedFromGroup, thêm Post.isPointsDeducted, thêm Post.deductedPoints, thêm Post.upvoteCount, thêm Post.embedding, thêm Post.needsEmbedding, thêm Post.bookmarkCount, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 24 dòng Tham chiếu, tên tiếng Việt của thuộc tính lớp ngoài theo module sở hữu: Group.privacy: Chế độ nhóm → Chế độ; bỏ các ghi chú "tên tạm, chờ EC-…" đã hết hiệu lực ở mô tả lớp và mục Liên module | Phạm Văn Đức |

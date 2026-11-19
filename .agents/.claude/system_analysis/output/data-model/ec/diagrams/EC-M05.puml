@@ -41,24 +41,71 @@ class ChosenTopic {
 }
 class Post <<M03>> {
   -title
-  -plainText
-  -publishStatus
-  -moderationStatus
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
   -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
 }
 class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
   -role
   -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
 }
 class Follow <<M07>> {
+  -followedAt
 }
 class ModerationLog <<M08>> {
   -actionType
   -reason
   -createdAt
+  -isByAi
 }
 class AdminLog <<M10>> {
   -actionType
+  -reason
+  -createdAt
+  -isBySystem
 }
 
 (Post, Topic) .. PostTopic

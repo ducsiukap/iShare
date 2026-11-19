@@ -2,9 +2,9 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: EC-M01
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-11-18
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M01 v1.10
 steps_completed: [1, 2, 3]
@@ -20,7 +20,7 @@ steps_completed: [1, 2, 3]
 | Đầu vào | FR-M01 phiên bản 1.10 |
 | Trạng thái | Bản nháp |
 | Phiên bản | 0.1 |
-| Ngày | 2026-11-18 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -284,27 +284,28 @@ không đồng ý thì chỉ được đăng xuất hoặc vô hiệu hóa tài 
 
 | Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
 |---|---|---|---|---|---|---|
-| User | Người dùng (tài khoản) | Thực thể | M01 | Tài khoản của một người dùng iShare; một loại tài khoản cho mọi vai trò (BR-M01-01) | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt | FR-M01-01, FR-M01-03, FR-M01-04, FR-M01-10, FR-M01-12 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Tài khoản của một người dùng iShare; một loại tài khoản cho mọi vai trò (BR-M01-01) | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M01-01, FR-M01-03, FR-M01-04, FR-M01-10, FR-M01-12 |
 | MagicLink | Magic link | Thực thể | M01 | Liên kết gửi tới email của tài khoản để xác minh email hoặc đặt lại mật khẩu | purpose, token, sentAt, /expiresAt, isUsed | FR-M01-01.03, FR-M01-02, FR-M01-09 |
 | ReactivationCode | Mã kích hoạt lại | Thực thể | M01 | Mã gửi tới email của tài khoản đã vô hiệu hóa để xác nhận kích hoạt lại | code, sentAt, /expiresAt, failedAttemptCount | FR-M01-11 |
 | LoginSession | Phiên đăng nhập | Thực thể | M01 | Trạng thái đã đăng nhập của một tài khoản trên một thiết bị, gồm phiên truy cập và phiên làm mới | device, accessExpiresAt, refreshToken, refreshExpiresAt | FR-M01-05.12, FR-M01-06, FR-M01-07 |
 | Mention | Lượt nhắc tên | Thực thể | M01 | Một lần nhắc một người dùng trong bài viết hoặc bình luận | notifiedAt | FR-M01-14 |
 | PolicyVersion | Phiên bản chính sách | Thực thể | M01 | Một bản nội dung của trang Privacy Policy/ToS | version, content, releasedAt, /isCurrent | FR-M01-15 |
 | PolicyConsent | Bản ghi đồng ý | Liên kết | M01 | Ghi nhận một tài khoản đã đồng ý một phiên bản chính sách vào một thời điểm | agreedAt | FR-M01-01.14, FR-M01-04.13, FR-M01-16.02 |
-| Profile | Hồ sơ | Thực thể | M02 | Hồ sơ của người dùng; M01 ghi các trường tùy chọn ở bước 3 và xóa chúng khi DELETED (tên tạm, chờ EC-M02) | bio, gradeLevel, avatar | FR-M01-03.03, FR-M01-12.08 |
-| Bookmark | Bookmark | Thực thể | M02 | Bài viết người dùng đã lưu; M01 xóa khi tài khoản DELETED (tên tạm, chờ EC-M02) | — | FR-M01-12.08 |
-| Post | Bài viết | Thực thể | M03 | Bài viết có tác giả là tài khoản, chứa lượt nhắc tên (tên tạm, chờ EC-M03) | — | FR-M01-13.01, FR-M01-14.06 |
-| Comment | Bình luận | Thực thể | M04 | Bình luận có tác giả là tài khoản, chứa lượt nhắc tên (tên tạm, chờ EC-M04) | — | FR-M01-13.03, FR-M01-14.06 |
-| Follow | Lượt theo dõi | Thực thể | M07 | Lượt theo dõi người dùng hoặc Topic; M01 đọc để xếp gợi ý nhắc tên, xóa khi DELETED (tên tạm, chờ EC-M07) | — | FR-M01-14.04, FR-M01-12.08 |
-| Ban | Lần ban | Thực thể | M08 | Một lần Mod hoặc Admin ban tài khoản; M01 đọc lý do, hạn ban, hạn khiếu nại (tên tạm, chờ EC-M08) | reason, endsAt, /appealDeadline | FR-M01-05.07, FR-M01-05.08, FR-M01-05.17 |
-| Upvote | Upvote | Thực thể | M12 | Một upvote cho bài viết hoặc bình luận; M01 bỏ người cho khi tài khoản DELETED (tên tạm, chờ EC-M12) | — | FR-M01-12.09 |
+| Profile | Hồ sơ | Thực thể | M02 | Hồ sơ của người dùng; M01 ghi các trường tùy chọn ở bước 3 và xóa chúng khi DELETED | avatar, bio, gradeLevel, /followerCount, /followingCount | FR-M01-03.03, FR-M01-12.08 |
+| Bookmark | Bookmark | Liên kết | M02 | Bài viết người dùng đã lưu; M01 xóa khi tài khoản DELETED | savedAt | FR-M01-12.08 |
+| Post | Bài viết | Thực thể | M03 | Bài viết có tác giả là tài khoản, chứa lượt nhắc tên | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M01-13.01, FR-M01-14.06 |
+| Comment | Bình luận | Thực thể | M04 | Bình luận có tác giả là tài khoản, chứa lượt nhắc tên | content, publishedAt, editedAt, modState, deletedAt, /isDeleted, /isEdited, /isVisible, /upvoteCount, scannedAt, /isScannedCurrent, /replyRate, isRemovedFromGroup, isPointsDeducted | FR-M01-13.03, FR-M01-14.06 |
+| Follow | Lượt theo dõi | Thực thể | M07 | Lượt theo dõi người dùng hoặc Topic; M01 đọc để xếp gợi ý nhắc tên, xóa khi DELETED | followedAt | FR-M01-14.04, FR-M01-12.08 |
+| Ban | Lần ban | Thực thể | M08 | Một lần Mod hoặc Admin ban tài khoản; M01 đọc lý do, hạn ban, hạn khiếu nại | kind, duration, startedAt, /endsAt, reason, status, /appealDeadline | FR-M01-05.07, FR-M01-05.08, FR-M01-05.17 |
+| Upvote | Upvote | Thực thể | M12 | Một upvote cho bài viết hoặc bình luận; M01 bỏ người cho khi tài khoản DELETED | upvotedAt | FR-M01-12.09 |
 
 ### 2.3 Thuộc tính
 
 <!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
      Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
      Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
-             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa).
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
      Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
              — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
      Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
@@ -316,7 +317,7 @@ không đồng ý thì chỉ được đăng xuất hoặc vô hiệu hóa tài 
 | User | password | Mật khẩu | Lưu | Nguồn nêu | 8–64 ký tự, nhận mọi ký tự, không tự cắt khoảng trắng; mật khẩu mới phải khác mật khẩu hiện tại (BR-M01-35); không có ở tài khoản Google (TN:Tài khoản Google); bị xóa khi DELETED (BR-M01-47) | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | — |
 | User | username | Tên định danh | Lưu | Nguồn nêu | Bắt buộc từ bước 3; 3–20 ký tự a–z, A–Z, 0–9, "_"; duy nhất khi so không phân biệt hoa thường, kể cả tài khoản DELETED; hiển thị đúng hoa thường đã nhập (BR-M01-05); username cũ được giải phóng khi đổi (BR-M01-36); giữ vĩnh viễn khi DELETED (BR-M01-21) | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Chưa có giá trị trước khi xong bước 3 |
 | User | displayName | Tên hiển thị | Lưu | Nguồn nêu | Bắt buộc từ bước 3; bỏ khoảng trắng đầu, cuối rồi dài 1–50 ký tự, chỉ gồm chữ cái (kể cả có dấu), chữ số, khoảng trắng và . , - _ ' ( ); được trùng (BR-M01-06); tài khoản Google được điền sẵn tên Google (BR-M01-08); bị xóa khi DELETED (BR-M01-47) | FR-M01-03.01, FR-M01-03.12, FR-M01-03.13, FR-M01-03.14, FR-M01-04.02 | — |
-| User | role | Vai trò | Lưu | Nguồn nêu | USER, MOD, ADMIN; mặc định USER khi tạo (BR-M01-01); đổi về sau ở M10 | FR-M01-01.02, FR-M01-05.19 | — |
+| User | role | Vai trò | Lưu | Nguồn nêu | USER, MODERATOR, ADMIN (MD-02); mặc định USER khi tạo (BR-M01-01); đổi về sau ở M10 | FR-M01-01.02, FR-M01-05.19 | — |
 | User | status | Trạng thái tài khoản | Lưu | Nguồn nêu | ACTIVE, DEACTIVATED, DELETED, BANNED (TN:Trạng thái tài khoản); mặc định ACTIVE; DELETED là trạng thái kết thúc (FR-M01-12.04) | FR-M01-01.01, FR-M01-05.14, FR-M01-10.01, FR-M01-12.01 | — |
 | User | verificationLevel | Mức xác minh | Lưu | Nguồn nêu | NONE, EMAIL_VERIFIED, SETUP_COMPLETED (TN:Mức xác minh); bắt đầu NONE khi đăng ký email, EMAIL_VERIFIED khi tạo bằng Google; không đi ngược (BR-M01-02, BR-M01-08) | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | — |
 | User | googleLink | Liên kết Google | Lưu | Nguồn nêu | Tùy chọn: có ở tài khoản Google và tài khoản email đã liên kết (TN:Liên kết Google); bị xóa khi DELETED (BR-M01-47) | FR-M01-04.04, FR-M01-12.08 | Ghi nhận tài khoản Google đã gắn với tài khoản |
@@ -324,6 +325,10 @@ không đồng ý thì chỉ được đăng xuất hoặc vô hiệu hóa tài 
 | User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Nguồn nêu | deactivatedAt + 14 × 24 giờ (TN:Thời hạn vô hiệu hóa, BR-M01-21) | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Dùng để từ chối kích hoạt lại khi quá hạn, tự chuyển sang DELETED và gửi email cảnh báo 24 giờ trước |
 | User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Nguồn nêu | Đúng khi tài khoản không có password (TN:Tài khoản Google) | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | — |
 | User | createdAt | Thời điểm tạo tài khoản | Lưu | Đề xuất | — | FR-M01-01.01, FR-M01-04.01 | Mục Giao tiếp với module khác: M01 cung cấp cho M15 việc tạo tài khoản mới để thống kê lượt đăng ký mới theo thời gian; cần thời điểm tạo |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Nguồn nêu | Số Notification của người dùng đang Chưa đọc; không tính tin nhắn (FR-M07-05.10, BR-M07-12) | FR-M07-05.10, BR-M07-12 | Bổ sung từ EC-M07 (MD-05). Hiện trên chuông; M07 định nghĩa, bổ sung trên lớp của M01 (mục 5) |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Nguồn nêu | Số ban của tài khoản từng có hiệu lực, kể cả ban được gỡ sớm và ban vĩnh viễn, trừ ban Bị lật (BR-M08-34) | FR-M08-14.12, BR-M08-34 | Bổ sung từ EC-M08 (MD-05). M08 định nghĩa trên lớp ngoài User; dùng tính thời hạn của thao tác "Ban" (mục 5) |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Nguồn nêu | Chỉ đúng ở một tài khoản, tạo sẵn khi khởi tạo hệ thống, mang vai trò ADMIN (BR-M10-10); tài khoản này không bị thu hồi vai trò, không tự từ chức, là tài khoản duy nhất gửi đề xuất làm Admin và thu hồi vai trò Admin (BR-M10-10, BR-M10-11) | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Bổ sung từ EC-M10 (MD-05). FR-M10 ghi "dấu gốc — phần M10 quản lý" trên Tài khoản (M01); EC-M01 chưa có, M10 bổ sung trên lớp ngoài User (mục 5) |
+| User | totalPoints | Tổng điểm | Lưu | Nguồn nêu | = 2 × số upvote có hiệu lực trên bài viết + 1 × số upvote có hiệu lực trên bình luận của người đó, chỉ trên nội dung chưa bị trừ điểm, kể cả upvote của tài khoản đã xóa (BR-M12-05); cập nhật tức thời (BR-M12-07); không giảm theo thời gian, không chỉnh tay (BR-M12-06); cộng lại số điểm đã trừ khi khiếu nại bài bị gỡ được chấp nhận (BR-M12-10) | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Bổ sung từ EC-M12 (MD-05). Thực thể "Điểm của người dùng" của FR (Q-02); lưu, không tính lại, vì phần hoàn điểm cộng đúng số điểm đã trừ được ghi; M02 hiển thị (EC-M02 dòng 21). EC-M01 chưa có; M12 bổ sung trên lớp ngoài User (mục 5) |
 | MagicLink | purpose | Loại magic link | Lưu | Nguồn nêu | Xác minh email hoặc đặt lại mật khẩu; với mỗi tài khoản, chỉ link mới nhất cùng loại còn hiệu lực (BR-M01-38) | FR-M01-01.03, FR-M01-09.01 | Xem Q-01 |
 | MagicLink | token | Mã của link | Lưu | Đề xuất | — | FR-M01-02.01, FR-M01-09.02 | Khi chủ tài khoản mở magic link, hệ thống phải xác định được đó là link nào của tài khoản nào; giá trị này nằm trong liên kết gửi qua email |
 | MagicLink | sentAt | Thời điểm gửi | Lưu | Nguồn nêu | Hai lần gửi link xác minh cách nhau ít nhất 60 giây (BR-M01-11) | FR-M01-02.03, FR-M01-02.05, FR-M01-09.05 | — |
@@ -343,12 +348,68 @@ không đồng ý thì chỉ được đăng xuất hoặc vô hiệu hóa tài 
 | PolicyVersion | releasedAt | Thời điểm phát hành | Lưu | Đề xuất | — | BR-M01-44, FR-M01-16.01 | FR-M01-16.01 so phiên bản hiện hành với phiên bản người dùng đã đồng ý; cần thời điểm phát hành để biết phiên bản nào hiện hành và "mới hơn" |
 | PolicyVersion | isCurrent | Là phiên bản hiện hành | Dẫn xuất | Nguồn nêu | Phiên bản có releasedAt muộn nhất (BR-M01-44) | FR-M01-16.01, FR-M01-16.05 | — |
 | PolicyConsent | agreedAt | Thời điểm đồng ý | Lưu | Nguồn nêu | Mỗi lần đồng ý một bản ghi mới (BR-M01-44); bị xóa khi DELETED (BR-M01-47) | FR-M01-01.14, FR-M01-04.13, FR-M01-16.02 | — |
-| Profile | bio | Tiểu sử | Lưu | Tham chiếu | Quy tắc thuộc M02 | FR-M01-03.03, FR-M01-12.08 | M01 ghi khi người dùng nhập ở bước 3 và xóa khi tài khoản DELETED |
+| Profile | avatar | Avatar | Lưu | Tham chiếu | Quy tắc thuộc M02 | FR-M01-03.03, FR-M01-12.08, FR-M01-14.03 | M01 ghi ở bước 3, đọc để hiện trong danh sách gợi ý nhắc tên, xóa khi tài khoản DELETED |
+| Profile | bio | Bio | Lưu | Tham chiếu | Quy tắc thuộc M02 | FR-M01-03.03, FR-M01-12.08 | M01 ghi khi người dùng nhập ở bước 3 và xóa khi tài khoản DELETED |
 | Profile | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | Quy tắc thuộc M02 | FR-M01-03.03, FR-M01-12.08 | Như bio |
-| Profile | avatar | Ảnh đại diện | Lưu | Tham chiếu | Quy tắc thuộc M02 | FR-M01-03.03, FR-M01-12.08, FR-M01-14.03 | M01 ghi ở bước 3, đọc để hiện trong danh sách gợi ý nhắc tên, xóa khi tài khoản DELETED |
-| Ban | reason | Lý do ban | Lưu | Tham chiếu | — | FR-M01-05.07 | M01 hiển thị cho tài khoản BANNED sau khi đăng nhập |
-| Ban | endsAt | Thời điểm hết hạn ban | Lưu | Tham chiếu | Chỉ có ở ban tạm thời | FR-M01-05.17 | M01 chuyển tài khoản từ BANNED về ACTIVE ngay lúc này |
+| Profile | followerCount | Số người theo dõi | Dẫn xuất | Tham chiếu | — | FR-M02-01.02, FR-M02-02.07, FR-M02-02.08 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| Profile | followingCount | Số đang theo dõi | Dẫn xuất | Tham chiếu | — | FR-M02-01.02, FR-M02-02.06, FR-M02-02.07 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| Bookmark | savedAt | Thời điểm lưu | Lưu | Tham chiếu | — | FR-M02-07.07 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M03-01.12, FR-M03-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M03-07.01, BR-M03-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Comment | content | Nội dung bình luận | Lưu | Tham chiếu | — | FR-M04-04.01, FR-M04-05.07, BR-M04-01, BR-M04-19 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M04-02.01, FR-M04-04.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | editedAt | Thời điểm sửa | Lưu | Tham chiếu | — | FR-M04-04.02, BR-M04-07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M04-01.09, FR-M04-02.02, FR-M04-03.04 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isDeleted | Đã xóa | Dẫn xuất | Tham chiếu | — | FR-M04-05.01, FR-M04-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M04-01.06 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isVisible | Hiển thị bình thường | Dẫn xuất | Tham chiếu | — | FR-M04-01.07, FR-M04-03.01, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M04-01.03, FR-M04-01.14, BR-M04-05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | scannedAt | Thời điểm quét gần nhất | Lưu | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isScannedCurrent | Đã quét với nội dung hiện tại | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | replyRate | Tốc độ trả lời | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, BR-M08-20 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.11, FR-M12-02.19, FR-M12-02.20, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Follow | followedAt | Thời điểm bắt đầu theo dõi | Lưu | Tham chiếu | — | FR-M07-01.01 | Ghi đủ lớp sau gộp (MD-05); EC-M07 định nghĩa |
+| Ban | kind | Loại ban | Lưu | Tham chiếu | — | FR-M08-14.01, FR-M08-14.02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | duration | Thời hạn | Lưu | Tham chiếu | — | FR-M08-14.01, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | startedAt | Thời điểm bắt đầu | Lưu | Tham chiếu | — | FR-M08-14.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | endsAt | Thời điểm hết hạn | Dẫn xuất | Tham chiếu | Chỉ có ở ban tạm thời | FR-M01-05.17 | M01 chuyển tài khoản từ BANNED về ACTIVE ngay lúc này |
+| Ban | reason | Lý do | Lưu | Tham chiếu | — | FR-M01-05.07 | M01 hiển thị cho tài khoản BANNED sau khi đăng nhập |
+| Ban | status | Trạng thái | Lưu | Tham chiếu | — | FR-M08-14.01, FR-M08-14.08, FR-M08-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
 | Ban | appealDeadline | Hết thời hạn khiếu nại | Dẫn xuất | Tham chiếu | Ban tạm thời: bằng thời hạn ban; ban vĩnh viễn: 90 ngày từ ngày ban (TN:Thời hạn khiếu nại; quy tắc của M09) | FR-M01-05.08, FR-M01-05.09 | M01 hiện thời gian khiếu nại còn lại và nút khiếu nại, ẩn khi đã hết hạn |
+| Upvote | upvotedAt | Thời điểm upvote | Lưu | Tham chiếu | — | FR-M12-01.01, FR-M12-04.15, BR-M12-14 | Ghi đủ lớp sau gộp (MD-05); EC-M12 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -436,14 +497,14 @@ Chỉ điền nửa trên. Không có dòng cho các lớp ngoài vì không xé
 | R-M01-06 | User | 1 | Mention | 0..* | 1-n | Kết tập | Mention | Lượt nhắc tên ghi lại tài khoản người được nhắc; tài khoản tồn tại độc lập | FR-M01-14.06, FR-M01-14.15 |
 | R-M01-07 | Post | 0..1 | Mention | 0..* | 1-n | Kết tập | Post | Bài viết chứa các lượt nhắc tên, lượt nhắc đi theo nội dung; không ghi hợp thành vì một lượt nhắc thuộc bài viết hoặc bình luận nên bội số phía bài viết là 0..1 | FR-M01-14.06, FR-M01-14.17 |
 | R-M01-08 | Comment | 0..1 | Mention | 0..* | 1-n | Kết tập | Comment | Bình luận chứa các lượt nhắc tên, lượt nhắc đi theo nội dung; không ghi hợp thành vì lý do như dòng trên | FR-M01-14.06, FR-M01-14.13 |
-| R-M01-09 | User | 1 | Profile | 1 | 1-1 | Kết tập | User | Tài khoản có một hồ sơ; không ghi hợp thành vì tài khoản không bao giờ bị xóa hẳn (FR-M01-12.03): khi DELETED chỉ các trường của hồ sơ bị xóa (FR-M01-12.08) | FR-M01-03.03, FR-M01-12.08 |
-| R-M01-10 | User | 1 | Bookmark | 0..* | 1-n | Kết tập | Bookmark | Bookmark ghi lại tài khoản đã lưu; tài khoản tồn tại độc lập | FR-M01-12.08 |
-| R-M01-11 | User | 1 | Post | 0..* | 1-n | Kết tập | Post | Bài viết ghi lại tác giả; tài khoản tồn tại độc lập | FR-M01-13.01, FR-M01-13.05 |
-| R-M01-12 | User | 1 | Comment | 0..* | 1-n | Kết tập | Comment | Bình luận ghi lại tác giả; tài khoản tồn tại độc lập | FR-M01-13.03, FR-M01-13.04 |
-| R-M01-13 | User | 1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại tài khoản theo dõi (người theo dõi); tài khoản tồn tại độc lập | FR-M01-12.08, FR-M01-14.04 |
-| R-M01-14 | User | 0..1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại tài khoản được theo dõi; bội số phía tài khoản là 0..1 vì lượt theo dõi Topic không trỏ tới tài khoản | FR-M01-12.08, FR-M01-14.04 |
-| R-M01-15 | User | 1 | Ban | 0..* | 1-n | Kết tập | Ban | Lần ban ghi lại tài khoản bị ban; tài khoản tồn tại độc lập | FR-M01-05.05, FR-M01-05.07, FR-M01-05.17 |
-| R-M01-16 | User | 0..1 | Upvote | 0..* | 1-n | Kết tập | Upvote | Upvote ghi lại tài khoản đã cho; khi tài khoản chuyển DELETED, upvote được giữ nhưng bỏ người cho | FR-M01-12.09 |
+| R-M01-09 | User | 1 | Profile | 1 | 1-1 | Kết tập | User | Tài khoản có một hồ sơ; không ghi hợp thành vì tài khoản không bao giờ bị xóa hẳn (FR-M01-12.03): khi DELETED chỉ các trường của hồ sơ bị xóa (FR-M01-12.08). Trùng R-M02-01 (MD-08) | FR-M01-03.03, FR-M01-12.08 |
+| R-M01-10 | User | 1 | Bookmark | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n User – Post (lưu bài), đã tách qua lớp liên kết Bookmark ở EC-M02; người lưu. Trùng R-M02-02 (MD-07) | FR-M01-12.08 |
+| R-M01-11 | User | 1 | Post | 0..* | 1-n | Kết tập | Post | Bài viết ghi lại tác giả; tài khoản tồn tại độc lập. Trùng R-M03-05 (MD-08) | FR-M01-13.01, FR-M01-13.05 |
+| R-M01-12 | User | 1 | Comment | 0..* | 1-n | Kết tập | Comment | Bình luận ghi lại tác giả; tài khoản tồn tại độc lập. Trùng R-M04-02 (MD-08) | FR-M01-13.03, FR-M01-13.04 |
+| R-M01-13 | User | 1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại tài khoản theo dõi (người theo dõi); tài khoản tồn tại độc lập. Trùng R-M07-15 (MD-08) | FR-M01-12.08, FR-M01-14.04 |
+| R-M01-14 | User | 0..1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại tài khoản được theo dõi; bội số phía tài khoản là 0..1 vì lượt theo dõi Topic không trỏ tới tài khoản. Trùng R-M07-16 (MD-08) | FR-M01-12.08, FR-M01-14.04 |
+| R-M01-15 | User | 1 | Ban | 0..* | 1-n | Kết tập | Ban | Lần ban ghi lại tài khoản bị ban; tài khoản tồn tại độc lập. Trùng R-M08-17 (MD-08) | FR-M01-05.05, FR-M01-05.07, FR-M01-05.17 |
+| R-M01-16 | User | 0..1 | Upvote | 0..* | 1-n | Kết tập | Upvote | Upvote ghi lại tài khoản đã cho; khi tài khoản chuyển DELETED, upvote được giữ nhưng bỏ người cho. Trùng R-M12-01 (MD-08) | FR-M01-12.09 |
 
 ## 4. Sơ đồ lớp phân tích
 
@@ -481,3 +542,4 @@ Mã nguồn sơ đồ: [diagrams/EC-M01.puml](diagrams/EC-M01.puml). Ảnh và t
 |---|---|---|---|
 | 0.1 | 2026-11-18 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-11-18 | Chốt: 3 bước; Q-01 đã trả lời (gộp hai loại magic link thành MagicLink có purpose); nhận 6 thuộc tính đề xuất; 16 quan hệ, PolicyConsent là lớp liên kết của User – PolicyVersion | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-02: User.role dùng giá trị MODERATOR; MD-05: thêm User.unreadNotificationCount, thêm User.banCount, thêm User.isRoot, thêm User.totalPoints, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 56 dòng Tham chiếu, tên tiếng Việt của thuộc tính lớp ngoài theo module sở hữu: Profile.avatar: Ảnh đại diện → Avatar; Profile.bio: Tiểu sử → Bio; Ban.endsAt: Thời điểm hết hạn ban → Thời điểm hết hạn; Ban.reason: Lý do ban → Lý do; MD-07: Bookmark: Nhóm Thực thể → Liên kết, R-M01-10 đổi Kết tập thành Liên kết, ghi là trùng R-M02-02; MD-08: R-M01-09 ghi là trùng R-M02-01, R-M01-11 ghi là trùng R-M03-05, R-M01-12 ghi là trùng R-M04-02, R-M01-13 ghi là trùng R-M07-15, R-M01-14 ghi là trùng R-M07-16, R-M01-15 ghi là trùng R-M08-17, R-M01-16 ghi là trùng R-M12-01; MD-11: Tính chất theo module sở hữu: Ban.endsAt Lưu → Dẫn xuất; bỏ các ghi chú "tên tạm, chờ EC-…" đã hết hiệu lực ở mô tả lớp và mục Liên module | Phạm Văn Đức |

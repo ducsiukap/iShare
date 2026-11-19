@@ -2,9 +2,9 @@
 module: M05
 ten_module: Topic & Tag
 ma_tai_lieu: EC-M05
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-11-18
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M05 v1.7
 steps_completed: [1, 2, 3]
@@ -19,8 +19,8 @@ steps_completed: [1, 2, 3]
 | Module | M05 — Topic & Tag |
 | Đầu vào | FR-M05 phiên bản 1.7 |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-11-18 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -133,14 +133,14 @@ cho Feed.
 | 17 | cấu trúc phẳng | Câu 3 | Loại bỏ | — | Hằng số của BR-M05-01: quy tắc của danh mục; hệ quả là Topic không có quan hệ cha–con |
 | 18 | Topic con | Câu 3 | Loại bỏ | — | Ngoài phạm vi hệ thống: FR không có Topic lồng nhau (BR-M05-01; mục 1.2 ghi hoãn) |
 | 19 | tác giả bài viết / người dùng / tài khoản tác giả bài viết / danh tính tác giả bài viết | Câu 4 | Lớp | User | Vai trò có tài khoản → lớp người dùng của M01 (lớp ngoài); các cụm cùng chỉ một tài khoản |
-| 20 | bài nháp | Câu 4 | Loại bỏ | — | Giá trị của Post.publishStatus |
-| 21 | bài viết đã gửi | Câu 4 | Loại bỏ | — | Giá trị của Post.publishStatus (các trạng thái sau nháp) |
+| 20 | bài nháp | Câu 4 | Loại bỏ | — | Giá trị của Post.publishState |
+| 21 | bài viết đã gửi | Câu 4 | Loại bỏ | — | Giá trị của Post.publishState (các trạng thái sau nháp) |
 | 22 | tên Tag chuẩn hóa | Câu 6 | Thuộc tính | Tag.name | Giá trị mô tả Tag, dùng để phân biệt hai Tag (BR-M05-24) |
 | 23 | trạng thái của Tag | Câu 6 | Thuộc tính | Tag.status | Tag có hai trạng thái và bảng chuyển trạng thái riêng (mục 5.14 của FR) |
 | 24 | công tắc AI tổng | Câu 7 | Loại bỏ | — | Ngoài phạm vi module (M10): M05 chỉ đọc công tắc để bật, tắt gợi ý; không có dữ liệu của M05 gắn với công tắc |
 | 25 | công tắc gợi ý Topic | Câu 7 | Loại bỏ | — | Ngoài phạm vi module (M10): như dòng 24 |
 | 26 | tiêu đề | Câu 8 | Thuộc tính | Post.title | Thông tin của bài viết (M03) mà M05 đọc để gợi ý Topic |
-| 27 | nội dung chữ | Câu 8 | Thuộc tính | Post.plainText | Thông tin của bài viết (M03) mà M05 đọc để gợi ý Topic |
+| 27 | nội dung chữ | Câu 8 | Thuộc tính | Post.contentText | Thông tin của bài viết (M03) mà M05 đọc để gợi ý Topic |
 | 28 | Topic được gợi ý / Topic đã được gợi ý | Câu 8 | Lớp | Topic | Là Topic của danh mục; việc một lượt gợi ý có các Topic là quan hệ, xét ở bước 3 |
 | 29 | Topic hợp lệ | Câu 8 | Loại bỏ | — | Chung chung: "hợp lệ" là điều kiện thuộc danh mục Topic hiện tại, không phải dữ liệu riêng |
 | 30 | gợi ý lỗi thời | Câu 9 | Loại bỏ | — | Giá trị của TopicSuggestion.status |
@@ -185,8 +185,8 @@ cho Feed.
 | 69 | còn hiệu lực | Quét: FR-M05-02.09 | Loại bỏ | — | Giá trị của TopicSuggestion.status |
 | 70 | thời điểm ghi phản hồi gợi ý | Quét: FR-M05-02.12 | Thuộc tính | TopicSuggestionFeedback.recordedAt | M13 lọc phản hồi theo khoảng thời gian ghi (FR-M13, BR-M13-29) |
 | 71 | thời điểm tạo của Tag | Quét: Dữ liệu nghiệp vụ | Thuộc tính | Tag.createdAt | FR nêu ở mục Dữ liệu nghiệp vụ |
-| 72 | trạng thái đăng | Quét: FR-M05-05.11 | Thuộc tính | Post.publishStatus | Thông tin của bài viết (M03) mà M05 đọc |
-| 73 | trạng thái kiểm duyệt | Quét: FR-M05-05.11 | Thuộc tính | Post.moderationStatus | Thông tin của bài viết (M03) mà M05 đọc |
+| 72 | trạng thái đăng | Quét: FR-M05-05.11 | Thuộc tính | Post.publishState | Thông tin của bài viết (M03) mà M05 đọc |
+| 73 | trạng thái kiểm duyệt | Quét: FR-M05-05.11 | Thuộc tính | Post.modState | Thông tin của bài viết (M03) mà M05 đọc |
 | 74 | trạng thái tài khoản | Quét: FR-M05-05.11 | Thuộc tính | User.status | Thông tin của tài khoản (M01) mà M05 đọc |
 | 75 | vai trò | Quét: FR-M05-06.03 | Thuộc tính | User.role | Thông tin của tài khoản (M01) mà M05 đọc để kiểm quyền |
 | 76 | nhóm Public / nhóm Private | Quét: FR-M05-05.11 | Loại bỏ | — | Ngoài phạm vi module (M11): M05 chỉ dùng điều kiện "bài đang hiển thị trên feed chính" do M11, M14 xác định |
@@ -198,7 +198,7 @@ cho Feed.
 | 82 | upvote cho comment | Quét: FR-M05-05.12 | Loại bỏ | — | Ngoài phạm vi module (M12): không tính vào Trending |
 | 83 | lịch sử sửa bài viết | Quét: FR-M05-11.06 | Loại bỏ | — | Ngoài phạm vi module (M03) |
 | 84 | thông báo | Quét: FR-M05-11.05 | Loại bỏ | — | Ngoài phạm vi module (M07) |
-| 85 | thời gian khôi phục | Quét: FR-M05-08.02 | Loại bỏ | — | Ngoài phạm vi module (M03): M05 chỉ đọc Post.publishStatus |
+| 85 | thời gian khôi phục | Quét: FR-M05-08.02 | Loại bỏ | — | Ngoài phạm vi module (M03): M05 chỉ đọc Post.publishState |
 | 86 | từ / số từ | Quét: TN:Từ | Loại bỏ | — | Hằng số của BR-M05-12: đếm lúc yêu cầu gợi ý, không lưu |
 | 87 | ký tự | Quét: TN:Ký tự | Loại bỏ | — | Hằng số của BR-M05-23: đơn vị đo độ dài Tag.name |
 | 88 | giờ hệ thống | Quét: TN:Giờ hệ thống | Loại bỏ | — | Giao diện: cách hiển thị thời điểm |
@@ -227,18 +227,19 @@ cho Feed.
 | PostTag | Liên kết bài viết–Tag | Liên kết | M05 | Một Tag được gắn cho một bài viết; giữ cả khi Tag bị vô hiệu hóa | — | FR-M05-03.01, FR-M05-09.03 |
 | SuggestedTopic | Topic được gợi ý | Liên kết | M05 | Một Topic nằm trong kết quả của một lượt gợi ý Topic | — | FR-M05-02.03, BR-M05-13 |
 | ChosenTopic | Topic chọn cuối | Liên kết | M05 | Một Topic tác giả chọn cuối cùng, ghi trong một phản hồi gợi ý | — | FR-M05-02.12 |
-| Post | Bài viết | Thực thể | M03 | Bài viết được gán Topic, gắn Tag và được gợi ý Topic (tên tạm, chờ EC-M03) | title, plainText, publishStatus, moderationStatus, publishedAt | FR-M05-01, FR-M05-03 |
-| User | Người dùng | Thực thể | M01 | Tài khoản của tác giả, Mod, Admin (tên tạm, chờ EC-M01) | role, status | FR-M05-01.08, FR-M05-06.03, FR-M05-09.04 |
-| Follow | Lượt theo dõi | Thực thể | M07 | Quan hệ theo dõi Topic mà M05 chuyển hoặc bỏ khi gộp, xóa Topic (tên tạm, chờ EC-M07) | — | FR-M05-07.06, FR-M05-08.06 |
-| ModerationLog | Dòng nhật ký kiểm duyệt | Thực thể | M08 | Dòng nhật ký M05 ghi khi Mod, Admin thao tác với Tag hoặc Topic, Tag của bài người khác (tên tạm, chờ EC-M08) | actionType, reason, createdAt | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 |
-| AdminLog | Mục nhật ký thao tác Admin | Thực thể | M10 | Mục nhật ký M05 ghi khi Admin thêm, gộp, xóa Topic (tên tạm, chờ EC-M10) | actionType | FR-M05-06, FR-M05-07, FR-M05-08 |
+| Post | Bài viết | Thực thể | M03 | Bài viết được gán Topic, gắn Tag và được gợi ý Topic | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M05-01, FR-M05-03 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Tài khoản của tác giả, Mod, Admin | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M05-01.08, FR-M05-06.03, FR-M05-09.04 |
+| Follow | Lượt theo dõi | Thực thể | M07 | Quan hệ theo dõi Topic mà M05 chuyển hoặc bỏ khi gộp, xóa Topic | followedAt | FR-M05-07.06, FR-M05-08.06 |
+| ModerationLog | Dòng nhật ký kiểm duyệt | Thực thể | M08 | Dòng nhật ký M05 ghi khi Mod, Admin thao tác với Tag hoặc Topic, Tag của bài người khác | actionType, reason, createdAt, isByAi | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 |
+| AdminLog | Mục nhật ký thao tác Admin | Thực thể | M10 | Mục nhật ký M05 ghi khi Admin thêm, gộp, xóa Topic | actionType, reason, createdAt, isBySystem | FR-M05-06, FR-M05-07, FR-M05-08 |
 
 ### 2.3 Thuộc tính
 
 <!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
      Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
      Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
-             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa).
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
      Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
              — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
      Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
@@ -263,16 +264,63 @@ cho Feed.
 | TagTrendingStat | rank | Thứ hạng | Dẫn xuất | Nguồn nêu | Xếp theo score giảm dần, rồi newPostCount giảm dần, rồi tên Tag từ A đến Z; mỗi mục một hạng riêng (BR-M05-31) | BR-M05-31, FR-M05-05.09 | — |
 | TagTrendingStat | computedAt | Thời điểm tính | Dẫn xuất | Nguồn nêu | Thời điểm tạo ra kết quả; cửa sổ 7 ngày tính ngược từ thời điểm này (FR-M05-05.03) | FR-M05-05.03, FR-M05-05.10 | — |
 | Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M05-02.01 | M05 đọc để gửi AI gợi ý Topic, đếm từ (BR-M05-12) và phát hiện gợi ý lỗi thời (FR-M05-02.09) |
-| Post | plainText | Nội dung chữ | Lưu | Tham chiếu | — | FR-M05-02.01 | Như title; FR-M03 gọi là "nội dung dạng chữ thuần" |
-| Post | publishStatus | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M05-01.10, FR-M05-08.02, FR-M05-05.11 | M05 đọc để áp giới hạn Topic cho bài nháp (0–3) hay bài đã gửi (1–3), chặn xóa Topic có bài ngoài bài nháp, và chỉ tính Trending bài đã đăng |
-| Post | moderationStatus | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M05-05.11 | M05 đọc để bỏ bài bị ẩn bởi kiểm duyệt khỏi Trending |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M05-02.01 | Như title; FR-M03 gọi là "nội dung dạng chữ thuần" |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M05-01.10, FR-M05-08.02, FR-M05-05.11 | M05 đọc để áp giới hạn Topic cho bài nháp (0–3) hay bài đã gửi (1–3), chặn xóa Topic có bài ngoài bài nháp, và chỉ tính Trending bài đã đăng |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M05-05.11 | M05 đọc để bỏ bài bị ẩn bởi kiểm duyệt khỏi Trending |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
 | Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | BR-M05-29, FR-M05-05.09 | M05 đọc để tính điểm đăng bài trong cửa sổ và đếm số bài mới; FR-M03 chưa nêu riêng thời điểm đăng (FR-M14 có) |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M03-07.01, BR-M03-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.12, FR-M01-03.13, FR-M01-03.14, FR-M01-04.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | User | role | Vai trò | Lưu | Tham chiếu | — | FR-M05-06.03, FR-M05-09.04, FR-M05-11.04 | M05 đọc để kiểm quyền Admin (Topic) và Mod, Admin (Tag, bài người khác) |
 | User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M05-05.11, FR-M05-02.22 | M05 đọc để bỏ bài của tài khoản vô hiệu hóa hoặc đã xóa khỏi Trending; tài khoản DELETED thì phản hồi gợi ý không còn gắn danh tính |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Follow | followedAt | Thời điểm bắt đầu theo dõi | Lưu | Tham chiếu | — | FR-M07-01.01 | Ghi đủ lớp sau gộp (MD-05); EC-M07 định nghĩa |
 | ModerationLog | actionType | Loại thao tác | Lưu | Tham chiếu | — | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 | M05 ghi: vô hiệu hóa Tag, kích hoạt lại Tag, đổi Topic, Tag trên bài người khác |
 | ModerationLog | reason | Lý do | Lưu | Tham chiếu | Tùy chọn ("lý do nếu có") | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 | M05 ghi lý do Mod, Admin nhập |
 | ModerationLog | createdAt | Thời điểm | Lưu | Tham chiếu | — | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 | M05 ghi thời điểm thao tác |
+| ModerationLog | isByAi | Người làm là AI | Lưu | Tham chiếu | — | FR-M08-16.01, BR-M08-39 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
 | AdminLog | actionType | Thao tác | Lưu | Tham chiếu | — | FR-M05-06, FR-M05-07, FR-M05-08 | M05 ghi thao tác thêm, gộp, xóa Topic (mục Giao tiếp, dòng Dùng M10) |
+| AdminLog | reason | Lý do | Lưu | Tham chiếu | — | FR-M10-14.01, FR-M10-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M10 định nghĩa |
+| AdminLog | createdAt | Thời điểm | Lưu | Tham chiếu | — | FR-M10-14.01, FR-M10-15.01, FR-M10-15.04 | Ghi đủ lớp sau gộp (MD-05); EC-M10 định nghĩa |
+| AdminLog | isBySystem | Người làm là Hệ thống | Lưu | Tham chiếu | — | FR-M10-14.07, BR-M10-21 | Ghi đủ lớp sau gộp (MD-05); EC-M10 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -367,9 +415,9 @@ lấy qua bài viết (Topic, Tag đã có quan hệ với Post), nên không đ
 | R-M05-09 | TopicSuggestion | 1 | TopicSuggestionFeedback | 0..1 | 1-1 | Kết tập | TopicSuggestionFeedback | Phản hồi gợi ý ghi lại lượt gợi ý Topic của nó (các Topic đã gợi ý); không đủ căn cứ hợp thành vì FR không nói xóa lượt gợi ý thì xóa phản hồi (phản hồi không bao giờ bị xóa) | FR-M05-02.12, FR-M05-02.22 |
 | R-M05-10 | Post | 1 | TopicSuggestion | 0..* | 1-n | Kết tập | TopicSuggestion | Lượt gợi ý Topic ghi lại bài viết được gợi ý; bài viết tồn tại độc lập | FR-M05-02.01 |
 | R-M05-11 | User | 0..1 | TopicSuggestion | 0..* | 1-n | Kết tập | TopicSuggestion | Lượt gợi ý Topic ghi lại tác giả yêu cầu; liên kết với người dùng bị bỏ khi tài khoản chuyển sang DELETED để phản hồi không gắn danh tính | FR-M05-02.01, FR-M05-02.22 |
-| R-M05-12 | Topic | 0..1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại Topic được theo dõi; không hợp thành vì lượt theo dõi chuyển sang Topic đích khi gộp (FR-M05-07.06), dù bị bỏ khi xóa Topic (FR-M05-08.06) | FR-M05-07.06, FR-M05-08.06 |
-| R-M05-13 | Topic | 0..1 | AdminLog | 0..* | 1-n | Kết tập | AdminLog | Mục nhật ký thao tác Admin ghi lại Topic bị thêm, gộp, xóa; nhật ký tồn tại độc lập với Topic | FR-M05-06, FR-M05-07, FR-M05-08 |
-| R-M05-14 | Tag | 0..1 | ModerationLog | 0..* | 1-n | Kết tập | ModerationLog | Dòng nhật ký kiểm duyệt ghi lại Tag bị vô hiệu hóa, kích hoạt lại; Tag không bị xóa | FR-M05-09.07, FR-M05-10.06 |
+| R-M05-12 | Topic | 0..1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại Topic được theo dõi; không hợp thành vì lượt theo dõi chuyển sang Topic đích khi gộp (FR-M05-07.06), dù bị bỏ khi xóa Topic (FR-M05-08.06). Trùng R-M07-17 (MD-08) | FR-M05-07.06, FR-M05-08.06 |
+| R-M05-13 | Topic | 0..1 | AdminLog | 0..* | 1-n | Kết tập | AdminLog | Mục nhật ký thao tác Admin ghi lại Topic bị thêm, gộp, xóa; nhật ký tồn tại độc lập với Topic. Trùng R-M10-12 (MD-08) | FR-M05-06, FR-M05-07, FR-M05-08 |
+| R-M05-14 | Tag | 0..1 | ModerationLog | 0..* | 1-n | Kết tập | ModerationLog | Dòng nhật ký kiểm duyệt ghi lại Tag bị vô hiệu hóa, kích hoạt lại; Tag không bị xóa. Trùng R-M08-24 (MD-08) | FR-M05-09.07, FR-M05-10.06 |
 | R-M05-15 | Topic | — | TopicTrendingStat | — | — | Kế thừa | Topic | TopicTrendingStat dùng lại thuộc tính của Topic (tên, tiêu chí xếp cuối) và thêm số liệu Trending | FR-M05-05.01, BR-M05-31 |
 | R-M05-16 | Tag | — | TagTrendingStat | — | — | Kế thừa | Tag | TagTrendingStat dùng lại thuộc tính của Tag (tên, trạng thái hoạt động) và thêm số liệu Trending | FR-M05-05.01, FR-M05-05.07, BR-M05-31 |
 
@@ -387,7 +435,7 @@ Mã nguồn sơ đồ: [diagrams/EC-M05.puml](diagrams/EC-M05.puml). Ảnh và t
 
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| Post | M03 | Gán Topic, Tag qua PostTopic, PostTag (R-M05-01–04); gợi ý Topic cho bài (R-M05-10); đọc title, plainText, publishStatus, moderationStatus, publishedAt | — |
+| Post | M03 | Gán Topic, Tag qua PostTopic, PostTag (R-M05-01–04); gợi ý Topic cho bài (R-M05-10); đọc title, contentText, publishState, modState, publishedAt | — |
 | User | M01 | Ghi tác giả yêu cầu gợi ý (R-M05-11), bỏ liên kết khi DELETED; đọc role để kiểm quyền, status để lọc Trending | — |
 | Follow | M07 | Chuyển lượt theo dõi sang Topic đích khi gộp, bỏ lượt theo dõi khi xóa Topic (R-M05-12) | — |
 | ModerationLog | M08 | Ghi dòng nhật ký khi vô hiệu hóa, kích hoạt lại Tag (R-M05-14) và khi đổi Topic, Tag trên bài người khác (quan hệ với bài viết và người thực hiện là giữa hai lớp ngoài, do M08 ghi) | — |
@@ -409,3 +457,4 @@ Mã nguồn sơ đồ: [diagrams/EC-M05.puml](diagrams/EC-M05.puml). Ảnh và t
 |---|---|---|---|
 | 0.1 | 2026-11-17 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-11-18 | Chốt: 3 bước; Q-01 đến Q-03 đã trả lời (thêm Topic.deletedAt; điểm Trending là hai lớp thống kê; upvote, comment, bookmark lấy qua Post, không vào mô hình) | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-03: publishStatus → publishState, moderationStatus → modState, plainText → contentText; MD-05: ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 47 dòng Tham chiếu; MD-08: R-M05-12 ghi là trùng R-M07-17, R-M05-13 ghi là trùng R-M10-12, R-M05-14 ghi là trùng R-M08-24; MD-09: tên tiếng Việt của User: Người dùng → Người dùng (tài khoản); MD-11: Tính chất theo module sở hữu: Post.contentText Lưu → Dẫn xuất; bỏ các ghi chú "tên tạm, chờ EC-…" đã hết hiệu lực ở mô tả lớp và mục Liên module | Phạm Văn Đức |

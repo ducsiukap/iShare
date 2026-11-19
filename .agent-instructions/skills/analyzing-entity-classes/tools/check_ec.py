@@ -117,16 +117,42 @@ def check_step1(d, rep, fr_text, system):
                 rep.error("1.2", "chức năng %s của FR chưa được câu nào trong đoạn mô tả nói tới" % fid)
 
 
-def check_sources(d, rep, fr_text, num, label_col):
-    if not fr_text:
+class FrIndex:
+    """Tra mã FR/BR về đúng tài liệu FR của module ghi trong mã (FR-M13-03.01 → FR-M13.md).
+
+    Sau lượt gộp hệ thống, cột Nguồn của một module có thể dẫn mã FR của module khác (thuộc tính do module khác
+    bổ sung vào lớp của module này, hoặc thuộc tính của lớp ngoài được ghi đủ). FR của module khác được tìm cạnh
+    tệp --fr.
+    """
+
+    def __init__(self, fr_path, module):
+        self.dir = os.path.dirname(os.path.abspath(fr_path))
+        self.module = module
+        self.cache = {module: mdtab.read(fr_path)}
+
+    def text_for(self, fid):
+        m = re.match(r"^(?:FR|BR)-(M\d{2})-", fid)
+        mod = m.group(1) if m else self.module
+        if mod not in self.cache:
+            p = os.path.join(self.dir, "FR-%s.md" % mod)
+            self.cache[mod] = mdtab.read(p) if os.path.exists(p) else None
+        return mod, self.cache[mod]
+
+
+def check_sources(d, rep, fr_index, num, label_col):
+    if not fr_index:
         return
     for r in d["rows"][num]:
         for i in mdtab.ids_in(r.get("Nguồn", "")):
-            if i not in fr_text:
-                rep.error(num, "%s: nguồn %s không có trong FR" % (r.get(label_col, "?"), i))
+            mod, text = fr_index.text_for(i)
+            if text is None:
+                rep.error(num, "%s: không tìm thấy FR-%s.md cạnh tệp --fr để đối chiếu nguồn %s"
+                          % (r.get(label_col, "?"), mod, i))
+            elif i not in text:
+                rep.error(num, "%s: nguồn %s không có trong FR-%s" % (r.get(label_col, "?"), i, mod))
 
 
-def check_step2(d, rep, fr_text, system):
+def check_step2(d, rep, fr_text, system, fr_index=None):
     mod = d["module"]
     ok22 = rep.need_cols("2.2", d["head"]["2.2"], COLS["2.2"])
     ok23 = rep.need_cols("2.3", d["head"]["2.3"], COLS["2.3"])
@@ -147,7 +173,7 @@ def check_step2(d, rep, fr_text, system):
                 rep.error("2.2", "%s chưa ghi nguồn" % c)
             if mdtab.is_empty(r["Tên tiếng Việt"]):
                 rep.warn("2.2", "%s chưa có tên tiếng Việt" % c)
-        check_sources(d, rep, fr_text, "2.2", "Lớp")
+        check_sources(d, rep, fr_index, "2.2", "Lớp")
     if ok23:
         for r in d["rows"]["2.3"]:
             c, a = r["Lớp"], r["Thuộc tính"]
@@ -183,7 +209,7 @@ def check_step2(d, rep, fr_text, system):
                 if mdtab.is_empty(r["Ghi chú"]):
                     rep.error("2.3", "%s.%s là tham chiếu: cột Ghi chú phải nêu module này đọc hoặc ghi nó để làm gì"
                               % (c, a))
-        check_sources(d, rep, fr_text, "2.3", "Thuộc tính")
+        check_sources(d, rep, fr_index, "2.3", "Thuộc tính")
     if ok22 and ok23:
         for c, r in classes.items():
             mine = [a for (cc, a) in attrs if cc == c]
@@ -251,7 +277,7 @@ def check_step2(d, rep, fr_text, system):
     return classes, attrs
 
 
-def check_step3(d, rep, fr_text, system, classes, attrs):
+def check_step3(d, rep, fr_text, system, classes, attrs, fr_index=None):
     mod = d["module"]
     if not rep.need_cols("3.4", d["head"]["3.4"], COLS["3.4"]):
         return
@@ -295,7 +321,7 @@ def check_step3(d, rep, fr_text, system, classes, attrs):
             rep.error("3.4", "%s chưa ghi căn cứ chọn loại quan hệ" % rid)
         if mdtab.is_empty(r["Nguồn"]):
             rep.error("3.4", "%s chưa ghi nguồn" % rid)
-    check_sources(d, rep, fr_text, "3.4", "ID")
+    check_sources(d, rep, fr_index, "3.4", "ID")
     # lớp liên kết
     link_rows = {}
     if d["head"]["3.3"] is not None and rep.need_cols("3.3", d["head"]["3.3"], COLS["3.3"]):
@@ -319,7 +345,8 @@ def check_step3(d, rep, fr_text, system, classes, attrs):
                     elif not any((x["Lớp A"], x["Lớp B"]) in ((lc, p), (p, lc)) for x in d["rows"]["3.4"]):
                         rep.error("3.3", "%s: thiếu quan hệ 1-n giữa %s và %s ở mục 3.4" % (lc, p, lc))
     for c, r in classes.items():
-        if r["Nhóm"] == "Liên kết" and c not in link_rows:
+        # lớp liên kết của module khác được tách ở module sở hữu nó; ở đây chỉ là lớp ngoài
+        if r["Nhóm"] == "Liên kết" and c not in link_rows and (system or r["Sở hữu"] == mod):
             rep.error("3.3", "lớp %s có Nhóm = Liên kết nhưng không có dòng ở mục 3.3" % c)
         if (system or r["Sở hữu"] == mod) and c not in linked:
             rep.warn("3.4", "lớp %s không có quan hệ với lớp nào (lớp mồ côi)" % c)
@@ -399,16 +426,17 @@ def main():
     d = load_ec(a.ec)
     rep = mdtab.Report("check_ec %s" % os.path.basename(a.ec))
     fr_text = mdtab.read(a.fr) if a.fr else None
+    fr_index = FrIndex(a.fr, d["module"]) if a.fr else None
     upto = 3 if (a.final or a.step is None) else a.step
     if upto >= 1:
         check_step1(d, rep, fr_text, a.system)
     classes, attrs = {}, {}
     if upto >= 2:
-        res = check_step2(d, rep, fr_text, a.system)
+        res = check_step2(d, rep, fr_text, a.system, fr_index)
         classes = res[0] if res else {}
         attrs = res[1] if res else {}
     if upto >= 3:
-        check_step3(d, rep, fr_text, a.system, classes, attrs)
+        check_step3(d, rep, fr_text, a.system, classes, attrs, fr_index)
     if a.others and classes and not a.system:
         check_others(d, rep, classes, a.others)
     if a.final:

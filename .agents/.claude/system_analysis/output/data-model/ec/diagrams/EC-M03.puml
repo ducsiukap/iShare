@@ -24,6 +24,19 @@ class Post {
   -isPermanentlyDeleted
   -/isPubliclyVisible
   -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
 }
 class PostAttachment {
   -kind
@@ -52,11 +65,35 @@ class PostRevision {
   -editedAt
 }
 class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
   -role
   -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
 }
 class Group <<M11>> {
+  -name
+  -description
   -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
+  -modState
+  -inviteLink
+  -/isInstantJoin
 }
 
 (PollOption, User) .. PollSelection

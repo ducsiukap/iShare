@@ -24,13 +24,54 @@ class TopicSuggestionStat <<stat>> {
 }
 class Post <<M03>> {
   -title
+  -content
   -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
   -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
   -embedding
   -needsEmbedding
+  -/bookmarkCount
 }
 class Comment <<M04>> {
   -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
 }
 class TopicSuggestionFeedback <<M05>> {
   -recordedAt

@@ -2,9 +2,9 @@
 module: M07
 ten_module: Notification
 ma_tai_lieu: EC-M07
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-11-19
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M07 v1.5
 steps_completed: [1, 2, 3]
@@ -19,8 +19,8 @@ steps_completed: [1, 2, 3]
 | Module | M07 — Notification |
 | Đầu vào | FR-M07 phiên bản 1.5 |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-11-19 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -269,7 +269,7 @@ các cuộc trò chuyện đã tắt thông báo riêng vẫn giữ trạng thá
 | 104 | trạng thái tắt | Câu 35 | Loại bỏ | — | Trừu tượng: Đã tắt của một cuộc trò chuyện là việc có quan hệ tắt thông báo cuộc trò chuyện (dòng 12) |
 | 105 | kết quả báo cáo / báo cáo | Quét: BR-M07-01 | Lớp | Report | Lớp ngoài (M08): thông báo kết quả báo cáo trỏ tới báo cáo (mục Dữ liệu nghiệp vụ của FR); tên tạm, chờ EC-M08 |
 | 106 | badge / mốc điểm | Quét: BR-M07-01 | Lớp | Badge | Lớp ngoài (M12): thông báo đạt badge trỏ tới badge (mục Dữ liệu nghiệp vụ của FR); "mốc điểm" chính là đạt badge (BR-M07-01); tên tạm, chờ EC-M12 |
-| 107 | danh hiệu / danh hiệu Ngôi sao tuần | Quét: BR-M07-01 | Lớp | Title | Lớp ngoài (M12): thông báo đạt danh hiệu "Ngôi sao tuần" trỏ tới danh hiệu (mục Dữ liệu nghiệp vụ của FR); tên tạm, chờ EC-M12 |
+| 107 | danh hiệu / danh hiệu Ngôi sao tuần | Quét: BR-M07-01 | Lớp | EarnedTitle | Lớp ngoài (M12): thông báo đạt danh hiệu "Ngôi sao tuần" trỏ tới lần đạt danh hiệu (mục Dữ liệu nghiệp vụ của FR); EC-M12 gọi là EarnedTitle (MD-01) |
 | 108 | link mời | Quét: BR-M07-01 | Thuộc tính | Group.inviteLink | Thông tin của nhóm (M11): mỗi nhóm có một link mời chung (FR-M11, thuật ngữ Lời mời, link mời); thông báo "được mời" kèm link này (BR-M07-01) |
 | 109 | các sự kiện còn lại của BR-M07-01 (bài được đăng, bị từ chối, bị ẩn, poll kết thúc, bình luận bị ẩn, nhận cảnh cáo, gỡ ban, các sự kiện nhóm, đạt badge, đạt danh hiệu…) | Quét: BR-M07-01 | Loại bỏ | — | Giá trị của Notification.eventType |
 | 110 | Owner, Group Mod | Quét: BR-M07-01 | Loại bỏ | — | Ngoài phạm vi module (M11): vai trò trong nhóm; "được bổ nhiệm Group Mod", "trở thành Owner" là giá trị của Notification.eventType |
@@ -300,26 +300,27 @@ các cuộc trò chuyện đã tắt thông báo riêng vẫn giữ trạng thá
 | CountedUpvoter | Người upvote đã được đếm | Liên kết | M07 | Một người dùng đã được đếm trong cửa sổ 5 phút của một thông báo upvote; mỗi cặp thông báo – người dùng có nhiều nhất một | — | FR-M07-02.04, FR-M07-02.20 |
 | MutedPost | Tắt thông báo cho bài | Liên kết | M07 | Một bài viết mà một người dùng đã tắt thông báo; có khi người dùng bật công tắc, bị bỏ khi người dùng tắt công tắc | — | FR-M07-08.02, FR-M07-08.03 |
 | MutedConversation | Tắt thông báo cuộc trò chuyện | Liên kết | M07 | Một cuộc trò chuyện mà một thành viên đã tắt thông báo; có khi thành viên tắt thông báo, bị bỏ khi bật lại hoặc khi rời, bị xóa khỏi nhóm chat | — | FR-M07-09.01, FR-M07-09.02, FR-M07-09.08 |
-| User | Người dùng (tài khoản) | Thực thể | M01 | Người nhận, người gây sự kiện, người theo dõi, người được theo dõi, thành viên cuộc trò chuyện; chủ của cài đặt thông báo | displayName, status, email, /unreadNotificationCount | FR-M07-01.01, FR-M07-02.01, FR-M07-04.01, FR-M07-09.03 |
-| Topic | Topic | Thực thể | M05 | Một loại đối tượng theo dõi | — | FR-M07-01.01 |
-| Post | Bài viết | Thực thể | M03 | Nội dung liên quan của thông báo về bài viết; bài mà người dùng tắt thông báo | isAnonymous, /isPubliclyVisible | FR-M07-02.08, FR-M07-02.21, FR-M07-08.02 |
-| Comment | Bình luận | Thực thể | M04 | Nội dung liên quan của thông báo về bình luận; upvote được gộp theo từng bình luận | /isVisible | FR-M07-02.03, FR-M07-02.18 |
-| Group | Nhóm | Thực thể | M11 | Nội dung liên quan của thông báo về sự kiện nhóm (tên tạm, chờ EC-M11) | inviteLink | BR-M07-01, FR-M07-02.11 |
-| Report | Báo cáo | Thực thể | M08 | Nội dung liên quan của thông báo kết quả báo cáo (tên tạm, chờ EC-M08) | — | BR-M07-01 |
-| Warning | Cảnh cáo | Thực thể | M08 | Nội dung liên quan của thông báo nhận cảnh cáo (tên tạm, chờ EC-M08) | — | BR-M07-01, FR-M07-02.13 |
-| Ban | Lần ban | Thực thể | M08 | Nội dung liên quan của thông báo ban, gỡ ban (tên tạm như EC-M01, chờ EC-M08) | — | BR-M07-01, FR-M07-02.13 |
-| Appeal | Khiếu nại | Thực thể | M09 | Nội dung liên quan của thông báo kết luận khiếu nại (tên tạm, chờ EC-M09) | — | BR-M07-01 |
-| Proposal | Đề xuất | Thực thể | M10 | Đề xuất làm Mod hoặc làm Admin mà thông báo đề xuất trỏ tới (tên tạm, chờ EC-M10) | status | FR-M07-02.14, FR-M07-02.15 |
-| Badge | Huy hiệu | Thực thể | M12 | Nội dung liên quan của thông báo đạt badge (tên tạm, chờ EC-M12) | — | BR-M07-01 |
-| Title | Danh hiệu | Thực thể | M12 | Nội dung liên quan của thông báo đạt danh hiệu "Ngôi sao tuần" (tên tạm, chờ EC-M12) | — | BR-M07-01 |
-| Conversation | Cuộc trò chuyện | Thực thể | M16 | Cuộc trò chuyện 1-1 hoặc nhóm chat mà thành viên tắt thông báo (tên tạm, chờ EC-M16) | — | FR-M07-09.01 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Người nhận, người gây sự kiện, người theo dõi, người được theo dõi, thành viên cuộc trò chuyện; chủ của cài đặt thông báo | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M07-01.01, FR-M07-02.01, FR-M07-04.01, FR-M07-09.03 |
+| Topic | Topic | Thực thể | M05 | Một loại đối tượng theo dõi | name, deletedAt | FR-M07-01.01 |
+| Post | Bài viết | Thực thể | M03 | Nội dung liên quan của thông báo về bài viết; bài mà người dùng tắt thông báo | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M07-02.08, FR-M07-02.21, FR-M07-08.02 |
+| Comment | Bình luận | Thực thể | M04 | Nội dung liên quan của thông báo về bình luận; upvote được gộp theo từng bình luận | content, publishedAt, editedAt, modState, deletedAt, /isDeleted, /isEdited, /isVisible, /upvoteCount, scannedAt, /isScannedCurrent, /replyRate, isRemovedFromGroup, isPointsDeducted | FR-M07-02.03, FR-M07-02.18 |
+| Group | Nhóm | Thực thể | M11 | Nội dung liên quan của thông báo về sự kiện nhóm | name, description, privacy, joinQuestion, isPreApprovalOn, isAnonymousOn, createdAt, isDeleted, modState, inviteLink, /isInstantJoin | BR-M07-01, FR-M07-02.11 |
+| Report | Báo cáo | Thực thể | M08 | Nội dung liên quan của thông báo kết quả báo cáo | reason, description, isAiCreated, scanScore, /status, /conclusion, /concentrationIndex, reportedAt | BR-M07-01 |
+| Warning | Cảnh cáo | Thực thể | M08 | Nội dung liên quan của thông báo nhận cảnh cáo | reason, issuedAt, isIssuedByAi, status, levelAfter | BR-M07-01, FR-M07-02.13 |
+| Ban | Lần ban | Thực thể | M08 | Nội dung liên quan của thông báo ban, gỡ ban | kind, duration, startedAt, /endsAt, reason, status, /appealDeadline | BR-M07-01, FR-M07-02.13 |
+| Appeal | Khiếu nại | Thực thể | M09 | Nội dung liên quan của thông báo kết luận khiếu nại | type, explanation, submittedAt, status, lastHolderActionAt, conclusion, conclusionReason, concludedAt, /roleAtAction | BR-M07-01 |
+| Proposal | Đề xuất | Thực thể | M10 | Đề xuất làm Mod hoặc làm Admin mà thông báo đề xuất trỏ tới | type, sentAt, status | FR-M07-02.14, FR-M07-02.15 |
+| Badge | Huy hiệu | Thực thể | M12 | Nội dung liên quan của thông báo đạt badge | name, threshold | BR-M07-01 |
+| EarnedTitle | Danh hiệu đã đạt | Thực thể | M12 | Lần đạt danh hiệu "Ngôi sao tuần"; nội dung liên quan của thông báo đạt danh hiệu | week | BR-M07-01 |
+| Conversation | Cuộc trò chuyện | Thực thể | M16 | Cuộc trò chuyện 1-1 hoặc nhóm chat mà thành viên tắt thông báo | type, name, isApprovalOn, inviteLink | FR-M07-09.01 |
 
 ### 2.3 Thuộc tính
 
 <!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
      Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
      Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
-             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa).
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
      Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
              — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
      Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
@@ -341,15 +342,121 @@ các cuộc trò chuyện đã tắt thông báo riêng vẫn giữ trạng thá
 | NotificationEmail | retryCount | Số lần đã gửi lại | Lưu | Nguồn nêu | Từ 0 tới 3; tăng 1 mỗi lần gửi lại sau lần gửi lỗi; hết 3 lần mà vẫn lỗi thì dừng gửi (BR-M07-26) | FR-M07-04.09, FR-M07-04.10, BR-M07-26 | — |
 | NotificationEmail | appealLink | Đường dẫn tới trang khiếu nại | Lưu | Nguồn nêu | Chỉ có với email về ban (FR-M07-04.08) | FR-M07-04.08 | — |
 | NotificationSetting | isAllChatMuted | Tắt thông báo toàn bộ Chat | Lưu | Nguồn nêu | Hai giá trị Đang nhận, Đã tắt (mục Chuyển trạng thái của FR); khi Đã tắt thì tin nhắn của mọi cuộc trò chuyện không hiện popup, không có ngoại lệ; khi về Đang nhận thì mỗi cuộc theo cài đặt riêng (BR-M07-08) | FR-M07-09.03, FR-M07-09.04, BR-M07-08 | Đọc mỗi khi có tin nhắn mới để quyết định có hiện popup tin nhắn không (FR-M07-07.07); không đổi số trên biểu tượng Tin nhắn (FR-M07-09.07) |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M07-04.01 | M07 đọc để gửi email trong hàng đợi tới người nhận |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M07-02.03, FR-M07-05.12 | M07 đọc lúc hiển thị để hiện tên người gây sự kiện, kể cả người upvote mới nhất; khi tài khoản DEACTIVATED, DELETED thì hiện chữ thay thế theo BR-M07-24 |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M01-01.02, FR-M01-05.19 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M07-01.12, FR-M07-01.13, FR-M07-02.26, FR-M07-02.27, FR-M07-05.09, FR-M07-05.12 | M07 đọc để từ chối bắt đầu theo dõi tài khoản BANNED, không tạo thông báo cho người nhận DELETED, chặn xem chuông khi BANNED và chọn cách hiện tên người gây sự kiện |
-| User | email | Địa chỉ email | Lưu | Tham chiếu | — | FR-M07-04.01 | M07 đọc để gửi email trong hàng đợi tới người nhận |
-| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Nguồn nêu | Số Notification của người dùng đang Chưa đọc; không tính tin nhắn (FR-M07-05.10, BR-M07-12) | FR-M07-05.10, BR-M07-12 | Hiện trên chuông; M07 định nghĩa, bổ sung trên lớp của M01 (mục 5) |
-| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M07-02.22 | M07 đọc để không tạo thông báo bài mới cho người theo dõi tác giả khi bài ẩn danh. Thuộc tính do M11 bổ sung trên Post (EC-M03 mục 5), tên tạm, chờ EC-M11 |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | Số Notification của người dùng đang Chưa đọc; không tính tin nhắn (FR-M07-05.10, BR-M07-12) | FR-M07-05.10, BR-M07-12 | M07 định nghĩa; đã đưa vào lớp User của EC-M01 (MD-05). Hiện trên chuông |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Topic | name | Tên Topic | Lưu | Tham chiếu | — | FR-M05-06.01, BR-M05-05 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| Topic | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M05-07.05, FR-M05-08.01, FR-M05-02.22 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M03-01.12, FR-M03-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
 | Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M07-05.13 | M07 đọc khi người nhận bấm thông báo để biết bài còn xem được không (BR-M07-27); cùng tên với EC-M04 |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M07-02.22 | M07 đọc để không tạo thông báo bài mới cho người theo dõi tác giả khi bài ẩn danh. Thuộc tính do M11 bổ sung trên Post (EC-M03 mục 5), tên tạm, chờ EC-M11 |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Comment | content | Nội dung bình luận | Lưu | Tham chiếu | — | FR-M04-04.01, FR-M04-05.07, BR-M04-01, BR-M04-19 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M04-02.01, FR-M04-04.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | editedAt | Thời điểm sửa | Lưu | Tham chiếu | — | FR-M04-04.02, BR-M04-07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M04-01.09, FR-M04-02.02, FR-M04-03.04 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isDeleted | Đã xóa | Dẫn xuất | Tham chiếu | — | FR-M04-05.01, FR-M04-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M04-01.06 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
 | Comment | isVisible | Hiển thị bình thường | Dẫn xuất | Tham chiếu | — | FR-M07-05.13 | M07 đọc khi người nhận bấm thông báo để biết bình luận còn xem được không (BR-M07-27) |
+| Comment | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M04-01.03, FR-M04-01.14, BR-M04-05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | scannedAt | Thời điểm quét gần nhất | Lưu | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isScannedCurrent | Đã quét với nội dung hiện tại | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | replyRate | Tốc độ trả lời | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, BR-M08-20 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.11, FR-M12-02.19, FR-M12-02.20, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Group | name | Tên nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.08, FR-M11-02.01, BR-M11-31 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | description | Mô tả nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.09, FR-M11-02.01 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | privacy | Chế độ | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-02.02, BR-M11-15 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | joinQuestion | Câu hỏi tham gia | Lưu | Tham chiếu | — | FR-M11-01.11, FR-M11-02.07, FR-M11-02.08, BR-M11-08 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isPreApprovalOn | Công tắc duyệt trước | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.05, FR-M11-02.15, BR-M11-18 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isAnonymousOn | Công tắc ẩn danh | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.06, BR-M11-16 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M11-01.03, FR-M11-03.17, BR-M11-03, BR-M11-35 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isDeleted | Đã xóa | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-15.01, FR-M11-10.06, FR-M11-11.03 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | modState | Trạng thái kiểm duyệt của nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-16.01, FR-M11-16.04, FR-M11-16.06, FR-M08-18.01, FR-M08-18.04, FR-M08-18.07 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
 | Group | inviteLink | Link mời | Lưu | Tham chiếu | — | BR-M07-01 | M07 đưa link mời chung của nhóm vào thông báo "được mời"; tên tạm, chờ EC-M11 |
-| Proposal | status | Trạng thái đề xuất | Lưu | Tham chiếu | — | FR-M07-02.15, FR-M07-02.28, FR-M07-02.31, FR-M07-02.32 | M07 chuyển lựa chọn Chấp nhận, Từ chối cho M10 ghi (FR-M07-02.15); đọc để hiện lựa chọn đã chọn hoặc "Đã hết hạn" và không cho chọn lại. FR-M10 ghi các giá trị Chưa trả lời, Đã chấp nhận, Đã từ chối, Hết hiệu lực. Xem Q-02 |
+| Group | isInstantJoin | Nhóm vào ngay | Dẫn xuất | Tham chiếu | — | FR-M11-04.01, FR-M11-02.14, BR-M11-32 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Report | reason | Lý do báo cáo | Lưu | Tham chiếu | — | FR-M08-01.02, BR-M08-02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | description | Mô tả | Lưu | Tham chiếu | — | FR-M08-01.02, BR-M08-04 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | isAiCreated | Mục do AI tạo | Lưu | Tham chiếu | — | FR-M08-04.09, BR-M08-49 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M08-07.03, FR-M08-07.05, FR-M08-09.08 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | status | Trạng thái | Dẫn xuất | Tham chiếu | — | FR-M08-01.02, FR-M08-05.02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | conclusion | Kết luận | Dẫn xuất | Tham chiếu | — | FR-M08-05.02, BR-M08-10 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | concentrationIndex | Chỉ số tập trung | Dẫn xuất | Tham chiếu | — | FR-M08-04.04, BR-M08-19 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | reportedAt | Thời điểm báo cáo | Lưu | Tham chiếu | — | BR-M15-18, FR-M15-03.01, FR-M15-03.20 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | reason | Lý do | Lưu | Tham chiếu | — | FR-M08-10.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | issuedAt | Thời điểm cảnh cáo | Lưu | Tham chiếu | — | BR-M08-29, FR-M08-12.03 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | isIssuedByAi | Do AI ra | Lưu | Tham chiếu | — | FR-M08-09.01, FR-M08-11.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | status | Trạng thái | Lưu | Tham chiếu | — | FR-M08-11.04, BR-M08-54 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | levelAfter | Mức đạt sau cảnh cáo | Lưu | Tham chiếu | — | FR-M08-09.04, FR-M08-10.02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | kind | Loại ban | Lưu | Tham chiếu | — | FR-M08-14.01, FR-M08-14.02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | duration | Thời hạn | Lưu | Tham chiếu | — | FR-M08-14.01, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | startedAt | Thời điểm bắt đầu | Lưu | Tham chiếu | — | FR-M08-14.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | endsAt | Thời điểm hết hạn | Dẫn xuất | Tham chiếu | — | FR-M08-14.08, BR-M08-37 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | reason | Lý do | Lưu | Tham chiếu | — | FR-M08-14.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | status | Trạng thái | Lưu | Tham chiếu | — | FR-M08-14.01, FR-M08-14.08, FR-M08-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | appealDeadline | Hết thời hạn khiếu nại | Dẫn xuất | Tham chiếu | — | BR-M09-04, FR-M09-01.13, FR-M01-05.08, FR-M01-05.09 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Appeal | type | Loại khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.03, BR-M09-10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | explanation | Lời giải thích | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | submittedAt | Thời điểm gửi khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.13, BR-M09-10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | status | Trạng thái khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | lastHolderActionAt | Thời điểm thao tác cuối của người giữ | Lưu | Tham chiếu | — | FR-M09-04.01, FR-M09-04.06, FR-M09-04.07, BR-M09-11 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | conclusion | Kết luận | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | conclusionReason | Lý do kết luận khiếu nại | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02, FR-M09-07.11 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | concludedAt | Thời điểm kết luận | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | roleAtAction | Vai trò lúc bị xử lý | Dẫn xuất | Tham chiếu | — | TN:Vai trò lúc bị xử lý, FR-M09-03.08, BR-M09-12 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Proposal | type | Loại đề xuất | Lưu | Tham chiếu | — | FR-M10-02.01, FR-M10-07.05, BR-M10-27 | Ghi đủ lớp sau gộp (MD-05); EC-M10 định nghĩa |
+| Proposal | sentAt | Thời điểm gửi đề xuất | Lưu | Tham chiếu | — | FR-M10-02.01, FR-M10-07.05, FR-M10-02.10, FR-M10-07.10 | Ghi đủ lớp sau gộp (MD-05); EC-M10 định nghĩa |
+| Proposal | status | Trạng thái của đề xuất | Lưu | Tham chiếu | — | FR-M07-02.15, FR-M07-02.28, FR-M07-02.31, FR-M07-02.32 | M07 chuyển lựa chọn Chấp nhận, Từ chối cho M10 ghi (FR-M07-02.15); đọc để hiện lựa chọn đã chọn hoặc "Đã hết hạn" và không cho chọn lại. FR-M10 ghi các giá trị Chưa trả lời, Đã chấp nhận, Đã từ chối, Hết hiệu lực. Xem Q-02 |
+| Badge | name | Tên huy hiệu | Lưu | Tham chiếu | — | FR-M12-03.01, BR-M12-11 | Ghi đủ lớp sau gộp (MD-05); EC-M12 định nghĩa |
+| Badge | threshold | Ngưỡng điểm | Lưu | Tham chiếu | — | FR-M12-03.01, FR-M12-03.02, BR-M12-11 | Ghi đủ lớp sau gộp (MD-05); EC-M12 định nghĩa |
+| EarnedTitle | week | Tuần đạt | Lưu | Tham chiếu | — | FR-M12-05.03, FR-M12-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M12 định nghĩa |
+| Conversation | type | Loại | Lưu | Tham chiếu | — | FR-M16-01.04, FR-M16-02.01, BR-M16-01 | Ghi đủ lớp sau gộp (MD-05); EC-M16 định nghĩa |
+| Conversation | name | Tên nhóm chat | Lưu | Tham chiếu | — | FR-M16-02.07, FR-M16-12.01, FR-M16-12.03 | Ghi đủ lớp sau gộp (MD-05); EC-M16 định nghĩa |
+| Conversation | isApprovalOn | Công tắc duyệt thành viên mới | Lưu | Tham chiếu | — | FR-M16-02.08, FR-M16-09.01, FR-M16-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M16 định nghĩa |
+| Conversation | inviteLink | Link mời | Lưu | Tham chiếu | — | FR-M16-08.10, FR-M16-08.11 | Ghi đủ lớp sau gộp (MD-05); EC-M16 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -375,7 +482,7 @@ Chỉ ghi các hàng của lớp thuộc M07; cặp hai lớp ngoài không xét
 
 Một ô Notification – User gồm ba quan hệ: người nhận, người gây sự kiện, và những người upvote đã được đếm. Follow – User gồm hai: người theo dõi, người được theo dõi. Follow đã là lớp Thực thể từ bước 2 và trỏ tới người dùng hoặc Topic, nên quan hệ theo dõi không hiện thành n-n giữa hai lớp cố định. Ô G(User) ở Notification – Follow: thông báo bài mới tìm người nhận qua lượt theo dõi lúc tạo (FR-M07-02.21), thông báo không ghi lại lượt theo dõi.
 
-| | Follow | NotificationEmail | NotificationSetting | User | Topic | Post | Comment | Group | Report | Warning | Ban | Appeal | Proposal | Badge | Title | Conversation |
+| | Follow | NotificationEmail | NotificationSetting | User | Topic | Post | Comment | Group | Report | Warning | Ban | Appeal | Proposal | Badge | EarnedTitle | Conversation |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Notification | G(User) | G(User) | G(User) | T |  | T | T | T | T | T | T | T | T | T | T |  |
 | Follow |  | G(User) | G(User) | T | T | G(User) |  |  |  |  |  |  |  |  |  |  |
@@ -403,7 +510,7 @@ Một ô Notification – User gồm ba quan hệ: người nhận, người gâ
 | Appeal – Notification | Một khiếu nại được nhiều nhất một thông báo kết luận khiếu nại trỏ tới. | Một thông báo trỏ tới nhiều nhất một khiếu nại. | 1-1 | Giữ: khác module sở hữu (M09); hai đầu tùy chọn |
 | Proposal – Notification | Một đề xuất có đúng một thông báo đề xuất; đề xuất mới cùng loại là một thông báo mới. | Một thông báo trỏ tới nhiều nhất một đề xuất (chỉ thông báo đề xuất làm Mod, làm Admin). | 1-1 | Giữ: khác module sở hữu (M10); đầu đề xuất là tùy chọn (0..1) với các loại thông báo khác |
 | Badge – Notification | Một huy hiệu có thể được nhắc trong thông báo đạt huy hiệu của nhiều người dùng. | Một thông báo trỏ tới nhiều nhất một huy hiệu. | 1-n | Giữ nguyên |
-| Title – Notification | Một danh hiệu có thể được nhắc trong nhiều thông báo đạt danh hiệu "Ngôi sao tuần" ở các tuần khác nhau. | Một thông báo trỏ tới nhiều nhất một danh hiệu. | 1-n | Giữ nguyên |
+| EarnedTitle – Notification | Một lần đạt danh hiệu "Ngôi sao tuần" có thể được nhắc trong nhiều thông báo. | Một thông báo trỏ tới nhiều nhất một lần đạt danh hiệu. | 1-n | Giữ nguyên |
 | User – Follow (người theo dõi) | Một người dùng có thể có nhiều lượt theo dõi người dùng và Topic. | Một lượt theo dõi do đúng một người dùng tạo. | 1-n | Giữ nguyên |
 | User – Follow (người được theo dõi) | Một người dùng có thể được nhiều lượt theo dõi trỏ tới. | Một lượt theo dõi trỏ tới nhiều nhất một người dùng (lượt theo dõi Topic không trỏ tới người dùng nào). | 1-n | Giữ nguyên |
 | Topic – Follow | Một Topic có thể có nhiều lượt theo dõi. | Một lượt theo dõi trỏ tới nhiều nhất một Topic (đối tượng theo dõi là người dùng hoặc Topic). | 1-n | Giữ nguyên |
@@ -449,7 +556,7 @@ Một ô Notification – User gồm ba quan hệ: người nhận, người gâ
 | R-M07-11 | Appeal | 0..1 | Notification | 0..1 | 1-1 | Kết tập | Notification | Thông báo ghi lại khiếu nại của sự kiện kết luận khiếu nại; khiếu nại do M09 quản lý, tồn tại độc lập | BR-M07-01 |
 | R-M07-12 | Proposal | 0..1 | Notification | 1 | 1-1 | Kết tập | Notification | Thông báo đề xuất ghi lại đề xuất mà nó trỏ tới và đọc trạng thái của đề xuất (Q-02); đề xuất do M10 quản lý, tồn tại độc lập | FR-M07-02.14, FR-M07-02.15, FR-M07-02.30, BR-M07-20 |
 | R-M07-13 | Badge | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại huy hiệu của sự kiện đạt huy hiệu; huy hiệu do M12 quản lý, tồn tại độc lập | BR-M07-01 |
-| R-M07-14 | Title | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại danh hiệu của sự kiện đạt danh hiệu "Ngôi sao tuần"; danh hiệu do M12 quản lý, tồn tại độc lập | BR-M07-01 |
+| R-M07-14 | EarnedTitle | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại lần đạt danh hiệu "Ngôi sao tuần" (EarnedTitle) của sự kiện đạt danh hiệu; EarnedTitle do M12 quản lý, tồn tại độc lập. Đổi từ Title theo MD-01 | BR-M07-01 |
 | R-M07-15 | User | 1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại người theo dõi; người dùng tồn tại độc lập. Cùng loại và chiều với R-M01-13 | FR-M07-01.01, FR-M07-01.08 |
 | R-M07-16 | User | 0..1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại người được theo dõi; bội số phía người dùng là 0..1 vì lượt theo dõi Topic không trỏ tới người dùng; lượt theo dõi được giữ khi tài khoản đó BANNED, DEACTIVATED (FR-M07-01.13). Cùng loại và chiều với R-M01-14 | FR-M07-01.01, FR-M07-01.11, FR-M07-01.13 |
 | R-M07-17 | Topic | 0..1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại Topic được theo dõi; không hợp thành vì lượt theo dõi chuyển sang Topic đích khi gộp (FR-M05-07.06). Cùng loại và chiều với R-M05-12. Mỗi lượt theo dõi trỏ tới đúng một trong hai: người dùng (R-M07-16) hoặc Topic | FR-M07-01.01, FR-M05-07.06, FR-M05-08.06 |
@@ -474,19 +581,19 @@ Mã nguồn sơ đồ: [diagrams/EC-M07.puml](diagrams/EC-M07.puml). Ảnh và t
 
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| User | M01 | Người nhận của thông báo và email (R-M07-01, R-M07-18), người gây sự kiện (R-M07-02), người upvote đã được đếm (R-M07-04), người theo dõi và người được theo dõi (R-M07-15, R-M07-16), chủ cài đặt thông báo (R-M07-19), người tắt thông báo bài và cuộc trò chuyện (R-M07-20, R-M07-22); đọc displayName, status, email | /unreadNotificationCount |
+| User | M01 | Người nhận của thông báo và email (R-M07-01, R-M07-18), người gây sự kiện (R-M07-02), người upvote đã được đếm (R-M07-04), người theo dõi và người được theo dõi (R-M07-15, R-M07-16), chủ cài đặt thông báo (R-M07-19), người tắt thông báo bài và cuộc trò chuyện (R-M07-20, R-M07-22); đọc displayName, status, email | /unreadNotificationCount — đã đưa vào lớp của EC-M01 (MD-05) |
 | Topic | M05 | Đối tượng theo dõi (R-M07-17); M05 chuyển, bỏ lượt theo dõi khi gộp, xóa Topic | — |
 | Post | M03 | Nội dung liên quan của thông báo (R-M07-05); bài bị tắt thông báo (R-M07-21); đọc isAnonymous (do M11 bổ sung) và /isPubliclyVisible | — |
 | Comment | M04 | Nội dung liên quan của thông báo (R-M07-06); đọc /isVisible | — |
-| Group | M11 | Nội dung liên quan của thông báo sự kiện nhóm (R-M07-07); đọc inviteLink. Tên tạm, chờ EC-M11 | — |
-| Report | M08 | Nội dung liên quan của thông báo kết quả báo cáo (R-M07-08). Tên tạm, chờ EC-M08 | — |
-| Warning | M08 | Nội dung liên quan của thông báo nhận cảnh cáo (R-M07-09). Tên tạm, chờ EC-M08 | — |
-| Ban | M08 | Nội dung liên quan của thông báo ban, gỡ ban (R-M07-10). Tên tạm, chờ EC-M08 | — |
-| Appeal | M09 | Nội dung liên quan của thông báo kết luận khiếu nại (R-M07-11). Tên tạm, chờ EC-M09 | — |
-| Proposal | M10 | Thông báo đề xuất trỏ tới đề xuất (R-M07-12); chuyển lựa chọn Chấp nhận, Từ chối cho M10 ghi, đọc status để hiện lựa chọn đã chọn hoặc "Đã hết hạn" (Q-02). Tên tạm, chờ EC-M10 | — |
-| Badge | M12 | Nội dung liên quan của thông báo đạt huy hiệu (R-M07-13). Tên tạm, chờ EC-M12 | — |
-| Title | M12 | Nội dung liên quan của thông báo đạt danh hiệu "Ngôi sao tuần" (R-M07-14). Tên tạm, chờ EC-M12 | — |
-| Conversation | M16 | Cuộc trò chuyện bị tắt thông báo (R-M07-23); M16 báo việc thành viên rời, bị xóa khỏi nhóm chat để bỏ MutedConversation. Tên tạm, chờ EC-M16 | — |
+| Group | M11 | Nội dung liên quan của thông báo sự kiện nhóm (R-M07-07); đọc inviteLink | — |
+| Report | M08 | Nội dung liên quan của thông báo kết quả báo cáo (R-M07-08) | — |
+| Warning | M08 | Nội dung liên quan của thông báo nhận cảnh cáo (R-M07-09) | — |
+| Ban | M08 | Nội dung liên quan của thông báo ban, gỡ ban (R-M07-10) | — |
+| Appeal | M09 | Nội dung liên quan của thông báo kết luận khiếu nại (R-M07-11) | — |
+| Proposal | M10 | Thông báo đề xuất trỏ tới đề xuất (R-M07-12); chuyển lựa chọn Chấp nhận, Từ chối cho M10 ghi, đọc status để hiện lựa chọn đã chọn hoặc "Đã hết hạn" (Q-02) | — |
+| Badge | M12 | Nội dung liên quan của thông báo đạt huy hiệu (R-M07-13) | — |
+| EarnedTitle | M12 | Lần đạt danh hiệu "Ngôi sao tuần" mà thông báo đạt danh hiệu trỏ tới (R-M07-14) | — |
+| Conversation | M16 | Cuộc trò chuyện bị tắt thông báo (R-M07-23); M16 báo việc thành viên rời, bị xóa khỏi nhóm chat để bỏ MutedConversation | — |
 
 ## 6. Câu hỏi và điểm chưa chốt
 
@@ -503,3 +610,4 @@ Mã nguồn sơ đồ: [diagrams/EC-M07.puml](diagrams/EC-M07.puml). Ảnh và t
 |---|---|---|---|
 | 0.1 | 2026-11-18 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-11-19 | Chốt: 3 bước; Q-01, Q-02 đã trả lời (tắt thông báo toàn bộ Chat là lớp cài đặt riêng NotificationSetting; thông báo đề xuất đọc trạng thái của đề xuất, không lưu lựa chọn); thêm ba lớp liên kết CountedUpvoter, MutedPost, MutedConversation | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-01: Title → EarnedTitle, tên tiếng Việt của EarnedTitle: Danh hiệu → Danh hiệu đã đạt; MD-05: dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: User.unreadNotificationCount, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 106 dòng Tham chiếu, tên tiếng Việt của thuộc tính lớp ngoài theo module sở hữu: User.email: Địa chỉ email → Email; Proposal.status: Trạng thái đề xuất → Trạng thái của đề xuất; bỏ các ghi chú "tên tạm, chờ EC-…" đã hết hiệu lực ở mô tả lớp và mục Liên module | Phạm Văn Đức |

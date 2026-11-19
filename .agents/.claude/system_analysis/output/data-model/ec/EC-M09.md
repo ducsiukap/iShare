@@ -2,9 +2,9 @@
 module: M09
 ten_module: Appeal
 ma_tai_lieu: EC-M09
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-11-19
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M09 v1.2
 steps_completed: [1, 2, 3]
@@ -19,8 +19,8 @@ steps_completed: [1, 2, 3]
 | Module | M09 — Appeal |
 | Đầu vào | FR-M09 phiên bản 1.2 |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-11-19 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -267,19 +267,20 @@ viễn cùng việc khiếu nại bị từ chối cho M16.
 | Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
 |---|---|---|---|---|---|---|
 | Appeal | Khiếu nại | Thực thể | M09 | Một yêu cầu người bị xử lý gửi để phản đối một xử lý kiểm duyệt; được Mod, Admin giữ và kết luận một lần, không bị xóa | type, explanation, submittedAt, status, lastHolderActionAt, conclusion, conclusionReason, concludedAt, /roleAtAction | FR-M09-01.01, FR-M09-04.01, FR-M09-07.01, FR-M09-07.02 |
-| AppealEvidence | Bằng chứng | Thực thể | M09 | Một ảnh người khiếu nại đính kèm khiếu nại | image | FR-M09-01.01, BR-M09-03 |
-| User | Người dùng (tài khoản) | Thực thể | M01 | Người khiếu nại, người đang giữ khiếu nại, người kết luận; tài khoản được đưa về ACTIVE khi khiếu nại ban được chấp nhận | role, status, username | FR-M09-01.01, FR-M09-04.01, FR-M09-07.01, FR-M09-08.02 |
-| Warning | Cảnh cáo | Thực thể | M08 | Xử lý bị khiếu nại loại cảnh cáo, kể cả cảnh cáo AI ra cùng lần từ chối bài; bị lật khi khiếu nại được chấp nhận | reason, issuedAt, isIssuedByAi, levelAfter, status | FR-M09-01.01, FR-M09-08.04 |
-| Ban | Lần ban | Thực thể | M08 | Xử lý bị khiếu nại loại ban, tạm thời hoặc vĩnh viễn; bị lật khi khiếu nại được chấp nhận | kind, duration, startedAt, reason, status | FR-M09-01.01, FR-M09-08.01 |
-| ReportCase | Vụ báo cáo | Thực thể | M08 | Lần gỡ bài viết: vụ báo cáo trong đó Mod, Admin ẩn bài viết vi phạm (Q-01) | conclusionReason, concludedAt | FR-M09-01.03, FR-M09-06.02, FR-M09-08.10 |
-| Post | Bài viết | Thực thể | M03 | Bài bị gỡ và bài bị AI tự từ chối; hiện lại hoặc được đăng khi khiếu nại được chấp nhận | title, content, modState, publishState, violationCategory, rejectedAt | FR-M09-01.03, FR-M09-08.08, FR-M09-08.12 |
+| AppealEvidence | Bằng chứng khiếu nại | Thực thể | M09 | Một ảnh người khiếu nại đính kèm khiếu nại | image | FR-M09-01.01, BR-M09-03 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Người khiếu nại, người đang giữ khiếu nại, người kết luận; tài khoản được đưa về ACTIVE khi khiếu nại ban được chấp nhận | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M09-01.01, FR-M09-04.01, FR-M09-07.01, FR-M09-08.02 |
+| Warning | Cảnh cáo | Thực thể | M08 | Xử lý bị khiếu nại loại cảnh cáo, kể cả cảnh cáo AI ra cùng lần từ chối bài; bị lật khi khiếu nại được chấp nhận | reason, issuedAt, isIssuedByAi, status, levelAfter | FR-M09-01.01, FR-M09-08.04 |
+| Ban | Lần ban | Thực thể | M08 | Xử lý bị khiếu nại loại ban, tạm thời hoặc vĩnh viễn; bị lật khi khiếu nại được chấp nhận | kind, duration, startedAt, /endsAt, reason, status, /appealDeadline | FR-M09-01.01, FR-M09-08.01 |
+| ReportCase | Vụ báo cáo | Thực thể | M08 | Lần gỡ bài viết: vụ báo cáo trong đó Mod, Admin ẩn bài viết vi phạm (Q-01) | targetType, status, openedAt, /reportCount, /priorityScore, isBanRequest, lastHolderActionAt, conclusion, conclusionReason, concludedAt | FR-M09-01.03, FR-M09-06.02, FR-M09-08.10 |
+| Post | Bài viết | Thực thể | M03 | Bài bị gỡ và bài bị AI tự từ chối; hiện lại hoặc được đăng khi khiếu nại được chấp nhận | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M09-01.03, FR-M09-08.08, FR-M09-08.12 |
 
 ### 2.3 Thuộc tính
 
 <!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
      Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
      Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
-             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa).
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
      Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
              — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
      Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
@@ -297,27 +298,77 @@ viễn cùng việc khiếu nại bị từ chối cho M16.
 | Appeal | concludedAt | Thời điểm kết luận | Lưu | Nguồn nêu | — | FR-M09-07.01, FR-M09-07.02 | Cho biết khiếu nại nào được Chấp nhận trước khi một cảnh cáo, ban ra cùng lần gỡ bài có cả khiếu nại riêng và khiếu nại bài (BR-M09-29) |
 | Appeal | roleAtAction | Vai trò lúc bị xử lý | Dẫn xuất | Nguồn nêu | USER hoặc MODERATOR (Admin không có khiếu nại, BR-M09-01); là vai trò của người khiếu nại tại thời điểm có xử lý, vẫn là MODERATOR khi người khiếu nại đã mất vai trò Mod vì bị ban (FR-M09-03.08); MODERATOR thì chỉ Admin thấy, nhận, xét khiếu nại (BR-M09-12) | TN:Vai trò lúc bị xử lý, FR-M09-03.08, BR-M09-12 | Không đọc từ User.role được, vì vai trò Mod bị thu hồi ngay lúc ban. Tính từ thời điểm có xử lý và các mục thay đổi vai trò trong nhật ký thao tác Admin của M10 (FR-M10 ghi mọi thay đổi vai trò, kể cả mất vai trò Mod do bị ban) |
 | AppealEvidence | image | Ảnh | Lưu | Nguồn nêu | Tùy chọn; mỗi khiếu nại tối đa 3 ảnh; mỗi ảnh tối đa 5MB, định dạng JPEG, PNG hoặc WebP, cùng giới hạn với bằng chứng của báo cáo (BR-M09-03); không sửa sau khi gửi (BR-M09-27) | FR-M09-01.01, FR-M09-01.11, FR-M09-01.12, BR-M09-03 | — |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M09-06.01 | Hiển thị người khiếu nại cho Mod, Admin khi xem chi tiết khiếu nại |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.12, FR-M01-03.13, FR-M01-03.14, FR-M01-04.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | User | role | Vai trò | Lưu | Tham chiếu | — | FR-M09-03.07, FR-M09-04.04, FR-M09-08.11 | M09 đọc để kiểm quyền Mod, Admin xem hàng chờ, nhận và xét khiếu nại; lật ban không trả lại vai trò Mod (FR-M09-08.11) nên M09 không ghi |
 | User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M09-01.04, FR-M09-01.18, FR-M09-08.02 | Tài khoản BANNED chỉ khiếu nại được ban đang hiệu lực (BR-M09-07); khiếu nại một ban đang hiệu lực được chấp nhận thì tài khoản về ACTIVE (M01 thực hiện việc chuyển) |
-| User | username | Tên đăng nhập | Lưu | Tham chiếu | — | FR-M09-06.01 | Hiển thị người khiếu nại cho Mod, Admin khi xem chi tiết khiếu nại |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | Warning | reason | Lý do | Lưu | Tham chiếu | — | FR-M09-06.02 | Hiển thị chi tiết xử lý bị khiếu nại cho người xét |
 | Warning | issuedAt | Thời điểm cảnh cáo | Lưu | Tham chiếu | Hạn khiếu nại cảnh cáo: 7, 10 hoặc 15 × 24 giờ kể từ thời điểm này theo levelAfter LIGHT, MEDIUM, HEAVY, không đổi khi có cảnh cáo sau hay khi giảm mức, theo giờ Việt Nam (BR-M09-04) | FR-M09-01.13, FR-M09-06.02, BR-M09-04 | Mốc tính hạn khiếu nại và thời điểm của xử lý hiển thị cho người xét; với khiếu nại gộp, hạn của bài bị AI tự từ chối bằng hạn của cảnh cáo này |
 | Warning | isIssuedByAi | Do AI ra | Lưu | Tham chiếu | — | FR-M09-01.07, FR-M09-03.06, BR-M09-14 | Cảnh cáo do AI ra không có Mod là người ra, nên mọi Mod thấy khiếu nại về nó, trừ khiếu nại do Mod gửi |
-| Warning | levelAfter | Mức đạt sau cảnh cáo | Lưu | Tham chiếu | — | BR-M09-04 | Quyết định hạn 7, 10 hay 15 ngày của chính cảnh cáo đó |
 | Warning | status | Trạng thái | Lưu | Tham chiếu | — | FR-M09-08.04, FR-M09-08.13, FR-M09-01.23 | M09 chuyển sang Bị lật khi khiếu nại được chấp nhận; cảnh cáo đã Bị lật thì không nhận khiếu nại mới (BR-M09-29) |
+| Warning | levelAfter | Mức đạt sau cảnh cáo | Lưu | Tham chiếu | — | BR-M09-04 | Quyết định hạn 7, 10 hay 15 ngày của chính cảnh cáo đó |
 | Ban | kind | Loại ban | Lưu | Tham chiếu | — | FR-M09-01.13, BR-M09-04 | Ban tạm thời và ban vĩnh viễn có hạn khiếu nại khác nhau |
 | Ban | duration | Thời hạn | Lưu | Tham chiếu | — | BR-M09-04 | Hạn khiếu nại ban tạm thời bằng thời hạn ban |
 | Ban | startedAt | Thời điểm bắt đầu | Lưu | Tham chiếu | Hạn khiếu nại: ban tạm thời bằng thời hạn ban, ban vĩnh viễn 90 × 24 giờ, kể từ thời điểm này, theo giờ Việt Nam (BR-M09-04); quá hạn với ban vĩnh viễn thì mất hẳn quyền khiếu nại (BR-M09-05) | FR-M09-01.13, FR-M09-06.02, BR-M09-04 | Mốc tính hạn khiếu nại; M01 dùng hạn này để hiện hoặc ẩn nút gửi khiếu nại, M16 dùng hạn khiếu nại ban vĩnh viễn (mục Giao tiếp) |
+| Ban | endsAt | Thời điểm hết hạn | Dẫn xuất | Tham chiếu | — | FR-M08-14.08, BR-M08-37 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
 | Ban | reason | Lý do | Lưu | Tham chiếu | — | FR-M09-06.02 | Hiển thị chi tiết xử lý bị khiếu nại cho người xét |
 | Ban | status | Trạng thái | Lưu | Tham chiếu | — | FR-M09-01.04, FR-M09-08.01, FR-M09-08.02 | M09 chuyển sang Bị lật, kể cả từ Hết hạn, Đã gỡ (mục Chuyển trạng thái: Ban); tài khoản BANNED chỉ khiếu nại được ban Đang hiệu lực (BR-M09-07) |
+| Ban | appealDeadline | Hết thời hạn khiếu nại | Dẫn xuất | Tham chiếu | — | BR-M09-04, FR-M09-01.13, FR-M01-05.08, FR-M01-05.09 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | targetType | Loại đối tượng | Lưu | Tham chiếu | — | FR-M08-01.02, FR-M08-01.04 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | status | Trạng thái | Lưu | Tham chiếu | — | FR-M08-01.04, FR-M08-05.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | openedAt | Thời điểm mở | Lưu | Tham chiếu | — | FR-M08-02.07, BR-M08-07 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | reportCount | Số báo cáo trong vụ | Dẫn xuất | Tham chiếu | — | BR-M08-06 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | priorityScore | Điểm ưu tiên | Dẫn xuất | Tham chiếu | — | FR-M08-01.05, BR-M08-06 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | isBanRequest | Yêu cầu ban | Lưu | Tham chiếu | — | FR-M08-14.11, FR-M08-02.08 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | lastHolderActionAt | Thời điểm thao tác cuối của người giữ | Lưu | Tham chiếu | — | FR-M08-03.04, FR-M08-03.08 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| ReportCase | conclusion | Kết luận | Lưu | Tham chiếu | — | FR-M08-05.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
 | ReportCase | conclusionReason | Lý do kết luận | Lưu | Tham chiếu | — | FR-M09-06.02 | Lý do của lần gỡ bài viết, hiển thị cho người xét |
 | ReportCase | concludedAt | Thời điểm kết luận | Lưu | Tham chiếu | Hạn khiếu nại bài bị gỡ: 30 × 24 giờ kể từ lúc bài bị gỡ, theo giờ Việt Nam (BR-M09-04) | FR-M09-01.13, FR-M09-06.02, BR-M09-04 | Bài bị gỡ trong vụ đang giữ, trước khi vụ được kết luận; M08 không ghi thời điểm gỡ riêng ngoài dòng nhật ký kiểm duyệt, nên lấy thời điểm kết luận vụ làm thời điểm có xử lý (Q-01) |
 | Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M09-02.03, FR-M09-06.04 | Hiển thị bài bị xử lý cho người khiếu nại (chỉ đọc) và người xét, kể cả bài đã xóa, đã xóa hẳn, tự ẩn (BR-M09-15, BR-M09-21) |
 | Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M09-02.03, FR-M09-06.04 | Như Post.title |
-| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M09-08.08 | M09 chuyển bài Bị Mod ẩn về Bình thường khi khiếu nại bài bị gỡ được chấp nhận |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
 | Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M09-08.12, FR-M09-08.14, FR-M09-08.18 | M09 chuyển bài Bị từ chối không thuộc nhóm sang Đã đăng mà không quét lại; bài nhóm đi qua cổng duyệt của nhóm (M11); bài đã được gửi lại thì giữ nguyên |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M09-08.08 | M09 chuyển bài Bị Mod ẩn về Bình thường khi khiếu nại bài bị gỡ được chấp nhận |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
 | Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M09-06.02 | Lý do của lần AI tự từ chối bài viết, hiển thị cho người xét; chỉ có khi AI tự từ chối (EC-M03) |
-| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Đề xuất | Hạn khiếu nại bài bị AI tự từ chối bằng hạn của cảnh cáo AI ra cùng lần; không có cảnh cáo đi kèm thì 3 × 24 giờ kể từ thời điểm này, theo giờ Việt Nam (BR-M09-04) | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | BR-M09-04 tính hạn 3 ngày từ lúc bài bị AI tự từ chối khi không có cảnh cáo đi kèm (tác giả đang HEAVY), và FR-M09-06.02 hiển thị thời điểm của xử lý. Bài được sửa, gửi lại và bị từ chối nhiều lần (BR-M09-24), nên cần thời điểm lần từ chối gần nhất để biết khiếu nại thuộc lần nào (FR-M09-01.14) và bài đã được gửi lại trước lúc kết luận chưa (FR-M09-08.14). EC-M03 chưa có; M09 bổ sung trên lớp ngoài Post (mục 5) |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M03-07.01, BR-M03-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | Hạn khiếu nại bài bị AI tự từ chối bằng hạn của cảnh cáo AI ra cùng lần; không có cảnh cáo đi kèm thì 3 × 24 giờ kể từ thời điểm này, theo giờ Việt Nam (BR-M09-04) | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | M09 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). BR-M09-04 tính hạn 3 ngày từ lúc bài bị AI tự từ chối khi không có cảnh cáo đi kèm (tác giả đang HEAVY), và FR-M09-06.02 hiển thị thời điểm của xử lý. Bài được sửa, gửi lại và bị từ chối nhiều lần (BR-M09-24), nên cần thời điểm lần từ chối gần nhất để biết khiếu nại thuộc lần nào (FR-M09-01.14) và bài đã được gửi lại trước lúc kết luận chưa (FR-M09-08.14) |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -409,7 +460,7 @@ Mã nguồn sơ đồ: [diagrams/EC-M09.puml](diagrams/EC-M09.puml). Ảnh và t
 | Warning | M08 | Xử lý bị khiếu nại của khiếu nại cảnh cáo và khiếu nại gộp (R-M09-05); cảnh cáo ra cùng lần gỡ bài đọc qua vụ (R-M08-10); người ra cảnh cáo đọc qua R-M08-13. Đọc reason, issuedAt, isIssuedByAi, levelAfter; ghi status (Bị lật), rồi M08 giảm số lần cảnh cáo và tính lại mức | — |
 | Ban | M08 | Xử lý bị khiếu nại của khiếu nại ban (R-M09-06); ban ra cùng lần gỡ bài đọc qua vụ (R-M08-11); người ban đọc qua R-M08-18. Đọc kind, duration, startedAt, reason; ghi status (Bị lật) | — |
 | ReportCase | M08 | Lần gỡ bài viết của khiếu nại bài bị gỡ (R-M09-07, Q-01); bài bị gỡ đọc qua R-M08-04, người ra xử lý là người kết luận vụ (R-M08-09). Đọc conclusionReason, concludedAt; không ghi | — |
-| Post | M03 | Bài bị AI tự từ chối của khiếu nại gộp (R-M09-08); bài bị gỡ đọc qua vụ (R-M08-04). Đọc title, content, violationCategory, rejectedAt; ghi modState (Bình thường) và publishState (Đã đăng) | rejectedAt |
+| Post | M03 | Bài bị AI tự từ chối của khiếu nại gộp (R-M09-08); bài bị gỡ đọc qua vụ (R-M08-04). Đọc title, content, violationCategory, rejectedAt; ghi modState (Bình thường) và publishState (Đã đăng) | rejectedAt — đã đưa vào lớp của EC-M03 (MD-05) |
 
 ## 6. Câu hỏi và điểm chưa chốt
 
@@ -425,3 +476,4 @@ Mã nguồn sơ đồ: [diagrams/EC-M09.puml](diagrams/EC-M09.puml). Ảnh và t
 |---|---|---|---|
 | 0.1 | 2026-11-19 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-11-19 | Chốt sau 3 bước: 2 lớp của M09, 5 lớp ngoài, 8 quan hệ (R-M09-01 đến R-M09-08); Q-01 đã trả lời | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-05: dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: Post.rejectedAt, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 50 dòng Tham chiếu, tên tiếng Việt của thuộc tính lớp ngoài theo module sở hữu: User.username: Tên đăng nhập → Tên định danh; MD-09: tên tiếng Việt của AppealEvidence: Bằng chứng → Bằng chứng khiếu nại | Phạm Văn Đức |

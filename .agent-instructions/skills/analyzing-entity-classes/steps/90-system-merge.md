@@ -73,9 +73,14 @@ Mọi `EC-Mxx.md` (trạng thái Đã chốt) trong `data-model/ec/`; `glossary.
 1. Mỗi `MD-nn` làm đổi nội dung của một module (đổi tên lớp, đổi module sở hữu, sửa bội số) được ghi vào cột
    "Áp dụng cho". **Không tự sửa tài liệu module.** Trình danh sách thay đổi cần làm ở từng `EC-Mxx.md`; người dùng
    đồng ý thì sửa từng tệp (tăng phiên bản, ghi Lịch sử, dẫn `MD-nn`) và chạy lại `check_ec.py --final` cho tệp đó.
+   Cùng lúc đó, ghi **đủ thuộc tính của mọi lớp ngoài** theo `EC-SYS.md` (`input/CONVENTIONS.md` mục 5): mỗi lớp ở
+   mọi `EC-Mxx.md` có đúng bộ thuộc tính của lớp đó ở bản hệ thống. Chạy lại `merge_ec.py`: không còn điểm lệch nào về
+   thuộc tính.
 2. Nếu `CD-Mxx.md` hoặc `DB-Mxx.md` của một module đã tồn tại (ví dụ khi phải gộp lại sau khi đã làm skill sau), ghi
    rõ `MD-nn` nào kéo theo thay đổi ở đó, để làm lại các bước bị ảnh hưởng.
-3. Người dùng nói "Chốt EC-SYS": `trang_thai: Đã chốt`, phiên bản `1.0`.
+3. Lập mục 7 **Bảng tra nghĩa** của `EC-SYS.md` (người dùng yêu cầu 2026-11-20): mỗi lớp, mỗi thuộc tính, mỗi quan hệ
+   một dòng ghi ngắn ý nghĩa của nó, để người đọc tra nhanh mà không phải đọc ràng buộc và căn cứ.
+4. Người dùng nói "Chốt EC-SYS": `trang_thai: Đã chốt`, phiên bản `1.0`.
 
 ## Tự kiểm
 

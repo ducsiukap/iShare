@@ -2,9 +2,9 @@
 module: M16
 ten_module: Chat & Messaging
 ma_tai_lieu: EC-M16
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-11-19
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M16 v1.0
 steps_completed: [1, 2, 3]
@@ -19,8 +19,8 @@ steps_completed: [1, 2, 3]
 | Module | M16 — Chat & Messaging |
 | Đầu vào | FR-M16 phiên bản 1.0 |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-11-19 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -129,7 +129,7 @@ nhưng giữ nguyên dữ liệu.
 | 3 | thành viên cuộc trò chuyện / thành viên nhóm chat | Câu 1 | Lớp | ConversationMember | FR gọi là thực thể với vai trò, trạng thái, mốc đã đọc, thời điểm rời (mục Dữ liệu nghiệp vụ); có bảng chuyển trạng thái riêng. Ở bước 3 là lớp liên kết của quan hệ n-n User – Conversation |
 | 4 | tin nhắn | Câu 1 | Lớp | Message | Có danh tính, nội dung, thời điểm gửi, trạng thái thu hồi (mục Dữ liệu nghiệp vụ, mục Chuyển trạng thái); giữ vĩnh viễn (BR-M16-18) |
 | 5 | đề nghị thêm thành viên | Câu 1 | Lớp | ChatMemberProposal | Có trạng thái riêng (Chờ duyệt, Đã chấp nhận, Đã từ chối) và nhiều thông tin riêng (mục Dữ liệu nghiệp vụ); không xóa (ma trận CRUD); xem Q-03 về tên |
-| 6 | yêu cầu gia nhập | Câu 1 | Lớp | ChatJoinRequest | Có trạng thái riêng, một người có nhiều yêu cầu theo thời gian tới cùng nhóm chat (BR-M16-29); tên khác JoinRequest của EC-M11 để không trùng, xem Q-03 |
+| 6 | yêu cầu gia nhập | Câu 1 | Lớp | ChatJoinRequest | Có trạng thái riêng, một người có nhiều yêu cầu theo thời gian tới cùng nhóm chat (BR-M16-29); tên khác GroupJoinRequest của EC-M11 để không trùng, xem Q-03 |
 | 7 | Chat | Câu 1 | Loại bỏ | — | Trừu tượng: tên module |
 | 8 | iShare | Câu 1 | Loại bỏ | — | Trừu tượng: tên sản phẩm |
 | 9 | loại | Câu 2 | Thuộc tính | Conversation.type | Hai giá trị cố định trò chuyện 1-1, nhóm chat (TN:Cuộc trò chuyện, mục Dữ liệu nghiệp vụ) |
@@ -215,15 +215,16 @@ nhưng giữ nguyên dữ liệu.
 | Message | Tin nhắn | Thực thể | M16 | Một lần gửi nội dung văn bản của một thành viên trong một cuộc trò chuyện; giữ vĩnh viễn, thu hồi là xóa mềm | content, sentAt, isRecalled | FR-M16-05.01, FR-M16-06.07 |
 | ChatMemberProposal | Đề nghị thêm thành viên | Thực thể | M16 | Member thêm một người vào nhóm chat khi công tắc duyệt bật, chờ Admin nhóm chat duyệt | status, createdAt | FR-M16-08.03, FR-M16-10.01, FR-M16-10.02 |
 | ChatJoinRequest | Yêu cầu gia nhập | Thực thể | M16 | Một người xin gia nhập nhóm chat qua link mời khi công tắc duyệt bật, chờ Admin nhóm chat duyệt | status, createdAt | FR-M16-16.04, FR-M16-10.01, FR-M16-10.02 |
-| User | Người dùng (tài khoản) | Thực thể | M01 | Thành viên cuộc trò chuyện, người gửi tin, người đề nghị, người được đề nghị, người xin gia nhập | status, role, displayName | FR-M16-01.01, FR-M16-05.01, FR-M16-08.03, FR-M16-16.04 |
-| Profile | Hồ sơ | Thực thể | M02 | Nguồn avatar hiển thị ở người gửi, hộp thư và người đã xem | avatar | FR-M16-03.05, FR-M16-07.06 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Thành viên cuộc trò chuyện, người gửi tin, người đề nghị, người được đề nghị, người xin gia nhập | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M16-01.01, FR-M16-05.01, FR-M16-08.03, FR-M16-16.04 |
+| Profile | Hồ sơ | Thực thể | M02 | Nguồn avatar hiển thị ở người gửi, hộp thư và người đã xem | avatar, bio, gradeLevel, /followerCount, /followingCount | FR-M16-03.05, FR-M16-07.06 |
 
 ### 2.3 Thuộc tính
 
 <!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
      Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
      Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
-             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa).
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
      Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
              — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
      Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
@@ -245,10 +246,27 @@ nhưng giữ nguyên dữ liệu.
 | ChatMemberProposal | createdAt | Thời điểm tạo | Lưu | Nguồn nêu | Thứ tự chờ tính theo lúc đề nghị được tạo (TN:Người chờ duyệt, BR-M16-33) | FR-M16-09.03, BR-M16-33 | Khi công tắc duyệt bị tắt, người chờ sớm nhất vào nhóm trước |
 | ChatJoinRequest | status | Trạng thái | Lưu | Nguồn nêu | Chờ duyệt, Đã chấp nhận, Đã từ chối (TN:Yêu cầu gia nhập); mỗi người nhiều nhất một yêu cầu Chờ duyệt tới một nhóm chat; bị từ chối thì gửi lại ngay được (BR-M16-29); không xóa (ma trận CRUD) | FR-M16-16.04, FR-M16-16.06, FR-M16-10.01, FR-M16-10.02 | — |
 | ChatJoinRequest | createdAt | Thời điểm tạo | Lưu | Nguồn nêu | Thứ tự chờ tính theo lúc yêu cầu được tạo (TN:Người chờ duyệt, BR-M16-33) | FR-M16-09.03, BR-M16-33 | Như ChatMemberProposal.createdAt |
-| User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M16-01.07, FR-M16-03.03, FR-M16-05.13, FR-M16-08.09, FR-M16-04.11 | BANNED chặn mọi thao tác Chat; BANNED, DEACTIVATED, DELETED không bắt đầu được 1-1 mới, không được thêm vào nhóm chat; DELETED không nhận tin trong 1-1; quyết định cách hiện người gửi (BR-M16-26) |
-| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M16-15.04 | Admin vẫn dùng Chat khi cờ tính năng Chat tắt |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M16-03.05, FR-M16-04.04 | Hiện ở người gửi tin và người kia trong hộp thư |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M16-15.04 | Admin vẫn dùng Chat khi cờ tính năng Chat tắt |
+| User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M16-01.07, FR-M16-03.03, FR-M16-05.13, FR-M16-08.09, FR-M16-04.11 | BANNED chặn mọi thao tác Chat; BANNED, DEACTIVATED, DELETED không bắt đầu được 1-1 mới, không được thêm vào nhóm chat; DELETED không nhận tin trong 1-1; quyết định cách hiện người gửi (BR-M16-26) |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
 | Profile | avatar | Avatar | Lưu | Tham chiếu | — | FR-M16-03.05, FR-M16-07.06 | Hiện ở người gửi, người kia trong hộp thư và danh sách người đã xem |
+| Profile | bio | Bio | Lưu | Tham chiếu | — | FR-M02-03.02, FR-M02-03.04, FR-M02-03.11, FR-M02-03.12 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| Profile | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M02-03.02, FR-M02-03.06, FR-M02-03.08, FR-M02-03.14 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| Profile | followerCount | Số người theo dõi | Dẫn xuất | Tham chiếu | — | FR-M02-01.02, FR-M02-02.07, FR-M02-02.08 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| Profile | followingCount | Số đang theo dõi | Dẫn xuất | Tham chiếu | — | FR-M02-01.02, FR-M02-02.06, FR-M02-02.07 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -359,7 +377,7 @@ Mã nguồn sơ đồ: [diagrams/EC-M16.puml](diagrams/EC-M16.puml). Ảnh và t
 |---|---|---|---|---|
 | Q-01 | Mơ hồ | Mục Dữ liệu nghiệp vụ ghi "Admin nhóm chat (có thể không còn)" trên Cuộc trò chuyện và "vai trò (Admin nhóm chat, Member)" trên Thành viên cuộc trò chuyện. Đề xuất: chỉ dùng ConversationMember.role; khi Admin nhóm chat không thể khôi phục, vai trò của người đó chuyển thành Member (tài khoản vẫn là thành viên, BR-M16-25) để nhóm chat không còn Admin nhóm chat (FR-M16-17.03). Phương án khác: quan hệ Conversation – User (Admin nhóm chat) 0..1 riêng, bỏ giá trị Admin nhóm chat khỏi role | Người dùng đồng ý (2026-11-19): chỉ dùng ConversationMember.role; khi Admin nhóm chat không thể khôi phục, vai trò của người đó chuyển về Member | Mục 2.1 dòng 20; mục 2.3 ConversationMember.role; mục 2.4 |
 | Q-02 | Lệch | Mục Dữ liệu nghiệp vụ ghi "mốc đã đọc" là thuộc tính của Thành viên cuộc trò chuyện, nhưng giá trị là một tin nhắn (TN:Mốc đã đọc). Đề xuất: quan hệ Message 0..1 – ConversationMember 0..* (R-M16-05), không phải thuộc tính | Người dùng đồng ý (2026-11-19): mốc đã đọc là quan hệ Message – ConversationMember (R-M16-05) | Mục 2.1 dòng 30; mục 3.4 R-M16-05 |
-| Q-03 | Mơ hồ | Tên lớp: "Yêu cầu gia nhập" của nhóm chat đặt là ChatJoinRequest để không trùng JoinRequest (yêu cầu tham gia Group) của EC-M11; "Đề nghị thêm thành viên" đặt là ChatMemberProposal để không lẫn với Proposal (đề xuất làm Mod, Admin) của EC-M10. Bạn đồng ý hai tên này? | Người dùng đồng ý (2026-11-19) hai tên ChatJoinRequest và ChatMemberProposal | Mục 2.1 dòng 5, 6; mục 2.2 |
+| Q-03 | Mơ hồ | Tên lớp: "Yêu cầu gia nhập" của nhóm chat đặt là ChatJoinRequest để không trùng GroupJoinRequest (yêu cầu tham gia Group) của EC-M11; "Đề nghị thêm thành viên" đặt là ChatMemberProposal để không lẫn với Proposal (đề xuất làm Mod, Admin) của EC-M10. Bạn đồng ý hai tên này? | Người dùng đồng ý (2026-11-19) hai tên ChatJoinRequest và ChatMemberProposal | Mục 2.1 dòng 5, 6; mục 2.2 |
 
 ## 7. Lịch sử sửa đổi
 
@@ -367,3 +385,4 @@ Mã nguồn sơ đồ: [diagrams/EC-M16.puml](diagrams/EC-M16.puml). Ảnh và t
 |---|---|---|---|
 | 0.1 | 2026-11-19 | Tạo mới; làm liền 3 bước theo yêu cầu của người dùng (không dừng ở cổng), chờ duyệt và trả lời Q-01 đến Q-03 | Phạm Văn Đức |
 | 1.0 | 2026-11-19 | Chốt sau 3 bước: 5 lớp của M16, 2 lớp ngoài, 10 quan hệ (R-M16-01 đến R-M16-10); Q-01 đến Q-03 đã trả lời | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-05: ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 17 dòng Tham chiếu; MD-12: JoinRequest → GroupJoinRequest | Phạm Văn Đức |

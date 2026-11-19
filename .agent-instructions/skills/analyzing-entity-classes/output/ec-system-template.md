@@ -61,6 +61,29 @@ steps_completed: []
 <!-- BEGIN:DIAGRAM -->
 <!-- END:DIAGRAM -->
 
+## 7. Bảng tra nghĩa
+
+<!-- Ghi chú ngắn để tra cứu nhanh: mỗi lớp, mỗi thuộc tính, mỗi quan hệ một dòng với ý nghĩa của nó. Ràng buộc, nguồn FR
+     ở mục 2.3; căn cứ chọn loại quan hệ ở mục 3.4. Thuộc tính dẫn xuất có "/" phía trước. Lập ở việc C, trước khi chốt. -->
+
+### 7.1 Lớp
+
+| Lớp | Tên tiếng Việt | Ý nghĩa |
+|---|---|---|
+| | | |
+
+### 7.2 Thuộc tính
+
+| Lớp | Thuộc tính | Ý nghĩa |
+|---|---|---|
+| | | |
+
+### 7.3 Quan hệ
+
+| ID | Quan hệ (bội số) | Loại | Ý nghĩa |
+|---|---|---|---|
+| | | | |
+
 ## 8. Quyết định gộp
 
 <!-- Mỗi điểm lệch giữa các module một dòng. "Áp dụng cho": tài liệu module phải sửa theo (EC-Mxx, và CD-Mxx, DB-Mxx nếu bị kéo theo).

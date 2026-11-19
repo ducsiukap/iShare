@@ -222,7 +222,8 @@ danh từ nào không đến từ đoạn mô tả. Nếu bạn muốn làm đú
 
 **Lớp của module khác thì sao?** Vẫn có mặt trong bảng lớp với cột Sở hữu là module kia, để quan hệ có hai đầu. Chỉ
 liệt kê thuộc tính module này đọc hoặc ghi (Căn cứ `Tham chiếu`) và thuộc tính FR của module này định nghĩa trên lớp
-đó. Lượt gộp hệ thống nối chúng lại và báo thuộc tính được tham chiếu mà module sở hữu chưa khai.
+đó. Lượt gộp hệ thống nối chúng lại, báo thuộc tính được tham chiếu mà module sở hữu chưa khai, rồi ghi đủ thuộc tính
+của mỗi lớp ngoài vào từng module (`input/CONVENTIONS.md` mục 5).
 
 **`Đề xuất` khác yêu cầu mới thế nào?** Đề xuất chỉ làm cho chức năng FR đã có chạy được: FR nói "hiển thị danh
 sách Topic" thì Topic cần `name`; FR nói "trong 7 ngày gần nhất" thì cần một thời điểm để lọc. Thứ người dùng sẽ thấy

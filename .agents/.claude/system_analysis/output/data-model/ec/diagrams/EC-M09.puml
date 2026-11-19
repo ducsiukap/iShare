@@ -18,35 +18,85 @@ class AppealEvidence {
   -image
 }
 class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
   -role
   -status
-  -username
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
 }
 class Warning <<M08>> {
   -reason
   -issuedAt
   -isIssuedByAi
-  -levelAfter
   -status
+  -levelAfter
 }
 class Ban <<M08>> {
   -kind
   -duration
   -startedAt
+  -/endsAt
   -reason
   -status
+  -/appealDeadline
 }
 class ReportCase <<M08>> {
+  -targetType
+  -status
+  -openedAt
+  -/reportCount
+  -/priorityScore
+  -isBanRequest
+  -lastHolderActionAt
+  -conclusion
   -conclusionReason
   -concludedAt
 }
 class Post <<M03>> {
   -title
   -content
-  -modState
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
   -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
   -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
   -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
 }
 
 Appeal "1" o-- "0..3" AppealEvidence
