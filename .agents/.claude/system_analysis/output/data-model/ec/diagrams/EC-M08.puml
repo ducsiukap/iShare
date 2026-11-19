@@ -1,0 +1,109 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Report {
+  -reason
+  -description
+  -isAiCreated
+  -scanScore
+  -/status
+  -/conclusion
+  -/concentrationIndex
+}
+class ReportEvidence {
+  -image
+}
+class ReportCase {
+  -targetType
+  -status
+  -openedAt
+  -/reportCount
+  -/priorityScore
+  -isBanRequest
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+}
+class Warning {
+  -reason
+  -issuedAt
+  -isIssuedByAi
+  -status
+  -levelAfter
+}
+class UserWarningStatus {
+  -warningCount
+  -/level
+  -probationEndsAt
+}
+class Ban {
+  -kind
+  -duration
+  -startedAt
+  -/endsAt
+  -reason
+  -status
+}
+class ModerationLog {
+  -actionType
+  -reason
+  -createdAt
+  -isByAi
+}
+class User <<M01>> {
+  -role
+  -status
+  -username
+  -/banCount
+}
+class Post <<M03>> {
+  -modState
+  -title
+  -content
+}
+class Comment <<M04>> {
+  -modState
+  -content
+  -publishedAt
+  -editedAt
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+}
+class Group <<M11>> {
+  -modState
+}
+class Tag <<M05>> {
+  -name
+}
+
+ReportCase "1" o-- "1..*" Report
+Report "1" o-- "0..3" ReportEvidence
+Report "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" Post
+ReportCase "0..*" o-- "0..1" Comment
+ReportCase "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" Group
+ReportCase "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" User
+Warning "0..*" o-- "0..1" ReportCase
+ReportCase "1" -- "0..*" Ban
+Warning "0..*" o-- "1" User
+Warning "0..*" o-- "0..1" User
+Warning "0..*" o-- "0..1" Post
+Warning "0..*" o-- "0..1" Comment
+UserWarningStatus "1" o-- "1" User
+Ban "0..*" o-- "1" User
+Ban "0..*" o-- "1" User
+ModerationLog "0..*" o-- "0..1" User
+ModerationLog "0..*" o-- "0..1" User
+ModerationLog "0..*" o-- "0..1" Post
+ModerationLog "0..*" o-- "0..1" Comment
+ModerationLog "0..*" o-- "0..1" Group
+ModerationLog "0..*" o-- "0..1" Tag
+ModerationLog "0..*" o-- "0..1" ReportCase
+
+@enduml
