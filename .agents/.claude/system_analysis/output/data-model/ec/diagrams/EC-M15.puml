@@ -1,0 +1,109 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class UserStat <<stat>> {
+  -period
+  -/countByStatus
+  -/registrationTrend
+  -/countByRole
+  -/countByGradeLevel
+  -/countByWarningLevel
+}
+class PostStat <<stat>> {
+  -period
+  -/countByPublishState
+  -/countByModState
+  -/newPostTrend
+  -/countByTopic
+}
+class CommentStat <<stat>> {
+  -period
+  -/newCommentTrend
+}
+class ReportStat <<stat>> {
+  -period
+  -/countByStatus
+  -/countByReason
+}
+class WarningStat <<stat>> {
+  -period
+  -/levelTrend
+}
+class BanStat <<stat>> {
+  -period
+  -/banTrend
+  -/unbanTrend
+}
+class AppealStat <<stat>> {
+  -period
+  -/countByType
+  -/countByResult
+}
+class User <<M01>> {
+  -status
+  -verificationLevel
+  -createdAt
+  -role
+}
+class Profile <<M02>> {
+  -gradeLevel
+}
+class UserWarningStatus <<M08>> {
+  -/level
+}
+class Post <<M03>> {
+  -publishState
+  -modState
+  -createdAt
+  -publishedAt
+  -isPermanentlyDeleted
+}
+class Topic <<M05>> {
+  -name
+  -deletedAt
+}
+class Comment <<M04>> {
+  -publishedAt
+}
+class TopicSuggestionStat <<M13>> {
+  -/retentionRate
+}
+class Report <<M08>> {
+  -status
+  -conclusion
+  -reason
+  -reportedAt
+}
+class ReportCase <<M08>> {
+  -targetType
+}
+class Warning <<M08>> {
+  -issuedAt
+  -levelAfter
+}
+class Ban <<M08>> {
+  -kind
+  -startedAt
+}
+class ModerationLog <<M08>> {
+  -actionType
+  -createdAt
+}
+class Appeal <<M09>> {
+  -type
+  -status
+  -conclusion
+  -submittedAt
+}
+
+UserStat ..> User
+PostStat ..> Post
+CommentStat ..> Comment
+ReportStat ..> Report
+WarningStat ..> Warning
+BanStat ..> Ban
+AppealStat ..> Appeal
+
+@enduml
