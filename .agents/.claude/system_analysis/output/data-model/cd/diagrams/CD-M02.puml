@@ -1,0 +1,35 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Profile {
+  -id : long
+  -avatar : String
+  -bio : String
+  -gradeLevel : GradeLevel
+  -/followerCount : int
+  -/followingCount : int
+}
+class Bookmark {
+  -id : long
+  -savedAt : Instant
+  -post : Post
+}
+class User <<M01>> {
+  -profile : Profile
+  -bookmarks : List<Bookmark>
+}
+class Post <<M03>> {
+}
+enum GradeLevel {
+  GRADE_10
+  GRADE_11
+  GRADE_12
+}
+
+User "1" o-- "1" Profile
+User "1" o-- "0..*" Bookmark
+Bookmark "0..*" o-- "1" Post
+
+@enduml
