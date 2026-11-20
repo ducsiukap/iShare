@@ -1,0 +1,118 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class UserStat <<stat>> {
+  -period : StatPeriod
+  -/countByStatus : Map<UserStatGroup, Integer>
+  -/registrationTrend : Map<Instant, Integer>
+  -/countByRole : Map<UserRole, Integer>
+  -/countByGradeLevel : Map<GradeLevelGroup, Integer>
+  -/countByWarningLevel : Map<WarningLevelGroup, Integer>
+}
+class PostStat <<stat>> {
+  -period : StatPeriod
+  -/countByPublishState : Map<PostStateGroup, Integer>
+  -/countByModState : Map<ModState, Integer>
+  -/newPostTrend : Map<Instant, Integer>
+  -/countByTopic : Map<String, Integer>
+}
+class CommentStat <<stat>> {
+  -period : StatPeriod
+  -/newCommentTrend : Map<Instant, Integer>
+}
+class ReportStat <<stat>> {
+  -period : StatPeriod
+  -/countByStatus : Map<ReportStatGroup, Integer>
+  -/countByReason : Map<ReportTargetType, Map<ReportReason, Integer>>
+}
+class WarningStat <<stat>> {
+  -period : StatPeriod
+  -/levelTrend : Map<Instant, Map<WarningLevel, Integer>>
+}
+class BanStat <<stat>> {
+  -period : StatPeriod
+  -/banTrend : Map<Instant, Map<BanKind, Integer>>
+  -/unbanTrend : Map<Instant, Integer>
+}
+class AppealStat <<stat>> {
+  -period : StatPeriod
+  -/countByType : Map<AppealType, Integer>
+  -/countByResult : Map<AppealResultGroup, Integer>
+}
+class User <<M01>> {
+}
+class Profile <<M02>> {
+}
+class UserWarningStatus <<M08>> {
+}
+class Post <<M03>> {
+}
+class Topic <<M05>> {
+}
+class Comment <<M04>> {
+}
+class TopicSuggestionStat <<M13>> {
+}
+class Report <<M08>> {
+}
+class ReportCase <<M08>> {
+}
+class Warning <<M08>> {
+}
+class Ban <<M08>> {
+}
+class ModerationLog <<M08>> {
+}
+class Appeal <<M09>> {
+}
+enum UserStatGroup {
+  PENDING_EMAIL_VERIFICATION
+  PENDING_PROFILE_SETUP
+  ACTIVE
+  DEACTIVATED
+  BANNED
+  DELETED
+}
+enum GradeLevelGroup {
+  GRADE_10
+  GRADE_11
+  GRADE_12
+  NOT_SET
+}
+enum WarningLevelGroup {
+  CLEAN
+  LIGHT
+  MEDIUM
+  HEAVY
+  BANNED
+}
+enum PostStateGroup {
+  PENDING
+  PUBLISHED
+  HIDDEN
+  REJECTED
+  DELETED
+  PERMANENTLY_DELETED
+}
+enum ReportStatGroup {
+  OPEN
+  RESOLVED_ACTION_TAKEN
+  RESOLVED_DISMISSED
+}
+enum AppealResultGroup {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+UserStat ..> User
+PostStat ..> Post
+CommentStat ..> Comment
+ReportStat ..> Report
+WarningStat ..> Warning
+BanStat ..> Ban
+AppealStat ..> Appeal
+
+@enduml
