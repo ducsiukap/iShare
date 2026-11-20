@@ -1,0 +1,69 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Upvote {
+  -id : long
+  -upvotedAt : Instant
+  -upvoter : User
+}
+class Badge {
+  -id : long
+  -name : String
+  -threshold : int
+}
+class EarnedBadge {
+  -id : long
+  -achievedAt : Instant
+  -badge : Badge
+}
+class EarnedTitle {
+  -id : long
+  -week : Instant
+  -user : User
+}
+class Leaderboard {
+  -id : long
+  -period : LeaderboardPeriod
+  -periodStart : Instant
+  -computedAt : Instant
+  -entries : List<LeaderboardEntry>
+}
+class LeaderboardEntry {
+  -id : long
+  -periodPoints : int
+  -rank : int
+  -gradeLevel : GradeLevel
+  -/isWeeklyStar : boolean
+  -user : User
+}
+class User <<M01>> {
+  -earnedBadges : List<EarnedBadge>
+}
+class Post <<M03>> {
+  -upvotes : List<Upvote>
+}
+class Comment <<M04>> {
+  -upvotes : List<Upvote>
+}
+class Profile <<M02>> {
+}
+class UserWarningStatus <<M08>> {
+}
+enum LeaderboardPeriod {
+  WEEK
+  MONTH
+  ALL_TIME
+}
+
+Upvote "0..*" o-- "0..1" User
+Post "0..1" o-- "0..*" Upvote
+Comment "0..1" o-- "0..*" Upvote
+User "1" o-- "0..5" EarnedBadge
+EarnedBadge "0..*" o-- "1" Badge
+EarnedTitle "0..*" o-- "1" User
+Leaderboard "1" o-- "0..*" LeaderboardEntry
+LeaderboardEntry "0..3" o-- "1" User
+
+@enduml
