@@ -1,0 +1,63 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Appeal {
+  -id : long
+  -type : AppealType
+  -explanation : String
+  -submittedAt : Instant
+  -status : AppealStatus
+  -lastHolderActionAt : Instant
+  -conclusion : AppealConclusion
+  -conclusionReason : String
+  -concludedAt : Instant
+  -/roleAtAction : UserRole
+  -evidences : List<AppealEvidence>
+  -appellant : User
+  -holder : User
+  -concludedBy : User
+  -warning : Warning
+  -ban : Ban
+  -reportCase : ReportCase
+  -post : Post
+}
+class AppealEvidence {
+  -id : long
+  -image : String
+}
+class User <<M01>> {
+}
+class Warning <<M08>> {
+}
+class Ban <<M08>> {
+}
+class ReportCase <<M08>> {
+}
+class Post <<M03>> {
+}
+enum AppealType {
+  BAN
+  WARNING
+  POST
+}
+enum AppealStatus {
+  PENDING
+  CONCLUDED
+}
+enum AppealConclusion {
+  ACCEPTED
+  REJECTED
+}
+
+Appeal "1" o-- "0..3" AppealEvidence
+Appeal "0..*" o-- "1" User
+Appeal "0..*" o-- "0..1" User
+Appeal "0..*" o-- "0..1" User
+Appeal "0..1" o-- "0..1" Warning
+Appeal "0..1" o-- "0..1" Ban
+Appeal "0..1" o-- "0..1" ReportCase
+Appeal "0..*" o-- "0..1" Post
+
+@enduml
