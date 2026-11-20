@@ -16,7 +16,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mdtab  # noqa: E402
-from check_cd import load_cd  # noqa: E402
+from check_cd import load_cd, elem_type  # noqa: E402
 
 
 def md_table(header, rows):
@@ -90,7 +90,7 @@ def find_issues(docs, classes, attrs, enums, objs, rels):
             issues.append(("Trùng tên thuộc tính đối tượng", "%s.%s" % (h, a), "khai ở: %s" % ", ".join(ms)))
         if (h, a) in attrs:
             issues.append(("Thuộc tính đối tượng trùng tên thuộc tính thường", "%s.%s" % (h, a), ""))
-    holds = set((r["Lớp chứa"], r["Kiểu"].rstrip("[]")) for _, r in objs)
+    holds = set((r["Lớp chứa"], elem_type(r["Kiểu"])) for _, r in objs)
     for (h, c) in sorted(holds):
         if h < c and (c, h) in holds:
             issues.append(("Tham chiếu vòng", "%s – %s" % (h, c), "%s và %s chứa lẫn nhau qua các module" % (h, c)))

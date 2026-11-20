@@ -66,8 +66,32 @@ def form_of(comp_mult, whole_mult):
     return "%s-%s" % (a, b)
 
 
+LIST_RE = re.compile(r"^List<\s*([A-Za-z_][A-Za-z0-9_]*)\s*>$")
+
+
+def elem_type(t):
+    """Kiểu phần tử của một thuộc tính đối tượng: 'X[]' hoặc 'List<X>' (QU-05) -> 'X'; kiểu đơn giữ nguyên."""
+    t = (t or "").strip()
+    m = LIST_RE.match(t)
+    if m:
+        return m.group(1)
+    return t[:-2] if t.endswith("[]") else t
+
+
+def is_list_type(t):
+    t = (t or "").strip()
+    return t.endswith("[]") or bool(LIST_RE.match(t))
+
+
 def expected_type(form, comp):
-    return comp + "[]" if form == "n-1" else comp
+    return "List<%s>" % comp if form == "n-1" else comp
+
+
+def type_matches(form, comp, t):
+    """Dạng n-1 -> danh sách thành phần (List<X> theo QU-05 đã xác nhận, hoặc X[] theo ký pháp gốc); khác -> X."""
+    if form == "n-1":
+        return is_list_type(t) and elem_type(t) == comp
+    return (t or "").strip() == comp
 
 
 def check_step1(d, rep, system):
@@ -136,12 +160,14 @@ def check_step2(d, rep, classes, system):
         attrs[(c, a)] = r
         if mdtab.is_empty(t):
             rep.error("2.1", "%s.%s chưa có kiểu" % (c, a))
-        elif t in classes or t.rstrip("[]") in classes:
+        elif t in classes or elem_type(t) in classes:
             rep.error("2.1", "%s.%s có kiểu là lớp %s: thuộc tính đối tượng chỉ được thêm ở bước 4 (mục 4), "
                              "không ghi ở mục 2.1" % (c, a, t))
         elif t in enums:
             used_enums.add(t)
         elif t not in BASE_TYPES:
+            # Kiểu tổng quát theo QU-04 (Map<K, V>): kiểu liệt kê làm khóa hoặc giá trị vẫn tính là đã dùng.
+            used_enums.update(e for e in enums if re.search(r"\b%s\b" % re.escape(e), t))
             rep.warn("2.1", "%s.%s: kiểu '%s' không thuộc danh sách kiểu cơ bản và chưa khai ở mục 2.2" % (c, a, t))
         if r["Bắt buộc"] not in ("Có", "Không"):
             rep.error("2.1", "%s.%s: Bắt buộc phải là Có hoặc Không" % (c, a))
@@ -225,7 +251,7 @@ def check_step4(d, rep, classes, attrs, rels, system):
             rep.error("4", "%s: thuộc tính đối tượng phải nằm ở lớp toàn thể %s, không phải %s"
                       % (rid, rel["Toàn thể"], holder))
         exp = expected_type(rel["Dạng"], rel["Thành phần"])
-        if t != exp:
+        if not type_matches(rel["Dạng"], rel["Thành phần"], t):
             rep.error("4", "%s: dạng %s (thành phần–toàn thể) thì kiểu phải là %s, đang là %s"
                       % (rid, rel["Dạng"], exp, t))
         if not mdtab.ATTR_RE.match(a):
