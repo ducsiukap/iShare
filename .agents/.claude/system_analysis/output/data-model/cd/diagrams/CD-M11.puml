@@ -1,0 +1,80 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Group {
+  -id : long
+  -name : String
+  -description : String
+  -privacy : GroupPrivacy
+  -joinQuestion : String
+  -isPreApprovalOn : boolean
+  -isAnonymousOn : boolean
+  -createdAt : Instant
+  -isDeleted : boolean
+  -modState : GroupModState
+  -inviteLink : String
+  -/isInstantJoin : boolean
+  -creator : User
+  -members : List<GroupMember>
+  -joinBlocks : List<GroupJoinBlock>
+  -joinRequests : List<GroupJoinRequest>
+  -posts : List<Post>
+}
+class GroupMember {
+  -id : long
+  -role : GroupRole
+  -joinedAt : Instant
+  -modAppointedAt : Instant
+  -user : User
+}
+class GroupJoinRequest {
+  -id : long
+  -answer : String
+  -status : GroupJoinRequestStatus
+  -requester : User
+}
+class GroupJoinBlock {
+  -id : long
+  -blockedUser : User
+}
+class User <<M01>> {
+}
+class Post <<M03>> {
+  -groupHolder : GroupMember
+}
+class Comment <<M04>> {
+}
+enum GroupPrivacy {
+  PUBLIC
+  PRIVATE
+}
+enum GroupModState {
+  NORMAL
+  LOCKED
+  HIDDEN
+}
+enum GroupRole {
+  OWNER
+  GROUP_MOD
+  MEMBER
+}
+enum GroupJoinRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  WITHDRAWN
+}
+
+Group "0..*" o-- "1" User
+GroupMember "0..*" o-- "1" User
+Group "1" o-- "1..*" GroupMember
+GroupJoinBlock "0..*" o-- "1" User
+Group "1" o-- "0..*" GroupJoinBlock
+GroupJoinRequest "0..*" o-- "1" User
+Group "1" o-- "0..*" GroupJoinRequest
+Group "0..1" o-- "0..*" Post
+Post "0..*" o-- "0..1" GroupMember
+
+@enduml
