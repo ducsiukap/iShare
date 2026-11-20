@@ -359,8 +359,11 @@ def render_png(puml_path, png_path, tools_dir, server=None, timeout=180):
     else:
         layout = [] if (shutil.which("dot") or os.environ.get("GRAPHVIZ_DOT")) else ["-Playout=smetana"]
         java, jar, exe = find_java(), find_plantuml_jar(tools_dir), shutil.which("plantuml")
+        # Sơ đồ toàn hệ thống vượt khung mặc định 4096 px của PlantUML (ảnh bị cắt): nâng giới hạn.
+        limit = os.environ.get("PLANTUML_LIMIT_SIZE", "16384")
         if java and jar:
-            cmd, how = [java, "-Djava.awt.headless=true", "-jar", jar], "java -jar %s" % jar
+            cmd, how = [java, "-Djava.awt.headless=true", "-DPLANTUML_LIMIT_SIZE=%s" % limit, "-jar", jar], \
+                "java -jar %s" % jar
         elif exe:
             cmd, how = [exe], exe
         else:
@@ -373,7 +376,7 @@ def render_png(puml_path, png_path, tools_dir, server=None, timeout=180):
         cmd += ["-tpng", "-charset", "UTF-8", "-pipe"] + layout
         try:
             run = subprocess.run(cmd, input=text.encode("utf-8"), stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                                 timeout=timeout)
+                                 timeout=timeout, env=dict(os.environ, PLANTUML_LIMIT_SIZE=limit))
         except Exception as e:
             return False, "chạy PlantUML lỗi: %s\n%s" % (e, RENDER_HELP)
         data = run.stdout
