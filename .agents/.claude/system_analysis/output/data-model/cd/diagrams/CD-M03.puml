@@ -1,0 +1,136 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Post {
+  -id : long
+  -title : String
+  -content : String
+  -/contentText : String
+  -gradeLevel : GradeLevel
+  -createdAt : Instant
+  -updatedAt : Instant
+  -publishState : PublishState
+  -modState : ModState
+  -lockLevel : LockLevel
+  -lockedBy : LockedBy
+  -publishedAt : Instant
+  -rejectionReason : String
+  -violationCategory : ViolationCategory
+  -isInReviewQueue : boolean
+  -isEditedWhileHidden : boolean
+  -deletedAt : Instant
+  -publishStateBeforeDelete : PublishState
+  -isPermanentlyDeleted : boolean
+  -/isPubliclyVisible : boolean
+  -/isEdited : boolean
+  -/commentCount : int
+  -rejectedAt : Instant
+  -isAnonymous : boolean
+  -scanScore : double
+  -isAwaitingGroupReview : boolean
+  -lastHolderActionAt : Instant
+  -isRemovedFromGroup : boolean
+  -isPointsDeducted : boolean
+  -deductedPoints : int
+  -/upvoteCount : int
+  -embedding : float[]
+  -needsEmbedding : boolean
+  -/bookmarkCount : int
+  -attachments : List<PostAttachment>
+  -poll : Poll
+  -revisions : List<PostRevision>
+  -author : User
+}
+class PostAttachment {
+  -id : long
+  -kind : AttachmentKind
+  -fileFormat : FileFormat
+  -fileSize : int
+  -fileUrl : String
+  -fileName : String
+}
+class Poll {
+  -id : long
+  -allowMultiple : boolean
+  -showResultBeforeVote : boolean
+  -expiresAt : Instant
+  -isClosed : boolean
+  -/totalSelectionCount : int
+  -options : List<PollOption>
+}
+class PollOption {
+  -id : long
+  -label : String
+  -/selectionCount : int
+  -/percentage : int
+  -selections : List<PollSelection>
+}
+class PollSelection {
+  -id : long
+  -voter : User
+}
+class PostRevision {
+  -id : long
+  -content : String
+  -title : String
+  -editedAt : Instant
+}
+class User <<M01>> {
+}
+class Group <<M11>> {
+  -posts : List<Post>
+}
+enum PublishState {
+  DRAFT
+  PENDING
+  PUBLISHED
+  HIDDEN
+  REJECTED
+  DELETED
+}
+enum ModState {
+  NORMAL
+  FLAGGED
+  HIDDEN
+}
+enum LockLevel {
+  NONE
+  COMMENT_LOCKED
+  FULLY_LOCKED
+}
+enum LockedBy {
+  AUTHOR
+  MOD
+}
+enum ViolationCategory {
+  HARASSMENT
+  HATE
+  SEXUAL
+  VIOLENCE
+}
+enum AttachmentKind {
+  IMAGE
+  DOCUMENT
+}
+enum FileFormat {
+  JPEG
+  PNG
+  WEBP
+  PDF
+  DOCX
+  XLSX
+  PPTX
+}
+
+Post "1" o-- "0..13" PostAttachment
+Post "1" o-- "0..1" Poll
+Poll "1" *-- "2..10" PollOption
+Post "1" o-- "0..*" PostRevision
+Post "0..*" o-- "1" User
+Group "0..1" o-- "0..*" Post
+PollOption "1" o-- "0..*" PollSelection
+PollSelection "0..*" o-- "1" User
+
+@enduml
