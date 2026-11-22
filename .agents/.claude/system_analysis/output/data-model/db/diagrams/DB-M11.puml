@@ -1,0 +1,54 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity groups {
+  * id : bigint <<PK>>
+  --
+  * name : varchar(100)
+  description : varchar(500)
+  * privacy : varchar(30)
+  join_question : text
+  * is_pre_approval_on : boolean
+  * is_anonymous_on : boolean
+  * created_at : timestamptz
+  * is_deleted : boolean
+  * mod_state : varchar(30)
+  * invite_link : text
+  * creator_id : bigint <<FK>>
+}
+entity group_members {
+  * id : bigint <<PK>>
+  --
+  * role : varchar(30)
+  * joined_at : timestamptz
+  mod_appointed_at : timestamptz
+  * user_id : bigint <<FK>>
+  * group_id : bigint <<FK>>
+}
+entity group_join_requests {
+  * id : bigint <<PK>>
+  --
+  answer : text
+  * status : varchar(30)
+  * requester_id : bigint <<FK>>
+  * group_id : bigint <<FK>>
+}
+entity group_join_blocks {
+  * id : bigint <<PK>>
+  --
+  * blocked_user_id : bigint <<FK>>
+  * group_id : bigint <<FK>>
+}
+entity users <<M01>> {
+}
+
+users ||--o{ groups : creator_id
+users ||--o{ group_members : user_id
+groups ||--o{ group_members : group_id
+users ||--o{ group_join_requests : requester_id
+groups ||--o{ group_join_requests : group_id
+users ||--o{ group_join_blocks : blocked_user_id
+groups ||--o{ group_join_blocks : group_id
+
+@enduml
