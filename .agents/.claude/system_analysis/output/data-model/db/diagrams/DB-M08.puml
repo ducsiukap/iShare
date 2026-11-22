@@ -1,0 +1,125 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity reports {
+  * id : bigint <<PK>>
+  --
+  * reason : varchar(30)
+  description : text
+  * is_ai_created : boolean
+  scan_score : double precision
+  * reported_at : timestamptz
+  * report_case_id : bigint <<FK>>
+  reporter_id : bigint <<FK>>
+}
+entity report_evidences {
+  * id : bigint <<PK>>
+  --
+  * image : text
+  * report_id : bigint <<FK>>
+}
+entity report_cases {
+  * id : bigint <<PK>>
+  --
+  * target_type : varchar(30)
+  * status : varchar(30)
+  * opened_at : timestamptz
+  * is_ban_request : boolean
+  last_holder_action_at : timestamptz
+  conclusion : varchar(30)
+  conclusion_reason : text
+  concluded_at : timestamptz
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+  reported_user_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  holder_id : bigint <<FK>>
+  concluded_by_id : bigint <<FK>>
+}
+entity warnings {
+  * id : bigint <<PK>>
+  --
+  * reason : text
+  * issued_at : timestamptz
+  * is_issued_by_ai : boolean
+  * status : varchar(30)
+  * level_after : varchar(30)
+  report_case_id : bigint <<FK>>
+  * warned_user_id : bigint <<FK>>
+  issued_by_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+}
+entity user_warning_statuses {
+  * id : bigint <<PK>>
+  --
+  * warning_count : integer
+  probation_ends_at : timestamptz
+  * user_id : bigint <<FK>>
+}
+entity bans {
+  * id : bigint <<PK>>
+  --
+  * kind : varchar(30)
+  duration : integer
+  * started_at : timestamptz
+  * reason : text
+  * status : varchar(30)
+  * report_case_id : bigint <<FK>>
+  * banned_user_id : bigint <<FK>>
+  * banned_by_id : bigint <<FK>>
+}
+entity moderation_logs {
+  * id : bigint <<PK>>
+  --
+  * action_type : varchar(30)
+  * reason : text
+  * created_at : timestamptz
+  * is_by_ai : boolean
+  actor_id : bigint <<FK>>
+  target_user_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  tag_id : bigint <<FK>>
+  report_case_id : bigint <<FK>>
+}
+entity comments <<M04>> {
+}
+entity groups <<M11>> {
+}
+entity posts <<M03>> {
+}
+entity tags <<M05>> {
+}
+entity users <<M01>> {
+}
+
+report_cases ||--o{ reports : report_case_id
+users |o--o{ reports : reporter_id
+reports ||--o{ report_evidences : report_id
+posts |o--o{ report_cases : post_id
+comments |o--o{ report_cases : comment_id
+users |o--o{ report_cases : reported_user_id
+groups |o--o{ report_cases : group_id
+users |o--o{ report_cases : holder_id
+users |o--o{ report_cases : concluded_by_id
+report_cases |o--o{ warnings : report_case_id
+users ||--o{ warnings : warned_user_id
+users |o--o{ warnings : issued_by_id
+posts |o--o{ warnings : post_id
+comments |o--o{ warnings : comment_id
+users ||--o| user_warning_statuses : user_id
+report_cases ||--o{ bans : report_case_id
+users ||--o{ bans : banned_user_id
+users ||--o{ bans : banned_by_id
+users |o--o{ moderation_logs : actor_id
+users |o--o{ moderation_logs : target_user_id
+posts |o--o{ moderation_logs : post_id
+comments |o--o{ moderation_logs : comment_id
+groups |o--o{ moderation_logs : group_id
+tags |o--o{ moderation_logs : tag_id
+report_cases |o--o{ moderation_logs : report_case_id
+
+@enduml
