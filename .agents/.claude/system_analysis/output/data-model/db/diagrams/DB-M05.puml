@@ -1,0 +1,89 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity topics {
+  * id : bigint <<PK>>
+  --
+  * name : text
+  deleted_at : timestamptz
+}
+entity tags {
+  * id : bigint <<PK>>
+  --
+  * name : varchar(30)
+  * status : varchar(30)
+  * created_at : timestamptz
+}
+entity topic_suggestions {
+  * id : bigint <<PK>>
+  --
+  * status : varchar(30)
+  * created_at : timestamptz
+  * post_id : bigint <<FK>>
+  author_id : bigint <<FK>>
+}
+entity topic_suggestion_feedbacks {
+  * id : bigint <<PK>>
+  --
+  * recorded_at : timestamptz
+  * topic_suggestion_id : bigint <<FK>>
+}
+entity topic_trending_stats {
+  * topic_id : bigint <<PK>> <<FK>>
+  --
+  * score : integer
+  * new_post_count : integer
+  * computed_at : timestamptz
+}
+entity tag_trending_stats {
+  * tag_id : bigint <<PK>> <<FK>>
+  --
+  * score : integer
+  * new_post_count : integer
+  * computed_at : timestamptz
+}
+entity post_topics {
+  * id : bigint <<PK>>
+  --
+  * topic_id : bigint <<FK>>
+  * post_id : bigint <<FK>>
+}
+entity post_tags {
+  * id : bigint <<PK>>
+  --
+  * tag_id : bigint <<FK>>
+  * post_id : bigint <<FK>>
+}
+entity suggested_topics {
+  * id : bigint <<PK>>
+  --
+  * topic_suggestion_id : bigint <<FK>>
+  * topic_id : bigint <<FK>>
+}
+entity chosen_topics {
+  * id : bigint <<PK>>
+  --
+  * topic_suggestion_feedback_id : bigint <<FK>>
+  * topic_id : bigint <<FK>>
+}
+entity posts <<M03>> {
+}
+entity users <<M01>> {
+}
+
+posts ||--o{ topic_suggestions : post_id
+users |o--o{ topic_suggestions : author_id
+topic_suggestions ||--o| topic_suggestion_feedbacks : topic_suggestion_id
+topics ||--o| topic_trending_stats : topic_id
+tags ||--o| tag_trending_stats : tag_id
+topics ||--o{ post_topics : topic_id
+posts ||--o{ post_topics : post_id
+tags ||--o{ post_tags : tag_id
+posts ||--o{ post_tags : post_id
+topic_suggestions ||--o{ suggested_topics : topic_suggestion_id
+topics ||--o{ suggested_topics : topic_id
+topic_suggestion_feedbacks ||--o{ chosen_topics : topic_suggestion_feedback_id
+topics ||--o{ chosen_topics : topic_id
+
+@enduml
