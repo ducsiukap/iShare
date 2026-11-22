@@ -1,0 +1,119 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity notifications {
+  * id : bigint <<PK>>
+  --
+  * event_type : varchar(30)
+  * is_read : boolean
+  * occurred_at : timestamptz
+  * last_updated_at : timestamptz
+  appeal_link : text
+  * recipient_id : bigint <<FK>>
+  actor_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  report_id : bigint <<FK>>
+  warning_id : bigint <<FK>>
+  ban_id : bigint <<FK>>
+  appeal_id : bigint <<FK>>
+  proposal_id : bigint <<FK>>
+  badge_id : bigint <<FK>>
+  earned_title_id : bigint <<FK>>
+}
+entity follows {
+  * id : bigint <<PK>>
+  --
+  * followed_at : timestamptz
+  * follower_id : bigint <<FK>>
+  followed_user_id : bigint <<FK>>
+  topic_id : bigint <<FK>>
+}
+entity notification_emails {
+  * id : bigint <<PK>>
+  --
+  * event_type : varchar(30)
+  * queued_at : timestamptz
+  * status : varchar(30)
+  * retry_count : integer
+  appeal_link : text
+  * recipient_id : bigint <<FK>>
+}
+entity notification_settings {
+  * id : bigint <<PK>>
+  --
+  * is_all_chat_muted : boolean
+  * user_id : bigint <<FK>>
+}
+entity counted_upvoters {
+  * id : bigint <<PK>>
+  --
+  * notification_id : bigint <<FK>>
+  * upvoter_id : bigint <<FK>>
+}
+entity muted_posts {
+  * id : bigint <<PK>>
+  --
+  * user_id : bigint <<FK>>
+  * post_id : bigint <<FK>>
+}
+entity muted_conversations {
+  * id : bigint <<PK>>
+  --
+  * user_id : bigint <<FK>>
+  * conversation_id : bigint <<FK>>
+}
+entity appeals <<M09>> {
+}
+entity badges <<M12>> {
+}
+entity bans <<M08>> {
+}
+entity comments <<M04>> {
+}
+entity conversations <<M16>> {
+}
+entity earned_titles <<M12>> {
+}
+entity groups <<M11>> {
+}
+entity posts <<M03>> {
+}
+entity proposals <<M10>> {
+}
+entity reports <<M08>> {
+}
+entity topics <<M05>> {
+}
+entity users <<M01>> {
+}
+entity warnings <<M08>> {
+}
+
+users ||--o{ notifications : recipient_id
+users |o--o{ notifications : actor_id
+posts |o--o{ notifications : post_id
+comments |o--o{ notifications : comment_id
+groups |o--o{ notifications : group_id
+reports |o--o{ notifications : report_id
+warnings |o--o| notifications : warning_id
+bans |o--o{ notifications : ban_id
+appeals |o--o| notifications : appeal_id
+proposals |o--o| notifications : proposal_id
+badges |o--o{ notifications : badge_id
+earned_titles |o--o{ notifications : earned_title_id
+users ||--o{ follows : follower_id
+users |o--o{ follows : followed_user_id
+topics |o--o{ follows : topic_id
+users ||--o{ notification_emails : recipient_id
+users ||--o| notification_settings : user_id
+notifications ||--o{ counted_upvoters : notification_id
+users ||--o{ counted_upvoters : upvoter_id
+users ||--o{ muted_posts : user_id
+posts ||--o{ muted_posts : post_id
+users ||--o{ muted_conversations : user_id
+conversations ||--o{ muted_conversations : conversation_id
+
+@enduml
