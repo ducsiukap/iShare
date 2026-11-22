@@ -1,0 +1,16 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity post_trending_stats {
+  * post_id : bigint <<PK>> <<FK>>
+  --
+  * score : double precision
+  * computed_at : timestamptz
+}
+entity posts <<M03>> {
+}
+
+posts ||--o| post_trending_stats : post_id
+
+@enduml
