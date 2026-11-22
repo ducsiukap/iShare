@@ -2,8 +2,8 @@
 module: SYS
 ten_module: Toàn hệ thống iShare
 ma_tai_lieu: DB-SYS
-phien_ban: 0.1
-trang_thai: Bản nháp
+phien_ban: 1.0
+trang_thai: Đã chốt
 ngay: 2026-11-22
 tac_gia: Phạm Văn Đức
 nguon: CD-SYS v1.0; DB-M01 v1.0, DB-M02 v1.0, DB-M03 v1.0, DB-M04 v1.0, DB-M05 v1.0, DB-M06 v1.0, DB-M07 v1.0, DB-M08 v1.0, DB-M09 v1.0, DB-M10 v1.0, DB-M11 v1.0, DB-M12 v1.0, DB-M13 v1.0, DB-M14 v1.0, DB-M15 v1.0, DB-M16 v1.0
@@ -20,8 +20,8 @@ steps_completed: []
 | Dự án | iShare |
 | Phạm vi | Toàn hệ thống (M01–M16) |
 | Đầu vào | CD-SYS phiên bản 1.0; DB-M01 … DB-M16 phiên bản 1.0 |
-| Trạng thái | Bản nháp |
-| Phiên bản | 0.1 |
+| Trạng thái | Đã chốt |
+| Phiên bản | 1.0 |
 | Ngày | 2026-11-22 |
 | Tác giả | Phạm Văn Đức |
 
@@ -1574,3 +1574,4 @@ Việc C (đưa thay đổi về tài liệu module): không quyết định nà
 | Phiên bản | Ngày | Nội dung | Người sửa |
 |---|---|---|---|
 | 0.1 | 2026-11-22 | Tạo mới: gộp DB-M01 … DB-M16 v1.0 theo CD-SYS v1.0 (việc A, B, C); quyết định gộp MD-17 … MD-19; không có thay đổi đưa về tài liệu module | Phạm Văn Đức |
+| 1.0 | 2026-11-22 | Chốt: người dùng chốt DB-SYS | Phạm Văn Đức |
