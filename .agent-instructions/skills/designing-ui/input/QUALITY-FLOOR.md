@@ -33,7 +33,7 @@ không dùng `div` bấm được.
 
 | Mã | Yêu cầu | Kiểm |
 |---|---|---|
-| QF-12 | Ở 390px không cuộn ngang toàn trang (bảng rộng, công thức dài, khối code cuộn trong khung riêng); dùng được khi zoom 200% | Mắt |
+| QF-12 | Ở bề rộng nhỏ nhất mà `PRODUCT.md` hỗ trợ (390px nếu có điện thoại; chỉ máy tính thì 1280px) không cuộn ngang toàn trang (bảng rộng, công thức dài, khối code cuộn trong khung riêng); dùng được khi zoom 200% | Mắt |
 | QF-13 | **Tiếng Việt hiển thị đúng:** font đã qua `font_test.py` (dấu chồng như "ấ ặ ử ỗ" không đè nhau, không chạm dòng trên); line-height thân bài ≥ 1.5, tiêu đề ≥ 1.2; không cắt dấu bởi `overflow: hidden` + line-height chật; không viết hoa đoạn dài; văn bản Unicode NFC; `lang="vi"` | `UI-LINE-HEIGHT` WARN; `font_test.py`; Mắt |
 | QF-14 | **Nội dung dài và công thức:** tiêu đề dài tối đa theo FR, tên người dùng dài, nhiều tag, bảng rộng, khối code, công thức KaTeX lớn đều không vỡ bố cục; công thức inline không làm lệch dòng; công thức khối dài cuộn ngang trong khung | Trạng thái `long`; Mắt |
 | QF-15 | **Đủ trạng thái:** mỗi màn hình có các trạng thái trong `screen-inventory.md`, tối thiểu `default`, `loading`, `empty` (hoặc `no-result`), `error` khi màn hình tải dữ liệu; thêm các trạng thái nghiệp vụ lấy từ nhánh ngoại lệ của SC (`forbidden`, `locked`, `banned`, `pending`, `flagged`…). Mỗi phần tử tương tác có: mặc định, hover, focus-visible, active, disabled, đang xử lý | `check_inventory.py --require-artboards`; Mắt |

@@ -55,8 +55,9 @@ Tệp này là quy ước chung cho mọi bước. Bước nào cần quy ước
 | `QA-<đợt>-nn` | Lỗi trong báo cáo QA | `QA-B-03`, `QA-F-12` (QA-final) |
 | Đợt `A`–`E` | Nhóm màn hình vẽ hi-fi ở bước 7 (chốt ở bước 4) | `A` |
 
-**Tên artboard** (tệp `.dc.html`): `<mã màn hình>--<trạng thái>--<thiết bị>.dc.html`, ví dụ
-`SCR-M03-02--default--desktop.dc.html`, `SCR-M03-02--empty--mobile.dc.html`. Trạng thái lấy từ mục 4; thiết bị là
+**Tên artboard** (tệp `.dc.html`): `<mã màn hình>--<trạng thái>--<thiết bị>[--dark].dc.html`, ví dụ
+`SCR-M03-02--default--desktop.dc.html`, `SCR-M03-02--empty--mobile.dc.html`, `SCR-M03-02--default--desktop--dark.dc.html`
+(bản theme tối; không ghi gì là theme sáng). Trạng thái lấy từ mục 4; thiết bị là
 `desktop` hoặc `mobile`. Artboard không thuộc màn hình nào (hướng thẩm mỹ, font test, wireframe) đặt tên
 tên bắt đầu bằng loại (không bắt đầu bằng `SCR-`), ví dụ `huong-1--chi-tiet-bai--desktop.dc.html` (bước 3),
 `font-test.dc.html`, `wf--dang-ky--SCR-M01-01--mobile.dc.html` (bước 5: `wf--<luồng>--<mã màn hình>--<thiết bị>`).
@@ -66,8 +67,9 @@ Chỉ dùng chữ không dấu, số, `-`, `.`; không khoảng trắng.
 "iShare — UI", một page mỗi đợt.
 
 **Kích thước artboard:** màn hình ứng dụng là trang co giãn (PAGE trong type Design): desktop rộng 1440, mobile rộng
-390. Desktop bắt buộc cho mọi màn hình; mobile bắt buộc cho màn hình mà `screen-inventory.md` đánh dấu `mobile`
-(mặc định: mọi màn hình học sinh dùng; tùy chọn cho màn hình quản trị và thống kê).
+390. Desktop bắt buộc cho mọi màn hình; mobile chỉ khi `PRODUCT.md` mục 3 có hỗ trợ điện thoại, cho màn hình mà
+`screen-inventory.md` đánh dấu `mobile`. Bản tối (`--dark`) khi `PRODUCT.md` có dark mode, theo phạm vi chốt ở bước 4
+(toàn bộ hay màn hình đại diện).
 
 ## 4. Từ vựng trạng thái (slug dùng trong `screen-inventory.md` và tên artboard)
 
