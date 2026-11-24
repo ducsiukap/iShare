@@ -1,12 +1,9 @@
 ---
 name: use-case-analysis
 description: >
-  Xác định UC chính và UC con cho từng module iShare từ FR đã duyệt; tổng hợp
-  UC chính thành sơ đồ toàn hệ thống và UC con thành sơ đồ chi tiết module,
-  mỗi UC chính có một sơ đồ chi tiết riêng thể hiện cả chính–con và con–con,
-  kèm đặc tả, truy vết và kiểm tra UML.
-  Dùng khi tạo, sửa hoặc review tài liệu US và mô hình use case; không dùng để
-  thiết kế UI, CSDL hoặc bổ sung yêu cầu sản phẩm.
+  Use when creating, revising, or reviewing iShare use case analysis from
+  approved requirements, including UC chính/UC con, module specifications,
+  system overviews, actor boundaries, UML relationships, and requirement traceability.
 ---
 
 # Phân tích use case iShare
@@ -22,7 +19,7 @@ khi sản xuất US; khi review hoặc sửa chính bộ skill, không chạy c�
 
 - Đọc [input/INPUTS.md](input/INPUTS.md); FR liên module được đọc khi có giao tiếp
   liên quan. Không suy yêu cầu sản phẩm từ ví dụ hoặc tài liệu phương pháp.
-- Một module: `docs/specs/us/US-Mxx.md`, bắt buộc có **UC chính, UC con và bảng
+- Đường dẫn đích module: `docs/specs/us/US-Mxx.md`, bắt buộc có **UC chính, UC con và bảng
   phân rã chính → con**, sơ đồ UC chính module và **một sơ đồ chi tiết cho từng
   UC chính**. Sơ đồ chi tiết có node UC chính, toàn bộ UC con liên quan, actor,
   các quan hệ UML chính–con và con–con đã xác định; không chỉ có nhóm UC con.
@@ -30,6 +27,10 @@ khi sản xuất US; khi review hoặc sửa chính bộ skill, không chạy c�
   ở từng module**, giữ ID/owner/actor và trỏ về tài liệu module. Không lập một
   danh sách mục tiêu khác thay cho các UC chính module, không đưa UC con vào
   sơ đồ tổng quan hệ thống.
+- Chốt `overview_selection=full|selected` trước khi tổng hợp: full lấy toàn bộ
+  core trong scope; selected chọn tập con có lý do chọn/không chọn cho từng core.
+  Cả hai giữ nguyên catalog nguồn, một boundary iShare, không chia khối module
+  bên trong. Selected không tuyên bố bao phủ toàn bộ yêu cầu của các module.
 - Thực hiện module nào thì hoàn thiện hai tầng của module đó; chỉ tổng hợp toàn
   hệ thống khi được yêu cầu. Module chưa phân tích ghi còn thiếu, không tự bịa UC.
 - Dùng [output/us-template.md](output/us-template.md). Tái sử dụng ID đã duyệt.
@@ -38,6 +39,14 @@ khi sản xuất US; khi review hoặc sửa chính bộ skill, không chạy c�
   Không xuất kèm `.puml`, `.mmd` hoặc `.png`; mã nguồn và ảnh phục vụ kiểm tra
   nếu cần chỉ là file tạm trong workspace agent. US nhúng/link tới SVG đó.
 - Ví dụ có giới hạn phạm vi: [references/worked-example.md](references/worked-example.md).
+- Quyết định về độ gắn kết, walkthrough luồng, gap và quan hệ liên module:
+  [references/quality-gates.md](references/quality-gates.md). Đọc khi làm bước 2–7.
+- Khi cập nhật/đánh giá chính skill, dùng các fixture độc lập tại
+  [references/evaluation-scenarios.md](references/evaluation-scenarios.md),
+  không chạy skill để sửa tài liệu dự án nếu chưa được yêu cầu.
+- Bản nháp mới mặc định ở workspace theo COMMON-RULES; các đường dẫn trên là
+  đích bàn giao. Khi người dùng chỉ định tạo/sửa ngay tại một đường dẫn, làm
+  trong scope đó và ghi đúng trạng thái; không tự chuyển thành Đã duyệt.
 
 ## Quyết định phân tích
 
@@ -67,6 +76,9 @@ không tự tạo generalization, include hoặc extend. Vẽ các mũi tên UML
    tách hoặc phân bổ vào UC, bước, nhánh, điều kiện, BR và tác vụ tự động.
    Không bắt buộc mỗi FR tạo oval. Tên dùng động từ và đối tượng, không đếm
    máy móc động từ hoặc cấm từ nối trong cụm danh từ.
+    Đọc `docs/specs/us/UC-NAMING.md` nếu có, ghi nhận trạng thái của quy chuẩn;
+    đề xuất đang chờ duyệt không tự trở thành chuẩn đã chốt. So tên với hợp đồng,
+    dùng cùng nhãn ở catalog/spec/bảng quyết định/SVG, giữ ID khi đổi tên.
 4. **Phân rã rồi chứng minh quan hệ.** Xác định UC con, viết trigger, điều kiện,
    luồng chính, thay thế/ngoại lệ và kết quả trước khi quyết định quan hệ UML.
    Đầy đủ mapping chính–con không có nghĩa phải có mũi tên UC–UC.
@@ -90,6 +102,7 @@ không tự tạo generalization, include hoặc extend. Vẽ các mũi tên UML
 9. **Tool không thay BA review.** Theo [tools/README.md](tools/README.md)
    và [references/diagram-rules.md](references/diagram-rules.md). Phân biệt
    tham chiếu tồn tại, render thành công và đúng nghiệp vụ.
+    Checklist/checker pass không thay walkthrough từng đường đi hoặc đóng gap.
 
 ## Bảy bước và cổng xác nhận
 
@@ -106,6 +119,10 @@ không tự tạo generalization, include hoặc extend. Vẽ các mũi tên UML
 Mặc định mỗi lượt hoàn tất một bước, ghi tiến độ rồi dừng chờ xác nhận rõ ràng.
 Câu hỏi hoặc im lặng không phải đồng ý. Cổng này không ngăn việc cập nhật bộ
 skill khi người dùng đã yêu cầu sửa skill.
+Nếu người dùng cho phép làm liên tục các bước trong scope hiện tại, tiếp tục
+theo quyền đó, ghi bằng chứng quyền thực hiện; không biến quyền làm thành
+approved_steps hay phê duyệt kết quả. Gặp thiếu căn cứ chặn tính đúng thì dừng
+phần phụ thuộc và ghi gap; vẫn làm phần độc lập được phép.
 
 Khi tiếp tục, đọc metadata/tiến độ: `current_step`, `completed_steps`,
 `approved_steps`, `source_baseline`, `skill_version` và trạng thái tài liệu.
@@ -125,4 +142,5 @@ Trả lời “ok” để sang bước kế tiếp hoặc nêu chỗ cần sử
 
 Trạng thái: `Đang soạn` → `Chờ duyệt` → `Đã duyệt`. Xong checklist bước 7
 chỉ chuyển Chờ duyệt; chỉ ghi Đã duyệt khi người dùng chấp nhận kết quả cuối.
-Phiên bản skill hiện hành: **2.2**.
+Phiên bản skill hiện hành: **2.3**. Tài liệu cũ không tự được migrate hoặc
+ghi nhận đã tuân thủ 2.3; chỉ nâng metadata khi thực sự được yêu cầu cập nhật.

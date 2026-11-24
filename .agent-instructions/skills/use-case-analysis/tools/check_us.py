@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import argparse
 import re
+import xml.etree.ElementTree as ET
 from collections import Counter
 from pathlib import Path
 
 REQ = re.compile(r"\b(?:FR-M\d{2}-\d{2}(?:\.\d{2})?|BR-M\d{2}-\d{2})\b")
 MODULE = re.compile(r"M\d{2}")
+UC_ID = re.compile(r"UC-M\d{2}-\d{3}")
+ACTOR_ID = re.compile(r"ACT-\d{3}")
 ROOT = Path(__file__).resolve().parents[4]
 REQUIRED_SPEC = (
     "goal", "subject", "level", "primary", "supporting", "trigger",
@@ -49,6 +52,8 @@ def table(text: str, marker: str) -> list[dict[str, str]]:
         "catalog": ("id", "name", "tier", "level", "primary", "supporting", "owner", "anchor", "sources"),
         "decomposition": ("core", "sub", "rationale", "sources"),
         "module-models": ("module", "path", "baseline"),
+        "overview-selection": ("id", "decision", "rationale", "sources"),
+        "associations": ("actor", "use_case", "role", "permission", "sources"),
         "extension-points": ("id", "base", "at", "description"),
         "relations": ("type", "source", "target", "at", "condition", "return_to", "rationale", "sources"),
         "trace": ("requirement", "target", "coverage", "note"),
@@ -95,13 +100,43 @@ def cycle(edges: list[tuple[str, str]]) -> bool:
 
 
 def source_index(path: Path) -> tuple[dict[str, str], str, str]:
-    """Read active requirements only, excluding history and trace appendices."""
+    """Read active requirement rows; section numbering is presentation only.
+
+    Optional fr:requirements-start/end markers delimit an explicit active region.
+    Without them, history, trace and appendix sections are excluded by heading.
+    Unknown layouts still require source review; this parser does not infer intent.
+    """
     text = path.read_text(encoding="utf-8-sig")
-    body = re.split(r"(?m)^##\s+6\.", text, maxsplit=1)[0]
+    start, end = "<!-- fr:requirements-start -->", "<!-- fr:requirements-end -->"
+    if start in text or end in text:
+        if text.count(start) != 1 or text.count(end) != 1 or text.index(start) >= text.index(end):
+            raise ValueError(f"Invalid active requirement markers in {path.name}")
+        body = text.split(start, 1)[1].split(end, 1)[0]
+    else:
+        body = text
     index = {}
+    excluded_level = None
     for line in body.splitlines():
+        heading = re.match(r"^(#{1,6})\s+(.+)", line)
+        if heading:
+            level, title = len(heading[1]), heading[2].casefold()
+            title = re.sub(r"^\d+(?:\.\d+)*[.)]?\s*", "", clean(title)).strip().rstrip(" #")
+            if excluded_level is not None and level <= excluded_level:
+                excluded_level = None
+            if re.fullmatch(
+                r"lịch sử(?: thay đổi| sửa đổi| phiên bản| cập nhật)?|"
+                r"(?:document |version |revision )?history|changelog|change log|"
+                r"truy vết(?: yêu cầu)?|(?:requirement )?traceability(?: matrix)?|"
+                r"phụ lục(?:\s+[a-z0-9]+)?(?:\s*[.:—–-].*)?|"
+                r"appendi(?:x|ces)(?:\s+[a-z0-9]+)?(?:\s*[.:—–-].*)?", title
+            ):
+                excluded_level = level
+        if excluded_level is not None:
+            continue
         match = re.match(r"^\|\s*((?:FR|BR)-M\d{2}-\d{2}(?:\.\d{2})?)\s*\|(.*)", line)
         if match and not re.search(r"\(\s*Đã bỏ\b", match[2], re.I):
+            if match[1] in index:
+                raise ValueError(f"Duplicate active requirement {match[1]} in {path.name}")
             index[match[1]] = match[2]
     version = re.search(r"(?m)^phien_ban:\s*(.+)$", text)
     status = re.search(r"(?m)^trang_thai:\s*(.+)$", text)
@@ -114,7 +149,16 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
     warnings: list[str] = []
     text = path.read_text(encoding="utf-8-sig")
     meta = fields(table(text, "document"))
+    version = re.fullmatch(r"(\d+)\.(\d+)(?:\.\d+)?", meta.get("skill_version", ""))
+    if not version:
+        errors.append("Invalid skill_version: expected major.minor or major.minor.patch")
+    modern = bool(version and tuple(map(int, version.groups())) >= (2, 3))
     mode = meta.get("mode", "")
+    selection_mode = meta.get("overview_selection", "full")
+    if mode == "overview" and modern and selection_mode not in ("full", "selected"):
+        errors.append("overview_selection must be full or selected")
+    if mode == "overview" and modern and "overview_selection" not in meta:
+        errors.append("Missing document field: overview_selection")
     modules = items(meta.get("modules", ""))
     scope = scope or []
     label = f"{mode or 'unknown'}; modules={','.join(modules)}"
@@ -141,10 +185,15 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
         warnings.append("Machine-specific file URI; use relative document links")
 
     cache = {}
+    source_roles = {}
     def index(module: str):
         if module not in cache:
             source = repo / "docs/specs/fr" / f"FR-{module}.md"
-            cache[module] = source_index(source) if source.exists() else ({}, "", "")
+            try:
+                cache[module] = source_index(source) if source.exists() else ({}, "", "")
+            except (OSError, ValueError) as exc:
+                errors.append(str(exc))
+                cache[module] = ({}, "", "")
         return cache[module]
 
     def refs(value: str, context: str, required: bool = True):
@@ -153,6 +202,8 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
             errors.append(f"{context}: missing FR/BR evidence")
         for code in codes:
             module = code.split("-")[1]
+            if modern and source_roles.get(module) == "context":
+                errors.append(f"{context}: context-only source cannot justify behavior {code}")
             if code not in index(module)[0]:
                 errors.append(f"{context}: unknown or retired requirement {code}")
 
@@ -184,9 +235,16 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
             errors.append(f"Invalid FR source path: {source_path}")
             continue
         module = match[1]
+        if module in baseline:
+            errors.append(f"Duplicate source baseline: {module}")
+        source_roles[module] = row.get("role", "")
+        if modern and source_roles[module] not in ("owner", "normative", "related", "context"):
+            errors.append(f"{module}: source role must be owner, normative, related or context")
         baseline[module] = row.get("version", "")
         if baseline[module] != index(module)[1]:
             errors.append(f"Stale baseline for {module}: {baseline[module]} != {index(module)[1]}")
+        if module not in modules and source_roles[module] != "context" and index(module)[2] != "Đã chốt":
+            (errors if modern else warnings).append(f"FR-{module} normative/related source is not approved (Đã chốt)")
     for module in modules:
         if module not in baseline:
             errors.append(f"Missing source baseline: {module}")
@@ -209,6 +267,10 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
             errors.append(f"Empty or duplicate actor ID: {value!r}")
     actor_edges = []
     for row in actors:
+        if not ACTOR_ID.fullmatch(row.get("id", "")):
+            errors.append(f"Invalid actor ID: {row.get('id', '')}")
+        if not row.get("name"):
+            errors.append(f"{row.get('id')}: missing actor name")
         if row.get("kind") not in ("human", "external-system"):
             errors.append(f"{row.get('id')}: actor kind must be external")
         if not row.get("boundary_reason"):
@@ -231,6 +293,10 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
             errors.append(f"Empty or duplicate UC ID: {value!r}")
     for row in catalog:
         uid = row.get("id", "")
+        if not UC_ID.fullmatch(uid):
+            errors.append(f"Invalid UC ID: {uid}")
+        if not row.get("name"):
+            errors.append(f"{uid}: missing UC name")
         if row.get("tier") not in ("core", "sub"):
             errors.append(f"{uid}: tier must be core or sub")
         if mode == "overview" and row.get("tier") != "core":
@@ -263,6 +329,27 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
 
     # Output hierarchy is separate from UML behavioral relationships.
     by_id = {row.get("id", ""): row for row in catalog}
+    if modern or re.search(r"<!--\s*uc:associations\s*-->", text):
+        try:
+            associations = table(text, "associations")
+        except ValueError as exc:
+            errors.append(str(exc))
+            associations = []
+        seen_associations = set()
+        for row in associations:
+            actor, uid = row.get("actor", ""), row.get("use_case", "")
+            context = f"association {actor}->{uid}"
+            if actor not in actor_ids:
+                errors.append(f"{context}: unknown actor")
+            if uid not in uc_ids:
+                errors.append(f"{context}: unknown UC")
+            if (actor, uid) in seen_associations:
+                errors.append(f"{context}: duplicate association")
+            seen_associations.add((actor, uid))
+            for field in ("role", "permission"):
+                if not row.get(field):
+                    errors.append(f"{context}: missing {field}")
+            refs(row.get("sources", ""), context)
     decomposition = table(text, "decomposition")
     mapped_core, mapped_sub, seen_mapping = set(), set(), set()
     for row in decomposition:
@@ -283,7 +370,7 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
     for module in modules:
         cores = {r["id"] for r in catalog if r.get("owner") == module and r.get("tier") == "core"}
         subs = {r["id"] for r in catalog if r.get("owner") == module and r.get("tier") == "sub"}
-        if not cores:
+        if not cores and not (mode == "overview" and modern and selection_mode == "selected"):
             errors.append(f"{module}: missing core UC tier")
         if mode != "overview":
             if not subs:
@@ -294,6 +381,7 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
                 errors.append(f"{sub}: orphan sub UC has no core")
 
     if mode == "overview":
+        original_cores = {}
         models = table(text, "module-models")
         model_ids = [r.get("module", "") for r in models]
         for module, count in Counter(model_ids).items():
@@ -323,13 +411,45 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
                 errors.append(f"{module}: stale module-models baseline")
             original = {r["id"]: r for r in module_catalog
                         if r.get("tier") == "core" and r.get("owner") == module}
+            original_cores.update(original)
             selected = {r["id"]: r for r in catalog if r.get("owner") == module}
-            if set(original) != set(selected):
+            if (selection_mode != "selected" or not modern) and set(original) != set(selected):
                 errors.append(f"{module}: overview core IDs differ from module model")
+            elif not set(selected).issubset(original):
+                errors.append(f"{module}: selected core IDs not present in module model")
             for uid in set(original) & set(selected):
                 for field in ("name", "owner", "level", "primary", "supporting", "sources"):
                     if original[uid].get(field) != selected[uid].get(field):
                         errors.append(f"{uid}: overview {field} differs from module model")
+        if modern:
+            try:
+                decisions = table(text, "overview-selection")
+            except ValueError as exc:
+                errors.append(str(exc))
+                decisions = []
+            decision_ids = [r.get("id", "") for r in decisions]
+            if len(decision_ids) != len(set(decision_ids)) or set(decision_ids) != set(original_cores):
+                errors.append("Overview selection decisions must account once for every source core")
+            chosen = set()
+            for row in decisions:
+                uid = row.get("id", "")
+                if row.get("decision") not in ("selected", "excluded"):
+                    errors.append(f"{uid}: invalid selection decision")
+                if not row.get("rationale"):
+                    errors.append(f"{uid}: selection decision needs rationale")
+                refs(row.get("sources", ""), f"selection {uid}")
+                if row.get("decision") == "selected":
+                    chosen.add(uid)
+            if chosen != set(uc_ids):
+                errors.append("Overview selected core IDs differ from catalog")
+            if selection_mode == "full" and chosen != set(original_cores):
+                errors.append("Full overview core IDs differ from module model")
+            if selection_mode == "selected":
+                selected_groups = {code[:9] for row in catalog for code in REQ.findall(row.get("sources", "")) if code.startswith("FR-")}
+                omitted = expected - selected_groups
+                expected &= selected_groups
+                if omitted:
+                    warnings.append("SELECTED OVERVIEW: source groups outside selected core evidence are not detailed coverage: " + ", ".join(sorted(omitted)))
 
     points = table(text, "extension-points")
     point_ids = [row.get("id", "") for row in points]
@@ -343,10 +463,14 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
             errors.append(f"Extension point has unknown base: {base}")
         anchor(row.get("at", ""), row.get("id", "extension point"), base)
 
-    generalizations, includes = [], []
+    generalizations, includes, seen_relations = [], [], set()
     for row in table(text, "relations"):
         kind, start, end = (row.get(k, "") for k in ("type", "source", "target"))
         context = f"{kind} {start}->{end}"
+        edge = tuple(row.get(k, "") for k in ("type", "source", "target", "at", "condition", "return_to"))
+        if edge in seen_relations:
+            errors.append(f"{context}: duplicate relation")
+        seen_relations.add(edge)
         if start not in uc_ids or end not in uc_ids or start == end:
             errors.append(f"{context}: invalid endpoints")
         if kind not in ("include", "extend", "generalization"):
@@ -414,6 +538,8 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
 
     approved = items(meta.get("approved_steps", ""))
     completed = items(meta.get("completed_steps", ""))
+    if meta.get("current_step") not in [str(i) for i in range(1, 8)]:
+        errors.append("Invalid current_step: expected 1..7")
     if any(x not in [str(i) for i in range(1, 8)] for x in approved + completed):
         errors.append("Invalid completed_steps/approved_steps")
     if not set(approved).issubset(completed):
@@ -445,6 +571,10 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
             members = set(items(row.get("members", "")))
             for uid in members - set(uc_ids):
                 errors.append(f"Diagram {row.get('id')}: unknown UC member {uid}")
+            if modern and row.get("view") in ("core", "system"):
+                expected_members = {r["id"] for r in catalog if r.get("tier") == "core"}
+                if members != expected_members:
+                    errors.append(f"Diagram {row.get('id')}: overview members differ from core catalog")
             if row.get("view") == "detail":
                 focus = row.get("focus", "")
                 if by_id.get(focus, {}).get("tier") != "core":
@@ -464,6 +594,29 @@ def validate(path: Path, repo: Path = ROOT, final: bool = False,
                 errors.append(f"Diagram {row.get('id')}: incomplete render evidence")
             if row.get("format") == "illustrative":
                 errors.append(f"Diagram {row.get('id')}: illustrative view is not formal UML")
+            if modern and row.get("format") not in ("plantuml", "mermaid", "illustrative"):
+                errors.append(f"Diagram {row.get('id')}: unknown diagram format")
+            artifact = row.get("artifact", "")
+            if artifact:
+                artifact_path = (path.parent / artifact).resolve()
+                if not modern and not artifact_path.is_file():
+                    legacy_path = (repo / artifact).resolve()
+                    if legacy_path.is_relative_to(repo.resolve()) and legacy_path.is_file():
+                        artifact_path = legacy_path
+                issue = ""
+                if Path(artifact).is_absolute() or re.match(r"^(?:[A-Za-z]:|[\\/]{2})", artifact):
+                    issue = "must use a relative artifact path"
+                elif artifact_path.suffix.lower() != ".svg" or not artifact_path.is_file():
+                    issue = "must point to an existing .svg file relative to the US document"
+                else:
+                    try:
+                        root = ET.parse(artifact_path).getroot()
+                        if root.tag not in ("svg", "{http://www.w3.org/2000/svg}svg"):
+                            issue = "XML root must be svg"
+                    except (OSError, ET.ParseError) as exc:
+                        issue = f"invalid SVG XML: {exc}"
+                if issue:
+                    (errors if modern else warnings).append(f"Diagram {row.get('id')}: SVG artifact {issue}")
     warnings.append("Manual checks remain: source meaning, goal quality, relation semantics, diagrams")
     return errors, warnings, label
 

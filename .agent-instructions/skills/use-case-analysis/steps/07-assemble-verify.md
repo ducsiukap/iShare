@@ -8,14 +8,20 @@
    UI máy móc; owner/ID dùng chung nhất quán.
    Mỗi module đủ core và sub, mỗi core có sub, không sub mồ côi; decomposition
    có lý do/nguồn và tách biệt relation UML. Overview chỉ gồm core lấy nguyên
-   từ các module nguồn, không thiếu/thừa hoặc đổi ID/tên/owner.
+   từ các module nguồn, giữ ID/tên/owner; full đủ toàn bộ, selected đúng tập đã
+   chọn và có quyết định cho mọi core. Không xem core excluded là bị xóa nghiệp vụ.
 3. Review hợp đồng từng UC chi tiết: trigger, điều kiện, luồng chính, lỗi/thay
    thế, kết quả; mọi nhánh có điểm rẽ và nơi tiếp tục/kết thúc.
+   Walkthrough mỗi đường theo quality-gates; so level/nhãn trong catalog, spec,
+   brief, rationale và SVG. Không dùng một rationale Summary cho core User goal.
 4. Review từng relation theo modeling-rules: điểm gọi include, extension point/
    guard/return của extend, hợp đồng chung của generalization. Review association
    và actor hierarchy riêng với quyền FR.
 5. Đọc lại nguồn để xác nhận mapping đúng nghĩa, đủ nhóm/FR chi tiết/BR/AUT
    thuộc scope; không có hành vi ngoài nguồn. Rà giao tiếp liên module.
+   Kiểm nơi sở hữu quan hệ, backlink/impact record và baseline nguồn normative;
+   gap còn mở có người xác nhận, mức chặn và điều kiện đóng. Không hoàn tất phần
+   bị blocking; không tự đóng bằng giả định hay nguồn context chưa chốt.
 6. Chạy check_us.py --final; ghi scope thực tế, lệnh, số lỗi/cảnh báo và giới hạn.
    Công cụ này không render sơ đồ và không chứng minh đầy đủ ngữ nghĩa.
 7. Kiểm parser, hình xuất và consistency sơ đồ theo diagram-rules; ghi trạng

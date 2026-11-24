@@ -8,8 +8,9 @@
 | key | value |
 |---|---|
 | document_id | {{DOCUMENT_ID}} |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | {{module_or_overview_or_partial}} |
+| overview_selection | {{full_or_selected_for_overview_otherwise_dash}} |
 | modules | {{Mxx_LIST}} |
 | scope | {{ALL_or_FULL_FR_IDS}} |
 | status | Đang soạn |
@@ -26,6 +27,8 @@
 mode: module / overview / partial. scope: ALL hoặc danh sách đầy đủ các mã FR/BR
 giới hạn phạm vi; partial phải ghi giới hạn và dùng --scope khi kiểm tra.
 Overview hoàn tất danh mục/view, không hàm ý đặc tả sâu mọi UC.
+overview_selection: full / selected khi overview, dấu - khi mode khác.
+Selected chỉ bao phủ phần core được chọn; mọi core nguồn vẫn có quyết định.
 completed_steps ghi sau khi làm xong; approved_steps chỉ ghi theo xác nhận thật.
 
 | Bước | Phần đã hoàn tất/thay đổi | Xác nhận của người dùng | Baseline | Cần làm lại |
@@ -45,8 +48,10 @@ completed_steps ghi sau khi làm xong; approved_steps chỉ ghi theo xác nhận
 |---|---|---|
 | docs/specs/fr/FR-{{Mxx}}.md | {{VERSION}} | owner |
 
-Ghi mọi FR liên quan thực sự đọc; role: owner / related. Rubric và tài liệu
-phương pháp ghi riêng, không dùng thay nguồn tính năng.
+Ghi mọi FR thực sự đọc; role: owner / normative / context; related tương thích
+cũ được hiểu như normative. Owner/normative/related phải Đã chốt; context chỉ
+tham khảo, không dùng mã từ đó làm căn cứ hành vi. Rubric/phương pháp/quy chuẩn
+tên ghi riêng cùng trạng thái, không dùng thay nguồn tính năng.
 
 ### Danh mục actor
 
@@ -100,6 +105,27 @@ Overview hệ thống giữ bảng rỗng và trỏ đến phân rã trong từn
 Chỉ điền ở mode overview: path là đường dẫn từ repo root đến US-Mxx.md, baseline
 là source_baseline trong tài liệu module. Ghi một dòng mỗi module trong phạm vi.
 Module chưa có danh mục hai tầng được ghi chưa hoàn tất, không tự điền UC thay thế.
+
+### 2.4 Quyết định lựa chọn core vào tổng quan
+
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+Overview v2.3 ghi đúng một dòng cho mọi core trong các module nguồn:
+decision=selected/excluded, rationale cụ thể, sources là mã nguồn còn hiệu lực.
+Full: tất cả selected; selected: catalog/hình đúng tập selected. Không phải
+overview thì giữ bảng rỗng. Core excluded có link về owner trong phần giải thích;
+không đổi ID/owner/tên/phạm vi hoặc nâng sub để thay thế. Tổng quan một boundary
+iShare, không khối module con. Không tự ghi Đủ cho phần nghiệp vụ không vẽ.
+
+### 2.5 Kiểm chất lượng ứng viên và phân rã
+
+| Core/sub hoặc cặp UC | Actor/goal/trigger/kết quả/phạm vi | Khác biệt/đóng góp | Giữ/gộp/tách/vấn đề mở | Nguồn |
+|---|---|---|---|---|
+
+Ghi các quyết định cần giải thích, đặc biệt mapping 1:1 và ứng viên trùng phạm
+vi; không cần lặp toàn catalog. Không bịa sub để đủ tầng.
 
 | Quyết định | Hành vi FR | Biểu diễn được chọn | Vì sao giữ/gộp/tách | Phương án khác |
 |---|---|---|---|---|
@@ -165,6 +191,14 @@ bắt đầu bằng ID UC viết thường, theo sau là main-N / alt-N / pre / 
 
 Nếu không có nhánh theo FR, ghi rõ sau đối chiếu. Không bịa lỗi/retry để đủ bảng.
 
+#### Walkthrough các đường đi
+
+| Đường đi/anchor | Trạng thái/quyền trước | Nhánh và return/END | Postcondition thực tế | Nguồn/kết quả review/gap |
+|---|---|---|---|---|
+
+Kiểm luồng chính và từng nhánh có nguồn; điểm hợp luồng chỉ khẳng định điều
+đúng cho mọi nhánh đi vào. Bảng có thể gom tại QA nếu ghi rõ UC/đường đi tương ứng.
+
 #### Quy tắc và điểm chưa rõ
 
 <a id="uc-{{mxx}}-002-rules"></a>
@@ -210,10 +244,21 @@ của target; rationale ghi phần kế thừa và chuyên biệt. Không bắt 
 
 ### Association actor–UC
 
-| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 |---|---|---|---|---|
 
 Không coi bảng quyền hoặc link màn hình tự tạo quan hệ giữa UC.
+Ghi tương tác thực tế, không suy mọi actor của core được làm mọi sub. Cạnh kế
+thừa được rút gọn trên hình cần giải thích actor cha/nguồn, không cấp quyền mới.
+
+### Nơi sở hữu và đồng bộ quan hệ liên module
+
+| Relation/endpoints | Nơi khai báo chính/owner | Baseline/hợp đồng hai phía | View chịu tác động | Trạng thái đồng bộ/bằng chứng |
+|---|---|---|---|---|
+
+Quan hệ mới ở overview chưa có tại owner ghi proposal/cần đồng bộ. Không sửa
+ngoài scope hoặc khẳng định owner đã đồng bộ khi chưa kiểm.
 
 ### Kết luận các cặp không có quan hệ UML
 
@@ -272,7 +317,8 @@ Có thể thêm view phụ, không dùng một hình chung thay các hình riên
 {{SYSTEM_CORE_DIAGRAM_OR_LINK_TO_US_OVERVIEW}}
 
 Module document ghi link tới US-overview.md nếu đã có. Khi chưa có hoặc ngoài
-scope thì ghi chưa tổng hợp. Mode overview vẽ các core từ bảng module-models;
+scope thì ghi chưa tổng hợp. Mode overview vẽ tập core theo overview_selection
+và bảng quyết định từ các module-models;
 không đưa sub vào hình tổng quan và không tự tạo core khác với nguồn module.
 
 Mỗi view ghi subject, scope, ID và renderer; dùng ký pháp UML phù hợp.
@@ -293,6 +339,8 @@ trong hình (ngăn bằng dấu phẩy). View core/system dùng focus=-, members
 các ID xuất hiện. Thêm hình phụ ở QA, không tạo hai dòng detail chính cùng focus.
 artifact là đường dẫn tới file `.svg` duy nhất của view; format mô tả công cụ/
 ngôn ngữ dựng hình, không yêu cầu bàn giao file nguồn tương ứng.
+Đường dẫn artifact tương đối với US, phải tồn tại và có XML root SVG để checker
+v2.3 kiểm tra; checker không xác minh hình đọc được hoặc node/cạnh đúng nghĩa.
 Ghi phiên bản renderer và vị trí hình xuất; không có sơ đồ thì ghi diagram_check
 not-applicable kèm lý do trong bảng QA. Không dùng not-applicable để bỏ qua
 sơ đồ bắt buộc của tài liệu tổng quan/module hoàn chỉnh.
@@ -305,8 +353,12 @@ sơ đồ bắt buộc của tài liệu tổng quan/module hoàn chỉnh.
 
 ### Điểm cần làm rõ
 
-| ID | Nguồn | Vấn đề | Ảnh hưởng | Trạng thái/quyết định |
-|---|---|---|---|---|
+| ID | Nguồn/baseline | Vấn đề | UC/luồng/quan hệ bị ảnh hưởng | Blocking/nonblocking và lý do | Người xác nhận | Register | Trạng thái/quyết định | Bằng chứng đóng/baseline cần cập nhật |
+|---|---|---|---|---|---|---|---|---|
+
+Giữ open/pending-confirmation khi chưa có quyết định được chấp thuận. Không tự
+bịa mã register hay đóng gap bằng giả định; chưa xác định người xử lý thì ghi
+rõ. Blocking chặn hoàn tất phần phụ thuộc, không chặn phần độc lập được phép.
 
 ### ID cũ → mới (khi thực sự cần chuyển đổi)
 

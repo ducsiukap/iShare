@@ -67,6 +67,11 @@ Chỉ tách UC hỗ trợ khi có lợi rõ cho tái sử dụng, độ rõ ho�
 tạp. Gõ @, mở form, kiểm tra định dạng và hiện lỗi thường là bước/quy tắc.
 Có mã FR chứng minh căn cứ, không tự chứng minh cần oval.
 
+Chốt từng ứng viên bằng actor/goal/trigger/kết quả/phạm vi; so chéo để tìm trùng,
+thiếu, chồng phạm vi và mapping 1:1 hình thức theo
+[quality-gates](quality-gates.md). Hai tầng là quy ước đầu ra iShare, không phải
+bằng chứng có hai mục tiêu khác nhau. Thiếu khác biệt thì ghi vấn đề cần review.
+
 FR↔UC là nhiều–nhiều: giữ, gộp, tách hoặc phân bổ. Tên dùng cụm động từ phản ánh
 mục tiêu gắn kết; “Đăng nhập bằng email và mật khẩu” hợp lệ. “Quản lý…” không
 tự chứng minh mức User goal hay quan hệ kế thừa.
@@ -84,6 +89,8 @@ Không dùng tiền điều kiện để giấu một trường hợp FR yêu c�
 
 Kết quả thất bại chỉ ghi bảo đảm có căn cứ FR. Thiếu quy tắc giao dịch,
 rollback/retry có ảnh hưởng nghiệp vụ thì ghi gap, không tự điền yêu cầu mới.
+Walkthrough từng đường đi và điểm hợp luồng theo quality-gates trước khi chốt
+semantic_review. Mỗi nhánh phải đạt postcondition phù hợp, không chỉ có link END.
 
 ## Quan hệ
 
@@ -111,6 +118,14 @@ khi lỗi. Chèn hành vi không tương đương “B xảy ra trước A” ho
 thái B tạo”. Đã đăng nhập trước Đổi mật khẩu là tiền điều kiện nếu FR mô tả
 như vậy; không bắt đăng nhập lại bằng include.
 
+Include diễn tả hành vi được bao hàm bắt buộc, không phải phần bổ sung tùy chọn.
+Khi đường đi đến điểm gọi, phải thực hiện hợp đồng included; condition không
+là guard UML của include. Nếu điểm gọi chỉ xuất hiện ở một nhánh, phải ghi
+đường đi, bằng chứng và lý do tách; không suy include chỉ từ chữ “nếu”. Mặc định
+giữ nhánh khi chưa chứng minh được quan hệ. Nếu rubric áp dụng yêu cầu included
+ở mọi lần thực hiện including, đối chiếu rõ với mô hình nhánh và ghi cần xác
+minh khi bất đồng; không âm thầm đổi hành vi nguồn để làm vừa sơ đồ.
+
 Tái sử dụng là lý do thường gặp, không phải yêu cầu có ít nhất hai nơi gọi.
 Cần giải thích việc tách. Include không quyết định thứ tự giữa các phần được
 bao hàm; ghi thứ tự và xử lý lỗi trong luồng.
@@ -137,11 +152,15 @@ chỉ để gom CRUD cùng đối tượng.
 Email/Google có thể là alternative flows trong Đăng nhập, hoặc UC chuyên
 biệt nếu cần quản lý luồng riêng và hợp đồng chung rõ. Không ép một đáp án.
 Các con không phải bước nối tiếp của cha; package không sinh quan hệ UML.
+Rà khả năng thay thế: con bảo toàn mục tiêu/kết quả và các cam kết của cha;
+phần chuyên biệt có nguồn, không phủ nhận hợp đồng cha hoặc tự cấp quyền thêm.
 
 ## Liên module và hành vi tự động
 
 UC có owner rõ, một ID trên mọi view, được nhiều UC sử dụng. Đối chiếu sự kiện,
 quyền xem và kết quả ở cả hai bên giao tiếp. Không thêm việc vì sơ đồ còn trống.
+Relation liên module có nơi khai báo chính và impact record theo quality-gates;
+khai báo mới ở overview chưa đồng bộ owner phải ghi proposal/cần đồng bộ.
 
 AUT ghi trigger thời gian/sự kiện, điều kiện/trạng thái trước, kết quả/trạng thái
 sau, quy tắc dữ liệu và nguồn. Không dựng clock/scheduler actor giả. Có thể dùng

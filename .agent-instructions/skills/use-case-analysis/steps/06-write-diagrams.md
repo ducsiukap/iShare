@@ -21,7 +21,10 @@
 3. Tổng quan hệ thống: đọc core của các module nguồn trong module-models,
    giữ ID/tên/owner, hợp nhất actor đúng vai trò. Chỉ core hiện trên hình này;
    không đưa sub vào hoặc tự tạo “UC tổng quan” khác với core nguồn.
-4. Đối chiếu hai chiều: core module không thiếu trên tổng quan; sub không
+4. Đối chiếu hai chiều theo overview_selection: full không thiếu core nguồn;
+   selected có quyết định cho mọi core và catalog/hình đúng tập selected.
+   Không thêm UC hoặc đổi endpoint khi lọc view. Tổng quan có một boundary
+   iShare, không khối module con; sub không
    mồ côi trong chi tiết; sub dùng chung có cùng ID ở mọi view. Module thiếu
    phân tích không được nhận là hoàn tất tổng quan toàn hệ thống.
 5. Boundary/association đúng; core–sub mapping không tự thành mũi tên UML.

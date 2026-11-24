@@ -16,6 +16,9 @@
 4. Lập bảng decomposition ứng viên core → sub. Mỗi core có ít nhất một sub,
    mỗi sub thuộc ít nhất một core. Giải thích đóng góp vào mục tiêu; mapping
    không tự sinh quan hệ include/extend/generalization.
+   Đối chiếu goal/trigger/kết quả/phạm vi giữa các ứng viên để phát hiện thiếu,
+   trùng, chồng phạm vi và core/sub chỉ đổi tên. Mapping 1:1 cần lý do khác biệt
+   hoặc quy ước; không bịa sub để đủ tầng. Dùng phép kiểm ở quality-gates.
 5. Tái sử dụng UC dùng chung bằng một ID và nhiều dòng mapping; có owner rõ.
    Phân biệt hành vi cần đặc tả bằng bước, điều kiện/BR/AUT với UC con thật.
 6. Điền catalog có tier và level, anchor ổn định. Ghi brief/quy trình tổng quát

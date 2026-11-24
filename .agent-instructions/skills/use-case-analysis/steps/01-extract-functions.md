@@ -6,6 +6,8 @@
 [modeling-rules](../references/modeling-rules.md).
 
 1. Xác nhận mode module/overview/một phần; ghi rõ yêu cầu trong và ngoài scope.
+   Overview chốt full/selected, boundary và tiêu chí lựa chọn; tách quyền tạo
+   bản nháp, quyền sửa tài liệu và phê duyệt kết quả.
 2. Kiểm tra trạng thái và phiên bản FR. Ghi nguồn, phiên bản, mốc register và
    baseline thực tế. Chỉ đọc thêm FR cần thiết để hiểu giao tiếp.
 3. Xác định subject/boundary; phân biệt iShare, subsystem và dịch vụ ngoài.
@@ -15,6 +17,8 @@
    bằng chứng; chưa phân rã tất cả thành UC.
 6. Tạo/cập nhật US theo template, điền metadata, bảng nguồn/actor/phạm vi.
    Chưa có đủ dữ liệu thì ghi gap có ID, nguồn và ảnh hưởng.
+   Phân loại blocking/nonblocking, người xác nhận, register và điều kiện đóng
+   theo quality-gates. Không coi thiếu quyền/nguồn là giả định để tiếp tục chốt.
 
 Kiểm tra: đúng phạm vi; không thiếu nguồn; actor ngoài subject; không tự tạo
 dịch vụ/scheduler; không sửa FR để khớp mô hình. Mode overview ghi rõ danh mục

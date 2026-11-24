@@ -21,6 +21,10 @@ trong [modeling-rules](../references/modeling-rules.md).
    đoán một kết quả là cách hoàn tất template.
 7. Overview hệ thống chỉ dùng brief các UC chính lấy từ module nguồn và link
    tới phân rã/đặc tả UC con, không sao chép toàn bộ luồng chi tiết.
+8. Walkthrough luồng chính và từng nhánh theo quality-gates: trạng thái/quyền
+   trước → bước rẽ → return/END → postcondition. Ghi QA theo đường đi; điểm
+   hợp luồng phải đúng cho tất cả nhánh đi vào. Thiếu thứ tự/đảm bảo thất bại
+   quan trọng thì ghi gap, không tự thiết kế transaction/retry.
 
 Kiểm tra: điều kiện và trigger khác nhau; không giấu lỗi trong tiền điều kiện;
 nhánh có kết thúc/quay lại; quyền/nguồn đúng; UI ở mức FR quy định. Subfunction

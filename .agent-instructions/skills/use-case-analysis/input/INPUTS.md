@@ -11,6 +11,12 @@ không gắn ổ đĩa cụ thể hoặc dùng file URI.
 | Toàn dự án | FR đã chốt và danh mục core trong US module | US-overview.md: tổng hợp core module thành sơ đồ toàn hệ thống |
 | Một phần/review | Tập mã/tài liệu được chỉ định, ghi rõ giới hạn | Vị trí yêu cầu hoặc workspace draft |
 
+Overview ghi `overview_selection=full|selected` theo hợp đồng trong
+[quality-gates](../references/quality-gates.md). Tài liệu v2.3 mới dùng bảng
+overview-selection cho mọi core nguồn, kể cả core excluded. Ngoài overview,
+metadata overview_selection=- và bảng rỗng. Không đồng nhất selected với partial
+FR: selected vẫn là mode overview, còn partial giới hạn tập yêu cầu chi tiết.
+
 Thiếu nguồn hoặc nguồn chưa chốt: thống kê phần đã có, ghi điểm cần làm rõ;
 không chốt đặc tả phần thiếu. Không tự mở rộng scope khi đọc FR liên module.
 
@@ -30,6 +36,16 @@ không chốt đặc tả phần thiếu. Không tự mở rộng scope khi đ�
 Ghi đường dẫn và phiên bản từng FR đã dùng vào bảng nguồn. Tài liệu phương
 pháp không cung cấp tính năng sản phẩm. Mâu thuẫn FR/register phát hiện sau
 phải quay về phân tích yêu cầu, không tự bỏ qua FR đã chốt.
+Role nguồn: owner; normative (quy định hành vi liên module); related (tương
+thích cũ, mặc định như normative); context (chỉ tham khảo, không dùng làm căn
+cứ hành vi/quan hệ). Owner/normative/related phải Đã chốt trước khi chốt phần
+phân tích phụ thuộc. Context chưa chốt được đọc nhưng không thắng nguồn đã
+duyệt. Ghi trạng thái/hiệu lực register; không tự chọn nguồn thắng khi mâu thuẫn.
+
+Đọc `docs/specs/us/UC-NAMING.md` nếu có, ghi nhận phiên bản/trạng thái. Quy tắc
+đang đề xuất không tự là chuẩn đã duyệt. Có thể đọc code/test/schema hiện có
+khi nhiệm vụ cần đối chiếu implementation; ghi là bằng chứng hiện trạng, không
+để code/ví dụ thay FR đã chốt hoặc âm thầm bổ sung yêu cầu sản phẩm.
 
 ## ID và phạm vi
 

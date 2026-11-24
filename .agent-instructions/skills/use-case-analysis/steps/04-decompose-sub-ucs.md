@@ -13,7 +13,10 @@
    include/extend/generalization; có thể tổ chức bằng package hoặc bảng phân rã.
 4. Chỉ giữ một thao tác làm UC con khi có mục tiêu/hành vi đáng đặc tả riêng.
    Các phần còn lại là bước, nhánh, điều kiện/BR/AUT với truy vết đầy đủ.
-5. Xét include: bước gọi, hành vi đích và nơi tiếp tục; phân biệt tiền điều kiện.
+5. Xét include: hành vi được chèn bắt buộc tại điểm gọi và nơi tiếp tục; phân
+   biệt tiền điều kiện. Nếu điểm gọi ở nhánh, mô tả rõ đường đi và lý do include,
+   không biến guard tùy ý thành cạnh include; đối chiếu rubric phương pháp nếu
+   có yêu cầu include trong mọi instance (xem modeling-rules).
 6. Xét extend: extension point thuộc base, guard, phần chèn và điểm quay lại/
    kết thúc; giải thích vì sao không chỉ dùng alternative flow.
 7. Xét generalization: cha abstract/concrete, hợp đồng chung, phần chuyên biệt
@@ -29,6 +32,9 @@
    gồm lý do và cách thể hiện (nhóm, luồng hoặc tham chiếu); không bịa mũi tên.
 9. Đồng bộ brief core, mọi đặc tả sub và association actor–UC; không suy quyền
    của sub chỉ từ actor gắn với core. Review cycle và nguồn.
+10. Rà cạnh trùng, cùng cặp nhiều loại quan hệ và hợp đồng con bảo toàn cha.
+    Relation liên module có nơi khai báo chính/owner, baseline và impact record;
+    thiếu quyền sửa owner thì ghi proposal/cần đồng bộ, không tự sửa ngoài scope.
 
 Kiểm tra: mỗi module có hai tầng rõ; mọi sub có đặc tả; cùng ID xuyên view;
 relation có bằng chứng độc lập với việc phân rã.

@@ -15,6 +15,10 @@ module và đặc tả nghiệp vụ phục vụ thiết kế, kiểm thử.
 Đầu vào là FR đã chốt và FR liên quan. Đầu ra module:
 `docs/specs/us/US-Mxx.md`; tổng quan: `docs/specs/us/US-overview.md`.
 Phạm vi một phần được ghi rõ, không báo hoàn tất toàn module.
+V2.3 phân biệt overview full (mọi core trong scope) và selected (tập core được
+chọn từ module hiện có). Selected ghi lý do selected/excluded cho mọi core,
+không tạo UC tổng quan mới, không nâng sub và không nhận bao phủ toàn bộ FR.
+Tổng quan có một boundary iShare, không chia khối module con.
 
 Mỗi sơ đồ chỉ bàn giao **một file SVG** và nhúng/link trong tài liệu US.
 Không tạo bộ ba SVG + PNG + PlantUML; file nguồn/render trung gian chỉ nằm
@@ -31,8 +35,14 @@ trong workspace agent khi cần để tạo hoặc kiểm tra SVG.
    UC đó, các UC con và quan hệ chính–con/con–con; kiểm tra render.
 7. Review, trình duyệt cuối.
 
-Mỗi bước có xác nhận; tiến độ/baseline nằm trong US. Checklist kỹ thuật
+Mặc định mỗi bước có xác nhận; nếu người dùng cho phép làm liên tục trong scope
+hiện tại thì tiếp tục, vẫn giữ xác nhận thực hiện tách khỏi duyệt kết quả.
+Tiến độ/baseline nằm trong US. Checklist kỹ thuật
 hoàn tất không tự có nghĩa stakeholder đã phê duyệt.
+
+Bản nháp mới mặc định ở workspace theo COMMON-RULES; docs/specs/us là đích bàn
+giao hoặc nơi được người dùng yêu cầu trực tiếp. Cập nhật skill không tự migrate
+US cũ, đổi version metadata, sửa SVG hoặc đóng các điểm chưa rõ của dự án.
 
 ## Các nguyên tắc
 
@@ -52,6 +62,9 @@ hoàn tất không tự có nghĩa stakeholder đã phê duyệt.
 - [Quy tắc mô hình hóa](references/modeling-rules.md): quyết định và nguồn phương pháp.
 - [Sơ đồ](references/diagram-rules.md): ký pháp, renderer, lệnh.
 - [Ví dụ giới hạn phạm vi](references/worked-example.md): Đăng xuất và phản ví dụ.
+- [Walkthrough quan hệ](references/relation-walkthrough-example.md): fixture phương pháp độc lập.
+- [Kiểm soát chất lượng](references/quality-gates.md): chọn core, độ gắn kết, luồng, gap và owner.
+- [Đánh giá hành vi](references/evaluation-scenarios.md): fixture/rubric khi kiểm chứng skill.
 - [Template](output/us-template.md): đầu ra và các bảng kiểm tra bằng máy.
 - [Công cụ](tools/README.md): cách chạy, mức kiểm tra và giới hạn.
 

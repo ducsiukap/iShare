@@ -58,6 +58,9 @@ tam giác UML. Nếu dùng, ghi rõ giới hạn, không nghiệm thu là ký ph
 
 - Overview dự án: chỉ UC chính (core) lấy từ module, actor và ownership; giữ
   ID/tên, link về module, không đưa sub lên sơ đồ tổng quan toàn hệ thống.
+  Áp dụng full/selected và bảng overview-selection; tổng quan hệ thống có một
+  boundary iShare, không chia thành các khối module con. Package dùng cho view
+  chi tiết không biến thành yêu cầu chia khối ở tổng quan.
 - Overview module: UC chính và actor của module, làm đầu vào ghép toàn hệ thống.
 - Chi tiết module: **mỗi core có một sơ đồ riêng**, gồm node core, toàn bộ sub
   theo decomposition, actor và các quan hệ core–sub/sub–sub. Package có thể hỗ
@@ -71,11 +74,16 @@ tam giác UML. Nếu dùng, ghi rõ giới hạn, không nghiệm thu là ký ph
   Lặp cùng ID ở **các sơ đồ khác nhau** là hợp lệ.
 - Đối chiếu endpoints, chiều, nhãn, extension point với bảng quan hệ. Phát hiện
   cycle generalization/include để review; không biến điều hướng UI thành quan hệ.
+- Đối chiếu association từ bảng associations; nếu rút gọn cạnh kế thừa trên
+  hình, ghi actor cha và lý do. Giữ rõ node/edge được kế thừa với cạnh trực tiếp.
+  Quan hệ chưa đồng bộ owner ghi đúng trạng thái theo quality-gates.
 
 ## Định dạng bàn giao
 
 - Mỗi sơ đồ/view chỉ bàn giao **một file `.svg`** trong thư mục sơ đồ của US.
   Tài liệu US nhúng/link SVG; cột artifact trỏ tới chính file này.
+  Artifact là đường dẫn tương đối US. Checker v2.3 kiểm file tồn tại, đuôi SVG
+  và XML root SVG; kiểm hình/đúng node và cạnh vẫn là bước QA riêng.
 - Không tạo kèm `.png`, `.puml` hoặc `.mmd` trong thư mục đầu ra. File nguồn
   cần cho renderer nằm trong workspace agent; chỉ chuyển SVG đã kiểm tra
   sang vị trí bàn giao. Không thêm link tải file trung gian vào US.

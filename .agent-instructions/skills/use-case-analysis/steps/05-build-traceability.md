@@ -2,6 +2,10 @@
 
 [Vietnamese Doc]
 
+Đối chiếu quality-gates cho nguồn normative/context và gap. Với selected
+overview, truy vết đúng phần core được chọn; ghi phần không biểu diễn và link
+module, không nhận bao phủ toàn bộ FR chi tiết hoặc tự đánh Đủ cho core excluded.
+
 Dùng bảng marker của [template](../output/us-template.md) và
 [công cụ](../tools/README.md).
 

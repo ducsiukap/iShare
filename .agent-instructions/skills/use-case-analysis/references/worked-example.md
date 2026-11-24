@@ -2,7 +2,7 @@
 
 [Vietnamese Doc]
 
-Đây là ví dụ phương pháp của skill 2.2, không phải tài liệu được stakeholder
+Đây là ví dụ phương pháp của skill 2.3, không phải tài liệu được stakeholder
 duyệt và không đại diện toàn bộ M01. Chỉ đặc tả FR-M01-07 và hai yêu cầu con;
 UC chính quản lý phiên được ghi để minh họa ngữ cảnh phân rã, không nhận là
 đã phân tích đủ các UC con Đăng nhập/Duy trì phiên của toàn bộ M01.
@@ -12,8 +12,9 @@ Không thêm bước xác nhận đăng xuất vì nguồn không yêu cầu.
 | key | value |
 |---|---|
 | document_id | EXAMPLE-M01-LOGOUT |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | partial |
+| overview_selection | - |
 | modules | M01 |
 | scope | FR-M01-07 |
 | status | Đang soạn |
@@ -105,6 +106,16 @@ Không tự thêm hộp xác nhận, redirect hoặc chiến lược retry.
 
 Không có quan hệ UC–UC cần thiết trong phạm vi ví dụ.
 
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
+|---|---|---|---|---|
+| ACT-001 | UC-M01-020 | Chủ thể mục tiêu trong phần scope minh họa | Có phiên hiện tại; không cấp mọi quyền của core | FR-M01-07.01 |
+| ACT-001 | UC-M01-001 | Yêu cầu kết thúc phiên | Có phiên thiết bị hiện tại | FR-M01-07.01 |
+
+Walkthrough: có phiên → yêu cầu kết thúc → phiên hiện tại kết thúc → success;
+phiên thiết bị khác giữ nguyên. Nguồn không quy định lỗi kỹ thuật trong scope,
+không tự thêm retry/rollback. Rationale core Summary và sub User goal khớp catalog.
+
 <!-- uc:trace -->
 | requirement | target | coverage | note |
 |---|---|---|---|
@@ -140,3 +151,5 @@ python -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py .a
 
 Kết quả là kiểm tra cấu trúc/truy vết cho phạm vi nhỏ, không phải phê duyệt M01.
 Khi FR-M01 đổi phiên bản, công cụ báo stale baseline; review trước khi cập nhật.
+
+Ví dụ quan hệ dương và phản ví dụ: [relation-walkthrough-example.md](relation-walkthrough-example.md).
