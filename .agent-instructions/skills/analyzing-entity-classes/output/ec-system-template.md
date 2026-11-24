@@ -26,17 +26,19 @@ steps_completed: []
 
 <!-- Sở hữu: đúng một module. Cột "Module tham chiếu": các module khác có dùng lớp này. -->
 
-| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Nguồn | Module tham chiếu |
-|---|---|---|---|---|---|---|
-| | | | | | | |
+| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn | Module tham chiếu |
+|---|---|---|---|---|---|---|---|
+| | | | | | | | |
 
 ### 2.3 Thuộc tính
 
-<!-- Nguồn ghi mã FR, có thể kèm mã module khi thuộc tính do module khác bổ sung (ví dụ "M12: FR-M12-03.01"). -->
+<!-- Nguồn ghi mã FR, có thể kèm mã module khi thuộc tính do module khác bổ sung (ví dụ "M12: FR-M12-03.01").
+     Căn cứ: Nguồn nêu | Đề xuất. Bản hệ thống không còn dòng Tham chiếu: thuộc tính mà một module đọc của lớp
+     module khác đã nằm ở lớp đó (hoặc là điểm lệch cần quyết định). -->
 
-| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Ràng buộc nguồn nêu | Nguồn |
-|---|---|---|---|---|---|
-| | | | | | |
+| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Căn cứ | Ràng buộc nguồn nêu | Nguồn | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| | | | | | | | |
 
 ## 3. Quan hệ giữa các lớp
 
@@ -56,8 +58,31 @@ steps_completed: []
 
 ## 4. Sơ đồ lớp phân tích toàn hệ thống
 
-<!-- BEGIN:PUML -->
-<!-- END:PUML -->
+<!-- BEGIN:DIAGRAM -->
+<!-- END:DIAGRAM -->
+
+## 7. Bảng tra nghĩa
+
+<!-- Ghi chú ngắn để tra cứu nhanh: mỗi lớp, mỗi thuộc tính, mỗi quan hệ một dòng với ý nghĩa của nó. Ràng buộc, nguồn FR
+     ở mục 2.3; căn cứ chọn loại quan hệ ở mục 3.4. Thuộc tính dẫn xuất có "/" phía trước. Lập ở việc C, trước khi chốt. -->
+
+### 7.1 Lớp
+
+| Lớp | Tên tiếng Việt | Ý nghĩa |
+|---|---|---|
+| | | |
+
+### 7.2 Thuộc tính
+
+| Lớp | Thuộc tính | Ý nghĩa |
+|---|---|---|
+| | | |
+
+### 7.3 Quan hệ
+
+| ID | Quan hệ (bội số) | Loại | Ý nghĩa |
+|---|---|---|---|
+| | | | |
 
 ## 8. Quyết định gộp
 

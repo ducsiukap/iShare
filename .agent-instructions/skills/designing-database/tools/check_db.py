@@ -445,12 +445,12 @@ def check_schema(d, rep):
                   r["Duy nhất"], "" if mdtab.is_empty(r["Tham chiếu"]) else r["Tham chiếu"]))
     if want != have:
         for x in sorted(want - have):
-            rep.error("6.1", "lược đồ cuối thiếu hoặc lệch dòng %s.%s (chạy lại build_schema.py --inplace)" % (x[0], x[1]))
+            rep.error("6.1", "lược đồ cuối thiếu hoặc lệch dòng %s.%s (chạy lại build_schema.py)" % (x[0], x[1]))
         for x in sorted(have - want):
-            rep.error("6.1", "lược đồ cuối thừa hoặc lệch dòng %s.%s (chạy lại build_schema.py --inplace)" % (x[0], x[1]))
-    s6 = mdtab.section_with_children(d["text"], "6")
-    if "@startuml" not in s6:
-        rep.error("6.2", "chưa có mã PlantUML của sơ đồ quan hệ (chạy build_schema.py --inplace)")
+            rep.error("6.1", "lược đồ cuối thừa hoặc lệch dòng %s.%s (chạy lại build_schema.py)" % (x[0], x[1]))
+    from build_schema import build
+    s62 = mdtab.section_with_children(d["text"], "6.2")
+    mdtab.check_diagram(rep, "6.2", d["path"], mdtab.doc_id_of(d["fm"], d["path"]), s62, build(d))
 
 
 def check_final(d, rep):

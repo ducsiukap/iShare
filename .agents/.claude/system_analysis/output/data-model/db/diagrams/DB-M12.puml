@@ -1,0 +1,64 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity upvotes {
+  * id : bigint <<PK>>
+  --
+  * upvoted_at : timestamptz
+  upvoter_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+}
+entity badges {
+  * id : bigint <<PK>>
+  --
+  * name : text
+  * threshold : integer
+}
+entity earned_badges {
+  * id : bigint <<PK>>
+  --
+  * achieved_at : timestamptz
+  * user_id : bigint <<FK>>
+  * badge_id : bigint <<FK>>
+}
+entity earned_titles {
+  * id : bigint <<PK>>
+  --
+  * week : timestamptz
+  * user_id : bigint <<FK>>
+}
+entity leaderboards {
+  * id : bigint <<PK>>
+  --
+  * period : varchar(30)
+  period_start : timestamptz
+  * computed_at : timestamptz
+}
+entity leaderboard_entries {
+  * id : bigint <<PK>>
+  --
+  * period_points : integer
+  * rank : integer
+  grade_level : varchar(30)
+  * leaderboard_id : bigint <<FK>>
+  * user_id : bigint <<FK>>
+}
+entity comments <<M04>> {
+}
+entity posts <<M03>> {
+}
+entity users <<M01>> {
+}
+
+users |o--o{ upvotes : upvoter_id
+posts |o--o{ upvotes : post_id
+comments |o--o{ upvotes : comment_id
+users ||--o{ earned_badges : user_id
+badges ||--o{ earned_badges : badge_id
+users ||--o{ earned_titles : user_id
+leaderboards ||--o{ leaderboard_entries : leaderboard_id
+users ||--o{ leaderboard_entries : user_id
+
+@enduml

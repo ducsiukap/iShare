@@ -1,0 +1,130 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class User {
+  -id : long
+  -email : String
+  -password : String
+  -username : String
+  -displayName : String
+  -role : UserRole
+  -status : AccountStatus
+  -verificationLevel : VerificationLevel
+  -googleLink : String
+  -deactivatedAt : Instant
+  -/deactivationEndsAt : Instant
+  -/isGoogleAccount : boolean
+  -createdAt : Instant
+  -/unreadNotificationCount : int
+  -/banCount : int
+  -isRoot : boolean
+  -totalPoints : int
+  -magicLinks : List<MagicLink>
+  -reactivationCodes : List<ReactivationCode>
+  -loginSessions : List<LoginSession>
+  -policyConsents : List<PolicyConsent>
+  -profile : Profile
+  -bookmarks : List<Bookmark>
+}
+class MagicLink {
+  -id : long
+  -purpose : MagicLinkPurpose
+  -token : String
+  -sentAt : Instant
+  -/expiresAt : Instant
+  -isUsed : boolean
+}
+class ReactivationCode {
+  -id : long
+  -code : String
+  -sentAt : Instant
+  -/expiresAt : Instant
+  -failedAttemptCount : int
+}
+class LoginSession {
+  -id : long
+  -device : String
+  -accessExpiresAt : Instant
+  -refreshToken : String
+  -refreshExpiresAt : Instant
+}
+class Mention {
+  -id : long
+  -notifiedAt : Instant
+  -mentionedUser : User
+}
+class PolicyVersion {
+  -id : long
+  -version : String
+  -content : String
+  -releasedAt : Instant
+  -/isCurrent : boolean
+}
+class PolicyConsent {
+  -id : long
+  -agreedAt : Instant
+  -policyVersion : PolicyVersion
+}
+class Profile <<M02>> {
+}
+class Bookmark <<M02>> {
+}
+class Post <<M03>> {
+  -mentions : List<Mention>
+  -author : User
+}
+class Comment <<M04>> {
+  -mentions : List<Mention>
+  -author : User
+}
+class Follow <<M07>> {
+  -follower : User
+  -followedUser : User
+}
+class Ban <<M08>> {
+  -bannedUser : User
+}
+class Upvote <<M12>> {
+  -upvoter : User
+}
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
+}
+enum AccountStatus {
+  ACTIVE
+  DEACTIVATED
+  DELETED
+  BANNED
+}
+enum VerificationLevel {
+  NONE
+  EMAIL_VERIFIED
+  SETUP_COMPLETED
+}
+enum MagicLinkPurpose {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+}
+
+User "1" o-- "0..*" MagicLink
+User "1" o-- "0..*" ReactivationCode
+User "1" o-- "0..*" LoginSession
+User "1" o-- "0..*" PolicyConsent
+PolicyConsent "0..*" o-- "1" PolicyVersion
+Mention "0..*" o-- "1" User
+Post "0..1" o-- "0..*" Mention
+Comment "0..1" o-- "0..*" Mention
+User "1" o-- "1" Profile
+User "1" o-- "0..*" Bookmark
+Post "0..*" o-- "1" User
+Comment "0..*" o-- "1" User
+Follow "0..*" o-- "1" User
+Follow "0..*" o-- "0..1" User
+Ban "0..*" o-- "1" User
+Upvote "0..*" o-- "0..1" User
+
+@enduml

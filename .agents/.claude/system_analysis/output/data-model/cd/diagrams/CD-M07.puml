@@ -1,0 +1,162 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Notification {
+  -id : long
+  -eventType : NotificationEventType
+  -isRead : boolean
+  -occurredAt : Instant
+  -lastUpdatedAt : Instant
+  -appealLink : String
+  -/isUpvoteWindowOpen : boolean
+  -/otherUpvoterCount : int
+  -recipient : User
+  -actor : User
+  -countedUpvoters : List<CountedUpvoter>
+  -post : Post
+  -comment : Comment
+  -group : Group
+  -report : Report
+  -warning : Warning
+  -ban : Ban
+  -appeal : Appeal
+  -proposal : Proposal
+  -badge : Badge
+  -earnedTitle : EarnedTitle
+}
+class Follow {
+  -id : long
+  -followedAt : Instant
+  -follower : User
+  -followedUser : User
+  -topic : Topic
+}
+class NotificationEmail {
+  -id : long
+  -eventType : EmailEventType
+  -queuedAt : Instant
+  -status : EmailStatus
+  -retryCount : int
+  -appealLink : String
+  -recipient : User
+}
+class NotificationSetting {
+  -id : long
+  -isAllChatMuted : boolean
+}
+class CountedUpvoter {
+  -id : long
+  -upvoter : User
+}
+class MutedPost {
+  -id : long
+  -post : Post
+}
+class MutedConversation {
+  -id : long
+  -conversation : Conversation
+}
+class User <<M01>> {
+  -notificationSetting : NotificationSetting
+  -mutedPosts : List<MutedPost>
+  -mutedConversations : List<MutedConversation>
+}
+class Topic <<M05>> {
+}
+class Post <<M03>> {
+}
+class Comment <<M04>> {
+}
+class Group <<M11>> {
+}
+class Report <<M08>> {
+}
+class Warning <<M08>> {
+}
+class Ban <<M08>> {
+}
+class Appeal <<M09>> {
+}
+class Proposal <<M10>> {
+}
+class Badge <<M12>> {
+}
+class EarnedTitle <<M12>> {
+}
+class Conversation <<M16>> {
+}
+enum NotificationEventType {
+  PASSWORD_CHANGED
+  GOOGLE_LINKED
+  NEW_FOLLOWER
+  FOLLOWED_USER_NEW_POST
+  POST_PUBLISHED
+  POST_REJECTED
+  POST_HIDDEN
+  POLL_ENDED
+  POST_UPVOTED
+  COMMENT_UPVOTED
+  NEW_COMMENT
+  REPLY
+  MENTION
+  COMMENT_HIDDEN
+  REPORT_RESULT
+  WARNING_ISSUED
+  BANNED
+  UNBANNED
+  BAN_APPEAL_CONCLUDED
+  POST_APPEAL_CONCLUDED
+  WARNING_APPEAL_CONCLUDED
+  GROUP_INVITED
+  GROUP_JOIN_REQUESTED
+  GROUP_JOIN_APPROVED
+  GROUP_MOD_APPOINTED
+  GROUP_KICKED
+  GROUP_OWNER_TRANSFERRED
+  GROUP_CONTENT_REMOVED
+  BADGE_EARNED
+  WEEKLY_STAR_EARNED
+  MOD_PROPOSAL
+  ADMIN_PROPOSAL
+}
+enum EmailEventType {
+  PASSWORD_CHANGED
+  GOOGLE_LINKED
+  DELETION_WARNING
+  BANNED
+  UNBANNED
+  BAN_APPEAL_CONCLUDED
+}
+enum EmailStatus {
+  PENDING
+  SENT
+  STOPPED
+}
+
+Notification "0..*" o-- "1" User
+Notification "0..*" o-- "0..1" User
+Notification "1" o-- "0..*" CountedUpvoter
+CountedUpvoter "0..*" o-- "1" User
+Notification "0..*" o-- "0..1" Post
+Notification "0..*" o-- "0..1" Comment
+Notification "0..*" o-- "0..1" Group
+Notification "0..*" o-- "0..1" Report
+Notification "0..1" o-- "0..1" Warning
+Notification "0..2" o-- "0..1" Ban
+Notification "0..1" o-- "0..1" Appeal
+Notification "1" o-- "0..1" Proposal
+Notification "0..*" o-- "0..1" Badge
+Notification "0..*" o-- "0..1" EarnedTitle
+Follow "0..*" o-- "1" User
+Follow "0..*" o-- "0..1" User
+Follow "0..*" o-- "0..1" Topic
+NotificationEmail "0..*" o-- "1" User
+User "1" o-- "0..1" NotificationSetting
+User "1" o-- "0..*" MutedPost
+MutedPost "0..*" o-- "1" Post
+User "1" o-- "0..*" MutedConversation
+MutedConversation "0..*" o-- "1" Conversation
+
+@enduml

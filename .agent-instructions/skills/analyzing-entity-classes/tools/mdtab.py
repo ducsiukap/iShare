@@ -6,10 +6,18 @@ Tệp này giống hệt nhau trong thư mục tools/ của ba skill
 (analyzing-entity-classes, designing-entity-classes, designing-database).
 Sửa ở một nơi thì chép sang hai nơi còn lại.
 Chỉ dùng thư viện chuẩn của Python 3.
+
+Phần cuối tệp là các hàm cho sơ đồ: mỗi sơ đồ là một tệp .puml riêng trong thư mục diagrams/ cạnh tài liệu, được
+render thành ảnh PNG cùng tên, và tài liệu chỉ nhúng ảnh (không chép mã PlantUML vào tài liệu).
 """
+import glob
 import io
+import os
 import re
+import shutil
+import subprocess
 import sys
+import zlib
 
 EMPTY = {"", "—", "-", "–", "n/a", "N/A"}
 ID_RE = re.compile(r"\b(?:FR|BR)-M\d{2}-\d{2}(?:\.\d{2})?\b")
@@ -247,3 +255,188 @@ class Report:
                     print("%-5s [%s] %s" % (lv, where, msg))
         print("-- %d ERROR, %d WARN, %d INFO" % (self.count("ERROR"), self.count("WARN"), self.count("INFO")))
         return 1 if self.count("ERROR") else 0
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Sơ đồ: tệp .puml riêng + ảnh PNG render từ nó
+# ---------------------------------------------------------------------------------------------------------------------
+DIAGRAM_DIR = "diagrams"
+PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
+_PU_ALPHA = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
+
+RENDER_HELP = """Không render được ảnh PNG từ tệp .puml. Chọn một trong các cách sau rồi chạy lại lệnh:
+  1. Dùng Java (máy đã có JDK là đủ) và tệp plantuml.jar: tải plantuml.jar từ https://plantuml.com/download,
+     đặt vào .agent-instructions/skills/analyzing-entity-classes/tools/vendor/plantuml.jar
+     (thư mục vendor/ đã được .gitignore), hoặc đặt biến môi trường PLANTUML_JAR trỏ tới tệp jar.
+     Tool tìm java trong PATH, JAVA_HOME, rồi ~/.jdks/.
+  2. Cài lệnh plantuml (ví dụ: scoop install plantuml, hoặc choco install plantuml) để có lệnh plantuml trong PATH.
+  3. Dùng máy chủ PlantUML: thêm --server https://www.plantuml.com/plantuml (nội dung sơ đồ được gửi lên máy chủ đó).
+Không có Graphviz thì tool tự dùng bố cục Smetana có sẵn trong PlantUML."""
+
+
+def doc_id_of(fm, path):
+    """Mã tài liệu (EC-M05, CD-SYS…) lấy từ frontmatter, không có thì lấy tên tệp."""
+    return fm.get("ma_tai_lieu") or os.path.splitext(os.path.basename(path))[0]
+
+
+def diagram_paths(doc_path, doc_id):
+    d = os.path.join(os.path.dirname(os.path.abspath(doc_path)), DIAGRAM_DIR)
+    return os.path.join(d, doc_id + ".puml"), os.path.join(d, doc_id + ".png")
+
+
+def diagram_markdown(doc_id, caption, tool):
+    """Đoạn Markdown đặt vào tài liệu: ảnh PNG và liên kết tới tệp .puml."""
+    return ("![%s](%s/%s.png)\n\n"
+            "Mã nguồn sơ đồ: [%s/%s.puml](%s/%s.puml). Ảnh và tệp .puml do `%s` sinh từ các bảng của tài liệu này; "
+            "muốn đổi sơ đồ thì sửa bảng rồi chạy lại tool, không sửa tay."
+            % (caption, DIAGRAM_DIR, doc_id, DIAGRAM_DIR, doc_id, DIAGRAM_DIR, doc_id, tool))
+
+
+def plantuml_encode(text):
+    """Mã hóa nội dung sơ đồ theo chuẩn URL của máy chủ PlantUML (deflate + bảng chữ 64 ký tự riêng)."""
+    data = zlib.compress(text.encode("utf-8"), 9)[2:-4]
+    out = []
+    for i in range(0, len(data), 3):
+        c = data[i:i + 3] + b"\x00\x00"
+        b1, b2, b3 = c[0], c[1], c[2]
+        out.append(_PU_ALPHA[b1 >> 2])
+        out.append(_PU_ALPHA[((b1 & 0x3) << 4) | (b2 >> 4)])
+        out.append(_PU_ALPHA[((b2 & 0xF) << 2) | (b3 >> 6)])
+        out.append(_PU_ALPHA[b3 & 0x3F])
+    return "".join(out)
+
+
+def plantuml_decode(code):
+    """Ngược với plantuml_encode (dùng để tự kiểm)."""
+    vals = [_PU_ALPHA.index(ch) for ch in code]
+    data = bytearray()
+    for i in range(0, len(vals), 4):
+        a, b, c, d = (vals[i:i + 4] + [0, 0, 0])[:4]
+        data += bytes([(a << 2) | (b >> 4), ((b & 0xF) << 4) | (c >> 2), ((c & 0x3) << 6) | d])
+    return zlib.decompressobj(-15).decompress(bytes(data)).decode("utf-8")
+
+
+def find_java():
+    j = shutil.which("java")
+    if j:
+        return j
+    exe = "java.exe" if os.name == "nt" else "java"
+    home = os.environ.get("JAVA_HOME")
+    if home and os.path.isfile(os.path.join(home, "bin", exe)):
+        return os.path.join(home, "bin", exe)
+    for d in sorted(glob.glob(os.path.join(os.path.expanduser("~"), ".jdks", "*")), reverse=True):
+        if os.path.isfile(os.path.join(d, "bin", exe)):
+            return os.path.join(d, "bin", exe)
+    return None
+
+
+def find_plantuml_jar(tools_dir):
+    env = os.environ.get("PLANTUML_JAR")
+    if env and os.path.isfile(env):
+        return env
+    skills_dir = os.path.dirname(os.path.dirname(os.path.abspath(tools_dir)))
+    for d in (os.path.join(tools_dir, "vendor"),
+              os.path.join(skills_dir, "analyzing-entity-classes", "tools", "vendor")):
+        found = sorted(glob.glob(os.path.join(d, "plantuml*.jar")))
+        if found:
+            return found[-1]
+    return None
+
+
+def render_png(puml_path, png_path, tools_dir, server=None, timeout=180):
+    """Render tệp .puml thành PNG. Trả về (ok, thông báo)."""
+    text = read(puml_path)
+    server = server or os.environ.get("PLANTUML_SERVER")
+    if server:
+        import urllib.request
+        url = "%s/png/%s" % (server.rstrip("/"), plantuml_encode(text))
+        try:
+            with urllib.request.urlopen(url, timeout=timeout) as resp:
+                data = resp.read()
+        except Exception as e:
+            return False, "máy chủ PlantUML lỗi: %s" % e
+        how = "máy chủ %s" % server
+    else:
+        layout = [] if (shutil.which("dot") or os.environ.get("GRAPHVIZ_DOT")) else ["-Playout=smetana"]
+        java, jar, exe = find_java(), find_plantuml_jar(tools_dir), shutil.which("plantuml")
+        # Sơ đồ toàn hệ thống vượt khung mặc định 4096 px của PlantUML (ảnh bị cắt): nâng giới hạn.
+        limit = os.environ.get("PLANTUML_LIMIT_SIZE", "16384")
+        if java and jar:
+            cmd, how = [java, "-Djava.awt.headless=true", "-DPLANTUML_LIMIT_SIZE=%s" % limit, "-jar", jar], \
+                "java -jar %s" % jar
+        elif exe:
+            cmd, how = [exe], exe
+        else:
+            missing = []
+            if not java:
+                missing.append("java")
+            if not jar:
+                missing.append("plantuml.jar")
+            return False, "thiếu %s và không có lệnh plantuml.\n%s" % (" và ".join(missing), RENDER_HELP)
+        cmd += ["-tpng", "-charset", "UTF-8", "-pipe"] + layout
+        try:
+            run = subprocess.run(cmd, input=text.encode("utf-8"), stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                 timeout=timeout, env=dict(os.environ, PLANTUML_LIMIT_SIZE=limit))
+        except Exception as e:
+            return False, "chạy PlantUML lỗi: %s\n%s" % (e, RENDER_HELP)
+        data = run.stdout
+        if run.returncode != 0:
+            err = run.stderr.decode("utf-8", "replace").strip().splitlines()[-5:]
+            return False, "PlantUML trả mã %d: %s" % (run.returncode, " | ".join(err))
+    if not data.startswith(PNG_MAGIC):
+        return False, "kết quả render không phải ảnh PNG (%s)" % how
+    with open(png_path, "wb") as f:
+        f.write(data)
+    return True, "đã render %s bằng %s" % (os.path.basename(png_path), how)
+
+
+def _disp(path):
+    rel = os.path.relpath(path)
+    return os.path.abspath(path) if rel.startswith("..") else rel
+
+
+def write_diagram(doc_path, doc_id, puml_text, tools_dir, render=True, server=None):
+    """Ghi diagrams/<doc_id>.puml (chỉ khi nội dung đổi) và render PNG khi cần. Trả về (ok, [thông báo])."""
+    puml_path, png_path = diagram_paths(doc_path, doc_id)
+    os.makedirs(os.path.dirname(puml_path), exist_ok=True)
+    puml_text = puml_text.rstrip("\n") + "\n"
+    msgs = []
+    old = read(puml_path) if os.path.isfile(puml_path) else None
+    if old != puml_text:
+        write(puml_path, puml_text)
+        msgs.append("đã ghi %s" % _disp(puml_path))
+    else:
+        msgs.append("%s không đổi" % _disp(puml_path))
+    if not render:
+        msgs.append("bỏ qua render (--no-render)")
+        return True, msgs
+    stale = (not os.path.isfile(png_path)) or os.path.getmtime(png_path) < os.path.getmtime(puml_path)
+    if not stale and server is None and not os.environ.get("PLANTUML_SERVER"):
+        msgs.append("%s đã mới" % _disp(png_path))
+        return True, msgs
+    ok, m = render_png(puml_path, png_path, tools_dir, server)
+    msgs.append(m)
+    return ok, msgs
+
+
+def check_diagram(rep, where, doc_path, doc_id, section_text, expected_puml):
+    """Kiểm mục sơ đồ: có ảnh nhúng, không chép mã PlantUML, tệp .puml khớp các bảng, ảnh PNG không cũ hơn .puml."""
+    tool_hint = "chạy lại tool sinh sơ đồ"
+    if "@startuml" in section_text:
+        rep.error(where, "mục sơ đồ đang chứa mã PlantUML; mã chỉ nằm trong tệp %s/%s.puml" % (DIAGRAM_DIR, doc_id))
+    if "](%s/%s.png)" % (DIAGRAM_DIR, doc_id) not in section_text:
+        rep.error(where, "mục sơ đồ chưa nhúng ảnh %s/%s.png (%s)" % (DIAGRAM_DIR, doc_id, tool_hint))
+    puml_path, png_path = diagram_paths(doc_path, doc_id)
+    if not os.path.isfile(puml_path):
+        rep.error(where, "chưa có tệp %s/%s.puml (%s)" % (DIAGRAM_DIR, doc_id, tool_hint))
+        return
+    if read(puml_path).strip() != expected_puml.strip():
+        rep.error(where, "tệp %s/%s.puml lệch với các bảng hiện tại (%s)" % (DIAGRAM_DIR, doc_id, tool_hint))
+    if not os.path.isfile(png_path):
+        rep.error(where, "chưa có ảnh %s/%s.png (%s)" % (DIAGRAM_DIR, doc_id, tool_hint))
+        return
+    with open(png_path, "rb") as f:
+        if not f.read(8).startswith(PNG_MAGIC):
+            rep.error(where, "%s/%s.png không phải ảnh PNG" % (DIAGRAM_DIR, doc_id))
+    if os.path.getmtime(png_path) + 1 < os.path.getmtime(puml_path):
+        rep.error(where, "ảnh %s/%s.png cũ hơn tệp .puml (%s)" % (DIAGRAM_DIR, doc_id, tool_hint))

@@ -28,7 +28,8 @@ steps_completed: []
      - Ô không có nội dung ghi "—".
      - Mục chưa tới bước làm thì để dòng "(Chưa làm — bước N)".
      - Cột Nguồn ghi mã trong FR: FR-Mxx-nn, FR-Mxx-nn.mm, BR-Mxx-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
-     - Sơ đồ ở mục 4 do gen_puml.py sinh; không sửa tay. -->
+     - Mục 4 chỉ chứa ảnh sơ đồ. gen_puml.py ghi mã PlantUML vào tệp riêng diagrams/EC-Mxx.puml, render
+       diagrams/EC-Mxx.png và đặt ảnh vào mục 4. Không chép mã PlantUML vào tài liệu, không sửa tay tệp .puml hay ảnh. -->
 
 ## 1. Mô tả chức năng
 
@@ -36,11 +37,16 @@ steps_completed: []
 
 (Chưa làm — bước 1)
 
-<!-- Một đoạn văn, mỗi câu đánh số (S1) (S2) … Xem steps/01-describe-functions.md. -->
+<!-- Văn xuôi bình thường, có thể chia vài đoạn. KHÔNG ghi mã câu (S1), (S2)… trong đoạn văn: người đọc không hiểu
+     các mã đó. Số câu chỉ nằm ở bảng 1.2. Xem steps/01-describe-functions.md. -->
 
 ### 1.2 Truy vết câu
 
-| Câu | Nội dung tóm tắt | Nguồn |
+<!-- Mỗi câu của đoạn mô tả một dòng, theo đúng thứ tự. Câu: 1, 2, 3…
+     Nội dung câu: chép NGUYÊN VĂN câu đó từ mục 1.1 (tool so khớp từng câu với đoạn văn).
+     Nguồn: mã chức năng hoặc yêu cầu của FR mà câu dựa vào. -->
+
+| Câu | Nội dung câu | Nguồn |
 |---|---|---|
 | (Chưa làm — bước 1) | | |
 
@@ -50,7 +56,7 @@ steps_completed: []
 
 <!-- Phân loại: Lớp | Thuộc tính | Loại bỏ.
      Kết quả: tên lớp; hoặc Lớp.thuộcTính; hoặc "—" khi loại bỏ.
-     Xuất hiện ở: S<n> (câu của đoạn mô tả) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
+     Xuất hiện ở: "Câu n" (số câu ở bảng 1.2) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
 
 | # | Danh từ | Xuất hiện ở | Phân loại | Kết quả | Lý do |
 |---|---|---|---|---|---|
@@ -58,20 +64,29 @@ steps_completed: []
 
 ### 2.2 Lớp
 
-<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (Mxx của tài liệu này, hoặc Myy với lớp ngoài). -->
+<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (Mxx của tài liệu này, hoặc Myy với lớp ngoài).
+     Thuộc tính: tên mọi thuộc tính của lớp ở mục 2.3, ngăn bởi dấu phẩy, thuộc tính dẫn xuất có "/" phía trước;
+     để người đọc thấy lớp và thuộc tính trên cùng một dòng. Lớp chưa có thuộc tính ghi "—". -->
 
-| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Nguồn |
-|---|---|---|---|---|---|
-| (Chưa làm — bước 2) | | | | | |
+| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
+|---|---|---|---|---|---|---|
+| (Chưa làm — bước 2) | | | | | | |
 
 ### 2.3 Thuộc tính
 
-<!-- Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
-     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất) — chép từ FR kèm mã. -->
+<!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
+     Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
+     Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
+             Tham chiếu (thuộc tính của lớp ngoài mà module này đọc hoặc ghi; module sở hữu lớp đó định nghĩa.
+             Sau lượt gộp hệ thống, lớp ngoài ghi đủ thuộc tính như EC-SYS: input/CONVENTIONS.md mục 5).
+     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
+             — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
+     Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
+     Ghi chú: bắt buộc với Đề xuất (vì sao cần) và Tham chiếu (module này dùng nó làm gì). -->
 
-| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Ràng buộc nguồn nêu | Nguồn |
-|---|---|---|---|---|---|
-| (Chưa làm — bước 2) | | | | | |
+| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Căn cứ | Ràng buộc nguồn nêu | Nguồn | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| (Chưa làm — bước 2) | | | | | | | |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -101,7 +116,8 @@ steps_completed: []
 
 ### 3.3 Lớp liên kết
 
-<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB". -->
+<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB".
+     "Thuộc tính riêng của liên kết": tên các thuộc tính (đã ghi ở mục 2.3); không có thì ghi rõ vì sao. -->
 
 | Lớp liên kết | Tách từ quan hệ n-n | Thuộc tính riêng của liên kết | Nguồn |
 |---|---|---|---|
@@ -120,9 +136,9 @@ steps_completed: []
 
 ## 4. Sơ đồ lớp phân tích
 
-<!-- BEGIN:PUML -->
+<!-- BEGIN:DIAGRAM -->
 (Chưa làm — bước 3)
-<!-- END:PUML -->
+<!-- END:DIAGRAM -->
 
 ## 5. Liên module
 

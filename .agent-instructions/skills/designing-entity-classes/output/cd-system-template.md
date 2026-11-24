@@ -58,8 +58,8 @@ steps_completed: []
 
 ## 5. Sơ đồ lớp thiết kế toàn hệ thống
 
-<!-- BEGIN:PUML -->
-<!-- END:PUML -->
+<!-- BEGIN:DIAGRAM -->
+<!-- END:DIAGRAM -->
 
 ## 7. Quyết định gộp
 

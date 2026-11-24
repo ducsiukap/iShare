@@ -32,6 +32,10 @@ Mỗi lớp cần được lưu có một thuộc tính định danh. Lớp con 
      người dùng xác nhận rồi mới ghi vào `data-model/conventions.md`.
 5. Chép các thuộc tính còn lại từ mục 2.3 của EC sang mục 2.1 (Lớp, Thuộc tính, Tính chất), để cột Kiểu là `—`: bước
    2 sẽ điền. Làm vậy để tool đối chiếu được với EC ngay từ bước này.
+   - Chép mọi dòng có Căn cứ `Nguồn nêu` hoặc `Đề xuất` của lớp module này (thuộc tính đề xuất đã được duyệt ở cổng
+     bước 2 của EC, nên là thuộc tính thật của lớp).
+   - **Không chép** dòng Căn cứ `Tham chiếu` và thuộc tính của lớp ngoài: module sở hữu thiết kế chúng. Thuộc tính
+     module này bổ sung trên lớp ngoài (mục 5 của EC) ghi ở mục 6 Liên module, cột "Đề nghị cho module sở hữu".
 6. Chạy `check_cd.py --cd … --step 1 --ec …`.
 
 ## Ghi vào tệp CD
@@ -42,7 +46,7 @@ Frontmatter (`nguon`), mục 1, các dòng `id` và khung thuộc tính ở mụ
 
 - Số lớp ở mục 1 bằng số lớp ở mục 2.2 của EC; không lớp nào bị đổi tên.
 - Mỗi lớp con (có dòng Kế thừa ở EC) ghi đúng lớp cha và không có id riêng.
-- Không lớp ngoài nào được thêm id.
+- Không lớp ngoài nào được thêm id, và mục 2.1 không có thuộc tính của lớp ngoài.
 
 ## Trình ở cổng
 

@@ -2,12 +2,12 @@
 module: M04
 ten_module: Comment
 ma_tai_lieu: EC-M04
-phien_ban: 0.3
-trang_thai: Bản nháp
-ngay: 2026-11-17
+phien_ban: 1.1
+trang_thai: Đã chốt
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M04 v1.4
-steps_completed: [1, 2]
+steps_completed: [1, 2, 3]
 ---
 # Phân tích lớp thực thể — M04 Comment
 
@@ -18,305 +18,372 @@ steps_completed: [1, 2]
 | Dự án | iShare |
 | Module | M04 — Comment |
 | Đầu vào | FR-M04 phiên bản 1.4 |
-| Trạng thái | Bản nháp |
-| Phiên bản | 0.3 |
-| Ngày | 2026-11-17 |
+| Trạng thái | Đã chốt |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
      - Không đổi tên cột, không xóa cột, không đổi số mục: tool đọc bảng theo số mục và tên cột.
      - Ô không có nội dung ghi "—".
      - Mục chưa tới bước làm thì để dòng "(Chưa làm — bước N)".
-     - Cột Nguồn ghi mã trong FR: FR-M04-nn, FR-M04-nn.mm, BR-M04-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
-     - Sơ đồ ở mục 4 do gen_puml.py sinh; không sửa tay. -->
+     - Cột Nguồn ghi mã trong FR: FR-Mxx-nn, FR-Mxx-nn.mm, BR-Mxx-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
+     - Mục 4 chỉ chứa ảnh sơ đồ. gen_puml.py ghi mã PlantUML vào tệp riêng diagrams/EC-Mxx.puml, render
+       diagrams/EC-Mxx.png và đặt ảnh vào mục 4. Không chép mã PlantUML vào tài liệu, không sửa tay tệp .puml hay ảnh. -->
 
 ## 1. Mô tả chức năng
 
 ### 1.1 Đoạn mô tả
 
-(S1) Hệ thống quản lý bình luận gốc và trả lời trong các luồng bình luận của bài viết, gắn mỗi bình luận với tác giả bình luận và bài viết chứa bình luận. (S2) Hệ thống cho Guest, User, Mod và Admin xem bình luận của bài viết đang hiển thị với người xem, sắp xếp bình luận gốc theo Top, Mới nhất hoặc Cũ nhất dựa vào số upvote của bình luận và thời điểm đăng, xếp trả lời theo thời điểm đăng, đồng thời tính số bình luận của bài từ bình luận gốc và trả lời đang hiển thị bình thường. (S3) Hệ thống cho User, Mod và Admin đã đăng nhập gửi bình luận gốc với nội dung bình luận có định dạng, công thức LaTeX, liên kết, nhắc tên và trích dẫn, kiểm tra số từ và nội dung trống, lưu tác giả bình luận cùng thời điểm đăng, rồi hiển thị bình luận ngay ở trạng thái kiểm duyệt Bình thường. (S4) Hệ thống cho User, Mod và Admin trả lời bình luận gốc hoặc trả lời đang hiển thị bình thường, lưu trả lời vào luồng của bình luận gốc, ghi nhận bình luận được trả lời và dựng trích dẫn khi trả lời từ tên tác giả cùng nội dung hiện tại của bình luận được trả lời. (S5) Hệ thống cho tác giả bình luận sửa nội dung bình luận của mình theo điều kiện của bài viết và trạng thái kiểm duyệt, ghi thời điểm sửa gần nhất và dấu hiệu đã chỉnh sửa, đồng thời giữ thời điểm đăng, vị trí trong luồng và trạng thái kiểm duyệt. (S6) Hệ thống cho tác giả bình luận xóa bình luận của mình theo các điều kiện cho phép bằng cách gắn cờ đã xóa và giữ nội dung, giữ các trả lời của bình luận gốc, đồng thời giữ bình luận cùng bài viết khi bài viết bị xóa. (S7) Hệ thống xác định cách hiển thị luồng và trích dẫn khi trả lời theo cờ đã xóa, trạng thái kiểm duyệt của bình luận gốc, bình luận được trả lời và các trả lời còn hiển thị bình thường. (S8) Hệ thống cho tác giả bình luận xem lại nội dung bình luận của mình đã bị ẩn hoặc đã bị xử lý sau báo cáo ở chế độ chỉ đọc khi mở thông báo xử lý hoặc khiếu nại của tác giả bình luận liên quan tới bình luận. (S9) Hệ thống dùng mức khóa của bài viết và mức cảnh cáo của người dùng để kiểm tra quyền tạo, sửa, xóa bình luận, đồng thời dùng quyền bình luận trong nhóm do M11 cung cấp cho bài viết trong nhóm. (S10) Hệ thống dùng trạng thái tài khoản từ M01 cùng avatar và tên hiển thị từ M02 để trình bày tác giả bình luận, cung cấp bình luận chứa lượt nhắc tên cho M01 và sự kiện bình luận gốc mới, trả lời mới cho M07 gửi thông báo. (S11) Hệ thống cung cấp bình luận và luồng bình luận cho M08 báo cáo, quét AI sau khi đăng và xử lý trạng thái kiểm duyệt, đồng thời giữ nội dung bình luận đã xóa phục vụ báo cáo, lịch sử báo cáo và khiếu nại liên quan tại M08, M09. (S12) Hệ thống dùng số upvote của bình luận do M12 cung cấp cho sắp xếp Top và cung cấp sự kiện tác giả xóa bình luận cho M12 xử lý điểm. (S13) Hệ thống cung cấp bình luận gốc và trả lời cùng thời điểm đăng và việc bị xóa cho M05, M06, M14 tính Trending và xếp hạng, đồng thời cung cấp bình luận mới theo thời gian cho M15 thống kê.
+Hệ thống quản lý bình luận của người dùng trên bài viết, gồm bình luận gốc và trả lời, được tổ chức thành các luồng
+bình luận hai cấp. Mỗi bình luận có tác giả bình luận, bài viết chứa bình luận, nội dung bình luận, thời điểm đăng,
+thời điểm sửa, trạng thái kiểm duyệt và cờ đã xóa. Nội dung bình luận được soạn bằng trình soạn tối giản và có thể
+chứa công thức LaTeX, liên kết, trích dẫn và lượt nhắc tên do M01 quản lý. Bình luận gốc gắn trực tiếp vào bài viết và
+mở đầu một luồng bình luận; mỗi trả lời thuộc luồng bình luận của một bình luận gốc và có một bình luận được trả lời,
+là bình luận gốc đó hoặc một trả lời khác trong cùng luồng bình luận.
 
-<!-- Một đoạn văn, mỗi câu đánh số (S1) (S2) … Xem steps/01-describe-functions.md. -->
+Hệ thống cho phép mọi người xem được bài viết, kể cả Guest, xem các luồng bình luận của bài viết; người xem không xem
+được bài viết thì cũng không xem được bình luận của bài viết. Bình luận gốc được sắp xếp theo cách sắp xếp do người
+xem chọn: Top theo số upvote của bình luận do M12 quản lý, Mới nhất hoặc Cũ nhất theo thời điểm đăng; trả lời trong
+mỗi luồng bình luận luôn xếp theo thời điểm đăng. Phía trên mỗi trả lời, hệ thống hiển thị một dòng trích dẫn gồm tên
+tác giả và phần đầu nội dung hiện tại của bình luận được trả lời. Bình luận đã được tác giả bình luận sửa ít nhất một
+lần mang nhãn "(đã chỉnh sửa)". Bình luận đang bị ẩn không hiển thị nội dung trong luồng bình luận cho bất kỳ ai, kể
+cả tác giả bình luận. Bình luận gốc đã xóa hoặc đang bị ẩn mà còn trả lời hiển thị bình thường được thay bằng dấu
+"[Bình luận đã bị xóa]" để giữ luồng bình luận. Hệ thống hiển thị trên bài viết số bình luận của bài, đếm các bình
+luận gốc và trả lời đang hiển thị bình thường.
+
+Hệ thống cho phép User, Mod và Admin viết bình luận gốc vào bài viết đang hiển thị và trả lời một bình luận gốc hoặc
+một trả lời đang hiển thị bình thường. Mỗi khi người dùng gửi một bình luận, hệ thống ghi lại người dùng đó làm tác
+giả bình luận, bài viết chứa bình luận và thời điểm đăng; với trả lời, hệ thống ghi thêm bình luận gốc của luồng bình
+luận và bình luận được trả lời. Bình luận mới hiển thị ngay ở trạng thái kiểm duyệt Bình thường, không qua bước quét
+trước khi hiển thị. Hệ thống từ chối bình luận gốc và trả lời mới trên bài viết đang ở mức Khóa bình luận hoặc Khóa
+toàn bộ do M03 quản lý, và từ chối bình luận gốc và trả lời mới của người dùng đang ở mức cảnh cáo HEAVY do M08 quản
+lý.
+
+Hệ thống cho phép tác giả bình luận sửa nội dung bình luận của mình không giới hạn thời gian và số lần. Mỗi lần tác
+giả bình luận lưu bản sửa, hệ thống thay nội dung bình luận bằng nội dung mới và ghi thời điểm sửa gần nhất, giữ
+nguyên thời điểm đăng và trạng thái kiểm duyệt. Hệ thống cho phép tác giả bình luận xóa bình luận của mình; hệ thống
+gắn cờ đã xóa cho bình luận và giữ nội dung bình luận để Mod và Admin xem trong báo cáo, lịch sử báo cáo và khiếu nại
+liên quan tới chính bình luận đó do M08 và M09 quản lý. Tác giả bình luận không sửa được bình luận trên bài viết đang
+ở mức Khóa bình luận hoặc Khóa toàn bộ, và không sửa, không xóa được bình luận đã xóa hoặc đang bị ẩn. Khi bài viết
+chứa bình luận bị xóa, các bình luận của bài viết được giữ cùng bài viết.
+
+Trạng thái kiểm duyệt của bình luận chuyển giữa Bình thường và Bị ẩn theo việc quét AI sau khi đăng và việc Mod, Admin
+ẩn bình luận khi xử lý báo cáo, đều do M08 quản lý. Hệ thống cho phép tác giả bình luận xem lại ở chế độ chỉ đọc bình
+luận của mình đang bị ẩn hoặc đã bị xử lý sau báo cáo, khi mở từ thông báo xử lý do M07 và M08 gửi hoặc từ khiếu nại
+của mình do M09 quản lý. Hệ thống cung cấp cho M12 bình luận làm đối tượng của upvote bình luận và thời điểm tác giả
+bình luận xóa bình luận làm mốc trừ điểm. Hệ thống cung cấp bình luận cùng thời điểm đăng và việc bị xóa cho Trending
+và xếp hạng của M05, M06 và M14, và cung cấp bình luận mới theo thời gian cho thống kê của M15.
+
+<!-- Văn xuôi bình thường, có thể chia vài đoạn. KHÔNG ghi mã câu (S1), (S2)… trong đoạn văn: người đọc không hiểu
+     các mã đó. Số câu chỉ nằm ở bảng 1.2. Xem steps/01-describe-functions.md. -->
 
 ### 1.2 Truy vết câu
 
-| Câu | Nội dung tóm tắt | Nguồn |
+<!-- Mỗi câu của đoạn mô tả một dòng, theo đúng thứ tự. Câu: 1, 2, 3…
+     Nội dung câu: chép NGUYÊN VĂN câu đó từ mục 1.1 (tool so khớp từng câu với đoạn văn).
+     Nguồn: mã chức năng hoặc yêu cầu của FR mà câu dựa vào. -->
+
+| Câu | Nội dung câu | Nguồn |
 |---|---|---|
-| S1 | Phạm vi quản lý bình luận và luồng bình luận | FR-M04-01, FR-M04-02.01, FR-M04-03.02, FR-M04-03.03 |
-| S2 | Xem, sắp xếp và đếm bình luận | FR-M04-01.01, FR-M04-01.02, FR-M04-01.03, FR-M04-01.04, FR-M04-01.05, FR-M04-01.10, FR-M04-01.14 |
-| S3 | Gửi bình luận và ghi nhận dữ liệu khi đăng | FR-M04-02, FR-M04-02.01, FR-M04-02.02, FR-M04-02.03, FR-M04-02.09, FR-M04-02.10, FR-M04-02.11 |
-| S4 | Trả lời trong luồng và xác định bình luận được trả lời | FR-M04-03, FR-M04-03.01, FR-M04-03.02, FR-M04-03.03, FR-M04-03.04, FR-M04-01.16, FR-M04-01.17 |
-| S5 | Sửa nội dung và ghi thời điểm sửa gần nhất | FR-M04-04, FR-M04-04.01, FR-M04-04.02, FR-M04-04.03, FR-M04-04.09, FR-M04-04.10, FR-M04-01.06 |
-| S6 | Xóa bằng cờ và giữ bình luận cùng bài viết | FR-M04-05, FR-M04-05.01, FR-M04-05.02, FR-M04-05.03, FR-M04-05.07, FR-M04-05.08, FR-M04-05.09, FR-M04-05.10, FR-M04-05.11 |
-| S7 | Hiển thị luồng khi bình luận đã xóa hoặc bị ẩn | FR-M04-01.07, FR-M04-01.08, FR-M04-01.09, FR-M04-01.15 |
-| S8 | Xem lại bình luận đã bị xử lý theo quyền tác giả | FR-M04-06, FR-M04-06.01, FR-M04-06.02, FR-M04-06.03, FR-M04-06.05 |
-| S9 | Điều kiện thao tác theo khóa bài, cảnh cáo và quyền nhóm | FR-M04-02.06, FR-M04-02.07, FR-M04-03.07, FR-M04-03.08, FR-M04-04.09, FR-M04-04.11, FR-M04-05.08, FR-M04-05.09 |
-| S10 | Dữ liệu tác giả, lượt nhắc tên và sự kiện thông báo | FR-M04-02.01, FR-M04-02.02, FR-M04-03.02, FR-M04-03.03, FR-M04-04.01 |
-| S11 | Dữ liệu phục vụ kiểm duyệt, báo cáo và khiếu nại liên quan | FR-M04-02.02, FR-M04-03.04, FR-M04-01.09, FR-M04-05.07, FR-M04-06.03 |
-| S12 | Upvote và sự kiện xóa cho xử lý điểm | FR-M04-01.03, FR-M04-01.04, FR-M04-01.14, FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 |
-| S13 | Dữ liệu cung cấp cho Trending, xếp hạng và thống kê | FR-M04-02.01, FR-M04-03.02, FR-M04-05.02 |
+| 1 | Hệ thống quản lý bình luận của người dùng trên bài viết, gồm bình luận gốc và trả lời, được tổ chức thành các luồng bình luận hai cấp. | FR-M04-01, FR-M04-02, FR-M04-03 |
+| 2 | Mỗi bình luận có tác giả bình luận, bài viết chứa bình luận, nội dung bình luận, thời điểm đăng, thời điểm sửa, trạng thái kiểm duyệt và cờ đã xóa. | FR-M04-02.01, FR-M04-02.02, FR-M04-04.02, FR-M04-05.01 |
+| 3 | Nội dung bình luận được soạn bằng trình soạn tối giản và có thể chứa công thức LaTeX, liên kết, trích dẫn và lượt nhắc tên do M01 quản lý. | FR-M04-02.03, FR-M04-03.05, FR-M04-04.06 |
+| 4 | Bình luận gốc gắn trực tiếp vào bài viết và mở đầu một luồng bình luận; mỗi trả lời thuộc luồng bình luận của một bình luận gốc và có một bình luận được trả lời, là bình luận gốc đó hoặc một trả lời khác trong cùng luồng bình luận. | FR-M04-03.02, FR-M04-03.03 |
+| 5 | Hệ thống cho phép mọi người xem được bài viết, kể cả Guest, xem các luồng bình luận của bài viết; người xem không xem được bài viết thì cũng không xem được bình luận của bài viết. | FR-M04-01.01, FR-M04-01.02, FR-M04-01.11, FR-M04-01.12 |
+| 6 | Bình luận gốc được sắp xếp theo cách sắp xếp do người xem chọn: Top theo số upvote của bình luận do M12 quản lý, Mới nhất hoặc Cũ nhất theo thời điểm đăng; trả lời trong mỗi luồng bình luận luôn xếp theo thời điểm đăng. | FR-M04-01.03, FR-M04-01.04, FR-M04-01.05, FR-M04-01.14 |
+| 7 | Phía trên mỗi trả lời, hệ thống hiển thị một dòng trích dẫn gồm tên tác giả và phần đầu nội dung hiện tại của bình luận được trả lời. | FR-M04-01.16, FR-M04-01.17 |
+| 8 | Bình luận đã được tác giả bình luận sửa ít nhất một lần mang nhãn "(đã chỉnh sửa)". | FR-M04-01.06 |
+| 9 | Bình luận đang bị ẩn không hiển thị nội dung trong luồng bình luận cho bất kỳ ai, kể cả tác giả bình luận. | FR-M04-01.09 |
+| 10 | Bình luận gốc đã xóa hoặc đang bị ẩn mà còn trả lời hiển thị bình thường được thay bằng dấu "[Bình luận đã bị xóa]" để giữ luồng bình luận. | FR-M04-01.07, FR-M04-01.08, FR-M04-01.15 |
+| 11 | Hệ thống hiển thị trên bài viết số bình luận của bài, đếm các bình luận gốc và trả lời đang hiển thị bình thường. | FR-M04-01.10 |
+| 12 | Hệ thống cho phép User, Mod và Admin viết bình luận gốc vào bài viết đang hiển thị và trả lời một bình luận gốc hoặc một trả lời đang hiển thị bình thường. | FR-M04-02, FR-M04-03, FR-M04-03.01 |
+| 13 | Mỗi khi người dùng gửi một bình luận, hệ thống ghi lại người dùng đó làm tác giả bình luận, bài viết chứa bình luận và thời điểm đăng; với trả lời, hệ thống ghi thêm bình luận gốc của luồng bình luận và bình luận được trả lời. | FR-M04-02.01, FR-M04-03.02, FR-M04-03.03 |
+| 14 | Bình luận mới hiển thị ngay ở trạng thái kiểm duyệt Bình thường, không qua bước quét trước khi hiển thị. | FR-M04-02.02, FR-M04-03.04 |
+| 15 | Hệ thống từ chối bình luận gốc và trả lời mới trên bài viết đang ở mức Khóa bình luận hoặc Khóa toàn bộ do M03 quản lý, và từ chối bình luận gốc và trả lời mới của người dùng đang ở mức cảnh cáo HEAVY do M08 quản lý. | FR-M04-02.06, FR-M04-02.07, FR-M04-03.07, FR-M04-03.08 |
+| 16 | Hệ thống cho phép tác giả bình luận sửa nội dung bình luận của mình không giới hạn thời gian và số lần. | FR-M04-04.01, FR-M04-04.05 |
+| 17 | Mỗi lần tác giả bình luận lưu bản sửa, hệ thống thay nội dung bình luận bằng nội dung mới và ghi thời điểm sửa gần nhất, giữ nguyên thời điểm đăng và trạng thái kiểm duyệt. | FR-M04-04.01, FR-M04-04.02, FR-M04-04.03 |
+| 18 | Hệ thống cho phép tác giả bình luận xóa bình luận của mình; hệ thống gắn cờ đã xóa cho bình luận và giữ nội dung bình luận để Mod và Admin xem trong báo cáo, lịch sử báo cáo và khiếu nại liên quan tới chính bình luận đó do M08 và M09 quản lý. | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03, FR-M04-05.07 |
+| 19 | Tác giả bình luận không sửa được bình luận trên bài viết đang ở mức Khóa bình luận hoặc Khóa toàn bộ, và không sửa, không xóa được bình luận đã xóa hoặc đang bị ẩn. | FR-M04-04.08, FR-M04-04.09, FR-M04-04.10, FR-M04-05.06, FR-M04-05.10 |
+| 20 | Khi bài viết chứa bình luận bị xóa, các bình luận của bài viết được giữ cùng bài viết. | FR-M04-05.11 |
+| 21 | Trạng thái kiểm duyệt của bình luận chuyển giữa Bình thường và Bị ẩn theo việc quét AI sau khi đăng và việc Mod, Admin ẩn bình luận khi xử lý báo cáo, đều do M08 quản lý. | FR-M04-01.09 |
+| 22 | Hệ thống cho phép tác giả bình luận xem lại ở chế độ chỉ đọc bình luận của mình đang bị ẩn hoặc đã bị xử lý sau báo cáo, khi mở từ thông báo xử lý do M07 và M08 gửi hoặc từ khiếu nại của mình do M09 quản lý. | FR-M04-06.01, FR-M04-06.02, FR-M04-06.03, FR-M04-06.05 |
+| 23 | Hệ thống cung cấp cho M12 bình luận làm đối tượng của upvote bình luận và thời điểm tác giả bình luận xóa bình luận làm mốc trừ điểm. | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 |
+| 24 | Hệ thống cung cấp bình luận cùng thời điểm đăng và việc bị xóa cho Trending và xếp hạng của M05, M06 và M14, và cung cấp bình luận mới theo thời gian cho thống kê của M15. | FR-M04-02.01, FR-M04-03.02, FR-M04-05.02 |
 
 ## 2. Danh từ và phân loại
 
 ### 2.1 Sổ danh từ
 
+<!-- Phân loại: Lớp | Thuộc tính | Loại bỏ.
+     Kết quả: tên lớp; hoặc Lớp.thuộcTính; hoặc "—" khi loại bỏ.
+     Xuất hiện ở: "Câu n" (số câu ở bảng 1.2) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
+
 | # | Danh từ | Xuất hiện ở | Phân loại | Kết quả | Lý do |
 |---|---|---|---|---|---|
-| 1 | Hệ thống | S1 | Loại bỏ | — | Trừu tượng, tác nhân xử lý. |
-| 2 | Bình luận / bình luận gốc / trả lời / bình luận được trả lời | S1 | Lớp | Comment | T8, cùng đối tượng bình luận, phân biệt theo ngữ cảnh luồng và đích trả lời, BR-M04-03. |
-| 3 | Luồng bình luận | S1 | Loại bỏ | — | Chung chung, tập hợp bình luận gốc cùng trả lời theo BR-M04-03, dữ liệu thành phần nằm ở Comment. |
-| 4 | Bài viết / bài viết chứa bình luận | S1 | Lớp | Post | T4, M03 sở hữu bài chứa bình luận theo FR-M04-02.01. |
-| 5 | Tác giả bình luận / User / Mod / Admin / người dùng / tài khoản / người gửi | S1 | Lớp | User | T3, tài khoản M01, các vai trò và tác giả theo ngữ cảnh. |
-| 6 | Guest / người xem | S2 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu riêng trong module, quyền xem theo FR-M04-01.02. |
-| 7 | Top / Mới nhất / Cũ nhất / cách sắp xếp | S2 | Loại bỏ | — | Giao diện, tiêu chí truy vấn theo BR-M04-05, FR chỉ yêu cầu sắp xếp khi xem. |
-| 8 | Số upvote của bình luận | S2 | Thuộc tính | Comment.upvoteCount | T7, đếm upvote còn hiệu lực từ M12 theo BR-M04-05. |
-| 9 | Thời điểm đăng | S2 | Thuộc tính | Comment.createdAt | T9, thời điểm ghi nhận lúc gửi theo FR-M04-02.01 và TN:Thời điểm đăng. |
-| 10 | Số bình luận của bài | S2 | Thuộc tính | Post.commentCount | T7, giá trị đếm trên bài theo BR-M04-18, M04 bổ sung cho lớp ngoài. |
-| 11 | Bình thường / Bị ẩn | S2 | Loại bỏ | — | Giá trị của Comment.moderationState theo FR-M04-02.02 và FR-M04-01.09. |
-| 12 | Nội dung bình luận / nội dung hiện tại / nội dung sửa | S3 | Thuộc tính | Comment.content | T9, nội dung có định dạng, được thay bằng bản sửa theo FR-M04-04.01. |
-| 13 | Định dạng / công thức LaTeX / liên kết / trích dẫn | S3 | Loại bỏ | — | Giá trị cấu trúc của Comment.content theo BR-M04-01. |
-| 14 | Nhắc tên / lượt nhắc tên | S3 | Lớp | Mention | T4, lượt nhắc trong nội dung do M01 sở hữu, giao tiếp mục 5.10. |
-| 15 | Số từ / độ dài nội dung | S3 | Thuộc tính | Comment.wordCount | T7, đếm phần chữ người đọc thấy theo TN:Từ và BR-M04-19. |
-| 16 | Trạng thái kiểm duyệt | S3 | Thuộc tính | Comment.moderationState | T9, trạng thái của bình luận theo FR-M04-02.02 và FR-M04-01.09. |
-| 17 | Tên tác giả / tên hiển thị | S4 | Loại bỏ | — | Ngoài phạm vi module (M01), User.displayName đã có trong EC-M01, dữ liệu để dựng trích dẫn theo BR-M04-04. |
-| 18 | Trích dẫn khi trả lời / phần đầu nội dung / dòng trích dẫn | S4 | Loại bỏ | — | Giao diện, dựng từ bình luận được trả lời và tác giả theo BR-M04-04. |
-| 19 | Thời điểm sửa gần nhất | S5 | Thuộc tính | Comment.updatedAt | T9, ghi lần sửa gần nhất theo FR-M04-04.02. |
-| 20 | Dấu hiệu đã chỉnh sửa | S5 | Thuộc tính | Comment.isEdited | T7, dẫn xuất từ việc đã có thời điểm sửa theo FR-M04-01.06 và FR-M04-04.02. |
-| 21 | Điều kiện / quyền thao tác | S5 | Loại bỏ | — | Trừu tượng, quy tắc cho phép hành động, BR-M04-20. |
-| 22 | Vị trí trong luồng | S5 | Loại bỏ | — | Chung chung, được xác định từ bình luận gốc của luồng và thời điểm đăng, FR-M04-04.03, BR-M04-03/06. |
-| 23 | Cờ đã xóa / việc bị xóa | S6 | Thuộc tính | Comment.isDeleted | T9, dấu xóa được lưu theo FR-M04-05.01–05.03. |
-| 24 | Thông báo xử lý / thông báo / sự kiện thông báo | S8 | Lớp | Notification | T4, M07 sở hữu thông báo mở nội dung bình luận theo FR-M04-06.01/06.02. Sự kiện mới là đầu vào tạo thông báo. |
-| 25 | Khiếu nại | S8 | Lớp | Appeal | T4, khiếu nại cảnh cáo hoặc ban liên quan tại M09, FR-M04-06.03. |
-| 26 | Báo cáo | S8 | Lớp | Report | T4, M08 sở hữu báo cáo về bình luận, FR-M04-06.02 và BR-M04-21. |
-| 27 | Chế độ chỉ đọc | S8 | Loại bỏ | — | Giao diện, quyền xem lại theo FR-M04-06.01–06.03. |
-| 28 | Mức khóa / Khóa bình luận / Khóa toàn bộ | S9 | Loại bỏ | — | Ngoài phạm vi module (M03), Post.lockLevel đã có ở EC-M03, BR-M04-14/20. |
-| 29 | Mức cảnh cáo / HEAVY | S9 | Loại bỏ | — | Ngoài phạm vi module (M08), dữ liệu quyết định hạn chế thao tác theo BR-M04-15/20. |
-| 30 | Nhóm | S9 | Lớp | Group | T4, M11 cung cấp ngữ cảnh quyền bình luận trong nhóm tại mục 5.10. |
-| 31 | Quyền bình luận trong nhóm | S9 | Loại bỏ | — | Ngoài phạm vi module (M11), quy tắc dựa trên nhóm và tư cách thành viên. |
-| 32 | Trạng thái tài khoản | S10 | Loại bỏ | — | Ngoài phạm vi module (M01), User.accountState đã có ở EC-M01. |
-| 33 | Avatar | S10 | Loại bỏ | — | Ngoài phạm vi module (M02), UserProfile.avatar đã có ở EC-M02. |
-| 34 | Sự kiện bình luận gốc mới / sự kiện trả lời mới | S10 | Loại bỏ | — | Hành động không lưu dấu vết riêng tại M04, cung cấp M07 theo mục 5.10, bình luận đã lưu chứa dữ liệu sự kiện. |
-| 35 | Quét AI / xử lý kiểm duyệt | S11 | Loại bỏ | — | Ngoài phạm vi module (M08), M04 dùng trạng thái kiểm duyệt để hiển thị, FR-M04-01.09. |
-| 36 | Lịch sử báo cáo | S11 | Loại bỏ | — | Ngoài phạm vi module (M08), ngữ cảnh đọc Report và Comment theo BR-M04-21. |
-| 37 | Upvote | S12 | Lớp | Upvote | T4, M12 sở hữu thao tác và bản ghi upvote theo BR-M04-09, tên dùng lại EC-M01/03. |
-| 38 | Sự kiện tác giả xóa bình luận | S12 | Loại bỏ | — | Hành động không lưu dấu vết riêng tại M04, cờ xóa nằm trên Comment, giao tiếp M12 ở mục 5.10. |
-| 39 | Điểm | S12 | Loại bỏ | — | Ngoài phạm vi module (M12), M12 xử lý điểm khi tác giả xóa bình luận. |
-| 40 | Trending / xếp hạng | S13 | Loại bỏ | — | Ngoài phạm vi module (M05, M06, M14), M04 cung cấp dữ liệu bình luận. |
-| 41 | Thống kê bình luận mới theo thời gian | S13 | Loại bỏ | — | Ngoài phạm vi module (M15), M04 cung cấp thời điểm đăng của bình luận. |
-| 42 | Hồ sơ tác giả | Quét: FR-M04-01.16 | Lớp | UserProfile | T4, dùng avatar từ M02 theo mục 5.10, lớp đã có EC-M02. |
-| 43 | Thành viên nhóm / Owner / Group Mod / người ngoài nhóm | Quét: BR-M04-20 | Lớp | GroupMember | T4, tư cách và vai trò thành viên nhóm từ M11 theo mục 5.10, dùng lại tên EC-M01/03. |
-| 44 | Từ / khoảng trắng | Quét: BR-M04-19 | Loại bỏ | — | Chung chung, đơn vị và quy tắc đếm Comment.wordCount. |
-| 45 | Nhãn đã chỉnh sửa | Quét: FR-M04-01.06 | Loại bỏ | — | Giao diện, biểu diễn Comment.isEdited. |
-| 46 | Dấu bình luận đã bị xóa | Quét: FR-M04-01.07 | Loại bỏ | — | Giao diện, dựng từ cờ xóa, trạng thái kiểm duyệt và trả lời còn hiển thị. |
-| 47 | Nội dung trước khi sửa / lịch sử sửa | Quét: FR-M04-04.04 | Loại bỏ | — | Ngoài phạm vi hệ thống, FR-M04-04.04 xác định phạm vi lưu bản sửa. |
-| 48 | Danh tính người báo cáo / lý do đã chọn / mô tả / bằng chứng | Quét: FR-M04-06.04 | Loại bỏ | — | Ngoài phạm vi module (M08), dữ liệu báo cáo do M08 quản lý, quyền xem lại được giới hạn. |
-| 49 | Thời điểm tác giả xóa bình luận | Quét: FR-M04-05.01 | Loại bỏ | — | Hành động không lưu dấu vết riêng tại M04, mục 5.10 cung cấp thời điểm sự kiện cho M12, FR chỉ yêu cầu lưu cờ xóa tại M04. |
-| 50 | Công tắc AI tổng / công tắc Moderation / ngưỡng điểm quét / lỗi AI | Quét: FR-M04-02.02 | Loại bỏ | — | Ngoài phạm vi module (M08, M10, M13), việc hiển thị ngay và trạng thái kiểm duyệt là giao tiếp của M04. |
-| 51 | Nhóm Public / nhóm Private / nhóm Bị khóa | Quét: BR-M04-17 | Loại bỏ | — | Ngoài phạm vi module (M11), giá trị trạng thái và quyền nhóm dùng khi quyết định hiển thị. |
-| 52 | Gỡ bình luận khỏi nhóm | Quét: FR-M04-05 | Loại bỏ | — | Ngoài phạm vi module (M11), hành động xóa mềm ở mục 5.10, Q-01 đã chọn dấu riêng, cách lưu chờ cập nhật FR-M04. |
-| 53 | 1000 từ / hai cấp | Quét: BR-M04-19, BR-M04-03 | Loại bỏ | — | Hằng số của BR-M04-19 và BR-M04-03, ràng buộc nội dung và luồng. |
-
-Tổng 53 dòng danh từ, 11 dòng thành lớp, 9 dòng thành thuộc tính, 33 dòng bị loại. Lượt quét FR bổ sung 12 dòng.
+| 1 | hệ thống | Câu 1 | Loại bỏ | — | Trừu tượng: chỉ chính phần mềm |
+| 2 | bình luận / bình luận mới | Câu 1 | Lớp | Comment | Đối tượng trung tâm của module: được tạo, sửa, xóa riêng, có nhiều bình luận phân biệt được, có nội dung, thời điểm và trạng thái kiểm duyệt riêng (TN:Bình luận, mục Chuyển trạng thái của FR); dùng tên Comment của glossary và EC-M01 |
+| 3 | người dùng / người dùng đó | Câu 1 | Lớp | User | Lớp ngoài (M01): tài khoản; dùng tên User của EC-M01 |
+| 4 | bài viết / bài / bài viết chứa bình luận | Câu 1 | Lớp | Post | Lớp ngoài (M03): bình luận gắn với một bài viết; dùng tên Post của EC-M03 |
+| 5 | bình luận gốc / bình luận gốc của luồng bình luận | Câu 1 | Lớp | Comment | Một loại bình luận (TN:Bình luận gốc): cùng thông tin, cùng vòng đời và cùng bảng trạng thái với trả lời; chỉ khác ở chỗ gắn trực tiếp vào bài viết và không thuộc luồng của bình luận khác, tức khác ở quan hệ, xét ở bước 3 |
+| 6 | trả lời / trả lời mới | Câu 1 | Lớp | Comment | Một loại bình luận (TN:Trả lời): cùng thông tin, cùng vòng đời với bình luận gốc; khác ở chỗ thuộc luồng của một bình luận gốc và trỏ tới một bình luận được trả lời, tức khác ở quan hệ giữa các bình luận, xét ở bước 3 |
+| 7 | luồng bình luận | Câu 1 | Loại bỏ | — | Trừu tượng: một bình luận gốc cùng mọi trả lời thuộc nó (TN:Luồng bình luận), không có thông tin riêng ngoài bình luận gốc; thể hiện bằng quan hệ trả lời – bình luận gốc ở bước 3 |
+| 8 | hai cấp | Câu 1 | Loại bỏ | — | Hằng số của BR-M04-03: luồng chỉ có bình luận gốc và trả lời; là ràng buộc của quan hệ trả lời – bình luận gốc ở bước 3 |
+| 9 | tác giả bình luận / chủ bình luận | Câu 2 | Lớp | User | Vai trò theo ngữ cảnh của người dùng có tài khoản (TN:Tác giả bình luận); việc bình luận có tác giả là quan hệ, xét ở bước 3 |
+| 10 | nội dung bình luận / nội dung mới | Câu 2 | Thuộc tính | Comment.content | Phần chữ tác giả tự viết (TN:Nội dung bình luận); được thay khi sửa (FR-M04-04.01), được giữ khi xóa (FR-M04-05.07) |
+| 11 | thời điểm đăng | Câu 2 | Thuộc tính | Comment.publishedAt | Lúc hệ thống ghi nhận bình luận được gửi (TN:Thời điểm đăng); dùng để sắp xếp (BR-M04-05, BR-M04-06) |
+| 12 | thời điểm sửa / thời điểm sửa gần nhất | Câu 2 | Thuộc tính | Comment.editedAt | Chỉ ghi lần sửa gần nhất (TN:Thời điểm sửa, FR-M04-04.02, BR-M04-07) |
+| 13 | trạng thái kiểm duyệt | Câu 2 | Thuộc tính | Comment.modState | Một trong hai giá trị Bình thường, Bị ẩn (TN:Trạng thái kiểm duyệt của bình luận) |
+| 14 | cờ đã xóa | Câu 2 | Thuộc tính | Comment.isDeleted | Bình luận đã bị tác giả xóa hay chưa (FR-M04-05.01, TN:Bình luận đã xóa); tính từ Comment.deletedAt (dòng 58) |
+| 15 | trình soạn tối giản / trình soạn | Câu 3 | Loại bỏ | — | Giao diện: công cụ soạn nội dung; các định dạng được phép là ràng buộc của Comment.content (BR-M04-01) |
+| 16 | công thức LaTeX | Câu 3 | Loại bỏ | — | Giá trị của Comment.content: một định dạng được phép trong nội dung (BR-M04-01), không lưu riêng |
+| 17 | liên kết | Câu 3 | Loại bỏ | — | Giá trị của Comment.content: một định dạng được phép trong nội dung (BR-M04-01), không lưu riêng |
+| 18 | trích dẫn | Câu 3 | Loại bỏ | — | Giá trị của Comment.content: khối trích dẫn tác giả tự gõ là một định dạng trong nội dung (BR-M04-01) và có tính vào độ dài (BR-M04-19); khác dòng trích dẫn khi trả lời (dòng 28) |
+| 19 | lượt nhắc tên | Câu 3 | Loại bỏ | — | Ngoài phạm vi module (M01): lượt nhắc tên do M01 ghi nhận từ nội dung bình luận, M04 không đọc hay ghi thông tin nào của nó; quan hệ bình luận – lượt nhắc tên đã ghi ở R-M01-08 (EC-M01) |
+| 20 | bình luận được trả lời | Câu 4 | Lớp | Comment | Vai trò của một bình luận (gốc hoặc trả lời) khi được trả lời (TN:Bình luận được trả lời); trả lời trỏ tới bình luận được trả lời là quan hệ giữa các bình luận, xét ở bước 3 |
+| 21 | mọi người | Câu 5 | Loại bỏ | — | Chung chung: chỉ mọi vai trò, kể cả Guest |
+| 22 | Guest | Câu 5 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu |
+| 23 | người xem | Câu 5 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu; người xem có thể là Guest, M04 không ghi lại ai xem bình luận |
+| 24 | cách sắp xếp (Top, Mới nhất, Cũ nhất) | Câu 6 | Loại bỏ | — | Giao diện: lựa chọn của người xem lúc xem, không lưu; mỗi lần mở bài mặc định là Top (FR-M04-01.03); quy tắc xếp ở BR-M04-05, BR-M04-06 |
+| 25 | số upvote của bình luận | Câu 6 | Thuộc tính | Comment.upvoteCount | Số đếm tính ra trên một bình luận (TN:Số upvote của bình luận), dùng để xếp Top (BR-M04-05) |
+| 26 | upvote / upvote bình luận | Câu 6 | Lớp | Upvote | Lớp ngoài (M12): bình luận nhận nhiều upvote (mục Dữ liệu nghiệp vụ của FR) và M04 đếm upvote để xếp Top; tên tạm, chờ EC-M12, cùng tên với EC-M01 |
+| 27 | tên tác giả | Câu 7 | Thuộc tính | User.displayName | Thông tin của tài khoản mà M04 đọc để hiện trong dòng trích dẫn (FR-M04-01.16) |
+| 28 | dòng trích dẫn / trích dẫn khi trả lời | Câu 7 | Loại bỏ | — | Giao diện: chỉ để hiển thị, dựng lúc hiển thị từ tác giả và nội dung hiện tại của bình luận được trả lời, không thuộc nội dung trả lời (TN:Trích dẫn khi trả lời, BR-M04-04, FR-M04-03.13) |
+| 29 | phần đầu nội dung hiện tại | Câu 7 | Loại bỏ | — | Giao diện: phần đầu vừa một dòng của Comment.content, cắt lúc hiển thị (FR-M04-01.17) |
+| 30 | nhãn "(đã chỉnh sửa)" | Câu 8 | Thuộc tính | Comment.isEdited | Nhãn hiện khi bình luận đã được sửa ít nhất một lần (TN:Nhãn "(đã chỉnh sửa)"); điều cần biết là bình luận đã sửa chưa, tính từ Comment.editedAt (BR-M04-07) |
+| 31 | bình luận bị ẩn / Bị ẩn | Câu 9 | Loại bỏ | — | Giá trị của Comment.modState (TN:Bình luận bị ẩn) |
+| 32 | bất kỳ ai | Câu 9 | Loại bỏ | — | Chung chung: chỉ mọi người xem |
+| 33 | bình luận đã xóa / việc bị xóa / Đã xóa | Câu 10 | Loại bỏ | — | Giá trị của Comment.isDeleted: bình luận có cờ đã xóa (TN:Bình luận đã xóa); "Đã xóa" ở mục Chuyển trạng thái của FR là trạng thái cuối, không khôi phục (FR-M04-05.04) |
+| 34 | trả lời hiển thị bình thường / bình luận hiển thị bình thường | Câu 10 | Thuộc tính | Comment.isVisible | Điều kiện tính từ cờ đã xóa và trạng thái kiểm duyệt (TN:Bình luận hiển thị bình thường); dùng ở nhiều quy tắc (BR-M04-08, BR-M04-13, BR-M04-18) |
+| 35 | dấu "[Bình luận đã bị xóa]" | Câu 10 | Loại bỏ | — | Giao diện: cách hiển thị, không phải trạng thái (chú thích ở mục Chuyển trạng thái của FR); suy ra từ Comment.isVisible của bình luận gốc và của các trả lời |
+| 36 | số bình luận của bài | Câu 11 | Thuộc tính | Post.commentCount | Số đếm tính ra trên một bài viết (TN:Số bình luận của bài, BR-M04-18); FR định nghĩa nên M04 bổ sung trên lớp của M03 |
+| 37 | User | Câu 12 | Lớp | User | Vai trò của người dùng có tài khoản; trong M04, User, Mod và Admin có cùng quyền với bình luận (mục 4.3 của FR) nên M04 không đọc vai trò |
+| 38 | Mod | Câu 12 | Lớp | User | Vai trò của người dùng có tài khoản; xem dòng 37 |
+| 39 | Admin | Câu 12 | Lớp | User | Vai trò của người dùng có tài khoản; xem dòng 37 |
+| 40 | bài viết đang hiển thị | Câu 12 | Thuộc tính | Post.isPubliclyVisible | Thông tin của bài viết (M03) mà M04 đọc để chỉ hiển thị và nhận bình luận trên bài người xem xem được (BR-M04-17) |
+| 41 | Bình thường | Câu 14 | Loại bỏ | — | Giá trị của Comment.modState; là giá trị của bình luận mới (FR-M04-02.02, FR-M04-03.04) |
+| 42 | bước quét / việc quét AI | Câu 14 | Loại bỏ | — | Ngoài phạm vi module (M08): M04 không quét trước khi hiển thị (BR-M04-12); quét sau khi đăng do M08 làm, kết quả chỉ đổi Comment.modState |
+| 43 | mức khóa (Khóa bình luận, Khóa toàn bộ) | Câu 15 | Thuộc tính | Post.lockLevel | Thông tin của bài viết (M03) mà M04 đọc để từ chối bình luận mới và việc sửa bình luận (BR-M04-14, BR-M04-20); Khóa bình luận, Khóa toàn bộ là giá trị của thuộc tính này |
+| 44 | mức cảnh cáo HEAVY | Câu 15 | Loại bỏ | — | Ngoài phạm vi module (M08): M04 chỉ hỏi M08 mức cảnh cáo của người dùng để chặn tạo bình luận mới (BR-M04-15); mức cảnh cáo gắn với tài khoản, không có quan hệ với lớp nào của M04 (như EC-M03) |
+| 45 | thời gian | Câu 16 | Loại bỏ | — | Chung chung: "không giới hạn thời gian" (FR-M04-04.05) và "theo thời gian" (câu 24) không chỉ một mốc nào cần lưu; mốc thời gian của bình luận là publishedAt, editedAt, deletedAt |
+| 46 | số lần | Câu 16 | Loại bỏ | — | Hành động không lưu dấu vết: FR không giới hạn số lần sửa (FR-M04-04.05) và không lưu từng lần sửa (FR-M04-04.04), nên không cần đếm |
+| 47 | bản sửa | Câu 17 | Loại bỏ | — | Hành động không lưu dấu vết: lưu bản sửa chỉ thay Comment.content và ghi Comment.editedAt; FR-M04-04.04 không lưu nội dung trước khi sửa |
+| 48 | báo cáo | Câu 18 | Loại bỏ | — | Ngoài phạm vi module (M08): Mod, Admin xem nội dung bình luận đã xóa qua báo cáo; quan hệ "có thể bị báo cáo (M08)" ở mục Dữ liệu nghiệp vụ của FR do M08 ghi (như EC-M03 với bài viết) |
+| 49 | lịch sử báo cáo | Câu 18 | Loại bỏ | — | Ngoài phạm vi module (M08) |
+| 50 | khiếu nại | Câu 18 | Loại bỏ | — | Ngoài phạm vi module (M09): khiếu nại cảnh cáo, ban; bình luận không có khiếu nại riêng (BR-M04-23) |
+| 51 | bài viết bị xóa | Câu 20 | Loại bỏ | — | Ngoài phạm vi module (M03): xóa bài và thời hạn khôi phục thuộc M03; bình luận giữ cùng bài (FR-M04-05.11) nên M04 không đọc trạng thái xóa của bài |
+| 52 | việc Mod, Admin ẩn bình luận khi xử lý báo cáo | Câu 21 | Loại bỏ | — | Ngoài phạm vi module (M08): thao tác của M08, chỉ làm đổi Comment.modState; dấu vết xử lý do M08 ghi |
+| 53 | chế độ chỉ đọc | Câu 22 | Loại bỏ | — | Giao diện |
+| 54 | bình luận đã bị xử lý | Câu 22 | Loại bỏ | — | Ngoài phạm vi module (M08): kết quả xử lý báo cáo do M08 ghi; trên bình luận chỉ thể hiện qua Comment.modState hoặc Comment.isDeleted (FR-M04-06.02) |
+| 55 | thông báo xử lý | Câu 22 | Loại bỏ | — | Ngoài phạm vi module (M07, M08): M04 chỉ là nơi mở bình luận từ thông báo (TN:Thông báo xử lý) |
+| 56 | đối tượng | Câu 23 | Loại bỏ | — | Chung chung: "bình luận làm đối tượng của upvote" chỉ quan hệ bình luận – upvote (dòng 26) |
+| 57 | mốc trừ điểm / điểm | Câu 23 | Loại bỏ | — | Ngoài phạm vi module (M12): điểm Comment Star và việc trừ điểm do M12 tính; M04 cung cấp Comment.deletedAt |
+| 58 | thời điểm xóa / thời điểm tác giả bình luận xóa bình luận | Câu 23 | Thuộc tính | Comment.deletedAt | M04 cung cấp cho M12 làm mốc trừ điểm (mục Giao tiếp của FR, dòng Cung cấp M12) |
+| 59 | Trending / xếp hạng | Câu 24 | Loại bỏ | — | Ngoài phạm vi module (M05, M06, M14): các module đó đọc Comment.publishedAt và Comment.isDeleted |
+| 60 | thống kê | Câu 24 | Loại bỏ | — | Ngoài phạm vi module (M15) |
+| 61 | từ | Quét: TN:Từ | Loại bỏ | — | Hằng số của BR-M04-19: đơn vị đếm độ dài nội dung; ghi vào ràng buộc của Comment.content |
+| 62 | giới hạn 1.000 từ | Quét: BR-M04-19 | Loại bỏ | — | Hằng số của BR-M04-19; ghi vào ràng buộc của Comment.content |
+| 63 | tệp đính kèm | Quét: FR-M04-02.04 | Loại bỏ | — | Ngoài phạm vi hệ thống: bình luận không có tệp đính kèm (BR-M04-02) |
+| 64 | lịch sử sửa / nội dung trước khi sửa | Quét: FR-M04-04.04 | Loại bỏ | — | Ngoài phạm vi hệ thống: bình luận không lưu nội dung trước khi sửa và không có lịch sử sửa (FR-M04-04.04), khác bài viết có PostRevision |
+| 65 | downvote | Quét: BR-M04-09 | Loại bỏ | — | Ngoài phạm vi hệ thống: phản ứng duy nhất trên bình luận là upvote (BR-M04-09) |
+| 66 | Topic, Tag của bình luận | Quét: BR-M04-10 | Loại bỏ | — | Ngoài phạm vi module (M05): bình luận không có Topic, Tag riêng, thuộc ngữ cảnh của bài chứa nó (BR-M04-10) |
+| 67 | Accepted Answer | Quét: BR-M04-11 | Loại bỏ | — | Ngoài phạm vi hệ thống: MS1 không có (BR-M04-11) |
+| 68 | hàng chờ Mod / điểm quét | Quét: Chuyển trạng thái | Loại bỏ | — | Ngoài phạm vi module (M08): hàng chờ và điểm quét do M08 quản lý; bình luận ở hàng chờ có Comment.modState là Bị ẩn (mục Chuyển trạng thái của FR) |
+| 69 | avatar | Quét: Giao tiếp với module khác | Loại bỏ | — | Ngoài phạm vi module (M02): avatar của tác giả bình luận do M02 cung cấp (mục 1.2 của FR); không có yêu cầu nào của M04 đọc nó |
+| 70 | trạng thái tài khoản (vô hiệu hóa, đã xóa) | Quét: Giao tiếp với module khác | Loại bỏ | — | Ngoài phạm vi module (M01): cách hiển thị tác giả bình luận theo trạng thái tài khoản do M01 quyết (mục 1.2 của FR; EC-M01 đã ghi) |
+| 71 | nhãn "Tài khoản đã bị khóa" | Quét: Giao tiếp với module khác | Loại bỏ | — | Ngoài phạm vi module (M12) |
+| 72 | nhóm | Quét: Giao tiếp với module khác | Loại bỏ | — | Ngoài phạm vi module (M11): quyền bình luận trong nhóm và việc Owner, Group Mod gỡ bình luận khỏi nhóm do M11 quản lý; dấu gỡ khỏi nhóm trên bình luận (nếu cần) do EC-M11 ghi |
+| 73 | sự kiện có bình luận gốc mới, có trả lời | Quét: Giao tiếp với module khác | Loại bỏ | — | Hành động không lưu dấu vết: gửi cho M07 (mục Giao tiếp của FR); M04 không lưu |
+| 74 | công tắc AI tổng, công tắc Moderation | Quét: Giao tiếp với module khác | Loại bỏ | — | Ngoài phạm vi module (M10) |
+| 75 | danh tính, lý do đã chọn, mô tả, bằng chứng của người báo cáo | Quét: FR-M04-06.04 | Loại bỏ | — | Ngoài phạm vi module (M08): dữ liệu của báo cáo; M04 chỉ không hiển thị chúng cho tác giả bình luận |
+| 76 | nhãn bình luận đang bị ẩn | Quét: FR-M04-06.01 | Loại bỏ | — | Giao diện: hiện theo Comment.modState; câu chữ chốt ở giai đoạn thiết kế (mục Yêu cầu HMI của FR) |
 
 ### 2.2 Lớp
 
-| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Nguồn |
-|---|---|---|---|---|---|
-| Comment | Bình luận | Thực thể | M04 | Bình luận gốc và trả lời, dữ liệu nội dung cùng trạng thái và thời điểm. | FR-M04-02.01, FR-M04-03.02, FR-M04-04.02, FR-M04-05.01 |
-| User | Tài khoản | Thực thể | M01 | Tác giả bình luận và người được nhắc, dùng lại EC-M01. | FR-M04-02.01, FR-M04-01.16 |
-| Post | Bài viết | Thực thể | M03 | Bài chứa bình luận, cung cấp mức khóa, M04 bổ sung số bình luận. | FR-M04-01.10, FR-M04-02.01, FR-M04-02.06 |
-| UserProfile | Hồ sơ | Thực thể | M02 | Avatar của tác giả từ M02 theo mục 5.10, dùng lại EC-M02. | FR-M04-01 |
-| Mention | Lượt nhắc tên | Thực thể | M01 | Lượt nhắc trong nội dung, dùng lại EC-M01. | FR-M04-02.03, FR-M04-04.01 |
-| Notification | Thông báo | Thực thể | M07 | Ngữ cảnh mở bình luận đã xử lý, tên tạm từ EC-M01/03, chờ EC-M07. | FR-M04-06.01, FR-M04-06.02 |
-| Report | Báo cáo | Thực thể | M08 | Báo cáo về bình luận và ngữ cảnh kiểm duyệt, tên tạm từ EC-M03, chờ EC-M08. | FR-M04-06.02, BR-M04-21 |
-| Appeal | Khiếu nại | Thực thể | M09 | Khiếu nại cảnh cáo, ban có bình luận liên quan, tên tạm từ EC-M01/03, chờ EC-M09. | FR-M04-06.03 |
-| Upvote | Upvote | Thực thể | M12 | Bản ghi upvote bình luận để đếm Top, tên tạm từ EC-M01/03, chờ EC-M12. | BR-M04-09, BR-M04-05 |
-| Group | Nhóm | Thực thể | M11 | Ngữ cảnh quyền nhóm theo mục 5.10, tên tạm từ EC-M01/03, chờ EC-M11. | BR-M04-17, FR-M04-02.08 |
-| GroupMember | Thành viên nhóm | Thực thể | M11 | Tư cách thành viên và vai trò nhóm theo mục 5.10, tên tạm từ EC-M01/03, chờ EC-M11. | BR-M04-20, FR-M04-02.08 |
+<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (Mxx của tài liệu này, hoặc Myy với lớp ngoài).
+     Thuộc tính: tên mọi thuộc tính của lớp ở mục 2.3, ngăn bởi dấu phẩy, thuộc tính dẫn xuất có "/" phía trước;
+     để người đọc thấy lớp và thuộc tính trên cùng một dòng. Lớp chưa có thuộc tính ghi "—". -->
 
-Comment được dùng cho bình luận gốc và trả lời theo BR-M04-03. Luồng được biểu diễn qua các bình luận thành phần. Quan hệ được xét ở bước 3.
+| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
+|---|---|---|---|---|---|---|
+| Comment | Bình luận | Thực thể | M04 | Phản hồi do người dùng đã đăng nhập viết dưới một bài viết; gồm bình luận gốc và trả lời, tổ chức thành luồng hai cấp | content, publishedAt, editedAt, modState, deletedAt, /isDeleted, /isEdited, /isVisible, /upvoteCount, scannedAt, /isScannedCurrent, /replyRate, isRemovedFromGroup, isPointsDeducted | FR-M04-02, FR-M04-03, FR-M04-04, FR-M04-05, BR-M04-03 |
+| Post | Bài viết | Thực thể | M03 | Bài viết chứa bình luận; mức khóa và việc hiển thị của bài quyết định bình luận được tạo, sửa, xem | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M04-01.10, FR-M04-01.11, FR-M04-02.06 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Tác giả bình luận | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M04-02.01, FR-M04-01.16 |
+| Upvote | Upvote | Thực thể | M12 | Một upvote cho bình luận; M04 đếm số upvote đang có của bình luận để xếp Top | upvotedAt | FR-M04-01.03, BR-M04-05 |
 
 ### 2.3 Thuộc tính
 
-| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Ràng buộc nguồn nêu | Nguồn |
-|---|---|---|---|---|---|
-| Comment | content | Nội dung bình luận | Lưu | Định dạng theo BR-M04-01, tối đa 1.000 từ, nội dung có ký tự ngoài khoảng trắng theo BR-M04-19. Nội dung sửa thay bản cũ, FR-M04-04.01. | BR-M04-01, BR-M04-19, FR-M04-04.01 |
-| Comment | createdAt | Thời điểm đăng | Lưu | Lúc gửi bình luận, sửa giữ mốc đăng, FR-M04-02.01, FR-M04-04.03. | FR-M04-02.01, FR-M04-03.04, FR-M04-04.03 |
-| Comment | updatedAt | Thời điểm sửa gần nhất | Lưu | Có khi tác giả lưu bản sửa, lần sửa sau thay mốc trước, FR-M04-04.02, BR-M04-07. | FR-M04-04.02, BR-M04-07 |
-| Comment | moderationState | Trạng thái kiểm duyệt | Lưu | Bình thường khi gửi, tập giá trị Bình thường và Bị ẩn, M08 quyết định chuyển trạng thái. | FR-M04-02.02, FR-M04-01.09 |
-| Comment | isDeleted | Cờ đã xóa | Lưu | Được gắn khi tác giả xóa, giữ nội dung theo FR-M04-05.07. Q-01 đã chọn dấu riêng, chờ cập nhật FR-M04 trước khi bổ sung thuộc tính dấu gỡ khỏi nhóm. | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03, FR-M04-05.07 |
-| Comment | wordCount | Số từ | Dẫn xuất | Đếm cụm chữ ngăn bởi khoảng trắng trên chữ người đọc thấy của content. Tính khối trích dẫn tác giả viết, tách dòng trích dẫn khi trả lời theo BR-M04-19. | TN:Từ, BR-M04-19 |
-| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Đúng khi updatedAt đã ghi nhận một lần sửa, dùng cho nhãn theo FR-M04-01.06, BR-M04-07. | FR-M04-01.06, FR-M04-04.02, BR-M04-07 |
-| Comment | upvoteCount | Số upvote | Dẫn xuất | Đếm người dùng đang upvote từ M12, chỉ tính upvote còn hiệu lực, TN:Số upvote của bình luận, dùng cho Top. | TN:Số upvote của bình luận, BR-M04-05 |
-| Post | commentCount | Số bình luận của bài | Dẫn xuất | Đếm bình luận gốc và trả lời đang hiển thị bình thường, loại bình luận có cờ xóa hoặc Bị ẩn theo BR-M04-18. Phần M04 bổ sung cho lớp ngoài M03. | FR-M04-01.10, BR-M04-18 |
+<!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
+     Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
+     Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
+     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
+             — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
+     Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
+     Ghi chú: bắt buộc với Đề xuất (vì sao cần) và Tham chiếu (module này dùng nó làm gì). -->
 
-M04 có 8 thuộc tính của Comment, gồm 5 thuộc tính lưu và 3 thuộc tính dẫn xuất, cùng 1 thuộc tính dẫn xuất bổ sung cho Post. isEdited là cách biểu diễn được đề xuất từ thời điểm sửa gần nhất. Dòng trích dẫn khi trả lời được dựng khi xem theo BR-M04-04. Mốc xóa cung cấp M12 là dữ liệu sự kiện theo mục 5.10, FR hiện yêu cầu lưu cờ xóa trên Comment.
+| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Căn cứ | Ràng buộc nguồn nêu | Nguồn | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| Comment | content | Nội dung bình luận | Lưu | Nguồn nêu | Bắt buộc, không được trống hoặc chỉ có khoảng trắng; tối đa 1.000 từ, đếm trên phần chữ người đọc thấy; khối trích dẫn tác giả tự gõ có tính, dòng trích dẫn khi trả lời không tính (BR-M04-19, TN:Từ, FR-M04-03.13); chỉ các định dạng in đậm, in nghiêng, code trong dòng, công thức LaTeX, liên kết, nhắc tên, trích dẫn (BR-M04-01); không có tệp đính kèm (BR-M04-02); áp khi gửi và khi lưu bản sửa (BR-M04-19) | FR-M04-04.01, FR-M04-05.07, BR-M04-01, BR-M04-19 | Thay bằng nội dung mới khi tác giả lưu bản sửa; được giữ khi bình luận bị xóa để M08, M09 xem (BR-M04-21) |
+| Comment | publishedAt | Thời điểm đăng | Lưu | Nguồn nêu | Lúc hệ thống ghi nhận bình luận được gửi (TN:Thời điểm đăng); không đổi khi sửa (FR-M04-04.03) | FR-M04-02.01, FR-M04-04.03 | Xếp bình luận gốc theo Mới nhất, Cũ nhất, tách hòa ở Top, xếp trả lời (BR-M04-05, BR-M04-06); M05, M06, M14, M15 đọc (mục Giao tiếp của FR). Đặt tên như Post.publishedAt vì cùng thuật ngữ "thời điểm đăng" |
+| Comment | editedAt | Thời điểm sửa | Lưu | Nguồn nêu | Thời điểm lần sửa gần nhất, thay cho lần trước (FR-M04-04.02); không lưu nội dung trước khi sửa (FR-M04-04.04) | FR-M04-04.02, BR-M04-07 | Chưa sửa lần nào thì chưa có giá trị; register gọi edited_at |
+| Comment | modState | Trạng thái kiểm duyệt | Lưu | Nguồn nêu | Bình thường, Bị ẩn (TN:Trạng thái kiểm duyệt của bình luận); bình luận mới là Bình thường (FR-M04-02.02, FR-M04-03.04); không đổi khi sửa (FR-M04-04.03); M08 đổi theo mục Chuyển trạng thái của FR | FR-M04-01.09, FR-M04-02.02, FR-M04-03.04 | M08 ghi; M04 đọc để không hiện nội dung trong luồng và chặn sửa, xóa (BR-M04-13, BR-M04-20). Cùng tên với Post.modState |
+| Comment | deletedAt | Thời điểm xóa | Lưu | Nguồn nêu | Chỉ có khi tác giả đã xóa bình luận; không xóa lại, không khôi phục (FR-M04-05.04, FR-M04-05.06) | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 | Mục Giao tiếp của FR, dòng Cung cấp M12 (dẫn các mã ở cột Nguồn): "thời điểm tác giả xóa bình luận (mốc trừ điểm)" |
+| Comment | isDeleted | Đã xóa | Dẫn xuất | Nguồn nêu | deletedAt có giá trị; FR gọi là cờ đã xóa, nội dung vẫn giữ (FR-M04-05.01, FR-M04-05.07) | FR-M04-05.01, FR-M04-05.07 | Bỏ bình luận khỏi luồng hoặc hiện dấu "[Bình luận đã bị xóa]" (BR-M04-08); từ chối sửa, xóa lại, trả lời (FR-M04-04.08, FR-M04-05.06, FR-M04-03.10) |
+| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Nguồn nêu | editedAt có giá trị, tức bình luận đã được tác giả sửa ít nhất một lần (BR-M04-07) | FR-M04-01.06 | Điều kiện hiện nhãn "(đã chỉnh sửa)" |
+| Comment | isVisible | Hiển thị bình thường | Dẫn xuất | Nguồn nêu | Chưa bị xóa và modState là Bình thường (TN:Bình luận hiển thị bình thường) | FR-M04-01.07, FR-M04-03.01, BR-M04-18 | Đếm số bình luận của bài; quyết định bình luận gốc hiện dấu hay bị bỏ khỏi luồng (FR-M04-01.15); chỉ trả lời được bình luận đang hiển thị bình thường |
+| Comment | upvoteCount | Số upvote | Dẫn xuất | Nguồn nêu | Số người dùng đang upvote bình luận tại thời điểm xem, upvote đã rút lại không tính (TN:Số upvote của bình luận); đếm từ Upvote (M12) | FR-M04-01.03, FR-M04-01.14, BR-M04-05 | Xếp bình luận gốc theo Top |
+| Comment | scannedAt | Thời điểm quét gần nhất | Lưu | Đề xuất | — | FR-M08-08.01, FR-M08-08.08 | Bổ sung từ EC-M08 (MD-05). TN:Đã quét với nội dung hiện tại là đã quét sau lần sửa nội dung gần nhất (hoặc sau khi đăng); cần thời điểm quét để so với Comment.editedAt mà M04 không phải xóa dấu khi sửa. M08 định nghĩa trên lớp ngoài Comment (mục 5) |
+| Comment | isScannedCurrent | Đã quét với nội dung hiện tại | Dẫn xuất | Nguồn nêu | Đúng khi có scannedAt và scannedAt không sớm hơn Comment.editedAt (TN:Đã quét với nội dung hiện tại); mỗi lần kích hoạt chỉ quét bình luận chưa đúng (BR-M08-21) | FR-M08-08.01, FR-M08-08.08 | Bổ sung từ EC-M08 (MD-05). M08 định nghĩa trên lớp ngoài Comment (mục 5) |
+| Comment | replyRate | Tốc độ trả lời | Dẫn xuất | Nguồn nêu | Chỉ có ở bình luận gốc: số trả lời của luồng có thời điểm đăng trong khoảng thời gian trượt, chỉ đếm trả lời (BR-M08-20); đạt ngưỡng tốc độ thì kích hoạt quét (giá trị tạm 10 trả lời trong 5 phút, TBD-M08-04) | FR-M08-08.01, BR-M08-20 | Bổ sung từ EC-M08 (MD-05). M08 định nghĩa trên lớp ngoài Comment (mục 5) |
+| Comment | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Nguồn nêu | Như Post.isRemovedFromGroup (TN:Bị gỡ khỏi nhóm, BR-M11-30) | FR-M11-14.01, FR-M11-14.05 | Bổ sung từ EC-M11 (MD-05). M11 bổ sung trên lớp ngoài Comment (mục 5); EC-M04 dòng 72 để EC-M11 ghi |
+| Comment | isPointsDeducted | Đã trừ điểm | Lưu | Nguồn nêu | Đang tính điểm (sai), Đã trừ điểm (đúng) (TN:Đang tính điểm, Đã trừ điểm); với bình luận, Đã trừ điểm là trạng thái cuối (mục Chuyển trạng thái) | FR-M12-02.11, FR-M12-02.19, FR-M12-02.20, FR-M12-02.18 | Bổ sung từ EC-M12 (MD-05). M12 bổ sung trên lớp ngoài Comment (mục 5) |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M03-01.12, FR-M03-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M04-02.06, FR-M04-03.07, FR-M04-04.09, FR-M04-05.08 | M04 đọc để từ chối bình luận gốc, trả lời mới và việc sửa bình luận khi bài ở mức Khóa bình luận hoặc Khóa toàn bộ; việc xóa vẫn được (BR-M04-14, BR-M04-20) |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M04-01.01, FR-M04-01.11, FR-M04-02.08 | M04 đọc để chỉ hiển thị và nhận bình luận trên bài người xem xem được (BR-M04-17); tác giả bài xem bài của mình theo quy tắc của M03 |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | Số bình luận gốc và trả lời của bài có isVisible; không tính dấu "[Bình luận đã bị xóa]" và bình luận bị ẩn; mọi người xem thấy cùng một số (BR-M04-18) | FR-M04-01.10, BR-M04-18 | M04 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Hiện trên bài viết; M05, M06, M14 dùng số bình luận cho Trending và xếp hạng |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M04-01.16 | M04 hiện tên tác giả của bình luận được trả lời trong dòng trích dẫn (BR-M04-04) |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M01-01.02, FR-M01-05.19 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-05.14, FR-M01-10.01, FR-M01-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Upvote | upvotedAt | Thời điểm upvote | Lưu | Tham chiếu | — | FR-M12-01.01, FR-M12-04.15, BR-M12-14 | Ghi đủ lớp sau gộp (MD-05); EC-M12 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
+<!-- Mỗi thực thể ở bảng "Dữ liệu nghiệp vụ" của FR một dòng; chép đúng tên ở cột Thực thể của FR.
+     Xử lý: Khớp | Đã thêm qua sổ danh từ | Mô hình có thêm: … | Lệch: … (kèm Q-nn). -->
+
 | Thực thể trong FR | Trong mô hình | Xử lý |
 |---|---|---|
-| Bình luận | Comment | Khớp nội dung, thời điểm đăng, thời điểm sửa, trạng thái kiểm duyệt và cờ xóa. Tác giả, bài chứa, bình luận gốc và bình luận được trả lời được giữ ở sổ dưới đối tượng tương ứng để xét quan hệ bước 3. |
-| Bổ sung từ yêu cầu và thuật ngữ | Comment.wordCount, isEdited, upvoteCount | Mô hình có thêm các giá trị dẫn xuất từ BR-M04-19, FR-M04-01.06, BR-M04-05 và thuật ngữ số upvote. |
-| Bổ sung trên lớp ngoài | Post.commentCount | Mô hình có thêm giá trị đếm theo FR-M04-01.10, BR-M04-18. Ghi nhận phần M04 bổ sung để đối chiếu tại bước 3 và lượt gộp. |
-| Tham chiếu liên module | User, Post, UserProfile, Mention, Notification, Report, Appeal, Upvote, Group, GroupMember | Mô hình có thêm đối tượng ngoài từ yêu cầu và giao tiếp mục 5.10. Group/GroupMember dựa vào giao tiếp quyền nhóm, các mã dẫn kèm là yêu cầu bao quát quyền hiển thị và thao tác. |
+| Bình luận | Comment | Mô hình có thêm: deletedAt (mục Giao tiếp, dòng Cung cấp M12: thời điểm tác giả xóa bình luận), nên cờ đã xóa của FR thành /isDeleted tính từ deletedAt; /isEdited (FR-M04-01.06), /isVisible (TN:Bình luận hiển thị bình thường), /upvoteCount (TN:Số upvote của bình luận). Số bình luận của bài ghi trên Post (/commentCount, BR-M04-18), đúng chú thích của FR. Tác giả, bài chứa bình luận, bình luận gốc của luồng, bình luận được trả lời và việc nhận upvote (M12) là quan hệ (bước 3). Quan hệ chứa lượt nhắc tên (M01) đã ghi ở R-M01-08; quan hệ có thể bị báo cáo (M08) để EC-M08 ghi (sổ danh từ dòng 19, 48) |
 
 ## 3. Quan hệ giữa các lớp
 
 ### 3.1 Ma trận cặp lớp
 
-| Lớp | Comment | User | Post | UserProfile | Mention | Notification | Report | Appeal | Upvote | Group | GroupMember |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| Comment | T | T | T | G(User) | T | T | T | T | T | G(Post) | T |
-| User |  |  |  |  |  |  |  |  |  |  |  |
-| Post |  |  |  |  |  |  |  |  |  |  |  |
-| UserProfile |  |  |  |  |  |  |  |  |  |  |  |
-| Mention |  |  |  |  |  |  |  |  |  |  |  |
-| Notification |  |  |  |  |  |  |  |  |  |  |  |
-| Report |  |  |  |  |  |  |  |  |  |  |  |
-| Appeal |  |  |  |  |  |  |  |  |  |  |  |
-| Upvote |  |  |  |  |  |  |  |  |  |  |  |
-| Group |  |  |  |  |  |  |  |  |  |  |  |
-| GroupMember |  |  |  |  |  |  |  |  |  |  |  |
+<!-- T = quan hệ trực tiếp; G(X) = chỉ gián tiếp qua lớp X; trống = không liên quan. Chỉ điền nửa trên. -->
 
-Ma trận xét các cặp có Comment, gồm ô tự liên hệ Comment–Comment. Các cặp hai lớp ngoài để trống theo phạm vi skill. Ô Comment–Comment có hai vai trò riêng ở R-M04-01 và R-M04-02. UserProfile được dùng qua User tác giả, Group được dùng qua Post của nhóm. Quan hệ User–UserProfile và Post–Group thuộc module sở hữu.
+M04 chỉ có một lớp là Comment nên ma trận có một hàng; cặp hai lớp ngoài (Post – User, User – Upvote) không xét.
+
+| | Comment | Post | User | Upvote |
+|---|---|---|---|---|
+| Comment | T | T | T | T |
+
+Comment – Comment có hai quan hệ trực tiếp khác nhau: trả lời thuộc luồng của một bình luận gốc (BR-M04-03), và trả
+lời trỏ tới bình luận được trả lời (FR-M04-03.01). Ô Comment – User là quan hệ tác giả; việc người dùng upvote bình
+luận chỉ là gián tiếp qua Upvote, và quan hệ User – Upvote là của hai lớp ngoài nên do EC-M12 ghi.
 
 ### 3.2 Quan hệ số lượng
 
+<!-- Mỗi ô T của ma trận một dòng. Dạng đọc theo thứ tự A–B: 1-1 | 1-n | n-1 | n-n.
+     Xử lý: Giữ nguyên | Gộp vào <Lớp>: … | Giữ: … | Tách: thêm lớp <X>. -->
+
 | Cặp | Câu A → B | Câu B → A | Dạng | Xử lý |
 |---|---|---|---|---|
-| Comment – Comment (R-M04-01) | Một Comment ở vai trò bình luận gốc có thể có nhiều Comment trả lời trong luồng. | Một Comment trả lời thuộc đúng một Comment gốc, Comment gốc có thể đứng đầu luồng. | 1-n | Giữ nguyên |
-| Comment – Comment (R-M04-02) | Một Comment được trả lời có thể là đích của nhiều Comment trả lời. | Một Comment trả lời ghi đúng một Comment được trả lời, Comment gốc có thể đứng độc lập. | 1-n | Giữ nguyên |
-| User – Comment (R-M04-03) | Một User có thể là tác giả của nhiều Comment. | Một Comment do đúng một User gửi. | 1-n | Giữ nguyên |
-| Post – Comment (R-M04-04) | Một Post có thể chứa nhiều Comment, gồm bình luận gốc và trả lời. | Một Comment thuộc đúng một Post. | 1-n | Giữ nguyên |
-| Comment – Mention (R-M04-05) | Một Comment có thể chứa nhiều Mention. | Một Mention thuộc tối đa một Comment, chủ chứa còn lại có thể là Post theo M01. | 1-n | Giữ nguyên |
-| Comment – Report (R-M04-06) | Một Comment có thể là đối tượng của nhiều Report. | Một Report về bình luận ghi lại một Comment, Report về loại đối tượng khác có thể đứng ngoài phạm vi Comment. | 1-n | Giữ nguyên |
-| Comment – Upvote (R-M04-07) | Một Comment có thể nhận nhiều Upvote. | Một Upvote cho bình luận ghi lại một Comment, Upvote cho bài viết có thể đứng ngoài phạm vi Comment. | 1-n | Giữ nguyên |
-
-Các Phụ thuộc được xét riêng theo bước 3.4 của skill.
-
-| ID | Chiều A → B | Chiều B → A |
-|---|---|---|
-| R-M04-08 | Comment dùng Notification trong luồng xem lại và cung cấp sự kiện cho M07. | Notification được M07 quản lý, bội số tham chiếu nội dung thuộc phạm vi M07. |
-| R-M04-09 | Comment dùng Appeal để cho tác giả xem lại bình luận liên quan. | Appeal do M09 quản lý, M04 dùng quyền truy cập của ngữ cảnh khiếu nại. |
-| R-M04-10 | Comment dùng GroupMember để kiểm tra quyền bình luận trong nhóm. | GroupMember do M11 cung cấp theo người dùng và nhóm của bài. |
-
-Hai quan hệ tự liên hệ dùng cùng lớp Comment với các vai trò khác nhau. Đối với một trả lời, bình luận gốc của luồng và bình luận được trả lời đều bắt buộc. Đối với bình luận gốc, cả hai đầu tham chiếu này đều vắng. Bình luận được trả lời phải thuộc cùng bài và cùng luồng. Một bình luận gốc có thể có nhiều trả lời, một bình luận có thể được nhiều trả lời trỏ tới, theo BR-M04-03 và FR-M04-03.01–03.03.
-
-Mỗi Mention có đúng một chủ chứa là Post hoặc Comment, kế thừa ràng buộc XOR của EC-M01. Những Mention có chủ chứa Comment dùng R-M04-05. Với Report và Upvote, bội số Comment 0..1 bao quát lớp ngoài dùng chung cho nhiều loại đối tượng, từng Report hoặc Upvote về bình luận có đúng một đích Comment. Những nửa quan hệ giữa hai lớp ngoài thuộc module sở hữu.
+| Post – Comment | Một bài viết có thể có nhiều bình luận, gồm bình luận gốc và trả lời, ở các thời điểm khác nhau. | Một bình luận thuộc đúng một bài viết; một trả lời thuộc cùng bài viết với bình luận gốc của luồng. | 1-n | Giữ nguyên |
+| User – Comment | Một người dùng có thể viết nhiều bình luận. | Một bình luận do đúng một tác giả bình luận viết. | 1-n | Giữ nguyên |
+| Comment – Comment (bình luận gốc – trả lời) | Một bình luận gốc có thể có nhiều trả lời trong luồng của nó; một trả lời không có trả lời nào trong luồng riêng, vì luồng chỉ có hai cấp. | Một trả lời thuộc luồng của đúng một bình luận gốc; một bình luận gốc không thuộc luồng của bình luận nào. | 1-n | Giữ nguyên |
+| Comment – Comment (trả lời – bình luận được trả lời) | Một bình luận (gốc hoặc trả lời) có thể được nhiều trả lời trả lời tới. | Một trả lời có đúng một bình luận được trả lời; một bình luận gốc không có bình luận được trả lời. | n-1 | Giữ nguyên |
+| Comment – Upvote | Một bình luận có thể nhận nhiều upvote ở các thời điểm khác nhau. | Một upvote ứng với tối đa một bình luận, vì upvote của M12 dùng cho cả bài viết và bình luận (EC-M01). | 1-n | Giữ nguyên |
 
 ### 3.3 Lớp liên kết
+
+<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB".
+     "Thuộc tính riêng của liên kết": tên các thuộc tính (đã ghi ở mục 2.3); không có thì ghi rõ vì sao. -->
+
+Không có lớp liên kết: không cặp nào ở mục 3.2 có dạng n-n.
 
 | Lớp liên kết | Tách từ quan hệ n-n | Thuộc tính riêng của liên kết | Nguồn |
 |---|---|---|---|
 | — | — | — | — |
 
-Các cặp trực tiếp ở mô hình này có dạng 1-n hoặc Phụ thuộc. Upvote đã được FR gọi tên như đối tượng ngoài của M12, M04 tham chiếu Upvote để đếm số upvote. Bảng lớp giữ nguyên 11 lớp đã được duyệt ở bước 2.
-
 ### 3.4 Quan hệ
+
+<!-- Bội số A = số đối tượng A ứng với một đối tượng B (ghi ở đầu A trên sơ đồ). Cú pháp: 1, 0..1, 0..*, 1..*, 1..3.
+     Loại: Kế thừa | Hợp thành | Kết tập | Liên kết | Phụ thuộc.
+     Bên chính: lớp cha (Kế thừa), lớp toàn thể (Hợp thành, Kết tập), lớp được dùng (Phụ thuộc); "—" với Liên kết.
+     Kế thừa và Phụ thuộc ghi "—" ở Bội số A, Bội số B, Dạng. Không được còn dạng n-n. -->
 
 | ID | Lớp A | Bội số A | Lớp B | Bội số B | Dạng | Loại | Bên chính | Căn cứ | Nguồn |
 |---|---|---|---|---|---|---|---|---|---|
-| R-M04-01 | Comment | 0..1 | Comment | 0..* | 1-n | Liên kết | — | Vai trò bình luận gốc–trả lời. Mỗi trả lời thuộc đúng một bình luận gốc, bình luận gốc có thể có nhiều trả lời. Đầu 0..1 bao quát bình luận gốc khi lớp Comment dùng chung. Quan hệ giữ khi tác giả xóa bình luận gốc. | BR-M04-03, FR-M04-03.02, FR-M04-03.03, FR-M04-05.01 |
-| R-M04-02 | Comment | 0..1 | Comment | 0..* | 1-n | Liên kết | — | Vai trò bình luận được trả lời–trả lời. Mỗi trả lời ghi đúng một đích là bình luận gốc hoặc một trả lời. Bình luận gốc có đầu đích tùy chọn trong mô hình chung. | FR-M04-03.01, FR-M04-03.02, FR-M04-03.03, BR-M04-04 |
-| R-M04-03 | User | 1 | Comment | 0..* | 1-n | Kết tập | Comment | Comment ghi lại một tài khoản tác giả. Chọn Comment là bên ghi lại theo phương pháp của skill, khớp R-M01-11. Tác giả có thể có nhiều bình luận. | FR-M04-02.01, FR-M04-03.04 |
-| R-M04-04 | Post | 1 | Comment | 0..* | 1-n | Kết tập | Post | Post chứa bình luận. FR-M04-05.11 giữ bình luận cùng bài khi bài bị xóa, căn cứ chọn Kết tập. Khớp R-M03-15. | FR-M04-02.01, FR-M04-05.11 |
-| R-M04-05 | Comment | 0..1 | Mention | 0..* | 1-n | Kết tập | Comment | Comment chứa lượt nhắc tên. M01 định nghĩa chủ chứa Mention là Post hoặc Comment, dùng XOR đúng một chủ. Khớp R-M01-13. | FR-M04-02.03, FR-M04-04.01 |
-| R-M04-06 | Comment | 0..1 | Report | 0..* | 1-n | Kết tập | Report | Report ghi lại đối tượng bị báo cáo. M08 sở hữu báo cáo, bình luận đã xóa được giữ để đọc báo cáo. Đầu Comment tùy chọn vì Report là lớp ngoài dùng chung cho các loại đối tượng. | FR-M04-06.02, BR-M04-21 |
-| R-M04-07 | Comment | 0..1 | Upvote | 0..* | 1-n | Kết tập | Upvote | Upvote ghi lại đối tượng nhận upvote. Upvote là lớp ngoài M12 dùng chung cho bài viết và bình luận theo mô hình các module trước, Comment là một loại đích. | BR-M04-09, TN:Số upvote của bình luận |
-| R-M04-08 | Comment | — | Notification | — | — | Phụ thuộc | Notification | Luồng xem lại Comment dùng Notification làm ngữ cảnh truy cập và M04 cung cấp sự kiện cho M07. M04 sử dụng ngữ cảnh thông báo để hoạt động, các đối tượng thông báo được M07 quản lý. | FR-M04-06.01, FR-M04-06.02 |
-| R-M04-09 | Comment | — | Appeal | — | — | Phụ thuộc | Appeal | Luồng xem lại Comment cần ngữ cảnh Appeal của tác giả. M09 quản lý khiếu nại cảnh cáo hoặc ban liên quan. Quan hệ mô tả việc dùng ngữ cảnh khiếu nại. | FR-M04-06.03, FR-M04-06.05 |
-| R-M04-10 | Comment | — | GroupMember | — | — | Phụ thuộc | GroupMember | Comment dùng tư cách thành viên và vai trò nhóm để kiểm tra quyền thao tác theo giao tiếp mục 5.10. GroupMember thuộc M11, là dữ liệu đầu vào kiểm tra quyền. | FR-M04-02.08, BR-M04-20 |
-
-Các quan hệ được đọc theo câu ở mục 3.2. Việc chọn bên ghi lại của Kết tập là phán đoán theo phương pháp của skill ở R-M04-03, R-M04-06, R-M04-07. R-M04-04 lấy Post làm bên chứa bình luận, R-M04-05 lấy Comment làm bên chứa lượt nhắc tên.
+| R-M04-01 | Post | 1 | Comment | 0..* | 1-n | Kết tập | Post | Bài viết chứa các bình luận của bài. Không ghi hợp thành vì thiếu điều (iii): khi bài bị xóa, kể cả hết thời hạn khôi phục, bình luận được giữ cùng bài và không bao giờ bị xóa hẳn. Một trả lời thuộc cùng bài với bình luận gốc của luồng | FR-M04-02.01, FR-M04-05.11, BR-M04-21 |
+| R-M04-02 | User | 1 | Comment | 0..* | 1-n | Kết tập | Comment | Bình luận ghi lại tác giả bình luận; tài khoản tồn tại độc lập. Cùng loại và chiều với R-M01-12 | FR-M04-02.01, FR-M04-04.07, FR-M04-05.05 |
+| R-M04-03 | Comment | 0..1 | Comment | 0..* | 1-n | Kết tập | Comment | Luồng bình luận: bình luận gốc (đầu A) chứa các trả lời (đầu B). Đầu A là 0..1 vì bình luận gốc không thuộc luồng nào; bình luận ở đầu A luôn là bình luận gốc, vì luồng chỉ có hai cấp. Không ghi hợp thành vì thiếu điều (iii): xóa bình luận gốc thì các trả lời giữ nguyên. Quan hệ này suy ra được bằng cách lần theo chuỗi R-M04-04 (BR-M04-03), nhưng được giữ vì: FR gọi tên "bình luận gốc của luồng" là dữ liệu của bình luận (mục Dữ liệu nghiệp vụ); luồng là đơn vị mà BR-M04-03, BR-M04-06, BR-M04-08, BR-M04-13 và việc quét theo luồng của M08 dùng trực tiếp; quan hệ được gán một lần lúc tạo trả lời và không đổi về sau (FR-M04-04.03). Ràng buộc với R-M04-04: bình luận được trả lời của một trả lời phải là bình luận gốc của luồng đó hoặc một trả lời khác trong cùng luồng | FR-M04-03.02, FR-M04-03.03, BR-M04-03, FR-M04-05.01 |
+| R-M04-04 | Comment | 0..* | Comment | 0..1 | n-1 | Kết tập | Comment | Trả lời (đầu A) ghi lại bình luận được trả lời (đầu B), là bình luận gốc của luồng hoặc một trả lời khác trong cùng luồng. Đầu B là 0..1 vì bình luận gốc không có bình luận được trả lời. Bình luận được trả lời tồn tại độc lập: khi nó bị xóa hoặc bị ẩn, trả lời vẫn còn và hiện "trả lời [bình luận đã bị xóa]" | FR-M04-03.01, FR-M04-03.02, FR-M04-03.03, BR-M04-04, BR-M04-08 |
+| R-M04-05 | Comment | 0..1 | Upvote | 0..* | 1-n | Kết tập | Comment | Bình luận nhận các upvote; số upvote của bình luận đếm trên các upvote này. Đầu Comment là 0..1 vì upvote của M12 dùng cho cả bài viết. Không ghi hợp thành vì upvote do M12 tạo và rút, và bình luận không bao giờ bị xóa hẳn. Tên lớp Upvote là tên tạm, chờ EC-M12. Trùng R-M12-03 (MD-08) | FR-M04-01.03, BR-M04-05, BR-M04-09 |
 
 ## 4. Sơ đồ lớp phân tích
 
-<!-- BEGIN:PUML -->
-```plantuml
-@startuml
-hide circle
-hide methods
-skinparam classAttributeIconSize 0
+<!-- BEGIN:DIAGRAM -->
+![Sơ đồ lớp phân tích — EC-M04](diagrams/EC-M04.png)
 
-class Comment {
-  -content
-  -createdAt
-  -updatedAt
-  -moderationState
-  -isDeleted
-  -/wordCount
-  -/isEdited
-  -/upvoteCount
-}
-class User <<M01>> {
-}
-class Post <<M03>> {
-  -/commentCount
-}
-class UserProfile <<M02>> {
-}
-class Mention <<M01>> {
-}
-class Notification <<M07>> {
-}
-class Report <<M08>> {
-}
-class Appeal <<M09>> {
-}
-class Upvote <<M12>> {
-}
-class Group <<M11>> {
-}
-class GroupMember <<M11>> {
-}
-
-Comment "0..1" -- "0..*" Comment
-Comment "0..1" -- "0..*" Comment
-Comment "0..*" o-- "1" User
-Post "1" o-- "0..*" Comment
-Comment "0..1" o-- "0..*" Mention
-Report "0..*" o-- "0..1" Comment
-Upvote "0..*" o-- "0..1" Comment
-Comment ..> Notification
-Comment ..> Appeal
-Comment ..> GroupMember
-
-@enduml
-```
-<!-- END:PUML -->
-
-Mã sơ đồ được sinh bằng tool. Hai đường Comment–Comment cần đọc cùng vai trò ở R-M04-01/02, tool thể hiện bội số và loại quan hệ. Các ràng buộc theo loại bình luận và XOR Mention được ghi ở mục 3.2.
+Mã nguồn sơ đồ: [diagrams/EC-M04.puml](diagrams/EC-M04.puml). Ảnh và tệp .puml do `gen_puml.py` sinh từ các bảng của tài liệu này; muốn đổi sơ đồ thì sửa bảng rồi chạy lại tool, không sửa tay.
+<!-- END:DIAGRAM -->
 
 ## 5. Liên module
 
+<!-- Mỗi lớp có Sở hữu khác module này một dòng. -->
+
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| User | M01 | Tác giả của Comment tại R-M04-03, khớp R-M01-11. Tác giả có trạng thái tài khoản và tên hiển thị theo M01. | — |
-| Post | M03 | Bài chứa Comment tại R-M04-04, khớp R-M03-15. M04 dùng mức khóa và khả năng hiển thị của bài. | commentCount dẫn xuất theo FR-M04-01.10, BR-M04-18. |
-| UserProfile | M02 | Avatar tác giả theo mục 5.10, liên hệ gián tiếp qua User. M02 sở hữu hồ sơ. | — |
-| Mention | M01 | Chủ chứa Comment tại R-M04-05, khớp R-M01-13. Ràng buộc XOR Post/Comment do M01 xác định. | — |
-| Notification | M07 | Ngữ cảnh xem lại tại R-M04-08, sự kiện bình luận gốc mới và trả lời mới cho M07. Chờ EC-M07 đối chiếu. | — |
-| Report | M08 | Báo cáo về Comment tại R-M04-06, giữ nội dung đã xóa phục vụ báo cáo và lịch sử báo cáo. Chờ EC-M08 đối chiếu. | — |
-| Appeal | M09 | Ngữ cảnh xem lại theo R-M04-09, khiếu nại cảnh cáo hoặc ban liên quan tới Comment. Chờ EC-M09 đối chiếu. | — |
-| Upvote | M12 | Đích Comment tại R-M04-07 và nguồn đếm upvoteCount. M04 cung cấp mốc sự kiện tác giả xóa để M12 xử lý điểm. Chờ EC-M12 đối chiếu. | — |
-| Group | M11 | Ngữ cảnh nhóm được xác định qua Post. M11 cung cấp quyền, trạng thái nhóm và thao tác gỡ bình luận khỏi nhóm. Q-01 đã chọn dấu riêng, chờ cập nhật FR. | — |
-| GroupMember | M11 | Đầu vào kiểm tra quyền nhóm tại R-M04-10, vai trò Owner/Group Mod/Member do M11 quản lý. Chờ EC-M11 đối chiếu. | — |
-
-Phần dữ liệu mới theo Q-01 đang chờ cập nhật FR-M04. Bản bước 3 hiện dùng FR-M04 v1.4 đã chốt. UserProfile và Group là lớp ngoài chỉ liên hệ gián tiếp trong phạm vi M04.
+| Post | M03 | Bình luận thuộc bài viết (R-M04-01). Đọc lockLevel để từ chối bình luận gốc, trả lời mới và việc sửa bình luận khi bài bị khóa; đọc isPubliclyVisible để chỉ hiển thị và nhận bình luận trên bài người xem xem được. Bổ sung commentCount, tức số bình luận gốc và trả lời đang hiển thị bình thường, hiện trên bài viết (BR-M04-18) | /commentCount — đã đưa vào lớp của EC-M03 (MD-05) |
+| User | M01 | Ghi tác giả bình luận (R-M04-02, cùng R-M01-12). Đọc displayName để hiện tên tác giả của bình luận được trả lời trong dòng trích dẫn | — |
+| Upvote | M12 | Bình luận nhận upvote (R-M04-05); M04 đếm upvote đang có của bình luận để xếp Top (Comment./upvoteCount). Tên lớp và bội số đầu Comment là tạm, chờ EC-M12 | — |
 
 ## 6. Câu hỏi và điểm chưa chốt
 
+<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-Mxx". -->
+
 | Mã | Loại | Câu hỏi | Trả lời | Ghi vào |
 |---|---|---|---|---|
-| Q-01 | Mơ hồ | FR-M04 mục 5.10 giao M11 gỡ bình luận khỏi nhóm bằng xóa mềm, còn FR-M04-05.01–05.03 dùng cờ đã xóa cho tác giả xóa. Dấu gỡ khỏi nhóm dùng A, dấu riêng để phân biệt với tác giả xóa, hay B, dùng chung cờ đã xóa và phân biệt nguyên nhân trong dữ liệu xử lý của M11? Đề xuất A để phân biệt thao tác của hai vai trò và xử lý điểm đã nêu trong giao tiếp. | Người dùng trả lời “Q01 A, duyệt bước 2” ngày 2026-11-17. Chọn dấu gỡ khỏi nhóm riêng. | Chờ cập nhật FR-M04. Dự thảo DEC-274, QA-480, ISS-418 ở fr/.work/FR-M04-v1.5-register-draft.md, chờ duyệt trước khi ghi register. Comment.isDeleted tiếp tục mô tả tác giả xóa. |
-
-Người dùng duyệt bước 1 và yêu cầu bước 2 ngày 2026-11-17. Người dùng đã chọn Q-01 A và duyệt bước 2. Bước 3 lập 10 quan hệ, gồm 5 Kết tập, 2 Liên kết tự liên hệ và 3 Phụ thuộc, cùng sơ đồ tool sinh. Dấu gỡ khỏi nhóm riêng chờ cập nhật FR-M04 bằng skill analyzing-functional-requirements. QU-10/QU-11 tiếp tục chờ xác nhận chung, sơ đồ bản nháp dùng PlantUML do tool sinh cùng bội số theo skill. EC-M04 đang chờ hoàn tất cập nhật FR và cổng chốt.
+| — | — | — | — | — |
 
 ## 7. Lịch sử sửa đổi
 
 | Phiên bản | Ngày | Nội dung | Người sửa |
 |---|---|---|---|
-| 0.1 | 2026-11-17 | Tạo bản nháp bước 1 từ FR-M04 v1.4 đã chốt, 13 câu mô tả truy vết đủ 6 chức năng, chờ duyệt bước 1 | Codex |
-| 0.2 | 2026-11-17 | Người dùng duyệt bước 1, lập sổ danh từ, bảng lớp và thuộc tính, đối chiếu FR, trình Q-01 về dấu gỡ khỏi nhóm, chờ duyệt bước 2 | Codex |
-| 0.3 | 2026-11-17 | Người dùng duyệt bước 2 và chọn Q-01 A, lập ma trận, 10 quan hệ và liên module, soạn dự thảo register cho dấu gỡ khỏi nhóm, sinh sơ đồ và kiểm tra bước 3, chờ duyệt cập nhật FR và chốt EC | Codex |
+| 0.1 | 2026-11-18 | Tạo mới | Phạm Văn Đức |
+| 1.0 | 2026-11-18 | Chốt. Giữ cả hai quan hệ tự thân của Comment (R-M04-03 luồng, R-M04-04 bình luận được trả lời) sau khi so sánh với phương án chỉ giữ R-M04-04; ghi lý do và ràng buộc ở R-M04-03 | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-05: thêm Comment.scannedAt, thêm Comment.isScannedCurrent, thêm Comment.replyRate, thêm Comment.isRemovedFromGroup, thêm Comment.isPointsDeducted, dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: Post.commentCount, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 46 dòng Tham chiếu; MD-08: R-M04-05 ghi là trùng R-M12-03; bỏ các ghi chú "tên tạm, chờ EC-…" đã hết hiệu lực ở mô tả lớp và mục Liên module | Phạm Văn Đức |

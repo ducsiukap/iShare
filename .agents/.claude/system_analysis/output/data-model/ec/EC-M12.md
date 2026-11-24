@@ -2,12 +2,12 @@
 module: M12
 ten_module: Gamification
 ma_tai_lieu: EC-M12
-phien_ban: 0.3
-trang_thai: Bản nháp
-ngay: 2026-11-19
+phien_ban: 1.1
+trang_thai: Đã chốt
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M12 v1.1
-steps_completed: [1, 2]
+steps_completed: [1, 2, 3]
 ---
 # Phân tích lớp thực thể — M12 Gamification
 
@@ -18,44 +18,94 @@ steps_completed: [1, 2]
 | Dự án | iShare |
 | Module | M12 — Gamification |
 | Đầu vào | FR-M12 phiên bản 1.1 |
-| Trạng thái | Bản nháp |
-| Phiên bản | 0.3 |
-| Ngày | 2026-11-19 |
+| Trạng thái | Đã chốt |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
      - Không đổi tên cột, không xóa cột, không đổi số mục: tool đọc bảng theo số mục và tên cột.
      - Ô không có nội dung ghi "—".
      - Mục chưa tới bước làm thì để dòng "(Chưa làm — bước N)".
-     - Cột Nguồn ghi mã trong FR: FR-M12-nn, FR-M12-nn.mm, BR-M12-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
-     - Sơ đồ ở mục 4 do gen_puml.py sinh; không sửa tay. -->
+     - Cột Nguồn ghi mã trong FR: FR-Mxx-nn, FR-Mxx-nn.mm, BR-Mxx-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
+     - Mục 4 chỉ chứa ảnh sơ đồ. gen_puml.py ghi mã PlantUML vào tệp riêng diagrams/EC-Mxx.puml, render
+       diagrams/EC-Mxx.png và đặt ảnh vào mục 4. Không chép mã PlantUML vào tài liệu, không sửa tay tệp .puml hay ảnh. -->
 
 ## 1. Mô tả chức năng
 
 ### 1.1 Đoạn mô tả
 
-(S1) M12 ghi nhận upvote trên bài viết và bình luận, tính điểm đóng góp, trao huy hiệu và danh hiệu Ngôi sao tuần, đồng thời lập bảng xếp hạng toàn hệ thống. (S2) Người dùng đã đăng nhập có thể upvote hoặc rút upvote trên bài viết và bình luận của người khác, hệ thống phân biệt Post Star với Comment Star, ghi thời điểm upvote và duy trì tối đa một upvote có hiệu lực cho mỗi người trên mỗi nội dung. (S3) Hệ thống áp dụng trạng thái hiển thị, mức khóa bài viết và quyền vote nhóm khi nhận thao tác upvote, đồng thời cung cấp số upvote có hiệu lực cho bài viết và bình luận, thời điểm upvote cho các chức năng xếp hạng nội dung, và sự kiện thêm hoặc rút upvote cho M07. (S4) Hệ thống cập nhật ngay tổng điểm của tác giả khi upvote được ghi nhận hoặc bị rút theo trọng số của từng loại nội dung, giữ phần điểm do tài khoản đã xóa trao và cung cấp tổng điểm hiện tại cho hồ sơ M02. (S5) Hệ thống trừ phần điểm từ upvote khi bài tự xóa chuyển sang Đã xóa hẳn hoặc khi nội dung bị xóa hay xử lý trực tiếp theo quy định, ghi số điểm bị trừ đối với bài viết và hoàn đúng số điểm đã trừ của lần gỡ khi M09 chấp nhận khiếu nại. (S6) Hệ thống giữ điểm khi nhóm bị xóa, thành viên rời hoặc bị kick, nội dung bị gỡ ở cấp nhóm, hoặc bình luận bị ẩn theo bài cha. (S7) Hệ thống tự trao mọi huy hiệu chưa đạt mà tổng điểm đã chạm ngưỡng, ghi ngày đạt đầu tiên, giữ huy hiệu khi điểm giảm và cung cấp huy hiệu đã đạt cho M02 cùng sự kiện đạt huy hiệu cho M07. (S8) Hệ thống xác định chu kỳ tuần và tháng theo giờ Việt Nam, tính điểm trong chu kỳ từ upvote đủ điều kiện theo thời điểm và hiệu lực, dùng tổng điểm cho bảng toàn thời gian, và xếp những người có điểm dương theo điểm với cùng thứ hạng khi đồng điểm. (S9) Hệ thống tính lại bảng toàn thời gian định kỳ, chốt bảng tuần và tháng bằng số liệu đúng mốc chu kỳ, giữ kết quả chốt gần nhất của mỗi loại cùng điểm, thứ hạng và Lớp/Khối tại lúc chốt hoặc lúc tính gần nhất. (S10) Hệ thống dùng mức cảnh cáo và trạng thái tài khoản để xác định tư cách xếp hạng, ẩn hoặc hiện lại dòng đã chốt theo điều kiện hiện tại, và dùng tên thay thế cho tài khoản bị xóa sau lúc chốt trên bảng tuần hoặc tháng còn hiển thị. (S11) Khi chốt tuần, hệ thống trao Ngôi sao tuần cho người có điểm dương ở các hạng đủ điều kiện, kể cả người đồng hạng tại hạng cắt, ghi người nhận và tuần đạt cho mỗi lần trao, thông báo qua M07 và cung cấp danh hiệu của tuần vừa chốt cho hồ sơ M02. (S12) Guest và người dùng đã đăng nhập được xem bảng xếp hạng theo chu kỳ và lọc theo Lớp/Khối, hệ thống tính lại thứ hạng trong nhóm lọc và cung cấp điểm, thứ hạng, thông tin nhận biết người dùng cùng dấu Ngôi sao tuần khi phù hợp. (S13) Hệ thống dùng trạng thái BANNED để cung cấp nhãn Tài khoản đã bị khóa tại những nơi tên tài khoản xuất hiện và bỏ nhãn khi tài khoản không còn BANNED. (S14) Khi cờ tính năng Gamification của M10 tắt, hệ thống từ chối upvote, rút upvote và mở bảng xếp hạng đối với người dùng khác Admin, đồng thời giữ dữ liệu, tiếp tục cập nhật điểm, tính và chốt bảng, trao thưởng, phát sự kiện thông báo và cung cấp số liệu hiển thị cho các module liên quan.
+Hệ thống quản lý upvote, điểm của người dùng, huy hiệu, danh hiệu "Ngôi sao tuần" và bảng xếp hạng của iShare.
 
-<!-- Một đoạn văn, mỗi câu đánh số (S1) (S2) … Xem steps/01-describe-functions.md. -->
+Hệ thống cho phép người dùng đã đăng nhập upvote một bài viết hoặc một bình luận của người khác và rút lại upvote của
+mình; mỗi khi một upvote được ghi nhận, hệ thống ghi lại người upvote, nội dung được upvote là bài viết hoặc bình luận,
+và thời điểm upvote. Mỗi người dùng có nhiều nhất một upvote có hiệu lực trên mỗi bài viết hoặc bình luận, không upvote
+được nội dung của chính mình, và không upvote được bài viết ở mức Khóa toàn bộ do M03 quản lý hay nội dung không còn
+hiển thị. Upvote của tài khoản đã xóa vẫn được tính nhưng không còn ghi người upvote.
+
+Hệ thống cập nhật ngay điểm của tác giả khi upvote được ghi nhận hoặc bị rút lại, theo trọng số của upvote bài viết và
+upvote bình luận. Khi nội dung mất đi do trực tiếp, gồm tác giả tự xóa, Mod hoặc Admin gỡ vì vi phạm, hoặc AI tự ẩn
+bình luận do M08 quản lý, hệ thống trừ khỏi điểm của tác giả phần điểm từ các upvote có hiệu lực trên nội dung, đánh dấu
+nội dung đã trừ điểm và ghi số điểm đã trừ của bài viết; nội dung mất đi gián tiếp thì điểm được giữ. Khi khiếu nại bài
+viết bị gỡ được chấp nhận do M09 quản lý, hệ thống cộng lại số điểm đã trừ của bài viết; điểm của bình luận đã trừ không
+được hoàn. Điểm chỉ đến từ upvote, không giảm theo thời gian, và không ai cộng, trừ tay điểm.
+
+Hệ thống có một danh mục cố định gồm các huy hiệu, mỗi huy hiệu có tên huy hiệu và ngưỡng điểm. Khi tổng điểm của người
+dùng đạt ngưỡng điểm của một huy hiệu người đó chưa có, hệ thống trao huy hiệu đó và ghi lại huy hiệu đã đạt gồm người
+dùng, huy hiệu và ngày đạt; huy hiệu đã đạt được giữ vĩnh viễn và không trao lại. Hệ thống cung cấp các huy hiệu đã đạt
+kèm ngày đạt cho hồ sơ của M02, không kèm ngưỡng điểm hay tiến độ, và gửi sự kiện đạt huy hiệu cho M07.
+
+Hệ thống tính bảng xếp hạng cho ba chu kỳ tuần, tháng và toàn thời gian, xếp người dùng theo điểm trong chu kỳ, chỉ xét
+người có điểm trong chu kỳ lớn hơn không, cho đồng hạng khi cùng điểm, và loại người ở mức cảnh cáo HEAVY do M08 quản lý
+cùng tài khoản BANNED, DEACTIVATED, DELETED. Bảng xếp hạng toàn thời gian được tính lại định kỳ; khi một tuần hoặc một
+tháng kết thúc, lần tính định kỳ đầu tiên chốt bảng xếp hạng của chu kỳ đó bằng số liệu đúng mốc. Hệ thống chỉ giữ kết
+quả bảng xếp hạng hiện hành của mỗi loại chu kỳ, gồm chu kỳ, thời điểm tính và các dòng bảng xếp hạng, mỗi dòng ứng với
+một người được xếp hạng và ghi điểm trong chu kỳ, thứ hạng và Lớp/Khối tại lúc tính; kết quả mới thay kết quả cũ. Khi
+chốt một tuần, hệ thống trao danh hiệu "Ngôi sao tuần" cho những người có thứ hạng trong hạng cắt, kể cả người đồng hạng,
+ghi mỗi lần trao thành một danh hiệu đã đạt gồm người nhận và tuần đạt, và gửi sự kiện đạt danh hiệu cho M07; chốt tháng
+không trao gì. Hệ thống cung cấp danh hiệu "Ngôi sao tuần" cho hồ sơ chỉ khi người dùng đạt ở tuần vừa chốt, và không
+hiển thị lịch sử các lần đạt.
+
+Hệ thống cho phép mọi người, kể cả Guest, xem bảng xếp hạng ở tab Tuần, Tháng, Toàn thời gian, lọc theo Lớp/Khối với
+thứ hạng đánh lại trong nhóm lọc, mỗi dòng hiện thứ hạng, avatar, tên hiển thị, username, điểm trong chu kỳ và dấu
+"Ngôi sao tuần". Trên bảng đã chốt, dòng của người trở thành bị loại sau lúc chốt bị ẩn khi hiển thị và tài khoản bị
+xóa sau lúc chốt hiện mờ kèm nhãn "[Người dùng đã xóa]".
+
+Trong khi trạng thái tài khoản do M01 quản lý là BANNED, hệ thống hiện nhãn "Tài khoản đã bị khóa" cạnh tên tài khoản ở
+mọi nơi tên xuất hiện. Trong khi cờ tính năng Gamification do M10 quản lý tắt, hệ thống từ chối upvote, rút upvote và xem
+bảng xếp hạng của người dùng không phải Admin nhưng vẫn tính điểm, trao huy hiệu, chốt chu kỳ và trao danh hiệu.
+
+<!-- Văn xuôi bình thường, có thể chia vài đoạn. KHÔNG ghi mã câu (S1), (S2)… trong đoạn văn: người đọc không hiểu
+     các mã đó. Số câu chỉ nằm ở bảng 1.2. Xem steps/01-describe-functions.md. -->
 
 ### 1.2 Truy vết câu
 
-| Câu | Nội dung tóm tắt | Nguồn |
+<!-- Mỗi câu của đoạn mô tả một dòng, theo đúng thứ tự. Câu: 1, 2, 3…
+     Nội dung câu: chép NGUYÊN VĂN câu đó từ mục 1.1 (tool so khớp từng câu với đoạn văn).
+     Nguồn: mã chức năng hoặc yêu cầu của FR mà câu dựa vào. -->
+
+| Câu | Nội dung câu | Nguồn |
 |---|---|---|
-| S1 | Phạm vi dữ liệu Gamification | FR-M12-01, FR-M12-02, FR-M12-03, FR-M12-04, FR-M12-05 |
-| S2 | Ghi upvote, hiệu lực và thời điểm | FR-M12-01, FR-M12-01.01, FR-M12-01.02, FR-M12-01.03, FR-M12-01.04, FR-M12-01.07, FR-M12-01.08 |
-| S3 | Điều kiện upvote, số đếm và giao tiếp liên module | FR-M12-01.01, FR-M12-01.02, FR-M12-01.10, FR-M12-01.11, FR-M12-01.12, FR-M12-01.13 |
-| S4 | Cộng, trừ và cung cấp tổng điểm | FR-M12-02, FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.04, FR-M12-02.05 |
-| S5 | Trừ điểm trực tiếp và hoàn điểm theo lần gỡ bài | FR-M12-02.08, FR-M12-02.09, FR-M12-02.10, FR-M12-02.11, FR-M12-02.12, FR-M12-02.13, FR-M12-02.18, FR-M12-02.19, FR-M12-02.20, FR-M12-02.21, FR-M12-02.22 |
-| S6 | Giữ điểm trong các trường hợp nội dung mất gián tiếp hoặc do cấp nhóm | FR-M12-02.14, FR-M12-02.15, FR-M12-02.16, FR-M12-02.17 |
-| S7 | Trao huy hiệu, ngày đạt và sự kiện thông báo | FR-M12-03, FR-M12-03.01, FR-M12-03.02, FR-M12-03.03, FR-M12-03.04, FR-M12-03.05, FR-M12-03.06, FR-M12-03.10, FR-M12-03.11 |
-| S8 | Tính điểm theo chu kỳ và thứ hạng | FR-M12-04, FR-M12-04.01, FR-M12-04.02, FR-M12-04.03, FR-M12-04.04, FR-M12-04.06, FR-M12-04.15, FR-M12-04.16 |
-| S9 | Chốt và giữ kết quả bảng xếp hạng | FR-M12-04.01, FR-M12-04.14, FR-M12-04.16, FR-M12-05, FR-M12-05.01, FR-M12-05.08, FR-M12-06.07, FR-M12-06.09, FR-M12-06.11 |
-| S10 | Điều kiện xếp hạng và cách hiển thị dòng đã chốt | FR-M12-04.07, FR-M12-04.08, FR-M12-04.09, FR-M12-04.10, FR-M12-04.11, FR-M12-04.12, FR-M12-04.17, FR-M12-04.18, FR-M12-04.19 |
-| S11 | Trao, lưu và cung cấp danh hiệu tuần | FR-M12-05.02, FR-M12-05.03, FR-M12-05.04, FR-M12-05.07, FR-M12-05.09, FR-M12-05.10, FR-M12-05.12, FR-M12-05.13 |
-| S12 | Xem bảng, lọc Lớp/Khối và tính lại hạng | FR-M12-06, FR-M12-06.01, FR-M12-06.02, FR-M12-06.03, FR-M12-06.04, FR-M12-06.05, FR-M12-06.07, FR-M12-06.08, FR-M12-06.09, FR-M12-06.10, FR-M12-06.11 |
-| S13 | Nhãn công khai theo trạng thái tài khoản | FR-M12-07, FR-M12-07.01, FR-M12-07.02, FR-M12-07.03, FR-M12-07.04 |
-| S14 | Cờ tính năng và các xử lý vẫn tiếp tục | FR-M12-08, FR-M12-08.01, FR-M12-08.03, FR-M12-08.04, FR-M12-08.06, FR-M12-08.08, FR-M12-08.09, FR-M12-08.10 |
+| 1 | Hệ thống quản lý upvote, điểm của người dùng, huy hiệu, danh hiệu "Ngôi sao tuần" và bảng xếp hạng của iShare. | FR-M12-01, FR-M12-02, FR-M12-03, FR-M12-04, FR-M12-05 |
+| 2 | Hệ thống cho phép người dùng đã đăng nhập upvote một bài viết hoặc một bình luận của người khác và rút lại upvote của mình; mỗi khi một upvote được ghi nhận, hệ thống ghi lại người upvote, nội dung được upvote là bài viết hoặc bình luận, và thời điểm upvote. | FR-M12-01, FR-M12-01.01, FR-M12-01.02, FR-M12-01.04 |
+| 3 | Mỗi người dùng có nhiều nhất một upvote có hiệu lực trên mỗi bài viết hoặc bình luận, không upvote được nội dung của chính mình, và không upvote được bài viết ở mức Khóa toàn bộ do M03 quản lý hay nội dung không còn hiển thị. | FR-M12-01.03, FR-M12-01.06, FR-M12-01.07, FR-M12-01.10, FR-M12-01.12 |
+| 4 | Upvote của tài khoản đã xóa vẫn được tính nhưng không còn ghi người upvote. | FR-M12-02.04 |
+| 5 | Hệ thống cập nhật ngay điểm của tác giả khi upvote được ghi nhận hoặc bị rút lại, theo trọng số của upvote bài viết và upvote bình luận. | FR-M12-02, FR-M12-02.01, FR-M12-02.02, FR-M12-02.03 |
+| 6 | Khi nội dung mất đi do trực tiếp, gồm tác giả tự xóa, Mod hoặc Admin gỡ vì vi phạm, hoặc AI tự ẩn bình luận do M08 quản lý, hệ thống trừ khỏi điểm của tác giả phần điểm từ các upvote có hiệu lực trên nội dung, đánh dấu nội dung đã trừ điểm và ghi số điểm đã trừ của bài viết; nội dung mất đi gián tiếp thì điểm được giữ. | FR-M12-02.08, FR-M12-02.10, FR-M12-02.11, FR-M12-02.14, FR-M12-02.15, FR-M12-02.16, FR-M12-02.17, FR-M12-02.19, FR-M12-02.20, FR-M12-02.21 |
+| 7 | Khi khiếu nại bài viết bị gỡ được chấp nhận do M09 quản lý, hệ thống cộng lại số điểm đã trừ của bài viết; điểm của bình luận đã trừ không được hoàn. | FR-M12-02.12, FR-M12-02.13 |
+| 8 | Điểm chỉ đến từ upvote, không giảm theo thời gian, và không ai cộng, trừ tay điểm. | FR-M12-02.05, FR-M12-02.06, FR-M12-02.07 |
+| 9 | Hệ thống có một danh mục cố định gồm các huy hiệu, mỗi huy hiệu có tên huy hiệu và ngưỡng điểm. | FR-M12-03.01 |
+| 10 | Khi tổng điểm của người dùng đạt ngưỡng điểm của một huy hiệu người đó chưa có, hệ thống trao huy hiệu đó và ghi lại huy hiệu đã đạt gồm người dùng, huy hiệu và ngày đạt; huy hiệu đã đạt được giữ vĩnh viễn và không trao lại. | FR-M12-03, FR-M12-03.02, FR-M12-03.03, FR-M12-03.04, FR-M12-03.05 |
+| 11 | Hệ thống cung cấp các huy hiệu đã đạt kèm ngày đạt cho hồ sơ của M02, không kèm ngưỡng điểm hay tiến độ, và gửi sự kiện đạt huy hiệu cho M07. | FR-M12-03.06, FR-M12-03.07, FR-M12-03.10 |
+| 12 | Hệ thống tính bảng xếp hạng cho ba chu kỳ tuần, tháng và toàn thời gian, xếp người dùng theo điểm trong chu kỳ, chỉ xét người có điểm trong chu kỳ lớn hơn không, cho đồng hạng khi cùng điểm, và loại người ở mức cảnh cáo HEAVY do M08 quản lý cùng tài khoản BANNED, DEACTIVATED, DELETED. | FR-M12-04, FR-M12-04.02, FR-M12-04.03, FR-M12-04.06, FR-M12-04.07, FR-M12-04.08, FR-M12-04.12, FR-M12-04.17 |
+| 13 | Bảng xếp hạng toàn thời gian được tính lại định kỳ; khi một tuần hoặc một tháng kết thúc, lần tính định kỳ đầu tiên chốt bảng xếp hạng của chu kỳ đó bằng số liệu đúng mốc. | FR-M12-04.01, FR-M12-05.01 |
+| 14 | Hệ thống chỉ giữ kết quả bảng xếp hạng hiện hành của mỗi loại chu kỳ, gồm chu kỳ, thời điểm tính và các dòng bảng xếp hạng, mỗi dòng ứng với một người được xếp hạng và ghi điểm trong chu kỳ, thứ hạng và Lớp/Khối tại lúc tính; kết quả mới thay kết quả cũ. | FR-M12-04.14, FR-M12-05.08, FR-M12-06.09 |
+| 15 | Khi chốt một tuần, hệ thống trao danh hiệu "Ngôi sao tuần" cho những người có thứ hạng trong hạng cắt, kể cả người đồng hạng, ghi mỗi lần trao thành một danh hiệu đã đạt gồm người nhận và tuần đạt, và gửi sự kiện đạt danh hiệu cho M07; chốt tháng không trao gì. | FR-M12-05, FR-M12-05.02, FR-M12-05.03, FR-M12-05.04, FR-M12-05.07, FR-M12-05.11 |
+| 16 | Hệ thống cung cấp danh hiệu "Ngôi sao tuần" cho hồ sơ chỉ khi người dùng đạt ở tuần vừa chốt, và không hiển thị lịch sử các lần đạt. | FR-M12-05.12, FR-M12-05.13 |
+| 17 | Hệ thống cho phép mọi người, kể cả Guest, xem bảng xếp hạng ở tab Tuần, Tháng, Toàn thời gian, lọc theo Lớp/Khối với thứ hạng đánh lại trong nhóm lọc, mỗi dòng hiện thứ hạng, avatar, tên hiển thị, username, điểm trong chu kỳ và dấu "Ngôi sao tuần". | FR-M12-06, FR-M12-06.01, FR-M12-06.02, FR-M12-06.03, FR-M12-06.08, FR-M12-06.11 |
+| 18 | Trên bảng đã chốt, dòng của người trở thành bị loại sau lúc chốt bị ẩn khi hiển thị và tài khoản bị xóa sau lúc chốt hiện mờ kèm nhãn "[Người dùng đã xóa]". | FR-M12-04.11, FR-M12-04.18 |
+| 19 | Trong khi trạng thái tài khoản do M01 quản lý là BANNED, hệ thống hiện nhãn "Tài khoản đã bị khóa" cạnh tên tài khoản ở mọi nơi tên xuất hiện. | FR-M12-07, FR-M12-07.01, FR-M12-07.03 |
+| 20 | Trong khi cờ tính năng Gamification do M10 quản lý tắt, hệ thống từ chối upvote, rút upvote và xem bảng xếp hạng của người dùng không phải Admin nhưng vẫn tính điểm, trao huy hiệu, chốt chu kỳ và trao danh hiệu. | FR-M12-08, FR-M12-08.01, FR-M12-08.03, FR-M12-08.06, FR-M12-08.08, FR-M12-08.09 |
 
 ## 2. Danh từ và phân loại
 
@@ -63,128 +113,216 @@ steps_completed: [1, 2]
 
 <!-- Phân loại: Lớp | Thuộc tính | Loại bỏ.
      Kết quả: tên lớp; hoặc Lớp.thuộcTính; hoặc "—" khi loại bỏ.
-     Xuất hiện ở: S<n> (câu của đoạn mô tả) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
+     Xuất hiện ở: "Câu n" (số câu ở bảng 1.2) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
 
 | # | Danh từ | Xuất hiện ở | Phân loại | Kết quả | Lý do |
 |---|---|---|---|---|---|
-| 1 | upvote / Post Star / Comment Star | S1 | Lớp | Upvote | T8. Lượt trên bài và bình luận dùng chung tên Upvote của các EC trước, phân biệt theo đối tượng. |
-| 2 | bài viết / bài cha / bài tự xóa / bài bị gỡ | S1 | Lớp | Post | T4. Cùng đối tượng M03, M12 dùng trạng thái và giữ dấu tính điểm. |
-| 3 | bình luận | S1 | Lớp | Comment | T4. Đối tượng M04; xử lý điểm riêng với bài cha. |
-| 4 | điểm đóng góp / tổng điểm / tổng điểm hiện tại | S1 | Thuộc tính | User.totalPoints | T7 ngoại lệ. FR mô tả tổng điểm có bản ghi được cập nhật, đưa vào User của M01 như phần M12 bổ sung. |
-| 5 | huy hiệu | S1 | Lớp | Badge | T8 theo danh mục FR mục 5.10. Mỗi mục được định danh bằng tên và quy định ngưỡng, dù danh mục cố định. |
-| 6 | danh hiệu Ngôi sao tuần / danh hiệu của tuần vừa chốt / lần trao danh hiệu | S1 | Lớp | WeeklyStarAward | T8. Mỗi người nhận và tuần đạt có bản ghi riêng. Ngôi sao tuần là giá trị cố định của loại phần thưởng này, không thêm danh mục danh hiệu. |
-| 7 | bảng xếp hạng / bảng tuần / bảng tháng / bảng toàn thời gian / kết quả chốt gần nhất | S1 | Lớp | Leaderboard | T7 ngoại lệ. FR-M12-04.14/05.08/06.07 yêu cầu giữ kết quả, xuất bản tới khi được thay thế. |
-| 8 | người dùng đã đăng nhập / người upvote / tác giả / tài khoản / tài khoản đã xóa / người nhận / Admin | S2 | Lớp | User | T3. Cùng tài khoản M01 theo ngữ cảnh; tác giả và người upvote là vai trò, không tách lớp người. |
-| 9 | hệ thống | S2 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu. |
-| 10 | rút upvote / thêm upvote | S2 | Loại bỏ | — | Trừu tượng. Là chuyển đổi hiệu lực và phát sự kiện M07; mô hình chưa chốt cách giữ lịch sử ở Q-01. |
-| 11 | thời điểm upvote | S2 | Thuộc tính | Upvote.votedAt | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 12 | hiệu lực upvote / trạng thái upvote | S2 | Thuộc tính | Upvote.status | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 13 | loại upvote | S2 | Thuộc tính | Upvote.kind | T7. Phân loại tính từ đối tượng upvote. |
-| 14 | trạng thái hiển thị / mức khóa bài viết | S3 | Loại bỏ | — | Ngoài phạm vi module (M03, M04). M12 áp dụng trạng thái và quyền tương tác do module nguồn cấp. |
-| 15 | quyền vote nhóm | S3 | Loại bỏ | — | Ngoài phạm vi module (M11). Kiểm theo Group và GroupMember, không lưu bản ghi quyền riêng ở M12. |
-| 16 | số upvote có hiệu lực của bài viết | S3 | Thuộc tính | Post.upvoteCount | T7. Số đếm tính lại được từ Upvote. |
-| 17 | số upvote có hiệu lực của bình luận | S3 | Loại bỏ | — | Ngoài phạm vi module ở cấp thuộc tính. Comment.upvoteCount đã có trong EC-M04; lấy số đếm từ M12. |
-| 18 | xếp hạng nội dung | S3 | Loại bỏ | — | Ngoài phạm vi module (M05, M06, M14). M12 cung cấp tín hiệu upvote. |
-| 19 | thông báo / thông báo upvote / thông báo huy hiệu, danh hiệu | S3 | Lớp | Notification | T4. Bản ghi do M07 quản lý; M12 phát sự kiện nguồn. |
-| 20 | sự kiện thêm hoặc rút upvote / sự kiện đạt huy hiệu / sự kiện đạt danh hiệu tuần | S3 | Loại bỏ | — | Trừu tượng. Giao tiếp tới M07, FR không yêu cầu lớp sự kiện chung ở M12. |
-| 21 | trọng số điểm | S4 | Loại bỏ | — | Hằng số của BR-M12-05/06. 2 với bài viết, 1 với bình luận, không thêm trường quản trị. |
-| 22 | hồ sơ | S4 | Lớp | UserProfile | T4. M02 cung cấp Lớp/Khối và dùng dữ liệu phần thưởng. |
-| 23 | điểm đã trừ của nội dung / lần trừ điểm | S5 | Lớp | PointDeduction | T8. Số điểm đã trừ được ghi để đọc và hoàn theo lần gỡ, không suy ra lại từ số upvote hiện tại. |
-| 24 | số điểm đã trừ / số điểm hoàn theo lần gỡ | S5 | Thuộc tính | PointDeduction.deductedPoints | T7 ngoại lệ. Số phát sinh một lần cần được lưu để hoàn chính xác. |
-| 25 | Đã xóa hẳn | S5 | Loại bỏ | — | Ngoài phạm vi module (M03). Cờ bài đầu vào cho trừ điểm. |
-| 26 | xóa trực tiếp / xử lý trực tiếp / lần gỡ / gỡ vì vi phạm | S5 | Loại bỏ | — | Trừu tượng ở M12. Dùng sự kiện tác giả xóa hoặc kiểm duyệt M08 và dữ liệu trừ điểm; không tạo lớp kiểm duyệt mới. |
-| 27 | khiếu nại | S5 | Lớp | Appeal | T4. Kết quả từ M09 kích hoạt hoàn điểm bài đã bị gỡ. |
-| 28 | nhóm | S6 | Lớp | Group | T4. M11 sở hữu và cung cấp cài đặt hoặc ngữ cảnh thao tác. |
-| 29 | thành viên / tư cách thành viên | S6 | Lớp | GroupMember | T4. M11 sở hữu tư cách nhóm dùng cho quyền vote. |
-| 30 | xóa nhóm / rời nhóm / kick / gỡ ở cấp nhóm / ẩn theo bài cha | S6 | Loại bỏ | — | Ngoài phạm vi module ở cấp hành động. M12 dùng kết quả để giữ điểm theo FR-M12-02.14 đến FR-M12-02.17. |
-| 31 | huy hiệu đã đạt / lần đạt huy hiệu | S7 | Lớp | EarnedBadge | T8. Có ngày đạt đầu tiên và giữ độc lập với điểm hiện tại. |
-| 32 | ngưỡng huy hiệu / mốc tổng điểm | S7 | Thuộc tính | Badge.pointThreshold | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 33 | ngày đạt đầu tiên / ngày đạt huy hiệu | S7 | Thuộc tính | EarnedBadge.earnedOn | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 34 | chưa đạt / đã đạt / tiến độ huy hiệu | S7 | Loại bỏ | — | Trừu tượng. Sự tồn tại của EarnedBadge biểu thị đã đạt; không lưu tiến độ để cung cấp. |
-| 35 | chu kỳ tuần / chu kỳ tháng / chu kỳ toàn thời gian | S8 | Thuộc tính | Leaderboard.periodKind | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 36 | giờ Việt Nam | S8 | Loại bỏ | — | Hằng số của BR-M12-14. Quy ước UTC+7 để xác định mốc tuần và tháng. |
-| 37 | điểm trong chu kỳ / điểm dương | S8 | Thuộc tính | LeaderboardEntry.periodPoints | T7 ngoại lệ. Điểm tính ra được giữ trong kết quả của một lần chốt hoặc tính. |
-| 38 | thứ hạng / hạng tại lúc chốt | S8 | Thuộc tính | LeaderboardEntry.rank | T7 ngoại lệ. Thứ hạng của kết quả được lưu để hiển thị ổn định. |
-| 39 | đồng hạng / đồng điểm | S8 | Loại bỏ | — | Trừu tượng. Quy tắc xếp hạng, không tạo dữ liệu người đồng hạng riêng. |
-| 40 | thời điểm tính / thời điểm chốt | S9 | Thuộc tính | Leaderboard.calculatedAt | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 41 | mốc đầu chu kỳ / tuần hoặc tháng của kết quả | S9 | Thuộc tính | Leaderboard.periodStart | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 42 | mốc cuối chu kỳ | S9 | Thuộc tính | Leaderboard.periodEnd | T7. Có thể tính lại từ kỳ và mốc đầu. |
-| 43 | Lớp/Khối tại lúc chốt hoặc tính | S9 | Thuộc tính | LeaderboardEntry.gradeLevelAtCalculation | T7 ngoại lệ. Kết quả giữ giá trị nguồn tại mốc tính. |
-| 44 | lần tính định kỳ / chốt chu kỳ / khoảng thời gian tính lại | S9 | Loại bỏ | — | Trừu tượng đối với lớp riêng. Chốt hoặc tính tạo kết quả Leaderboard; chu kỳ tính 60 phút là hằng số của BR-M12-19/25. |
-| 45 | mức cảnh cáo / trạng thái cảnh cáo | S10 | Lớp | WarningStatus | T4. Dùng WarningStatus.level của M08 đối với tư cách xếp hạng. |
-| 46 | trạng thái tài khoản / BANNED / DEACTIVATED / DELETED | S10 | Loại bỏ | — | Ngoài phạm vi module ở cấp thuộc tính. Các giá trị thuộc User.accountState từ M01/M08. |
-| 47 | tư cách xếp hạng / ẩn hoặc hiện lại dòng / hiện mờ | S10 | Loại bỏ | — | Trừu tượng. Áp điều kiện điểm, cảnh cáo và tài khoản khi tính, và hiển thị từ trạng thái hiện thời cho dòng đã chốt. Hạng lưu của người khác giữ nguyên. |
-| 48 | dòng đã chốt / dòng bảng xếp hạng | S10 | Lớp | LeaderboardEntry | T7 ngoại lệ. Kết quả theo từng tài khoản cần giữ kỳ, điểm, hạng và Lớp/Khối. |
-| 49 | tên thay thế của tài khoản bị xóa | S10 | Loại bỏ | — | Ngoài phạm vi module ở cấp dữ liệu nhận biết. Dùng trạng thái DELETED và nhãn của M01; FR-M12 xác định khi bảng hiển thị nhãn. |
-| 50 | hạng cắt | S11 | Loại bỏ | — | Hằng số của BR-M12-23. Hạng 1–3 kể cả tất cả người đồng hạng ở hạng 3. |
-| 51 | tuần đạt | S11 | Thuộc tính | WeeklyStarAward.weekStart | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 52 | Guest | S12 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu. |
-| 53 | bộ lọc theo Lớp/Khối | S12 | Loại bỏ | — | Giao diện. Tiêu chí truy vấn theo giá trị được giữ trên LeaderboardEntry; không có cấu hình lọc cá nhân trong FR. |
-| 54 | thứ hạng trong nhóm lọc | S12 | Thuộc tính | LeaderboardEntry.filteredRank | T7. Tính lại theo nhóm lọc. |
-| 55 | thông tin nhận biết người dùng / avatar / tên hiển thị / username | S12 | Loại bỏ | — | Ngoài phạm vi module ở cấp thuộc tính. Dùng User và UserProfile để hiển thị, chỉ Lớp/Khối được giữ riêng ở kết quả. |
-| 56 | dấu Ngôi sao tuần | S12 | Thuộc tính | LeaderboardEntry.isWeeklyStar | T7. Dẫn từ bản ghi nhận thưởng đã lưu. |
-| 57 | nhãn Tài khoản đã bị khóa | S13 | Thuộc tính | User.banLabel | T7. Suy ra từ trạng thái tài khoản. |
-| 58 | cờ tính năng Gamification | S14 | Loại bỏ | — | Ngoài phạm vi module ở cấp thuộc tính. M10 sở hữu SystemConfiguration.gamificationEnabled, M12 đọc giá trị và áp ngoại lệ Admin. |
-| 59 | cấu hình hệ thống | Quét: FR-M12-08.01, FR-M12-08.06 | Lớp | SystemConfiguration | T4. M10 sở hữu cờ tính năng. |
-| 60 | trao thưởng / số liệu hiển thị / dữ liệu module | S14 | Loại bỏ | — | Chung chung. Các đối tượng điểm, bảng, huy hiệu, danh hiệu và số đếm được xét riêng. |
-| 61 | tên huy hiệu | Quét: FR-M12-03.01 | Thuộc tính | Badge.name | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 62 | trạng thái tính điểm của bài viết | Quét: FR-M12-02.18, mục 5.11 | Thuộc tính | Post.pointState | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 63 | trạng thái tính điểm của bình luận | Quét: FR-M12-02.18, mục 5.11 | Thuộc tính | Comment.pointState | T9. Mô tả dữ liệu trên lớp tương ứng. |
-| 64 | giai đoạn chu kỳ / đang diễn ra / đã kết thúc chưa chốt / đã chốt đang hiển thị / không còn hiển thị | Quét: FR-M12-04.14, mục 5.11 | Loại bỏ | — | Trừu tượng đối với dữ liệu lưu. Xác định giai đoạn từ mốc lịch và kết quả hiện hành; không có yêu cầu lưu lịch sử các bảng đã bị thay. |
+| 1 | hệ thống | Câu 1 | Loại bỏ | — | Trừu tượng: chỉ chính phần mềm |
+| 2 | upvote | Câu 1 | Lớp | Upvote | FR yêu cầu lưu dấu vết từng lần upvote: người upvote, nội dung được upvote, thời điểm upvote (FR-M12-01.01, mục Dữ liệu nghiệp vụ); được M04, M05, M06, M07, M14 đọc; dùng tên Upvote mà EC-M01, EC-M04 đã đặt tạm |
+| 3 | điểm của người dùng / điểm / điểm của tác giả / tổng điểm | Câu 1 | Thuộc tính | User.totalPoints | Mỗi người dùng một tổng điểm, không có thông tin nào khác (mục Dữ liệu nghiệp vụ) → một giá trị của người dùng; kết quả tính được lưu và cập nhật tức thời (BR-M12-07) vì phần hoàn điểm dùng số điểm đã trừ đã ghi (BR-M12-10); xem Q-02 |
+| 4 | huy hiệu | Câu 1 | Lớp | Badge | Danh mục cố định 5 huy hiệu, mỗi huy hiệu có tên và ngưỡng điểm (mục Dữ liệu nghiệp vụ); được tham chiếu riêng bởi huy hiệu đã đạt và thông báo đạt huy hiệu (R-M07-13 của EC-M07); không do người dùng thêm, sửa, xóa (ma trận CRUD) nhưng có hai thông tin riêng nên là lớp, không phải giá trị; dùng tên Badge mà EC-M07 đã đặt tạm |
+| 5 | danh hiệu "Ngôi sao tuần" / danh hiệu | Câu 1 | Loại bỏ | — | Chung chung: hệ thống chỉ có một danh hiệu là "Ngôi sao tuần" (BR-M12-24), không có thông tin riêng; mỗi lần đạt là một EarnedTitle (dòng 48); xem Q-03 |
+| 6 | bảng xếp hạng / kết quả bảng xếp hạng | Câu 1 | Lớp | Leaderboard | Kết quả tính được lưu theo FR-M12-04.14: bảng tuần, tháng chốt bằng số liệu đúng mốc và không đổi về sau (FR-M12-04.16), Lớp/Khối chụp lúc tính (BR-M12-16) nên không tính lại được → lớp Thực thể với thuộc tính Lưu, không phải lớp thống kê; xem Q-04 |
+| 7 | iShare | Câu 1 | Loại bỏ | — | Trừu tượng: tên sản phẩm |
+| 8 | người dùng đã đăng nhập / người dùng / tài khoản | Câu 2 | Lớp | User | Lớp ngoài (M01): người upvote, người nhận điểm, huy hiệu, danh hiệu, người được xếp hạng; dùng tên User của EC-M01 |
+| 9 | bài viết | Câu 2 | Lớp | Post | Lớp ngoài (M03): đối tượng upvote, nội dung bị trừ và được hoàn điểm; dùng tên Post của EC-M03 |
+| 10 | bình luận | Câu 2 | Lớp | Comment | Lớp ngoài (M04): đối tượng upvote, nội dung bị trừ điểm; dùng tên Comment của EC-M04 |
+| 11 | người khác | Câu 2 | Loại bỏ | — | Chung chung: tác giả của nội dung khác người upvote (BR-M12-03) |
+| 12 | người upvote | Câu 2 | Lớp | User | Vai trò theo ngữ cảnh: tài khoản cho upvote (mục Dữ liệu nghiệp vụ); quan hệ xét ở bước 3 |
+| 13 | nội dung được upvote / nội dung | Câu 2 | Loại bỏ | — | Chung chung: là một bài viết hoặc một bình luận (dòng 9, 10); quan hệ xét ở bước 3 |
+| 14 | thời điểm upvote | Câu 2 | Thuộc tính | Upvote.upvotedAt | FR-M12-01.01 yêu cầu ghi (TN:Thời điểm upvote) |
+| 15 | upvote có hiệu lực | Câu 3 | Loại bỏ | — | Chung chung: upvote đang tồn tại, chưa bị rút (TN:Có hiệu lực, Đã rút; xem Q-01) |
+| 16 | mức Khóa toàn bộ | Câu 3 | Loại bỏ | — | Giá trị của Post.lockLevel |
+| 17 | M01, M02, M03, M07, M08, M09, M10 (tên module) | Câu 3 | Loại bỏ | — | Trừu tượng: tên các phần của hệ thống |
+| 18 | nội dung không còn hiển thị | Câu 3 | Loại bỏ | — | Chung chung: bài viết, bình luận đã xóa hoặc bị ẩn, đọc qua Post.isPubliclyVisible, Comment.isVisible (FR-M12-01.12) |
+| 19 | tài khoản đã xóa | Câu 4 | Loại bỏ | — | Chung chung: tài khoản có User.status DELETED; upvote được giữ, quan hệ với người upvote bị bỏ (R-M01-16 của EC-M01) |
+| 20 | trọng số | Câu 5 | Loại bỏ | — | Hằng số của BR-M12-05: 2 với upvote bài viết, 1 với upvote bình luận; chỉ đổi bằng triển khai (BR-M12-06); ghi ở ràng buộc của User.totalPoints |
+| 21 | upvote bài viết / upvote bình luận | Câu 5 | Loại bỏ | — | Chung chung: upvote nằm trên bài viết (Post Star) hay bình luận (Comment Star), phân biệt qua quan hệ ở bước 3 (FR-M12-01.04, TN:Post Star, Comment Star) |
+| 22 | tác giả | Câu 5 | Lớp | User | Vai trò theo ngữ cảnh: tài khoản viết bài viết, bình luận; quan hệ tác giả thuộc M03, M04, M12 không ghi lại |
+| 23 | nội dung mất đi do trực tiếp / nội dung mất đi gián tiếp | Câu 6 | Loại bỏ | — | Chung chung: các sự kiện liệt kê ở BR-M12-08; không lưu riêng, kết quả là Post.isPointsDeducted, Comment.isPointsDeducted |
+| 24 | Mod / Admin | Câu 6 | Lớp | User | Vai trò hệ thống có tài khoản; phân biệt bằng User.role |
+| 25 | AI | Câu 6 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu |
+| 26 | nội dung đã trừ điểm | Câu 6 | Thuộc tính | Post.isPointsDeducted | Trạng thái Đang tính điểm, Đã trừ điểm của một nội dung với điểm của tác giả (TN:Đang tính điểm, Đã trừ điểm; mục Chuyển trạng thái); bình luận ở dòng 71 |
+| 27 | số điểm đã trừ | Câu 6 | Thuộc tính | Post.deductedPoints | FR-M12-02.08, FR-M12-02.10 yêu cầu ghi để hoàn đúng số đó (BR-M12-10); xem Q-02 |
+| 28 | khiếu nại bài viết bị gỡ / khiếu nại | Câu 7 | Loại bỏ | — | Ngoài phạm vi module (M09): M12 chỉ nhận sự kiện khiếu nại được chấp nhận để hoàn điểm |
+| 29 | thời gian | Câu 8 | Loại bỏ | — | Trừu tượng |
+| 30 | danh mục | Câu 9 | Loại bỏ | — | Chung chung: tập cố định 5 Badge (BR-M12-11) |
+| 31 | tên huy hiệu | Câu 9 | Thuộc tính | Badge.name | Mục Dữ liệu nghiệp vụ nêu |
+| 32 | ngưỡng điểm | Câu 9 | Thuộc tính | Badge.threshold | Mục Dữ liệu nghiệp vụ nêu; quyết định khi nào trao huy hiệu (BR-M12-11) |
+| 33 | huy hiệu đã đạt | Câu 10 | Lớp | EarnedBadge | FR gọi là thực thể với người dùng, huy hiệu, ngày đạt (mục Dữ liệu nghiệp vụ); được tạo khi đạt, không sửa, không xóa (ma trận CRUD). Ở bước 3 là lớp liên kết của quan hệ n-n User – Badge |
+| 34 | ngày đạt | Câu 10 | Thuộc tính | EarnedBadge.achievedAt | FR-M12-03.02 yêu cầu ghi |
+| 35 | hồ sơ | Câu 11 | Lớp | Profile | Lớp ngoài (M02): M12 đọc Lớp/Khối và avatar của hồ sơ; dùng tên Profile của EC-M02 |
+| 36 | tiến độ | Câu 11 | Loại bỏ | — | Ngoài phạm vi hệ thống: không cung cấp tiến độ tới huy hiệu chưa đạt (BR-M12-13) |
+| 37 | sự kiện đạt huy hiệu | Câu 11 | Loại bỏ | — | Ngoài phạm vi module (M07): M12 gửi sự kiện, M07 tạo thông báo trỏ tới huy hiệu (R-M07-13) |
+| 38 | chu kỳ | Câu 12 | Thuộc tính | Leaderboard.period | Mục Dữ liệu nghiệp vụ nêu "chu kỳ" trên kết quả bảng xếp hạng; trạng thái của chu kỳ (Đang diễn ra, Đã kết thúc chưa chốt…) suy ra được (dòng 80) |
+| 39 | tuần, tháng, toàn thời gian | Câu 12 | Loại bỏ | — | Giá trị của Leaderboard.period |
+| 40 | điểm trong chu kỳ | Câu 12 | Thuộc tính | LeaderboardEntry.periodPoints | Mục Dữ liệu nghiệp vụ nêu cho mỗi người trên kết quả bảng xếp hạng (TN:Điểm trong chu kỳ) |
+| 41 | đồng hạng | Câu 12 | Loại bỏ | — | Chung chung: các dòng có cùng LeaderboardEntry.rank (TN:Đồng hạng, BR-M12-18) |
+| 42 | mức cảnh cáo | Câu 12 | Thuộc tính | UserWarningStatus.level | Thông tin của lớp ngoài UserWarningStatus (M08) mà M12 đọc để loại người ở HEAVY (FR-M12-04.07); tên level của EC-M08 |
+| 43 | HEAVY | Câu 12 | Loại bỏ | — | Giá trị của UserWarningStatus.level |
+| 44 | BANNED, DEACTIVATED, DELETED | Câu 12 | Loại bỏ | — | Giá trị của User.status |
+| 45 | lần tính định kỳ | Câu 13 | Loại bỏ | — | Hành động không lưu dấu vết riêng: kết quả là Leaderboard với Leaderboard.computedAt |
+| 46 | số liệu đúng mốc | Câu 13 | Loại bỏ | — | Chung chung: các upvote có Upvote.upvotedAt trong chu kỳ (BR-M12-23) |
+| 47 | thời điểm tính | Câu 14 | Thuộc tính | Leaderboard.computedAt | Mục Dữ liệu nghiệp vụ nêu |
+| 48 | dòng bảng xếp hạng / dòng | Câu 14 | Lớp | LeaderboardEntry | Mỗi người trên kết quả bảng xếp hạng có thông tin riêng (điểm trong chu kỳ, thứ hạng, Lớp/Khối tại lúc tính; mục Dữ liệu nghiệp vụ) → thuộc tính nhiều giá trị nên tách lớp; ở bước 3 là lớp liên kết của quan hệ n-n User – Leaderboard |
+| 49 | người được xếp hạng | Câu 14 | Lớp | User | Vai trò theo ngữ cảnh: tài khoản có dòng trên bảng xếp hạng (TN:Được xếp hạng) |
+| 50 | thứ hạng | Câu 14 | Thuộc tính | LeaderboardEntry.rank | Mục Dữ liệu nghiệp vụ nêu |
+| 51 | Lớp-Khối tại lúc tính | Câu 14 | Thuộc tính | LeaderboardEntry.gradeLevel | Mục Dữ liệu nghiệp vụ nêu; giá trị chụp lúc chốt, không đổi khi hồ sơ đổi (BR-M12-16) |
+| 52 | kết quả mới / kết quả cũ | Câu 14 | Loại bỏ | — | Chung chung: hai Leaderboard cùng period ở hai lần tính; kết quả cũ bị thay, không lưu lịch sử (FR-M12-04.14) |
+| 53 | hạng cắt | Câu 15 | Loại bỏ | — | Hằng số của BR-M12-23: hạng 3 (TN:Hạng cắt) |
+| 54 | lần trao / danh hiệu đã đạt | Câu 15 | Lớp | EarnedTitle | FR yêu cầu ghi mỗi lần trao thành một bản ghi riêng gồm người nhận và tuần đạt (FR-M12-05.03), không sửa, không xóa (ma trận CRUD) |
+| 55 | người nhận | Câu 15 | Lớp | User | Vai trò theo ngữ cảnh: tài khoản nhận danh hiệu; quan hệ xét ở bước 3 |
+| 56 | tuần đạt | Câu 15 | Thuộc tính | EarnedTitle.week | Mục Dữ liệu nghiệp vụ nêu |
+| 57 | sự kiện đạt danh hiệu | Câu 15 | Loại bỏ | — | Ngoài phạm vi module (M07): M12 gửi sự kiện, M07 tạo thông báo |
+| 58 | tuần vừa chốt | Câu 16 | Loại bỏ | — | Chung chung: tuần của Leaderboard có period Tuần, xác định bằng Leaderboard.periodStart |
+| 59 | lịch sử các lần đạt | Câu 16 | Loại bỏ | — | Giao diện: không hiển thị ở đâu (BR-M12-24); dữ liệu là các EarnedTitle |
+| 60 | mọi người / Guest | Câu 17 | Loại bỏ | — | Không lưu: Guest là tác nhân không có dữ liệu; M12 không ghi việc xem |
+| 61 | tab Tuần, Tháng, Toàn thời gian | Câu 17 | Loại bỏ | — | Giao diện |
+| 62 | Lớp-Khối | Câu 17 | Thuộc tính | Profile.gradeLevel | Thông tin của hồ sơ (M02) mà M12 đọc lúc tính để chụp vào LeaderboardEntry.gradeLevel (FR-M12-06.09) |
+| 63 | nhóm lọc | Câu 17 | Loại bỏ | — | Chung chung: các dòng có LeaderboardEntry.gradeLevel được chọn; thứ hạng đánh lại lúc hiển thị (BR-M12-16), không lưu |
+| 64 | avatar | Câu 17 | Thuộc tính | Profile.avatar | Thông tin của hồ sơ (M02) mà M12 hiển thị trên dòng (FR-M12-06.11) |
+| 65 | tên hiển thị | Câu 17 | Thuộc tính | User.displayName | Thông tin của tài khoản (M01) mà M12 hiển thị trên dòng (FR-M12-06.11) |
+| 66 | username | Câu 17 | Thuộc tính | User.username | Thông tin của tài khoản (M01) mà M12 hiển thị và dùng xếp người đồng hạng (FR-M12-06.10) |
+| 67 | dấu "Ngôi sao tuần" | Câu 17 | Thuộc tính | LeaderboardEntry.isWeeklyStar | Mục Dữ liệu nghiệp vụ nêu "nhận danh hiệu (tab Tuần)" trên mỗi người; suy ra từ thứ hạng (BR-M12-23) → thuộc tính dẫn xuất |
+| 68 | bảng đã chốt | Câu 18 | Loại bỏ | — | Chung chung: Leaderboard có period Tuần hoặc Tháng |
+| 69 | người trở thành bị loại | Câu 18 | Loại bỏ | — | Chung chung: tính lúc hiển thị từ User.status và UserWarningStatus.level hiện tại (BR-M12-20), không lưu |
+| 70 | nhãn "[Người dùng đã xóa]" | Câu 18 | Loại bỏ | — | Giao diện: hiện khi User.status là DELETED (BR-M12-21) |
+| 71 | trạng thái tài khoản | Câu 19 | Thuộc tính | User.status | Thông tin của tài khoản (M01) mà M12 đọc để loại khỏi bảng xếp hạng, ẩn huy hiệu và gắn nhãn (FR-M12-04.08, FR-M12-07.01) |
+| 72 | nhãn "Tài khoản đã bị khóa" | Câu 19 | Loại bỏ | — | Giao diện: hiện khi User.status là BANNED (BR-M12-27), không lưu |
+| 73 | cờ tính năng Gamification | Câu 20 | Loại bỏ | — | Ngoài phạm vi module (M10): M12 chỉ đọc; không có dữ liệu của M12 gắn với cờ |
+| 74 | dấu đã trừ điểm của bình luận | Quét: TN:Đang tính điểm, Đã trừ điểm | Thuộc tính | Comment.isPointsDeducted | Thuật ngữ áp cho bài viết và bình luận; FR-M12-02.18 không cộng, không trừ lại nội dung đã trừ điểm |
+| 75 | Đang tính điểm / Đã trừ điểm | Quét: TN:Đang tính điểm, Đã trừ điểm | Loại bỏ | — | Giá trị của Post.isPointsDeducted, Comment.isPointsDeducted (sai, đúng) |
+| 76 | Có hiệu lực / Đã rút | Quét: TN:Có hiệu lực, Đã rút | Loại bỏ | — | Chung chung: upvote còn tồn tại hay đã bị xóa khi rút lại (ma trận CRUD: rút lại là Xóa); xem Q-01 |
+| 77 | Đã xóa hẳn | Quét: TN:Đã xóa hẳn | Thuộc tính | Post.isPermanentlyDeleted | Thông tin của bài viết (M03): bài tự xóa chuyển Đã xóa hẳn thì trừ điểm (FR-M12-02.08) |
+| 78 | gỡ vì vi phạm / Bị Mod ẩn | Quét: TN:Gỡ vì vi phạm | Thuộc tính | Post.modState | Thông tin của bài viết (M03): bài sang Bị Mod ẩn thì trừ điểm (FR-M12-02.10), về Bình thường khi khiếu nại được chấp nhận |
+| 79 | trạng thái kiểm duyệt của bình luận | Quét: FR-M12-02.11 | Thuộc tính | Comment.modState | Thông tin của bình luận (M04): bình luận bị ẩn vì vi phạm thì trừ điểm (FR-M12-02.11, FR-M12-02.20, FR-M12-02.21) |
+| 80 | Đang diễn ra, Đã kết thúc chưa chốt, Đã chốt đang hiển thị, Không còn hiển thị | Quét: TN:Đang diễn ra, Đã kết thúc chưa chốt, Đã chốt đang hiển thị, Không còn hiển thị | Loại bỏ | — | Chung chung: trạng thái của chu kỳ suy ra từ thời điểm hiện tại và Leaderboard.periodStart của kết quả đang giữ, không lưu riêng |
+| 81 | mốc đầu chu kỳ | Quét: FR-M12-05.01 | Thuộc tính | Leaderboard.periodStart | FR-M12-05.01 chốt chu kỳ theo mốc đầu, cuối; cần biết kết quả đang giữ thuộc tuần, tháng nào (đề xuất) |
+| 82 | Chưa đạt / Đã đạt | Quét: TN:Chưa đạt, Đã đạt | Loại bỏ | — | Chung chung: huy hiệu chưa có hay đã có EarnedBadge của người dùng |
+| 83 | Được xếp hạng / Bị loại / Hiện mờ | Quét: TN:Được xếp hạng, Bị loại, Hiện mờ | Loại bỏ | — | Chung chung: có LeaderboardEntry hay không, cùng User.status, UserWarningStatus.level hiện tại; tính lúc hiển thị |
+| 84 | 60 phút | Quét: BR-M12-19 | Loại bỏ | — | Hằng số của BR-M12-19: chu kỳ tính lại; ghi ở ràng buộc của Leaderboard.computedAt |
+| 85 | Accepted Answer, downvote | Quét: BR-M12-01 | Loại bỏ | — | Ngoài phạm vi hệ thống: đã quyết không làm (BR-M12-01, BR-M12-06) |
+| 86 | 20 dòng mỗi lần cuộn | Quét: BR-M12-29 | Loại bỏ | — | Giao diện |
+| 87 | trạng thái cảnh cáo của người dùng | Quét: Dữ liệu nghiệp vụ | Lớp | UserWarningStatus | Lớp ngoài (M08): mục Dữ liệu nghiệp vụ ghi "mức cảnh cáo (M08)" trên phần M12 dùng của người dùng; EC-M08 đặt mức cảnh cáo trên lớp UserWarningStatus, M12 chỉ đọc level |
+| 88 | số upvote của bài viết | Quét: Giao tiếp với module khác | Thuộc tính | Post.upvoteCount | Mục Giao tiếp, dòng Cung cấp M03, M04: "số upvote đang có hiệu lực của bài viết, bình luận"; số đếm tính lại được từ Upvote → thuộc tính dẫn xuất |
 
 ### 2.2 Lớp
 
-<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (M12 của tài liệu này, hoặc Myy với lớp ngoài). -->
+<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (Mxx của tài liệu này, hoặc Myy với lớp ngoài).
+     Thuộc tính: tên mọi thuộc tính của lớp ở mục 2.3, ngăn bởi dấu phẩy, thuộc tính dẫn xuất có "/" phía trước;
+     để người đọc thấy lớp và thuộc tính trên cùng một dòng. Lớp chưa có thuộc tính ghi "—". -->
 
-| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Nguồn |
-|---|---|---|---|---|---|
-| Upvote | Upvote | Thực thể | M12 | Lượt Post Star hoặc Comment Star có thời điểm và hiệu lực. Dùng tên đã tham chiếu ở các EC trước. | FR-M12-01.01, FR-M12-01.02, FR-M12-01.04, FR-M12-02.04, BR-M12-02 |
-| PointDeduction | Điểm đã trừ của nội dung | Thực thể | M12 | Ghi số điểm đã trừ, phục vụ hoàn đúng số điểm của lần gỡ bài được chấp nhận khiếu nại. Phạm vi ghi riêng cho bình luận và cách phân biệt lần gỡ xem Q-02/03. | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, BR-M12-09, BR-M12-10 |
-| Badge | Huy hiệu | Thực thể | M12 | Mục danh mục huy hiệu cố định theo mốc tổng điểm, dùng tên glossary và EC-M02/M07. | FR-M12-03.01, FR-M12-03.02, BR-M12-06, BR-M12-11 |
-| EarnedBadge | Huy hiệu đã đạt | Liên kết | M12 | Bản ghi đạt một huy hiệu của người dùng, giữ ngày đạt đầu tiên. Dùng tên EC-M02. | FR-M12-03.02, FR-M12-03.04, FR-M12-03.05, FR-M12-03.06 |
-| WeeklyStarAward | Danh hiệu Ngôi sao tuần đã đạt | Thực thể | M12 | Bản ghi mỗi lần người dùng đạt Ngôi sao tuần. Dùng tên EC-M02/M07. | FR-M12-05.02, FR-M12-05.03, FR-M12-05.04, FR-M12-05.13 |
-| Leaderboard | Kết quả bảng xếp hạng | Thực thể | M12 | Bản ghi kết quả đã chốt theo tuần, tháng hoặc kết quả toàn thời gian gần nhất. Dùng tên glossary. | FR-M12-04.01, FR-M12-04.14, FR-M12-05.01, FR-M12-05.08, FR-M12-06.07 |
-| LeaderboardEntry | Dòng kết quả bảng xếp hạng | Liên kết | M12 | Điểm, hạng và Lớp/Khối được giữ cho từng người trong kết quả. Kết quả được đọc tới khi bảng được thay. | FR-M12-04.02, FR-M12-04.14, FR-M12-04.18, FR-M12-06.09, FR-M12-06.11 |
-| User | Tài khoản | Thực thể | M01 | Người upvote, tác giả, người nhận huy hiệu/danh hiệu và đối tượng xếp hạng. M12 bổ sung tổng điểm và nhãn ban dẫn xuất. | FR-M12-01.01, FR-M12-02.01, FR-M12-03.02, FR-M12-04.02, FR-M12-05.03, FR-M12-07.01 |
-| UserProfile | Hồ sơ | Thực thể | M02 | Cung cấp Lớp/Khối và thông tin nhận biết theo lớp sở hữu, đồng thời nhận dữ liệu điểm và phần thưởng. | FR-M12-03.06, FR-M12-05.12, FR-M12-06.09, FR-M12-06.11 |
-| Post | Bài viết | Thực thể | M03 | Đối tượng của Post Star. M12 bổ sung số upvote có hiệu lực và trạng thái tính điểm. | FR-M12-01.01, FR-M12-01.10, FR-M12-02.08, FR-M12-02.18 |
-| Comment | Bình luận | Thực thể | M04 | Đối tượng của Comment Star, dùng số upvote đã có trong EC-M04 và bổ sung trạng thái tính điểm. | FR-M12-01.01, FR-M12-02.11, FR-M12-02.17, FR-M12-02.19, FR-M12-02.20 |
-| Notification | Thông báo | Thực thể | M07 | Nhận sự kiện upvote, rút upvote và trao phần thưởng; M07 sở hữu bản ghi và cơ chế gộp. | FR-M12-01.13, FR-M12-03.10, FR-M12-05.07, BR-M12-26 |
-| WarningStatus | Trạng thái cảnh cáo của người dùng | Thực thể | M08 | Mức cảnh cáo dùng xác định tư cách xếp hạng và nhận danh hiệu. | FR-M12-04.07, FR-M12-04.09, FR-M12-05.10, BR-M12-20 |
-| Appeal | Khiếu nại | Thực thể | M09 | Kết quả chấp nhận khiếu nại bài bị gỡ cho phép hoàn điểm đúng lần gỡ. | FR-M12-02.12, BR-M12-10 |
-| Group | Nhóm | Thực thể | M11 | Chế độ, quyền vote của bài nhóm và ngữ cảnh mất nội dung ở cấp nhóm để xác định giữ điểm. | FR-M12-01.11, FR-M12-02.14, FR-M12-02.15, FR-M12-02.16 |
-| GroupMember | Thành viên nhóm | Thực thể | M11 | Tư cách thành viên ảnh hưởng quyền upvote bài nhóm Private. | FR-M12-01.11, BR-M12-04 |
-| SystemConfiguration | Cấu hình hệ thống | Thực thể | M10 | Cung cấp cờ Gamification và áp ngoại lệ Admin khi cờ tắt. | FR-M12-08.01, FR-M12-08.06, FR-M12-08.07, BR-M12-28 |
+| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
+|---|---|---|---|---|---|---|
+| Upvote | Upvote | Thực thể | M12 | Một lượt đánh giá hữu ích của một người dùng cho một bài viết hoặc bình luận của người khác; rút lại thì xóa | upvotedAt | FR-M12-01.01, FR-M12-01.02 |
+| Badge | Huy hiệu | Thực thể | M12 | Một trong 5 huy hiệu cố định trao theo mốc tổng điểm | name, threshold | FR-M12-03.01 |
+| EarnedBadge | Huy hiệu đã đạt | Liên kết | M12 | Một huy hiệu một người dùng đã đạt, giữ vĩnh viễn; tách từ quan hệ n-n User – Badge | achievedAt | FR-M12-03.02, FR-M12-03.06 |
+| EarnedTitle | Danh hiệu đã đạt | Thực thể | M12 | Một lần một người dùng đạt danh hiệu "Ngôi sao tuần" ở một tuần | week | FR-M12-05.02, FR-M12-05.03 |
+| Leaderboard | Kết quả bảng xếp hạng | Thực thể | M12 | Kết quả hiện hành của bảng xếp hạng một loại chu kỳ: tuần, tháng đã chốt hoặc toàn thời gian lần tính gần nhất | period, periodStart, computedAt | FR-M12-04.01, FR-M12-04.14, FR-M12-05.01 |
+| LeaderboardEntry | Dòng bảng xếp hạng | Liên kết | M12 | Một người dùng trên một kết quả bảng xếp hạng; tách từ quan hệ n-n User – Leaderboard | periodPoints, rank, gradeLevel, /isWeeklyStar | FR-M12-04.02, FR-M12-06.11 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Người upvote, người nhận điểm, huy hiệu, danh hiệu, người được xếp hạng | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M12-01.01, FR-M12-02.01, FR-M12-03.02, FR-M12-04.02 |
+| Post | Bài viết | Thực thể | M03 | Đối tượng upvote; bị trừ điểm khi mất đi do trực tiếp, được hoàn khi khiếu nại bài bị gỡ được chấp nhận | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M12-01.10, FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 |
+| Comment | Bình luận | Thực thể | M04 | Đối tượng upvote; bị trừ điểm khi mất đi do trực tiếp | content, publishedAt, editedAt, modState, deletedAt, /isDeleted, /isEdited, /isVisible, /upvoteCount, scannedAt, /isScannedCurrent, /replyRate, isRemovedFromGroup, isPointsDeducted | FR-M12-01.12, FR-M12-02.11, FR-M12-02.19 |
+| Profile | Hồ sơ | Thực thể | M02 | Nguồn Lớp/Khối và avatar hiển thị trên bảng xếp hạng | avatar, bio, gradeLevel, /followerCount, /followingCount | FR-M12-06.03, FR-M12-06.11 |
+| UserWarningStatus | Trạng thái cảnh cáo của người dùng | Thực thể | M08 | Nguồn mức cảnh cáo để loại người ở HEAVY khỏi bảng xếp hạng | warningCount, /level, probationEndsAt | FR-M12-04.07, FR-M12-05.10 |
 
 ### 2.3 Thuộc tính
 
-<!-- Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
-     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất) — chép từ FR kèm mã. -->
+<!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
+     Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
+     Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
+     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
+             — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
+     Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
+     Ghi chú: bắt buộc với Đề xuất (vì sao cần) và Tham chiếu (module này dùng nó làm gì). -->
 
-| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Ràng buộc nguồn nêu | Nguồn |
-|---|---|---|---|---|---|
-| User | totalPoints | Tổng điểm đóng góp | Lưu | Mỗi tài khoản một tổng điểm cập nhật tức thời. Công thức nghiệp vụ BR-M12-05 tính từ upvote có hiệu lực trên nội dung đang tính điểm, trọng số bài 2, bình luận 1, kể cả upvote của tài khoản đã xóa. Xử lý trừ và hoàn điểm theo BR-M12-07/08/09/10; không giảm theo thời gian. Mục 5.10 ghi cập nhật và giữ bản ghi điểm. | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.04, FR-M12-02.05, FR-M12-02.12, FR-M12-04.04, BR-M12-05, BR-M12-07 |
-| Upvote | votedAt | Thời điểm upvote | Lưu | Lúc lượt được ghi nhận và có hiệu lực. Upvote lại có mốc hiệu lực của lần upvote lại, dùng xếp vào chu kỳ giờ Việt Nam. | FR-M12-01.01, FR-M12-04.03, FR-M12-04.15, BR-M12-02, TN:Thời điểm upvote |
-| Upvote | status | Trạng thái hiệu lực | Lưu | Có hiệu lực hoặc Đã rút theo mục 2.1 và 5.11. Tối đa một lượt có hiệu lực cho mỗi cặp người–nội dung. Biểu diễn trạng thái ở mức nghiệp vụ; Q-01 đối chiếu việc CRUD gọi rút là xóa và cách tái dựng ở ranh giới chu kỳ. | FR-M12-01.01, FR-M12-01.02, FR-M12-01.03, BR-M12-02, TN:Có hiệu lực, Đã rút |
-| Upvote | kind | Loại upvote | Dẫn xuất | Đọc loại từ đối tượng: Post Star khi đích là Post, Comment Star khi đích là Comment. | FR-M12-01.04, BR-M12-01 |
-| Post | upvoteCount | Số upvote bài viết | Dẫn xuất | Phần M12 bổ sung trên Post. Đếm lượt Upvote có hiệu lực gắn với bài viết; rút thì không tính. Đây là số lượt, độc lập với trọng số điểm. | FR-M12-01.01, FR-M12-01.02, FR-M12-08.10, BR-M12-02, BR-M12-05 |
-| PointDeduction | deductedPoints | Số điểm đã trừ | Lưu | Với bài viết, ghi phần điểm từ các upvote có hiệu lực tại thời điểm trừ; khi chấp nhận khiếu nại lần gỡ, hoàn đúng số đã ghi. FR nêu trừ điểm bình luận, phạm vi giữ số điểm đã trừ của bình luận xem Q-03. | FR-M12-02.08, FR-M12-02.10, FR-M12-02.11, FR-M12-02.12, BR-M12-09, BR-M12-10 |
-| Badge | pointThreshold | Ngưỡng tổng điểm | Lưu | Giá trị cố định trong danh mục theo BR-M12-06/11. Các mốc lần lượt 25, 100, 300, 600, 1000; chỉ đổi bằng triển khai. | FR-M12-03.01, FR-M12-03.02, BR-M12-06, BR-M12-11 |
-| EarnedBadge | earnedOn | Ngày đạt | Lưu | Mỗi tài khoản đạt mỗi huy hiệu tối đa một lần. Giữ ngày đầu tiên và giữ huy hiệu khi điểm giảm. | FR-M12-03.02, FR-M12-03.04, FR-M12-03.05, FR-M12-03.06, BR-M12-12 |
-| Leaderboard | periodKind | Loại chu kỳ | Lưu | Tuần, tháng, toàn thời gian. Mỗi loại giữ một kết quả hiện hành theo BR-M12-22. | FR-M12-04.03, FR-M12-04.04, FR-M12-04.14, FR-M12-06.02, BR-M12-14, BR-M12-22 |
-| LeaderboardEntry | periodPoints | Điểm trong chu kỳ | Lưu | Giữ điểm kết quả của lần chốt hoặc tính gần nhất, chỉ gồm người có điểm dương. Tuần/tháng xét upvote thuộc kỳ còn hiệu lực và nội dung còn tính điểm theo BR-M12-15; toàn thời gian dùng User.totalPoints. | FR-M12-04.02, FR-M12-04.04, FR-M12-04.14, FR-M12-04.15, FR-M12-04.16, FR-M12-05.01, BR-M12-15 |
-| LeaderboardEntry | rank | Thứ hạng đã tính | Lưu | Người đồng điểm có cùng hạng, hạng kế tiếp bằng số người đứng trên cộng một. Giữ hạng đã chốt khi ẩn dòng sau chốt. | FR-M12-04.06, FR-M12-04.14, FR-M12-04.18, FR-M12-06.05, BR-M12-18 |
-| Leaderboard | calculatedAt | Thời điểm tính kết quả | Lưu | Thời điểm lần tính kết quả. Với tuần/tháng là lần chốt, phân biệt với mốc cuối chu kỳ. Toàn thời gian thay ở kỳ tính 60 phút theo BR-M12-19. | FR-M12-04.01, FR-M12-04.14, FR-M12-05.01, FR-M12-05.06, FR-M12-06.07, BR-M12-19, BR-M12-25 |
-| Leaderboard | periodStart | Mốc bắt đầu kỳ của kết quả | Lưu | Áp dụng cho kết quả tuần hoặc tháng, theo tuần lịch hoặc tháng lịch giờ Việt Nam để phân biệt kết quả đã chốt với kỳ đang diễn ra. Toàn thời gian không có mốc của kỳ hữu hạn. | FR-M12-04.03, FR-M12-04.14, FR-M12-05.01, FR-M12-05.08, BR-M12-14, BR-M12-22 |
-| Leaderboard | periodEnd | Mốc kết thúc chu kỳ | Dẫn xuất | Mốc bắt đầu tuần hoặc tháng kế tiếp tính từ periodStart theo lịch Việt Nam. Toàn thời gian không có mốc cuối. | FR-M12-04.03, FR-M12-05.01, BR-M12-14 |
-| LeaderboardEntry | gradeLevelAtCalculation | Lớp/Khối tại lần tính | Lưu | Sao giá trị Lớp/Khối từ hồ sơ tại lúc chốt hoặc lần tính toàn thời gian gần nhất. Có thể chưa đặt, vẫn thuộc bộ lọc Tất cả. Thay đổi hồ sơ sau đó không đổi giá trị đã giữ. | FR-M12-06.03, FR-M12-06.08, FR-M12-06.09, BR-M12-16 |
-| WeeklyStarAward | weekStart | Tuần đạt Ngôi sao tuần | Lưu | Mốc đầu tuần lịch giờ Việt Nam của kỳ được trao. Mỗi người tối đa một bản ghi cho mỗi tuần đạt; vẫn lưu bản ghi qua các tuần. | FR-M12-04.03, FR-M12-05.03, FR-M12-05.04, FR-M12-05.13, BR-M12-14, BR-M12-24 |
-| LeaderboardEntry | filteredRank | Thứ hạng trong nhóm lọc | Dẫn xuất | Tính lại theo điểm các dòng của Lớp/Khối được lọc, áp quy tắc đồng hạng tại BR-M12-16/18. Không ghi đè hạng của kết quả gốc. | FR-M12-06.05, FR-M12-06.08, BR-M12-16, BR-M12-18 |
-| LeaderboardEntry | isWeeklyStar | Dấu Ngôi sao tuần | Dẫn xuất | Chỉ áp với bảng tuần. Tra WeeklyStarAward của cùng tài khoản và tuần trong kết quả, không tính lại dựa vào thứ hạng sau lọc. | FR-M12-05.02, FR-M12-05.03, FR-M12-06.11, BR-M12-24, BR-M12-29 |
-| User | banLabel | Nhãn tài khoản bị khóa | Dẫn xuất | Phần M12 bổ sung trên User. Có nhãn công khai khi User.accountState là BANNED, bỏ nhãn khi hết trạng thái. Trạng thái DEACTIVATED có nhãn khác từ M01. | FR-M12-07.01, FR-M12-07.03, FR-M12-07.04, BR-M12-27 |
-| Badge | name | Tên huy hiệu | Lưu | Năm tên cố định theo BR-M12-11: Người mới nổi, Cây bút triển vọng, Cây bút tích cực, Chuyên gia cộng đồng, Huyền thoại iShare. | FR-M12-03.01, BR-M12-11 |
-| Post | pointState | Trạng thái tính điểm | Lưu | Đang tính điểm hoặc Đã trừ điểm. Tạo nội dung ở Đang tính điểm, loại khỏi tổng điểm khi đã trừ, không trừ lần nữa. Bài bị gỡ có thể trở lại Đang tính điểm khi khiếu nại được chấp nhận. Bài tự xóa hẳn không hoàn. | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18, BR-M12-08, BR-M12-10 |
-| Comment | pointState | Trạng thái tính điểm | Lưu | Đang tính điểm hoặc Đã trừ điểm. Tạo nội dung ở Đang tính điểm, loại khỏi tổng điểm khi đã trừ, không trừ lần nữa. Điểm đã trừ của bình luận không hoàn. Ẩn theo bài cha vẫn giữ Đang tính điểm. | FR-M12-02.11, FR-M12-02.13, FR-M12-02.17, FR-M12-02.18, FR-M12-02.19, FR-M12-02.20, FR-M12-02.21, BR-M12-08 |
+| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Căn cứ | Ràng buộc nguồn nêu | Nguồn | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| Upvote | upvotedAt | Thời điểm upvote | Lưu | Nguồn nêu | Lúc người dùng bấm upvote và upvote có hiệu lực (TN:Thời điểm upvote); xếp upvote vào chu kỳ theo giờ Việt Nam (BR-M12-14) | FR-M12-01.01, FR-M12-04.15, BR-M12-14 | M05, M06, M14 dùng upvote kèm thời điểm cho Trending, xếp hạng, sắp xếp (mục Giao tiếp) |
+| Badge | name | Tên huy hiệu | Lưu | Nguồn nêu | Người mới nổi, Cây bút triển vọng, Cây bút tích cực, Chuyên gia cộng đồng, Huyền thoại iShare (BR-M12-11); danh mục cố định, chỉ đổi bằng triển khai (BR-M12-06) | FR-M12-03.01, BR-M12-11 | — |
+| Badge | threshold | Ngưỡng điểm | Lưu | Nguồn nêu | 25, 100, 300, 600, 1000 theo thứ tự tên ở trên (BR-M12-11); không hiển thị cùng huy hiệu (BR-M12-12) | FR-M12-03.01, FR-M12-03.02, BR-M12-11 | — |
+| EarnedBadge | achievedAt | Ngày đạt | Lưu | Nguồn nêu | Ngày đạt đầu tiên, không đổi; huy hiệu không thu hồi, không trao lại (BR-M12-12) | FR-M12-03.02, FR-M12-03.05, FR-M12-03.06 | Hồ sơ (M02) hiện ngày đạt thay cho ngưỡng |
+| EarnedTitle | week | Tuần đạt | Lưu | Nguồn nêu | Tuần lịch từ 00:00 thứ Hai đến trước 00:00 thứ Hai tuần sau, giờ Việt Nam (BR-M12-14); mỗi tuần đạt một bản ghi (BR-M12-24) | FR-M12-05.03, FR-M12-05.12 | Hồ sơ chỉ hiện danh hiệu khi tuần đạt là tuần vừa chốt (FR-M12-05.12) |
+| Leaderboard | period | Chu kỳ | Lưu | Nguồn nêu | Tuần, Tháng, Toàn thời gian (BR-M12-14); không có chu kỳ năm (FR-M12-04.05); mỗi loại chu kỳ một kết quả hiện hành (mục Dữ liệu nghiệp vụ) | FR-M12-04.03, FR-M12-06.02, BR-M12-14 | — |
+| Leaderboard | periodStart | Mốc đầu chu kỳ | Lưu | Đề xuất | — | FR-M12-05.01, FR-M12-06.04, BR-M12-22 | FR-M12-05.01 chốt khi "lần tính định kỳ thấy một tuần hoặc một tháng đã kết thúc từ lần tính trước": cần biết kết quả tuần, tháng đang giữ thuộc chu kỳ nào để biết chu kỳ vừa kết thúc đã được chốt chưa; tab Tuần, Tháng phải hiện bảng của đúng chu kỳ vừa kết thúc (BR-M12-22). Không có ở Toàn thời gian |
+| Leaderboard | computedAt | Thời điểm tính | Lưu | Nguồn nêu | Bảng toàn thời gian tính lại mỗi 60 phút; bảng tuần, tháng tính một lần khi chốt, trễ tối đa 60 phút sau mốc cuối (BR-M12-19, BR-M12-25) | FR-M12-04.01, FR-M12-05.01, FR-M12-06.07 | — |
+| LeaderboardEntry | periodPoints | Điểm trong chu kỳ | Lưu | Nguồn nêu | Lớn hơn 0; điểm theo trọng số BR-M12-05 từ các upvote có thời điểm upvote trong chu kỳ, còn hiệu lực lúc tính, trên nội dung chưa bị trừ điểm (BR-M12-15); toàn thời gian dùng tổng điểm (FR-M12-04.04) | FR-M12-04.02, FR-M12-04.15, BR-M12-15 | Kết quả tính được lưu (FR-M12-04.14): bảng đã chốt không đổi khi upvote bị rút hay nội dung bị trừ điểm sau đó (FR-M12-04.16) |
+| LeaderboardEntry | rank | Thứ hạng | Lưu | Nguồn nêu | Người cùng điểm đồng hạng; người kế tiếp nhận hạng bằng số người đứng trên cộng một (BR-M12-18) | FR-M12-04.06, FR-M12-06.05 | Khi lọc theo Lớp/Khối, thứ hạng được đánh lại lúc hiển thị (FR-M12-06.08), không lưu |
+| LeaderboardEntry | gradeLevel | Lớp/Khối tại lúc tính | Lưu | Nguồn nêu | 10, 11, 12 hoặc chưa đặt; lấy từ hồ sơ tại lúc chốt, với Toàn thời gian tại lần tính gần nhất (BR-M12-16) | FR-M12-06.09, BR-M12-16 | Giá trị chụp lúc tính, không đổi khi hồ sơ đổi sau đó |
+| LeaderboardEntry | isWeeklyStar | Nhận danh hiệu | Dẫn xuất | Nguồn nêu | Đúng khi dòng thuộc kết quả có period Tuần và rank từ 1 đến 3 (BR-M12-23) | FR-M12-06.11, BR-M12-23 | Dấu "Ngôi sao tuần" ở tab Tuần; trùng với EarnedTitle của tuần đó |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M12-06.10, FR-M12-06.11 | Hiển thị trên dòng bảng xếp hạng; xếp người đồng hạng theo username từ A đến Z |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M12-06.11 | Hiển thị trên dòng bảng xếp hạng |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M12-08.06 | Admin vẫn dùng module khi cờ Gamification tắt |
+| User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M12-04.08, FR-M12-04.12, FR-M12-04.17, FR-M12-03.11, FR-M12-07.01 | Loại BANNED, DEACTIVATED, DELETED khỏi bảng xếp hạng; ẩn huy hiệu của DELETED; nhãn "Tài khoản đã bị khóa" khi BANNED |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | = 2 × số upvote có hiệu lực trên bài viết + 1 × số upvote có hiệu lực trên bình luận của người đó, chỉ trên nội dung chưa bị trừ điểm, kể cả upvote của tài khoản đã xóa (BR-M12-05); cập nhật tức thời (BR-M12-07); không giảm theo thời gian, không chỉnh tay (BR-M12-06); cộng lại số điểm đã trừ khi khiếu nại bài bị gỡ được chấp nhận (BR-M12-10) | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | M12 định nghĩa; đã đưa vào lớp User của EC-M01 (MD-05). Thực thể "Điểm của người dùng" của FR (Q-02); lưu, không tính lại, vì phần hoàn điểm cộng đúng số điểm đã trừ được ghi; M02 hiển thị (EC-M02 dòng 21) |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M12-02.10, FR-M12-02.12 | Bài sang Bị Mod ẩn (gỡ vì vi phạm) thì trừ điểm ngay; khiếu nại được chấp nhận thì hoàn điểm |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M12-01.10 | Khóa toàn bộ chặn upvote mới và rút upvote trên bài và mọi bình luận của bài |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.09 | Bài tự xóa chuyển Đã xóa hẳn thì trừ điểm; khôi phục trước đó thì không trừ |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M12-01.12 | Bài không còn hiển thị thì từ chối upvote |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | Đang tính điểm (sai), Đã trừ điểm (đúng) (TN:Đang tính điểm, Đã trừ điểm); về Đang tính điểm khi khiếu nại bài bị gỡ được chấp nhận; upvote trên bài đã trừ điểm không được cộng, bài không bị trừ lại (FR-M12-02.18) | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | M12 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05) |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | Điểm từ các upvote có hiệu lực trên bài tại thời điểm trừ (BR-M12-09); dùng để hoàn đúng số đó (BR-M12-10) | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | M12 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Thực thể "Điểm đã trừ của nội dung" của FR (Q-02); chỉ bài viết cần, vì điểm bình luận không được hoàn (FR-M12-02.13) |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | Số upvote đang có hiệu lực trên bài viết (mục Giao tiếp, dòng Cung cấp M03, M04; BR-M12-02) | FR-M12-01.01, FR-M12-01.02 | M12 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). M12 cung cấp cho M03 hiển thị và cho M05, M06, M14 tính Trending, xếp hạng (mục Giao tiếp); bình luận đã có Comment./upvoteCount ở EC-M04 |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Comment | content | Nội dung bình luận | Lưu | Tham chiếu | — | FR-M04-04.01, FR-M04-05.07, BR-M04-01, BR-M04-19 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M04-02.01, FR-M04-04.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | editedAt | Thời điểm sửa | Lưu | Tham chiếu | — | FR-M04-04.02, BR-M04-07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M12-02.11, FR-M12-02.17, FR-M12-02.20, FR-M12-02.21 | Bình luận bị ẩn vì chính nó vi phạm (Mod, Admin; AI với điểm quét từ 0,9; kết luận vi phạm) thì trừ điểm; bị ẩn theo bài cha thì giữ điểm |
+| Comment | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isDeleted | Đã xóa | Dẫn xuất | Tham chiếu | — | FR-M12-02.19 | Tác giả tự xóa bình luận thì trừ điểm ngay |
+| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M04-01.06 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isVisible | Hiển thị bình thường | Dẫn xuất | Tham chiếu | — | FR-M12-01.12 | Bình luận không còn hiển thị thì từ chối upvote |
+| Comment | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M04-01.03, FR-M04-01.14, BR-M04-05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | scannedAt | Thời điểm quét gần nhất | Lưu | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isScannedCurrent | Đã quét với nội dung hiện tại | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | replyRate | Tốc độ trả lời | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, BR-M08-20 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | Đang tính điểm (sai), Đã trừ điểm (đúng) (TN:Đang tính điểm, Đã trừ điểm); với bình luận, Đã trừ điểm là trạng thái cuối (mục Chuyển trạng thái) | FR-M12-02.11, FR-M12-02.19, FR-M12-02.20, FR-M12-02.18 | M12 định nghĩa; đã đưa vào lớp Comment của EC-M04 (MD-05) |
+| Profile | avatar | Avatar | Lưu | Tham chiếu | — | FR-M12-06.11 | Hiển thị trên dòng bảng xếp hạng |
+| Profile | bio | Bio | Lưu | Tham chiếu | — | FR-M02-03.02, FR-M02-03.04, FR-M02-03.11, FR-M02-03.12 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| Profile | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M12-06.03, FR-M12-06.09 | Chụp vào LeaderboardEntry.gradeLevel lúc tính |
+| Profile | followerCount | Số người theo dõi | Dẫn xuất | Tham chiếu | — | FR-M02-01.02, FR-M02-02.07, FR-M02-02.08 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| Profile | followingCount | Số đang theo dõi | Dẫn xuất | Tham chiếu | — | FR-M02-01.02, FR-M02-02.06, FR-M02-02.07 | Ghi đủ lớp sau gộp (MD-05); EC-M02 định nghĩa |
+| UserWarningStatus | warningCount | Số lần cảnh cáo | Lưu | Tham chiếu | — | FR-M08-09.04, FR-M08-11.03, FR-M08-12.04 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| UserWarningStatus | level | Mức cảnh cáo | Dẫn xuất | Tham chiếu | — | FR-M12-04.07, FR-M12-04.09, FR-M12-05.10 | Loại người ở HEAVY khỏi bảng xếp hạng và khỏi việc trao danh hiệu; LIGHT, MEDIUM không ảnh hưởng |
+| UserWarningStatus | probationEndsAt | Thời điểm kết thúc thời gian thử thách | Lưu | Tham chiếu | — | FR-M08-13.01, FR-M08-12.03 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -193,15 +331,14 @@ steps_completed: [1, 2]
 
 | Thực thể trong FR | Trong mô hình | Xử lý |
 |---|---|---|
-| Upvote | Upvote | Mô hình có thêm status từ mục 5.11, kind dẫn xuất từ đích theo FR-M12-01.04. Người trao và đích là quan hệ. FR mục 5.10 bỏ ghi nhận người trao khi tài khoản đã xóa. Q-01 làm rõ dữ liệu cần giữ sau rút và bật lại. |
-| Điểm của người dùng | User.totalPoints | Đã duyệt Q-04. Một tổng điểm được cập nhật tức thời cho mỗi tài khoản, do M12 quản lý trên User. |
-| Điểm đã trừ của nội dung | PointDeduction, Post.pointState, Comment.pointState | Mô hình có thêm trạng thái tính điểm từ FR-M12-02.18 và mục 5.11. Q-02 làm rõ phân biệt từng lần gỡ cần hoàn; Q-03 làm rõ số điểm đã trừ cần lưu cho bình luận. |
-| Huy hiệu | Badge | Khớp |
-| Huy hiệu đã đạt | EarnedBadge | Khớp |
-| Danh hiệu đã đạt | WeeklyStarAward | Khớp |
-| Kết quả bảng xếp hạng | Leaderboard, LeaderboardEntry | Mô hình chi tiết bảng và dòng kết quả lưu theo FR-M12-04.14, FR-M12-05.08, FR-M12-06.07, FR-M12-06.09. Dấu Ngôi sao tuần lấy từ bản ghi thưởng. Hạng trong nhóm lọc tính lại theo FR-M12-06.08. |
-| Người dùng (M01, M02, M08) — phần M12 dùng | User, UserProfile, WarningStatus | Mô hình có thêm User.banLabel dẫn xuất theo FR-M12-07.01/03. Giữ nguồn tài khoản, hồ sơ và cảnh cáo theo module gốc. |
-| Tham chiếu ngoài | Post, Comment, Notification, Appeal, Group, GroupMember, SystemConfiguration | Mô hình có thêm lớp ngoài theo yêu cầu và giao tiếp. Post.upvoteCount, Post.pointState và Comment.pointState là dữ liệu M12 quản lý trên nội dung. |
+| Upvote | Upvote | Khớp: người upvote → quan hệ với User (0..1 vì bị bỏ khi tài khoản đã xóa); nội dung được upvote → quan hệ với Post hoặc Comment; thời điểm upvote → upvotedAt. Trạng thái Có hiệu lực, Đã rút của mục Chuyển trạng thái: rút lại là xóa upvote theo ma trận CRUD (Q-01) |
+| Điểm của người dùng | User.totalPoints | Lệch: FR ghi là thực thể nhưng chỉ có một giá trị cho mỗi người dùng → thuộc tính M12 bổ sung trên User (Q-02) |
+| Điểm đã trừ của nội dung | Post.deductedPoints, Post.isPointsDeducted, Comment.isPointsDeducted | Lệch: FR ghi là thực thể gắn với một nội dung, chỉ có số điểm đã trừ → thuộc tính M12 bổ sung trên bài viết; trạng thái đã trừ điểm của bài viết và bình luận lấy từ mục Chuyển trạng thái (Q-02) |
+| Huy hiệu | Badge | Khớp: tên → name; ngưỡng điểm → threshold |
+| Huy hiệu đã đạt | EarnedBadge | Khớp: người dùng, huy hiệu → quan hệ; ngày đạt → achievedAt; ở bước 3 là lớp liên kết của quan hệ n-n User – Badge |
+| Danh hiệu đã đạt | EarnedTitle | Khớp: người dùng → quan hệ; tuần đạt → week. "Danh hiệu Ngôi sao tuần" là danh hiệu duy nhất nên không có lớp danh hiệu riêng (Q-03) |
+| Kết quả bảng xếp hạng | Leaderboard, LeaderboardEntry | Khớp: chu kỳ → period; thời điểm tính → computedAt; mỗi người: điểm trong chu kỳ → periodPoints, thứ hạng → rank, Lớp/Khối tại lúc tính → gradeLevel, nhận danh hiệu → /isWeeklyStar (dẫn xuất từ rank). Mô hình có thêm: periodStart (Đề xuất, FR-M12-05.01); các dòng tách thành LeaderboardEntry vì mỗi người có nhiều thông tin. Kết quả tính được lưu nên là Thực thể, không phải lớp thống kê (Q-04) |
+| Người dùng (M01, M02, M08) — phần M12 dùng | User, Profile, UserWarningStatus | Khớp: Lớp/Khối → Profile.gradeLevel; trạng thái tài khoản → User.status; mức cảnh cáo → UserWarningStatus.level (Tham chiếu) |
 
 ## 3. Quan hệ giữa các lớp
 
@@ -209,27 +346,21 @@ steps_completed: [1, 2]
 
 <!-- T = quan hệ trực tiếp; G(X) = chỉ gián tiếp qua lớp X; trống = không liên quan. Chỉ điền nửa trên. -->
 
-| Lớp | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 Upvote |  |  |  |  |  | P |  | T |  | T | T |  |  |  | P | P | P |
-| 2 PointDeduction |  |  |  |  |  | P |  |  |  | T | T |  |  | P |  |  |  |
-| 3 Badge |  |  |  | T |  |  |  | G(EarnedBadge) |  |  |  | T |  |  |  |  |  |
-| 4 EarnedBadge |  |  |  |  |  |  |  | T | P |  |  |  |  |  |  |  |  |
-| 5 WeeklyStarAward |  |  |  |  |  |  | P | T | P |  |  | T |  |  |  |  |  |
-| 6 Leaderboard |  |  |  |  |  |  | T | G(LeaderboardEntry) |  |  |  |  | P |  |  |  | P |
-| 7 LeaderboardEntry |  |  |  |  |  |  |  | T | P |  |  |  |  |  |  |  |  |
-| 8 User |  |  |  |  |  |  |  |  |  | G(Upvote) | G(Upvote) |  |  |  |  |  |  |
-| 9 UserProfile |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 10 Post |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 11 Comment |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 12 Notification |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 13 WarningStatus |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 14 Appeal |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 15 Group |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 16 GroupMember |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 17 SystemConfiguration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Chỉ ghi các hàng của lớp thuộc M12; cặp hai lớp ngoài không xét (CONVENTIONS mục 5). Ô Badge – User ứng với quan hệ n-n
+"người dùng đạt huy hiệu", tách bằng EarnedBadge đã có từ bước 2; ô Leaderboard – User ứng với quan hệ n-n "người dùng có
+dòng trên kết quả bảng xếp hạng", tách bằng LeaderboardEntry đã có từ bước 2. Các ô EarnedBadge – Badge, EarnedBadge –
+User, LeaderboardEntry – Leaderboard, LeaderboardEntry – User để trống vì là các nửa của hai quan hệ n-n đó. Danh hiệu đã
+đạt không có quan hệ với kết quả bảng xếp hạng: kết quả tuần bị thay ở lần chốt sau, còn danh hiệu được giữ. Profile và
+UserWarningStatus không có quan hệ với lớp nào của M12: M12 chỉ đọc thuộc tính của chúng.
 
-Ô `T` chỉ liên hệ có bội số. Ô `P` là phụ thuộc nghiệp vụ. Ô `G(X)` chỉ liên hệ gián tiếp qua lớp X; các quan hệ n-n trước tách được ghi ở mục 3.2. Với User–Post và User–Comment, ma trận chỉ xét vai trò người trao upvote; quan hệ tác giả do M03, M04 quản lý.
+| | Badge | EarnedBadge | EarnedTitle | Leaderboard | LeaderboardEntry | User | Post | Comment | Profile | UserWarningStatus |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Upvote |   |   |   |   |   | T | T | T |   |   |
+| Badge |   |   |   |   |   | T |   |   |   |   |
+| EarnedBadge |   |   |   |   |   |   |   |   |   |   |
+| EarnedTitle |   |   |   |   |   | T |   |   |   |   |
+| Leaderboard |   |   |   |   |   | T |   |   |   |   |
+| LeaderboardEntry |   |   |   |   |   |   |   |   |   |   |
 
 ### 3.2 Quan hệ số lượng
 
@@ -238,33 +369,29 @@ steps_completed: [1, 2]
 
 | Cặp | Câu A → B | Câu B → A | Dạng | Xử lý |
 |---|---|---|---|---|
-| User – Post (Upvote bài viết) | Một User có thể upvote nhiều Post của người khác theo thời gian. | Một Post có thể được nhiều User upvote. | n-n | Tách: dùng lớp Upvote bài viết |
-| User – Comment (Upvote bình luận) | Một User có thể upvote nhiều Comment của người khác theo thời gian. | Một Comment có thể được nhiều User upvote. | n-n | Tách: dùng lớp Upvote bình luận |
-| User – Badge (EarnedBadge) | Một User có thể đạt nhiều Badge trong danh mục. | Một Badge có thể được nhiều User đạt. | n-n | Tách: dùng lớp EarnedBadge |
-| User – Leaderboard (LeaderboardEntry) | Một User có thể được xếp hạng ở nhiều Leaderboard theo loại kỳ và các lần công bố. | Một Leaderboard có thể xếp hạng nhiều User. | n-n | Tách: dùng lớp LeaderboardEntry |
-| User – Upvote (R-M12-01) | Một User có thể trao từ 0 đến nhiều Upvote. | Một Upvote có đúng một User khi tạo và còn 0 hoặc 1 User sau xử lý xóa tài khoản. | 1-n | Giữ nguyên |
-| Post – Upvote (R-M12-02) | Một Post có thể nhận từ 0 đến nhiều Upvote. | Một Upvote ghi một Post khi là Post Star, còn Comment Star có 0 Post. | 1-n | Giữ nguyên |
-| Comment – Upvote (R-M12-03) | Một Comment có thể nhận từ 0 đến nhiều Upvote. | Một Upvote ghi một Comment khi là Comment Star, còn Post Star có 0 Comment. | 1-n | Giữ nguyên |
-| Post – PointDeduction (R-M12-04) | Một Post có thể phát sinh từ 0 đến nhiều PointDeduction qua các lần trừ tách biệt. | Một PointDeduction gắn đúng một Post khi đối tượng trừ là bài viết. | 1-n | Giữ nguyên |
-| Comment – PointDeduction (R-M12-05) | Một Comment ứng với 0 hoặc 1 PointDeduction, vì điểm đã trừ không được hoàn hoặc trừ lại. | Một PointDeduction gắn đúng một Comment khi đối tượng trừ là bình luận, còn 0 Comment khi trừ từ bài viết. | 1-1 | Giữ: đầu Comment tùy chọn theo loại đối tượng; bình luận thuộc M04 và có vòng đời riêng. |
-| User – EarnedBadge (R-M12-06) | Một User có thể có từ 0 đến nhiều EarnedBadge trong danh mục hiện hành. | Một EarnedBadge ứng với đúng một User. | 1-n | Giữ nguyên |
-| Badge – EarnedBadge (R-M12-07) | Một Badge có thể có từ 0 đến nhiều lượt được người dùng đạt. | Một EarnedBadge ghi đúng một Badge. | 1-n | Giữ nguyên |
-| User – WeeklyStarAward (R-M12-08) | Một User có thể nhận từ 0 đến nhiều WeeklyStarAward ở các tuần khác nhau. | Một WeeklyStarAward có đúng một User nhận. | 1-n | Giữ nguyên |
-| Leaderboard – LeaderboardEntry (R-M12-09) | Một Leaderboard có từ 0 đến nhiều LeaderboardEntry. | Một LeaderboardEntry thuộc đúng một Leaderboard. | 1-n | Giữ nguyên |
-| User – LeaderboardEntry (R-M12-10) | Một User có thể xuất hiện ở từ 0 đến nhiều LeaderboardEntry. | Một LeaderboardEntry ứng với đúng một User. | 1-n | Giữ nguyên |
-| Badge – Notification (R-M12-11) | Một Badge có thể liên quan từ 0 đến nhiều Notification tới các người nhận khác nhau. | Một Notification có 0 hoặc 1 Badge là đối tượng. | 1-n | Giữ nguyên |
-| WeeklyStarAward – Notification (R-M12-12) | Một WeeklyStarAward có thể là đối tượng của từ 0 đến nhiều Notification theo mô hình sự kiện của M07. | Một Notification có 0 hoặc 1 WeeklyStarAward là đối tượng. | 1-n | Giữ nguyên |
+| User – Upvote | Một người dùng có thể cho nhiều upvote, nhiều nhất một upvote có hiệu lực trên mỗi bài viết hoặc bình luận, không trên nội dung của chính mình. | Một upvote do nhiều nhất một người dùng cho; không còn ghi người cho khi tài khoản đã xóa. | 1-n | Giữ nguyên |
+| Post – Upvote | Một bài viết có thể nhận nhiều upvote. | Một upvote nằm trên nhiều nhất một bài viết; upvote bình luận không nằm trên bài viết. | 1-n | Giữ nguyên |
+| Comment – Upvote | Một bình luận có thể nhận nhiều upvote. | Một upvote nằm trên nhiều nhất một bình luận; upvote bài viết không nằm trên bình luận. | 1-n | Giữ nguyên |
+| User – Badge | Một người dùng có thể đạt nhiều huy hiệu, mỗi huy hiệu nhiều nhất một lần. | Một huy hiệu có thể được nhiều người dùng đạt. | n-n | Tách: thêm lớp EarnedBadge (đã có từ bước 2, đổi Nhóm thành Liên kết) |
+| User – EarnedTitle | Một người dùng có thể đạt danh hiệu ở nhiều tuần, mỗi tuần một danh hiệu đã đạt. | Một danh hiệu đã đạt thuộc đúng một người dùng. | 1-n | Giữ nguyên |
+| User – Leaderboard | Một người dùng có thể có dòng trên nhiều kết quả bảng xếp hạng (tuần, tháng, toàn thời gian). | Một kết quả bảng xếp hạng có dòng của nhiều người dùng. | n-n | Tách: thêm lớp LeaderboardEntry (đã có từ bước 2, đổi Nhóm thành Liên kết) |
+| User – EarnedBadge | Một người dùng có thể có nhiều huy hiệu đã đạt, nhiều nhất 5. | Một huy hiệu đã đạt thuộc đúng một người dùng. | 1-n | Giữ nguyên |
+| Badge – EarnedBadge | Một huy hiệu có thể có nhiều huy hiệu đã đạt của những người khác nhau. | Một huy hiệu đã đạt là đúng một huy hiệu. | 1-n | Giữ nguyên |
+| User – LeaderboardEntry | Một người dùng có nhiều nhất một dòng trên mỗi kết quả hiện hành, tức nhiều nhất 3 dòng. | Một dòng bảng xếp hạng là đúng một người dùng. | 1-n | Giữ nguyên |
+| Leaderboard – LeaderboardEntry | Một kết quả bảng xếp hạng có thể có nhiều dòng, không có dòng nào khi chu kỳ không ai có điểm. | Một dòng bảng xếp hạng thuộc đúng một kết quả bảng xếp hạng. | 1-n | Giữ nguyên |
 
-Upvote là bản ghi có vòng đời ghi nhận, rút, upvote lại và có thể mất người trao khi tài khoản bị xóa. Vì vậy giữ Nhóm = Thực thể và giải quan hệ n-n qua các đầu User, Post và Comment. EarnedBadge và LeaderboardEntry thuộc một cặp duy nhất trong phạm vi liên kết hiện hành. Không phát sinh quan hệ n-n ở mục 3.4.
+Hai cặp n-n (User – Badge, User – Leaderboard) được tách; bốn dòng cuối là các quan hệ 1-n mới. Không có cặp 1-1. M12
+không có lớp thống kê: kết quả bảng xếp hạng là kết quả tính được lưu (Q-04).
 
 ### 3.3 Lớp liên kết
 
-<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB". -->
+<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB".
+     "Thuộc tính riêng của liên kết": tên các thuộc tính (đã ghi ở mục 2.3); không có thì ghi rõ vì sao. -->
 
 | Lớp liên kết | Tách từ quan hệ n-n | Thuộc tính riêng của liên kết | Nguồn |
 |---|---|---|---|
-| EarnedBadge | User – Badge | earnedOn. Một bản ghi cho mỗi cặp người dùng–huy hiệu, giữ ngày đầu tiên. | FR-M12-03.02, FR-M12-03.04, FR-M12-03.05, BR-M12-12 |
-| LeaderboardEntry | User – Leaderboard | periodPoints, rank, gradeLevelAtCalculation. filteredRank và isWeeklyStar là giá trị dẫn xuất từ kết quả và bản ghi thưởng. | FR-M12-04.02, FR-M12-04.14, FR-M12-04.18, FR-M12-06.08, FR-M12-06.09, FR-M12-06.11 |
+| EarnedBadge | User – Badge | achievedAt (ngày một người đạt một huy hiệu: đổi người hoặc đổi huy hiệu đều đổi giá trị) | FR-M12-03.02, BR-M12-12 |
+| LeaderboardEntry | User – Leaderboard | periodPoints, rank, gradeLevel, /isWeeklyStar (đều thuộc cặp người dùng – kết quả bảng xếp hạng) | FR-M12-04.02, FR-M12-06.09, FR-M12-06.11 |
 
 ### 3.4 Quan hệ
 
@@ -275,131 +402,22 @@ Upvote là bản ghi có vòng đời ghi nhận, rút, upvote lại và có th�
 
 | ID | Lớp A | Bội số A | Lớp B | Bội số B | Dạng | Loại | Bên chính | Căn cứ | Nguồn |
 |---|---|---|---|---|---|---|---|---|---|
-| R-M12-01 | User | 0..1 | Upvote | 0..* | 1-n | Kết tập | Upvote | Upvote ghi một người trao khi tạo. Khi tài khoản trao chuyển DELETED, giữ lượt và bỏ nhận biết người trao theo FR mục 5.10, đồng nhất R-M01-23. Quy tắc một lượt hiệu lực áp cho từng cặp người trao còn nhận biết và đối tượng. | FR-M12-01.01, FR-M12-01.03, FR-M12-02.04, BR-M12-02, BR-M12-05 |
-| R-M12-02 | Post | 0..1 | Upvote | 0..* | 1-n | Kết tập | Upvote | Upvote ghi Post nếu là Post Star. Cùng chiều và bội số với R-M03-18. Mỗi lượt phải có đúng một đích thuộc Post hoặc Comment. | FR-M12-01.01, FR-M12-01.04, FR-M12-02.01, BR-M12-01 |
-| R-M12-03 | Comment | 0..1 | Upvote | 0..* | 1-n | Kết tập | Upvote | Upvote ghi Comment nếu là Comment Star. Cùng chiều và bội số với R-M04-07. Rút lượt và bị trừ điểm là hai quy tắc nghiệp vụ riêng. | FR-M12-01.01, FR-M12-01.02, FR-M12-01.04, FR-M12-02.02, FR-M12-02.18, BR-M12-01 |
-| R-M12-04 | Post | 0..1 | PointDeduction | 0..* | 1-n | Kết tập | PointDeduction | Bản ghi số điểm trừ ghi nội dung. Một bài có thể bị gỡ, được hoàn rồi lại bị gỡ ở lần xử lý khác. Tại một thời điểm chỉ một khoản trừ áp dụng trên nội dung chừng nào chưa được hoàn. Cách gắn từng lần gỡ chờ FR theo Q-02. | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18, BR-M12-09, BR-M12-10 |
-| R-M12-05 | Comment | 0..1 | PointDeduction | 0..1 | 1-1 | Liên kết | — | FR mục 5.10 liệt kê bình luận là đích. Điểm trừ bình luận là trạng thái cuối và chỉ trừ một lần. Cách lưu số điểm của bình luận được duyệt ở Q-03 và chờ cập nhật FR. | FR-M12-02.11, FR-M12-02.13, FR-M12-02.18, FR-M12-02.19, FR-M12-02.20, FR-M12-02.21, BR-M12-10 |
-| R-M12-06 | User | 1 | EarnedBadge | 0..* | 1-n | Liên kết | — | Mỗi EarnedBadge thuộc một User. Khi DELETED, ẩn huy hiệu đã đạt theo FR-M12-03.11, giữ quy tắc trao một lần. | FR-M12-03.02, FR-M12-03.04, FR-M12-03.05, FR-M12-03.11, BR-M12-12 |
-| R-M12-07 | Badge | 1 | EarnedBadge | 0..* | 1-n | Liên kết | — | EarnedBadge biểu thị đúng một cặp User và Badge, lưu ngày đạt đầu tiên. | FR-M12-03.01, FR-M12-03.02, FR-M12-03.05, BR-M12-11, BR-M12-12 |
-| R-M12-08 | User | 1 | WeeklyStarAward | 0..* | 1-n | Kết tập | WeeklyStarAward | Bản ghi trao gồm một người nhận và một tuần. Mỗi cặp người nhận–tuần có tối đa một bản ghi. Bản ghi được giữ qua các lần thay Leaderboard. | FR-M12-05.02, FR-M12-05.03, FR-M12-05.04, FR-M12-05.13, BR-M12-24 |
-| R-M12-09 | Leaderboard | 1 | LeaderboardEntry | 0..* | 1-n | Liên kết | — | Mỗi dòng ứng với một kết quả bảng. Bảng có thể rỗng, chỉ xếp người có điểm dương. Khi kết quả bị thay, các dòng của kết quả cũ không còn được giữ theo FR-M12-04.14. | FR-M12-04.02, FR-M12-04.14, FR-M12-05.08, FR-M12-05.09, FR-M12-06.11 |
-| R-M12-10 | User | 1 | LeaderboardEntry | 0..* | 1-n | Liên kết | — | Mỗi dòng ứng với một tài khoản trên kết quả đó. Trường hợp DELETED sau chốt vẫn giữ dòng tuần/tháng và hiển thị nhãn thay thế trong thời gian kết quả còn hiệu lực. | FR-M12-04.02, FR-M12-04.10, FR-M12-04.11, FR-M12-04.12, FR-M12-04.18, FR-M12-06.11 |
-| R-M12-11 | Badge | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification loại đạt huy hiệu ghi một Badge. Cùng chiều và bội số với R-M07-13. Mỗi lần đạt phát sự kiện riêng. | FR-M12-03.10, BR-M12-26 |
-| R-M12-12 | WeeklyStarAward | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification loại danh hiệu tuần ghi bản ghi WeeklyStarAward theo R-M07-14. Mỗi lần trao phát một sự kiện; bội số từ sự kiện sang bản ghi thông báo cụ thể do M07 quản lý. | FR-M12-05.03, FR-M12-05.07, BR-M12-26 |
-| R-M12-13 | PointDeduction | — | Appeal | — | — | Phụ thuộc | Appeal | Khiếu nại được chấp nhận là căn cứ hoàn đúng khoản trừ của lần gỡ. Quan hệ lưu tới bản ghi nguồn của từng lần gỡ chờ cập nhật FR theo Q-02. | FR-M12-02.10, FR-M12-02.12, BR-M12-10 |
-| R-M12-14 | Leaderboard | — | Upvote | — | — | Phụ thuộc | Upvote | Tính điểm chu kỳ dùng thời điểm và hiệu lực của upvote; khi đã chốt chỉ đọc kết quả đã lưu. Các mốc lịch sử cần giữ để tái dựng chờ FR theo Q-01. | FR-M12-04.14, FR-M12-04.15, FR-M12-04.16, FR-M12-05.01, BR-M12-15 |
-| R-M12-15 | Leaderboard | — | PointDeduction | — | — | Phụ thuộc | PointDeduction | Khi tính điểm chu kỳ phải xét việc điểm nội dung đã bị trừ tại mốc tính; dữ liệu trước và sau mốc chờ FR bổ sung theo Q-02. Kết quả đã chốt giữ nguyên. | FR-M12-04.15, FR-M12-04.16, FR-M12-05.01, BR-M12-15 |
-| R-M12-16 | Leaderboard | — | WarningStatus | — | — | Phụ thuộc | WarningStatus | Khi tính và hiển thị kết quả dùng mức cảnh cáo, giữ hạng đã chốt khi phải ẩn một dòng. FR kết hợp trạng thái tài khoản theo quan hệ dòng và User. | FR-M12-04.07, FR-M12-04.09, FR-M12-04.10, FR-M12-04.18, FR-M12-05.10, BR-M12-20 |
-| R-M12-17 | LeaderboardEntry | — | UserProfile | — | — | Phụ thuộc | UserProfile | Kết quả chép Lớp/Khối tại lần tính hoặc chốt. Avatar và thông tin nhận biết dùng nguồn hồ sơ theo M01/M02, không lấy lại Lớp/Khối hiện thời để thay giá trị đã chốt. | FR-M12-06.03, FR-M12-06.09, FR-M12-06.11, BR-M12-16 |
-| R-M12-18 | LeaderboardEntry | — | WeeklyStarAward | — | — | Phụ thuộc | WeeklyStarAward | Dấu danh hiệu của dòng tuần được tra bằng tài khoản và tuần đạt. Bản ghi thưởng giữ qua các lần thay bảng, không phụ thuộc vòng đời bảng cũ. | FR-M12-05.03, FR-M12-05.08, FR-M12-05.13, FR-M12-06.11, BR-M12-24 |
-| R-M12-19 | UserProfile | — | EarnedBadge | — | — | Phụ thuộc | EarnedBadge | Hồ sơ dùng kết quả đạt huy hiệu và ngày đạt, đồng nhất R-M02-05. | FR-M12-03.06, FR-M12-03.07, FR-M12-03.11 |
-| R-M12-20 | UserProfile | — | WeeklyStarAward | — | — | Phụ thuộc | WeeklyStarAward | Hồ sơ dùng danh hiệu đúng tuần vừa chốt, đồng nhất R-M02-06. | FR-M12-05.12, FR-M12-05.13 |
-| R-M12-21 | Upvote | — | Group | — | — | Phụ thuộc | Group | Điều kiện vote nhóm dùng chế độ nhóm và quyền tương tác do M11 cung cấp. | FR-M12-01.11, BR-M12-04 |
-| R-M12-22 | Upvote | — | GroupMember | — | — | Phụ thuộc | GroupMember | Người ngoài nhóm Private không được upvote. Tư cách thành viên là dữ liệu M11 dùng để kiểm quyền lúc thao tác. | FR-M12-01.11, BR-M12-04 |
-| R-M12-23 | Upvote | — | SystemConfiguration | — | — | Phụ thuộc | SystemConfiguration | Cờ M10 chi phối upvote và rút, có ngoại lệ Admin. Không lưu giá trị cờ trên từng lượt. | FR-M12-08.01, FR-M12-08.06, FR-M12-08.08 |
-| R-M12-24 | Leaderboard | — | SystemConfiguration | — | — | Phụ thuộc | SystemConfiguration | Cờ M10 chi phối mở bảng, có ngoại lệ Admin. Lần tính, chốt và trao giải vẫn chạy khi cờ tắt. | FR-M12-08.03, FR-M12-08.06, FR-M12-08.08, FR-M12-08.09 |
-
-**Chiều kết tập.** Upvote ghi người trao và nội dung (R-M12-01–03). PointDeduction ghi bài bị trừ (R-M12-04). WeeklyStarAward ghi người nhận (R-M12-08). Notification ghi đối tượng huy hiệu hoặc danh hiệu tuần (R-M12-11/12). Các lớp được ghi lại có vòng đời độc lập hoặc FR không nêu việc xóa theo toàn thể.
-
-**Ràng buộc loại đích và vòng đời.** Mỗi Upvote và mỗi PointDeduction ứng với đúng một trong Post hoặc Comment. Lượt của tài khoản DELETED giữ hiệu lực nếu trước đó còn hiệu lực và gỡ liên hệ với người trao. Trừ điểm do mất nội dung loại upvote khỏi tổng điểm theo pointState, không tự chuyển Upvote sang Đã rút. Việc lưu dữ liệu mốc hiệu lực chờ FR theo Q-01.
-
-**Bảng kết quả và phần thưởng.** LeaderboardEntry tồn tại theo kết quả hiện hành và một tài khoản. Bảng tuần hoặc tháng bị thay ở lần chốt cùng loại sau; bản ghi WeeklyStarAward vẫn được lưu theo tuần đạt. LeaderboardEntry tra dấu thưởng theo người và tuần, không buộc vòng đời danh hiệu vào kết quả bảng. Tính hạng trong nhóm lọc không thay hạng đã lưu.
-
-**Thông báo và điều kiện nghiệp vụ.** M07 dùng sự kiện upvote và rút để cập nhật dữ liệu gộp; FR-M12 không đòi bản ghi Notification liên kết bền vững với từng Upvote. Tác giả của nội dung giữ theo M03/M04. Q-02/03 chờ bổ sung FR, chưa dùng để thêm thuộc tính hoặc tham chiếu lần gỡ mới.
+| R-M12-01 | User | 0..1 | Upvote | 0..* | 1-n | Kết tập | Upvote | Người upvote: upvote ghi lại tài khoản cho nó (mục Dữ liệu nghiệp vụ); đầu User là 0..1 vì người upvote không còn được ghi khi tài khoản đã xóa, upvote vẫn được tính (FR-M12-02.04). Cùng loại, chiều và bội số với R-M01-16 của EC-M01 (lượt gộp khử trùng) | FR-M12-01.01, FR-M12-02.04, BR-M12-02 |
+| R-M12-02 | Post | 0..1 | Upvote | 0..* | 1-n | Kết tập | Post | Bài viết nhận các upvote (Post Star); không ghi hợp thành vì upvote do người upvote tạo và rút, bài viết không bị xóa hẳn dữ liệu (M03). Cùng cách với R-M04-05 của bình luận. Mỗi upvote nằm trên đúng một bài viết (R-M12-02) hoặc một bình luận (R-M12-03) | FR-M12-01.01, FR-M12-01.04, BR-M12-01 |
+| R-M12-03 | Comment | 0..1 | Upvote | 0..* | 1-n | Kết tập | Comment | Bình luận nhận các upvote (Comment Star). Cùng loại, chiều và bội số với R-M04-05 của EC-M04 (lượt gộp khử trùng). Mỗi upvote nằm trên đúng một bài viết (R-M12-02) hoặc một bình luận (R-M12-03) | FR-M12-01.01, FR-M12-01.04, BR-M12-01 |
+| R-M12-04 | User | 1 | EarnedBadge | 0..5 | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n User – Badge đã tách qua EarnedBadge; mỗi người đạt mỗi huy hiệu nhiều nhất một lần, có 5 huy hiệu (BR-M12-11, BR-M12-12) | FR-M12-03.02, BR-M12-12 |
+| R-M12-05 | Badge | 1 | EarnedBadge | 0..* | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n User – Badge | FR-M12-03.02 |
+| R-M12-06 | User | 1 | EarnedTitle | 0..* | 1-n | Kết tập | EarnedTitle | Danh hiệu đã đạt ghi lại người nhận (FR-M12-05.03); tài khoản tồn tại độc lập; bản ghi được giữ, không xóa (ma trận CRUD) nên không ghi hợp thành | FR-M12-05.03, FR-M12-05.04, BR-M12-24 |
+| R-M12-07 | Leaderboard | 1 | LeaderboardEntry | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n User – Leaderboard đã tách qua LeaderboardEntry; khi kết quả mới thay kết quả cũ thì các dòng của kết quả cũ cũng không còn (FR-M12-04.14) | FR-M12-04.02, FR-M12-04.14 |
+| R-M12-08 | User | 1 | LeaderboardEntry | 0..3 | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n User – Leaderboard; mỗi người nhiều nhất một dòng trên mỗi kết quả hiện hành của ba loại chu kỳ | FR-M12-04.02, FR-M12-04.13 |
 
 ## 4. Sơ đồ lớp phân tích
 
-<!-- BEGIN:PUML -->
-```plantuml
-@startuml
-hide circle
-hide methods
-skinparam classAttributeIconSize 0
+<!-- BEGIN:DIAGRAM -->
+![Sơ đồ lớp phân tích — EC-M12](diagrams/EC-M12.png)
 
-class Upvote {
-  -votedAt
-  -status
-  -/kind
-}
-class PointDeduction {
-  -deductedPoints
-}
-class Badge {
-  -pointThreshold
-  -name
-}
-class EarnedBadge {
-  -earnedOn
-}
-class WeeklyStarAward {
-  -weekStart
-}
-class Leaderboard {
-  -periodKind
-  -calculatedAt
-  -periodStart
-  -/periodEnd
-}
-class LeaderboardEntry {
-  -periodPoints
-  -rank
-  -gradeLevelAtCalculation
-  -/filteredRank
-  -/isWeeklyStar
-}
-class User <<M01>> {
-  -totalPoints
-  -/banLabel
-}
-class UserProfile <<M02>> {
-}
-class Post <<M03>> {
-  -/upvoteCount
-  -pointState
-}
-class Comment <<M04>> {
-  -pointState
-}
-class Notification <<M07>> {
-}
-class WarningStatus <<M08>> {
-}
-class Appeal <<M09>> {
-}
-class Group <<M11>> {
-}
-class GroupMember <<M11>> {
-}
-class SystemConfiguration <<M10>> {
-}
-
-(User, Badge) .. EarnedBadge
-(User, Leaderboard) .. LeaderboardEntry
-Upvote "0..*" o-- "0..1" User
-Upvote "0..*" o-- "0..1" Post
-Upvote "0..*" o-- "0..1" Comment
-PointDeduction "0..*" o-- "0..1" Post
-Comment "0..1" -- "0..1" PointDeduction
-WeeklyStarAward "0..*" o-- "1" User
-Notification "0..*" o-- "0..1" Badge
-Notification "0..*" o-- "0..1" WeeklyStarAward
-PointDeduction ..> Appeal
-Leaderboard ..> Upvote
-Leaderboard ..> PointDeduction
-Leaderboard ..> WarningStatus
-LeaderboardEntry ..> UserProfile
-LeaderboardEntry ..> WeeklyStarAward
-UserProfile ..> EarnedBadge
-UserProfile ..> WeeklyStarAward
-Upvote ..> Group
-Upvote ..> GroupMember
-Upvote ..> SystemConfiguration
-Leaderboard ..> SystemConfiguration
-
-@enduml
-```
-<!-- END:PUML -->
+Mã nguồn sơ đồ: [diagrams/EC-M12.puml](diagrams/EC-M12.puml). Ảnh và tệp .puml do `gen_puml.py` sinh từ các bảng của tài liệu này; muốn đổi sơ đồ thì sửa bảng rồi chạy lại tool, không sửa tay.
+<!-- END:DIAGRAM -->
 
 ## 5. Liên module
 
@@ -407,32 +425,27 @@ Leaderboard ..> SystemConfiguration
 
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| User | M01 | Người trao, nhận điểm và phần thưởng hoặc được xếp hạng. Trạng thái DELETED gỡ liên hệ người trao mà vẫn giữ lượt. Dòng đã chốt giữ liên hệ để áp nhãn thay thế theo FR. | totalPoints, banLabel |
-| UserProfile | M02 | Cung cấp Lớp/Khối để giữ theo kết quả và dữ liệu hiển thị. Hồ sơ nhận tổng điểm, huy hiệu, danh hiệu tuần và nhãn tài khoản. | — |
-| Post | M03 | Đối tượng Post Star. Mức khóa và mốc Đã xóa hẳn chi phối thao tác và trừ điểm. | upvoteCount, pointState |
-| Comment | M04 | Đối tượng Comment Star. Giữ điểm khi ẩn theo bài cha, trừ khi bị xóa hoặc xử lý trực tiếp theo FR. Comment.upvoteCount dùng lại từ EC-M04. | pointState |
-| Notification | M07 | Nhận sự kiện thêm/rút upvote, huy hiệu, danh hiệu. Dùng cơ chế gộp và đối tượng thông báo của M07. | — |
-| WarningStatus | M08 | Mức cảnh cáo dùng khi tính và hiển thị bảng. Chi tiết lần gỡ của M08 để đối chiếu hoàn điểm chờ FR theo Q-02. | — |
-| Appeal | M09 | Kết quả chấp nhận khiếu nại bài bị gỡ cho phép hoàn đúng khoản điểm. | — |
-| Group | M11 | Dùng chế độ nhóm khi xét quyền vote. Xóa nhóm hoặc gỡ cấp nhóm không trừ điểm. | — |
-| GroupMember | M11 | Dùng tư cách thành viên khi xét quyền vote trên nhóm Private. Rời hoặc bị kick không trừ điểm. | — |
-| SystemConfiguration | M10 | Đọc cờ Gamification và áp ngoại lệ Admin. Tính điểm, tính/chốt bảng và trao thưởng vẫn chạy khi tắt. | — |
+| User | M01 | Người upvote (R-M12-01, trùng R-M01-16), người đạt huy hiệu (R-M12-04), người nhận danh hiệu (R-M12-06), người được xếp hạng (R-M12-08). Đọc role, status, username, displayName; ghi totalPoints | totalPoints — đã đưa vào lớp của EC-M01 (MD-05) |
+| Post | M03 | Bài viết nhận upvote (R-M12-02). Đọc lockLevel, isPubliclyVisible, modState, isPermanentlyDeleted để chặn upvote và trừ điểm; ghi isPointsDeducted, deductedPoints | isPointsDeducted, deductedPoints, upvoteCount — đã đưa vào lớp của EC-M03 (MD-05) |
+| Comment | M04 | Bình luận nhận upvote (R-M12-03, trùng R-M04-05). Đọc modState, isDeleted, isVisible; ghi isPointsDeducted | isPointsDeducted — đã đưa vào lớp của EC-M04 (MD-05) |
+| Profile | M02 | Đọc gradeLevel (chụp vào dòng bảng xếp hạng) và avatar (hiển thị); không có quan hệ với lớp nào của M12 | — |
+| UserWarningStatus | M08 | Đọc level để loại người ở HEAVY khỏi bảng xếp hạng và việc trao danh hiệu; không có quan hệ với lớp nào của M12 | — |
 
 ## 6. Câu hỏi và điểm chưa chốt
 
-<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-M12". -->
+<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-Mxx". -->
 
 | Mã | Loại | Câu hỏi | Trả lời | Ghi vào |
 |---|---|---|---|---|
-| Q-01 | Mâu thuẫn | CRUD mục 5.10 và bảng chuyển trạng thái mục 5.11 khác cách biểu diễn rút upvote; FR-M12-05.01 cần dữ liệu đúng mốc cuối kỳ. | Đã duyệt giữ các mốc bắt đầu và hết hiệu lực của từng lượt trong thời gian cần để chốt kỳ. | Chờ cập nhật FR-M12. Chưa thêm trường kết thúc hiệu lực hoặc quy tắc lưu trữ. |
-| Q-02 | Thiếu | FR-M12-02.10/12 cần hoàn đúng khoản của lần gỡ được chấp nhận. FR-M12-05.01 cần phân biệt trừ và hoàn ở hai phía mốc cuối kỳ. | Đã duyệt gắn số điểm trừ với lần gỡ cụ thể của M08, ghi mốc trừ và mốc hoàn nếu có. | Chờ cập nhật FR-M12 và đối chiếu M08/M09. Chưa thêm trường thời điểm hoặc quan hệ lưu với bản ghi lần gỡ. |
-| Q-03 | Mơ hồ | FR-M12 mục 5.10 liệt kê bình luận là nội dung có điểm đã trừ, nhưng ô Tạo chỉ dẫn tới yêu cầu ghi số điểm của bài viết. | Đã duyệt lưu số điểm đã trừ của bình luận và giữ quy tắc không hoàn điểm bình luận. | Chờ cập nhật FR-M12 về yêu cầu ghi số điểm trừ của bình luận. Tập đích Post hoặc Comment đã có trong bảng dữ liệu mục 5.10. |
-| Q-04 | Lệch | FR mục 5.10 liệt kê Điểm của người dùng thành thực thể với một tổng điểm cho mỗi tài khoản. | Đã duyệt dùng User.totalPoints do M12 quản lý. Tổng điểm có vòng đời theo User. | Đã áp dụng ở mục 2.3, 2.4 và 5. |
+| Q-01 | Mâu thuẫn | Ma trận CRUD ghi rút lại upvote là Xóa (FR-M12-01.02), còn mục Chuyển trạng thái có trạng thái "Đã rút" của upvote. Đề xuất: rút lại là xóa upvote; upvote lại là một upvote mới với thời điểm upvote mới; không có thuộc tính trạng thái. Cách này đủ cho mọi quy tắc tính điểm, điểm trong chu kỳ và bảng đã chốt (BR-M12-15). Phương án khác: giữ upvote đã rút với Upvote.status (Có hiệu lực, Đã rút) | Người dùng đồng ý (2026-11-19): rút lại là xóa upvote; upvote lại là một upvote mới với thời điểm mới; không có Upvote.status | Mục 2.1 dòng 15, 76; mục 2.3 Upvote |
+| Q-02 | Lệch | "Điểm của người dùng" và "Điểm đã trừ của nội dung" là thực thể trong FR nhưng mỗi cái chỉ có một giá trị gắn với một người dùng hoặc một nội dung. Đề xuất: thuộc tính M12 bổ sung trên lớp ngoài: User.totalPoints, Post.deductedPoints, Post.isPointsDeducted, Comment.isPointsDeducted. Tổng điểm là kết quả tính được lưu (không tính lại) vì phần hoàn điểm cộng đúng số điểm đã trừ được ghi (BR-M12-10) | Người dùng đồng ý (2026-11-19): User.totalPoints, Post.deductedPoints, Post.isPointsDeducted, Comment.isPointsDeducted là thuộc tính M12 bổ sung trên lớp ngoài | Mục 2.1 dòng 3, 26, 27, 74; mục 2.3; mục 2.4; mục 5 |
+| Q-03 | Mâu thuẫn | EC-M07 đặt tạm lớp Title (Danh hiệu) và quan hệ R-M07-14 Title – Notification cho thông báo đạt "Ngôi sao tuần". FR-M12 chỉ có một danh hiệu và chỉ lưu "Danh hiệu đã đạt" (người nhận, tuần đạt), nên EC-M12 không có lớp Title mà có EarnedTitle. Đề xuất: ở lượt gộp EC-SYS, R-M07-14 trỏ tới EarnedTitle (thông báo ghi lại lần đạt danh hiệu) và bỏ lớp Title | Người dùng đồng ý (2026-11-19): lượt gộp EC-SYS sửa R-M07-14 của EC-M07 để trỏ tới EarnedTitle và bỏ lớp Title | Mục 2.1 dòng 5; mục 2.4 (chờ lượt gộp EC-SYS sửa EC-M07) |
+| Q-04 | Lệch | Kết quả bảng xếp hạng là số liệu tính ra nhưng FR yêu cầu lưu kết quả hiện hành (FR-M12-04.14) và bảng tuần, tháng đã chốt không đổi về sau, nên mô hình để Leaderboard, LeaderboardEntry là lớp Thực thể với thuộc tính Lưu, không phải lớp thống kê (theo phương pháp gốc, lớp thống kê bị loại khỏi CSDL ở bước cuối). Bạn đồng ý? Kèm theo: đề xuất Leaderboard.periodStart (mốc đầu chu kỳ) để biết kết quả đang giữ thuộc tuần, tháng nào | Người dùng đồng ý (2026-11-19): Leaderboard, LeaderboardEntry là lớp Thực thể với thuộc tính Lưu; duyệt đề xuất Leaderboard.periodStart | Mục 2.1 dòng 6, 48, 81; mục 2.2; mục 2.3 Leaderboard.periodStart |
 
 ## 7. Lịch sử sửa đổi
 
 | Phiên bản | Ngày | Nội dung | Người sửa |
 |---|---|---|---|
-| 0.1 | 2026-11-19 | Soạn 14 câu mô tả và truy vết 8 chức năng từ FR-M12 v1.1, chờ duyệt bước 1 | Codex |
-| 0.2 | 2026-11-19 | Ghi nhận duyệt bước 1, phân loại danh từ, lập bảng lớp và thuộc tính, đối chiếu FR-M12 và ghi câu hỏi | Codex |
-| 0.3 | 2026-11-19 | Ghi nhận duyệt bước 2 và Q-01–Q-04. Lập ma trận, bội số, lớp liên kết, quan hệ, PlantUML và liên module. Theo dõi cập nhật FR-M12, chờ chốt EC-M12. | Codex |
+| 0.1 | 2026-11-19 | Tạo mới; làm liền 3 bước theo yêu cầu của người dùng (không dừng ở cổng), chờ duyệt và trả lời Q-01 đến Q-04 | Phạm Văn Đức |
+| 1.0 | 2026-11-19 | Chốt sau 3 bước: 6 lớp của M12, 5 lớp ngoài, 8 quan hệ (R-M12-01 đến R-M12-08); Q-01 đến Q-04 đã trả lời; đề xuất Leaderboard.periodStart được duyệt | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-05: dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: User.totalPoints, Post.isPointsDeducted, Post.deductedPoints, Post.upvoteCount, Comment.isPointsDeducted, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 52 dòng Tham chiếu | Phạm Văn Đức |

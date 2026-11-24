@@ -1,0 +1,45 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Comment {
+  -id : long
+  -content : String
+  -publishedAt : Instant
+  -editedAt : Instant
+  -modState : CommentModState
+  -deletedAt : Instant
+  -/isDeleted : boolean
+  -/isEdited : boolean
+  -/isVisible : boolean
+  -/upvoteCount : int
+  -scannedAt : Instant
+  -/isScannedCurrent : boolean
+  -/replyRate : int
+  -isRemovedFromGroup : boolean
+  -isPointsDeducted : boolean
+  -author : User
+  -replies : List<Comment>
+  -repliedTo : Comment
+  -upvotes : List<Upvote>
+}
+class Post <<M03>> {
+  -comments : List<Comment>
+}
+class User <<M01>> {
+}
+class Upvote <<M12>> {
+}
+enum CommentModState {
+  NORMAL
+  HIDDEN
+}
+
+Post "1" o-- "0..*" Comment
+Comment "0..*" o-- "1" User
+Comment "0..1" o-- "0..*" Comment
+Comment "0..*" o-- "0..1" Comment
+Comment "0..1" o-- "0..*" Upvote
+
+@enduml

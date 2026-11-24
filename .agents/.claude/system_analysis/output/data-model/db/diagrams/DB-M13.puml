@@ -1,0 +1,32 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity ai_decision_logs {
+  * id : bigint <<PK>>
+  --
+  * call_type : varchar(30)
+  * is_success : boolean
+  raw_output : text
+  * created_at : timestamptz
+  score_band : varchar(30)
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+}
+entity post_summaries {
+  * id : bigint <<PK>>
+  --
+  * content : text
+  * created_at : timestamptz
+  * post_id : bigint <<FK>>
+}
+entity comments <<M04>> {
+}
+entity posts <<M03>> {
+}
+
+posts |o--o{ ai_decision_logs : post_id
+comments |o--o{ ai_decision_logs : comment_id
+posts ||--o| post_summaries : post_id
+
+@enduml

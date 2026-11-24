@@ -2,12 +2,12 @@
 module: M07
 ten_module: Notification
 ma_tai_lieu: EC-M07
-phien_ban: 0.3
-trang_thai: Bản nháp
-ngay: 2026-11-18
+phien_ban: 1.1
+trang_thai: Đã chốt
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M07 v1.5
-steps_completed: [1, 2]
+steps_completed: [1, 2, 3]
 ---
 # Phân tích lớp thực thể — M07 Notification
 
@@ -18,563 +18,596 @@ steps_completed: [1, 2]
 | Dự án | iShare |
 | Module | M07 — Notification |
 | Đầu vào | FR-M07 phiên bản 1.5 |
-| Trạng thái | Bản nháp |
-| Phiên bản | 0.3 |
-| Ngày | 2026-11-18 |
+| Trạng thái | Đã chốt |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
      - Không đổi tên cột, không xóa cột, không đổi số mục: tool đọc bảng theo số mục và tên cột.
      - Ô không có nội dung ghi "—".
      - Mục chưa tới bước làm thì để dòng "(Chưa làm — bước N)".
-     - Cột Nguồn ghi mã trong FR: FR-M07-nn, FR-M07-nn.mm, BR-M07-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
-     - Sơ đồ ở mục 4 do gen_puml.py sinh; không sửa tay. -->
+     - Cột Nguồn ghi mã trong FR: FR-Mxx-nn, FR-Mxx-nn.mm, BR-Mxx-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
+     - Mục 4 chỉ chứa ảnh sơ đồ. gen_puml.py ghi mã PlantUML vào tệp riêng diagrams/EC-Mxx.puml, render
+       diagrams/EC-Mxx.png và đặt ảnh vào mục 4. Không chép mã PlantUML vào tài liệu, không sửa tay tệp .puml hay ảnh. -->
 
 ## 1. Mô tả chức năng
 
 ### 1.1 Đoạn mô tả
 
-(S1) Hệ thống quản lý thông báo cho người nhận, quan hệ theo dõi người dùng và Topic, email trong hàng đợi cùng các cài đặt tắt thông báo cho bài viết và Chat. (S2) Hệ thống cho User, Mod và Admin theo dõi hoặc bỏ theo dõi người dùng và Topic, ghi thời điểm bắt đầu theo dõi và cập nhật quan hệ theo dõi để các module khác sử dụng. (S3) Hệ thống phát sinh sự kiện người theo dõi mới khi người dùng theo dõi một người dùng khác lần đầu, dùng dấu vết thông báo đã có để kiểm tra việc theo dõi lại và giữ các quan hệ theo dõi hiện có khi tài khoản được theo dõi chuyển BANNED hoặc DEACTIVATED. (S4) Hệ thống tạo thông báo bài mới cho người đang theo dõi tác giả khi bài viết hiển thị công khai lần đầu, xét dấu lần đầu công khai và trạng thái đăng ẩn danh của bài do M03 cung cấp. (S5) Hệ thống tiếp nhận sự kiện từ các module nguồn về bảo mật tài khoản, bài viết, bình luận, poll, nhắc tên, báo cáo, cảnh cáo, ban, khiếu nại, hoạt động nhóm, badge, danh hiệu tuần và đề xuất vai trò, rồi tạo thông báo riêng ở trạng thái chưa đọc cho mỗi người nhận với nội dung liên quan và thời điểm sự kiện. (S6) Hệ thống kiểm tra người nhận, người gây sự kiện, trạng thái tài khoản người nhận, quyền xem nội dung nhóm Private và cài đặt tắt thông báo của người nhận khi xác định thông báo được tạo. (S7) Hệ thống gộp upvote riêng cho từng bài viết và bình luận theo cửa sổ gộp cố định, ghi nhận người upvote đã được đếm trong cửa sổ, cập nhật người upvote mới nhất và số người khác nhau trong thông báo, đồng thời chuyển thông báo được cập nhật về chưa đọc và thay đổi thứ tự gần nhất. (S8) Hệ thống cho người nhận phản hồi Chấp nhận hoặc Từ chối đối với thông báo đề xuất làm Mod hoặc Admin, chuyển lựa chọn cho M10 xử lý vai trò, thể hiện lựa chọn đã trả lời và kiểm tra trạng thái hết hạn hoặc bị đề xuất mới thay thế. (S9) Hệ thống lưu thông báo trước khi đẩy tới các thiết bị đang mở ứng dụng của người nhận và tải thông báo chưa đọc từ dữ liệu đã lưu khi người dùng mở ứng dụng để người nhận có thể xem đầy đủ thông báo. (S10) Hệ thống ghi email của các sự kiện bảo mật và ban thuộc nhóm có email vào hàng đợi theo người nhận, quét hàng đợi để gửi email bất đồng bộ, theo dõi các lần gửi lại cho email thất bại và đưa đường dẫn khiếu nại vào email về ban. (S11) Hệ thống cho User, Mod và Admin xem thông báo của chính mình theo lần cập nhật cuối, xem trạng thái đã đọc hoặc chưa đọc và thời điểm thông báo, tính số thông báo chưa đọc, giữ thông báo vô thời hạn và trình bày tên người gây sự kiện theo trạng thái tài khoản do M01 cung cấp. (S12) Hệ thống cho người dùng chuyển từng thông báo sang đã đọc khi mở hoặc đánh dấu toàn bộ thông báo chưa đọc của chính mình thành đã đọc, dẫn tới nội dung liên quan hoặc đường dẫn khiếu nại và dùng quyền xem hiện hành của nội dung để xử lý việc mở thông báo. (S13) Hệ thống báo tin nhắn mới cho thành viên cuộc trò chuyện đang mở ứng dụng theo cuộc trò chuyện đang xem và cài đặt tắt thông báo, đồng thời tính số cuộc trò chuyện có tin chưa đọc từ mốc đã đọc và các tin nhắn người dùng được thấy do M16 cung cấp. (S14) Hệ thống cho User, Mod và Admin ghi hoặc bỏ cài đặt tắt thông báo của chính mình trên một bài viết, dùng cài đặt này cho bình luận mới, trả lời và upvote, đồng thời giữ cách xử lý riêng của sự kiện nhắc tên và các sự kiện khác về bài. (S15) Hệ thống cho thành viên ghi hoặc bỏ cài đặt tắt thông báo trên từng cuộc trò chuyện, cho người dùng bật hoặc tắt cài đặt thông báo toàn bộ Chat, áp dụng cài đặt toàn bộ Chat cùng cài đặt từng cuộc và bỏ cài đặt của thành viên khi thành viên rời hoặc bị xóa khỏi nhóm chat. (S16) Hệ thống cung cấp quan hệ theo dõi và thời điểm bắt đầu theo dõi cho M01, M02, M06 và M14 dùng trong gợi ý nhắc tên, danh sách hồ sơ, bộ lọc tìm kiếm và feed, đồng thời dùng các sự kiện và quyền nội dung của module nguồn để tạo và mở thông báo.
+Hệ thống quản lý thông báo gửi tới người dùng về các sự kiện do các module khác phát sinh, các email trong hàng đợi
+email, quan hệ theo dõi giữa người dùng với người dùng và Topic, cùng các cài đặt tắt thông báo cho bài, tắt thông báo
+cuộc trò chuyện và tắt thông báo toàn bộ Chat. Các chức năng của module dành cho người dùng đã đăng nhập là User, Mod
+và Admin; Guest không nhận thông báo, không theo dõi được và không có cài đặt tắt thông báo.
 
-<!-- Một đoạn văn, mỗi câu đánh số (S1) (S2) … Xem steps/01-describe-functions.md. -->
+Hệ thống cho phép người dùng theo dõi người dùng khác và theo dõi Topic do M05 quản lý; người dùng và Topic được theo
+dõi gọi chung là đối tượng theo dõi. Mỗi khi người dùng bắt đầu theo dõi một đối tượng theo dõi, hệ thống ghi lại một
+quan hệ theo dõi gồm người theo dõi, đối tượng theo dõi và thời điểm bắt đầu theo dõi. Người dùng không theo dõi được
+chính mình và không bắt đầu theo dõi được người dùng có trạng thái tài khoản BANNED do M01 quản lý; quan hệ theo dõi
+đã có được giữ khi người được theo dõi chuyển sang BANNED hoặc DEACTIVATED. Khi người dùng theo dõi một người dùng
+khác lần đầu, hệ thống tạo sự kiện có người theo dõi mới cho người được theo dõi; mỗi cặp người theo dõi và người được
+theo dõi chỉ sinh sự kiện này một lần, kể cả khi người theo dõi bỏ theo dõi rồi theo dõi lại. Hệ thống cho phép người
+theo dõi bỏ theo dõi một đối tượng theo dõi; khi đó hệ thống xóa quan hệ theo dõi, số người theo dõi của đối tượng
+theo dõi giảm theo và không ai nhận thông báo. Hệ thống cung cấp quan hệ theo dõi cùng thời điểm bắt đầu theo dõi cho
+M01, M02, M06 và M14.
+
+Khi một module báo một sự kiện thuộc danh sách sự kiện thông báo, hệ thống tạo cho mỗi người nhận một thông báo ở
+trạng thái chưa đọc, ghi lại người nhận, sự kiện mà thông báo báo về, người gây sự kiện, nội dung liên quan và thời
+điểm xảy ra sự kiện do module phát sinh sự kiện cung cấp. Hệ thống không tạo thông báo khi người gây sự kiện cũng là
+người nhận, không tạo thông báo cho người nhận có trạng thái tài khoản DELETED, và với nội dung trong nhóm Private do
+M11 quản lý thì chỉ tạo thông báo cho người nhận có quyền xem nội dung đó; người nhận đang BANNED hoặc DEACTIVATED vẫn
+nhận thông báo. Khi người nhận đã tắt thông báo cho bài trên một bài viết do M03 quản lý, hệ thống không tạo cho người
+nhận thông báo bình luận mới, trả lời, upvote bài viết và upvote bình luận của người nhận trong bài viết đó, nhưng vẫn
+tạo thông báo nhắc tên và các thông báo khác về bài viết. Với upvote bài viết và upvote bình luận do M12 báo, hệ thống
+gộp upvote riêng cho từng bài viết và từng bình luận do M04 quản lý. Lượt upvote đến khi bài viết hoặc bình luận không
+có cửa sổ 5 phút đang mở tạo một thông báo upvote mới hiện tên người upvote và mở cửa sổ 5 phút cho bài viết hoặc bình
+luận đó. Mỗi lượt upvote sau trong cửa sổ 5 phút cập nhật chính thông báo upvote đó với người upvote mới nhất và số
+người khác nhau còn lại trong cửa sổ 5 phút, chuyển thông báo về chưa đọc và ghi lại lần cập nhật cuối của thông báo.
+Mỗi người upvote chỉ được đếm một lần trong một cửa sổ 5 phút, và việc bỏ upvote không làm đổi thông báo upvote đã
+tạo. Khi một bài viết lần đầu hiển thị công khai và không được đăng ẩn danh, hệ thống tạo thông báo bài mới cho mỗi
+người đang theo dõi tác giả bài viết và xem được bài viết; việc sửa hay khôi phục bài viết và việc Topic có bài viết
+mới không sinh thông báo bài mới. Thông báo về một xử lý khiếu nại được, gồm cảnh cáo, ban, bài viết bị Mod hoặc Admin
+gỡ và bài viết bị AI từ chối, kèm đường dẫn khiếu nại. Khi Admin gửi đề xuất làm Mod hoặc tài khoản ADMIN gốc gửi đề
+xuất làm Admin cho một người dùng, đều do M10 quản lý, hệ thống tạo cho người được đề xuất một thông báo đề xuất có
+hai lựa chọn Chấp nhận và Từ chối; mỗi đề xuất mới, kể cả đề xuất lại cùng loại, có thông báo đề xuất riêng. Người
+được đề xuất chọn được một lần; hệ thống ghi lại lựa chọn trên thông báo đề xuất và chuyển lựa chọn cho M10 để M10 đặt
+vai trò MOD hoặc ADMIN khi người được đề xuất chấp nhận. Thông báo đề xuất không cho chọn nữa khi đề xuất đã quá hạn
+mà chưa được trả lời, khi đó thông báo đề xuất hiện là đã hết hạn, hoặc khi có đề xuất mới cùng loại cho cùng người
+dùng.
+
+Mỗi thông báo được lưu trước, rồi hệ thống đẩy thông báo tới mọi thiết bị đang mở ứng dụng của người nhận do M01 quản
+lý; đẩy không thành công thì hệ thống không thử lại, vì người nhận luôn tải thông báo chưa đọc từ thông báo đã lưu.
+Khi một sự kiện thuộc nhóm sự kiện có email xảy ra, hệ thống ghi một email cho người nhận vào hàng đợi email, gửi tới
+địa chỉ email của người nhận do M01 quản lý; email về ban kèm đường dẫn tới trang khiếu nại. Hệ thống quét hàng đợi
+email định kỳ và gửi các email chưa gửi mà không bắt thao tác gây ra sự kiện phải chờ; email gửi không thành công ở
+lại hàng đợi email để gửi lại ở các lần quét kế tiếp cho tới khi hết số lần gửi lại cho phép, sau đó hệ thống dừng gửi
+email đó. Cảnh báo trước khi tự xóa của M01 chỉ được gửi qua email, không có thông báo; sự kiện ngoài nhóm sự kiện có
+email chỉ có thông báo, không có email.
+
+Hệ thống cho phép người dùng xem thông báo của chính mình, trừ khi tài khoản đang BANNED: chuông thông báo hiện số
+thông báo chưa đọc và các thông báo gần nhất xếp theo lần cập nhật cuối, còn trang Thông báo hiện toàn bộ thông báo từ
+mới nhất tới cũ nhất. Mỗi thông báo hiện kèm trạng thái đã đọc hoặc chưa đọc, thời điểm của thông báo và tên người gây
+sự kiện theo trạng thái tài khoản của người gây sự kiện. Hệ thống giữ mọi thông báo vô thời hạn. Hệ thống cho phép
+người nhận đánh dấu một thông báo là đã đọc bằng cách bấm vào thông báo đó, và chuyển người nhận tới nội dung liên
+quan nếu nội dung liên quan chưa bị xóa, chưa bị ẩn và người nhận còn quyền xem. Hệ thống cho phép người nhận đánh dấu
+tất cả thông báo chưa đọc của mình là đã đọc cùng lúc mà không đổi trạng thái đã đọc của tin nhắn; việc mở chuông
+thông báo không đổi trạng thái đã đọc của thông báo.
+
+Tin nhắn mới trong một cuộc trò chuyện do M16 quản lý, là cuộc trò chuyện 1-1 hoặc nhóm chat, không tạo thông báo và
+không có email. Hệ thống hiện trên biểu tượng Tin nhắn số cuộc trò chuyện có tin chưa đọc của người dùng, tính theo
+mốc đã đọc của M16, chỉ tính tin người dùng thấy được và gồm cả cuộc trò chuyện đã tắt thông báo; biểu tượng Tin nhắn
+dẫn tới hộp thư Chat của M16. Với mỗi tin nhắn mới, hệ thống hiện một popup tin nhắn cho thành viên cuộc trò chuyện
+đang mở ứng dụng, trừ khi thành viên đang xem đúng cuộc trò chuyện đó, đã tắt thông báo cuộc trò chuyện đó hoặc đang
+bật cài đặt tắt thông báo toàn bộ Chat. Hệ thống cho phép người dùng tắt thông báo cho bài trên một bài viết cho riêng
+mình và bật lại; hệ thống ghi lại bài viết đã tắt thông báo cho người dùng và bỏ ghi nhận đó khi người dùng bật lại.
+Hệ thống cho phép thành viên cuộc trò chuyện tắt thông báo cuộc trò chuyện cho từng cuộc trò chuyện mình là thành viên
+và bật lại; hệ thống ghi lại cuộc trò chuyện đã tắt thông báo cho thành viên, bỏ ghi nhận đó khi thành viên bật lại
+hoặc khi thành viên rời hay bị xóa khỏi nhóm chat. Hệ thống cho phép người dùng bật và tắt cài đặt tắt thông báo toàn
+bộ Chat; khi cài đặt này bật, mọi cuộc trò chuyện của người dùng không hiện popup tin nhắn, và khi cài đặt này tắt,
+các cuộc trò chuyện đã tắt thông báo riêng vẫn giữ trạng thái tắt.
+
+<!-- Văn xuôi bình thường, có thể chia vài đoạn. KHÔNG ghi mã câu (S1), (S2)… trong đoạn văn: người đọc không hiểu
+     các mã đó. Số câu chỉ nằm ở bảng 1.2. Xem steps/01-describe-functions.md. -->
 
 ### 1.2 Truy vết câu
 
-| Câu | Nội dung tóm tắt | Nguồn |
+<!-- Mỗi câu của đoạn mô tả một dòng, theo đúng thứ tự. Câu: 1, 2, 3…
+     Nội dung câu: chép NGUYÊN VĂN câu đó từ mục 1.1 (tool so khớp từng câu với đoạn văn).
+     Nguồn: mã chức năng hoặc yêu cầu của FR mà câu dựa vào. -->
+
+| Câu | Nội dung câu | Nguồn |
 |---|---|---|
-| S1 | Phạm vi thông báo, theo dõi, email và cài đặt tắt | FR-M07-01, FR-M07-02, FR-M07-04, FR-M07-08, FR-M07-09 |
-| S2 | Tạo, bỏ và ghi thời điểm quan hệ theo dõi | FR-M07-01, FR-M07-01.01, FR-M07-01.08 |
-| S3 | Sự kiện người theo dõi mới và dấu vết đã báo | FR-M07-01.04, FR-M07-01.10, FR-M07-01.13 |
-| S4 | Thông báo bài mới của tác giả đang theo dõi | FR-M07-02.21, FR-M07-02.22, FR-M07-02.23 |
-| S5 | Tạo thông báo riêng từ sự kiện liên module | FR-M07-02, FR-M07-02.01, FR-M07-02.02 |
-| S6 | Điều kiện người nhận và quyền nhận thông báo | FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, FR-M07-02.11, FR-M07-02.25, FR-M07-02.26, FR-M07-02.27 |
-| S7 | Cửa sổ gộp upvote, người được đếm và cập nhật thông báo | FR-M07-02.03, FR-M07-02.04, FR-M07-02.18, FR-M07-02.19, FR-M07-02.20 |
-| S8 | Phản hồi thông báo đề xuất vai trò và trạng thái đề xuất | FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32 |
-| S9 | Lưu thông báo, đẩy tới thiết bị và tải dữ liệu đã lưu | FR-M07-03, FR-M07-03.01, FR-M07-03.02, FR-M07-03.04 |
-| S10 | Hàng đợi email, gửi lại và đường dẫn khiếu nại ban | FR-M07-04, FR-M07-04.01, FR-M07-04.02, FR-M07-04.03, FR-M07-04.08, FR-M07-04.09, FR-M07-04.10 |
-| S11 | Xem, sắp xếp, đếm chưa đọc và giữ thông báo | FR-M07-05, FR-M07-05.01, FR-M07-05.02, FR-M07-05.03, FR-M07-05.04, FR-M07-05.05, FR-M07-05.07, FR-M07-05.10, FR-M07-05.12 |
-| S12 | Đánh dấu đã đọc và mở nội dung liên quan | FR-M07-06, FR-M07-06.01, FR-M07-06.02, FR-M07-06.03, FR-M07-02.13, FR-M07-05.13 |
-| S13 | Báo tin nhắn mới và số cuộc trò chuyện có tin chưa đọc | FR-M07-07, FR-M07-07.02, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07 |
-| S14 | Cài đặt tắt thông báo theo người dùng và bài viết | FR-M07-08, FR-M07-08.02, FR-M07-08.03, FR-M07-08.04, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09 |
-| S15 | Cài đặt tắt thông báo cuộc trò chuyện và toàn bộ Chat | FR-M07-09, FR-M07-09.01, FR-M07-09.02, FR-M07-09.03, FR-M07-09.04, FR-M07-09.05, FR-M07-09.08 |
-| S16 | Dữ liệu theo dõi cung cấp cho các module sử dụng | FR-M07-01.01, FR-M07-02.01, FR-M07-02.02, FR-M07-05.13 |
+| 1 | Hệ thống quản lý thông báo gửi tới người dùng về các sự kiện do các module khác phát sinh, các email trong hàng đợi email, quan hệ theo dõi giữa người dùng với người dùng và Topic, cùng các cài đặt tắt thông báo cho bài, tắt thông báo cuộc trò chuyện và tắt thông báo toàn bộ Chat. | FR-M07-01, FR-M07-02, FR-M07-04, FR-M07-08, FR-M07-09 |
+| 2 | Các chức năng của module dành cho người dùng đã đăng nhập là User, Mod và Admin; Guest không nhận thông báo, không theo dõi được và không có cài đặt tắt thông báo. | FR-M07-01.03, FR-M07-05.06, FR-M07-06.06, FR-M07-08.05, FR-M07-09.06 |
+| 3 | Hệ thống cho phép người dùng theo dõi người dùng khác và theo dõi Topic do M05 quản lý; người dùng và Topic được theo dõi gọi chung là đối tượng theo dõi. | FR-M07-01, FR-M07-01.01 |
+| 4 | Mỗi khi người dùng bắt đầu theo dõi một đối tượng theo dõi, hệ thống ghi lại một quan hệ theo dõi gồm người theo dõi, đối tượng theo dõi và thời điểm bắt đầu theo dõi. | FR-M07-01.01 |
+| 5 | Người dùng không theo dõi được chính mình và không bắt đầu theo dõi được người dùng có trạng thái tài khoản BANNED do M01 quản lý; quan hệ theo dõi đã có được giữ khi người được theo dõi chuyển sang BANNED hoặc DEACTIVATED. | FR-M07-01.11, FR-M07-01.12, FR-M07-01.13 |
+| 6 | Khi người dùng theo dõi một người dùng khác lần đầu, hệ thống tạo sự kiện có người theo dõi mới cho người được theo dõi; mỗi cặp người theo dõi và người được theo dõi chỉ sinh sự kiện này một lần, kể cả khi người theo dõi bỏ theo dõi rồi theo dõi lại. | FR-M07-01.04, FR-M07-01.10 |
+| 7 | Hệ thống cho phép người theo dõi bỏ theo dõi một đối tượng theo dõi; khi đó hệ thống xóa quan hệ theo dõi, số người theo dõi của đối tượng theo dõi giảm theo và không ai nhận thông báo. | FR-M07-01.08, FR-M07-01.09 |
+| 8 | Hệ thống cung cấp quan hệ theo dõi cùng thời điểm bắt đầu theo dõi cho M01, M02, M06 và M14. | FR-M07-01.01 |
+| 9 | Khi một module báo một sự kiện thuộc danh sách sự kiện thông báo, hệ thống tạo cho mỗi người nhận một thông báo ở trạng thái chưa đọc, ghi lại người nhận, sự kiện mà thông báo báo về, người gây sự kiện, nội dung liên quan và thời điểm xảy ra sự kiện do module phát sinh sự kiện cung cấp. | FR-M07-02.01, FR-M07-02.02, FR-M07-05.12 |
+| 10 | Hệ thống không tạo thông báo khi người gây sự kiện cũng là người nhận, không tạo thông báo cho người nhận có trạng thái tài khoản DELETED, và với nội dung trong nhóm Private do M11 quản lý thì chỉ tạo thông báo cho người nhận có quyền xem nội dung đó; người nhận đang BANNED hoặc DEACTIVATED vẫn nhận thông báo. | FR-M07-02.11, FR-M07-02.25, FR-M07-02.26, FR-M07-02.27 |
+| 11 | Khi người nhận đã tắt thông báo cho bài trên một bài viết do M03 quản lý, hệ thống không tạo cho người nhận thông báo bình luận mới, trả lời, upvote bài viết và upvote bình luận của người nhận trong bài viết đó, nhưng vẫn tạo thông báo nhắc tên và các thông báo khác về bài viết. | FR-M07-02.07, FR-M07-02.08, FR-M07-02.09 |
+| 12 | Với upvote bài viết và upvote bình luận do M12 báo, hệ thống gộp upvote riêng cho từng bài viết và từng bình luận do M04 quản lý. | FR-M07-02.18 |
+| 13 | Lượt upvote đến khi bài viết hoặc bình luận không có cửa sổ 5 phút đang mở tạo một thông báo upvote mới hiện tên người upvote và mở cửa sổ 5 phút cho bài viết hoặc bình luận đó. | FR-M07-02.03 |
+| 14 | Mỗi lượt upvote sau trong cửa sổ 5 phút cập nhật chính thông báo upvote đó với người upvote mới nhất và số người khác nhau còn lại trong cửa sổ 5 phút, chuyển thông báo về chưa đọc và ghi lại lần cập nhật cuối của thông báo. | FR-M07-02.04, FR-M07-05.01 |
+| 15 | Mỗi người upvote chỉ được đếm một lần trong một cửa sổ 5 phút, và việc bỏ upvote không làm đổi thông báo upvote đã tạo. | FR-M07-02.19, FR-M07-02.20 |
+| 16 | Khi một bài viết lần đầu hiển thị công khai và không được đăng ẩn danh, hệ thống tạo thông báo bài mới cho mỗi người đang theo dõi tác giả bài viết và xem được bài viết; việc sửa hay khôi phục bài viết và việc Topic có bài viết mới không sinh thông báo bài mới. | FR-M07-02.21, FR-M07-02.22, FR-M07-02.23, FR-M07-02.24 |
+| 17 | Thông báo về một xử lý khiếu nại được, gồm cảnh cáo, ban, bài viết bị Mod hoặc Admin gỡ và bài viết bị AI từ chối, kèm đường dẫn khiếu nại. | FR-M07-02.13 |
+| 18 | Khi Admin gửi đề xuất làm Mod hoặc tài khoản ADMIN gốc gửi đề xuất làm Admin cho một người dùng, đều do M10 quản lý, hệ thống tạo cho người được đề xuất một thông báo đề xuất có hai lựa chọn Chấp nhận và Từ chối; mỗi đề xuất mới, kể cả đề xuất lại cùng loại, có thông báo đề xuất riêng. | FR-M07-02.14, FR-M07-02.30 |
+| 19 | Người được đề xuất chọn được một lần; hệ thống ghi lại lựa chọn trên thông báo đề xuất và chuyển lựa chọn cho M10 để M10 đặt vai trò MOD hoặc ADMIN khi người được đề xuất chấp nhận. | FR-M07-02.15, FR-M07-02.16, FR-M07-02.28 |
+| 20 | Thông báo đề xuất không cho chọn nữa khi đề xuất đã quá hạn mà chưa được trả lời, khi đó thông báo đề xuất hiện là đã hết hạn, hoặc khi có đề xuất mới cùng loại cho cùng người dùng. | FR-M07-02.31, FR-M07-02.32 |
+| 21 | Mỗi thông báo được lưu trước, rồi hệ thống đẩy thông báo tới mọi thiết bị đang mở ứng dụng của người nhận do M01 quản lý; đẩy không thành công thì hệ thống không thử lại, vì người nhận luôn tải thông báo chưa đọc từ thông báo đã lưu. | FR-M07-03.01, FR-M07-03.02, FR-M07-03.03, FR-M07-03.04 |
+| 22 | Khi một sự kiện thuộc nhóm sự kiện có email xảy ra, hệ thống ghi một email cho người nhận vào hàng đợi email, gửi tới địa chỉ email của người nhận do M01 quản lý; email về ban kèm đường dẫn tới trang khiếu nại. | FR-M07-04.01, FR-M07-04.08 |
+| 23 | Hệ thống quét hàng đợi email định kỳ và gửi các email chưa gửi mà không bắt thao tác gây ra sự kiện phải chờ; email gửi không thành công ở lại hàng đợi email để gửi lại ở các lần quét kế tiếp cho tới khi hết số lần gửi lại cho phép, sau đó hệ thống dừng gửi email đó. | FR-M07-04.02, FR-M07-04.03, FR-M07-04.09, FR-M07-04.10 |
+| 24 | Cảnh báo trước khi tự xóa của M01 chỉ được gửi qua email, không có thông báo; sự kiện ngoài nhóm sự kiện có email chỉ có thông báo, không có email. | FR-M07-04.04, FR-M07-04.06 |
+| 25 | Hệ thống cho phép người dùng xem thông báo của chính mình, trừ khi tài khoản đang BANNED: chuông thông báo hiện số thông báo chưa đọc và các thông báo gần nhất xếp theo lần cập nhật cuối, còn trang Thông báo hiện toàn bộ thông báo từ mới nhất tới cũ nhất. | FR-M07-05.01, FR-M07-05.02, FR-M07-05.05, FR-M07-05.09, FR-M07-05.10 |
+| 26 | Mỗi thông báo hiện kèm trạng thái đã đọc hoặc chưa đọc, thời điểm của thông báo và tên người gây sự kiện theo trạng thái tài khoản của người gây sự kiện. | FR-M07-05.03, FR-M07-05.04, FR-M07-05.12 |
+| 27 | Hệ thống giữ mọi thông báo vô thời hạn. | FR-M07-05.07 |
+| 28 | Hệ thống cho phép người nhận đánh dấu một thông báo là đã đọc bằng cách bấm vào thông báo đó, và chuyển người nhận tới nội dung liên quan nếu nội dung liên quan chưa bị xóa, chưa bị ẩn và người nhận còn quyền xem. | FR-M07-06.01, FR-M07-06.02, FR-M07-06.04, FR-M07-05.13 |
+| 29 | Hệ thống cho phép người nhận đánh dấu tất cả thông báo chưa đọc của mình là đã đọc cùng lúc mà không đổi trạng thái đã đọc của tin nhắn; việc mở chuông thông báo không đổi trạng thái đã đọc của thông báo. | FR-M07-06.03, FR-M07-06.05, FR-M07-05.11 |
+| 30 | Tin nhắn mới trong một cuộc trò chuyện do M16 quản lý, là cuộc trò chuyện 1-1 hoặc nhóm chat, không tạo thông báo và không có email. | FR-M07-02.10, BR-M07-02 |
+| 31 | Hệ thống hiện trên biểu tượng Tin nhắn số cuộc trò chuyện có tin chưa đọc của người dùng, tính theo mốc đã đọc của M16, chỉ tính tin người dùng thấy được và gồm cả cuộc trò chuyện đã tắt thông báo; biểu tượng Tin nhắn dẫn tới hộp thư Chat của M16. | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, FR-M07-09.07 |
+| 32 | Với mỗi tin nhắn mới, hệ thống hiện một popup tin nhắn cho thành viên cuộc trò chuyện đang mở ứng dụng, trừ khi thành viên đang xem đúng cuộc trò chuyện đó, đã tắt thông báo cuộc trò chuyện đó hoặc đang bật cài đặt tắt thông báo toàn bộ Chat. | FR-M07-07.05, FR-M07-07.06, FR-M07-07.07 |
+| 33 | Hệ thống cho phép người dùng tắt thông báo cho bài trên một bài viết cho riêng mình và bật lại; hệ thống ghi lại bài viết đã tắt thông báo cho người dùng và bỏ ghi nhận đó khi người dùng bật lại. | FR-M07-08.01, FR-M07-08.02, FR-M07-08.03, FR-M07-08.04 |
+| 34 | Hệ thống cho phép thành viên cuộc trò chuyện tắt thông báo cuộc trò chuyện cho từng cuộc trò chuyện mình là thành viên và bật lại; hệ thống ghi lại cuộc trò chuyện đã tắt thông báo cho thành viên, bỏ ghi nhận đó khi thành viên bật lại hoặc khi thành viên rời hay bị xóa khỏi nhóm chat. | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.08 |
+| 35 | Hệ thống cho phép người dùng bật và tắt cài đặt tắt thông báo toàn bộ Chat; khi cài đặt này bật, mọi cuộc trò chuyện của người dùng không hiện popup tin nhắn, và khi cài đặt này tắt, các cuộc trò chuyện đã tắt thông báo riêng vẫn giữ trạng thái tắt. | FR-M07-09.03, FR-M07-09.04 |
 
 ## 2. Danh từ và phân loại
 
 ### 2.1 Sổ danh từ
 
+<!-- Phân loại: Lớp | Thuộc tính | Loại bỏ.
+     Kết quả: tên lớp; hoặc Lớp.thuộcTính; hoặc "—" khi loại bỏ.
+     Xuất hiện ở: "Câu n" (số câu ở bảng 1.2) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
+
 | # | Danh từ | Xuất hiện ở | Phân loại | Kết quả | Lý do |
 |---|---|---|---|---|---|
-| 1 | Hệ thống | S1 | Loại bỏ | — | Trừu tượng, tác nhân xử lý. |
-| 2 | Thông báo / thông báo upvote / thông báo đề xuất / thông báo người theo dõi mới / thông báo bài mới | S1 | Lớp | Notification | T8, bản ghi theo người nhận có trạng thái và vòng đời lưu giữ theo FR-M07-02.01/05.07, dùng tên các EC trước. |
-| 3 | Người nhận / người dùng / User / Mod / Admin / người gây sự kiện / người theo dõi / người được theo dõi / tác giả / người upvote / thành viên cuộc trò chuyện | S1 | Lớp | User | T3, các vai trò tài khoản M01, gồm các vai trò phát sinh và nhận thông báo. |
-| 4 | Topic | S1 | Lớp | Topic | T4, đối tượng theo dõi thuộc M05, dùng EC-M05. |
-| 5 | Quan hệ theo dõi người dùng | S1 | Lớp | UserFollow | T8, bản ghi theo dõi người dùng có thời điểm bắt đầu, M07 sở hữu theo FR-M07-01.01, dùng tên EC-M01/02. |
-| 6 | Quan hệ theo dõi Topic | S1 | Lớp | TopicFollow | T8, bản ghi theo dõi Topic có thời điểm bắt đầu, M07 sở hữu theo FR-M07-01.01, dùng tên EC-M01/05/06. |
-| 7 | Email / email thông báo | S1 | Lớp | NotificationEmail | T8, bản ghi chờ gửi và gửi lại có trạng thái và bộ đếm theo FR-M07-04.01/04.09. |
-| 8 | Hàng đợi email | S1 | Loại bỏ | — | Chung chung, tập NotificationEmail đang chờ xử lý theo BR-M07-11/26. |
-| 9 | Cài đặt tắt thông báo cho bài / tắt thông báo cho bài | S1 | Lớp | PostNotificationSetting | T8, cài đặt theo cặp người dùng–bài, có trạng thái theo FR-M07-08 và mục 5.12. |
-| 10 | Bài viết | S1 | Lớp | Post | T4, đối tượng sự kiện và cài đặt tắt theo M03, dùng EC-M03. |
-| 11 | Chat / hộp thư Chat | S1 | Loại bỏ | — | Ngoài phạm vi module (M16), chức năng và ngữ cảnh tin nhắn. |
-| 12 | Cài đặt tắt thông báo toàn bộ Chat | S1 | Lớp | ChatNotificationSetting | T8, lớp cài đặt riêng có trạng thái theo Q-01 B đã được người dùng chọn, FR-M07-09.03/09.04. |
-| 13 | Thời điểm bắt đầu theo dõi người dùng | S2 | Thuộc tính | UserFollow.followedAt | T9, thời điểm được ghi theo FR-M07-01.01, phân biệt với lượt theo dõi Topic. |
-| 14 | Thời điểm bắt đầu theo dõi Topic | S2 | Thuộc tính | TopicFollow.followedAt | T9, thời điểm của bản theo dõi Topic theo FR-M07-01.01. |
-| 15 | Sự kiện / sự kiện người theo dõi mới | S3 | Loại bỏ | — | Hành động không lưu dấu vết riêng tại M07, đầu vào tạo Notification hoặc NotificationEmail theo FR-M07-02.01/04.01. |
-| 16 | Dấu vết thông báo đã có | S3 | Loại bỏ | — | Chung chung, Notification bền vững cho cặp tài khoản dùng kiểm tra đã báo theo FR-M07-01.10, BR-M07-25. |
-| 17 | BANNED / DEACTIVATED / DELETED / trạng thái tài khoản | S3 | Loại bỏ | — | Ngoài phạm vi module (M01), dữ liệu trạng thái User để kiểm tra điều kiện. |
-| 18 | Lần đầu công khai / trạng thái đăng ẩn danh | S4 | Loại bỏ | — | Ngoài phạm vi module (M03, M11), Post.hasBeenPublic và ngữ cảnh bài do module nguồn cung cấp. |
-| 19 | Bảo mật tài khoản / mật khẩu đã đổi / liên kết Google / cảnh báo trước khi tự xóa | S5 | Loại bỏ | — | Giá trị của loại sự kiện thông báo/email theo BR-M07-01/03/04, điều kiện phát sinh do M01 cung cấp. |
-| 20 | Bình luận / trả lời | S5 | Lớp | Comment | T4, đối tượng sự kiện M04, dùng EC-M04. |
-| 21 | Poll | S5 | Lớp | Poll | T4, sự kiện poll kết thúc M03, dùng EC-M03. |
-| 22 | Nhắc tên / lượt nhắc tên | S5 | Lớp | Mention | T4, sự kiện nhắc do M01 cung cấp, dùng EC-M01. |
-| 23 | Báo cáo | S5 | Lớp | Report | T4, đối tượng kết quả báo cáo M08, tên dùng lại EC-M03/04, chờ EC-M08. |
-| 24 | Cảnh cáo | S5 | Lớp | Warning | T4, đối tượng xử lý M08 cung cấp, tên tạm chờ EC-M08. |
-| 25 | Ban | S5 | Lớp | Ban | T4, đối tượng ban/gỡ ban M08, tên dùng lại EC-M01, chờ EC-M08. |
-| 26 | Khiếu nại | S5 | Lớp | Appeal | T4, đối tượng kết luận khiếu nại M09, tên dùng lại các EC trước, chờ EC-M09. |
-| 27 | Nhóm / hoạt động nhóm | S5 | Lớp | Group | T4, ngữ cảnh sự kiện và quyền M11, tên dùng lại các EC trước, chờ EC-M11. |
-| 28 | Badge | S5 | Lớp | Badge | T4, sự kiện đạt badge M12, tên dùng lại EC-M02, chờ EC-M12. |
-| 29 | Danh hiệu tuần / danh hiệu Ngôi sao tuần | S5 | Lớp | WeeklyStarAward | T4, sự kiện đạt danh hiệu M12, dùng tên EC-M02, chờ EC-M12. |
-| 30 | Đề xuất vai trò / đề xuất làm Mod / đề xuất làm Admin | S5 | Lớp | RoleProposal | T4, M10 sở hữu đề xuất và kết quả phản hồi, tên tạm chờ EC-M10. |
-| 31 | Chưa đọc / đã đọc | S5 | Loại bỏ | — | Giá trị của Notification.readState theo FR-M07-02.01/06.01. |
-| 32 | Nội dung liên quan | S5 | Loại bỏ | — | Chung chung, đối tượng đích và ngữ cảnh của Notification đã được gọi tên, được xét dưới dạng tham chiếu ở bước 3. |
-| 33 | Thời điểm sự kiện / thời điểm tạo thông báo | S5 | Thuộc tính | Notification.createdAt | T9, mốc ban đầu của thông báo theo FR-M07-02.02 và mục 5.11, nguồn cung cấp thời điểm sự kiện. |
-| 34 | Quyền xem / nhóm Private | S6 | Loại bỏ | — | Ngoài phạm vi module (M11), điều kiện kiểm tra trước khi tạo/mở thông báo. |
-| 35 | Cài đặt tắt thông báo của người nhận | S6 | Loại bỏ | — | Chung chung, các cài đặt theo bài, cuộc trò chuyện và toàn bộ Chat đã được gọi tên. |
-| 36 | Upvote / gộp upvote | S7 | Loại bỏ | — | Hành động không lưu dấu vết riêng dưới dạng bản ghi upvote M07, tương tác do M12 phát sinh, Notification và cửa sổ gộp giữ dữ liệu cần để báo. |
-| 37 | Cửa sổ gộp upvote | S7 | Lớp | UpvoteNotificationWindow | T8, ngữ cảnh gộp theo bài hoặc bình luận và mốc mở theo FR-M07-02.03/02.18. |
-| 38 | Người upvote đã được đếm / người upvote mới nhất | S7 | Loại bỏ | — | Chung chung, vai trò của User trong cửa sổ/thông báo, giữ để xét tham chiếu và chống đếm lặp ở bước 3 theo FR-M07-02.20. |
-| 39 | Số người khác nhau trong cửa sổ | S7 | Thuộc tính | UpvoteNotificationWindow.actorCount | T7, đếm các User đã được ghi nhận trong cửa sổ, FR-M07-02.04/02.20. |
-| 40 | Số người khác | S7 | Thuộc tính | UpvoteNotificationWindow.otherActorCount | T7, actorCount trừ người upvote được nêu tên trong thông báo theo BR-M07-05. |
-| 41 | Thứ tự gần nhất | S7 | Loại bỏ | — | Giao diện, thứ tự danh sách theo Notification.updatedAt, FR-M07-05.01. |
-| 42 | Lựa chọn đã trả lời của đề xuất | S8 | Thuộc tính | Notification.proposalResponse | T7, chiếu phản hồi của RoleProposal do M10 xử lý để hiển thị theo FR-M07-02.15/02.28, tách quyền sở hữu dữ liệu nguồn. |
-| 43 | Chấp nhận / Từ chối / hết hạn / bị thay thế | S8 | Loại bỏ | — | Ngoài phạm vi module (M10), phản hồi và trạng thái RoleProposal cung cấp để thể hiện Notification.proposalResponse và quyền trả lời. |
-| 44 | Vai trò tài khoản | S8 | Loại bỏ | — | Ngoài phạm vi module (M01, M10), vai trò tài khoản được M10 quyết định. |
-| 45 | Thiết bị đang mở ứng dụng | S9 | Loại bỏ | — | Ngoài phạm vi module (M01), ngữ cảnh thiết bị nhận đẩy theo giao tiếp mục 5.13. |
-| 46 | Đẩy thông báo | S9 | Loại bỏ | — | Hành động không lưu dấu vết riêng, FR-M07-03 dùng Notification đã lưu làm nguồn. |
-| 47 | Số lần gửi lại email | S10 | Thuộc tính | NotificationEmail.retryCount | T9, đếm số lần gửi lại để dừng sau tối đa 3 lần, FR-M07-04.09/04.10. |
-| 48 | Đường dẫn khiếu nại trong email ban | S10 | Thuộc tính | NotificationEmail.appealUrl | T9, liên kết để người nhận tới trang khiếu nại ban theo FR-M07-04.08. |
-| 49 | Thời điểm cập nhật cuối | S11 | Thuộc tính | Notification.updatedAt | T9, mốc dùng xếp danh sách, cập nhật khi gộp thêm theo FR-M07-02.04/05.01. |
-| 50 | Trạng thái đọc | S11 | Thuộc tính | Notification.readState | T9, trạng thái Chưa đọc/Đã đọc theo FR-M07-05.03 và mục 5.12. |
-| 51 | Thời điểm thông báo | S11 | Loại bỏ | — | Chung chung, tên gọi hiển thị của các mốc Notification được FR ràng buộc lưu UTC và hiện UTC+7. |
-| 52 | Số thông báo chưa đọc | S11 | Thuộc tính | User.unreadNotificationCount | T7, đếm Notification chưa đọc của người nhận, phần M07 bổ sung theo FR-M07-05.10. |
-| 53 | Tên người gây sự kiện | S11 | Loại bỏ | — | Ngoài phạm vi module (M01), User.displayName và nhãn theo trạng thái tài khoản. |
-| 54 | Đường dẫn khiếu nại trong thông báo | S12 | Thuộc tính | Notification.appealUrl | T9, liên kết tới luồng khiếu nại cho sự kiện có thể khiếu nại theo FR-M07-02.13. |
-| 55 | Đánh dấu tất cả đã đọc / mở thông báo | S12 | Loại bỏ | — | Hành động không lưu dấu vết riêng, kết quả là thay Notification.readState theo FR-M07-06. |
-| 56 | Tin nhắn | S13 | Lớp | Message | T4, M16 cung cấp tin nhắn mới và quyền thấy tin, tên từ EC-M01, chờ EC-M16. |
-| 57 | Cuộc trò chuyện / nhóm chat | S13 | Lớp | Conversation | T4, đối tượng cài đặt tắt và đếm tin chưa đọc M16, dùng tên EC-M02, chờ EC-M16. |
-| 58 | Tư cách và mốc đọc của thành viên cuộc trò chuyện | S13 | Lớp | ConversationMember | T4, tư cách và mốc đọc của thành viên do M16 cung cấp, tên tạm chờ EC-M16. |
-| 59 | Số cuộc trò chuyện có tin chưa đọc | S13 | Thuộc tính | User.unreadConversationCount | T7, đếm các cuộc có tin người dùng thấy được và chưa đọc theo M16, gồm cuộc đã tắt, FR-M07-07.02. |
-| 60 | Mốc đã đọc / cuộc trò chuyện đang xem | S13 | Loại bỏ | — | Ngoài phạm vi module (M16), dữ liệu dùng tính số chưa đọc và điều kiện popup. |
-| 61 | Cài đặt tắt thông báo từng cuộc trò chuyện | S15 | Lớp | ConversationNotificationSetting | T8, cài đặt theo thành viên và cuộc trò chuyện, có trạng thái theo FR-M07-09.01/09.02/09.08. |
-| 62 | Rời hoặc bị xóa khỏi nhóm chat | S15 | Loại bỏ | — | Hành động không lưu dấu vết riêng tại M07, sự kiện M16 làm bỏ ConversationNotificationSetting. |
-| 63 | Danh sách hồ sơ / bộ lọc tìm kiếm / feed / gợi ý nhắc tên | S16 | Loại bỏ | — | Ngoài phạm vi module (M02, M06, M14, M01), dùng quan hệ theo dõi do M07 cung cấp. |
-| 64 | Loại sự kiện trong thông báo | Quét: FR-M07-02.01 | Thuộc tính | Notification.kind | T9, loại theo danh sách BR-M07-01. |
-| 65 | Loại sự kiện email | Quét: FR-M07-04.01 | Thuộc tính | NotificationEmail.kind | T9, loại thuộc nhóm có email theo BR-M07-03/04. |
-| 66 | Địa chỉ email người nhận | Quét: Dữ liệu nghiệp vụ | Thuộc tính | NotificationEmail.recipientEmail | T9, đích gửi của email trong hàng đợi theo mục 5.11, địa chỉ nguồn thuộc User M01. |
-| 67 | Thời điểm vào hàng đợi | Quét: Dữ liệu nghiệp vụ | Thuộc tính | NotificationEmail.queuedAt | T9, mốc nêu trong email thông báo tại mục 5.11. |
-| 68 | Đã gửi email hay chưa | Quét: Dữ liệu nghiệp vụ | Thuộc tính | NotificationEmail.sent | T9, trạng thái suy ra từ việc quét và gửi theo FR-M07-04.02 và mục 5.11. |
-| 69 | Thời điểm mở cửa sổ upvote | Quét: FR-M07-02.03 | Thuộc tính | UpvoteNotificationWindow.openedAt | T9, mốc của lượt upvote mở thông báo theo BR-M07-05. |
-| 70 | Thời điểm kết thúc cửa sổ upvote | Quét: BR-M07-05 | Thuộc tính | UpvoteNotificationWindow.closesAt | T7, openedAt cộng 5 × 60 giây, mốc cố định của cửa sổ. |
-| 71 | Trạng thái thông báo bài của người dùng | Quét: FR-M07-08.02, FR-M07-08.03 | Thuộc tính | PostNotificationSetting.state | T9, Đang nhận hoặc Đã tắt theo FR mục 5.12. |
-| 72 | Trạng thái thông báo cuộc trò chuyện của thành viên | Quét: FR-M07-09.01, FR-M07-09.02 | Thuộc tính | ConversationNotificationSetting.state | T9, Đang nhận hoặc Đã tắt, kết thúc cài đặt khi rời/bị xóa khỏi nhóm chat. |
-| 73 | Tư cách thành viên nhóm | Quét: FR-M07-02.11 | Lớp | GroupMember | T4, quyền xem nhóm Private do M11 cung cấp, dùng tên các EC trước. |
-| 74 | Nội dung không tồn tại / popup / chuông / biểu tượng Tin nhắn / trang Thông báo | Quét: FR-M07-05.13, FR-M07-07.01 | Loại bỏ | — | Giao diện, thể hiện dữ liệu và kết quả kiểm tra quyền. |
-| 75 | 5 phút / 60 giây quét email / 3 lần gửi lại / 7 ngày hạn đề xuất / 24 giờ cảnh báo | Quét: BR-M07-05, BR-M07-11, BR-M07-20, BR-M07-26 | Loại bỏ | — | Hằng số của các BR tương ứng, ràng buộc cửa sổ/gửi email/đề xuất, mốc cảnh báo do M01 cung cấp. |
-| 76 | 10 thông báo gần nhất / 20 thông báo mỗi lần tải | Quét: BR-M07-12 | Loại bỏ | — | Hằng số của BR-M07-12, số lượng tải danh sách. |
-| 77 | Đang nhận / Đã tắt | Quét: FR-M07-08.02, FR-M07-09.01 | Loại bỏ | — | Giá trị của PostNotificationSetting.state, ConversationNotificationSetting.state và ChatNotificationSetting.state. |
-| 78 | Số người theo dõi / số đang theo dõi | Quét: BR-M07-25 | Loại bỏ | — | Ngoài phạm vi module (M02), các số trên UserProfile được tính từ UserFollow/TopicFollow, M07 cung cấp quan hệ. |
-| 79 | Trạng thái thông báo toàn bộ Chat | Quét: FR-M07-09.03, FR-M07-09.04 (Q-01 B) | Thuộc tính | ChatNotificationSetting.state | T9, trạng thái của lớp cài đặt riêng được người dùng chọn, Đang nhận hoặc Đã tắt theo FR mục 5.12. |
-| 80 | Bản ghi người được đếm trong cửa sổ | Quét: FR-M07-02.20 (bước 3) | Lớp | UpvoteNotificationActor | Tách quan hệ n-n giữa cửa sổ và User đã được đếm, mỗi cặp có một bản ghi. |
-
-Tổng 80 dòng danh từ, gồm 27 dòng thành lớp, 23 dòng thành thuộc tính và 30 dòng bị loại. Lượt quét FR bổ sung 17 dòng, gồm 2 dòng cập nhật theo Q-01 B và tách quan hệ ở bước 3. Các danh từ chỉ vai trò tài khoản và loại thông báo được gộp theo đối tượng tương ứng, số liệu và mốc của những đối tượng khác nhau có dòng riêng.
+| 1 | hệ thống | Câu 1 | Loại bỏ | — | Trừu tượng: chỉ chính phần mềm |
+| 2 | thông báo / thông báo đã lưu | Câu 1 | Lớp | Notification | Đối tượng trung tâm của module: được tạo khi có sự kiện (FR-M07-02.01), được sửa khi đánh dấu đã đọc hoặc gộp upvote (FR-M07-06.01, FR-M07-02.04), giữ vô thời hạn (BR-M07-13); mỗi người nhận có thông báo riêng (TN:Thông báo); có trạng thái đã đọc riêng (mục Chuyển trạng thái của FR) |
+| 3 | người dùng / người dùng khác / người dùng đã đăng nhập / tài khoản | Câu 1 | Lớp | User | Lớp ngoài (M01): tài khoản; dùng tên User của EC-M01 |
+| 4 | sự kiện | Câu 1 | Loại bỏ | — | Hành động không lưu dấu vết: sự kiện do module khác phát sinh rồi báo cho M07 (TN:Sự kiện); M07 không lưu sự kiện, chỉ ghi loại sự kiện vào thông báo và email (dòng 31, 118) |
+| 5 | module / module khác / module phát sinh sự kiện | Câu 1 | Loại bỏ | — | Trừu tượng: chỉ một phần của chính hệ thống |
+| 6 | email / email thông báo | Câu 1 | Lớp | NotificationEmail | Mỗi email được ghi vào hàng đợi, được gửi ở lần quét sau và được gửi lại khi lỗi (FR-M07-04.01, FR-M07-04.02, FR-M07-04.09); có nhiều email phân biệt được, mỗi email có trạng thái gửi và số lần gửi lại riêng; FR gọi là "Email thông báo (trong hàng đợi)" |
+| 7 | hàng đợi email | Câu 1 | Loại bỏ | — | Trừu tượng: tập các email chưa gửi (TN:Hàng đợi email); chỉ có một hàng đợi, không có thông tin riêng; email nào đang chờ thể hiện bằng NotificationEmail.status |
+| 8 | quan hệ theo dõi | Câu 1 | Lớp | Follow | Được tạo và xóa riêng (FR-M07-01.01, FR-M07-01.08); có nhiều quan hệ phân biệt được; ghi người theo dõi, đối tượng theo dõi và thời điểm bắt đầu theo dõi (TN:Theo dõi); dùng tên Follow mà EC-M01, EC-M05 đã đặt tạm |
+| 9 | Topic | Câu 1 | Lớp | Topic | Lớp ngoài (M05): một loại đối tượng theo dõi; dùng tên Topic của EC-M05 |
+| 10 | cài đặt | Câu 1 | Loại bỏ | — | Chung chung: chỉ các cài đặt tắt thông báo, xét ở các dòng ngay sau |
+| 11 | tắt thông báo cho bài | Câu 1 | Loại bỏ | — | Chung chung: là quan hệ người dùng – bài viết đã tắt thông báo (TN:Tắt thông báo cho bài); ngoài hai đầu không có thông tin riêng (mục Dữ liệu nghiệp vụ của FR chỉ ghi người dùng, bài viết); ở bước 3 tách quan hệ n-n User – Post thành lớp liên kết MutedPost (mục 3.3) |
+| 12 | tắt thông báo cuộc trò chuyện | Câu 1 | Loại bỏ | — | Chung chung: là quan hệ thành viên – cuộc trò chuyện đã tắt thông báo (TN:Tắt thông báo cuộc trò chuyện); ngoài hai đầu không có thông tin riêng; ở bước 3 tách quan hệ n-n User – Conversation thành lớp liên kết MutedConversation (mục 3.3) |
+| 13 | tắt thông báo toàn bộ Chat / cài đặt tắt thông báo toàn bộ Chat | Câu 1 | Lớp | NotificationSetting | Cài đặt của một người dùng (TN:Tắt thông báo toàn bộ Chat); mục Dữ liệu nghiệp vụ của FR ghi là thực thể do M07 tạo, sửa (FR-M07-09.03, FR-M07-09.04), có hai trạng thái Đang nhận, Đã tắt (mục Chuyển trạng thái của FR). Tách thành lớp cài đặt riêng do M07 sở hữu, không bổ sung lên lớp User của M01 (trả lời Q-01) |
+| 14 | chức năng | Câu 2 | Loại bỏ | — | Trừu tượng |
+| 15 | User | Câu 2 | Lớp | User | Vai trò của người dùng có tài khoản; trong M07, User, Mod và Admin có cùng quyền (mục 4.3 của FR) nên M07 không đọc vai trò |
+| 16 | Mod | Câu 2 | Lớp | User | Vai trò của người dùng có tài khoản; xem dòng 15 |
+| 17 | Admin | Câu 2 | Lớp | User | Vai trò của người dùng có tài khoản; xem dòng 15. Việc Admin gửi đề xuất do M10 kiểm |
+| 18 | Guest | Câu 2 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu |
+| 19 | đối tượng theo dõi | Câu 3 | Loại bỏ | — | Chung chung: chỉ người dùng hoặc Topic (TN:Đối tượng theo dõi); việc quan hệ theo dõi trỏ tới người dùng hoặc Topic là quan hệ, xét ở bước 3 |
+| 20 | người theo dõi / người đang theo dõi | Câu 4 | Lớp | User | Vai trò của người dùng trong quan hệ theo dõi; quan hệ, xét ở bước 3 |
+| 21 | thời điểm bắt đầu theo dõi | Câu 4 | Thuộc tính | Follow.followedAt | Lúc người dùng bắt đầu theo dõi (TN:Thời điểm bắt đầu theo dõi, FR-M07-01.01); M02 dùng để xếp danh sách theo dõi |
+| 22 | trạng thái tài khoản | Câu 5 | Thuộc tính | User.status | Thông tin của tài khoản (M01) mà M07 đọc để từ chối theo dõi mới, chọn người nhận, chặn xem chuông và hiện tên người gây sự kiện (FR-M07-01.12, FR-M07-02.27, FR-M07-05.09, FR-M07-05.12) |
+| 23 | BANNED | Câu 5 | Loại bỏ | — | Giá trị của User.status |
+| 24 | người được theo dõi | Câu 5 | Lớp | User | Vai trò của người dùng trong quan hệ theo dõi; quan hệ, xét ở bước 3 |
+| 25 | DEACTIVATED | Câu 5 | Loại bỏ | — | Giá trị của User.status |
+| 26 | sự kiện có người theo dõi mới | Câu 6 | Loại bỏ | — | Giá trị của Notification.eventType (BR-M07-01) |
+| 27 | cặp người theo dõi và người được theo dõi | Câu 6 | Loại bỏ | — | Không lưu riêng: "cặp đã sinh sự kiện có người theo dõi mới" suy ra được từ Notification có eventType là có người theo dõi mới, người nhận là người được theo dõi và người gây sự kiện là người theo dõi; thông báo không bao giờ bị xóa (BR-M07-13) nên vẫn còn sau khi quan hệ theo dõi bị xóa (FR-M07-01.08, FR-M07-01.10, BR-M07-25) |
+| 28 | số người theo dõi | Câu 7 | Loại bỏ | — | Ngoài phạm vi module (M02): số người theo dõi của người dùng là Profile./followerCount của EC-M02, đếm từ Follow; M07 không hiện con số này, FR-M07-01.08 chỉ nêu hệ quả của việc xóa quan hệ theo dõi |
+| 29 | danh sách sự kiện thông báo | Câu 9 | Loại bỏ | — | Hằng số của BR-M07-01: tập giá trị của Notification.eventType |
+| 30 | người nhận | Câu 9 | Lớp | User | Vai trò theo ngữ cảnh của người dùng (TN:Người nhận); thông báo và email thuộc một người nhận là quan hệ, xét ở bước 3 |
+| 31 | sự kiện mà thông báo báo về / loại sự kiện | Câu 9 | Thuộc tính | Notification.eventType | Thông báo báo về đúng một sự kiện thuộc BR-M07-01 (FR-M07-02.01); mục Dữ liệu nghiệp vụ của FR gọi là loại sự kiện |
+| 32 | trạng thái chưa đọc / trạng thái đã đọc hoặc chưa đọc / trạng thái đã đọc của thông báo | Câu 9 | Thuộc tính | Notification.isRead | Trạng thái của một thông báo (TN:Đã đọc, chưa đọc; mục Chuyển trạng thái của FR) |
+| 33 | người gây sự kiện | Câu 9 | Lớp | User | Vai trò theo ngữ cảnh của người dùng (TN:Người gây sự kiện); thông báo ghi người gây sự kiện là quan hệ, xét ở bước 3; tên hiện theo trạng thái tài khoản lúc xem (FR-M07-05.12) nên không chụp lại tên |
+| 34 | nội dung liên quan / nội dung / nội dung liên quan để chuyển tới khi bấm | Câu 9 | Loại bỏ | — | Chung chung: tùy loại sự kiện là bài viết, bình luận, nhóm, báo cáo, cảnh cáo, ban, khiếu nại, đề xuất, badge hoặc danh hiệu (cột Quan hệ ở mục Dữ liệu nghiệp vụ của FR); mỗi đối tượng là một lớp ngoài, việc thông báo trỏ tới chúng là quan hệ, xét ở bước 3 |
+| 35 | thời điểm xảy ra sự kiện / thời điểm của thông báo / thời điểm tạo | Câu 9 | Thuộc tính | Notification.occurredAt | Do module phát sinh sự kiện cung cấp (FR-M07-02.02); hiện trên thông báo (FR-M07-05.04, BR-M07-22); mục Dữ liệu nghiệp vụ của FR gọi là thời điểm tạo |
+| 36 | DELETED | Câu 10 | Loại bỏ | — | Giá trị của User.status |
+| 37 | nhóm | Câu 10 | Lớp | Group | Lớp ngoài (M11): thông báo về sự kiện nhóm (được mời, yêu cầu tham gia, bị kick…) trỏ tới nhóm (BR-M07-01, mục Dữ liệu nghiệp vụ của FR); dùng tên Group mà EC-M03, EC-M06 đã đặt tạm |
+| 38 | Private | Câu 10 | Loại bỏ | — | Ngoài phạm vi module (M11): chế độ của nhóm; M07 không đọc chế độ mà hỏi M11 quyền xem nội dung (BR-M07-18) |
+| 39 | quyền xem | Câu 10 | Loại bỏ | — | Ngoài phạm vi module (M11, M03): quyền xem nội dung do module sở hữu nhóm và nội dung quyết (BR-M07-18, BR-M07-27); M07 không lưu |
+| 40 | bài viết | Câu 11 | Lớp | Post | Lớp ngoài (M03): nội dung liên quan của nhiều loại thông báo và là nơi người dùng tắt thông báo; dùng tên Post của EC-M03 |
+| 41 | bình luận mới, trả lời, upvote bài viết, upvote bình luận, nhắc tên (loại thông báo) | Câu 11 | Loại bỏ | — | Giá trị của Notification.eventType (BR-M07-01) |
+| 42 | bình luận | Câu 11 | Lớp | Comment | Lớp ngoài (M04): nội dung liên quan của thông báo trả lời, nhắc tên, upvote bình luận, bình luận bị ẩn; upvote được gộp theo từng bình luận (FR-M07-02.18); dùng tên Comment của EC-M04 |
+| 43 | thông báo khác về bài viết | Câu 11 | Loại bỏ | — | Chung chung: chỉ các loại thông báo về bài ngoài bình luận mới, trả lời, upvote (FR-M07-02.09); là giá trị của Notification.eventType |
+| 44 | upvote / lượt upvote | Câu 12 | Loại bỏ | — | Ngoài phạm vi module (M12): M07 nhận sự kiện upvote, bỏ upvote từ M12 (mục Giao tiếp của FR), không đọc hay ghi Upvote; mỗi lượt chỉ tạo hoặc cập nhật thông báo upvote, người upvote được đếm ghi ở thông báo (dòng 47) |
+| 45 | cửa sổ 5 phút / cửa sổ 5 phút đang mở | Câu 13 | Thuộc tính | Notification.isUpvoteWindowOpen | Cửa sổ của một thông báo upvote, bắt đầu ở thời điểm lượt upvote mở thông báo và dài 5 × 60 giây (TN:Cửa sổ 5 phút); điều các quy tắc cần là cửa sổ còn mở hay không (FR-M07-02.03, FR-M07-02.04); độ dài là hằng số của BR-M07-05 |
+| 46 | thông báo upvote | Câu 13 | Lớp | Notification | Một loại thông báo (eventType là upvote bài viết hoặc upvote bình luận): cùng người nhận, trạng thái đã đọc và vòng đời với thông báo khác; chỉ có thêm cửa sổ 5 phút và những người upvote đã được đếm |
+| 47 | người upvote / những người khác nhau đã upvote | Câu 13 | Lớp | User | Vai trò của người dùng; những người đã được đếm trong cửa sổ là quan hệ thông báo upvote – người dùng (mục Dữ liệu nghiệp vụ của FR), cần để không đếm một người hai lần (FR-M07-02.20); ở bước 3 tách quan hệ n-n Notification – User thành lớp liên kết CountedUpvoter (mục 3.3) |
+| 48 | tên người upvote / tên người gây sự kiện | Câu 13 | Thuộc tính | User.displayName | Thông tin của tài khoản (M01) mà M07 đọc lúc hiển thị để hiện tên người gây sự kiện (FR-M07-02.03, FR-M07-05.12) |
+| 49 | người upvote mới nhất | Câu 14 | Lớp | User | Vai trò: là người gây sự kiện của thông báo upvote đã gộp ("A" trong TN:Gộp upvote); quan hệ, xét ở bước 3 |
+| 50 | số người khác nhau còn lại trong cửa sổ 5 phút | Câu 14 | Thuộc tính | Notification.otherUpvoterCount | "N" trong "A và N người khác đã upvote…" (TN:Gộp upvote); số đếm tính ra từ những người upvote đã được đếm |
+| 51 | lần cập nhật cuối / thời điểm cập nhật cuối | Câu 14 | Thuộc tính | Notification.lastUpdatedAt | Chuông xếp thông báo theo lần cập nhật cuối (FR-M07-05.01, BR-M07-12); khác thời điểm xảy ra sự kiện ở thông báo upvote đã gộp |
+| 52 | bỏ upvote / việc bỏ upvote | Câu 15 | Loại bỏ | — | Hành động không lưu dấu vết: không làm đổi thông báo upvote (FR-M07-02.19) |
+| 53 | hiển thị công khai | Câu 16 | Loại bỏ | — | Ngoài phạm vi module (M03): M03 báo sự kiện bài lần đầu hiển thị công khai (TN:Hiển thị công khai, mục Giao tiếp của FR); M07 không đọc thời điểm này |
+| 54 | đăng ẩn danh | Câu 16 | Thuộc tính | Post.isAnonymous | Thông tin của bài viết mà M07 đọc để không tạo thông báo bài mới cho người theo dõi tác giả (FR-M07-02.22) |
+| 55 | thông báo bài mới / bài mới | Câu 16 | Loại bỏ | — | Giá trị của Notification.eventType ("người bạn theo dõi có bài mới", BR-M07-01, TN:Bài mới) |
+| 56 | tác giả bài viết | Câu 16 | Lớp | User | Vai trò của người dùng; quan hệ bài viết – tác giả do EC-M03 ghi, M07 đọc để tìm người theo dõi tác giả; không ghi quan hệ giữa hai lớp ngoài |
+| 57 | việc sửa, khôi phục bài viết | Câu 16 | Loại bỏ | — | Ngoài phạm vi module (M03): không sinh thông báo bài mới (FR-M07-02.23) |
+| 58 | xử lý khiếu nại được | Câu 17 | Loại bỏ | — | Chung chung: chỉ các loại sự kiện cảnh cáo, ban, bài bị Mod hoặc Admin gỡ, bài bị AI từ chối (FR-M07-02.13); đó là giá trị của Notification.eventType |
+| 59 | cảnh cáo | Câu 17 | Lớp | Warning | Lớp ngoài (M08): thông báo nhận cảnh cáo trỏ tới cảnh cáo (mục Dữ liệu nghiệp vụ của FR); tên tạm, chờ EC-M08 |
+| 60 | ban | Câu 17 | Lớp | Ban | Lớp ngoài (M08): thông báo ban, gỡ ban trỏ tới lần ban (mục Dữ liệu nghiệp vụ của FR); dùng tên Ban mà EC-M01 đã đặt tạm, chờ EC-M08 |
+| 61 | AI | Câu 17 | Loại bỏ | — | Ngoài phạm vi module (M08, M13): việc AI từ chối bài, ẩn bình luận, ra cảnh cáo do các module đó quyết (mục 5.14 của FR) |
+| 62 | đường dẫn khiếu nại | Câu 17 | Thuộc tính | Notification.appealLink | Được đưa vào thông báo về một xử lý khiếu nại được (FR-M07-02.13); M08 cung cấp (mục Giao tiếp của FR) |
+| 63 | khiếu nại / kết luận khiếu nại | Câu 17 | Lớp | Appeal | Lớp ngoài (M09): thông báo kết luận khiếu nại trỏ tới khiếu nại (BR-M07-01, mục Dữ liệu nghiệp vụ của FR); tên tạm, chờ EC-M09 |
+| 64 | đề xuất làm Mod / đề xuất làm Admin / đề xuất / đề xuất lại | Câu 18 | Lớp | Proposal | Lớp ngoài (M10): FR-M10 định nghĩa thực thể Đề xuất (loại, người được đề xuất, trạng thái), mỗi đề xuất có một thông báo; tên tạm, chờ EC-M10 |
+| 65 | tài khoản ADMIN gốc | Câu 18 | Loại bỏ | — | Ngoài phạm vi module (M10): dấu "gốc" của tài khoản do M10 quản lý; M07 không kiểm ai được gửi đề xuất |
+| 66 | người được đề xuất | Câu 18 | Lớp | User | Vai trò của người dùng; là người nhận của thông báo đề xuất; quan hệ đề xuất – người được đề xuất do EC-M10 ghi |
+| 67 | thông báo đề xuất | Câu 18 | Lớp | Notification | Một loại thông báo (eventType là đề xuất làm Mod hoặc đề xuất làm Admin): cùng thông tin và vòng đời với thông báo khác; chỉ có thêm việc trỏ tới đề xuất, xét ở bước 3 |
+| 68 | lựa chọn / lựa chọn đã chọn | Câu 18 | Thuộc tính | Proposal.status | Thông tin của đề xuất (M10): FR-M10 ghi trạng thái đề xuất Chưa trả lời, Đã chấp nhận, Đã từ chối, Hết hiệu lực; M07 chuyển lựa chọn cho M10 (FR-M07-02.15) và đọc để hiện trên thông báo (FR-M07-02.28). Xem Q-02 |
+| 69 | Chấp nhận, Từ chối | Câu 18 | Loại bỏ | — | Giá trị của Proposal.status (Đã chấp nhận, Đã từ chối) |
+| 70 | vai trò MOD, ADMIN | Câu 19 | Loại bỏ | — | Ngoài phạm vi module (M10): M10 đặt vai trò khi người được đề xuất chấp nhận (FR-M07-02.15) |
+| 71 | hạn của đề xuất | Câu 20 | Loại bỏ | — | Ngoài phạm vi module (M10): hạn 7 ngày do M10 tính (BR-M07-20); kết quả M07 đọc qua Proposal.status |
+| 72 | đã hết hạn | Câu 20 | Loại bỏ | — | Giá trị của Proposal.status (Hết hiệu lực theo FR-M10) |
+| 73 | loại đề xuất | Câu 20 | Loại bỏ | — | Ngoài phạm vi module (M10): loại đề xuất và việc đề xuất mới cùng loại làm đề xuất cũ hết hiệu lực do M10 ghi; M07 đọc kết quả qua Proposal.status |
+| 74 | thiết bị đang mở ứng dụng / thiết bị | Câu 21 | Loại bỏ | — | Ngoài phạm vi module (M01): M07 không lưu thiết bị; việc đẩy thông báo theo kiểu cố gắng, không thử lại và không lưu dấu vết (TN:Đẩy thông báo, FR-M07-03.03) |
+| 75 | ứng dụng | Câu 21 | Loại bỏ | — | Trừu tượng: chỉ chính phần mềm |
+| 76 | thông báo chưa đọc | Câu 21 | Loại bỏ | — | Giá trị của Notification.isRead |
+| 77 | nhóm sự kiện có email | Câu 22 | Loại bỏ | — | Hằng số của BR-M07-03: tập giá trị của NotificationEmail.eventType |
+| 78 | địa chỉ email | Câu 22 | Thuộc tính | User.email | Thông tin của tài khoản (M01) mà M07 đọc để gửi email (FR-M07-04.01, mục Dữ liệu nghiệp vụ của FR) |
+| 79 | email về ban | Câu 22 | Loại bỏ | — | Giá trị của NotificationEmail.eventType |
+| 80 | đường dẫn tới trang khiếu nại | Câu 22 | Thuộc tính | NotificationEmail.appealLink | Được đưa vào email về ban (FR-M07-04.08) |
+| 81 | trang khiếu nại | Câu 22 | Loại bỏ | — | Ngoài phạm vi module (M09) |
+| 82 | lần quét | Câu 23 | Loại bỏ | — | Hành động không lưu dấu vết: quét định kỳ mỗi 1 phút (hằng số của BR-M07-11) không được ghi lại; kết quả của mỗi lần quét nằm ở NotificationEmail.status và NotificationEmail.retryCount |
+| 83 | email chưa gửi | Câu 23 | Loại bỏ | — | Giá trị của NotificationEmail.status |
+| 84 | thao tác gây ra sự kiện | Câu 23 | Loại bỏ | — | Ngoài phạm vi module: thao tác của module phát sinh sự kiện; M07 chỉ không bắt thao tác đó chờ (FR-M07-04.03) |
+| 85 | số lần gửi lại cho phép | Câu 23 | Loại bỏ | — | Hằng số của BR-M07-26 (3 lần); ghi vào ràng buộc của NotificationEmail.retryCount |
+| 86 | cảnh báo trước khi tự xóa | Câu 24 | Loại bỏ | — | Giá trị của NotificationEmail.eventType; thời điểm gửi do M01 quyết (BR-M07-04) |
+| 87 | chuông thông báo | Câu 25 | Loại bỏ | — | Giao diện (TN:Chuông thông báo) |
+| 88 | số thông báo chưa đọc | Câu 25 | Thuộc tính | User.unreadNotificationCount | Số đếm tính ra trên một người dùng, hiện trên chuông (FR-M07-05.10, BR-M07-12); M07 định nghĩa nên M07 bổ sung trên lớp của M01 |
+| 89 | thông báo gần nhất | Câu 25 | Loại bỏ | — | Giao diện: các thông báo có lastUpdatedAt mới nhất; số 10 là hằng số của BR-M07-12 |
+| 90 | trang Thông báo | Câu 25 | Loại bỏ | — | Giao diện (TN:Trang Thông báo); tải 20 thông báo mỗi lần cuộn là hằng số của BR-M07-12 |
+| 91 | tin nhắn / tin nhắn mới | Câu 29 | Loại bỏ | — | Ngoài phạm vi module (M16): tin nhắn không tạo thông báo (FR-M07-02.10); M07 không lưu và không đọc thuộc tính nào của tin nhắn |
+| 92 | trạng thái đã đọc của tin nhắn | Câu 29 | Loại bỏ | — | Ngoài phạm vi module (M16): "Đánh dấu tất cả đã đọc" không đổi nó (FR-M07-06.05) |
+| 93 | cuộc trò chuyện | Câu 30 | Lớp | Conversation | Lớp ngoài (M16): thành viên tắt thông báo theo từng cuộc trò chuyện (FR-M07-09.01, mục Dữ liệu nghiệp vụ của FR); tên tạm, chờ EC-M16 |
+| 94 | cuộc trò chuyện 1-1, nhóm chat | Câu 30 | Loại bỏ | — | Ngoài phạm vi module (M16): loại cuộc trò chuyện do M16 ghi; tắt thông báo áp như nhau cho hai loại |
+| 95 | biểu tượng Tin nhắn | Câu 31 | Loại bỏ | — | Giao diện (TN:Biểu tượng Tin nhắn) |
+| 96 | số cuộc trò chuyện có tin chưa đọc | Câu 31 | Loại bỏ | — | Ngoài phạm vi module (M16): tính hoàn toàn từ dữ liệu M16 (mốc đã đọc, tin người dùng thấy được, FR-M07-07.02), kể cả cuộc đã tắt thông báo (FR-M07-09.07), nên không dùng dữ liệu nào của M07; M07 chỉ hiện con số |
+| 97 | mốc đã đọc | Câu 31 | Loại bỏ | — | Ngoài phạm vi module (M16): mốc đã đọc của thành viên cuộc trò chuyện do M16 ghi |
+| 98 | tin chưa đọc / tin người dùng thấy được | Câu 31 | Loại bỏ | — | Ngoài phạm vi module (M16) |
+| 99 | hộp thư Chat | Câu 31 | Loại bỏ | — | Ngoài phạm vi module (M16) |
+| 100 | popup tin nhắn | Câu 32 | Loại bỏ | — | Giao diện (TN:Popup tin nhắn): hiện ngay khi có tin nhắn, không lưu |
+| 101 | thành viên cuộc trò chuyện / thành viên | Câu 32 | Lớp | User | Vai trò theo ngữ cảnh của người dùng (mục 4.2 của FR); tư cách thành viên do M16 ghi; việc thành viên tắt thông báo một cuộc trò chuyện là quan hệ, xét ở bước 3 |
+| 102 | cuộc trò chuyện đang xem | Câu 32 | Loại bỏ | — | Ngoài phạm vi module (M16): M16 cho biết cuộc người dùng đang xem (mục Giao tiếp của FR); không lưu |
+| 103 | ghi nhận | Câu 33 | Loại bỏ | — | Chung chung: chỉ bản ghi tắt thông báo cho bài hoặc tắt thông báo cuộc trò chuyện (dòng 11, 12) |
+| 104 | trạng thái tắt | Câu 35 | Loại bỏ | — | Trừu tượng: Đã tắt của một cuộc trò chuyện là việc có quan hệ tắt thông báo cuộc trò chuyện (dòng 12) |
+| 105 | kết quả báo cáo / báo cáo | Quét: BR-M07-01 | Lớp | Report | Lớp ngoài (M08): thông báo kết quả báo cáo trỏ tới báo cáo (mục Dữ liệu nghiệp vụ của FR); tên tạm, chờ EC-M08 |
+| 106 | badge / mốc điểm | Quét: BR-M07-01 | Lớp | Badge | Lớp ngoài (M12): thông báo đạt badge trỏ tới badge (mục Dữ liệu nghiệp vụ của FR); "mốc điểm" chính là đạt badge (BR-M07-01); tên tạm, chờ EC-M12 |
+| 107 | danh hiệu / danh hiệu Ngôi sao tuần | Quét: BR-M07-01 | Lớp | EarnedTitle | Lớp ngoài (M12): thông báo đạt danh hiệu "Ngôi sao tuần" trỏ tới lần đạt danh hiệu (mục Dữ liệu nghiệp vụ của FR); EC-M12 gọi là EarnedTitle (MD-01) |
+| 108 | link mời | Quét: BR-M07-01 | Thuộc tính | Group.inviteLink | Thông tin của nhóm (M11): mỗi nhóm có một link mời chung (FR-M11, thuật ngữ Lời mời, link mời); thông báo "được mời" kèm link này (BR-M07-01) |
+| 109 | các sự kiện còn lại của BR-M07-01 (bài được đăng, bị từ chối, bị ẩn, poll kết thúc, bình luận bị ẩn, nhận cảnh cáo, gỡ ban, các sự kiện nhóm, đạt badge, đạt danh hiệu…) | Quét: BR-M07-01 | Loại bỏ | — | Giá trị của Notification.eventType |
+| 110 | Owner, Group Mod | Quét: BR-M07-01 | Loại bỏ | — | Ngoài phạm vi module (M11): vai trò trong nhóm; "được bổ nhiệm Group Mod", "trở thành Owner" là giá trị của Notification.eventType |
+| 111 | số lần gửi lại | Quét: BR-M07-26 | Thuộc tính | NotificationEmail.retryCount | Cần để dừng gửi sau 3 lần gửi lại (FR-M07-04.09, FR-M07-04.10); mục Dữ liệu nghiệp vụ của FR gọi là số lần đã gửi lại |
+| 112 | UTC, giờ Asia/Ho_Chi_Minh | Quét: BR-M07-22 | Loại bỏ | — | Hằng số của BR-M07-22; ghi vào ràng buộc của Notification.occurredAt |
+| 113 | Chưa đọc, Đã đọc | Quét: Chuyển trạng thái | Loại bỏ | — | Giá trị của Notification.isRead |
+| 114 | Đang nhận, Đã tắt | Quét: Chuyển trạng thái | Loại bỏ | — | Giá trị của NotificationSetting.isAllChatMuted; với tắt thông báo cho bài và tắt thông báo cuộc trò chuyện, Đã tắt là việc có quan hệ tắt thông báo (dòng 11, 12) |
+| 115 | bài viết bị xóa, bị ẩn | Quét: FR-M07-05.13 | Thuộc tính | Post.isPubliclyVisible | Thông tin của bài viết (M03) mà M07 đọc khi người nhận bấm thông báo, để biết nội dung liên quan còn xem được không (BR-M07-27) |
+| 116 | bình luận bị xóa, bị ẩn | Quét: FR-M07-05.13 | Thuộc tính | Comment.isVisible | Thông tin của bình luận (M04) mà M07 đọc khi người nhận bấm thông báo, để biết nội dung liên quan còn xem được không (BR-M07-27) |
+| 117 | việc email đã gửi hay chưa | Quét: FR-M07-04.02 | Thuộc tính | NotificationEmail.status | Lần quét chỉ gửi email chưa gửi (FR-M07-04.02) và dừng gửi email lỗi quá số lần (FR-M07-04.10); mục Dữ liệu nghiệp vụ của FR ghi "đã gửi hay chưa" |
+| 118 | loại sự kiện của email | Quét: Dữ liệu nghiệp vụ | Thuộc tính | NotificationEmail.eventType | Email sinh từ một sự kiện thuộc nhóm có email (FR-M07-04.01, BR-M07-03); mục Dữ liệu nghiệp vụ của FR nêu loại sự kiện |
+| 119 | thời điểm vào hàng đợi | Quét: Dữ liệu nghiệp vụ | Thuộc tính | NotificationEmail.queuedAt | Mục Dữ liệu nghiệp vụ của FR nêu; ghi khi email vào hàng đợi (FR-M07-04.01) |
+| 120 | thời điểm mở cửa sổ 5 phút | Quét: Dữ liệu nghiệp vụ | Loại bỏ | — | Không lưu riêng: là Notification.occurredAt của thông báo upvote, vì lượt upvote mở cửa sổ cũng là lượt tạo thông báo (FR-M07-02.03) và cửa sổ không kéo dài theo lượt sau (BR-M07-05) |
+| 121 | trạng thái bật hoặc tắt của cài đặt | Quét: Dữ liệu nghiệp vụ | Thuộc tính | NotificationSetting.isAllChatMuted | Giá trị duy nhất của cài đặt tắt thông báo toàn bộ Chat (mục Dữ liệu nghiệp vụ của FR: "người dùng; bật hoặc tắt"; FR-M07-09.03, FR-M07-09.04) |
 
 ### 2.2 Lớp
 
-| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Nguồn |
-|---|---|---|---|---|---|
-| Notification | Thông báo | Thực thể | M07 | Bản ghi riêng cho mỗi người nhận, trạng thái và mốc cập nhật, dùng tên các EC trước. | FR-M07-02.01, FR-M07-03.01, FR-M07-05.07 |
-| UserFollow | Lượt theo dõi người dùng | Liên kết | M07 | Quan hệ theo dõi tài khoản kèm thời điểm, dùng tên EC-M01/02/06. | FR-M07-01.01, FR-M07-01.08 |
-| TopicFollow | Lượt theo dõi Topic | Liên kết | M07 | Quan hệ theo dõi Topic kèm thời điểm, dùng tên EC-M01/05/06. | FR-M07-01.01, FR-M07-01.08 |
-| NotificationEmail | Email thông báo | Thực thể | M07 | Bản ghi hàng đợi gửi email và bộ đếm gửi lại. | FR-M07-04.01, FR-M07-04.02, FR-M07-04.09 |
-| UpvoteNotificationWindow | Cửa sổ gộp upvote | Thực thể | M07 | Ngữ cảnh gộp theo thông báo/đối tượng và tập người đã được đếm. | FR-M07-02.03, FR-M07-02.04, FR-M07-02.20 |
-| PostNotificationSetting | Cài đặt thông báo bài | Liên kết | M07 | Trạng thái nhận thông báo của người dùng trên bài. | FR-M07-08.02, FR-M07-08.03 |
-| ConversationNotificationSetting | Cài đặt thông báo cuộc trò chuyện | Liên kết | M07 | Trạng thái nhận tin mới của thành viên trên cuộc trò chuyện. | FR-M07-09.01, FR-M07-09.02, FR-M07-09.08 |
-| User | Tài khoản | Thực thể | M01 | Các vai trò người nhận/gây sự kiện/theo dõi, dùng EC-M01. M07 bổ sung hai số liệu dẫn xuất theo người dùng, cài đặt toàn bộ Chat thuộc ChatNotificationSetting. | FR-M07-02.02, FR-M07-05.10, FR-M07-09.03 |
-| Post | Bài viết | Thực thể | M03 | Đối tượng thông báo và cài đặt tắt, dùng EC-M03. | FR-M07-02.03, FR-M07-08.02 |
-| Comment | Bình luận | Thực thể | M04 | Đối tượng thông báo và gộp upvote, dùng EC-M04. | FR-M07-02.03, FR-M07-02.08 |
-| Topic | Topic | Thực thể | M05 | Đối tượng theo dõi, dùng EC-M05. | FR-M07-01.01 |
-| Poll | Poll | Thực thể | M03 | Đối tượng sự kiện poll kết thúc, dùng EC-M03. | BR-M07-01 |
-| Mention | Lượt nhắc tên | Thực thể | M01 | Sự kiện nhắc tên do M01 cung cấp, dùng EC-M01. | FR-M07-02.07, BR-M07-06 |
-| Report | Báo cáo | Thực thể | M08 | Kết quả báo cáo theo sự kiện nguồn, tên từ EC-M03/04, chờ EC-M08. | FR-M07-02.02, BR-M07-01 |
-| Warning | Cảnh cáo | Thực thể | M08 | Đối tượng xử lý nguồn, tên tạm chờ EC-M08. | FR-M07-02.13, BR-M07-01 |
-| Ban | Ban | Thực thể | M08 | Đối tượng ban/gỡ ban, tên từ EC-M01, chờ EC-M08. | FR-M07-02.13, FR-M07-04.08 |
-| Appeal | Khiếu nại | Thực thể | M09 | Kết luận khiếu nại và luồng khiếu nại do M09 cung cấp, tên dùng lại, chờ EC-M09. | FR-M07-02.13, BR-M07-01 |
-| Group | Nhóm | Thực thể | M11 | Ngữ cảnh sự kiện và quyền xem, tên dùng lại, chờ EC-M11. | FR-M07-02.11, BR-M07-01 |
-| GroupMember | Thành viên nhóm | Thực thể | M11 | Tư cách và quyền xem nhóm Private, tên dùng lại, chờ EC-M11. | FR-M07-02.11, BR-M07-18 |
-| Badge | Huy hiệu | Thực thể | M12 | Đối tượng sự kiện đạt badge, tên từ EC-M02, chờ EC-M12. | BR-M07-01 |
-| WeeklyStarAward | Danh hiệu Ngôi sao tuần đã đạt | Thực thể | M12 | Danh hiệu đạt được theo sự kiện nguồn, tên từ EC-M02, chờ EC-M12. | BR-M07-01 |
-| RoleProposal | Đề xuất vai trò | Thực thể | M10 | Đề xuất và phản hồi do M10 quản lý, tên tạm chờ EC-M10. | FR-M07-02.14, FR-M07-02.15, FR-M07-02.31 |
-| Conversation | Cuộc trò chuyện | Thực thể | M16 | Ngữ cảnh tin chưa đọc và cài đặt tắt, tên từ EC-M02, chờ EC-M16. | FR-M07-07.02, FR-M07-09.01 |
-| ConversationMember | Thành viên cuộc trò chuyện | Thực thể | M16 | Tư cách thành viên, mốc đọc và quyền thấy tin M16, tên tạm chờ EC-M16. | FR-M07-07.02, FR-M07-09.05, FR-M07-09.08 |
-| Message | Tin nhắn | Thực thể | M16 | Dữ liệu tin mới M16 cung cấp, tên từ EC-M01, chờ EC-M16. | FR-M07-07.05 |
-| ChatNotificationSetting | Cài đặt thông báo toàn bộ Chat | Thực thể | M07 | Lớp riêng theo Q-01 B, giữ trạng thái áp dụng cho người dùng. | FR-M07-09.03, FR-M07-09.04, BR-M07-08 |
-| UpvoteNotificationActor | Người được đếm trong cửa sổ upvote | Liên kết | M07 | Một cặp cửa sổ–User được đếm một lần, giữ căn cứ hiển thị thông báo gộp. | FR-M07-02.04, FR-M07-02.19, FR-M07-02.20 |
+<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (Mxx của tài liệu này, hoặc Myy với lớp ngoài).
+     Thuộc tính: tên mọi thuộc tính của lớp ở mục 2.3, ngăn bởi dấu phẩy, thuộc tính dẫn xuất có "/" phía trước;
+     để người đọc thấy lớp và thuộc tính trên cùng một dòng. Lớp chưa có thuộc tính ghi "—". -->
 
-Có 9 lớp M07 và 18 lớp ngoài. UserFollow, TopicFollow và Notification dùng tên đã được các module trước tham chiếu. Bước 3 xác định 5 lớp Liên kết, gồm các bản ghi Follow, các cài đặt theo cặp và UpvoteNotificationActor.
-
-UpvoteNotificationWindow là đề xuất biểu diễn ngữ cảnh gộp có mốc mở và tập User đã được đếm. Các giá trị đếm của cửa sổ được tính từ tập đã ghi nhận theo FR-M07-02.19/02.20, theo yêu cầu giữ thông báo khi người dùng rút upvote. Đây là dữ liệu riêng của ngữ cảnh thông báo.
-
-RoleProposal, Warning và ConversationMember là tên tạm mới, chờ module M10, M08 và M16 xác nhận khi có EC tương ứng. Các lớp ngoài khác của module chưa có EC dùng lại tên đã được các EC trước tham chiếu.
+| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
+|---|---|---|---|---|---|---|
+| Notification | Thông báo | Thực thể | M07 | Bản ghi báo cho một người nhận về một sự kiện, hiện ở chuông và trang Thông báo; gồm cả thông báo upvote đã gộp và thông báo đề xuất | eventType, isRead, occurredAt, lastUpdatedAt, appealLink, /isUpvoteWindowOpen, /otherUpvoterCount | FR-M07-02, FR-M07-05, FR-M07-06 |
+| Follow | Lượt theo dõi | Thực thể | M07 | Quan hệ theo dõi giữa một người dùng (người theo dõi) và một đối tượng theo dõi là người dùng khác hoặc Topic | followedAt | FR-M07-01 |
+| NotificationEmail | Email thông báo | Thực thể | M07 | Một email cho một người nhận về một sự kiện thuộc nhóm có email; nằm trong hàng đợi email tới khi gửi được hoặc bị dừng gửi | eventType, queuedAt, status, retryCount, appealLink | FR-M07-04 |
+| NotificationSetting | Cài đặt thông báo | Thực thể | M07 | Cài đặt thông báo của một người dùng; theo FR hiện chỉ có cài đặt tắt thông báo toàn bộ Chat | isAllChatMuted | FR-M07-09.03, FR-M07-09.04 |
+| CountedUpvoter | Người upvote đã được đếm | Liên kết | M07 | Một người dùng đã được đếm trong cửa sổ 5 phút của một thông báo upvote; mỗi cặp thông báo – người dùng có nhiều nhất một | — | FR-M07-02.04, FR-M07-02.20 |
+| MutedPost | Tắt thông báo cho bài | Liên kết | M07 | Một bài viết mà một người dùng đã tắt thông báo; có khi người dùng bật công tắc, bị bỏ khi người dùng tắt công tắc | — | FR-M07-08.02, FR-M07-08.03 |
+| MutedConversation | Tắt thông báo cuộc trò chuyện | Liên kết | M07 | Một cuộc trò chuyện mà một thành viên đã tắt thông báo; có khi thành viên tắt thông báo, bị bỏ khi bật lại hoặc khi rời, bị xóa khỏi nhóm chat | — | FR-M07-09.01, FR-M07-09.02, FR-M07-09.08 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Người nhận, người gây sự kiện, người theo dõi, người được theo dõi, thành viên cuộc trò chuyện; chủ của cài đặt thông báo | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M07-01.01, FR-M07-02.01, FR-M07-04.01, FR-M07-09.03 |
+| Topic | Topic | Thực thể | M05 | Một loại đối tượng theo dõi | name, deletedAt | FR-M07-01.01 |
+| Post | Bài viết | Thực thể | M03 | Nội dung liên quan của thông báo về bài viết; bài mà người dùng tắt thông báo | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M07-02.08, FR-M07-02.21, FR-M07-08.02 |
+| Comment | Bình luận | Thực thể | M04 | Nội dung liên quan của thông báo về bình luận; upvote được gộp theo từng bình luận | content, publishedAt, editedAt, modState, deletedAt, /isDeleted, /isEdited, /isVisible, /upvoteCount, scannedAt, /isScannedCurrent, /replyRate, isRemovedFromGroup, isPointsDeducted | FR-M07-02.03, FR-M07-02.18 |
+| Group | Nhóm | Thực thể | M11 | Nội dung liên quan của thông báo về sự kiện nhóm | name, description, privacy, joinQuestion, isPreApprovalOn, isAnonymousOn, createdAt, isDeleted, modState, inviteLink, /isInstantJoin | BR-M07-01, FR-M07-02.11 |
+| Report | Báo cáo | Thực thể | M08 | Nội dung liên quan của thông báo kết quả báo cáo | reason, description, isAiCreated, scanScore, /status, /conclusion, /concentrationIndex, reportedAt | BR-M07-01 |
+| Warning | Cảnh cáo | Thực thể | M08 | Nội dung liên quan của thông báo nhận cảnh cáo | reason, issuedAt, isIssuedByAi, status, levelAfter | BR-M07-01, FR-M07-02.13 |
+| Ban | Lần ban | Thực thể | M08 | Nội dung liên quan của thông báo ban, gỡ ban | kind, duration, startedAt, /endsAt, reason, status, /appealDeadline | BR-M07-01, FR-M07-02.13 |
+| Appeal | Khiếu nại | Thực thể | M09 | Nội dung liên quan của thông báo kết luận khiếu nại | type, explanation, submittedAt, status, lastHolderActionAt, conclusion, conclusionReason, concludedAt, /roleAtAction | BR-M07-01 |
+| Proposal | Đề xuất | Thực thể | M10 | Đề xuất làm Mod hoặc làm Admin mà thông báo đề xuất trỏ tới | type, sentAt, status | FR-M07-02.14, FR-M07-02.15 |
+| Badge | Huy hiệu | Thực thể | M12 | Nội dung liên quan của thông báo đạt badge | name, threshold | BR-M07-01 |
+| EarnedTitle | Danh hiệu đã đạt | Thực thể | M12 | Lần đạt danh hiệu "Ngôi sao tuần"; nội dung liên quan của thông báo đạt danh hiệu | week | BR-M07-01 |
+| Conversation | Cuộc trò chuyện | Thực thể | M16 | Cuộc trò chuyện 1-1 hoặc nhóm chat mà thành viên tắt thông báo | type, name, isApprovalOn, inviteLink | FR-M07-09.01 |
 
 ### 2.3 Thuộc tính
 
-| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Ràng buộc nguồn nêu | Nguồn |
-|---|---|---|---|---|---|
-| Notification | kind | Loại sự kiện | Lưu | Loại sự kiện sinh thông báo theo BR-M07-01, tin nhắn xử lý trong luồng M16. | FR-M07-02.01, BR-M07-01 |
-| Notification | createdAt | Thời điểm tạo thông báo | Lưu | Mốc ban đầu nêu ở dữ liệu mục 5.11, dùng thời điểm sự kiện do module nguồn cung cấp theo FR-M07-02.02. Lưu UTC, hiển thị Asia/Ho_Chi_Minh. | FR-M07-02.01, FR-M07-02.02, BR-M07-22 |
-| Notification | updatedAt | Thời điểm cập nhật cuối | Lưu | Dùng xếp thông báo mới nhất trước. Gộp thêm upvote cập nhật và đưa thông báo lên đầu theo FR-M07-02.04. | FR-M07-02.04, FR-M07-05.01, BR-M07-12 |
-| Notification | readState | Trạng thái đọc | Lưu | Chưa đọc khi tạo, Đã đọc khi bấm hoặc đánh dấu tất cả. Gộp thêm upvote chuyển về Chưa đọc, theo mục 5.12. | FR-M07-02.01, FR-M07-02.04, FR-M07-06.01, FR-M07-06.03 |
-| Notification | appealUrl | Đường dẫn khiếu nại | Lưu | Có với sự kiện xử lý khiếu nại được theo FR-M07-02.13, dẫn tới luồng khiếu nại do module nguồn cung cấp. | FR-M07-02.13 |
-| Notification | proposalResponse | Lựa chọn đề xuất đã trả lời | Dẫn xuất | Chiếu lựa chọn Chấp nhận/Từ chối do M10 xử lý để hiện trên thông báo. Quyền chọn dựa vào trạng thái còn hiệu lực/hết hạn/bị thay của RoleProposal, BR-M07-20. | FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.31, FR-M07-02.32 |
-| UserFollow | followedAt | Thời điểm bắt đầu theo dõi người dùng | Lưu | Ghi khi tạo quan hệ theo dõi, xóa quan hệ khi bỏ theo dõi. Tài khoản BANNED/DEACTIVATED giữ quan hệ đã có. | FR-M07-01.01, FR-M07-01.08, FR-M07-01.13 |
-| TopicFollow | followedAt | Thời điểm bắt đầu theo dõi Topic | Lưu | Ghi khi tạo quan hệ theo dõi Topic, dùng cho danh sách của M02. M05 xử lý chuyển/bỏ khi gộp/xóa Topic. | FR-M07-01.01, FR-M07-01.08 |
-| NotificationEmail | kind | Loại sự kiện email | Lưu | Mật khẩu đã đổi, liên kết Google, cảnh báo trước tự xóa, ban, gỡ ban, kết luận khiếu nại ban theo BR-M07-03/04. | FR-M07-04.01, BR-M07-03, BR-M07-04 |
-| NotificationEmail | recipientEmail | Địa chỉ email người nhận | Lưu | Đích gửi trong bản ghi hàng đợi tại mục 5.11, dùng địa chỉ email tài khoản do M01 cung cấp. | FR-M07-04.01 |
-| NotificationEmail | queuedAt | Thời điểm vào hàng đợi | Lưu | Mốc nêu trong dữ liệu mục 5.11, email được ghi khi sự kiện thuộc nhóm có email xảy ra. | FR-M07-04.01, BR-M07-11 |
-| NotificationEmail | sent | Đã gửi email | Lưu | Đã gửi hay chưa theo dữ liệu mục 5.11. Lần quét gửi các email chưa gửi, thất bại được giữ để gửi lại theo FR-M07-04.09. | FR-M07-04.02, FR-M07-04.09 |
-| NotificationEmail | retryCount | Số lần đã gửi lại | Lưu | Từ 0 đến 3 lần gửi lại, lần gửi ban đầu là lượt riêng. Lỗi sau 3 lần gửi lại thì dừng theo BR-M07-26. | FR-M07-04.09, FR-M07-04.10, BR-M07-26 |
-| NotificationEmail | appealUrl | Đường dẫn khiếu nại ban | Lưu | Email về ban phải có đường dẫn tới trang khiếu nại, có thể mở luồng tạo khiếu nại theo module nguồn. | FR-M07-04.08 |
-| UpvoteNotificationWindow | openedAt | Thời điểm mở cửa sổ | Lưu | Mốc lượt upvote đầu mở thông báo theo BR-M07-05, riêng từng bài hoặc bình luận. | FR-M07-02.03, FR-M07-02.18, BR-M07-05 |
-| UpvoteNotificationWindow | closesAt | Thời điểm kết thúc cửa sổ | Dẫn xuất | openedAt cộng 5 × 60 giây, mốc cố định của cửa sổ theo BR-M07-05. | BR-M07-05 |
-| UpvoteNotificationWindow | actorCount | Số người đã được đếm | Dẫn xuất | Đếm tập User khác nhau được ghi nhận trong cửa sổ. Việc rút upvote giữ nguyên thông báo, người upvote lại trong cửa sổ được đếm một lần. | FR-M07-02.04, FR-M07-02.19, FR-M07-02.20, BR-M07-05 |
-| UpvoteNotificationWindow | otherActorCount | Số người khác | Dẫn xuất | actorCount trừ 1 khi thông báo nêu người upvote mới nhất theo BR-M07-05, cửa sổ đã mở có ít nhất một người. | FR-M07-02.04, BR-M07-05 |
-| PostNotificationSetting | state | Trạng thái nhận thông báo bài | Lưu | Đang nhận hoặc Đã tắt theo mục 5.12. Áp theo từng người dùng và bài, các loại chịu cài đặt theo BR-M07-07. | FR-M07-08.02, FR-M07-08.03, BR-M07-07 |
-| ConversationNotificationSetting | state | Trạng thái nhận thông báo cuộc trò chuyện | Lưu | Đang nhận hoặc Đã tắt, chỉ thành viên thay đổi. Rời/bị xóa khỏi nhóm chat làm bỏ cài đặt, vào lại bắt đầu Đang nhận. | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.08 |
-| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Phần M07 bổ sung. Đếm Notification của người nhận có readState Chưa đọc theo FR-M07-05.10. | FR-M07-05.10 |
-| User | unreadConversationCount | Số cuộc trò chuyện có tin chưa đọc | Dẫn xuất | Phần M07 bổ sung. Đếm các Conversation có tin người dùng thấy được và chưa đọc theo mốc M16. Tính cả cuộc đã tắt thông báo. | FR-M07-07.02, FR-M07-09.07, BR-M07-02 |
-| ChatNotificationSetting | state | Trạng thái thông báo toàn bộ Chat | Lưu | Đang nhận hoặc Đã tắt theo mục 5.12. Đã tắt áp mọi cuộc trò chuyện, Đang nhận áp cài đặt riêng của từng cuộc. Lớp riêng theo Q-01 B. | FR-M07-09.03, FR-M07-09.04, BR-M07-08 |
+<!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
+     Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
+     Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
+     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
+             — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
+     Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
+     Ghi chú: bắt buộc với Đề xuất (vì sao cần) và Tham chiếu (module này dùng nó làm gì). -->
 
-Có 23 thuộc tính, gồm 17 thuộc tính Lưu và 6 thuộc tính Dẫn xuất. Trong đó 21 thuộc tính nằm trên các lớp M07, 2 thuộc tính dẫn xuất nằm trên User là phần M07 bổ sung theo FR-M07-05.10/07.02. ChatNotificationSetting.state đã thay cho đề xuất User.chatMuted theo Q-01 B.
-
-Notification.createdAt biểu diễn mốc ban đầu của thông báo, dùng thời điểm nguồn theo FR-M07-02.02 và tên dữ liệu thời điểm tạo ở mục 5.11. updatedAt phục vụ xếp thông báo theo lần cập nhật cuối. Quy tắc proposalResponse thể hiện phản hồi từ RoleProposal M10 trên thông báo. Các trạng thái hiệu lực của đề xuất được đọc từ module sở hữu.
-
-Tập người đã được đếm được biểu diễn qua UpvoteNotificationActor, người upvote mới nhất để hiện tên là vai trò người gây sự kiện của Notification ở bước 3. Post, Comment, nội dung sự kiện và người nhận cũng được xét theo đối tượng tham chiếu. Các URL khiếu nại biểu diễn đường dẫn tới luồng nghiệp vụ theo nguồn, có thể dẫn tới thao tác khiếu nại từ thông báo/email.
-
-Người dùng chọn Q-01 B, cài đặt toàn bộ Chat đã được biểu diễn bằng lớp ChatNotificationSetting riêng có state Đang nhận hoặc Đã tắt. Quan hệ với User được xét ở bước 3.
+| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Căn cứ | Ràng buộc nguồn nêu | Nguồn | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| Notification | eventType | Loại sự kiện | Lưu | Nguồn nêu | Một trong các sự kiện của BR-M07-01: mật khẩu đã đổi; đã liên kết Google; có người theo dõi mới; người bạn theo dõi có bài mới; bài được đăng; bài bị từ chối; bài bị ẩn; poll kết thúc; upvote bài viết; upvote bình luận; bình luận mới; trả lời; nhắc tên; bình luận của bạn đã bị ẩn; kết quả báo cáo; nhận cảnh cáo; ban; gỡ ban; kết luận khiếu nại về ban, về bài viết, về cảnh cáo; nhóm: được mời, có yêu cầu tham gia mới, yêu cầu được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bài hoặc bình luận bị gỡ khỏi nhóm; đạt badge; đạt danh hiệu "Ngôi sao tuần"; đề xuất làm Mod; đề xuất làm Admin. Không có tin nhắn (FR-M07-02.10), không có cảnh báo trước khi tự xóa (FR-M07-04.06), không có các trường hợp ở BR-M07-21 | FR-M07-02.01, BR-M07-01 | Quyết định nội dung hiển thị và các quy tắc theo loại: gộp upvote (BR-M07-05), tắt thông báo bài chỉ chặn bình luận mới, trả lời, upvote (BR-M07-07), đề xuất có lựa chọn (BR-M07-20) |
+| Notification | isRead | Đã đọc | Lưu | Nguồn nêu | Hai giá trị Chưa đọc, Đã đọc; mới tạo là Chưa đọc (FR-M07-02.01); Chưa đọc → Đã đọc khi người nhận bấm vào hoặc bấm "Đánh dấu tất cả đã đọc" (FR-M07-06.01, FR-M07-06.03, BR-M07-27); Đã đọc → Chưa đọc chỉ khi thông báo upvote được gộp thêm (FR-M07-02.04); mở chuông không đổi (FR-M07-05.11) | FR-M07-02.01, FR-M07-05.03, FR-M07-06.01, FR-M07-06.03 | Người dùng không tự chuyển thông báo về Chưa đọc (mục Chuyển trạng thái của FR) |
+| Notification | occurredAt | Thời điểm xảy ra sự kiện | Lưu | Nguồn nêu | Do module phát sinh sự kiện cung cấp (FR-M07-02.02); lưu theo UTC, hiển thị theo giờ Asia/Ho_Chi_Minh (BR-M07-22) | FR-M07-02.02, FR-M07-05.04, BR-M07-22 | Mục Dữ liệu nghiệp vụ của FR gọi là thời điểm tạo. Với thông báo upvote, đây là lượt upvote mở cửa sổ 5 phút; cửa sổ tính từ đây và không kéo dài theo lượt sau (BR-M07-05), nên thuộc tính này không đổi khi gộp |
+| Notification | lastUpdatedAt | Lần cập nhật cuối | Lưu | Nguồn nêu | Bằng occurredAt khi tạo; đổi thành thời điểm của lượt upvote gộp thêm (FR-M07-02.04); chuông hiện 10 thông báo mới nhất theo lần cập nhật cuối (BR-M07-12) | FR-M07-05.01, FR-M07-02.04, BR-M07-12 | Đưa thông báo upvote vừa gộp lên đầu chuông (FR-M07-02.04) |
+| Notification | appealLink | Đường dẫn khiếu nại | Lưu | Nguồn nêu | Chỉ có khi sự kiện là một xử lý khiếu nại được: cảnh cáo, ban, bài bị Mod hoặc Admin gỡ, bài bị AI từ chối (FR-M07-02.13) | FR-M07-02.13 | M08 cung cấp (mục Giao tiếp của FR, dòng Dùng M08) |
+| Notification | isUpvoteWindowOpen | Cửa sổ 5 phút đang mở | Dẫn xuất | Nguồn nêu | Chỉ với thông báo upvote: đúng khi thời điểm hiện tại còn trước occurredAt + 5 × 60 giây; không kéo dài theo lượt upvote sau (TN:Cửa sổ 5 phút, BR-M07-05) | FR-M07-02.03, FR-M07-02.04, BR-M07-05 | Lượt upvote mới gộp vào thông báo upvote có cửa sổ đang mở của cùng bài viết hoặc bình luận; không có thì tạo thông báo mới (FR-M07-02.18) |
+| Notification | otherUpvoterCount | Số người upvote khác | Dẫn xuất | Nguồn nêu | Chỉ với thông báo upvote: số người khác nhau đã được đếm trong cửa sổ 5 phút, trừ người upvote mới nhất; mỗi người đếm một lần (FR-M07-02.20); bỏ upvote không làm giảm (FR-M07-02.19) (BR-M07-05) | FR-M07-02.04, BR-M07-05 | "N" trong "A và N người khác đã upvote…"; đếm từ các CountedUpvoter của thông báo (R-M07-03), trừ một cho người upvote mới nhất |
+| Follow | followedAt | Thời điểm bắt đầu theo dõi | Lưu | Nguồn nêu | Ghi khi người dùng bắt đầu theo dõi (FR-M07-01.01) | FR-M07-01.01 | M02 xếp danh sách theo dõi theo thời điểm này (mục Giao tiếp của FR, dòng Cung cấp M02) |
+| NotificationEmail | eventType | Loại sự kiện | Lưu | Nguồn nêu | Một trong: mật khẩu đã đổi, đã liên kết Google, cảnh báo trước khi tự xóa, ban, gỡ ban, kết luận khiếu nại về ban (BR-M07-03) | FR-M07-04.01, BR-M07-03 | Chọn nội dung email theo loại sự kiện |
+| NotificationEmail | queuedAt | Thời điểm vào hàng đợi | Lưu | Nguồn nêu | — | FR-M07-04.01 | Mục Dữ liệu nghiệp vụ của FR nêu; ghi khi email được đưa vào hàng đợi |
+| NotificationEmail | status | Trạng thái gửi | Lưu | Nguồn nêu | Chờ gửi khi vào hàng đợi; Đã gửi khi gửi thành công (FR-M07-04.02); Đã dừng khi vẫn lỗi sau 3 lần gửi lại (FR-M07-04.10) | FR-M07-04.02, FR-M07-04.09, FR-M07-04.10 | Lần quét chỉ gửi email đang Chờ gửi; mục Dữ liệu nghiệp vụ của FR ghi "đã gửi hay chưa", giá trị Đã dừng thêm theo FR-M07-04.10 |
+| NotificationEmail | retryCount | Số lần đã gửi lại | Lưu | Nguồn nêu | Từ 0 tới 3; tăng 1 mỗi lần gửi lại sau lần gửi lỗi; hết 3 lần mà vẫn lỗi thì dừng gửi (BR-M07-26) | FR-M07-04.09, FR-M07-04.10, BR-M07-26 | — |
+| NotificationEmail | appealLink | Đường dẫn tới trang khiếu nại | Lưu | Nguồn nêu | Chỉ có với email về ban (FR-M07-04.08) | FR-M07-04.08 | — |
+| NotificationSetting | isAllChatMuted | Tắt thông báo toàn bộ Chat | Lưu | Nguồn nêu | Hai giá trị Đang nhận, Đã tắt (mục Chuyển trạng thái của FR); khi Đã tắt thì tin nhắn của mọi cuộc trò chuyện không hiện popup, không có ngoại lệ; khi về Đang nhận thì mỗi cuộc theo cài đặt riêng (BR-M07-08) | FR-M07-09.03, FR-M07-09.04, BR-M07-08 | Đọc mỗi khi có tin nhắn mới để quyết định có hiện popup tin nhắn không (FR-M07-07.07); không đổi số trên biểu tượng Tin nhắn (FR-M07-09.07) |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M07-04.01 | M07 đọc để gửi email trong hàng đợi tới người nhận |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M07-02.03, FR-M07-05.12 | M07 đọc lúc hiển thị để hiện tên người gây sự kiện, kể cả người upvote mới nhất; khi tài khoản DEACTIVATED, DELETED thì hiện chữ thay thế theo BR-M07-24 |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M01-01.02, FR-M01-05.19 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M07-01.12, FR-M07-01.13, FR-M07-02.26, FR-M07-02.27, FR-M07-05.09, FR-M07-05.12 | M07 đọc để từ chối bắt đầu theo dõi tài khoản BANNED, không tạo thông báo cho người nhận DELETED, chặn xem chuông khi BANNED và chọn cách hiện tên người gây sự kiện |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | Số Notification của người dùng đang Chưa đọc; không tính tin nhắn (FR-M07-05.10, BR-M07-12) | FR-M07-05.10, BR-M07-12 | M07 định nghĩa; đã đưa vào lớp User của EC-M01 (MD-05). Hiện trên chuông |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Topic | name | Tên Topic | Lưu | Tham chiếu | — | FR-M05-06.01, BR-M05-05 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| Topic | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M05-07.05, FR-M05-08.01, FR-M05-02.22 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M03-01.12, FR-M03-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M07-05.13 | M07 đọc khi người nhận bấm thông báo để biết bài còn xem được không (BR-M07-27); cùng tên với EC-M04 |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M07-02.22 | M07 đọc để không tạo thông báo bài mới cho người theo dõi tác giả khi bài ẩn danh. Thuộc tính do M11 bổ sung trên Post (EC-M03 mục 5), tên tạm, chờ EC-M11 |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Comment | content | Nội dung bình luận | Lưu | Tham chiếu | — | FR-M04-04.01, FR-M04-05.07, BR-M04-01, BR-M04-19 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M04-02.01, FR-M04-04.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | editedAt | Thời điểm sửa | Lưu | Tham chiếu | — | FR-M04-04.02, BR-M04-07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M04-01.09, FR-M04-02.02, FR-M04-03.04 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isDeleted | Đã xóa | Dẫn xuất | Tham chiếu | — | FR-M04-05.01, FR-M04-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M04-01.06 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isVisible | Hiển thị bình thường | Dẫn xuất | Tham chiếu | — | FR-M07-05.13 | M07 đọc khi người nhận bấm thông báo để biết bình luận còn xem được không (BR-M07-27) |
+| Comment | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M04-01.03, FR-M04-01.14, BR-M04-05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | scannedAt | Thời điểm quét gần nhất | Lưu | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isScannedCurrent | Đã quét với nội dung hiện tại | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | replyRate | Tốc độ trả lời | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, BR-M08-20 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.11, FR-M12-02.19, FR-M12-02.20, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Group | name | Tên nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.08, FR-M11-02.01, BR-M11-31 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | description | Mô tả nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.09, FR-M11-02.01 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | privacy | Chế độ | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-02.02, BR-M11-15 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | joinQuestion | Câu hỏi tham gia | Lưu | Tham chiếu | — | FR-M11-01.11, FR-M11-02.07, FR-M11-02.08, BR-M11-08 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isPreApprovalOn | Công tắc duyệt trước | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.05, FR-M11-02.15, BR-M11-18 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isAnonymousOn | Công tắc ẩn danh | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.06, BR-M11-16 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M11-01.03, FR-M11-03.17, BR-M11-03, BR-M11-35 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isDeleted | Đã xóa | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-15.01, FR-M11-10.06, FR-M11-11.03 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | modState | Trạng thái kiểm duyệt của nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-16.01, FR-M11-16.04, FR-M11-16.06, FR-M08-18.01, FR-M08-18.04, FR-M08-18.07 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | inviteLink | Link mời | Lưu | Tham chiếu | — | BR-M07-01 | M07 đưa link mời chung của nhóm vào thông báo "được mời"; tên tạm, chờ EC-M11 |
+| Group | isInstantJoin | Nhóm vào ngay | Dẫn xuất | Tham chiếu | — | FR-M11-04.01, FR-M11-02.14, BR-M11-32 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Report | reason | Lý do báo cáo | Lưu | Tham chiếu | — | FR-M08-01.02, BR-M08-02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | description | Mô tả | Lưu | Tham chiếu | — | FR-M08-01.02, BR-M08-04 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | isAiCreated | Mục do AI tạo | Lưu | Tham chiếu | — | FR-M08-04.09, BR-M08-49 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M08-07.03, FR-M08-07.05, FR-M08-09.08 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | status | Trạng thái | Dẫn xuất | Tham chiếu | — | FR-M08-01.02, FR-M08-05.02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | conclusion | Kết luận | Dẫn xuất | Tham chiếu | — | FR-M08-05.02, BR-M08-10 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | concentrationIndex | Chỉ số tập trung | Dẫn xuất | Tham chiếu | — | FR-M08-04.04, BR-M08-19 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Report | reportedAt | Thời điểm báo cáo | Lưu | Tham chiếu | — | BR-M15-18, FR-M15-03.01, FR-M15-03.20 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | reason | Lý do | Lưu | Tham chiếu | — | FR-M08-10.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | issuedAt | Thời điểm cảnh cáo | Lưu | Tham chiếu | — | BR-M08-29, FR-M08-12.03 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | isIssuedByAi | Do AI ra | Lưu | Tham chiếu | — | FR-M08-09.01, FR-M08-11.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | status | Trạng thái | Lưu | Tham chiếu | — | FR-M08-11.04, BR-M08-54 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Warning | levelAfter | Mức đạt sau cảnh cáo | Lưu | Tham chiếu | — | FR-M08-09.04, FR-M08-10.02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | kind | Loại ban | Lưu | Tham chiếu | — | FR-M08-14.01, FR-M08-14.02 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | duration | Thời hạn | Lưu | Tham chiếu | — | FR-M08-14.01, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | startedAt | Thời điểm bắt đầu | Lưu | Tham chiếu | — | FR-M08-14.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | endsAt | Thời điểm hết hạn | Dẫn xuất | Tham chiếu | — | FR-M08-14.08, BR-M08-37 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | reason | Lý do | Lưu | Tham chiếu | — | FR-M08-14.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | status | Trạng thái | Lưu | Tham chiếu | — | FR-M08-14.01, FR-M08-14.08, FR-M08-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Ban | appealDeadline | Hết thời hạn khiếu nại | Dẫn xuất | Tham chiếu | — | BR-M09-04, FR-M09-01.13, FR-M01-05.08, FR-M01-05.09 | Ghi đủ lớp sau gộp (MD-05); EC-M08 định nghĩa |
+| Appeal | type | Loại khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.03, BR-M09-10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | explanation | Lời giải thích | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | submittedAt | Thời điểm gửi khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-01.13, BR-M09-10 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | status | Trạng thái khiếu nại | Lưu | Tham chiếu | — | FR-M09-01.01, FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | lastHolderActionAt | Thời điểm thao tác cuối của người giữ | Lưu | Tham chiếu | — | FR-M09-04.01, FR-M09-04.06, FR-M09-04.07, BR-M09-11 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | conclusion | Kết luận | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | conclusionReason | Lý do kết luận khiếu nại | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02, FR-M09-07.11 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | concludedAt | Thời điểm kết luận | Lưu | Tham chiếu | — | FR-M09-07.01, FR-M09-07.02 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Appeal | roleAtAction | Vai trò lúc bị xử lý | Dẫn xuất | Tham chiếu | — | TN:Vai trò lúc bị xử lý, FR-M09-03.08, BR-M09-12 | Ghi đủ lớp sau gộp (MD-05); EC-M09 định nghĩa |
+| Proposal | type | Loại đề xuất | Lưu | Tham chiếu | — | FR-M10-02.01, FR-M10-07.05, BR-M10-27 | Ghi đủ lớp sau gộp (MD-05); EC-M10 định nghĩa |
+| Proposal | sentAt | Thời điểm gửi đề xuất | Lưu | Tham chiếu | — | FR-M10-02.01, FR-M10-07.05, FR-M10-02.10, FR-M10-07.10 | Ghi đủ lớp sau gộp (MD-05); EC-M10 định nghĩa |
+| Proposal | status | Trạng thái của đề xuất | Lưu | Tham chiếu | — | FR-M07-02.15, FR-M07-02.28, FR-M07-02.31, FR-M07-02.32 | M07 chuyển lựa chọn Chấp nhận, Từ chối cho M10 ghi (FR-M07-02.15); đọc để hiện lựa chọn đã chọn hoặc "Đã hết hạn" và không cho chọn lại. FR-M10 ghi các giá trị Chưa trả lời, Đã chấp nhận, Đã từ chối, Hết hiệu lực. Xem Q-02 |
+| Badge | name | Tên huy hiệu | Lưu | Tham chiếu | — | FR-M12-03.01, BR-M12-11 | Ghi đủ lớp sau gộp (MD-05); EC-M12 định nghĩa |
+| Badge | threshold | Ngưỡng điểm | Lưu | Tham chiếu | — | FR-M12-03.01, FR-M12-03.02, BR-M12-11 | Ghi đủ lớp sau gộp (MD-05); EC-M12 định nghĩa |
+| EarnedTitle | week | Tuần đạt | Lưu | Tham chiếu | — | FR-M12-05.03, FR-M12-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M12 định nghĩa |
+| Conversation | type | Loại | Lưu | Tham chiếu | — | FR-M16-01.04, FR-M16-02.01, BR-M16-01 | Ghi đủ lớp sau gộp (MD-05); EC-M16 định nghĩa |
+| Conversation | name | Tên nhóm chat | Lưu | Tham chiếu | — | FR-M16-02.07, FR-M16-12.01, FR-M16-12.03 | Ghi đủ lớp sau gộp (MD-05); EC-M16 định nghĩa |
+| Conversation | isApprovalOn | Công tắc duyệt thành viên mới | Lưu | Tham chiếu | — | FR-M16-02.08, FR-M16-09.01, FR-M16-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M16 định nghĩa |
+| Conversation | inviteLink | Link mời | Lưu | Tham chiếu | — | FR-M16-08.10, FR-M16-08.11 | Ghi đủ lớp sau gộp (MD-05); EC-M16 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
+<!-- Mỗi thực thể ở bảng "Dữ liệu nghiệp vụ" của FR một dòng; chép đúng tên ở cột Thực thể của FR.
+     Xử lý: Khớp | Đã thêm qua sổ danh từ | Mô hình có thêm: … | Lệch: … (kèm Q-nn). -->
+
 | Thực thể trong FR | Trong mô hình | Xử lý |
 |---|---|---|
-| Thông báo | Notification, UpvoteNotificationWindow | Khớp loại, người nhận, người gây sự kiện, trạng thái và mốc tạo/cập nhật. Nội dung liên quan là đối tượng tham chiếu để xét bước 3. Mô hình có thêm cửa sổ gộp theo FR-M07-02.03/02.18, các số đếm dẫn xuất theo BR-M07-05. proposalResponse chiếu phản hồi M10 lên thông báo theo FR-M07-02.28. |
-| Email thông báo (trong hàng đợi) | NotificationEmail | Khớp địa chỉ người nhận, loại, thời điểm vào hàng đợi, đã gửi hay chưa và retryCount. Đã thêm qua sổ danh từ: recipientEmail, queuedAt, sent từ dữ liệu mục 5.11. Mô hình có thêm appealUrl theo FR-M07-04.08. |
-| Quan hệ theo dõi | UserFollow, TopicFollow | Khớp hai loại đối tượng theo dõi và followedAt. Tách theo loại đích User/Topic, dùng tên đã có trong các EC trước. Hai đầu đã được tách qua các lớp Liên kết ở bước 3. |
-| Tắt thông báo cho bài | PostNotificationSetting | Khớp cặp User–Post. Mô hình có thêm state từ bảng chuyển trạng thái mục 5.12 và FR-M07-08.02/08.03. |
-| Tắt thông báo cuộc trò chuyện | ConversationNotificationSetting | Khớp cặp thành viên–Conversation. Mô hình có thêm state từ mục 5.12 và FR-M07-09.01/09.02, cài đặt được bỏ khi rời/bị xóa khỏi nhóm chat theo FR-M07-09.08. |
-| Tắt thông báo toàn bộ Chat | ChatNotificationSetting | Khớp theo Q-01 B đã được người dùng chọn. Lớp cài đặt riêng có state, gắn với một User. |
-| Bổ sung từ yêu cầu tính số liệu | User.unreadNotificationCount, User.unreadConversationCount | Mô hình có thêm hai giá trị dẫn xuất theo FR-M07-05.10/07.02, dữ liệu đọc M16 cho số cuộc trò chuyện. |
-| Tham chiếu ngoài | User, Post, Comment, Topic, Poll, Mention, Report, Warning, Ban, Appeal, Group, GroupMember, Badge, WeeklyStarAward, RoleProposal, Conversation, ConversationMember, Message | Mô hình có thêm đối tượng ngoài theo sự kiện, yêu cầu và giao tiếp FR mục 5.13. Thuộc tính lớp ngoài do module sở hữu quản lý, phần M07 bổ sung trên User được ghi riêng tại 2.3. |
+| Thông báo | Notification | Khớp: loại sự kiện → eventType; trạng thái đã đọc/chưa đọc → isRead; thời điểm tạo → occurredAt (FR-M07-02.02 gọi là thời điểm xảy ra sự kiện); thời điểm cập nhật cuối → lastUpdatedAt; đường dẫn khiếu nại → appealLink. Người nhận, người gây sự kiện và nội dung liên quan (bài viết, bình luận, nhóm, báo cáo, cảnh cáo, ban, khiếu nại, đề xuất, badge, danh hiệu) là quan hệ (R-M07-01, R-M07-02, R-M07-05 đến R-M07-14); những người khác nhau đã upvote là lớp liên kết CountedUpvoter (R-M07-03, R-M07-04). "A và N người khác" → /otherUpvoterCount; thời điểm mở cửa sổ 5 phút không lưu riêng vì chính là occurredAt (sổ danh từ, dòng cuối). Mô hình có thêm: /isUpvoteWindowOpen (TN:Cửa sổ 5 phút, FR-M07-02.03). Lệch, đã xử lý theo Q-02: lựa chọn Chấp nhận/Từ chối và lựa chọn đã chọn được đọc từ Proposal.status (M10), không lưu lại trên thông báo |
+| Email thông báo (trong hàng đợi) | NotificationEmail | Khớp: loại sự kiện → eventType; thời điểm vào hàng đợi → queuedAt (đã thêm qua sổ danh từ); đã gửi hay chưa → status, có thêm giá trị Đã dừng theo FR-M07-04.10; số lần đã gửi lại → retryCount. Người nhận là quan hệ với User (R-M07-18), địa chỉ email đọc từ User.email. Mô hình có thêm: appealLink (FR-M07-04.08) |
+| Quan hệ theo dõi | Follow | Khớp: thời điểm bắt đầu theo dõi → followedAt; người theo dõi và đối tượng theo dõi (người dùng hoặc Topic) là quan hệ với User, Topic (R-M07-15, R-M07-16, R-M07-17) |
+| Tắt thông báo cho bài | MutedPost | Khớp: FR chỉ ghi người dùng và bài viết nên đây là quan hệ n-n User – Post, tách thành lớp liên kết MutedPost không có thuộc tính riêng (mục 3.3; R-M07-20, R-M07-21) |
+| Tắt thông báo cuộc trò chuyện | MutedConversation | Khớp: FR chỉ ghi thành viên và cuộc trò chuyện nên đây là quan hệ n-n User – Conversation, tách thành lớp liên kết MutedConversation không có thuộc tính riêng (mục 3.3; R-M07-22, R-M07-23) |
+| Tắt thông báo toàn bộ Chat | NotificationSetting | Khớp, đã xử lý theo Q-01: lớp cài đặt riêng do M07 sở hữu; "bật hoặc tắt" → isAllChatMuted; người dùng là quan hệ với User (R-M07-19). Tên lớp là Cài đặt thông báo (NotificationSetting) thay cho tên của FR, theo trả lời Q-01 |
 
 ## 3. Quan hệ giữa các lớp
 
 ### 3.1 Ma trận cặp lớp
 
-| Lớp / mã | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 01 Notification |  | T |  |  | T | T |  | T | T | T |  | T | T | T | T | T | T | T | T | T | T | T |  |  |  |  | G(UpvoteNotificationWindow) |
-| 02 UserFollow |  |  |  |  |  |  |  | T |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 03 TopicFollow |  |  |  |  |  |  |  | T |  |  | T |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 04 NotificationEmail |  |  |  |  |  |  |  | T |  |  |  |  |  |  |  | T | T |  |  |  |  |  |  |  |  |  |  |
-| 05 UpvoteNotificationWindow |  |  |  |  |  |  |  | G(UpvoteNotificationActor) | G(Notification) | G(Notification) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | T |
-| 06 PostNotificationSetting |  |  |  |  |  |  |  | T | T |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 07 ConversationNotificationSetting |  |  |  |  |  |  |  | T |  |  |  |  |  |  |  |  |  |  |  |  |  |  | T | T | T | T |  |
-| 08 User |  |  |  |  |  |  |  | G(UserFollow) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | T | T |
-| 09 Post |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 10 Comment |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 11 Topic |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 12 Poll |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 13 Mention |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 14 Report |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 15 Warning |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 16 Ban |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 17 Appeal |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 18 Group |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 19 GroupMember |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 20 Badge |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 21 WeeklyStarAward |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 22 RoleProposal |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 23 Conversation |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | G(ConversationNotificationSetting) |  |
-| 24 ConversationMember |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 25 Message |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 26 ChatNotificationSetting |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 27 UpvoteNotificationActor |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+<!-- T = quan hệ trực tiếp; G(X) = chỉ gián tiếp qua lớp X; trống = không liên quan. Chỉ điền nửa trên. -->
 
-Có 27 lớp sau khi thêm ChatNotificationSetting theo Q-01 B và UpvoteNotificationActor khi tách quan hệ n-n. T là cặp trực tiếp, G(X) là đường gián tiếp qua lớp X. Các cặp hai lớp ngoài thuộc module sở hữu, ô User–User ghi đường qua UserFollow của M07 để thể hiện hai vai trò theo dõi sau khi tách.
+Chỉ ghi các hàng của lớp thuộc M07; cặp hai lớp ngoài không xét (CONVENTIONS mục 5). Riêng hai quan hệ User – Post (tắt thông báo cho bài) và User – Conversation (tắt thông báo cuộc trò chuyện) do FR-M07 định nghĩa (mục Dữ liệu nghiệp vụ) nên được xét ở mục 3.2 và tách qua lớp liên kết của M07, như EC-M02 làm với Bookmark. Lớp liên kết sinh ở mục 3.3 không có trong ma trận. Module không có lớp thống kê.
 
-Có 33 ô T ứng với 35 dòng quan hệ. Cặp User–Notification có hai vai trò người nhận và người gây sự kiện, cặp User–UserFollow có hai vai trò người theo dõi và người được theo dõi. Hai cặp này mỗi cặp có hai dòng bội số tại 3.2/3.4.
+Một ô Notification – User gồm ba quan hệ: người nhận, người gây sự kiện, và những người upvote đã được đếm. Follow – User gồm hai: người theo dõi, người được theo dõi. Follow đã là lớp Thực thể từ bước 2 và trỏ tới người dùng hoặc Topic, nên quan hệ theo dõi không hiện thành n-n giữa hai lớp cố định. Ô G(User) ở Notification – Follow: thông báo bài mới tìm người nhận qua lượt theo dõi lúc tạo (FR-M07-02.21), thông báo không ghi lại lượt theo dõi.
+
+| | Follow | NotificationEmail | NotificationSetting | User | Topic | Post | Comment | Group | Report | Warning | Ban | Appeal | Proposal | Badge | EarnedTitle | Conversation |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Notification | G(User) | G(User) | G(User) | T |  | T | T | T | T | T | T | T | T | T | T |  |
+| Follow |  | G(User) | G(User) | T | T | G(User) |  |  |  |  |  |  |  |  |  |  |
+| NotificationEmail |  |  | G(User) | T |  |  |  |  |  |  |  |  |  |  |  |  |
+| NotificationSetting |  |  |  | T |  |  |  |  |  |  |  |  |  |  |  | G(User) |
 
 ### 3.2 Quan hệ số lượng
 
-| Cặp | Câu A → B | Câu B → A | Dạng | Xử lý |
-|---|---|---|---|---|
-| User – Notification (R-M07-01) | Một User có thể nhận nhiều Notification. | Một Notification ghi đúng một User ở vai trò người nhận. | 1-n | Giữ nguyên |
-| User – Notification (R-M07-02) | Một User có thể là người gây sự kiện được nêu trong nhiều Notification. | Một Notification có thể ghi một User ở vai trò người gây sự kiện hiện tên, tách với người nhận. | 1-n | Giữ nguyên |
-| User – NotificationEmail (R-M07-03) | Một User có thể có nhiều NotificationEmail. | Một NotificationEmail thuộc một User người nhận. | 1-n | Giữ nguyên |
-| User – ChatNotificationSetting (R-M07-04) | Một User có thể có một ChatNotificationSetting. | Một ChatNotificationSetting áp dụng cho đúng một User. | 1-1 | Giữ: một đầu tùy chọn hoặc khác module sở hữu, dữ liệu và vòng đời khác nhau. |
-| Notification – UpvoteNotificationWindow (R-M07-05) | Một Notification có thể có một UpvoteNotificationWindow khi là thông báo upvote. | Một UpvoteNotificationWindow thuộc đúng một Notification. | 1-1 | Giữ: một đầu tùy chọn hoặc khác module sở hữu, dữ liệu và vòng đời khác nhau. |
-| Post – Notification (R-M07-06) | Một Post có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một Post trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| Comment – Notification (R-M07-07) | Một Comment có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một Comment trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| Group – Notification (R-M07-08) | Một Group có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một Group trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| Report – Notification (R-M07-09) | Một Report có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một Report trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| Warning – Notification (R-M07-10) | Một Warning có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một Warning trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| Ban – Notification (R-M07-11) | Một Ban có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một Ban trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| Appeal – Notification (R-M07-12) | Một Appeal có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một Appeal trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| Badge – Notification (R-M07-13) | Một Badge có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một Badge trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| WeeklyStarAward – Notification (R-M07-14) | Một WeeklyStarAward có thể được tham chiếu trong nhiều Notification. | Một Notification có thể trỏ tới một WeeklyStarAward trong vai trò đích liên quan của loại này. | 1-n | Giữ nguyên |
-| RoleProposal – Notification (R-M07-15) | Một RoleProposal hợp lệ được thông báo bằng một Notification riêng. | Một Notification có thể ghi một RoleProposal khi là loại thông báo đề xuất. | 1-1 | Giữ: một đầu tùy chọn hoặc khác module sở hữu, dữ liệu và vòng đời khác nhau. |
-| User – UserFollow (R-M07-16) | Một User ở vai trò người theo dõi có thể có 0..* UserFollow. | Một UserFollow ghi đúng một User ở vai trò người theo dõi. | 1-n | Giữ nguyên |
-| User – UserFollow (R-M07-17) | Một User ở vai trò người được theo dõi có thể có 0..* UserFollow. | Một UserFollow ghi đúng một User ở vai trò người được theo dõi. | 1-n | Giữ nguyên |
-| User – TopicFollow (R-M07-18) | Một User ở vai trò người theo dõi có thể có 0..* TopicFollow. | Một TopicFollow ghi đúng một User ở vai trò người theo dõi. | 1-n | Giữ nguyên |
-| Topic – TopicFollow (R-M07-19) | Một Topic ở vai trò Topic được theo dõi có thể có 0..* TopicFollow. | Một TopicFollow ghi đúng một Topic ở vai trò Topic được theo dõi. | 1-n | Giữ nguyên |
-| User – PostNotificationSetting (R-M07-20) | Một User ở vai trò người đặt cài đặt có thể có 0..* PostNotificationSetting. | Một PostNotificationSetting ghi đúng một User ở vai trò người đặt cài đặt. | 1-n | Giữ nguyên |
-| Post – PostNotificationSetting (R-M07-21) | Một Post ở vai trò bài được đặt cài đặt có thể có 0..* PostNotificationSetting. | Một PostNotificationSetting ghi đúng một Post ở vai trò bài được đặt cài đặt. | 1-n | Giữ nguyên |
-| User – ConversationNotificationSetting (R-M07-22) | Một User ở vai trò thành viên đặt cài đặt có thể có 0..* ConversationNotificationSetting. | Một ConversationNotificationSetting ghi đúng một User ở vai trò thành viên đặt cài đặt. | 1-n | Giữ nguyên |
-| Conversation – ConversationNotificationSetting (R-M07-23) | Một Conversation ở vai trò cuộc trò chuyện được đặt cài đặt có thể có 0..* ConversationNotificationSetting. | Một ConversationNotificationSetting ghi đúng một Conversation ở vai trò cuộc trò chuyện được đặt cài đặt. | 1-n | Giữ nguyên |
-| UpvoteNotificationWindow – UpvoteNotificationActor (R-M07-24) | Một UpvoteNotificationWindow ở vai trò cửa sổ ghi nhận có thể có 1..* UpvoteNotificationActor. | Một UpvoteNotificationActor ghi đúng một UpvoteNotificationWindow ở vai trò cửa sổ ghi nhận. | 1-n | Giữ nguyên |
-| User – UpvoteNotificationActor (R-M07-25) | Một User ở vai trò người đã được đếm có thể có 0..* UpvoteNotificationActor. | Một UpvoteNotificationActor ghi đúng một User ở vai trò người đã được đếm. | 1-n | Giữ nguyên |
-
-Các cặp n-n trước khi tách được xét như sau.
+<!-- Mỗi ô T của ma trận một dòng. Dạng đọc theo thứ tự A–B: 1-1 | 1-n | n-1 | n-n.
+     Xử lý: Giữ nguyên | Gộp vào <Lớp>: … | Giữ: … | Tách: thêm lớp <X>. -->
 
 | Cặp | Câu A → B | Câu B → A | Dạng | Xử lý |
 |---|---|---|---|---|
-| User – User (Theo dõi người dùng) | Một User ở vai trò người theo dõi có thể gắn với nhiều User. | Một User ở vai trò người được theo dõi có thể gắn với nhiều User. | n-n | Tách qua UserFollow, thuộc tính riêng followedAt. |
-| User – Topic (Theo dõi Topic) | Một User ở vai trò người theo dõi có thể gắn với nhiều Topic. | Một Topic ở vai trò Topic được theo dõi có thể gắn với nhiều User. | n-n | Tách qua TopicFollow, thuộc tính riêng followedAt. |
-| User – Post (Cài đặt thông báo bài) | Một User ở vai trò người đặt cài đặt có thể gắn với nhiều Post. | Một Post ở vai trò bài được đặt cài đặt có thể gắn với nhiều User. | n-n | Tách qua PostNotificationSetting, thuộc tính riêng state. |
-| User – Conversation (Cài đặt thông báo cuộc trò chuyện) | Một User ở vai trò thành viên đặt cài đặt có thể gắn với nhiều Conversation. | Một Conversation ở vai trò cuộc trò chuyện được đặt cài đặt có thể gắn với nhiều User. | n-n | Tách qua ConversationNotificationSetting, thuộc tính riêng state. |
-| UpvoteNotificationWindow – User (Người đã được đếm trong cửa sổ) | Một UpvoteNotificationWindow ở vai trò cửa sổ ghi nhận có thể gắn với nhiều User. | Một User ở vai trò người đã được đếm có thể gắn với nhiều UpvoteNotificationWindow. | n-n | Tách qua UpvoteNotificationActor, thuộc tính riêng —. |
-
-Các Phụ thuộc có hai chiều đọc, bội số được ghi bằng dấu — tại mục 3.4.
-
-| ID | Chiều A → B | Chiều B → A |
-|---|---|---|
-| R-M07-26 | Notification dùng GroupMember trong xử lý nghiệp vụ. | GroupMember cung cấp ngữ cảnh đầu vào cho Notification. |
-| R-M07-27 | Notification dùng PostNotificationSetting trong xử lý nghiệp vụ. | PostNotificationSetting cung cấp ngữ cảnh đầu vào cho Notification. |
-| R-M07-28 | Notification dùng UserFollow trong xử lý nghiệp vụ. | UserFollow cung cấp ngữ cảnh đầu vào cho Notification. |
-| R-M07-29 | Notification dùng Mention trong xử lý nghiệp vụ. | Mention cung cấp ngữ cảnh đầu vào cho Notification. |
-| R-M07-30 | Notification dùng Poll trong xử lý nghiệp vụ. | Poll cung cấp ngữ cảnh đầu vào cho Notification. |
-| R-M07-31 | NotificationEmail dùng Ban trong xử lý nghiệp vụ. | Ban cung cấp ngữ cảnh đầu vào cho NotificationEmail. |
-| R-M07-32 | NotificationEmail dùng Appeal trong xử lý nghiệp vụ. | Appeal cung cấp ngữ cảnh đầu vào cho NotificationEmail. |
-| R-M07-33 | ConversationNotificationSetting dùng ConversationMember trong xử lý nghiệp vụ. | ConversationMember cung cấp ngữ cảnh đầu vào cho ConversationNotificationSetting. |
-| R-M07-34 | ConversationNotificationSetting dùng Message trong xử lý nghiệp vụ. | Message cung cấp ngữ cảnh đầu vào cho ConversationNotificationSetting. |
-| R-M07-35 | ChatNotificationSetting dùng ConversationNotificationSetting trong xử lý nghiệp vụ. | ConversationNotificationSetting cung cấp ngữ cảnh đầu vào cho ChatNotificationSetting. |
-
-**Ràng buộc theo vai trò và ngữ cảnh**
-
-- Mỗi Notification có một người nhận. User ở vai trò người gây sự kiện là đầu riêng, có thể vắng khi sự kiện từ hệ thống. Điều kiện loại người gây sự kiện trùng người nhận áp theo FR-M07-02.25.
-- Mỗi UserFollow hiện hành có một người theo dõi và một người được theo dõi, hai User khác nhau theo FR-M07-01.11. Mỗi TopicFollow hiện hành có một User và một Topic. Mỗi cặp hai đầu có một lượt theo dõi đang tồn tại, followedAt thuộc lượt đó.
-- Bỏ theo dõi xóa lượt hiện hành, việc theo dõi lại được xét với Notification đã có cho cặp tài khoản theo FR-M07-01.10 và BR-M07-25. Bội số theo dõi xét những quan hệ hiện hành trong suốt vòng đời tài khoản, các lần bỏ/tạo lại làm thay bản ghi của cặp.
-- Mỗi PostNotificationSetting thuộc một User và một Post. Mỗi ConversationNotificationSetting thuộc một User ở vai trò thành viên và một Conversation. Điều kiện thành viên do M16 cung cấp, rời/bị xóa khỏi nhóm chat làm bỏ cài đặt, vào lại bắt đầu Đang nhận theo FR-M07-09.08.
-- User–ChatNotificationSetting dùng 1–0..1, giữ lớp riêng theo Q-01 B. Cài đặt toàn bộ Chat Đã tắt chặn popup mọi cuộc, trở lại Đang nhận áp các cài đặt từng cuộc đã giữ. Khi người dùng chưa đặt cài đặt tắt toàn bộ, cơ chế nhận theo các cài đặt từng cuộc được áp dụng theo BR-M07-08.
-- Mỗi Notification upvote có một UpvoteNotificationWindow riêng. Những loại thông báo khác có đầu cửa sổ tùy chọn. Upvote của bài và của bình luận dùng cửa sổ riêng, theo FR-M07-02.18. Nội dung của cửa sổ được xác định qua Notification liên quan, theo loại sự kiện.
-- Một cửa sổ có ít nhất một UpvoteNotificationActor, mỗi cặp cửa sổ–User có một bản ghi đã đếm. Rút upvote và upvote lại trong cùng cửa sổ giữ bản ghi đã đếm theo FR-M07-02.19/02.20. actorCount đếm các bản ghi này, otherActorCount bằng actorCount trừ 1. Người upvote mới nhất để hiện tên được ghi ở vai trò người gây sự kiện của Notification.
-- Mốc mở cửa sổ cố định, closesAt bằng openedAt cộng 5 × 60 giây. Khi cửa sổ hết, lượt upvote mới mở Notification và cửa sổ mới theo BR-M07-05. Dữ liệu đã đếm của cửa sổ làm căn cứ thể hiện thông báo gộp được giữ.
-- Các đích Post, Comment, Group, Report, Warning, Ban, Appeal, Badge, WeeklyStarAward được ghi theo loại sự kiện. Một thông báo có tối đa một đích của từng loại, có thể đồng thời mang các ngữ cảnh khác loại như bài và cảnh cáo AI theo giao tiếp M09. Quyền xem nội dung khi mở được kiểm tra theo FR-M07-05.13.
-- Với thông báo upvote, loại sự kiện xác định đích được upvote là Post hoặc Comment. Những lượt nhắc tên và poll kết thúc được M01/M03 cung cấp như đầu vào, đích nội dung có thể đi qua Post/Comment.
-- Mỗi đề xuất vai trò hợp lệ sinh Notification riêng cho người nhận theo FR-M07-02.14/02.30. Trạng thái của RoleProposal M10 quyết định quyền trả lời và kết quả projection proposalResponse, người nhận chỉ trả lời một lần.
-- NotificationEmail ghi người nhận độc lập theo sự kiện có email. Cảnh báo trước tự xóa đi theo luồng email theo FR-M07-04.06. Việc ghép đích NotificationEmail–Notification được để theo hợp đồng sự kiện, FR mô tả hai loại bản ghi theo các kênh.
-- unreadNotificationCount là số Notification chưa đọc của người nhận. unreadConversationCount dùng dữ liệu M16 về cuộc có tin người dùng thấy được và chưa đọc, bao gồm cuộc đã tắt. Cài đặt tắt chỉ điều khiển popup theo FR-M07-09.07.
+| User – Notification (người nhận) | Một người dùng có thể nhận nhiều thông báo. | Một thông báo thuộc đúng một người nhận. | 1-n | Giữ nguyên |
+| User – Notification (người gây sự kiện) | Một người dùng có thể là người gây sự kiện của nhiều thông báo. | Một thông báo có nhiều nhất một người gây sự kiện (thông báo như poll kết thúc, bài bị AI từ chối không có người gây sự kiện). | 1-n | Giữ nguyên |
+| Notification – User (người upvote đã được đếm) | Một thông báo upvote có thể đếm nhiều người upvote khác nhau trong cửa sổ 5 phút. | Một người dùng có thể được đếm trong nhiều thông báo upvote ở các thời điểm khác nhau. | n-n | Tách: thêm lớp CountedUpvoter (FR gọi "những người khác nhau đã upvote") |
+| Notification – CountedUpvoter | Một thông báo có nhiều người upvote đã được đếm; thông báo không phải upvote không có. | Một người upvote đã được đếm thuộc đúng một thông báo upvote. | 1-n | Giữ nguyên |
+| User – CountedUpvoter | Một người dùng có thể là người upvote đã được đếm của nhiều thông báo. | Một người upvote đã được đếm ứng với đúng một người dùng. | 1-n | Giữ nguyên |
+| Post – Notification | Một bài viết có thể được nhiều thông báo trỏ tới (bình luận mới, upvote, bài được đăng, bài mới cho người theo dõi…). | Một thông báo trỏ tới nhiều nhất một bài viết. | 1-n | Giữ nguyên |
+| Comment – Notification | Một bình luận có thể được nhiều thông báo trỏ tới (trả lời, upvote bình luận…). | Một thông báo trỏ tới nhiều nhất một bình luận. | 1-n | Giữ nguyên |
+| Group – Notification | Một nhóm có thể được nhiều thông báo trỏ tới (mời, yêu cầu tham gia, bị kick…). | Một thông báo trỏ tới nhiều nhất một nhóm. | 1-n | Giữ nguyên |
+| Report – Notification | Một báo cáo có thể được nhiều thông báo kết quả trỏ tới (người nhận do M08 báo). | Một thông báo trỏ tới nhiều nhất một báo cáo. | 1-n | Giữ nguyên |
+| Warning – Notification | Một cảnh cáo được nhiều nhất một thông báo nhận cảnh cáo trỏ tới. | Một thông báo trỏ tới nhiều nhất một cảnh cáo. | 1-1 | Giữ: khác module sở hữu (M08); hai đầu tùy chọn |
+| Ban – Notification | Một lần ban có nhiều nhất hai thông báo trỏ tới: thông báo ban và thông báo gỡ ban. | Một thông báo trỏ tới nhiều nhất một lần ban. | 1-n | Giữ nguyên |
+| Appeal – Notification | Một khiếu nại được nhiều nhất một thông báo kết luận khiếu nại trỏ tới. | Một thông báo trỏ tới nhiều nhất một khiếu nại. | 1-1 | Giữ: khác module sở hữu (M09); hai đầu tùy chọn |
+| Proposal – Notification | Một đề xuất có đúng một thông báo đề xuất; đề xuất mới cùng loại là một thông báo mới. | Một thông báo trỏ tới nhiều nhất một đề xuất (chỉ thông báo đề xuất làm Mod, làm Admin). | 1-1 | Giữ: khác module sở hữu (M10); đầu đề xuất là tùy chọn (0..1) với các loại thông báo khác |
+| Badge – Notification | Một huy hiệu có thể được nhắc trong thông báo đạt huy hiệu của nhiều người dùng. | Một thông báo trỏ tới nhiều nhất một huy hiệu. | 1-n | Giữ nguyên |
+| EarnedTitle – Notification | Một lần đạt danh hiệu "Ngôi sao tuần" có thể được nhắc trong nhiều thông báo. | Một thông báo trỏ tới nhiều nhất một lần đạt danh hiệu. | 1-n | Giữ nguyên |
+| User – Follow (người theo dõi) | Một người dùng có thể có nhiều lượt theo dõi người dùng và Topic. | Một lượt theo dõi do đúng một người dùng tạo. | 1-n | Giữ nguyên |
+| User – Follow (người được theo dõi) | Một người dùng có thể được nhiều lượt theo dõi trỏ tới. | Một lượt theo dõi trỏ tới nhiều nhất một người dùng (lượt theo dõi Topic không trỏ tới người dùng nào). | 1-n | Giữ nguyên |
+| Topic – Follow | Một Topic có thể có nhiều lượt theo dõi. | Một lượt theo dõi trỏ tới nhiều nhất một Topic (đối tượng theo dõi là người dùng hoặc Topic). | 1-n | Giữ nguyên |
+| User – NotificationEmail | Một người dùng có thể có nhiều email thông báo trong hàng đợi. | Một email thông báo thuộc đúng một người nhận. | 1-n | Giữ nguyên |
+| User – NotificationSetting | Một người dùng có nhiều nhất một cài đặt thông báo (có từ lần đầu bật tắt toàn bộ Chat). | Một cài đặt thông báo thuộc đúng một người dùng. | 1-1 | Giữ: đầu cài đặt là tùy chọn (0..1); khác module sở hữu; lớp riêng theo Q-01 |
+| User – Post (tắt thông báo cho bài) | Một người dùng có thể tắt thông báo cho nhiều bài viết. | Một bài viết có thể bị nhiều người dùng tắt thông báo. | n-n | Tách: thêm lớp MutedPost (FR gọi "Tắt thông báo cho bài"); mỗi cặp người dùng – bài viết có nhiều nhất một |
+| User – MutedPost | Một người dùng có thể có nhiều bài đã tắt thông báo. | Một bài đã tắt thông báo thuộc đúng một người dùng. | 1-n | Giữ nguyên |
+| Post – MutedPost | Một bài viết có thể có nhiều lượt tắt thông báo của các người dùng khác nhau. | Một bài đã tắt thông báo ứng với đúng một bài viết. | 1-n | Giữ nguyên |
+| User – Conversation (tắt thông báo cuộc trò chuyện) | Một thành viên có thể tắt thông báo nhiều cuộc trò chuyện. | Một cuộc trò chuyện có thể bị nhiều thành viên tắt thông báo. | n-n | Tách: thêm lớp MutedConversation (FR gọi "Tắt thông báo cuộc trò chuyện"); mỗi cặp thành viên – cuộc trò chuyện có nhiều nhất một |
+| User – MutedConversation | Một người dùng có thể có nhiều cuộc trò chuyện đã tắt thông báo. | Một cuộc trò chuyện đã tắt thông báo thuộc đúng một thành viên. | 1-n | Giữ nguyên |
+| Conversation – MutedConversation | Một cuộc trò chuyện có thể có nhiều lượt tắt thông báo của các thành viên. | Một cuộc trò chuyện đã tắt thông báo ứng với đúng một cuộc trò chuyện. | 1-n | Giữ nguyên |
 
 ### 3.3 Lớp liên kết
 
+<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB".
+     "Thuộc tính riêng của liên kết": tên các thuộc tính (đã ghi ở mục 2.3); không có thì ghi rõ vì sao. -->
+
 | Lớp liên kết | Tách từ quan hệ n-n | Thuộc tính riêng của liên kết | Nguồn |
 |---|---|---|---|
-| UserFollow | User – User | followedAt | FR-M07-01.01, FR-M07-01.08, FR-M07-01.11 |
-| TopicFollow | User – Topic | followedAt | FR-M07-01.01, FR-M07-01.08 |
-| PostNotificationSetting | User – Post | state | FR-M07-08.02, FR-M07-08.03, FR-M07-08.04 |
-| ConversationNotificationSetting | User – Conversation | state | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.08 |
-| UpvoteNotificationActor | UpvoteNotificationWindow – User | — | FR-M07-02.04, FR-M07-02.19, FR-M07-02.20, BR-M07-05 |
-
-Có 5 lớp liên kết M07. UserFollow, TopicFollow, PostNotificationSetting và ConversationNotificationSetting được chuyển nhóm từ Thực thể của bước 2 theo phép thử cặp hai đầu. followedAt và state đã thuộc đúng các lớp này nên được giữ tại lớp liên kết. UpvoteNotificationActor là lớp mới, dữ liệu của bản ghi là hai đầu cửa sổ và User đã được đếm.
-
-ChatNotificationSetting giữ nhóm Thực thể theo Q-01 B, có state Đang nhận/Đã tắt riêng. Thuộc tính User.chatMuted của đề xuất A đã chuyển sang ChatNotificationSetting.state.
+| CountedUpvoter | Notification – User | Không có: FR chỉ nêu những người khác nhau đã upvote trong cửa sổ, mỗi người đếm một lần (FR-M07-02.20); người upvote mới nhất là người gây sự kiện của thông báo (R-M07-02) nên không cần thời điểm upvote | FR-M07-02.04, FR-M07-02.20, BR-M07-05 |
+| MutedPost | User – Post | Không có: FR chỉ nêu người dùng và bài viết; Đã tắt là việc có liên kết, bật lại thông báo thì bỏ liên kết (FR-M07-08.03) | FR-M07-08.02, FR-M07-08.03 |
+| MutedConversation | User – Conversation | Không có: FR chỉ nêu thành viên và cuộc trò chuyện; Đã tắt là việc có liên kết, bật lại hoặc rời, bị xóa khỏi nhóm chat thì bỏ liên kết (FR-M07-09.02, FR-M07-09.08) | FR-M07-09.01, FR-M07-09.02, FR-M07-09.08 |
 
 ### 3.4 Quan hệ
 
+<!-- Bội số A = số đối tượng A ứng với một đối tượng B (ghi ở đầu A trên sơ đồ). Cú pháp: 1, 0..1, 0..*, 1..*, 1..3.
+     Loại: Kế thừa | Hợp thành | Kết tập | Liên kết | Phụ thuộc.
+     Bên chính: lớp cha (Kế thừa), lớp toàn thể (Hợp thành, Kết tập), lớp được dùng (Phụ thuộc); "—" với Liên kết.
+     Kế thừa và Phụ thuộc ghi "—" ở Bội số A, Bội số B, Dạng. Không được còn dạng n-n. -->
+
 | ID | Lớp A | Bội số A | Lớp B | Bội số B | Dạng | Loại | Bên chính | Căn cứ | Nguồn |
 |---|---|---|---|---|---|---|---|---|---|
-| R-M07-01 | User | 1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi đúng một người nhận, mỗi người nhận có bản riêng, giữ vô thời hạn. Khớp R-M01-18. | FR-M07-02.01, FR-M07-05.05, FR-M07-05.07 |
-| R-M07-02 | User | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi người gây sự kiện khi có tác nhân tài khoản. Thông báo từ hệ thống có thể vắng tác nhân User, upvote gộp dùng người mới nhất đã được đếm. | FR-M07-02.02, FR-M07-02.04, FR-M07-02.25, FR-M07-05.12 |
-| R-M07-03 | User | 1 | NotificationEmail | 0..* | 1-n | Kết tập | NotificationEmail | Email trong hàng đợi ghi người nhận và địa chỉ email nguồn M01. Email có luồng sự kiện riêng, kể cả cảnh báo trước tự xóa chỉ gửi email. | FR-M07-04.01, FR-M07-04.06 |
-| R-M07-04 | User | 1 | ChatNotificationSetting | 0..1 | 1-1 | Kết tập | ChatNotificationSetting | Cài đặt toàn bộ Chat ghi người dùng áp dụng. Giữ riêng theo Q-01 chọn B, khác module sở hữu User. 0..1 là cấu hình được ghi khi người dùng thiết lập. | FR-M07-09.03, FR-M07-09.04 |
-| R-M07-05 | Notification | 1 | UpvoteNotificationWindow | 0..1 | 1-1 | Kết tập | Notification | Thông báo upvote chứa một cửa sổ gộp mở từ lượt đầu, các loại thông báo khác vắng cửa sổ. Giữ hai lớp vì cửa sổ có mốc và tập người đã đếm riêng. | FR-M07-02.03, FR-M07-02.04, FR-M07-02.18 |
-| R-M07-06 | Post | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi bài viết là nội dung liên quan. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | FR-M07-02.02, FR-M07-02.03, FR-M07-02.21 |
-| R-M07-07 | Comment | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi bình luận là nội dung liên quan. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | FR-M07-02.02, FR-M07-02.03, FR-M07-02.08 |
-| R-M07-08 | Group | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi nhóm là đối tượng của sự kiện M11. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | FR-M07-02.11, BR-M07-01 |
-| R-M07-09 | Report | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi báo cáo là đối tượng của kết quả xử lý M08. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | FR-M07-02.02, BR-M07-01 |
-| R-M07-10 | Warning | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi cảnh cáo là đối tượng của sự kiện xử lý M08. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | FR-M07-02.13, BR-M07-01 |
-| R-M07-11 | Ban | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi ban là đối tượng của sự kiện M08. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | FR-M07-02.13, BR-M07-01 |
-| R-M07-12 | Appeal | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi khiếu nại là đối tượng của kết luận M09. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | FR-M07-02.13, BR-M07-01 |
-| R-M07-13 | Badge | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi badge là đối tượng sự kiện đạt huy hiệu M12. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | BR-M07-01 |
-| R-M07-14 | WeeklyStarAward | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Notification ghi danh hiệu tuần là đối tượng sự kiện M12. Mỗi thông báo có tối đa một đích trong loại này, đối tượng có thể liên quan nhiều thông báo theo sự kiện/người nhận. | BR-M07-01 |
-| R-M07-15 | RoleProposal | 0..1 | Notification | 1 | 1-1 | Kết tập | Notification | Mỗi đề xuất vai trò hợp lệ phát sinh một thông báo riêng cho người nhận; thông báo đề xuất mới thuộc đề xuất mới. Các loại thông báo khác vắng RoleProposal, hai lớp có module sở hữu khác nhau. | FR-M07-02.14, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31 |
-| R-M07-16 | User | 1 | UserFollow | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua UserFollow, vai trò người theo dõi. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-01.01, FR-M07-01.08, FR-M07-01.11 |
-| R-M07-17 | User | 1 | UserFollow | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua UserFollow, vai trò người được theo dõi. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-01.01, FR-M07-01.08, FR-M07-01.11 |
-| R-M07-18 | User | 1 | TopicFollow | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua TopicFollow, vai trò người theo dõi. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-01.01, FR-M07-01.08 |
-| R-M07-19 | Topic | 1 | TopicFollow | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua TopicFollow, vai trò Topic được theo dõi. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-01.01, FR-M07-01.08 |
-| R-M07-20 | User | 1 | PostNotificationSetting | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua PostNotificationSetting, vai trò người đặt cài đặt. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-08.02, FR-M07-08.03, FR-M07-08.04 |
-| R-M07-21 | Post | 1 | PostNotificationSetting | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua PostNotificationSetting, vai trò bài được đặt cài đặt. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-08.02, FR-M07-08.03, FR-M07-08.04 |
-| R-M07-22 | User | 1 | ConversationNotificationSetting | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua ConversationNotificationSetting, vai trò thành viên đặt cài đặt. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.08 |
-| R-M07-23 | Conversation | 1 | ConversationNotificationSetting | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua ConversationNotificationSetting, vai trò cuộc trò chuyện được đặt cài đặt. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.08 |
-| R-M07-24 | UpvoteNotificationWindow | 1 | UpvoteNotificationActor | 1..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua UpvoteNotificationActor, vai trò cửa sổ ghi nhận. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-02.04, FR-M07-02.19, FR-M07-02.20, BR-M07-05 |
-| R-M07-25 | User | 1 | UpvoteNotificationActor | 0..* | 1-n | Liên kết | — | Nửa quan hệ n-n qua UpvoteNotificationActor, vai trò người đã được đếm. Cặp hai đầu xác định một bản ghi trong quan hệ hiện hành. | FR-M07-02.04, FR-M07-02.19, FR-M07-02.20, BR-M07-05 |
-| R-M07-26 | Notification | — | GroupMember | — | — | Phụ thuộc | GroupMember | Tạo và mở thông báo nội dung nhóm Private dùng quyền thành viên M11. | FR-M07-02.11, FR-M07-05.13, BR-M07-18 |
-| R-M07-27 | Notification | — | PostNotificationSetting | — | — | Phụ thuộc | PostNotificationSetting | Tạo thông báo bình luận/trả lời/upvote cần cài đặt theo người nhận và bài, các loại nhắc tên/xử lý theo quy tắc riêng. | FR-M07-02.07, FR-M07-02.08, FR-M07-02.09 |
-| R-M07-28 | Notification | — | UserFollow | — | — | Phụ thuộc | UserFollow | Tạo thông báo bài mới dùng quan hệ theo dõi tác giả, thông báo theo dõi mới kiểm tra cặp người theo dõi–được theo dõi. | FR-M07-02.21, FR-M07-01.04, FR-M07-01.10 |
-| R-M07-29 | Notification | — | Mention | — | — | Phụ thuộc | Mention | Thông báo nhắc tên dùng sự kiện và người được nhắc do M01 cung cấp ở mốc nội dung hiển thị công khai. | FR-M07-02.07, BR-M07-06 |
-| R-M07-30 | Notification | — | Poll | — | — | Phụ thuộc | Poll | Thông báo poll kết thúc dùng sự kiện poll M03, đường tới nội dung bài dựa trên Post liên quan. | BR-M07-01 |
-| R-M07-31 | NotificationEmail | — | Ban | — | — | Phụ thuộc | Ban | Email thuộc nhóm ban dùng sự kiện và đường dẫn khiếu nại ban từ module nguồn. | FR-M07-04.01, FR-M07-04.08 |
-| R-M07-32 | NotificationEmail | — | Appeal | — | — | Phụ thuộc | Appeal | Email về kết luận khiếu nại ban dùng dữ liệu kết luận của M09. | BR-M07-03, FR-M07-04.01 |
-| R-M07-33 | ConversationNotificationSetting | — | ConversationMember | — | — | Phụ thuộc | ConversationMember | Kiểm tra người đặt cài đặt là thành viên, xử lý rời/loại khỏi nhóm chat và dùng ngữ cảnh mốc đọc từ M16. | FR-M07-09.05, FR-M07-09.08, FR-M07-07.02 |
-| R-M07-34 | ConversationNotificationSetting | — | Message | — | — | Phụ thuộc | Message | Báo tin mới dùng sự kiện Message, cuộc đang xem và cài đặt của thành viên tại M16. | FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, BR-M07-28 |
-| R-M07-35 | ChatNotificationSetting | — | ConversationNotificationSetting | — | — | Phụ thuộc | ConversationNotificationSetting | Khi cài đặt toàn bộ Chat ở Đang nhận, áp cài đặt từng cuộc, khi Đã tắt thì chặn popup của mọi cuộc. | FR-M07-09.03, FR-M07-09.04, BR-M07-08 |
-
-Có 35 quan hệ gồm 15 Kết tập, 10 Liên kết và 10 Phụ thuộc. Năm cặp n-n đã được tách. Câu đọc và ràng buộc từng vai trò ở mục 3.2.
-
-Chiều Kết tập ở R-M07-01/02/03/04/06–15 được chọn theo nghĩa bản ghi Notification, NotificationEmail hoặc ChatNotificationSetting ghi đối tượng liên quan. R-M07-05 lấy Notification làm bên chứa cửa sổ gộp. Những lựa chọn bên toàn thể này được trình để người dùng duyệt cùng cổng bước 3.
-
-**Đối chiếu với các EC đã có**
-
-- R-M07-01 khớp bội số và loại với R-M01-18 về người nhận Notification.
-- R-M07-16/17/18 khớp bội số với R-M01-14/15/16, nhưng M07 dùng Liên kết sau khi phân loại UserFollow/TopicFollow thành lớp liên kết, EC-M01 đang dùng Kết tập.
-- R-M07-19 khớp bội số với R-M05-19, M07 dùng Liên kết và EC-M05 đang dùng Kết tập. Các EC tham chiếu Follow cũng có nhóm lớp sơ bộ khác với phân loại của module sở hữu M07.
-- Phân loại M07 được trình ở Q-02 để xác nhận hướng đối chiếu/gộp. Tài liệu các module khác được ghi nhận cần đồng bộ ở lượt xử lý tương ứng của module đó hoặc lượt gộp.
+| R-M07-01 | User | 1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại người nhận; người dùng tồn tại độc lập, thông báo được giữ vô thời hạn (BR-M07-13) | FR-M07-02.01, BR-M07-13 |
+| R-M07-02 | User | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại người gây sự kiện; quan hệ được giữ khi tài khoản đó DEACTIVATED, DELETED để hiện chữ thay thế (BR-M07-24) | FR-M07-05.12, BR-M07-24 |
+| R-M07-03 | Notification | 1 | CountedUpvoter | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n Notification – User (người upvote đã được đếm) đã tách qua lớp liên kết CountedUpvoter | FR-M07-02.04, FR-M07-02.20 |
+| R-M07-04 | User | 1 | CountedUpvoter | 0..* | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n Notification – User; nối người dùng chứ không nối lượt upvote vì bỏ upvote không đổi thông báo (FR-M07-02.19) | FR-M07-02.19, FR-M07-02.20 |
+| R-M07-05 | Post | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại bài viết là nội dung liên quan; bài tồn tại độc lập, bị ẩn hay xóa thì thông báo vẫn còn (BR-M07-27) | FR-M07-02.02, BR-M07-27 |
+| R-M07-06 | Comment | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại bình luận là nội dung liên quan; bình luận tồn tại độc lập (BR-M07-27) | FR-M07-02.02, FR-M07-02.18, BR-M07-27 |
+| R-M07-07 | Group | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại nhóm của sự kiện nhóm; nhóm tồn tại độc lập | BR-M07-01, FR-M07-02.11 |
+| R-M07-08 | Report | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại báo cáo của sự kiện kết quả báo cáo; báo cáo do M08 quản lý, tồn tại độc lập | BR-M07-01, FR-M07-02.02 |
+| R-M07-09 | Warning | 0..1 | Notification | 0..1 | 1-1 | Kết tập | Notification | Thông báo ghi lại cảnh cáo của sự kiện nhận cảnh cáo; cảnh cáo do M08 quản lý, tồn tại độc lập | BR-M07-01, FR-M07-02.13 |
+| R-M07-10 | Ban | 0..1 | Notification | 0..2 | 1-n | Kết tập | Notification | Thông báo ghi lại lần ban của sự kiện ban, gỡ ban; lần ban do M08 quản lý, tồn tại độc lập | BR-M07-01, FR-M07-02.13 |
+| R-M07-11 | Appeal | 0..1 | Notification | 0..1 | 1-1 | Kết tập | Notification | Thông báo ghi lại khiếu nại của sự kiện kết luận khiếu nại; khiếu nại do M09 quản lý, tồn tại độc lập | BR-M07-01 |
+| R-M07-12 | Proposal | 0..1 | Notification | 1 | 1-1 | Kết tập | Notification | Thông báo đề xuất ghi lại đề xuất mà nó trỏ tới và đọc trạng thái của đề xuất (Q-02); đề xuất do M10 quản lý, tồn tại độc lập | FR-M07-02.14, FR-M07-02.15, FR-M07-02.30, BR-M07-20 |
+| R-M07-13 | Badge | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại huy hiệu của sự kiện đạt huy hiệu; huy hiệu do M12 quản lý, tồn tại độc lập | BR-M07-01 |
+| R-M07-14 | EarnedTitle | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo ghi lại lần đạt danh hiệu "Ngôi sao tuần" (EarnedTitle) của sự kiện đạt danh hiệu; EarnedTitle do M12 quản lý, tồn tại độc lập. Đổi từ Title theo MD-01 | BR-M07-01 |
+| R-M07-15 | User | 1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại người theo dõi; người dùng tồn tại độc lập. Cùng loại và chiều với R-M01-13 | FR-M07-01.01, FR-M07-01.08 |
+| R-M07-16 | User | 0..1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại người được theo dõi; bội số phía người dùng là 0..1 vì lượt theo dõi Topic không trỏ tới người dùng; lượt theo dõi được giữ khi tài khoản đó BANNED, DEACTIVATED (FR-M07-01.13). Cùng loại và chiều với R-M01-14 | FR-M07-01.01, FR-M07-01.11, FR-M07-01.13 |
+| R-M07-17 | Topic | 0..1 | Follow | 0..* | 1-n | Kết tập | Follow | Lượt theo dõi ghi lại Topic được theo dõi; không hợp thành vì lượt theo dõi chuyển sang Topic đích khi gộp (FR-M05-07.06). Cùng loại và chiều với R-M05-12. Mỗi lượt theo dõi trỏ tới đúng một trong hai: người dùng (R-M07-16) hoặc Topic | FR-M07-01.01, FR-M05-07.06, FR-M05-08.06 |
+| R-M07-18 | User | 1 | NotificationEmail | 0..* | 1-n | Kết tập | NotificationEmail | Email thông báo ghi lại người nhận và gửi tới địa chỉ email của người đó; người dùng tồn tại độc lập | FR-M07-04.01 |
+| R-M07-19 | User | 1 | NotificationSetting | 0..1 | 1-1 | Kết tập | User | Người dùng có một cài đặt thông báo, như tài khoản có một hồ sơ (R-M01-09); không ghi hợp thành vì FR không nói xóa cài đặt (mục Dữ liệu nghiệp vụ: không có việc xóa) và tài khoản không bị xóa hẳn | FR-M07-09.03, FR-M07-09.04 |
+| R-M07-20 | User | 1 | MutedPost | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n User – Post (tắt thông báo cho bài) đã tách qua lớp liên kết MutedPost; người tắt thông báo, chỉ áp cho chính người đó (FR-M07-08.04) | FR-M07-08.02, FR-M07-08.04 |
+| R-M07-21 | Post | 1 | MutedPost | 0..* | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n User – Post; bài viết bị tắt thông báo | FR-M07-08.01, FR-M07-08.02 |
+| R-M07-22 | User | 1 | MutedConversation | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n User – Conversation (tắt thông báo cuộc trò chuyện) đã tách qua lớp liên kết MutedConversation; chỉ thành viên mới tắt được (FR-M07-09.05) | FR-M07-09.01, FR-M07-09.05 |
+| R-M07-23 | Conversation | 1 | MutedConversation | 0..* | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n User – Conversation; cuộc trò chuyện bị tắt thông báo. Liên kết bị bỏ khi thành viên rời, bị xóa khỏi nhóm chat (FR-M07-09.08) | FR-M07-09.01, FR-M07-09.08 |
 
 ## 4. Sơ đồ lớp phân tích
 
-<!-- BEGIN:PUML -->
-```plantuml
-@startuml
-hide circle
-hide methods
-skinparam classAttributeIconSize 0
+<!-- BEGIN:DIAGRAM -->
+![Sơ đồ lớp phân tích — EC-M07](diagrams/EC-M07.png)
 
-class Notification {
-  -kind
-  -createdAt
-  -updatedAt
-  -readState
-  -appealUrl
-  -/proposalResponse
-}
-class UserFollow {
-  -followedAt
-}
-class TopicFollow {
-  -followedAt
-}
-class NotificationEmail {
-  -kind
-  -recipientEmail
-  -queuedAt
-  -sent
-  -retryCount
-  -appealUrl
-}
-class UpvoteNotificationWindow {
-  -openedAt
-  -/closesAt
-  -/actorCount
-  -/otherActorCount
-}
-class PostNotificationSetting {
-  -state
-}
-class ConversationNotificationSetting {
-  -state
-}
-class User <<M01>> {
-  -/unreadNotificationCount
-  -/unreadConversationCount
-}
-class Post <<M03>> {
-}
-class Comment <<M04>> {
-}
-class Topic <<M05>> {
-}
-class Poll <<M03>> {
-}
-class Mention <<M01>> {
-}
-class Report <<M08>> {
-}
-class Warning <<M08>> {
-}
-class Ban <<M08>> {
-}
-class Appeal <<M09>> {
-}
-class Group <<M11>> {
-}
-class GroupMember <<M11>> {
-}
-class Badge <<M12>> {
-}
-class WeeklyStarAward <<M12>> {
-}
-class RoleProposal <<M10>> {
-}
-class Conversation <<M16>> {
-}
-class ConversationMember <<M16>> {
-}
-class Message <<M16>> {
-}
-class ChatNotificationSetting {
-  -state
-}
-class UpvoteNotificationActor {
-}
-
-(User, User) .. UserFollow
-(User, Topic) .. TopicFollow
-(User, Post) .. PostNotificationSetting
-(User, Conversation) .. ConversationNotificationSetting
-(UpvoteNotificationWindow, User) .. UpvoteNotificationActor
-Notification "0..*" o-- "1" User
-Notification "0..*" o-- "0..1" User
-NotificationEmail "0..*" o-- "1" User
-ChatNotificationSetting "0..1" o-- "1" User
-Notification "1" o-- "0..1" UpvoteNotificationWindow
-Notification "0..*" o-- "0..1" Post
-Notification "0..*" o-- "0..1" Comment
-Notification "0..*" o-- "0..1" Group
-Notification "0..*" o-- "0..1" Report
-Notification "0..*" o-- "0..1" Warning
-Notification "0..*" o-- "0..1" Ban
-Notification "0..*" o-- "0..1" Appeal
-Notification "0..*" o-- "0..1" Badge
-Notification "0..*" o-- "0..1" WeeklyStarAward
-Notification "1" o-- "0..1" RoleProposal
-Notification ..> GroupMember
-Notification ..> PostNotificationSetting
-Notification ..> UserFollow
-Notification ..> Mention
-Notification ..> Poll
-NotificationEmail ..> Ban
-NotificationEmail ..> Appeal
-ConversationNotificationSetting ..> ConversationMember
-ConversationNotificationSetting ..> Message
-ChatNotificationSetting ..> ConversationNotificationSetting
-
-@enduml
-```
-<!-- END:PUML -->
-
-PlantUML được sinh từ bảng. Hai vai trò của User–Notification, hai vai trò User–UserFollow và các ràng buộc theo loại sự kiện cần được đọc cùng mục 3.2/3.4. QU-10/QU-11 tiếp tục trình xác nhận chung ở cổng chốt.
+Mã nguồn sơ đồ: [diagrams/EC-M07.puml](diagrams/EC-M07.puml). Ảnh và tệp .puml do `gen_puml.py` sinh từ các bảng của tài liệu này; muốn đổi sơ đồ thì sửa bảng rồi chạy lại tool, không sửa tay.
+<!-- END:DIAGRAM -->
 
 ## 5. Liên module
 
+<!-- Mỗi lớp có Sở hữu khác module này một dòng. -->
+
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| User | M01 | Người nhận và người gây sự kiện, hai đầu UserFollow, người theo dõi Topic, chủ thể các cài đặt. Nhận các thiết bị đang mở ứng dụng và trạng thái tài khoản qua M01. | unreadNotificationCount, unreadConversationCount là giá trị dẫn xuất M07 bổ sung. |
-| Post | M03 | Đích nội dung Notification, một đầu PostNotificationSetting. M03 cung cấp lần đầu công khai, trạng thái ẩn danh và quyền xem nội dung đã xử lý. | — |
-| Comment | M04 | Đích Notification và đích upvote qua cửa sổ của thông báo. M04 cung cấp nội dung/quyền xem lại bình luận đã xử lý. | — |
-| Topic | M05 | Một đầu TopicFollow. M05 xử lý chuyển/bỏ các lượt khi gộp/xóa Topic. Kiểu nửa quan hệ được ghi lệch với R-M05-19 để đối chiếu khi gộp. | — |
-| Poll | M03 | Nguồn sự kiện kết thúc poll, nội dung được mở theo bài liên quan. | — |
-| Mention | M01 | Nguồn sự kiện nhắc tên khi nội dung công khai, xử lý người mới được nhắc thuộc M01. | — |
-| Report | M08 | Đích thông báo kết quả báo cáo theo người nhận module nguồn cung cấp, tên dùng lại, chờ EC-M08. | — |
-| Warning | M08 | Đích xử lý cảnh cáo và ngữ cảnh khiếu nại, tên tạm chờ EC-M08. | — |
-| Ban | M08 | Đích sự kiện ban/gỡ ban và dữ liệu email ban, tên dùng lại, chờ EC-M08. | — |
-| Appeal | M09 | Đích kết luận khiếu nại, ngữ cảnh email kết luận khiếu nại ban và các đường dẫn khiếu nại từ module nguồn, chờ EC-M09. | — |
-| Group | M11 | Đích sự kiện nhóm và ngữ cảnh quyền xem nội dung, tên dùng lại, chờ EC-M11. | — |
-| GroupMember | M11 | Đầu vào kiểm tra quyền nhận/mở thông báo nhóm Private, tên dùng lại, chờ EC-M11. | — |
-| Badge | M12 | Đích sự kiện đạt badge, tên từ EC-M02, chờ EC-M12. | — |
-| WeeklyStarAward | M12 | Đích sự kiện đạt danh hiệu tuần, tên từ EC-M02, chờ EC-M12. | — |
-| RoleProposal | M10 | Đề xuất vai trò sinh Notification, M10 quyết định phản hồi/trạng thái hiệu lực, tên tạm chờ EC-M10. | — |
-| Conversation | M16 | Một đầu ConversationNotificationSetting và dữ liệu cuộc có tin chưa đọc, tên dùng lại, chờ EC-M16. | — |
-| ConversationMember | M16 | Tư cách thành viên, mốc đọc, quyền thấy tin và sự kiện rời/bị xóa khỏi nhóm chat, tên tạm chờ EC-M16. | — |
-| Message | M16 | Đầu vào báo tin mới và điều kiện cuộc đang xem. M16 sở hữu hộp thư và dữ liệu tin nhắn, tên dùng lại, chờ EC-M16. | — |
-
-M07 sở hữu Follow, các cài đặt, Notification, NotificationEmail và dữ liệu cửa sổ gộp. M02 dùng Follow cho danh sách/số theo dõi, M06/M14 dùng Follow cho lọc/feed. Notification và email dùng sự kiện/quyền/nội dung do module nguồn sở hữu. Số cuộc trò chuyện chưa đọc lấy theo hợp đồng M16, các cặp hai lớp ngoài được xét tại module sở hữu.
+| User | M01 | Người nhận của thông báo và email (R-M07-01, R-M07-18), người gây sự kiện (R-M07-02), người upvote đã được đếm (R-M07-04), người theo dõi và người được theo dõi (R-M07-15, R-M07-16), chủ cài đặt thông báo (R-M07-19), người tắt thông báo bài và cuộc trò chuyện (R-M07-20, R-M07-22); đọc displayName, status, email | /unreadNotificationCount — đã đưa vào lớp của EC-M01 (MD-05) |
+| Topic | M05 | Đối tượng theo dõi (R-M07-17); M05 chuyển, bỏ lượt theo dõi khi gộp, xóa Topic | — |
+| Post | M03 | Nội dung liên quan của thông báo (R-M07-05); bài bị tắt thông báo (R-M07-21); đọc isAnonymous (do M11 bổ sung) và /isPubliclyVisible | — |
+| Comment | M04 | Nội dung liên quan của thông báo (R-M07-06); đọc /isVisible | — |
+| Group | M11 | Nội dung liên quan của thông báo sự kiện nhóm (R-M07-07); đọc inviteLink | — |
+| Report | M08 | Nội dung liên quan của thông báo kết quả báo cáo (R-M07-08) | — |
+| Warning | M08 | Nội dung liên quan của thông báo nhận cảnh cáo (R-M07-09) | — |
+| Ban | M08 | Nội dung liên quan của thông báo ban, gỡ ban (R-M07-10) | — |
+| Appeal | M09 | Nội dung liên quan của thông báo kết luận khiếu nại (R-M07-11) | — |
+| Proposal | M10 | Thông báo đề xuất trỏ tới đề xuất (R-M07-12); chuyển lựa chọn Chấp nhận, Từ chối cho M10 ghi, đọc status để hiện lựa chọn đã chọn hoặc "Đã hết hạn" (Q-02) | — |
+| Badge | M12 | Nội dung liên quan của thông báo đạt huy hiệu (R-M07-13) | — |
+| EarnedTitle | M12 | Lần đạt danh hiệu "Ngôi sao tuần" mà thông báo đạt danh hiệu trỏ tới (R-M07-14) | — |
+| Conversation | M16 | Cuộc trò chuyện bị tắt thông báo (R-M07-23); M16 báo việc thành viên rời, bị xóa khỏi nhóm chat để bỏ MutedConversation | — |
 
 ## 6. Câu hỏi và điểm chưa chốt
 
+<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-Mxx". -->
+
 | Mã | Loại | Câu hỏi | Trả lời | Ghi vào |
 |---|---|---|---|---|
-| Q-01 | Lệch | FR-M07 mục 5.11 liệt kê Tắt thông báo toàn bộ Chat là một thực thể, FR-M07-09.03/09.04 định nghĩa một giá trị bật/tắt theo người dùng. A, đề xuất biểu diễn bằng User.chatMuted do M07 bổ sung theo phép thử T9. B, tách thành lớp ChatNotificationSetting riêng có trạng thái. Bạn chọn cách nào? | Người dùng trả lời “Q01 B, duyệt bước 2, tiếp tục thực hiện bước 3” ngày 2026-11-18. | Đã thêm ChatNotificationSetting có state, chuyển User.chatMuted sang lớp riêng tại mục 2.1–2.4 và xét quan hệ ở bước 3. |
-| Q-02 | Lệch | M07 xét UserFollow/TopicFollow là lớp Liên kết sau khi tách cặp, các nửa User/Topic–Follow dùng Liên kết. EC-M01 R-M01-14/15/16 và EC-M05 R-M05-19 đang dùng Kết tập với cùng bội số. Đề xuất dùng phân loại của module sở hữu M07 khi đối chiếu/gộp và đồng bộ các EC tham chiếu ở lượt tương ứng. | Đề xuất mô hình trình cùng cổng chốt bước 3. | Mục 3.3/3.4/5 ghi rõ bội số khớp và điểm lệch về loại. Cổng chốt EC-M07 xác nhận phân loại M07, việc đồng bộ các module khác được theo dõi cho lượt xử lý tương ứng. |
-
-Người dùng đã duyệt bước 2 và chọn Q-01 B ngày 2026-11-18. Bước 3 có 27 lớp, 35 quan hệ và 23 thuộc tính. Q-02 trình điểm lệch loại quan hệ theo dõi giữa M07 và các EC tham chiếu. QU-10/QU-11 tiếp tục trình xác nhận chung ở cổng chốt, bản nháp dùng PlantUML do tool sinh và bội số theo skill. EC-M07 đang chờ người dùng chốt.
-
-Kết quả kiểm tra bản 0.2 ở bước 2 đạt 0 ERROR, 0 WARN, 13 INFO. Một thông tin ghi nhận ba thuộc tính M07 bổ sung trên User, mười hai thông tin là các lớp ngoài chờ EC module sở hữu để đối chiếu. Q-01 tại bản 0.2 đã được người dùng trả lời B khi duyệt bước 2.
-
-Kết quả kiểm tra bước 3 đạt 0 ERROR, 1 WARN, 13 INFO. Cảnh báo thuộc UpvoteNotificationActor có dữ liệu là cặp cửa sổ–User, phần thuộc tính riêng để trống có căn cứ. Một thông tin ghi nhận hai thuộc tính dẫn xuất M07 bổ sung trên User, mười hai thông tin thuộc các lớp ngoài chờ EC module sở hữu. Đã kiểm Q-01 B, 80 dòng danh từ, 27 lớp, 23 thuộc tính, đủ hai nửa của 5 cặp n-n, 33 ô T tương ứng 35 quan hệ, mã PlantUML khớp bảng, bội số khớp các quan hệ đối chiếu EC-M01/M05. Điểm lệch loại quan hệ theo dõi được trình tại Q-02 để theo dõi đồng bộ khi đối chiếu/gộp.
+| Q-01 | Lệch | Mục Dữ liệu nghiệp vụ của FR-M07 ghi "Tắt thông báo toàn bộ Chat" (người dùng; bật hoặc tắt) là một thực thể. Mỗi người dùng chỉ có một giá trị bật/tắt và không có thông tin nào khác, nên phép thử cho ra thuộc tính. Đề xuất: thuộc tính User.isAllChatMuted do M07 bổ sung trên lớp của M01 (mục 5), không tạo lớp riêng | Người dùng chọn tách thành lớp cài đặt riêng: NotificationSetting (Cài đặt thông báo) do M07 sở hữu, mỗi người dùng một cài đặt, thuộc tính isAllChatMuted; không bổ sung thuộc tính lên User của M01 | Mục 2.1 (dòng 13, 114, 121), 2.2, 2.3, 2.4 |
+| Q-02 | Lệch | Mục Dữ liệu nghiệp vụ của FR-M07 ghi "lựa chọn Chấp nhận/Từ chối và lựa chọn đã chọn" trên Thông báo; FR-M10 ghi trạng thái của Đề xuất (Chưa trả lời, Đã chấp nhận, Đã từ chối, Hết hiệu lực) và "mỗi đề xuất có một thông báo (M07)". Lưu ở cả hai nơi là trùng. Đề xuất: thông báo đề xuất trỏ tới đề xuất (bước 3) và đọc Proposal.status để hiện lựa chọn đã chọn, "Đã hết hạn" và khóa lựa chọn; M07 không lưu lựa chọn trên Notification | Đồng ý theo đề xuất: thông báo đề xuất trỏ tới đề xuất và đọc Proposal.status; không lưu lựa chọn trên Notification | Mục 2.1, 2.3, 2.4 |
 
 ## 7. Lịch sử sửa đổi
 
 | Phiên bản | Ngày | Nội dung | Người sửa |
 |---|---|---|---|
-| 0.1 | 2026-11-18 | Tạo bản nháp bước 1 từ FR-M07 v1.5 đã chốt, 16 câu mô tả và truy vết đủ 9 chức năng, chờ duyệt bước 1 | Codex |
-| 0.2 | 2026-11-18 | Người dùng duyệt bước 1, lập 78 dòng danh từ, 25 lớp và 23 thuộc tính, đối chiếu FR và trình Q-01 về cài đặt tắt toàn bộ Chat, chờ duyệt bước 2 | Codex |
-| 0.3 | 2026-11-18 | Người dùng duyệt bước 2 và chọn Q-01 B, tách ChatNotificationSetting, xác định 5 lớp Liên kết và 35 quan hệ, đối chiếu EC-M01/M05, sinh PlantUML, chờ chốt bước 3 cùng Q-02 và quy ước sơ đồ | Codex |
+| 0.1 | 2026-11-18 | Tạo mới | Phạm Văn Đức |
+| 1.0 | 2026-11-19 | Chốt: 3 bước; Q-01, Q-02 đã trả lời (tắt thông báo toàn bộ Chat là lớp cài đặt riêng NotificationSetting; thông báo đề xuất đọc trạng thái của đề xuất, không lưu lựa chọn); thêm ba lớp liên kết CountedUpvoter, MutedPost, MutedConversation | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-01: Title → EarnedTitle, tên tiếng Việt của EarnedTitle: Danh hiệu → Danh hiệu đã đạt; MD-05: dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: User.unreadNotificationCount, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 106 dòng Tham chiếu, tên tiếng Việt của thuộc tính lớp ngoài theo module sở hữu: User.email: Địa chỉ email → Email; Proposal.status: Trạng thái đề xuất → Trạng thái của đề xuất; bỏ các ghi chú "tên tạm, chờ EC-…" đã hết hiệu lực ở mô tả lớp và mục Liên module | Phạm Văn Đức |

@@ -34,6 +34,9 @@ nguyên văn; `data-model/conventions.md` (QU-04); kết quả `merge_cd.py --li
    Quy tắc khi chọn:
    - **Căn cứ kiểu** ghi mã FR/BR quyết định kiểu (ví dụ quy tắc nêu độ dài, bảng trạng thái nêu tập giá trị), hoặc
      `QU-04` khi kiểu chỉ theo quy ước.
+   - Thuộc tính Căn cứ `Đề xuất` ở EC: FR không nêu ràng buộc cho nó, nên kiểu chọn theo bảng trên với Căn cứ kiểu
+     `QU-04`, Ràng buộc `—`. Bắt buộc suy từ lý do ghi ở cột Ghi chú của EC (cần để hiển thị thì thường là `Có`);
+     không rõ thì gom vào câu hỏi ở cổng.
    - **Bắt buộc**: `Có` khi nguồn nói thuộc tính luôn có; `Không` khi nguồn nói "tùy chọn", "nếu có", hoặc thuộc tính
      chỉ có giá trị ở một số trạng thái (lý do từ chối chỉ có khi bị từ chối). Nguồn không nói → đặt câu hỏi gom
      nhóm ở cổng, kèm đề xuất; không tự chọn im lặng.

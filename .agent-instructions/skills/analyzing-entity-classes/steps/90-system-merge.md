@@ -39,6 +39,8 @@ Mọi `EC-Mxx.md` (trạng thái Đã chốt) trong `data-model/ec/`; `glossary.
    | Quan hệ n-n lộ ra khi nhìn toàn hệ thống | Không | Hai module mỗi bên ghi một chiều 1-n của cùng một cặp, ngược nhau → thực chất là n-n, phải tách |
    | Lớp 1-1 khác module có thể gộp | Không | Áp tiêu chí gộp/giữ ở bước 3 |
    | Thuộc tính "module bổ sung" cho lớp ngoài | Có (liệt kê) | Đưa vào lớp của module sở hữu |
+   | Thuộc tính `Tham chiếu` mà module sở hữu chưa khai | Có | Module này cần đọc hoặc ghi thông tin mà lớp chưa có: thêm vào lớp của module sở hữu (Căn cứ `Nguồn nêu` hoặc `Đề xuất`), hoặc hỏi nếu hai bên hiểu khác nhau |
+   | Thuộc tính `Đề xuất` | Có (liệt kê) | Rà lại cả nhóm: đề xuất của module này có trùng nghĩa với thuộc tính module khác đã có không |
 
 4. Lập bảng **quyết định gộp** (mục 8 của `EC-SYS.md`), mỗi điểm lệch một dòng `MD-nn`: vấn đề, các module liên
    quan, phương án, đề xuất. Điểm nào quyết định được bằng quy ước (QU) hoặc glossary thì đề xuất luôn; điểm nào là
@@ -53,13 +55,16 @@ Mọi `EC-Mxx.md` (trạng thái Đã chốt) trong `data-model/ec/`; `glossary.
 2. Áp các quyết định `MD-nn` đã duyệt lên dữ liệu của `merge-ec.md` và ghi:
    - Bảng lớp (mục 2.2): mỗi lớp một dòng, cột Sở hữu là module sở hữu duy nhất, thêm cột "Module tham chiếu".
    - Bảng thuộc tính (mục 2.3): hợp của thuộc tính ở module sở hữu và thuộc tính các module khác bổ sung; cột Nguồn
-     giữ mã FR kèm mã module.
+     giữ mã FR kèm mã module; giữ cột Căn cứ (`Nguồn nêu`, `Đề xuất`). Bản hệ thống không còn dòng `Tham chiếu`: mỗi
+     thuộc tính tham chiếu đã có ở lớp của module sở hữu (hoặc đã được thêm theo một `MD-nn`). Cột Thuộc tính ở bảng
+     lớp liệt kê đủ thuộc tính của lớp.
    - Bảng lớp liên kết (mục 3.3) và bảng quan hệ (mục 3.4): mỗi quan hệ một dòng, **giữ ID `R-Mxx-nn` gốc**; quan hệ
      trùng thì giữ ID của module sở hữu lớp phía n và ghi ID kia ở cột Căn cứ; quan hệ chỉ sinh ra khi gộp thì đặt
      `R-SYS-nn`.
 3. Soát lại toàn cục theo tự kiểm của bước 3: không n-n, mỗi Hợp thành đủ căn cứ, không lớp mồ côi, mỗi lớp thống
    kê có một quan hệ Kế thừa hoặc Phụ thuộc.
-4. Chạy `gen_puml.py --ec $D/EC-SYS.md --inplace` và `check_ec.py --ec $D/EC-SYS.md --system --final`.
+4. Chạy `gen_puml.py --ec $D/EC-SYS.md` (ghi `diagrams/EC-SYS.puml`, render `diagrams/EC-SYS.png`, đặt ảnh vào mục 4)
+   và `check_ec.py --ec $D/EC-SYS.md --system --final`.
 
 **Cổng B:** trình số lớp, số thuộc tính, số quan hệ trước và sau gộp; các thay đổi so với tài liệu module.
 
@@ -68,9 +73,14 @@ Mọi `EC-Mxx.md` (trạng thái Đã chốt) trong `data-model/ec/`; `glossary.
 1. Mỗi `MD-nn` làm đổi nội dung của một module (đổi tên lớp, đổi module sở hữu, sửa bội số) được ghi vào cột
    "Áp dụng cho". **Không tự sửa tài liệu module.** Trình danh sách thay đổi cần làm ở từng `EC-Mxx.md`; người dùng
    đồng ý thì sửa từng tệp (tăng phiên bản, ghi Lịch sử, dẫn `MD-nn`) và chạy lại `check_ec.py --final` cho tệp đó.
+   Cùng lúc đó, ghi **đủ thuộc tính của mọi lớp ngoài** theo `EC-SYS.md` (`input/CONVENTIONS.md` mục 5): mỗi lớp ở
+   mọi `EC-Mxx.md` có đúng bộ thuộc tính của lớp đó ở bản hệ thống. Chạy lại `merge_ec.py`: không còn điểm lệch nào về
+   thuộc tính.
 2. Nếu `CD-Mxx.md` hoặc `DB-Mxx.md` của một module đã tồn tại (ví dụ khi phải gộp lại sau khi đã làm skill sau), ghi
    rõ `MD-nn` nào kéo theo thay đổi ở đó, để làm lại các bước bị ảnh hưởng.
-3. Người dùng nói "Chốt EC-SYS": `trang_thai: Đã chốt`, phiên bản `1.0`.
+3. Lập mục 7 **Bảng tra nghĩa** của `EC-SYS.md` (người dùng yêu cầu 2026-11-20): mỗi lớp, mỗi thuộc tính, mỗi quan hệ
+   một dòng ghi ngắn ý nghĩa của nó, để người đọc tra nhanh mà không phải đọc ràng buộc và căn cứ.
+4. Người dùng nói "Chốt EC-SYS": `trang_thai: Đã chốt`, phiên bản `1.0`.
 
 ## Tự kiểm
 

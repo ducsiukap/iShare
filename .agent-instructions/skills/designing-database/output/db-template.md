@@ -123,9 +123,9 @@ steps_completed: []
 
 ### 6.2 Sơ đồ quan hệ
 
-<!-- BEGIN:PUML -->
+<!-- BEGIN:DIAGRAM -->
 (Chưa làm — bước 5)
-<!-- END:PUML -->
+<!-- END:DIAGRAM -->
 
 ## 7. Liên module
 

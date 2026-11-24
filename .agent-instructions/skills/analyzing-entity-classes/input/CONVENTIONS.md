@@ -72,7 +72,7 @@ Cột "Trạng thái" cho biết quy ước đã được người dùng chốt 
 | QU-07 | Tên cột | snake_case của tên thuộc tính: `starLevel` → `star_level` | **Đã chốt** (2026-11-15) |
 | QU-08 | Tên khóa ngoại | snake_case, kết thúc bằng `_id`. Tên thuộc tính đối tượng tương ứng + `_id` (`client` → `client_id`, `author` → `author_id`). Khi thuộc tính đối tượng là danh sách ở phía kia thì dùng tên lớp phía 1 + `_id` (`hotel_id`) | snake_case: **Đã chốt**. Cách ghép tên: Chờ xác nhận |
 | QU-09 | Kiểu cột (PostgreSQL) | `String` → `varchar(n)` khi nguồn nêu độ dài tối đa tính bằng ký tự, `text` khi không. `int` → `integer`. `long` → `bigint`. `double` → `double precision`. `boolean` → `boolean`. `LocalDate` → `date`. `Instant` → `timestamptz`. Kiểu liệt kê → `varchar(30)` kèm danh sách giá trị cho phép ở cột Ghi chú | Chờ xác nhận (tech stack: PostgreSQL, DEC-134–137) |
-| QU-10 | Sơ đồ | Mã PlantUML do tool sinh từ bảng; không viết tay, không sửa tay | Chờ xác nhận |
+| QU-10 | Sơ đồ | Tool sinh mã PlantUML từ các bảng vào tệp riêng `diagrams/<mã tài liệu>.puml` cạnh tài liệu, render thành `diagrams/<mã tài liệu>.png`; tài liệu chỉ nhúng ảnh PNG và liên kết tới tệp `.puml`, không chép mã PlantUML. Không viết tay, không sửa tay tệp `.puml` hay ảnh | **Đã chốt** (2026-11-17, góp ý của người dùng sau lần chạy thử M05) |
 | QU-11 | Bội số | Viết `1`, `0..1`, `0..*`, `1..*`, hoặc khoảng cụ thể `1..3` khi quy tắc nghiệp vụ nêu số | Chờ xác nhận |
 
 Tóm tắt cách đặt tên qua ba tài liệu: lớp `PostTopic`, thuộc tính `createdAt` (EC, CD) → bảng `post_topics`, cột
@@ -85,8 +85,17 @@ Một module thường chạm tới dữ liệu của module khác (M05 gán Top
 1. **Mỗi lớp có đúng một module sở hữu**: module mà FR của nó định nghĩa thực thể đó ở mục "Dữ liệu nghiệp vụ" mà
    không ghi chú mã module khác, và có chức năng Tạo trong ma trận CRUD. Thực thể FR ghi kèm "(Myy)" là của Myy.
 2. **Lớp của module khác (lớp ngoài)** vẫn được ghi ở bảng lớp của module đang làm, với cột Sở hữu = `Myy`, để
-   quan hệ có hai đầu. Không liệt kê thuộc tính của lớp ngoài. Ngoại lệ: thuộc tính mà **FR của module đang làm**
-   định nghĩa nhưng nằm trên lớp ngoài thì ghi như phần "module này bổ sung", và nêu ở mục Liên module.
+   quan hệ có hai đầu. Thuộc tính của lớp ngoài chỉ ghi hai loại:
+   - Thuộc tính module này **đọc hoặc ghi** (M05 đọc tiêu đề bài viết để gợi ý Topic; M05 ghi lý do vào dòng nhật ký
+     kiểm duyệt): Căn cứ = `Tham chiếu`. Module sở hữu lớp đó định nghĩa chúng; lượt gộp kiểm module sở hữu đã có
+     chưa.
+   - Thuộc tính mà **FR của module đang làm định nghĩa** nhưng nằm trên lớp ngoài: Căn cứ = `Nguồn nêu` hoặc
+     `Đề xuất`, và ghi ở mục Liên module (cột "Thuộc tính module này bổ sung").
+   Trong lúc phân tích từng module, không liệt kê các thuộc tính khác của lớp ngoài. **Sau lượt gộp hệ thống**
+   (việc C, người dùng chốt 2026-11-20, `MD-05` của EC-SYS): mỗi lớp ngoài trong `EC-Mxx.md` được ghi **đủ thuộc tính
+   như `EC-SYS.md`**, Căn cứ = `Tham chiếu`, Tên tiếng Việt và Tính chất theo module sở hữu. Dòng module này thật sự
+   đọc hoặc ghi giữ Ghi chú nói nó dùng làm gì; dòng thêm cho đủ ghi "Ghi đủ lớp sau gộp (MD-05)", ràng buộc để ở
+   module sở hữu (ghi "—"). Các skill sau (CD, DB) không chép thuộc tính của lớp ngoài.
 3. **Tên lớp ngoài**: chạy `merge_ec.py --list` để lấy đúng tên nếu module sở hữu đã có EC; chưa có thì lấy theo
    `glossary.md` và ghi chú "tên tạm, chờ EC-Myy".
 4. **Quan hệ giữa lớp của module này và lớp ngoài** được ghi ở module mà FR của nó nói tới quan hệ đó. Hai module
@@ -105,4 +114,8 @@ Một module thường chạm tới dữ liệu của module khác (M05 gán Top
 |---|---|
 | Một quy ước dùng cho mọi module (kiểu id, tiền tố bảng…) | `data-model/conventions.md`, kèm mã QU |
 | Một quyết định thiết kế riêng của module (chọn kiểu, gộp hay tách bảng 1-1, giữ cột dẫn xuất) | Bảng Quyết định thiết kế của tài liệu đó (`DD-Mxx-nn`) |
+| Duyệt một thuộc tính `Đề xuất` (FR không gọi tên, nhưng chức năng hoặc quy tắc đã có của FR cần nó) | Giữ trong tài liệu với Căn cứ `Đề xuất` và lý do; không cần sửa FR |
 | Một yêu cầu mới hoặc sửa yêu cầu (hành vi, dữ liệu nghiệp vụ FR chưa có) | Không ghi thẳng vào mô hình. Báo người dùng cập nhật FR bằng skill `analyzing-functional-requirements`; tài liệu đang làm ghi câu hỏi ở trạng thái "Chờ cập nhật FR-Mxx" |
+
+Ranh giới giữa hai dòng cuối: đề xuất chỉ làm cho hành vi FR **đã có** chạy được (cần tên để hiện danh sách, cần
+thời điểm để xét "7 ngày gần nhất"). Thứ người dùng sẽ thấy hoặc nhập mà FR chưa nói là yêu cầu mới.

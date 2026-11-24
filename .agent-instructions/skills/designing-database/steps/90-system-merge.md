@@ -50,7 +50,8 @@ khóa chính, đúng kiểu; không còn dữ liệu dư thừa **xuyên module*
    đề nghị đã nằm ở mục 4.2 của bảng đích.
 3. Mục 5 gom lại toàn bộ cột và bảng đã loại ở các module, cộng những gì loại thêm ở lượt gộp (ghi rõ "loại khi gộp,
    `MD-nn`").
-4. Chạy `build_schema.py --db $M/db/DB-SYS.md --inplace` và
+4. Chạy `build_schema.py --db $M/db/DB-SYS.md` (dựng mục 6.1, sinh `diagrams/DB-SYS.puml`, `.png` và nhúng ảnh vào
+   mục 6.2) và
    `check_db.py --db $M/db/DB-SYS.md --system --final --cd $M/cd/CD-SYS.md`.
 
 **Cổng B:** trình lược đồ toàn hệ thống (số bảng, số khóa ngoại), sơ đồ, và các thay đổi so với tài liệu module.

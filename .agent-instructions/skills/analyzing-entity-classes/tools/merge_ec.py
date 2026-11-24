@@ -36,7 +36,8 @@ def norm(name):
 
 def collect(docs):
     classes = {}   # name -> {"owners": [(mod,row)], "refs": [(mod,row)]}
-    attrs = {}     # (class, attr) -> [(mod,row)]
+    attrs = {}     # (class, attr) -> [(mod,row)]   thuộc tính được định nghĩa (Nguồn nêu, Đề xuất)
+    refs = {}      # (class, attr) -> [(mod,row)]   thuộc tính lớp ngoài mà module khác đọc hoặc ghi (Tham chiếu)
     rels, links = [], []
     for d in docs:
         mod = d["module"]
@@ -44,15 +45,16 @@ def collect(docs):
             e = classes.setdefault(r["Lớp"], {"owners": [], "refs": []})
             (e["owners"] if r["Sở hữu"] == mod else e["refs"]).append((mod, r))
         for r in d["rows"]["2.3"]:
-            attrs.setdefault((r["Lớp"], r["Thuộc tính"]), []).append((mod, r))
+            target = refs if r.get("Căn cứ") == "Tham chiếu" else attrs
+            target.setdefault((r["Lớp"], r["Thuộc tính"]), []).append((mod, r))
         for r in d["rows"]["3.4"]:
             rels.append((mod, r))
         for r in d["rows"]["3.3"]:
             links.append((mod, r))
-    return classes, attrs, rels, links
+    return classes, attrs, refs, rels, links
 
 
-def find_issues(docs, classes, attrs, rels):
+def find_issues(docs, classes, attrs, refs, rels):
     mods = set(d["module"] for d in docs)
     issues = []
     for c in sorted(classes):
@@ -102,6 +104,22 @@ def find_issues(docs, classes, attrs, rels):
             note = "" if len(kinds) == 1 and len(cons) == 1 else " (tính chất hoặc ràng buộc khác nhau)"
             issues.append(("Thuộc tính khai ở nhiều module", "%s.%s" % (c, a),
                            "%s.%s có ở: %s%s" % (c, a, ", ".join(m for m, _ in lst), note)))
+    for (c, a), lst in sorted(refs.items()):
+        if (c, a) in attrs:
+            continue
+        e = classes.get(c, {"owners": []})
+        owners = [m for m, _ in e["owners"]]
+        users = ", ".join(m for m, _ in lst)
+        if owners:
+            issues.append(("Thuộc tính được tham chiếu nhưng module sở hữu chưa khai", "%s.%s" % (c, a),
+                           "%s đọc hoặc ghi %s.%s nhưng EC-%s không có thuộc tính này" % (users, c, a, owners[0])))
+        else:
+            issues.append(("Thuộc tính tham chiếu tới lớp chưa có module sở hữu", "%s.%s" % (c, a),
+                           "%s đọc hoặc ghi %s.%s" % (users, c, a)))
+    proposed = [(c, a, m) for (c, a), lst in sorted(attrs.items()) for m, r in lst if r.get("Căn cứ") == "Đề xuất"]
+    if proposed:
+        issues.append(("Thuộc tính đề xuất (để rà lại khi gộp)", "%d thuộc tính" % len(proposed),
+                       "; ".join("%s.%s (%s)" % x for x in proposed)))
     by_class = {}
     for (c, a) in attrs:
         by_class.setdefault(c, []).append(a)
@@ -148,7 +166,7 @@ def render_list(classes, attrs):
     return md_table(["Lớp", "Tên tiếng Việt", "Module sở hữu", "Module tham chiếu", "Thuộc tính đã có"], rows)
 
 
-def render_merge(docs, classes, attrs, rels, links, issues):
+def render_merge(docs, classes, attrs, refs, rels, links, issues):
     out = ["# Bản nháp gộp lớp thực thể toàn hệ thống", "",
            "Sinh bởi merge_ec.py. Đây là dữ liệu để làm lượt gộp, chưa phải EC-SYS.md.", "",
            "## Tài liệu nguồn", ""]
@@ -173,9 +191,15 @@ def render_merge(docs, classes, attrs, rels, links, issues):
     for (c, a) in sorted(attrs):
         lst = attrs[(c, a)]
         r = lst[0][1]
-        rows.append([c, a, r["Tên tiếng Việt"], r["Tính chất"], r["Ràng buộc nguồn nêu"],
-                     "; ".join("%s: %s" % (m, x["Nguồn"]) for m, x in lst)])
-    out.append(md_table(["Lớp", "Thuộc tính", "Tên tiếng Việt", "Tính chất", "Ràng buộc nguồn nêu", "Nguồn"], rows))
+        rows.append([c, a, r["Tên tiếng Việt"], r["Tính chất"], r.get("Căn cứ", ""), r["Ràng buộc nguồn nêu"],
+                     "; ".join("%s: %s" % (m, x["Nguồn"]) for m, x in lst), r.get("Ghi chú", "")])
+    out.append(md_table(["Lớp", "Thuộc tính", "Tên tiếng Việt", "Tính chất", "Căn cứ", "Ràng buộc nguồn nêu", "Nguồn",
+                         "Ghi chú"], rows))
+    out += ["", "## Thuộc tính được module khác tham chiếu", ""]
+    out.append(md_table(["Lớp", "Thuộc tính", "Module tham chiếu", "Module sở hữu đã khai?", "Ghi chú"],
+                        [[c, a, ", ".join(m for m, _ in lst), "Có" if (c, a) in attrs else "Chưa",
+                          "; ".join("%s: %s" % (m, r.get("Ghi chú", "")) for m, r in lst)]
+                         for (c, a), lst in sorted(refs.items())]))
     out += ["", "## Lớp liên kết (hợp nhất)", ""]
     out.append(md_table(["Lớp liên kết", "Tách từ quan hệ n-n", "Thuộc tính riêng của liên kết", "Nguồn"],
                         [[r["Lớp liên kết"], r["Tách từ quan hệ n-n"], r["Thuộc tính riêng của liên kết"],
@@ -202,12 +226,12 @@ def main():
     if not docs:
         print("Chưa có tệp EC-Mxx.md nào trong %s" % a.dir)
         return
-    classes, attrs, rels, links = collect(docs)
+    classes, attrs, refs, rels, links = collect(docs)
     if a.list:
         print(render_list(classes, attrs))
         return
-    issues = find_issues(docs, classes, attrs, rels)
-    text = render_merge(docs, classes, attrs, rels, links, issues)
+    issues = find_issues(docs, classes, attrs, refs, rels)
+    text = render_merge(docs, classes, attrs, refs, rels, links, issues)
     if a.out_md:
         os.makedirs(os.path.dirname(os.path.abspath(a.out_md)), exist_ok=True)
         mdtab.write(a.out_md, text)

@@ -2,12 +2,12 @@
 module: M14
 ten_module: Feed & Discovery
 ma_tai_lieu: EC-M14
-phien_ban: 0.3
-trang_thai: Bản nháp
-ngay: 2026-11-19
+phien_ban: 1.1
+trang_thai: Đã chốt
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M14 v1.1
-steps_completed: [1, 2]
+steps_completed: [1, 2, 3]
 ---
 # Phân tích lớp thực thể — M14 Feed & Discovery
 
@@ -18,42 +18,74 @@ steps_completed: [1, 2]
 | Dự án | iShare |
 | Module | M14 — Feed & Discovery |
 | Đầu vào | FR-M14 phiên bản 1.1 |
-| Trạng thái | Bản nháp |
-| Phiên bản | 0.3 |
-| Ngày | 2026-11-19 |
+| Trạng thái | Đã chốt |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
      - Không đổi tên cột, không xóa cột, không đổi số mục: tool đọc bảng theo số mục và tên cột.
      - Ô không có nội dung ghi "—".
      - Mục chưa tới bước làm thì để dòng "(Chưa làm — bước N)".
-     - Cột Nguồn ghi mã trong FR: FR-M14-nn, FR-M14-nn.mm, BR-M14-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
-     - Sơ đồ ở mục 4 do gen_puml.py sinh; không sửa tay. -->
+     - Cột Nguồn ghi mã trong FR: FR-Mxx-nn, FR-Mxx-nn.mm, BR-Mxx-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
+     - Mục 4 chỉ chứa ảnh sơ đồ. gen_puml.py ghi mã PlantUML vào tệp riêng diagrams/EC-Mxx.puml, render
+       diagrams/EC-Mxx.png và đặt ảnh vào mục 4. Không chép mã PlantUML vào tài liệu, không sửa tay tệp .puml hay ảnh. -->
 
 ## 1. Mô tả chức năng
 
 ### 1.1 Đoạn mô tả
 
-(S1) M14 cung cấp các luồng Trending, Following, Group và Newest để người xem khám phá bài viết, Topic và Tag theo mức độ quan tâm, quan hệ theo dõi, tư cách thành viên nhóm hoặc thời điểm đăng. (S2) Guest và người dùng đã đăng nhập bắt đầu ở Trending Post, và hệ thống áp điều kiện hiển thị bài viết của M03 cùng trạng thái tài khoản của M01 cho mọi luồng. (S3) Hệ thống giữ bài đủ điều kiện của tài khoản BANNED hoặc ở mức cảnh cáo HEAVY trong feed, hiển thị nhãn tài khoản bị khóa do M12 cung cấp khi phù hợp và duy trì quyền truy cập feed khi cờ tính năng của module liên quan tắt. (S4) Hệ thống tính định kỳ điểm Trending Post từ số upvote còn hiệu lực, số bình luận chưa xóa kể cả trả lời, số bookmark còn hiệu lực và tuổi bài tính từ thời điểm đăng, rồi lưu kết quả xếp theo điểm và ưu tiên bài đăng sau khi đồng điểm. (S5) Hệ thống tính Trending Post cho bài đủ điều kiện trong giới hạn tuổi bài, gồm cả bài nhóm Public và bài chưa có tương tác, đồng thời loại bài nhóm Private khỏi tập tính điểm. (S6) Guest và người dùng đã đăng nhập xem cùng một kết quả Trending Post theo lần tính gần nhất khi mở lượt xem, hệ thống giữ kết quả đó trong lượt xem và kiểm lại quyền hiển thị khi tải bài, đồng thời lấy danh sách và thứ tự Trending Topic, Trending Tag từ M05. (S7) Với Following, hệ thống dùng quan hệ theo dõi người dùng hoặc Topic từ M07 để chọn bài đủ điều kiện cho người xem đã đăng nhập, gồm bài nhóm Public, gộp trùng và xếp theo thời điểm đăng, trong đó bài ẩn danh chỉ được đưa vào qua Topic đang theo dõi. (S8) Với Group, hệ thống lấy bài đủ điều kiện từ các nhóm Public và Private mà người xem đã tham gia, dùng tư cách thành viên hiện hành của M11 và xếp bài theo thời điểm đăng. (S9) Hệ thống tiếp tục liệt kê bài nhóm đủ điều kiện trong Trending Post, Following và Group khi cờ Group tắt, còn quyền mở bài và tương tác được M11 xử lý theo trạng thái cờ. (S10) Với Newest, hệ thống cung cấp cho Guest và người dùng đã đăng nhập các bài đủ điều kiện ngoài nhóm, xếp theo thời điểm đăng từ mới đến cũ. (S11) Hệ thống tải thêm bài nối tiếp vị trí của danh sách đang xem, tránh lặp hoặc bỏ sót khi có bài mới, và giữ kết quả tính đã chọn khi tải tiếp Trending Post. (S12) Trong Newest, Following và Group, hệ thống kiểm tra định kỳ bài mới thuộc phạm vi luồng theo bài mới nhất đang hiện, rồi chèn các bài mới lên đầu danh sách khi người xem yêu cầu và giữ vị trí đang đọc.
+Hệ thống cung cấp trang chủ feed của iShare gồm bốn tab Trending, Following, Group và Newest; tab Trending có ba mục con
+Trending Post, Trending Topic và Trending Tag. Mọi tab chỉ hiện bài viết do M03 quản lý đủ điều kiện hiển thị, không hiện
+bài của tác giả có trạng thái tài khoản DEACTIVATED hoặc DELETED, và hiện bài của tài khoản BANNED hoặc ở mức cảnh cáo
+HEAVY như bài khác. Hệ thống mở feed ở tab Trending, mục con Trending Post, cho mọi người xem; Guest xem được tab Trending
+và tab Newest, còn tab Following và tab Group yêu cầu đăng nhập.
 
-<!-- Một đoạn văn, mỗi câu đánh số (S1) (S2) … Xem steps/01-describe-functions.md. -->
+Hệ thống tính lại định kỳ điểm Trending Post cho mọi bài viết của feed chính có tuổi bài không quá giới hạn, gồm bài
+không thuộc nhóm và bài của nhóm Public do M11 quản lý, từ tuổi bài tính theo thời điểm đăng và số upvote, số bình luận,
+số bookmark của bài viết tại lần tính. Mục con Trending Post hiện cùng một danh sách cho mọi người xem, xếp theo điểm
+Trending Post giảm dần, bằng điểm thì bài có thời điểm đăng sau đứng trước, theo kết quả của lần tính gần nhất lúc mở
+tab, và giữ kết quả đó trong suốt lượt xem tab Trending. Mục con Trending Topic và Trending Tag hiện danh sách và thứ tự do
+M05 cung cấp.
+
+Hệ thống cho người dùng đã đăng nhập xem tab Following gồm bài viết có tác giả là người dùng đang theo dõi hoặc có Topic
+đang theo dõi theo quan hệ theo dõi do M07 quản lý, kể cả bài nhóm Public, không gồm bài nhóm Private; bài ẩn danh chỉ vào
+tab Following nhờ Topic đang theo dõi. Hệ thống cho người dùng đã đăng nhập xem tab Group gồm bài viết của mọi nhóm mà
+người đó là thành viên nhóm, cả nhóm Public lẫn nhóm Private. Hệ thống cho mọi người xem tab Newest gồm bài viết không
+thuộc nhóm nào. Tab Following, Group và Newest xếp bài viết theo thời điểm đăng, bài đăng sau đứng trước; khi tab
+Following hoặc tab Group rỗng, hệ thống hiện trạng thái rỗng dẫn sang trang tìm kiếm của M06 hoặc trang danh sách nhóm
+của M11.
+
+Hệ thống tải bài của mọi tab theo từng lần tải khi người xem cuộn, không lặp và không bỏ sót bài. Trong khi người xem ở
+tab Newest, Following hoặc Group, hệ thống kiểm tra định kỳ và hiện banner "có bài mới" khi có bài viết mới thuộc tab,
+rồi chèn các bài viết mới lên đầu danh sách khi người xem bấm banner mà giữ vị trí đang đọc. Feed không có cờ tính năng
+riêng; khi cờ tính năng Group hoặc Gamification do M10 quản lý tắt, feed vẫn hiện bài nhóm và vẫn tính điểm Trending
+Post.
+
+<!-- Văn xuôi bình thường, có thể chia vài đoạn. KHÔNG ghi mã câu (S1), (S2)… trong đoạn văn: người đọc không hiểu
+     các mã đó. Số câu chỉ nằm ở bảng 1.2. Xem steps/01-describe-functions.md. -->
 
 ### 1.2 Truy vết câu
 
-| Câu | Nội dung tóm tắt | Nguồn |
+<!-- Mỗi câu của đoạn mô tả một dòng, theo đúng thứ tự. Câu: 1, 2, 3…
+     Nội dung câu: chép NGUYÊN VĂN câu đó từ mục 1.1 (tool so khớp từng câu với đoạn văn).
+     Nguồn: mã chức năng hoặc yêu cầu của FR mà câu dựa vào. -->
+
+| Câu | Nội dung câu | Nguồn |
 |---|---|---|
-| S1 | Phạm vi dữ liệu của feed | FR-M14-01, FR-M14-01.01, FR-M14-02, FR-M14-04, FR-M14-05, FR-M14-06 |
-| S2 | Luồng mặc định và điều kiện hiển thị bài | FR-M14-01.02, FR-M14-01.05, FR-M14-01.08, FR-M14-01.09 |
-| S3 | Trạng thái tài khoản, nhãn công khai và cờ tính năng | FR-M14-01.06, FR-M14-01.07, FR-M14-03.08 |
-| S4 | Dữ liệu đầu vào, điểm và thứ tự Trending Post | FR-M14-03, FR-M14-03.02, FR-M14-03.03, FR-M14-03.04, FR-M14-03.10, FR-M14-03.11, FR-M14-03.12, FR-M14-03.13, FR-M14-03.14 |
-| S5 | Phạm vi bài trong kết quả Trending Post | FR-M14-03.01, FR-M14-03.05, FR-M14-03.06, FR-M14-03.09 |
-| S6 | Kết quả theo lượt xem và dữ liệu Trending từ M05 | FR-M14-02.02, FR-M14-02.03, FR-M14-02.04, FR-M14-02.05, FR-M14-02.06, FR-M14-02.09, FR-M14-02.11, FR-M14-02.12, FR-M14-07.05 |
-| S7 | Chọn và xếp bài Following | FR-M14-04, FR-M14-04.01, FR-M14-04.02, FR-M14-04.03, FR-M14-04.04, FR-M14-04.06, FR-M14-04.07, FR-M14-04.09, FR-M14-04.10, FR-M14-04.13 |
-| S8 | Chọn và xếp bài của các nhóm đã tham gia | FR-M14-05, FR-M14-05.01, FR-M14-05.02, FR-M14-05.03, FR-M14-05.04, FR-M14-05.05 |
-| S9 | Duy trì danh sách bài nhóm khi cờ Group tắt | FR-M14-02.08, FR-M14-04.12, FR-M14-05.08 |
-| S10 | Bài ngoài nhóm theo thời gian đăng | FR-M14-06, FR-M14-06.01, FR-M14-06.02, FR-M14-06.03, FR-M14-06.04 |
-| S11 | Vị trí tải tiếp và tính nhất quán của lượt xem | FR-M14-07, FR-M14-07.01, FR-M14-07.02, FR-M14-07.03, FR-M14-07.04, FR-M14-07.05 |
-| S12 | Kiểm tra, lấy và chèn bài mới | FR-M14-08, FR-M14-08.01, FR-M14-08.02, FR-M14-08.03, FR-M14-08.04, FR-M14-08.05, FR-M14-08.07 |
+| 1 | Hệ thống cung cấp trang chủ feed của iShare gồm bốn tab Trending, Following, Group và Newest; tab Trending có ba mục con Trending Post, Trending Topic và Trending Tag. | FR-M14-01, FR-M14-01.01, FR-M14-02.01 |
+| 2 | Mọi tab chỉ hiện bài viết do M03 quản lý đủ điều kiện hiển thị, không hiện bài của tác giả có trạng thái tài khoản DEACTIVATED hoặc DELETED, và hiện bài của tài khoản BANNED hoặc ở mức cảnh cáo HEAVY như bài khác. | FR-M14-01.05, FR-M14-01.06 |
+| 3 | Hệ thống mở feed ở tab Trending, mục con Trending Post, cho mọi người xem; Guest xem được tab Trending và tab Newest, còn tab Following và tab Group yêu cầu đăng nhập. | FR-M14-01.02, FR-M14-01.03, FR-M14-01.08, FR-M14-01.09, FR-M14-02.02, FR-M14-04.04, FR-M14-05.05, FR-M14-06.04 |
+| 4 | Hệ thống tính lại định kỳ điểm Trending Post cho mọi bài viết của feed chính có tuổi bài không quá giới hạn, gồm bài không thuộc nhóm và bài của nhóm Public do M11 quản lý, từ tuổi bài tính theo thời điểm đăng và số upvote, số bình luận, số bookmark của bài viết tại lần tính. | FR-M14-03, FR-M14-03.01, FR-M14-03.02, FR-M14-03.03, FR-M14-03.09, FR-M14-03.10, FR-M14-03.12 |
+| 5 | Mục con Trending Post hiện cùng một danh sách cho mọi người xem, xếp theo điểm Trending Post giảm dần, bằng điểm thì bài có thời điểm đăng sau đứng trước, theo kết quả của lần tính gần nhất lúc mở tab, và giữ kết quả đó trong suốt lượt xem tab Trending. | FR-M14-02, FR-M14-02.03, FR-M14-02.04, FR-M14-02.11, FR-M14-02.12, FR-M14-03.14, FR-M14-07.05 |
+| 6 | Mục con Trending Topic và Trending Tag hiện danh sách và thứ tự do M05 cung cấp. | FR-M14-02.06, FR-M14-02.10 |
+| 7 | Hệ thống cho người dùng đã đăng nhập xem tab Following gồm bài viết có tác giả là người dùng đang theo dõi hoặc có Topic đang theo dõi theo quan hệ theo dõi do M07 quản lý, kể cả bài nhóm Public, không gồm bài nhóm Private; bài ẩn danh chỉ vào tab Following nhờ Topic đang theo dõi. | FR-M14-04, FR-M14-04.01, FR-M14-04.02, FR-M14-04.07, FR-M14-04.09, FR-M14-04.10, FR-M14-04.13 |
+| 8 | Hệ thống cho người dùng đã đăng nhập xem tab Group gồm bài viết của mọi nhóm mà người đó là thành viên nhóm, cả nhóm Public lẫn nhóm Private. | FR-M14-05, FR-M14-05.01, FR-M14-05.03, FR-M14-05.04 |
+| 9 | Hệ thống cho mọi người xem tab Newest gồm bài viết không thuộc nhóm nào. | FR-M14-06, FR-M14-06.01, FR-M14-06.03 |
+| 10 | Tab Following, Group và Newest xếp bài viết theo thời điểm đăng, bài đăng sau đứng trước; khi tab Following hoặc tab Group rỗng, hệ thống hiện trạng thái rỗng dẫn sang trang tìm kiếm của M06 hoặc trang danh sách nhóm của M11. | FR-M14-04.03, FR-M14-04.05, FR-M14-04.11, FR-M14-05.02, FR-M14-05.06, FR-M14-05.07, FR-M14-06.02 |
+| 11 | Hệ thống tải bài của mọi tab theo từng lần tải khi người xem cuộn, không lặp và không bỏ sót bài. | FR-M14-07, FR-M14-07.01, FR-M14-07.02, FR-M14-07.03, FR-M14-07.04 |
+| 12 | Trong khi người xem ở tab Newest, Following hoặc Group, hệ thống kiểm tra định kỳ và hiện banner "có bài mới" khi có bài viết mới thuộc tab, rồi chèn các bài viết mới lên đầu danh sách khi người xem bấm banner mà giữ vị trí đang đọc. | FR-M14-08, FR-M14-08.01, FR-M14-08.02, FR-M14-08.03, FR-M14-08.04 |
+| 13 | Feed không có cờ tính năng riêng; khi cờ tính năng Group hoặc Gamification do M10 quản lý tắt, feed vẫn hiện bài nhóm và vẫn tính điểm Trending Post. | FR-M14-01.07, FR-M14-02.08, FR-M14-03.11, FR-M14-05.08 |
 
 ## 2. Danh từ và phân loại
 
@@ -61,100 +93,164 @@ steps_completed: [1, 2]
 
 <!-- Phân loại: Lớp | Thuộc tính | Loại bỏ.
      Kết quả: tên lớp; hoặc Lớp.thuộcTính; hoặc "—" khi loại bỏ.
-     Xuất hiện ở: S<n> (câu của đoạn mô tả) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
+     Xuất hiện ở: "Câu n" (số câu ở bảng 1.2) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
 
 | # | Danh từ | Xuất hiện ở | Phân loại | Kết quả | Lý do |
 |---|---|---|---|---|---|
-| 1 | bài viết / bài nhóm / bài đủ điều kiện / bài ngoài nhóm / bài ẩn danh / bài mới | S1 | Lớp | Post | Các ngữ cảnh của bài viết M03. |
-| 2 | Topic / Topic đang theo dõi | S1 | Lớp | Topic | Đối tượng M05 dùng trong Following và Trending. |
-| 3 | Tag | S1 | Lớp | Tag | Đối tượng M05 hiển thị qua Trending Tag. |
-| 4 | tư cách thành viên nhóm / thành viên hiện hành | S1 | Lớp | GroupMember | Dùng dữ liệu M11. |
-| 5 | feed / luồng feed / trang chủ | S1 | Loại bỏ | — | Giao diện. Nơi mở các luồng bài, ngữ cảnh lượt xem xét riêng. |
-| 6 | Trending / Following / Group / Newest | S1 | Loại bỏ | — | Giá trị của FeedView.kind. |
-| 7 | mức độ quan tâm | S1 | Loại bỏ | — | Trừu tượng. Biểu diễn qua điểm Trending Post. |
-| 8 | quan hệ theo dõi | S1 | Loại bỏ | — | Chung chung. Các trường hợp UserFollow và TopicFollow xét riêng. |
-| 9 | thời điểm đăng | S1 | Loại bỏ | — | Ngoài phạm vi module ở cấp thuộc tính. Dùng Post.publishedAt. |
-| 10 | loại luồng / loại tab | S1 | Thuộc tính | FeedView.kind | T9. Mô tả luồng đang xem. |
-| 11 | người xem đã đăng nhập / người dùng / tài khoản / tác giả | S2 | Lớp | User | Cùng tài khoản M01 theo vai trò. |
-| 12 | Guest | S2 | Loại bỏ | — | Không lưu: tác nhân không có tài khoản. |
-| 13 | hệ thống | S2 | Loại bỏ | — | Chung chung. Tác nhân xử lý, không có dữ liệu riêng. |
-| 14 | điều kiện hiển thị / quyền hiển thị | S2 | Loại bỏ | — | Trừu tượng. Quy tắc đọc Post, User và Group khi tải. |
-| 15 | trạng thái tài khoản / BANNED / DEACTIVATED / DELETED | S2 | Loại bỏ | — | Ngoài phạm vi module (M01, M08). Dùng trạng thái User. |
-| 16 | mức cảnh cáo HEAVY | S3 | Loại bỏ | — | Ngoài phạm vi module (M08). Không lọc hoặc giảm điểm, không hiện mức cảnh cáo. |
-| 17 | nhãn tài khoản bị khóa | S3 | Loại bỏ | — | Ngoài phạm vi module (M12). Dùng User.banLabel. |
-| 18 | cờ tính năng / cờ Group / cờ Gamification | S3 | Loại bỏ | — | Ngoài phạm vi module (M10). Đọc cờ cấu hình dùng chung. |
-| 19 | kết quả Trending Post / điểm của bài theo lần tính | S4 | Lớp | PostTrending | Kết quả một bài được giữ theo lần tính, dùng lại khi tải tiếp. |
-| 20 | lần tính / kết quả của lần tính / lần tính gần nhất | S4 | Lớp | PostTrendingRun | Gom kết quả theo mốc tính để có thể tham chiếu nhiều mốc khi phục vụ các lượt xem. |
-| 21 | số upvote còn hiệu lực | S4 | Loại bỏ | — | Ngoài phạm vi module (M12). Dùng số upvote hiệu lực do M12 cung cấp. |
-| 22 | số bình luận chưa xóa / số trả lời | S4 | Loại bỏ | — | Ngoài phạm vi module (M04). Đếm cả trả lời; xem Q-03 về bình luận bị ẩn. |
-| 23 | số bookmark còn hiệu lực | S4 | Loại bỏ | — | Ngoài phạm vi module (M02). Đếm Bookmark còn tồn tại theo bài. |
-| 24 | điểm Trending Post | S4 | Thuộc tính | PostTrending.score | T7 ngoại lệ. Giữ kết quả để tải lại theo cùng lần tính. |
-| 25 | tuổi bài | S4 | Thuộc tính | PostTrending.postAge | T7. Tính từ thời điểm đăng và thời điểm tính. |
-| 26 | thứ tự Trending Post / thứ hạng Trending Post | S4 | Thuộc tính | PostTrending.rank | T7 ngoại lệ. Giữ thứ tự ổn định giữa các lần tải. |
-| 27 | nhóm / nhóm Public / nhóm Private | S5 | Lớp | Group | Dùng lớp M11, Public và Private là chế độ. |
-| 28 | giới hạn tuổi bài / ngưỡng tối thiểu | S5 | Loại bỏ | — | Hằng số của BR-M14-11/12. Tuổi tối đa 28 ngày và không áp ngưỡng điểm tối thiểu. |
-| 29 | tập tính điểm / feed chính | S5 | Loại bỏ | — | Trừu tượng. Tập bài ngoài nhóm và nhóm Public thỏa điều kiện tại lúc tính. |
-| 30 | bài chưa có tương tác | S5 | Loại bỏ | — | Trừu tượng. Các số đếm bằng 0; vẫn đưa vào khi đủ điều kiện. |
-| 31 | lượt xem / lượt xem tab Trending | S6 | Lớp | FeedView | Có vòng đời mở đến rời hoặc tải lại, giữ kết quả và mốc đang dùng ở mức nghiệp vụ. |
-| 32 | Trending Topic / danh sách Trending Topic | S6 | Lớp | TopicTrending | Dùng kết quả do M05 giữ và cung cấp. |
-| 33 | Trending Tag / danh sách Trending Tag | S6 | Lớp | TagTrending | Dùng kết quả do M05 giữ và cung cấp. |
-| 34 | thứ tự Trending Topic và Trending Tag | S6 | Loại bỏ | — | Ngoài phạm vi module (M05). M14 dùng thứ tự nhận được; xem Q-04. |
-| 35 | lượt theo dõi người dùng / người dùng đang được theo dõi | S7 | Lớp | UserFollow | Dùng quan hệ M07 để xét nhánh theo dõi tác giả. |
-| 36 | lượt theo dõi Topic | S7 | Lớp | TopicFollow | Dùng quan hệ M07 để xét nhánh theo dõi Topic. |
-| 37 | gộp trùng | S7 | Loại bỏ | — | Trừu tượng. Mỗi Post chỉ xuất hiện một lần trong kết quả Following. |
-| 38 | quyền mở bài / quyền tương tác | S9 | Loại bỏ | — | Ngoài phạm vi module (M11). Luồng mở bài áp cờ Group. |
-| 39 | lần tải / vị trí tải tiếp | S11 | Loại bỏ | — | Trừu tượng với nghĩa bản ghi riêng. Vị trí là bài cuối đã tải, sẽ xét liên hệ ở bước 3. |
-| 40 | bài mới nhất đang hiện | S12 | Loại bỏ | — | Trừu tượng với nghĩa lớp riêng. Là vai trò của Post trong lượt xem, sẽ xét ở bước 3. |
-| 41 | vị trí đang đọc | S12 | Loại bỏ | — | Giao diện. Điểm neo khi chèn bài, không lưu lịch sử đọc theo FR. |
-| 42 | tín hiệu có bài mới | S12 | Thuộc tính | FeedView.hasNewPosts | T7. Kết quả kiểm tra theo luồng và mốc bài. |
-| 43 | cấu hình hệ thống | Quét: FR-M14-01.07, FR-M14-03.11 | Lớp | SystemConfiguration | M10 sở hữu các cờ tính năng. |
-| 44 | lượt upvote | Quét: FR-M14-03.10 | Lớp | Upvote | Chỉ tính lượt có hiệu lực từ M12. |
-| 45 | bình luận / trả lời bình luận | Quét: FR-M14-03.10, FR-M14-03.13 | Lớp | Comment | Cùng lớp M04, tính cả trả lời. |
-| 46 | bookmark | Quét: FR-M14-03.10 | Lớp | Bookmark | Lượt lưu bài từ M02. |
-| 47 | liên kết bài viết với Topic | Quét: FR-M14-04.01, FR-M14-04.10 | Lớp | PostTopic | Dùng dữ liệu M05 để đối chiếu Topic theo dõi. |
-| 48 | banner có bài mới | Quét: FR-M14-08.02 | Loại bỏ | — | Giao diện. Biểu hiện của FeedView.hasNewPosts. |
-| 49 | kích thước lượt tải / chu kỳ kiểm tra bài mới | Quét: FR-M14-07.01, FR-M14-08.01 | Loại bỏ | — | Hằng số của BR-M14-16/17. Tải thông thường tối đa 20 bài; kiểm tra không quá 60 giây; thao tác nhận bài mới lấy tất cả bài mới. |
-| 50 | trạng thái rỗng | Quét: FR-M14-04.05, FR-M14-05.06 | Loại bỏ | — | Giao diện. Từ Following rỗng dẫn sang M06, từ Group rỗng dẫn sang M11. |
-| 51 | thời điểm tính | Quét: FR-M14-03.03; TN:Lần tính | Thuộc tính | PostTrendingRun.calculatedAt | T9. Mốc của bộ kết quả. |
+| 1 | hệ thống | Câu 1 | Loại bỏ | — | Trừu tượng: chỉ chính phần mềm |
+| 2 | trang chủ feed / feed | Câu 1 | Loại bỏ | — | Giao diện: trang chủ gồm các tab (TN:Feed); không lưu |
+| 3 | iShare | Câu 1 | Loại bỏ | — | Trừu tượng: tên sản phẩm |
+| 4 | tab / tab Trending / tab Following / tab Group / tab Newest | Câu 1 | Loại bỏ | — | Giao diện: luồng bài chọn lúc tải theo quy tắc BR-M14-05 đến BR-M14-08 (TN:Tab); không lưu |
+| 5 | mục con | Câu 1 | Loại bỏ | — | Giao diện |
+| 6 | Trending Post | Câu 1 | Lớp | PostTrendingStat | Một nhóm số liệu tính ra theo từng bài viết (điểm, tuổi bài, lần tính), tính lại định kỳ → lớp thống kê (T7), cùng cách TopicTrendingStat của EC-M05; tên theo QU-01 (Post + TrendingStat); xem Q-01, Q-02 |
+| 7 | Trending Topic | Câu 1 | Lớp | TopicTrendingStat | Lớp ngoài (M05): M14 hiển thị danh sách và thứ tự (FR-M14-02.06); dùng tên TopicTrendingStat của EC-M05 |
+| 8 | Trending Tag | Câu 1 | Lớp | TagTrendingStat | Lớp ngoài (M05): như dòng 7; dùng tên TagTrendingStat của EC-M05 |
+| 9 | bài viết | Câu 2 | Lớp | Post | Lớp ngoài (M03): nguồn của mọi tab; dùng tên Post của EC-M03 |
+| 10 | M03, M05, M06, M07, M10, M11 (tên module) | Câu 2 | Loại bỏ | — | Trừu tượng: tên các phần của hệ thống |
+| 11 | đủ điều kiện hiển thị | Câu 2 | Thuộc tính | Post.isPubliclyVisible | Thông tin của bài viết (M03) mà M14 đọc để chọn bài cho mọi tab (TN:Bài đủ điều kiện hiển thị, BR-M14-04) |
+| 12 | tác giả | Câu 2 | Lớp | User | Lớp ngoài (M01): tác giả của bài viết; quan hệ tác giả thuộc M03, M14 chỉ đọc |
+| 13 | trạng thái tài khoản | Câu 2 | Thuộc tính | User.status | Thông tin của tài khoản (M01) mà M14 đọc để ẩn bài của tác giả DEACTIVATED, DELETED (TN:Bài đủ điều kiện hiển thị) |
+| 14 | DEACTIVATED, DELETED, BANNED | Câu 2 | Loại bỏ | — | Giá trị của User.status |
+| 15 | mức cảnh cáo / HEAVY | Câu 2 | Loại bỏ | — | Ngoài phạm vi module (M08): mức cảnh cáo không ảnh hưởng feed (BR-M14-15), M14 không đọc |
+| 16 | mọi người xem / người xem | Câu 3 | Loại bỏ | — | Chung chung: người đang xem feed; M14 không ghi việc xem |
+| 17 | Guest | Câu 3 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu |
+| 18 | đăng nhập | Câu 3 | Loại bỏ | — | Ngoài phạm vi module (M01) |
+| 19 | điểm Trending Post | Câu 4 | Thuộc tính | PostTrendingStat.score | Số liệu tính theo công thức BR-M14-10 (TN:Điểm Trending Post) |
+| 20 | feed chính | Câu 4 | Loại bỏ | — | Chung chung: bài không thuộc nhóm và bài nhóm Public đủ điều kiện hiển thị (TN:Feed chính, BR-M14-05) |
+| 21 | tuổi bài | Câu 4 | Thuộc tính | PostTrendingStat.age | Thời gian từ thời điểm đăng tới lần tính, tính bằng ngày (TN:Tuổi bài) → thuộc tính dẫn xuất |
+| 22 | giới hạn | Câu 4 | Loại bỏ | — | Hằng số của BR-M14-11: 28 ngày; ghi ở ràng buộc của PostTrendingStat.age |
+| 23 | nhóm | Câu 4 | Lớp | Group | Lớp ngoài (M11): M14 đọc chế độ của nhóm để chọn bài cho Trending Post, Following, Newest (BR-M14-05, BR-M14-06, BR-M14-08); dùng tên Group của EC-M11 |
+| 24 | nhóm Public / nhóm Private | Câu 4 | Loại bỏ | — | Giá trị của Group.privacy |
+| 25 | thời điểm đăng | Câu 4 | Thuộc tính | Post.publishedAt | Thông tin của bài viết (M03) mà M14 đọc để tính tuổi bài và xếp tab theo thời gian (TN:Thời điểm đăng) |
+| 26 | số upvote | Câu 4 | Thuộc tính | Post.upvoteCount | Số đếm trên bài viết do M12 cung cấp (EC-M12), M14 đọc (mục Giao tiếp, dòng Dùng M12) |
+| 27 | số bình luận | Câu 4 | Thuộc tính | Post.commentCount | Số đếm trên bài viết do M04 bổ sung (EC-M04), M14 đọc (mục Giao tiếp, dòng Dùng M04) |
+| 28 | số bookmark | Câu 4 | Thuộc tính | Post.bookmarkCount | Mục Dữ liệu nghiệp vụ ghi "số bookmark" trên Bài viết (M03); chưa EC nào có; số đếm tính lại được từ Bookmark của M02 → thuộc tính dẫn xuất M14 bổ sung (mục 5) |
+| 29 | lần tính / lần tính gần nhất | Câu 4 | Thuộc tính | PostTrendingStat.computedAt | Thời điểm tạo ra kết quả (TN:Lần tính); tên computedAt như TopicTrendingStat của EC-M05; xem Q-02 |
+| 30 | danh sách | Câu 5 | Loại bỏ | — | Chung chung: các PostTrendingStat của một lần tính xếp theo score |
+| 31 | lượt xem tab Trending | Câu 5 | Loại bỏ | — | Hành động không lưu dấu vết: phiên xem của một người (TN:Lượt xem tab Trending); xem Q-02 |
+| 32 | người dùng đã đăng nhập / người dùng / người dùng đang theo dõi | Câu 7 | Lớp | User | Lớp ngoài (M01): người xem tab Following, Group và người được theo dõi |
+| 33 | Topic / Topic đang theo dõi | Câu 7 | Loại bỏ | — | Ngoài phạm vi module (M05, M07): Topic của bài (PostTopic, EC-M05) và Topic đang theo dõi (Follow, EC-M07); M14 chỉ đọc các quan hệ đó, không có dữ liệu của M14 gắn với Topic |
+| 34 | quan hệ theo dõi | Câu 7 | Loại bỏ | — | Ngoài phạm vi module (M07): lớp Follow của EC-M07; M14 đọc để chọn bài cho tab Following, không có dữ liệu của M14 gắn với nó |
+| 35 | bài nhóm Public / bài nhóm Private | Câu 7 | Loại bỏ | — | Chung chung: bài viết thuộc nhóm (R-M03-06) có Group.privacy Public hoặc Private |
+| 36 | bài ẩn danh | Câu 7 | Thuộc tính | Post.isAnonymous | Thông tin của bài viết do M11 bổ sung (EC-M11), M14 đọc để không đưa bài ẩn danh vào tab Following nhờ theo dõi tác giả (BR-M14-08) |
+| 37 | thành viên nhóm | Câu 8 | Loại bỏ | — | Ngoài phạm vi module (M11): lớp GroupMember của EC-M11; M14 đọc để chọn bài cho tab Group, không có dữ liệu của M14 gắn với nó |
+| 38 | trạng thái rỗng | Câu 10 | Loại bỏ | — | Giao diện (TN:Trạng thái rỗng) |
+| 39 | trang tìm kiếm / trang danh sách nhóm | Câu 10 | Loại bỏ | — | Giao diện (M06, M11) |
+| 40 | lần tải | Câu 11 | Loại bỏ | — | Hành động không lưu dấu vết: cách trả bài dần (TN:Lần tải, Vị trí tải tiếp; BR-M14-16) |
+| 41 | banner "có bài mới" | Câu 12 | Loại bỏ | — | Giao diện (TN:Banner "có bài mới") |
+| 42 | bài viết mới | Câu 12 | Loại bỏ | — | Chung chung: bài thuộc tab có Post.publishedAt sau bài mới nhất đang hiện (BR-M14-17) |
+| 43 | vị trí đang đọc | Câu 12 | Loại bỏ | — | Giao diện |
+| 44 | cờ tính năng / Group / Gamification | Câu 13 | Loại bỏ | — | Ngoài phạm vi module (M10): M14 không có cờ, chỉ đọc trạng thái cờ của module khác (BR-M14-22) |
+| 45 | điểm Trending Topic | Quét: Dữ liệu nghiệp vụ | Thuộc tính | TopicTrendingStat.score | Thông tin của lớp ngoài (M05) mà M14 đọc: chỉ hiện mục có điểm lớn hơn 0 (FR-M14-02.10) |
+| 46 | thứ tự Trending Topic | Quét: Dữ liệu nghiệp vụ | Thuộc tính | TopicTrendingStat.rank | Thông tin của lớp ngoài (M05) mà M14 đọc để hiện đúng thứ tự (FR-M14-02.06) |
+| 47 | điểm Trending Tag | Quét: Dữ liệu nghiệp vụ | Thuộc tính | TagTrendingStat.score | Như dòng 45 |
+| 48 | thứ tự Trending Tag | Quét: Dữ liệu nghiệp vụ | Thuộc tính | TagTrendingStat.rank | Như dòng 46 |
+| 49 | lượt xem bài | Quét: BR-M14-10 | Loại bỏ | — | Ngoài phạm vi hệ thống: không tính vào điểm (FR-M14-03.07), không lưu |
+| 50 | tab "For You" / cá nhân hóa | Quét: BR-M14-01 | Loại bỏ | — | Ngoài phạm vi hệ thống: đã quyết không làm (BR-M14-01) |
+| 51 | nửa chu kỳ 7 ngày / trọng số | Quét: BR-M14-10 | Loại bỏ | — | Hằng số của BR-M14-10: 0,5^(t / 7), upvote ×2, bình luận ×1, bookmark ×1; ghi ở ràng buộc của PostTrendingStat.score |
+| 52 | chu kỳ tính lại 15–30 phút | Quét: BR-M14-14 | Loại bỏ | — | Hằng số của BR-M14-14; ghi ở ràng buộc của PostTrendingStat.computedAt |
+| 53 | 20 bài mỗi lần tải, 60 giây kiểm tra | Quét: BR-M14-16 | Loại bỏ | — | Giao diện: cách tải và kiểm tra bài mới (BR-M14-16, BR-M14-17) |
 
 ### 2.2 Lớp
 
-<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (M14 của tài liệu này, hoặc Myy với lớp ngoài). -->
+<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (Mxx của tài liệu này, hoặc Myy với lớp ngoài).
+     Thuộc tính: tên mọi thuộc tính của lớp ở mục 2.3, ngăn bởi dấu phẩy, thuộc tính dẫn xuất có "/" phía trước;
+     để người đọc thấy lớp và thuộc tính trên cùng một dòng. Lớp chưa có thuộc tính ghi "—". -->
 
-| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Nguồn |
-|---|---|---|---|---|---|
-| PostTrendingRun | Lần tính Trending Post | Thực thể | M14 | Bộ kết quả tại một mốc tính. Lượt xem đã mở có thể dùng lần tính cũ sau khi kết quả mới được công bố. | FR-M14-02.03, FR-M14-02.11, FR-M14-03.03, FR-M14-07.05 |
-| PostTrending | Kết quả Trending của bài viết | Liên kết | M14 | Điểm và thứ tự cố định của một bài trong một lần tính. Tên nhất quán với TopicTrending và TagTrending của M05. | FR-M14-02.03, FR-M14-03.02, FR-M14-03.04, FR-M14-03.14 |
-| FeedView | Lượt xem feed | Thực thể | M14 | Ngữ cảnh tạm theo luồng, cần nhận biết kết quả Trending đang dùng hoặc các vị trí tải bài. | FR-M14-02.11, FR-M14-07.02, FR-M14-07.05, FR-M14-08.01, FR-M14-08.03 |
-| Post | Bài viết | Thực thể | M03 | Nguồn thời điểm đăng, tác giả, trạng thái hiển thị và bài nhóm. | FR-M14-01.05, FR-M14-03.12, FR-M14-04.01, FR-M14-06.01 |
-| User | Tài khoản | Thực thể | M01 | Người xem, tác giả hoặc đối tượng theo dõi. Đọc trạng thái tài khoản và nhãn khóa do M12 cung cấp. | FR-M14-01.05, FR-M14-01.06, FR-M14-04.01 |
-| Upvote | Upvote | Thực thể | M12 | Nguồn số lượt còn hiệu lực khi tính điểm. | FR-M14-03.02, FR-M14-03.10, FR-M14-03.11 |
-| Comment | Bình luận | Thực thể | M04 | Nguồn số bình luận, kể cả trả lời. | FR-M14-03.02, FR-M14-03.10, FR-M14-03.13 |
-| Bookmark | Bookmark | Thực thể | M02 | Nguồn số lượt lưu bài còn hiện hành. | FR-M14-03.02, FR-M14-03.10 |
-| Group | Nhóm | Thực thể | M11 | Chế độ Public hoặc Private và phạm vi bài nhóm. | FR-M14-02.09, FR-M14-03.09, FR-M14-04.13, FR-M14-05.01 |
-| GroupMember | Thành viên nhóm | Liên kết | M11 | Tư cách thành viên hiện hành để chọn bài Group. | FR-M14-05.01, FR-M14-05.03, FR-M14-05.04 |
-| UserFollow | Lượt theo dõi người dùng | Thực thể | M07 | Điều kiện theo dõi tác giả để chọn bài Following. | FR-M14-04.01, FR-M14-04.06 |
-| TopicFollow | Lượt theo dõi Topic | Thực thể | M07 | Điều kiện theo dõi Topic, kể cả đối với bài ẩn danh. | FR-M14-04.01, FR-M14-04.06, FR-M14-04.10 |
-| Topic | Topic | Thực thể | M05 | Topic của bài và Topic người xem đang theo dõi. | FR-M14-04.01, FR-M14-04.10 |
-| Tag | Tag | Thực thể | M05 | Đối tượng hiển thị qua kết quả Trending Tag. | FR-M14-02.06, FR-M14-02.10 |
-| PostTopic | Liên kết bài viết–Topic | Liên kết | M05 | Cặp bài–Topic dùng để xét Following. | FR-M14-04.01, FR-M14-04.10 |
-| TopicTrending | Kết quả Trending Topic | Thực thể | M05 | Danh sách và thứ tự do M05 tính. | FR-M14-02.06, FR-M14-02.10 |
-| TagTrending | Kết quả Trending Tag | Thực thể | M05 | Danh sách và thứ tự do M05 tính. | FR-M14-02.06, FR-M14-02.10 |
-| SystemConfiguration | Cấu hình hệ thống | Thực thể | M10 | Đọc cờ Group và Gamification. | FR-M14-01.07, FR-M14-02.08, FR-M14-03.11, FR-M14-04.12, FR-M14-05.08 |
+| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
+|---|---|---|---|---|---|---|
+| PostTrendingStat | Thống kê Trending Post | Thống kê | M14 | Điểm Trending Post và tuổi bài của một bài viết ở một lần tính; là danh sách Trending Post | /score, /age, /computedAt | FR-M14-03.01, FR-M14-03.02, FR-M14-02.03 |
+| Post | Bài viết | Thực thể | M03 | Nguồn của mọi tab; lớp cha của PostTrendingStat | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M14-01.05, FR-M14-03.02, FR-M14-04.09 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Tác giả bài viết; người xem tab Following, Group | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M14-01.05, FR-M14-04.01 |
+| Group | Nhóm | Thực thể | M11 | Nhóm của bài nhóm; chế độ quyết định bài vào tab nào | name, description, privacy, joinQuestion, isPreApprovalOn, isAnonymousOn, createdAt, isDeleted, modState, inviteLink, /isInstantJoin | FR-M14-03.09, FR-M14-04.13, FR-M14-06.03 |
+| TopicTrendingStat | Thống kê Trending Topic | Thống kê | M05 | Danh sách Trending Topic M14 hiển thị | /score, /newPostCount, /rank, /computedAt | FR-M14-02.06, FR-M14-02.10 |
+| TagTrendingStat | Thống kê Trending Tag | Thống kê | M05 | Danh sách Trending Tag M14 hiển thị | /score, /newPostCount, /rank, /computedAt | FR-M14-02.06, FR-M14-02.10 |
 
 ### 2.3 Thuộc tính
 
-<!-- Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
-     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất) — chép từ FR kèm mã. -->
+<!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
+     Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
+     Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
+     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
+             — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
+     Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
+     Ghi chú: bắt buộc với Đề xuất (vì sao cần) và Tham chiếu (module này dùng nó làm gì). -->
 
-| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Ràng buộc nguồn nêu | Nguồn |
-|---|---|---|---|---|---|
-| FeedView | kind | Loại luồng | Lưu | Trending, Following, Group hoặc Newest. Ngữ cảnh tạm theo lượt xem. Trending là mặc định, Following và Group yêu cầu đăng nhập để có dữ liệu. | FR-M14-01.01, FR-M14-01.02, FR-M14-01.08, FR-M14-04.04, FR-M14-05.05 |
-| PostTrending | score | Điểm Trending Post | Lưu | Điểm cố định tại lần tính. Công thức BR-M14-10 là 0,5^(t/7) × (1 + 2 × U + C + B), với t là tuổi bài, U là upvote hiệu lực, C là bình luận gồm trả lời, B là bookmark hiện hành. Xử lý bình luận bị ẩn xem Q-03. | FR-M14-02.03, FR-M14-03.02, FR-M14-03.04, FR-M14-03.10, FR-M14-07.05 |
-| PostTrending | postAge | Tuổi bài tại lần tính | Dẫn xuất | Từ thời điểm đăng tới thời điểm tính, 24 giờ là một ngày, giữ phần lẻ. Chỉ bài có tuổi không quá 28 ngày thuộc tập tính. | FR-M14-03.01, FR-M14-03.05, FR-M14-03.12 |
-| PostTrending | rank | Thứ hạng Trending Post | Lưu | Giữ vị trí theo lần tính. Điểm cao trước, đồng điểm thì bài đăng sau trước. Tiêu chí cuối đã duyệt tại Q-01, chờ cập nhật FR-M14. | FR-M14-02.03, FR-M14-02.11, FR-M14-03.14, FR-M14-07.05 |
-| FeedView | hasNewPosts | Có bài mới thuộc luồng | Dẫn xuất | Áp dụng cho Newest, Following và Group, dựa trên bài mới hơn bài mới nhất đang hiện và đủ điều kiện vào luồng. Kiểm tra không quá 60 giây. Bài chỉ chèn theo yêu cầu người xem. | FR-M14-08.01, FR-M14-08.02, FR-M14-08.03, FR-M14-08.05, FR-M14-08.06 |
-| PostTrendingRun | calculatedAt | Thời điểm tính Trending Post | Lưu | Tính lại mỗi 15–30 phút, tương tác vào điểm chậm nhất 30 phút. Lượt xem dùng mốc đã chọn lúc mở. | FR-M14-02.03, FR-M14-02.11, FR-M14-03.03, FR-M14-03.15, FR-M14-07.05 |
+| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Căn cứ | Ràng buộc nguồn nêu | Nguồn | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| PostTrendingStat | score | Điểm Trending Post | Dẫn xuất | Nguồn nêu | = 0,5^(age / 7) × (1 + 2 × upvoteCount + commentCount + bookmarkCount), các số đếm lấy tại lần tính; upvote đã rút, bình luận đã xóa, bookmark đã bỏ không tính; không tính lượt xem (BR-M14-10); không ngưỡng tối thiểu (BR-M14-12); xếp giảm dần, bằng điểm thì publishedAt sau đứng trước (BR-M14-13) | FR-M14-03.02, FR-M14-03.10, BR-M14-10, BR-M14-13 | Không loại, không chỉnh điểm bài của tài khoản BANNED hoặc HEAVY (BR-M14-15) |
+| PostTrendingStat | age | Tuổi bài | Dẫn xuất | Nguồn nêu | (computedAt − publishedAt) tính bằng ngày, 24 giờ là một ngày, giữ phần lẻ (TN:Tuổi bài); bài có age lớn hơn 28 bị loại (BR-M14-11) | FR-M14-03.12, FR-M14-03.05, BR-M14-11 | — |
+| PostTrendingStat | computedAt | Thời điểm tính | Dẫn xuất | Nguồn nêu | Lần tính cách nhau 15–30 phút; mỗi tương tác vào điểm chậm nhất 30 phút sau khi xảy ra (BR-M14-14); một lượt xem tab Trending giữ kết quả của lần tính hiện hành lúc mở tab (BR-M14-19) | FR-M14-03.03, FR-M14-03.04, FR-M14-02.11, BR-M14-14 | Cùng tên computedAt với TopicTrendingStat (EC-M05); xem Q-02 |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M03-01.01, FR-M03-04.01, FR-M03-13.01, FR-M03-15.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M03-01.12, FR-M03-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M14-03.12, FR-M14-04.03, FR-M14-06.02, FR-M14-03.14 | Tính tuổi bài; xếp tab Following, Group, Newest; phân xử bằng điểm ở Trending Post |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M14-01.05, FR-M14-02.05 | Mọi tab chỉ hiện bài đủ điều kiện hiển thị (BR-M14-04); bài không còn hiển thị lúc tải thì bị bỏ khỏi Trending Post |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.13 | Thành phần của điểm Trending Post, kể cả trả lời; M04 bổ sung (EC-M04) |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M14-04.09, FR-M14-04.10 | Bài ẩn danh không vào tab Following nhờ theo dõi tác giả, chỉ nhờ Topic đang theo dõi và hiện ở dạng ẩn danh; M11 bổ sung (EC-M11) |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.11 | Thành phần của điểm Trending Post; M12 bổ sung (EC-M12) |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | Số bookmark bài đang có; bookmark đã bỏ không tính (BR-M14-10) | FR-M14-03.02, FR-M14-03.10 | M14 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Mục Dữ liệu nghiệp vụ ghi "số bookmark" trên Bài viết (M03); tính từ Bookmark của EC-M02 |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.12, FR-M01-03.13, FR-M01-03.14, FR-M01-04.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M01-01.02, FR-M01-05.19 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M14-01.05, FR-M14-01.06 | Ẩn bài của tác giả DEACTIVATED, DELETED (TN:Bài đủ điều kiện hiển thị); bài của BANNED vẫn hiện như thường |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Group | name | Tên nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.08, FR-M11-02.01, BR-M11-31 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | description | Mô tả nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-01.09, FR-M11-02.01 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | privacy | Chế độ | Lưu | Tham chiếu | — | FR-M14-03.09, FR-M14-04.07, FR-M14-04.13, FR-M14-02.09 | Bài nhóm Public vào Trending Post và Following, bài nhóm Private chỉ vào tab Group của thành viên; không bài nhóm nào vào Newest |
+| Group | joinQuestion | Câu hỏi tham gia | Lưu | Tham chiếu | — | FR-M11-01.11, FR-M11-02.07, FR-M11-02.08, BR-M11-08 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isPreApprovalOn | Công tắc duyệt trước | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.05, FR-M11-02.15, BR-M11-18 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isAnonymousOn | Công tắc ẩn danh | Lưu | Tham chiếu | — | FR-M11-01.12, FR-M11-02.06, BR-M11-16 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M11-01.03, FR-M11-03.17, BR-M11-03, BR-M11-35 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isDeleted | Đã xóa | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-15.01, FR-M11-10.06, FR-M11-11.03 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | modState | Trạng thái kiểm duyệt của nhóm | Lưu | Tham chiếu | — | FR-M11-01.01, FR-M11-16.01, FR-M11-16.04, FR-M11-16.06, FR-M08-18.01, FR-M08-18.04, FR-M08-18.07 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | inviteLink | Link mời | Lưu | Tham chiếu | — | FR-M11-05.01, FR-M11-05.06, FR-M11-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| Group | isInstantJoin | Nhóm vào ngay | Dẫn xuất | Tham chiếu | — | FR-M11-04.01, FR-M11-02.14, BR-M11-32 | Ghi đủ lớp sau gộp (MD-05); EC-M11 định nghĩa |
+| TopicTrendingStat | score | Điểm Trending | Dẫn xuất | Tham chiếu | — | FR-M14-02.10 | Chỉ hiện mục có điểm lớn hơn 0 (BR-M14-24) |
+| TopicTrendingStat | newPostCount | Số bài mới | Dẫn xuất | Tham chiếu | — | FR-M05-05.09, BR-M05-31 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| TopicTrendingStat | rank | Thứ hạng | Dẫn xuất | Tham chiếu | — | FR-M14-02.06 | Hiện theo thứ tự do M05 cung cấp |
+| TopicTrendingStat | computedAt | Thời điểm tính | Dẫn xuất | Tham chiếu | — | FR-M05-05.03, FR-M05-05.10 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| TagTrendingStat | score | Điểm Trending | Dẫn xuất | Tham chiếu | — | FR-M14-02.10 | Như TopicTrendingStat.score |
+| TagTrendingStat | newPostCount | Số bài mới | Dẫn xuất | Tham chiếu | — | FR-M05-05.09, BR-M05-31 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
+| TagTrendingStat | rank | Thứ hạng | Dẫn xuất | Tham chiếu | — | FR-M14-02.06 | Như TopicTrendingStat.rank |
+| TagTrendingStat | computedAt | Thời điểm tính | Dẫn xuất | Tham chiếu | — | FR-M05-05.03, FR-M05-05.10 | Ghi đủ lớp sau gộp (MD-05); EC-M05 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -163,12 +259,11 @@ steps_completed: [1, 2]
 
 | Thực thể trong FR | Trong mô hình | Xử lý |
 |---|---|---|
-| Điểm Trending Post | PostTrending, PostTrendingRun, FeedView | Mô hình có thêm lần tính để giữ tập kết quả và lượt xem để giữ lần tính đang dùng. FR-M14-02.11/12, FR-M14-03.04 và FR-M14-07.05 yêu cầu giữ kết quả trong lượt xem. FeedView là ngữ cảnh tạm, mốc bài được xét ở bước 3. |
-| Bài viết (M03) | Post | Khớp về nguồn bài. Cách đếm bình luận bị ẩn xem Q-03. |
-| Quan hệ theo dõi (M07) | UserFollow, TopicFollow | Khớp |
-| Thành viên nhóm (M11) | GroupMember, Group | Khớp. Chế độ Public/Private thuộc Group, tư cách hiện hành thuộc GroupMember. |
-| Trending Topic, Trending Tag (M05) | TopicTrending, TagTrending | Khớp về nguồn kết quả. Q-04 làm rõ việc giữ kết quả M05 tại lúc mở mục. |
-| Tham chiếu ngoài | User, Topic, Tag, PostTopic, Upvote, Comment, Bookmark, SystemConfiguration | Mô hình có thêm nguồn ngày giờ, tư cách, điểm và lọc theo FR-M14-01.05/06/07, FR-M14-02.06, FR-M14-03.02/10/13, FR-M14-04.01/10 và giao tiếp module mục 5.12. |
+| Điểm Trending Post | PostTrendingStat | Lệch: FR ghi là thực thể có bài viết, điểm, lần tính; mô hình để lớp thống kê kế thừa Post, mọi thuộc tính Dẫn xuất (score, computedAt), có thêm /age (TN:Tuổi bài), cùng cách EC-M05 với Trending Topic, Trending Tag (Q-01). "Thuộc một bài viết" → quan hệ Kế thừa (bước 3) |
+| Bài viết (M03) | Post | Khớp: thời điểm đăng → publishedAt; đăng ẩn danh → isAnonymous; trạng thái hiển thị → isPubliclyVisible; số upvote → upvoteCount (EC-M12); số bình luận → commentCount (EC-M04); số bookmark → bookmarkCount (M14 bổ sung) (Tham chiếu). Tác giả, Topic, nhóm là quan hệ của M03, M05, M11, M14 chỉ đọc |
+| Quan hệ theo dõi (M07) | — | Không có trong mô hình: lớp Follow của EC-M07; M14 chỉ đọc để chọn bài cho tab Following, không có dữ liệu của M14 gắn với nó |
+| Thành viên nhóm (M11) | Group | Thành viên nhóm là GroupMember của EC-M11, M14 chỉ đọc, không đưa vào mô hình; chế độ của nhóm → Group.privacy (Tham chiếu) |
+| Trending Topic, Trending Tag (M05) | TopicTrendingStat, TagTrendingStat | Khớp: điểm → score; thứ tự → rank (Tham chiếu) |
 
 ## 3. Quan hệ giữa các lớp
 
@@ -176,54 +271,35 @@ steps_completed: [1, 2]
 
 <!-- T = quan hệ trực tiếp; G(X) = chỉ gián tiếp qua lớp X; trống = không liên quan. Chỉ điền nửa trên. -->
 
-| Lớp | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 PostTrendingRun |  | T | T | G(PostTrending) |  |  |  |  | P |  |  |  |  |  |  |  |  |  |
-| 2 PostTrending |  |  | T | T |  | P | P | P |  |  |  |  |  |  |  |  |  |  |
-| 3 FeedView |  |  |  | T | T |  |  |  | P | P | P | P | G(TopicTrending/TopicFollow) | G(TagTrending) | P | P | P | P |
-| 4 Post |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 5 User |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 6 Upvote |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 7 Comment |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 8 Bookmark |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 9 Group |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 10 GroupMember |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 11 UserFollow |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 12 TopicFollow |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 13 Topic |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 14 Tag |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 15 PostTopic |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 16 TopicTrending |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 17 TagTrending |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 18 SystemConfiguration |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+M14 chỉ có một lớp của mình là lớp thống kê PostTrendingStat, nên không có ma trận cặp lớp: lớp thống kê xét riêng ở mục
+3.4 (Kế thừa Post). Các lớp ngoài User, Group, TopicTrendingStat, TagTrendingStat không có quan hệ với lớp nào của M14:
+M14 chỉ đọc thuộc tính của chúng; các quan hệ giữa chúng với Post (tác giả, nhóm, Topic, theo dõi) thuộc M03, M05, M07,
+M11.
 
-Ô `T` ghi quan hệ có bội số. Ô `P` ghi phụ thuộc nghiệp vụ. Ô `G(X)` ghi liên hệ qua lớp khác. Cặp FeedView–Post có hai vai trò ở mục 3.2. Cặp PostTrendingRun–Post được tách qua PostTrending.
+| | Post |
+|---|---|
+| PostTrendingStat |   |
 
 ### 3.2 Quan hệ số lượng
 
 <!-- Mỗi ô T của ma trận một dòng. Dạng đọc theo thứ tự A–B: 1-1 | 1-n | n-1 | n-n.
      Xử lý: Giữ nguyên | Gộp vào <Lớp>: … | Giữ: … | Tách: thêm lớp <X>. -->
 
+Không có ô T nào ở mục 3.1. Lớp thống kê PostTrendingStat có một quan hệ Kế thừa ở mục 3.4.
+
 | Cặp | Câu A → B | Câu B → A | Dạng | Xử lý |
 |---|---|---|---|---|
-| PostTrendingRun – Post (bài trong lần tính) | Một PostTrendingRun có thể chứa nhiều Post đủ điều kiện. | Một Post có thể xuất hiện trong nhiều PostTrendingRun ở các thời điểm khác nhau. | n-n | Tách: dùng lớp PostTrending |
-| PostTrendingRun – PostTrending (R-M14-01) | Một PostTrendingRun có từ 0 đến nhiều PostTrending. | Một PostTrending thuộc đúng một PostTrendingRun. | 1-n | Giữ nguyên |
-| Post – PostTrending (R-M14-02) | Một Post có từ 0 đến nhiều PostTrending qua các lần tính. | Một PostTrending ứng với đúng một Post. | 1-n | Giữ nguyên |
-| PostTrendingRun – FeedView (R-M14-03) | Một PostTrendingRun có thể được 0 đến nhiều FeedView cùng sử dụng. | Một FeedView có tối đa một PostTrendingRun, với Trending Post là lần tính được chọn lúc mở. | 1-n | Giữ nguyên |
-| PostTrending – FeedView (mốc tải Trending Post) (R-M14-04) | Một PostTrending có thể làm mốc tải tiếp của 0 đến nhiều FeedView. | Một FeedView có 0 hoặc 1 PostTrending làm mốc tải tiếp của Trending Post. | 1-n | Giữ nguyên |
-| Post – FeedView (mốc tải bài theo thời điểm) (R-M14-05) | Một Post có thể làm mốc tải tiếp của 0 đến nhiều FeedView. | Một FeedView theo thời điểm có 0 hoặc 1 Post làm mốc tải tiếp. | 1-n | Giữ nguyên |
-| Post – FeedView (mốc bài mới nhất) (R-M14-06) | Một Post có thể là bài mới nhất đang hiện của 0 đến nhiều FeedView. | Một FeedView theo thời điểm có 0 hoặc 1 Post làm mốc bài mới nhất đang hiện. | 1-n | Giữ nguyên |
-| User – FeedView (R-M14-07) | Một User có thể mở 0 đến nhiều FeedView. | Một FeedView có 0 hoặc 1 User là người xem. | 1-n | Giữ nguyên |
-
-Lượt xem Trending Post giữ một lần tính và tải theo thứ tự của lần đó, kể cả khi có lần mới. Hệ thống vẫn kiểm tra quyền hiển thị tại lần tải theo FR-M14-02.05/09. Với các luồng theo thời điểm, việc cập nhật bài mới nhất không ghi đè mốc bài cuối đã tải.
 
 ### 3.3 Lớp liên kết
 
-<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB". -->
+<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB".
+     "Thuộc tính riêng của liên kết": tên các thuộc tính (đã ghi ở mục 2.3); không có thì ghi rõ vì sao. -->
+
+Không có lớp liên kết.
 
 | Lớp liên kết | Tách từ quan hệ n-n | Thuộc tính riêng của liên kết | Nguồn |
 |---|---|---|---|
-| PostTrending | PostTrendingRun – Post | score, rank. postAge dẫn xuất từ thời điểm đăng và thời điểm tính. Mỗi cặp bài–lần tính có tối đa một dòng. | FR-M14-02.03, FR-M14-02.11, FR-M14-03.01, FR-M14-03.02, FR-M14-03.12, FR-M14-03.14, FR-M14-07.05 |
+| — | — | — | — |
 
 ### 3.4 Quan hệ
 
@@ -234,106 +310,15 @@ Lượt xem Trending Post giữ một lần tính và tải theo thứ tự củ
 
 | ID | Lớp A | Bội số A | Lớp B | Bội số B | Dạng | Loại | Bên chính | Căn cứ | Nguồn |
 |---|---|---|---|---|---|---|---|---|---|
-| R-M14-01 | PostTrendingRun | 1 | PostTrending | 0..* | 1-n | Liên kết | — | Một dòng điểm thuộc đúng một lần tính. Thứ tự và điểm là kết quả cố định; lần tính vẫn có thể rỗng khi không có bài đủ điều kiện. | FR-M14-02.03, FR-M14-02.11, FR-M14-03.01, FR-M14-03.04, FR-M14-03.05, FR-M14-07.05 |
-| R-M14-02 | Post | 1 | PostTrending | 0..* | 1-n | Liên kết | — | Mỗi dòng là kết quả của đúng một bài. Trong mỗi lần tính, mỗi bài có tối đa một dòng; một bài có thể xuất hiện ở các lần tính khác nhau. | FR-M14-03.01, FR-M14-03.02, FR-M14-03.03, FR-M14-03.12, FR-M14-03.14 |
-| R-M14-03 | PostTrendingRun | 0..1 | FeedView | 0..* | 1-n | Kết tập | FeedView | FeedView giữ lần tính Trending Post đang dùng. Lượt xem khác có thể dùng cùng lần tính; các luồng khác dùng dữ liệu của mình. Mở lại Trending chọn lần tính gần nhất. | FR-M14-02.03, FR-M14-02.11, FR-M14-02.12, FR-M14-03.04, FR-M14-07.05 |
-| R-M14-04 | PostTrending | 0..1 | FeedView | 0..* | 1-n | Kết tập | FeedView | FeedView của Trending Post giữ mốc tiếp theo trong thứ tự của lần tính đang dùng. Mốc có thể chưa có lúc mở hoặc khi chưa tải bài nào. | FR-M14-02.03, FR-M14-02.11, FR-M14-07.01, FR-M14-07.02, FR-M14-07.05 |
-| R-M14-05 | Post | 0..1 | FeedView | 0..* | 1-n | Kết tập | FeedView | Các luồng theo thời điểm dùng bài cuối đã tải làm mốc tiếp tục, tách với bài mới nhất đang hiện. Trước khi tải được bài có thể chưa có mốc. | FR-M14-04.03, FR-M14-05.02, FR-M14-06.02, FR-M14-07.01, FR-M14-07.02, FR-M14-07.03, FR-M14-07.04 |
-| R-M14-06 | Post | 0..1 | FeedView | 0..* | 1-n | Kết tập | FeedView | Các luồng Newest, Following và Group so bài mới với bài mới nhất đang hiện. Mốc cập nhật khi chèn bài mới; không đổi mốc tải xuống danh sách chỉ vì chèn bài ở đầu. | FR-M14-08.01, FR-M14-08.03, FR-M14-08.04, FR-M14-08.05, FR-M14-08.07 |
-| R-M14-07 | User | 0..1 | FeedView | 0..* | 1-n | Kết tập | FeedView | FeedView có tài khoản người xem khi đã đăng nhập. Guest xem Trending và Newest, nên đầu tài khoản tùy chọn. Following và Group chỉ có kết quả bài cho người đã đăng nhập. | FR-M14-01.02, FR-M14-01.03, FR-M14-01.08, FR-M14-02.02, FR-M14-04.04, FR-M14-05.05, FR-M14-06.04 |
-| R-M14-08 | PostTrending | — | Upvote | — | — | Phụ thuộc | Upvote | Tính điểm dùng số lượt đang có hiệu lực do M12 cung cấp, kể cả khi cờ Gamification tắt. Kết quả giữ điểm chứ không lưu tập lượt nguồn. | FR-M14-03.02, FR-M14-03.10, FR-M14-03.11 |
-| R-M14-09 | PostTrending | — | Comment | — | — | Phụ thuộc | Comment | Tính điểm dùng số bình luận của bài và tính cả trả lời, bỏ bình luận đã xóa. Phạm vi bỏ bình luận bị ẩn theo Q-03 chờ FR. | FR-M14-03.02, FR-M14-03.10, FR-M14-03.13 |
-| R-M14-10 | PostTrending | — | Bookmark | — | — | Phụ thuộc | Bookmark | Tính điểm đọc số lượt bookmark hiện hành của bài. Lượt đã bỏ không còn được tính. | FR-M14-03.02, FR-M14-03.10 |
-| R-M14-11 | PostTrendingRun | — | Group | — | — | Phụ thuộc | Group | Tập bài lúc tính gồm bài ngoài nhóm và bài nhóm Public đủ điều kiện, loại bài nhóm Private kể cả với thành viên. | FR-M14-03.01, FR-M14-03.09 |
-| R-M14-12 | FeedView | — | Group | — | — | Phụ thuộc | Group | Dùng chế độ và quyền nhìn thấy nhóm khi tải, kiểm bài đủ điều kiện dù thứ tự Trending được giữ. Q-02 mở rộng quy tắc loại bài đã chuyển Private cho thành viên ở lần tải tiếp và chờ FR. | FR-M14-02.05, FR-M14-02.09, FR-M14-04.07, FR-M14-04.13, FR-M14-05.01 |
-| R-M14-13 | FeedView | — | GroupMember | — | — | Phụ thuộc | GroupMember | Tab Group chọn bài từ nhóm mà người xem hiện là thành viên. Lần tải kế tiếp sau khi rời nhóm cập nhật điều kiện này. | FR-M14-05.01, FR-M14-05.03, FR-M14-05.04 |
-| R-M14-14 | FeedView | — | UserFollow | — | — | Phụ thuộc | UserFollow | Following dùng lượt theo dõi người dùng đang còn hiệu lực, trừ nhánh nhận diện tác giả của bài ẩn danh. | FR-M14-04.01, FR-M14-04.06, FR-M14-04.09 |
-| R-M14-15 | FeedView | — | TopicFollow | — | — | Phụ thuộc | TopicFollow | Following dùng lượt theo dõi Topic hiện hành; bài ẩn danh có thể xuất hiện qua nhánh Topic. | FR-M14-04.01, FR-M14-04.06, FR-M14-04.10 |
-| R-M14-16 | FeedView | — | PostTopic | — | — | Phụ thuộc | PostTopic | Đối chiếu Topic gắn bài và Topic đang theo dõi. Bài thỏa nhiều nhánh chỉ trả một lần. | FR-M14-04.01, FR-M14-04.02, FR-M14-04.10 |
-| R-M14-17 | FeedView | — | TopicTrending | — | — | Phụ thuộc | TopicTrending | Trending Topic dùng danh sách và thứ tự M05 cung cấp. Quy tắc giữ riêng lần tính M05 khi tải tiếp chờ FR theo Q-04. | FR-M14-02.06, FR-M14-02.10 |
-| R-M14-18 | FeedView | — | TagTrending | — | — | Phụ thuộc | TagTrending | Trending Tag dùng danh sách và thứ tự M05 cung cấp. Quy tắc giữ riêng lần tính M05 khi tải tiếp chờ FR theo Q-04. | FR-M14-02.06, FR-M14-02.10 |
-| R-M14-19 | FeedView | — | SystemConfiguration | — | — | Phụ thuộc | SystemConfiguration | Dùng cờ Group và Gamification khi hiển thị khả năng tương tác. Feed vẫn truy cập được; mở bài nhóm khi cờ tắt thuộc M11. | FR-M14-01.07, FR-M14-02.08, FR-M14-04.12, FR-M14-05.08 |
-
-**Cách đọc.** PostTrending gắn mỗi bài với một lần tính qua R-M14-01/02. FeedView giữ lần tính, các mốc và tài khoản người xem theo R-M14-03–07. Các đối tượng được tham chiếu có vòng đời riêng, nên các đường ghi ngữ cảnh của FeedView là Kết tập.
-
-**Vòng đời và lọc.** FeedView là ngữ cảnh tạm, không có yêu cầu lưu lịch sử lượt xem. Lần tính đã chọn phải còn đọc được trong khi lượt xem dùng nó. Khi bài mất điều kiện hiển thị, lần tải bỏ bài nhưng không thay kết quả hoặc thứ tự gốc đang duyệt.
-
-**Giới hạn của mô hình.** Chưa xác định cơ chế lưu con trỏ hoặc chi tiết thứ tự cuối khi bằng nhau. Q-01 đến Q-04 đã được duyệt và chờ cập nhật FR. Quy tắc hiện hành về loại bài Private, số đếm bình luận và nguồn Trending Topic, Trending Tag vẫn theo FR-M14 v1.1.
+| R-M14-01 | Post | — | PostTrendingStat | — | — | Kế thừa | Post | PostTrendingStat dùng lại thuộc tính của Post (publishedAt để tính tuổi bài và phân xử bằng điểm; upvoteCount, commentCount, bookmarkCount để tính điểm) và thêm số liệu Trending; "Điểm Trending Post thuộc một bài viết" (mục Dữ liệu nghiệp vụ). Cùng cách R-M05-15 của EC-M05 | FR-M14-03.01, FR-M14-03.02, BR-M14-10 |
 
 ## 4. Sơ đồ lớp phân tích
 
-<!-- BEGIN:PUML -->
-```plantuml
-@startuml
-hide circle
-hide methods
-skinparam classAttributeIconSize 0
+<!-- BEGIN:DIAGRAM -->
+![Sơ đồ lớp phân tích — EC-M14](diagrams/EC-M14.png)
 
-class PostTrendingRun {
-  -calculatedAt
-}
-class PostTrending {
-  -score
-  -/postAge
-  -rank
-}
-class FeedView {
-  -kind
-  -/hasNewPosts
-}
-class Post <<M03>> {
-}
-class User <<M01>> {
-}
-class Upvote <<M12>> {
-}
-class Comment <<M04>> {
-}
-class Bookmark <<M02>> {
-}
-class Group <<M11>> {
-}
-class GroupMember <<M11>> {
-}
-class UserFollow <<M07>> {
-}
-class TopicFollow <<M07>> {
-}
-class Topic <<M05>> {
-}
-class Tag <<M05>> {
-}
-class PostTopic <<M05>> {
-}
-class TopicTrending <<M05>> {
-}
-class TagTrending <<M05>> {
-}
-class SystemConfiguration <<M10>> {
-}
-
-(PostTrendingRun, Post) .. PostTrending
-FeedView "0..*" o-- "0..1" PostTrendingRun
-FeedView "0..*" o-- "0..1" PostTrending
-FeedView "0..*" o-- "0..1" Post
-FeedView "0..*" o-- "0..1" Post
-FeedView "0..*" o-- "0..1" User
-PostTrending ..> Upvote
-PostTrending ..> Comment
-PostTrending ..> Bookmark
-PostTrendingRun ..> Group
-FeedView ..> Group
-FeedView ..> GroupMember
-FeedView ..> UserFollow
-FeedView ..> TopicFollow
-FeedView ..> PostTopic
-FeedView ..> TopicTrending
-FeedView ..> TagTrending
-FeedView ..> SystemConfiguration
-
-@enduml
-```
-<!-- END:PUML -->
+Mã nguồn sơ đồ: [diagrams/EC-M14.puml](diagrams/EC-M14.puml). Ảnh và tệp .puml do `gen_puml.py` sinh từ các bảng của tài liệu này; muốn đổi sơ đồ thì sửa bảng rồi chạy lại tool, không sửa tay.
+<!-- END:DIAGRAM -->
 
 ## 5. Liên module
 
@@ -341,37 +326,25 @@ FeedView ..> SystemConfiguration
 
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| Post | M03 | Nguồn tác giả, trạng thái bài, thời điểm đăng; kết quả Trending gắn với bài. Bài theo vai trò mốc được giữ tạm trong FeedView. | — |
-| User | M01 | Người xem đã đăng nhập, tác giả hoặc đối tượng theo dõi. Đọc trạng thái hiển thị và nhãn ban; Guest không có User. | — |
-| Upvote | M12 | Nguồn số upvote có hiệu lực cho điểm Trending. | — |
-| Comment | M04 | Nguồn số bình luận, kể cả trả lời. Cách lọc bình luận ẩn xem Q-03. | — |
-| Bookmark | M02 | Nguồn số bookmark còn hiệu lực khi tính điểm. | — |
-| Group | M11 | Chế độ nhóm dùng trong tập tính và các lần tải. M11 xử lý quyền mở bài khi cờ Group tắt. | — |
-| GroupMember | M11 | Tư cách hiện hành để lấy bài ở luồng Group. | — |
-| UserFollow | M07 | Nguồn theo dõi người dùng của Following. | — |
-| TopicFollow | M07 | Nguồn theo dõi Topic của Following. | — |
-| Topic | M05 | Đối chiếu ở nhánh Topic của Following và qua kết quả Trending Topic. | — |
-| Tag | M05 | Hiển thị qua kết quả Trending Tag do M05 cung cấp. | — |
-| PostTopic | M05 | Đối chiếu bài với Topic mà người xem theo dõi. | — |
-| TopicTrending | M05 | Nguồn thứ tự Trending Topic. Cách giữ bản tại lượt xem theo Q-04. | — |
-| TagTrending | M05 | Nguồn thứ tự Trending Tag. Cách giữ bản tại lượt xem theo Q-04. | — |
-| SystemConfiguration | M10 | Cờ Group và Gamification. Nguồn điều kiện, không làm mất dữ liệu xếp hạng. | — |
+| Post | M03 | Lớp cha của PostTrendingStat (R-M14-01); nguồn của mọi tab. Đọc isPubliclyVisible, publishedAt, upvoteCount (M12), commentCount (M04), isAnonymous (M11), bookmarkCount | bookmarkCount — đã đưa vào lớp của EC-M03 (MD-05) |
+| User | M01 | Đọc status của tác giả để ẩn bài của tài khoản DEACTIVATED, DELETED; không có quan hệ với lớp nào của M14 | — |
+| Group | M11 | Đọc privacy để chọn bài nhóm cho Trending Post, Following, Group, Newest; không có quan hệ với lớp nào của M14 | — |
+| TopicTrendingStat | M05 | Đọc score, rank để hiển thị mục con Trending Topic; không có quan hệ với lớp nào của M14 | — |
+| TagTrendingStat | M05 | Đọc score, rank để hiển thị mục con Trending Tag; không có quan hệ với lớp nào của M14 | — |
 
 ## 6. Câu hỏi và điểm chưa chốt
 
-<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-M14". -->
+<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-Mxx". -->
 
 | Mã | Loại | Câu hỏi | Trả lời | Ghi vào |
 |---|---|---|---|---|
-| Q-01 | Thiếu | Trong FR-M14-03.14, FR-M14-04.03/05.02/06.02 và FR-M14-07.04/05, mục phân thứ tự còn thiếu khi thời điểm đăng bằng nhau. | Đã duyệt dùng định danh bài làm tiêu chí xếp cuối cùng theo một chiều cố định. | Chờ cập nhật FR-M14. Chưa thêm định danh, chiều sắp hoặc cơ chế con trỏ. |
-| Q-02 | Mơ hồ | FR-M14-03.09 áp loại bài Private khi tính, FR-M14-02.09 chỉ nêu người ngoài nhóm khi tải tiếp sau đổi chế độ. | Đã duyệt loại bài khỏi lần tải tiếp Trending Post của mọi người, kể cả thành viên. Quyền đọc phần đã tải do M11 xử lý. | Chờ cập nhật FR-M14 và giao tiếp M11. R-M14-12 giữ theo yêu cầu hiện hành. |
-| Q-03 | Mơ hồ | FR-M14-03.10/13 nêu bình luận đã xóa nhưng chưa nêu bình luận bị ẩn như BR-M04-18. | Đã duyệt dùng số bình luận còn hiển thị do M04 cung cấp, kể cả trả lời. | Chờ cập nhật FR-M14. R-M14-09 giữ quy tắc hiện hành. |
-| Q-04 | Mơ hồ | FR-M14-02.06/10/11 và FR-M14-07.05 chưa làm rõ phạm vi giữ kết quả Topic/Tag từ M05 trong lượt xem. | Đã duyệt giữ kết quả nhận lúc mở từng mục Trending Topic và Trending Tag để tải tiếp cùng thứ tự. | Chờ cập nhật FR-M14 và giao tiếp M05. Chưa thêm quan hệ lưu kết quả M05 trong FeedView. |
+| Q-01 | Lệch | Mục Dữ liệu nghiệp vụ ghi "Điểm Trending Post" (bài viết, điểm, lần tính) là thực thể. Đề xuất: làm như EC-M05 đã chốt cho Trending Topic, Trending Tag (Q-02 của EC-M05): lớp thống kê PostTrendingStat kế thừa Post, thuộc tính Dẫn xuất score, age, computedAt | Người dùng đồng ý (2026-11-19): lớp thống kê PostTrendingStat kế thừa Post, cùng cách EC-M05 | Mục 2.1 dòng 6; mục 2.2; mục 2.4; mục 3.4 R-M14-01 |
+| Q-02 | Thiếu | BR-M14-19: một lượt xem tab Trending giữ kết quả của lần tính hiện hành lúc mở tab, kể cả khi đã có lần tính mới, để tải thêm không lặp, không sót bài. Như vậy kết quả của lần tính trước phải còn dùng được trong một lúc sau khi có lần tính mới. Đề xuất: ở bước phân tích giữ PostTrendingStat là lớp thống kê; việc lưu kết quả theo lần tính (ví dụ giữ hai lần tính gần nhất) để bước thiết kế CSDL quyết, cùng lúc với cách xử lý tương tự của Trending Topic, Trending Tag (EC-M05). Phương án khác: đổi thành lớp Thực thể "lần tính Trending Post" (computedAt) kèm các dòng điểm của từng bài, như kết quả bảng xếp hạng ở EC-M12 | Người dùng chọn phương án đề xuất (2026-11-19): giữ PostTrendingStat là lớp thống kê; việc giữ kết quả của lần tính trước cho lượt xem đang mở (BR-M14-19) để bước thiết kế CSDL quyết, chung với Trending Topic, Trending Tag của EC-M05 | Mục 2.1 dòng 29, 31; mục 2.3 PostTrendingStat.computedAt |
 
 ## 7. Lịch sử sửa đổi
 
 | Phiên bản | Ngày | Nội dung | Người sửa |
 |---|---|---|---|
-| 0.1 | 2026-11-19 | Soạn 12 câu mô tả và truy vết 8 chức năng từ FR-M14 v1.1, chờ duyệt bước 1 | Codex |
-| 0.2 | 2026-11-19 | Ghi nhận duyệt bước 1, phân loại danh từ, lập bảng lớp và thuộc tính, đối chiếu FR-M14 và ghi câu hỏi | Codex |
-| 0.3 | 2026-11-19 | Ghi nhận duyệt bước 2 và Q-01–Q-04. Lập ma trận, bội số, lớp liên kết, sơ đồ và liên module. Theo dõi cập nhật FR liên quan. | Codex |
+| 0.1 | 2026-11-19 | Tạo mới; làm liền 3 bước theo yêu cầu của người dùng (không dừng ở cổng), chờ duyệt và trả lời Q-01, Q-02 | Phạm Văn Đức |
+| 1.0 | 2026-11-19 | Chốt sau 3 bước: 1 lớp thống kê của M14, 5 lớp ngoài, 1 quan hệ (R-M14-01); Q-01, Q-02 đã trả lời | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-05: dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: Post.bookmarkCount, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 56 dòng Tham chiếu, tên tiếng Việt của thuộc tính lớp ngoài theo module sở hữu: Post.commentCount: Số bình luận → Số bình luận của bài | Phạm Văn Đức |

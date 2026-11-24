@@ -1,0 +1,84 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity proposals {
+  * id : bigint <<PK>>
+  --
+  * type : varchar(30)
+  * sent_at : timestamptz
+  * status : varchar(30)
+  * sender_id : bigint <<FK>>
+  * nominee_id : bigint <<FK>>
+}
+entity config_switches {
+  * id : bigint <<PK>>
+  --
+  * name : varchar(30)
+  * status : varchar(30)
+}
+entity banners {
+  * id : bigint <<PK>>
+  --
+  * content : varchar(200)
+  * status : varchar(30)
+}
+entity banner_dismissals {
+  * id : bigint <<PK>>
+  --
+  * banner_id : bigint <<FK>>
+  * user_id : bigint <<FK>>
+}
+entity admin_logs {
+  * id : bigint <<PK>>
+  --
+  * action_type : varchar(30)
+  reason : text
+  * created_at : timestamptz
+  * is_by_system : boolean
+  actor_id : bigint <<FK>>
+  target_user_id : bigint <<FK>>
+  config_switch_id : bigint <<FK>>
+  banner_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  report_case_id : bigint <<FK>>
+  appeal_id : bigint <<FK>>
+  topic_id : bigint <<FK>>
+  tag_id : bigint <<FK>>
+}
+entity appeals <<M09>> {
+}
+entity comments <<M04>> {
+}
+entity groups <<M11>> {
+}
+entity posts <<M03>> {
+}
+entity report_cases <<M08>> {
+}
+entity tags <<M05>> {
+}
+entity topics <<M05>> {
+}
+entity users <<M01>> {
+}
+
+users ||--o{ proposals : sender_id
+users ||--o{ proposals : nominee_id
+banners ||--o{ banner_dismissals : banner_id
+users ||--o{ banner_dismissals : user_id
+users |o--o{ admin_logs : actor_id
+users |o--o{ admin_logs : target_user_id
+config_switches |o--o{ admin_logs : config_switch_id
+banners |o--o{ admin_logs : banner_id
+posts |o--o{ admin_logs : post_id
+comments |o--o{ admin_logs : comment_id
+groups |o--o{ admin_logs : group_id
+report_cases |o--o{ admin_logs : report_case_id
+appeals |o--o{ admin_logs : appeal_id
+topics |o--o{ admin_logs : topic_id
+tags |o--o{ admin_logs : tag_id
+
+@enduml

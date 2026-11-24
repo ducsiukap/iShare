@@ -91,8 +91,8 @@ steps_completed: []
 
 ### 6.2 Sơ đồ quan hệ toàn hệ thống
 
-<!-- BEGIN:PUML -->
-<!-- END:PUML -->
+<!-- BEGIN:DIAGRAM -->
+<!-- END:DIAGRAM -->
 
 ## 7. Liên module
 

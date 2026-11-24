@@ -83,7 +83,7 @@ Chạy từ gốc repo iShare. Đặt `SK=.agent-instructions/skills/designing-d
 |---|---|---|
 | `merge_db.py --list` | 1, 4 | `python3 $SK/tools/merge_db.py --dir $M/db --list --exclude Mxx` (bảng các module khác đã có, khóa chính và kiểu) |
 | `check_db.py` | 1–5 | `python3 $SK/tools/check_db.py --db $M/db/DB-Mxx.md --step N --cd $M/cd/CD-Mxx.md` |
-| `build_schema.py` | 5 | `python3 $SK/tools/build_schema.py --db $M/db/DB-Mxx.md --inplace` (dựng lược đồ cuối và sơ đồ từ các bảng bước 1–5) |
+| `build_schema.py` | 5 | `python3 $SK/tools/build_schema.py --db $M/db/DB-Mxx.md` (dựng lược đồ cuối ở mục 6.1; ghi `diagrams/DB-Mxx.puml`, render `.png`, nhúng ảnh vào mục 6.2; `--no-render` chỉ ghi `.puml`) |
 | `check_db.py --final` | 5 | `python3 $SK/tools/check_db.py --db $M/db/DB-Mxx.md --final --cd $M/cd/CD-Mxx.md` |
 | `merge_db.py` | Gộp | `python3 $SK/tools/merge_db.py --dir $M/db --out-md $M/db/.work/merge-db.md` |
 
@@ -93,7 +93,13 @@ nhiều). Nếu quy ước đổi: `--table-style tbl` (kiểu phương pháp g�
 Tool bắt lỗi cơ học: lớp chưa có bảng, thuộc tính chưa thành cột, thuộc tính đối tượng bị chuyển thành cột, quan hệ
 chưa thành quan hệ giữa bảng, n-n, bảng thiếu khóa chính, quan hệ 1-n thiếu khóa ngoại hoặc khóa ngoại đặt sai
 phía, khóa ngoại lệch kiểu với khóa chính, thuộc tính dẫn xuất chưa xử lý, bảng chỉ còn một khóa ngoại, lược đồ
-cuối lệch với các bảng bước. ERROR phải sửa trước khi trình cổng; WARN giữ lại phải có lý do.
+cuối lệch với các bảng bước, và sơ đồ: mục 6.2 chứa mã PlantUML, thiếu ảnh, tệp `.puml` lệch bảng hoặc ảnh cũ hơn
+`.puml`. ERROR phải sửa trước khi trình cổng; WARN giữ lại phải có lý do.
+
+Render ảnh dùng chung cách của skill `analyzing-entity-classes` (Java + `plantuml.jar` đặt ở
+`.agent-instructions/skills/analyzing-entity-classes/tools/vendor/` hoặc biến `PLANTUML_JAR`; lệnh `plantuml`; hoặc
+`--server` khi người dùng đồng ý). `build_schema.py` trả mã 2 khi không render được: báo người dùng, không tự tìm
+cách khác.
 
 ## Cách hỏi người dùng
 
@@ -120,7 +126,7 @@ Trả lời "ok" để sang bước N+1, hoặc nói chỗ cần sửa.
 
 Tăng phiên bản, trạng thái về Bản nháp, làm lại từ bước bị ảnh hưởng, vẫn qua cổng. Khi `CD-Mxx.md` lên phiên bản
 mới: sửa `nguon`, chạy `check_db.py --cd` để thấy chỗ lệch, làm lại từ bước sớm nhất bị ảnh hưởng, rồi chạy lại
-`build_schema.py --inplace`.
+`build_schema.py`.
 
 ## Không làm
 

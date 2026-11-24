@@ -1,0 +1,31 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity comments {
+  * id : bigint <<PK>>
+  --
+  * content : text
+  * published_at : timestamptz
+  edited_at : timestamptz
+  * mod_state : varchar(30)
+  deleted_at : timestamptz
+  scanned_at : timestamptz
+  * is_removed_from_group : boolean
+  * is_points_deducted : boolean
+  * post_id : bigint <<FK>>
+  * author_id : bigint <<FK>>
+  parent_comment_id : bigint <<FK>>
+  replied_to_id : bigint <<FK>>
+}
+entity posts <<M03>> {
+}
+entity users <<M01>> {
+}
+
+posts ||--o{ comments : post_id
+users ||--o{ comments : author_id
+comments |o--o{ comments : parent_comment_id
+comments |o--o{ comments : replied_to_id
+
+@enduml

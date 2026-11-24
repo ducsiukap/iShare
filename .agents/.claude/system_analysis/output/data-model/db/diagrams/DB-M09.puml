@@ -1,0 +1,51 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity appeals {
+  * id : bigint <<PK>>
+  --
+  * type : varchar(30)
+  * explanation : text
+  * submitted_at : timestamptz
+  * status : varchar(30)
+  last_holder_action_at : timestamptz
+  conclusion : varchar(30)
+  conclusion_reason : text
+  concluded_at : timestamptz
+  * role_at_action : varchar(30)
+  * appellant_id : bigint <<FK>>
+  holder_id : bigint <<FK>>
+  concluded_by_id : bigint <<FK>>
+  warning_id : bigint <<FK>>
+  ban_id : bigint <<FK>>
+  report_case_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+}
+entity appeal_evidences {
+  * id : bigint <<PK>>
+  --
+  * image : text
+  * appeal_id : bigint <<FK>>
+}
+entity bans <<M08>> {
+}
+entity posts <<M03>> {
+}
+entity report_cases <<M08>> {
+}
+entity users <<M01>> {
+}
+entity warnings <<M08>> {
+}
+
+users ||--o{ appeals : appellant_id
+users |o--o{ appeals : holder_id
+users |o--o{ appeals : concluded_by_id
+warnings |o--o| appeals : warning_id
+bans |o--o| appeals : ban_id
+report_cases |o--o| appeals : report_case_id
+posts |o--o{ appeals : post_id
+appeals ||--o{ appeal_evidences : appeal_id
+
+@enduml

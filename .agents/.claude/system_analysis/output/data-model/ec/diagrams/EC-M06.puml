@@ -1,0 +1,91 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class PostSearchStat <<stat>> {
+  -/relevanceScore
+  -/engagementRaw
+  -/engagementScore
+  -/finalScore
+  -/snippet
+}
+class Post <<M03>> {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
+}
+class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
+  -role
+  -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
+}
+class Tag <<M05>> {
+  -name
+  -status
+  -createdAt
+}
+class Topic <<M05>> {
+  -name
+  -deletedAt
+}
+class Group <<M11>> {
+  -name
+  -description
+  -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
+  -modState
+  -inviteLink
+  -/isInstantJoin
+}
+
+Post <|-- PostSearchStat
+
+@enduml

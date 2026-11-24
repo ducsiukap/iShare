@@ -1,0 +1,566 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class AdminLog {
+  -actionType
+  -reason
+  -createdAt
+  -isBySystem
+}
+class AiDecisionLog {
+  -callType
+  -isSuccess
+  -rawOutput
+  -createdAt
+  -/scanScore
+  -/violationCategory
+  -/scoreBand
+}
+class Appeal {
+  -type
+  -explanation
+  -submittedAt
+  -status
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+  -/roleAtAction
+}
+class AppealEvidence {
+  -image
+}
+class AppealStat <<stat>> {
+  -period
+  -/countByType
+  -/countByResult
+}
+class Badge {
+  -name
+  -threshold
+}
+class Ban {
+  -kind
+  -duration
+  -startedAt
+  -/endsAt
+  -reason
+  -status
+  -/appealDeadline
+}
+class BanStat <<stat>> {
+  -period
+  -/banTrend
+  -/unbanTrend
+}
+class Banner {
+  -content
+  -status
+}
+class BannerDismissal {
+}
+class Bookmark {
+  -savedAt
+}
+class ChatJoinRequest {
+  -status
+  -createdAt
+}
+class ChatMemberProposal {
+  -status
+  -createdAt
+}
+class ChosenTopic {
+}
+class Comment {
+  -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
+}
+class CommentStat <<stat>> {
+  -period
+  -/newCommentTrend
+}
+class ConfigSwitch {
+  -name
+  -status
+}
+class Conversation {
+  -type
+  -name
+  -isApprovalOn
+  -inviteLink
+}
+class ConversationMember {
+  -role
+  -status
+  -leftAt
+}
+class CountedUpvoter {
+}
+class EarnedBadge {
+  -achievedAt
+}
+class EarnedTitle {
+  -week
+}
+class Follow {
+  -followedAt
+}
+class Group {
+  -name
+  -description
+  -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
+  -modState
+  -inviteLink
+  -/isInstantJoin
+}
+class GroupJoinBlock {
+}
+class GroupJoinRequest {
+  -answer
+  -status
+}
+class GroupMember {
+  -role
+  -joinedAt
+  -modAppointedAt
+}
+class Leaderboard {
+  -period
+  -periodStart
+  -computedAt
+}
+class LeaderboardEntry {
+  -periodPoints
+  -rank
+  -gradeLevel
+  -/isWeeklyStar
+}
+class LoginSession {
+  -device
+  -accessExpiresAt
+  -refreshToken
+  -refreshExpiresAt
+}
+class MagicLink {
+  -purpose
+  -token
+  -sentAt
+  -/expiresAt
+  -isUsed
+}
+class Mention {
+  -notifiedAt
+}
+class Message {
+  -content
+  -sentAt
+  -isRecalled
+}
+class ModerationLog {
+  -actionType
+  -reason
+  -createdAt
+  -isByAi
+}
+class MutedConversation {
+}
+class MutedPost {
+}
+class Notification {
+  -eventType
+  -isRead
+  -occurredAt
+  -lastUpdatedAt
+  -appealLink
+  -/isUpvoteWindowOpen
+  -/otherUpvoterCount
+}
+class NotificationEmail {
+  -eventType
+  -queuedAt
+  -status
+  -retryCount
+  -appealLink
+}
+class NotificationSetting {
+  -isAllChatMuted
+}
+class PolicyConsent {
+  -agreedAt
+}
+class PolicyVersion {
+  -version
+  -content
+  -releasedAt
+  -/isCurrent
+}
+class Poll {
+  -allowMultiple
+  -showResultBeforeVote
+  -expiresAt
+  -isClosed
+  -/totalSelectionCount
+}
+class PollOption {
+  -label
+  -/selectionCount
+  -/percentage
+}
+class PollSelection {
+}
+class Post {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
+}
+class PostAttachment {
+  -kind
+  -fileFormat
+  -fileSize
+  -fileUrl
+  -fileName
+}
+class PostRevision {
+  -content
+  -title
+  -editedAt
+}
+class PostSearchStat <<stat>> {
+  -/relevanceScore
+  -/engagementRaw
+  -/engagementScore
+  -/finalScore
+  -/snippet
+}
+class PostStat <<stat>> {
+  -period
+  -/countByPublishState
+  -/countByModState
+  -/newPostTrend
+  -/countByTopic
+}
+class PostSummary {
+  -content
+  -createdAt
+}
+class PostTag {
+}
+class PostTopic {
+}
+class PostTrendingStat <<stat>> {
+  -/score
+  -/age
+  -/computedAt
+}
+class Profile {
+  -avatar
+  -bio
+  -gradeLevel
+  -/followerCount
+  -/followingCount
+}
+class Proposal {
+  -type
+  -sentAt
+  -status
+}
+class ReactivationCode {
+  -code
+  -sentAt
+  -/expiresAt
+  -failedAttemptCount
+}
+class Report {
+  -reason
+  -description
+  -isAiCreated
+  -scanScore
+  -/status
+  -/conclusion
+  -/concentrationIndex
+  -reportedAt
+}
+class ReportCase {
+  -targetType
+  -status
+  -openedAt
+  -/reportCount
+  -/priorityScore
+  -isBanRequest
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+}
+class ReportEvidence {
+  -image
+}
+class ReportStat <<stat>> {
+  -period
+  -/countByStatus
+  -/countByReason
+}
+class SuggestedTopic {
+}
+class Tag {
+  -name
+  -status
+  -createdAt
+}
+class TagTrendingStat <<stat>> {
+  -/score
+  -/newPostCount
+  -/rank
+  -/computedAt
+}
+class Topic {
+  -name
+  -deletedAt
+}
+class TopicSuggestion {
+  -status
+  -createdAt
+}
+class TopicSuggestionFeedback {
+  -recordedAt
+}
+class TopicSuggestionStat <<stat>> {
+  -period
+  -/suggestedCount
+  -/keptCount
+  -/retentionRate
+}
+class TopicTrendingStat <<stat>> {
+  -/score
+  -/newPostCount
+  -/rank
+  -/computedAt
+}
+class Upvote {
+  -upvotedAt
+}
+class User {
+  -email
+  -password
+  -username
+  -displayName
+  -role
+  -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
+}
+class UserStat <<stat>> {
+  -period
+  -/countByStatus
+  -/registrationTrend
+  -/countByRole
+  -/countByGradeLevel
+  -/countByWarningLevel
+}
+class UserWarningStatus {
+  -warningCount
+  -/level
+  -probationEndsAt
+}
+class Warning {
+  -reason
+  -issuedAt
+  -isIssuedByAi
+  -status
+  -levelAfter
+}
+class WarningStat <<stat>> {
+  -period
+  -/levelTrend
+}
+
+(User, Banner) .. BannerDismissal
+(User, Post) .. Bookmark
+(TopicSuggestionFeedback, Topic) .. ChosenTopic
+(User, Conversation) .. ConversationMember
+(Notification, User) .. CountedUpvoter
+(User, Badge) .. EarnedBadge
+(User, Group) .. GroupJoinBlock
+(User, Group) .. GroupMember
+(User, Leaderboard) .. LeaderboardEntry
+(User, Conversation) .. MutedConversation
+(User, Post) .. MutedPost
+(User, PolicyVersion) .. PolicyConsent
+(PollOption, User) .. PollSelection
+(Post, Tag) .. PostTag
+(Post, Topic) .. PostTopic
+(TopicSuggestion, Topic) .. SuggestedTopic
+User "1" o-- "0..*" MagicLink
+User "1" o-- "0..*" ReactivationCode
+User "1" o-- "0..*" LoginSession
+Mention "0..*" o-- "1" User
+Post "0..1" o-- "0..*" Mention
+Comment "0..1" o-- "0..*" Mention
+User "1" o-- "1" Profile
+Post "1" o-- "0..13" PostAttachment
+Post "1" o-- "0..1" Poll
+Poll "1" *-- "2..10" PollOption
+Post "1" o-- "0..*" PostRevision
+Post "0..*" o-- "1" User
+Group "0..1" o-- "0..*" Post
+Post "1" o-- "0..*" Comment
+Comment "0..*" o-- "1" User
+Comment "0..1" o-- "0..*" Comment
+Comment "0..*" o-- "0..1" Comment
+TopicSuggestionFeedback "0..1" o-- "1" TopicSuggestion
+TopicSuggestion "0..*" o-- "1" Post
+TopicSuggestion "0..*" o-- "0..1" User
+Topic <|-- TopicTrendingStat
+Tag <|-- TagTrendingStat
+Post <|-- PostSearchStat
+Notification "0..*" o-- "1" User
+Notification "0..*" o-- "0..1" User
+Notification "0..*" o-- "0..1" Post
+Notification "0..*" o-- "0..1" Comment
+Notification "0..*" o-- "0..1" Group
+Notification "0..*" o-- "0..1" Report
+Notification "0..1" o-- "0..1" Warning
+Notification "0..2" o-- "0..1" Ban
+Notification "0..1" o-- "0..1" Appeal
+Notification "1" o-- "0..1" Proposal
+Notification "0..*" o-- "0..1" Badge
+Notification "0..*" o-- "0..1" EarnedTitle
+Follow "0..*" o-- "1" User
+Follow "0..*" o-- "0..1" User
+Follow "0..*" o-- "0..1" Topic
+NotificationEmail "0..*" o-- "1" User
+User "1" o-- "0..1" NotificationSetting
+ReportCase "1" o-- "1..*" Report
+Report "1" o-- "0..3" ReportEvidence
+Report "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" Post
+ReportCase "0..*" o-- "0..1" Comment
+ReportCase "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" Group
+ReportCase "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" User
+Warning "0..*" o-- "0..1" ReportCase
+ReportCase "1" -- "0..*" Ban
+Warning "0..*" o-- "1" User
+Warning "0..*" o-- "0..1" User
+Warning "0..*" o-- "0..1" Post
+Warning "0..*" o-- "0..1" Comment
+UserWarningStatus "1" o-- "1" User
+Ban "0..*" o-- "1" User
+Ban "0..*" o-- "1" User
+ModerationLog "0..*" o-- "0..1" User
+ModerationLog "0..*" o-- "0..1" User
+ModerationLog "0..*" o-- "0..1" Post
+ModerationLog "0..*" o-- "0..1" Comment
+ModerationLog "0..*" o-- "0..1" Group
+ModerationLog "0..*" o-- "0..1" Tag
+ModerationLog "0..*" o-- "0..1" ReportCase
+Appeal "1" o-- "0..3" AppealEvidence
+Appeal "0..*" o-- "1" User
+Appeal "0..*" o-- "0..1" User
+Appeal "0..*" o-- "0..1" User
+Appeal "0..1" o-- "0..1" Warning
+Appeal "0..1" o-- "0..1" Ban
+Appeal "0..1" o-- "0..1" ReportCase
+Appeal "0..*" o-- "0..1" Post
+Proposal "0..*" o-- "1" User
+Proposal "0..*" o-- "1" User
+AdminLog "0..*" o-- "0..1" User
+AdminLog "0..*" o-- "0..1" User
+AdminLog "0..*" o-- "0..1" ConfigSwitch
+AdminLog "0..*" o-- "0..1" Banner
+AdminLog "0..*" o-- "0..1" Post
+AdminLog "0..*" o-- "0..1" Comment
+AdminLog "0..*" o-- "0..1" Group
+AdminLog "0..*" o-- "0..1" ReportCase
+AdminLog "0..*" o-- "0..1" Appeal
+AdminLog "0..*" o-- "0..1" Topic
+AdminLog "0..*" o-- "0..1" Tag
+Group "0..*" o-- "1" User
+GroupJoinRequest "0..*" o-- "1" User
+Group "1" o-- "0..*" GroupJoinRequest
+Post "0..*" o-- "0..1" GroupMember
+Upvote "0..*" o-- "0..1" User
+Post "0..1" o-- "0..*" Upvote
+Comment "0..1" o-- "0..*" Upvote
+EarnedTitle "0..*" o-- "1" User
+AiDecisionLog "0..*" o-- "0..1" Post
+AiDecisionLog "0..*" o-- "0..1" Comment
+Post "1" o-- "0..1" PostSummary
+TopicSuggestionStat ..> TopicSuggestionFeedback
+Post <|-- PostTrendingStat
+UserStat ..> User
+PostStat ..> Post
+CommentStat ..> Comment
+ReportStat ..> Report
+WarningStat ..> Warning
+BanStat ..> Ban
+AppealStat ..> Appeal
+Conversation "1" o-- "0..*" Message
+Message "0..*" o-- "1" User
+ConversationMember "0..*" o-- "0..1" Message
+Conversation "1" o-- "0..*" ChatMemberProposal
+ChatMemberProposal "0..*" o-- "1" User
+ChatMemberProposal "0..*" o-- "1" User
+Conversation "1" o-- "0..*" ChatJoinRequest
+ChatJoinRequest "0..*" o-- "1" User
+
+@enduml

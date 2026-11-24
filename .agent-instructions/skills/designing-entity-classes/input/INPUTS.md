@@ -17,7 +17,7 @@ Mọi đường dẫn tính từ gốc repo iShare. Thiếu một tệp **bắt 
 |---|---|---|
 | 2.2 Lớp (Nhóm, Sở hữu) | 1 | Lập bảng lớp; biết lớp nào là lớp ngoài, lớp thống kê |
 | 3.4 Quan hệ, các dòng Kế thừa | 1 | Lớp con không thêm id |
-| 2.3 Thuộc tính (Tính chất, Ràng buộc nguồn nêu, Nguồn) | 2 | Chọn kiểu, tính bắt buộc, ràng buộc |
+| 2.3 Thuộc tính (Tính chất, Căn cứ, Ràng buộc nguồn nêu, Nguồn, Ghi chú) | 1, 2 | Bước 1 chép thuộc tính của lớp module này (bỏ dòng `Tham chiếu`); bước 2 chọn kiểu, tính bắt buộc, ràng buộc (với dòng `Đề xuất`, dựa vào Ghi chú) |
 | 3.3 Lớp liên kết | 3 | Mẫu chuyển "A + B → C" |
 | 3.4 Quan hệ (bội số, loại, bên chính) | 3, 4 | Chuyển loại; xác định dạng thành phần–toàn thể |
 | 5 Liên module | 1, 4 | Lớp ngoài; thuộc tính đối tượng rơi vào lớp ngoài |

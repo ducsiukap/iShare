@@ -71,14 +71,19 @@ Chạy từ gốc repo iShare. Đặt `SK=.agent-instructions/skills/designing-e
 |---|---|---|
 | `merge_cd.py --list` | 1, 2 | `python3 $SK/tools/merge_cd.py --dir $M/cd --list --exclude Mxx` (kiểu id, kiểu thuộc tính, kiểu liệt kê các module khác đã dùng) |
 | `check_cd.py` | 1–4 | `python3 $SK/tools/check_cd.py --cd $M/cd/CD-Mxx.md --step N --ec $M/ec/EC-Mxx.md` |
-| `gen_puml.py` | 4 | `python3 $SK/tools/gen_puml.py --cd $M/cd/CD-Mxx.md --inplace` |
+| `gen_puml.py` | 4 | `python3 $SK/tools/gen_puml.py --cd $M/cd/CD-Mxx.md` (ghi `diagrams/CD-Mxx.puml`, render `.png`, nhúng ảnh vào mục 5; `--no-render` chỉ ghi `.puml`) |
 | `check_cd.py --final` | 4 | `python3 $SK/tools/check_cd.py --cd $M/cd/CD-Mxx.md --final --ec $M/ec/EC-Mxx.md` |
 | `merge_cd.py` | Gộp | `python3 $SK/tools/merge_cd.py --dir $M/cd --out-md $M/cd/.work/merge-cd.md` |
 
 Tool bắt lỗi cơ học: lớp thiếu id hoặc thừa id, thuộc tính thiếu kiểu, kiểu lạ, kiểu liệt kê chưa khai, còn quan hệ
 Liên kết, dạng lệch bội số, thuộc tính đối tượng sai phía hoặc sai kiểu, tham chiếu vòng, và mọi chỗ lệch với
-`EC-Mxx.md` (thiếu hoặc thừa lớp, thuộc tính, quan hệ). ERROR phải sửa trước khi trình cổng; WARN giữ lại phải có lý
-do.
+`EC-Mxx.md` (thiếu hoặc thừa lớp, thuộc tính, quan hệ), và sơ đồ: mục 5 chứa mã PlantUML, thiếu ảnh, tệp `.puml`
+lệch bảng hoặc ảnh cũ hơn `.puml`. ERROR phải sửa trước khi trình cổng; WARN giữ lại phải có lý do.
+
+Render ảnh dùng chung cách của skill `analyzing-entity-classes` (Java + `plantuml.jar` đặt ở
+`.agent-instructions/skills/analyzing-entity-classes/tools/vendor/` hoặc biến `PLANTUML_JAR`; lệnh `plantuml`; hoặc
+`--server` khi người dùng đồng ý). `gen_puml.py` trả mã 2 khi không render được: báo người dùng, không tự tìm cách
+khác.
 
 ## Cách hỏi người dùng
 

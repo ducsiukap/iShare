@@ -1,0 +1,29 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity profiles {
+  * id : bigint <<PK>>
+  --
+  avatar : text
+  bio : text
+  grade_level : varchar(30)
+  * user_id : bigint <<FK>>
+}
+entity bookmarks {
+  * id : bigint <<PK>>
+  --
+  * saved_at : timestamptz
+  * user_id : bigint <<FK>>
+  * post_id : bigint <<FK>>
+}
+entity posts <<M03>> {
+}
+entity users <<M01>> {
+}
+
+users ||--o| profiles : user_id
+users ||--o{ bookmarks : user_id
+posts ||--o{ bookmarks : post_id
+
+@enduml

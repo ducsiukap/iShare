@@ -2,12 +2,12 @@
 module: M02
 ten_module: User Profile
 ma_tai_lieu: EC-M02
-phien_ban: 0.3
-trang_thai: Bản nháp
-ngay: 2026-11-16
+phien_ban: 1.1
+trang_thai: Đã chốt
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M02 v1.6
-steps_completed: [1, 2]
+steps_completed: [1, 2, 3]
 ---
 # Phân tích lớp thực thể — M02 User Profile
 
@@ -18,363 +18,347 @@ steps_completed: [1, 2]
 | Dự án | iShare |
 | Module | M02 — User Profile |
 | Đầu vào | FR-M02 phiên bản 1.6 |
-| Trạng thái | Bản nháp |
-| Phiên bản | 0.3 |
-| Ngày | 2026-11-16 |
+| Trạng thái | Đã chốt |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
      - Không đổi tên cột, không xóa cột, không đổi số mục: tool đọc bảng theo số mục và tên cột.
      - Ô không có nội dung ghi "—".
      - Mục chưa tới bước làm thì để dòng "(Chưa làm — bước N)".
-     - Cột Nguồn ghi mã trong FR: FR-M02-nn, FR-M02-nn.mm, BR-M02-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
-     - Sơ đồ ở mục 4 do gen_puml.py sinh; không sửa tay. -->
+     - Cột Nguồn ghi mã trong FR: FR-Mxx-nn, FR-Mxx-nn.mm, BR-Mxx-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
+     - Mục 4 chỉ chứa ảnh sơ đồ. gen_puml.py ghi mã PlantUML vào tệp riêng diagrams/EC-M02.puml, render
+       diagrams/EC-M02.png và đặt ảnh vào mục 4. Không chép mã PlantUML vào tài liệu, không sửa tay tệp .puml hay ảnh. -->
 
 ## 1. Mô tả chức năng
 
 ### 1.1 Đoạn mô tả
 
-(S1) Module User Profile quản lý hồ sơ công khai và bookmark bài viết của người dùng, đồng thời hiển thị thông tin tài khoản, bài viết, quan hệ theo dõi và kết quả điểm, huy hiệu của người dùng. (S2) Hệ thống cho phép Guest, User, Mod và Admin xem hồ sơ theo username với avatar, display_name, username, bio, Lớp/Khối khi đã đặt, ngày tham gia, tổng điểm hiện thời, badge đã đạt, danh hiệu “Ngôi sao tuần” của tuần vừa chốt, số người theo dõi và số đang theo dõi. (S3) Hệ thống hiển thị các bài viết trên hồ sơ theo tài khoản người xem, trạng thái bài viết của M03, tính ẩn danh và tư cách thành viên nhóm Private của M11, cho chủ hồ sơ xem thêm các bài nháp, chờ duyệt, bị từ chối, tự ẩn, bài ẩn danh và bài đã xóa của chính chủ hồ sơ, đồng thời sắp xếp danh sách bài viết theo thời điểm tạo bài. (S4) Hệ thống dùng trạng thái tài khoản của M01 để xác định khả năng xem hồ sơ, hiển thị tình trạng bị khóa của tài khoản BANNED và ngừng hiển thị nội dung hồ sơ khi tài khoản DEACTIVATED hoặc DELETED. (S5) Hệ thống cho phép User, Mod và Admin đã đăng nhập xem danh sách người theo dõi và danh sách người dùng đang được chủ hồ sơ theo dõi từ quan hệ theo dõi của M07, sắp xếp theo thời điểm bắt đầu theo dõi, đồng thời điều chỉnh danh sách và số lượng theo trạng thái tài khoản. (S6) Hệ thống cho phép chủ hồ sơ có tài khoản ACTIVE cập nhật hoặc để trống bio, tự đặt, thay đổi hoặc bỏ chọn Lớp/Khối, xem số ký tự bio đã dùng và đổi username, display_name theo quy tắc của M01. (S7) Hệ thống cho phép chủ hồ sơ có tài khoản ACTIVE thay avatar bằng ảnh tải lên, lưu ảnh gốc của avatar, xóa avatar cũ khi thay thành công và sử dụng avatar mặc định khi người dùng chưa đặt avatar. (S8) Hệ thống cho phép User, Mod và Admin đã đăng nhập lưu bài viết thành bookmark gắn với người lưu, bài viết được lưu và thời điểm lưu, đồng thời bảo đảm bài đã lưu được giữ một lần trong danh sách của người dùng. (S9) Hệ thống cho phép User, Mod và Admin đã đăng nhập bỏ lưu bài viết bằng cách xóa bookmark tương ứng, kể cả khi bài viết đang ở mức Khóa toàn bộ. (S10) Hệ thống cho chủ hồ sơ xem riêng danh sách bookmark của chủ hồ sơ theo thời điểm lưu mới nhất trước, giữ vị trí của bài tạm thời không xem được để hiển thị lại khi bài xem được trở lại và cho phép chủ hồ sơ bỏ lưu bài tạm thời không xem được. (S11) Hệ thống tự xóa bookmark khi bài viết được lưu bị xóa hẳn hoặc tài khoản tác giả của bài viết chuyển sang DELETED. (S12) Hệ thống cung cấp bookmark cùng thời điểm lưu và việc bỏ lưu cho M05 tính Trending Topic/Tag, số bookmark cho M14 tính Trending Post, và Lớp/Khối trên hồ sơ cho M12 lọc bảng xếp hạng cùng M15 thống kê phân bố người dùng. (S13) Hệ thống cho phép User, Mod và Admin đã đăng nhập mở trò chuyện riêng với người dùng khác từ hồ sơ của người dùng đó qua M16.
+Hệ thống quản lý hồ sơ của người dùng và các bookmark mà người dùng lưu trên bài viết; mỗi tài khoản có một hồ sơ gồm
+avatar, bio và Lớp/Khối.
+
+Hệ thống cho phép Guest, User, Mod và Admin xem trang hồ sơ của một người dùng tại địa chỉ theo username của tài
+khoản, ở ngữ cảnh chủ hồ sơ khi người đang đăng nhập là chính người dùng đó và ở ngữ cảnh người xem trong mọi trường
+hợp còn lại. Trang hồ sơ hiển thị avatar, bio và Lớp/Khối của hồ sơ, username, display_name và ngày tham gia của tài
+khoản, tổng điểm, các badge đã đạt và danh hiệu "Ngôi sao tuần" của tuần vừa chốt do M12 tính và trao, cùng số người
+theo dõi và số đang theo dõi. Khi hồ sơ chưa có avatar, trang hồ sơ hiển thị avatar mặc định. Trang hồ sơ hiển thị
+theo trạng thái tài khoản do M01 quản lý: tài khoản DEACTIVATED hoặc DELETED, cũng như địa chỉ có username không
+thuộc tài khoản nào, hiện "người dùng không tồn tại", còn tài khoản BANNED vẫn hiện hồ sơ kèm nhãn "Tài khoản đã bị
+khóa". Chủ hồ sơ thấy ba tab nội dung Bài viết, Bookmark và Đã xóa, còn người xem chỉ thấy tab Bài viết. Tab Bài viết
+liệt kê bài viết của chủ hồ sơ theo thời điểm tạo bài, mới nhất trước; người xem chỉ thấy bài viết đã đăng, không bị
+ẩn, không đăng ẩn danh, và chỉ thấy bài viết thuộc nhóm Private khi người xem là thành viên nhóm đó, còn chủ hồ sơ
+thấy thêm bài viết nháp, chờ duyệt, bị từ chối, tự ẩn và bài viết đăng ẩn danh của mình. Tab Đã xóa liệt kê các bài
+viết chủ hồ sơ đã xóa còn trong thời hạn khôi phục của M03 để chủ hồ sơ khôi phục.
+
+Hệ thống cho phép User, Mod và Admin xem danh sách người theo dõi và danh sách đang theo dõi của mọi người dùng, dựng
+từ các lượt theo dõi giữa người dùng do M07 ghi lại, xếp theo thời điểm bắt đầu theo dõi, mới nhất trước. Danh sách
+đang theo dõi chỉ gồm người dùng, không gồm Topic hay bài viết mà chủ hồ sơ theo dõi. Tài khoản DEACTIVATED hoặc
+BANNED không hiện và không được đếm trong danh sách người theo dõi, danh sách đang theo dõi của người khác cho tới khi
+trở lại ACTIVE, còn hồ sơ của tài khoản DEACTIVATED hoặc DELETED không hiện danh sách người theo dõi và danh sách đang
+theo dõi.
+
+Hệ thống cho phép chủ hồ sơ có tài khoản ACTIVE sửa bio và Lớp/Khối trên hồ sơ của mình; bio có thể trống, Lớp/Khối
+có thể bỏ chọn, và Lớp/Khối chỉ đổi khi chủ hồ sơ tự sửa. Trang sửa hồ sơ cũng là nơi chủ hồ sơ đổi username và
+display_name của tài khoản theo quy tắc của M01. Lớp/Khối trên hồ sơ được M12 dùng để lọc bảng xếp hạng và được M15
+dùng cho phân bố người dùng theo Lớp/Khối. Hệ thống cho phép chủ hồ sơ có tài khoản ACTIVE tải lên một ảnh làm avatar
+mới; hệ thống lưu ảnh gốc của avatar mới và xóa avatar cũ khỏi nơi lưu ảnh.
+
+Hệ thống cho phép User, Mod và Admin lưu một bài viết thành một bookmark và bỏ lưu bài viết đó, kể cả bài viết ở mức
+Khóa toàn bộ; mỗi bookmark ghi người dùng đã lưu, bài viết được lưu và thời điểm lưu. Mỗi người dùng có nhiều nhất một
+bookmark cho một bài viết, và bỏ lưu thì xóa bookmark đó. Hệ thống cho phép chủ hồ sơ xem các bài viết mình đang lưu
+trong tab Bookmark, xếp theo thời điểm lưu, mới nhất trước; trong khi bài viết được lưu không xem được với chủ hồ sơ,
+tab Bookmark hiện dòng "Nội dung không tồn tại" ở vị trí của bookmark đó, và chủ hồ sơ vẫn bỏ lưu được bookmark đó.
+Khi bài viết được lưu bị xóa hẳn hoặc tác giả của bài viết chuyển sang DELETED, hệ thống xóa các bookmark của bài viết
+đó. Khi tài khoản chuyển sang DELETED, M01 xóa avatar, bio, Lớp/Khối của hồ sơ và mọi bookmark của tài khoản. Bookmark
+cùng thời điểm lưu được M05 dùng để tính Trending Topic, Trending Tag và được M14 đếm vào điểm Trending Post.
+
+<!-- Văn xuôi bình thường, có thể chia vài đoạn. KHÔNG ghi mã câu (S1), (S2)… trong đoạn văn: người đọc không hiểu
+     các mã đó. Số câu chỉ nằm ở bảng 1.2. Xem steps/01-describe-functions.md. -->
 
 ### 1.2 Truy vết câu
 
-| Câu | Nội dung tóm tắt | Nguồn |
+<!-- Mỗi câu của đoạn mô tả một dòng, theo đúng thứ tự. Câu: 1, 2, 3…
+     Nội dung câu: chép NGUYÊN VĂN câu đó từ mục 1.1 (tool so khớp từng câu với đoạn văn).
+     Nguồn: mã chức năng hoặc yêu cầu của FR mà câu dựa vào. -->
+
+| Câu | Nội dung câu | Nguồn |
 |---|---|---|
-| S1 | Phạm vi hồ sơ, bookmark và dữ liệu hiển thị liên module | FR-M02-01, FR-M02-02, FR-M02-03, FR-M02-04, FR-M02-05, FR-M02-06, FR-M02-07 |
-| S2 | Thông tin hồ sơ, điểm, badge, danh hiệu và số theo dõi | FR-M02-01.01, FR-M02-01.02, FR-M02-01.09, FR-M02-01.10, FR-M02-01.16, FR-M02-01.24, FR-M02-01.25 |
-| S3 | Bài viết theo ngữ cảnh người xem, trạng thái, nhóm và thời điểm tạo | FR-M02-01.05, FR-M02-01.06, FR-M02-01.07, FR-M02-01.08, FR-M02-01.17, FR-M02-01.19 |
-| S4 | Hiển thị hồ sơ theo trạng thái tài khoản của M01 | FR-M02-01.01, FR-M02-01.11, FR-M02-01.12 |
-| S5 | Danh sách theo dõi, thời điểm bắt đầu và trạng thái tài khoản | FR-M02-02, FR-M02-02.01, FR-M02-02.02, FR-M02-02.03, FR-M02-02.06, FR-M02-02.07, FR-M02-02.08, FR-M02-02.09 |
-| S6 | Sửa bio, Lớp/Khối, đếm ký tự và định danh theo M01 | FR-M02-03, FR-M02-03.01, FR-M02-03.02, FR-M02-03.03, FR-M02-03.05, FR-M02-03.07, FR-M02-03.08, FR-M02-03.09, FR-M02-03.14 |
-| S7 | Đổi avatar, giữ ảnh gốc, xóa ảnh cũ và dùng ảnh mặc định | FR-M02-04, FR-M02-04.01, FR-M02-04.02, FR-M02-04.05, FR-M02-04.06, FR-M02-01.18 |
-| S8 | Tạo bookmark và ghi nhận thời điểm lưu | FR-M02-05, FR-M02-05.01, FR-M02-05.02, FR-M02-05.03, FR-M02-07.07 |
-| S9 | Bỏ lưu và áp dụng khi bài Khóa toàn bộ | FR-M02-06, FR-M02-06.01, FR-M02-06.02, FR-M02-05.02 |
-| S10 | Danh sách bookmark riêng, thứ tự và bài tạm thời không xem được | FR-M02-07, FR-M02-07.01, FR-M02-07.02, FR-M02-07.03, FR-M02-07.04, FR-M02-07.05, FR-M02-07.07 |
-| S11 | Xóa bookmark khi bài bị xóa hẳn hoặc tác giả DELETED | FR-M02-07.06 |
-| S12 | Cung cấp dữ liệu bookmark và Lớp/Khối cho các module sử dụng | FR-M02-05.01, FR-M02-06.01, FR-M02-03.02, FR-M02-03.07 |
-| S13 | Lối vào trò chuyện riêng của M16 từ hồ sơ người khác | FR-M02-01.26, FR-M02-01.27 |
-
-S12 dựa thêm vào các dòng giao tiếp M05, M14, M12 và M15 trong FR-M02 mục 5.11. Thời điểm lưu ở S8 được xác định từ yêu cầu sắp xếp theo thời điểm lưu tại FR-M02-07.07.
-
-**Nội dung để ở bước sau theo phạm vi bước 1**
-
-- Bố cục, nút, tab, cách cắt ảnh và câu thông báo giao diện được lược khỏi đoạn mô tả chức năng.
-- Giới hạn ký tự bio, loại và dung lượng ảnh, tập giá trị Lớp/Khối được đưa vào ràng buộc ở bước phân loại.
-- M01 cung cấp thông tin tài khoản và quy tắc username/display_name. M03 quản lý nội dung, trạng thái và khôi phục bài viết. M07 quản lý thao tác theo dõi. M12 cung cấp điểm, badge và danh hiệu. M11 cung cấp điều kiện nhóm Private. M16 thực hiện trò chuyện.
-- Các mục FR đã loại khỏi phạm vi gồm lịch sử đổi username, liên kết mạng xã hội, GIF động, tự tăng Lớp/Khối, nhắc cập nhật Lớp/Khối, thống kê stars trên hồ sơ, thông báo do bookmark và quyền Mod/Admin gỡ avatar hoặc bio người khác.
-- Phụ lục B.2 của FR-M02 có bảng TBD trống.
-
-QU-01 và QU-03 dùng quy ước đã chốt trong skill. Tệp quy ước chung chưa có. QU-10/QU-11 đang chờ xác nhận từ lượt M01, tiếp tục ghi nhận trạng thái đó khi tới bước sơ đồ và quan hệ.
-
-Bước 1 đã được người dùng duyệt khi yêu cầu thực hiện bước 2 ngày 2026-11-16.
-
+| 1 | Hệ thống quản lý hồ sơ của người dùng và các bookmark mà người dùng lưu trên bài viết; mỗi tài khoản có một hồ sơ gồm avatar, bio và Lớp/Khối. | FR-M02-01.02, FR-M02-03.02, FR-M02-05.01 |
+| 2 | Hệ thống cho phép Guest, User, Mod và Admin xem trang hồ sơ của một người dùng tại địa chỉ theo username của tài khoản, ở ngữ cảnh chủ hồ sơ khi người đang đăng nhập là chính người dùng đó và ở ngữ cảnh người xem trong mọi trường hợp còn lại. | FR-M02-01, FR-M02-01.01, FR-M02-01.16, FR-M02-01.20, BR-M02-01 |
+| 3 | Trang hồ sơ hiển thị avatar, bio và Lớp/Khối của hồ sơ, username, display_name và ngày tham gia của tài khoản, tổng điểm, các badge đã đạt và danh hiệu "Ngôi sao tuần" của tuần vừa chốt do M12 tính và trao, cùng số người theo dõi và số đang theo dõi. | FR-M02-01.02, FR-M02-01.09, FR-M02-01.10, FR-M02-01.24 |
+| 4 | Khi hồ sơ chưa có avatar, trang hồ sơ hiển thị avatar mặc định. | FR-M02-01.18 |
+| 5 | Trang hồ sơ hiển thị theo trạng thái tài khoản do M01 quản lý: tài khoản DEACTIVATED hoặc DELETED, cũng như địa chỉ có username không thuộc tài khoản nào, hiện "người dùng không tồn tại", còn tài khoản BANNED vẫn hiện hồ sơ kèm nhãn "Tài khoản đã bị khóa". | FR-M02-01.11, FR-M02-01.12, FR-M02-01.21 |
+| 6 | Chủ hồ sơ thấy ba tab nội dung Bài viết, Bookmark và Đã xóa, còn người xem chỉ thấy tab Bài viết. | FR-M02-01.05, FR-M02-01.06 |
+| 7 | Tab Bài viết liệt kê bài viết của chủ hồ sơ theo thời điểm tạo bài, mới nhất trước; người xem chỉ thấy bài viết đã đăng, không bị ẩn, không đăng ẩn danh, và chỉ thấy bài viết thuộc nhóm Private khi người xem là thành viên nhóm đó, còn chủ hồ sơ thấy thêm bài viết nháp, chờ duyệt, bị từ chối, tự ẩn và bài viết đăng ẩn danh của mình. | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19 |
+| 8 | Tab Đã xóa liệt kê các bài viết chủ hồ sơ đã xóa còn trong thời hạn khôi phục của M03 để chủ hồ sơ khôi phục. | FR-M02-01.08 |
+| 9 | Hệ thống cho phép User, Mod và Admin xem danh sách người theo dõi và danh sách đang theo dõi của mọi người dùng, dựng từ các lượt theo dõi giữa người dùng do M07 ghi lại, xếp theo thời điểm bắt đầu theo dõi, mới nhất trước. | FR-M02-02, FR-M02-02.01, FR-M02-02.02, FR-M02-02.03, FR-M02-02.09 |
+| 10 | Danh sách đang theo dõi chỉ gồm người dùng, không gồm Topic hay bài viết mà chủ hồ sơ theo dõi. | FR-M02-02.06 |
+| 11 | Tài khoản DEACTIVATED hoặc BANNED không hiện và không được đếm trong danh sách người theo dõi, danh sách đang theo dõi của người khác cho tới khi trở lại ACTIVE, còn hồ sơ của tài khoản DEACTIVATED hoặc DELETED không hiện danh sách người theo dõi và danh sách đang theo dõi. | FR-M02-02.04, FR-M02-02.07, FR-M02-02.08 |
+| 12 | Hệ thống cho phép chủ hồ sơ có tài khoản ACTIVE sửa bio và Lớp/Khối trên hồ sơ của mình; bio có thể trống, Lớp/Khối có thể bỏ chọn, và Lớp/Khối chỉ đổi khi chủ hồ sơ tự sửa. | FR-M02-03, FR-M02-03.02, FR-M02-03.05, FR-M02-03.07, FR-M02-03.08, FR-M02-03.09, FR-M02-03.14 |
+| 13 | Trang sửa hồ sơ cũng là nơi chủ hồ sơ đổi username và display_name của tài khoản theo quy tắc của M01. | FR-M02-03.01 |
+| 14 | Lớp/Khối trên hồ sơ được M12 dùng để lọc bảng xếp hạng và được M15 dùng cho phân bố người dùng theo Lớp/Khối. | FR-M02-03.02, FR-M02-03.07 |
+| 15 | Hệ thống cho phép chủ hồ sơ có tài khoản ACTIVE tải lên một ảnh làm avatar mới; hệ thống lưu ảnh gốc của avatar mới và xóa avatar cũ khỏi nơi lưu ảnh. | FR-M02-04, FR-M02-04.01, FR-M02-04.02, FR-M02-04.05, FR-M02-04.06 |
+| 16 | Hệ thống cho phép User, Mod và Admin lưu một bài viết thành một bookmark và bỏ lưu bài viết đó, kể cả bài viết ở mức Khóa toàn bộ; mỗi bookmark ghi người dùng đã lưu, bài viết được lưu và thời điểm lưu. | FR-M02-05, FR-M02-05.01, FR-M02-05.04, FR-M02-06, FR-M02-06.02, FR-M02-07.07 |
+| 17 | Mỗi người dùng có nhiều nhất một bookmark cho một bài viết, và bỏ lưu thì xóa bookmark đó. | FR-M02-05.03, FR-M02-06.01 |
+| 18 | Hệ thống cho phép chủ hồ sơ xem các bài viết mình đang lưu trong tab Bookmark, xếp theo thời điểm lưu, mới nhất trước; trong khi bài viết được lưu không xem được với chủ hồ sơ, tab Bookmark hiện dòng "Nội dung không tồn tại" ở vị trí của bookmark đó, và chủ hồ sơ vẫn bỏ lưu được bookmark đó. | FR-M02-07, FR-M02-07.01, FR-M02-07.03, FR-M02-07.04, FR-M02-07.05, FR-M02-07.07 |
+| 19 | Khi bài viết được lưu bị xóa hẳn hoặc tác giả của bài viết chuyển sang DELETED, hệ thống xóa các bookmark của bài viết đó. | FR-M02-07.06 |
+| 20 | Khi tài khoản chuyển sang DELETED, M01 xóa avatar, bio, Lớp/Khối của hồ sơ và mọi bookmark của tài khoản. | FR-M02-01.11, FR-M02-07.06 |
+| 21 | Bookmark cùng thời điểm lưu được M05 dùng để tính Trending Topic, Trending Tag và được M14 đếm vào điểm Trending Post. | FR-M02-05.01, FR-M02-06.01 |
 
 ## 2. Danh từ và phân loại
 
-Bước 1 được người dùng duyệt bằng yêu cầu thực hiện bước 2 ngày 2026-11-16. Bước 2 đã được người dùng duyệt khi yêu cầu thực hiện bước 3.
-
-Có 60 dòng danh từ sau khi gộp cách gọi cùng nghĩa, gồm 56 dòng từ S1–S13 và 4 dòng quét bổ sung. Kết quả gồm 22 dòng thành Lớp, 8 dòng thành Thuộc tính và 30 dòng Loại bỏ. Các danh từ có thể quy về cùng một lớp. Mô hình có 11 lớp gồm 2 lớp M02 và 9 lớp ngoài, có 7 thuộc tính M02 và 1 thuộc tính đề nghị bổ sung cho lớp ngoài.
-
-Đã chạy merge_ec.py --list --exclude M02 và dùng lại các tên User, UserProfile, Bookmark, Post, UserFollow, Group, GroupMember từ EC-M01. EC-M01 còn là bản nháp 0.3 nên các tên đó sẽ được đối chiếu lại khi chốt và gộp hệ thống.
-
-Đã phân loại từ đoạn mô tả, quét thuật ngữ, yêu cầu cấp dưới và BR, rồi mới đối chiếu mục Dữ liệu nghiệp vụ. FR mục 5.10 xác nhận dữ liệu M02 có vòng đời tạo/bỏ lưu và quy tắc hiển thị theo trạng thái tài khoản. Bước 2 tập trung danh từ và thuộc tính theo phạm vi skill.
-
 ### 2.1 Sổ danh từ
 
-Các dòng Loại bỏ ghi rõ lý do. Dữ liệu thuộc module khác được giữ ở phần mô tả sử dụng và đối chiếu để bảo toàn yêu cầu hiển thị hoặc cung cấp dữ liệu.
+<!-- Phân loại: Lớp | Thuộc tính | Loại bỏ.
+     Kết quả: tên lớp; hoặc Lớp.thuộcTính; hoặc "—" khi loại bỏ.
+     Xuất hiện ở: "Câu n" (số câu ở bảng 1.2) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
 
 | # | Danh từ | Xuất hiện ở | Phân loại | Kết quả | Lý do |
 |---|---|---|---|---|---|
-| 1 | module User Profile / hệ thống | S1 | Loại bỏ | — | Trừu tượng, tên phần mềm và tác nhân tự động. |
-| 2 | hồ sơ công khai / hồ sơ | S1 | Lớp | UserProfile | T8, thông tin hồ sơ được cập nhật riêng, có avatar, bio và Lớp/Khối. |
-| 3 | bookmark / bài đã lưu | S1 | Lớp | Bookmark | T8, từng bản ghi lưu bài được tạo và bỏ lưu riêng, có thời điểm lưu. |
-| 4 | người dùng / tài khoản | S1 | Lớp | User | T3/T4, tài khoản thuộc M01, dùng lại tên User đã có trong EC-M01. |
-| 5 | thông tin tài khoản | S1 | Loại bỏ | — | Chung chung, các dữ liệu cụ thể như tên và trạng thái được xét ở dòng riêng. |
-| 6 | bài viết / bài viết được lưu | S1 | Lớp | Post | T4, dữ liệu bài viết thuộc M03, tên đã tham chiếu ở EC-M01 và glossary. |
-| 7 | quan hệ theo dõi | S1 | Lớp | UserFollow | T4, M02 dùng quan hệ theo dõi người dùng do M07 quản lý, dùng lại tên ở EC-M01. |
-| 8 | kết quả điểm / tổng điểm hiện thời / điểm | S1 | Loại bỏ | — | Ngoài phạm vi module (M12), FR-M02-01.09 yêu cầu hiển thị tổng điểm do M12 cung cấp. Giữ yêu cầu giao tiếp và thời điểm cập nhật ở mục 2.4. |
-| 9 | huy hiệu / badge | S1 | Lớp | Badge | T4, dữ liệu huy hiệu do M12 định nghĩa và trao, tên theo glossary. |
-| 10 | Guest | S2 | Loại bỏ | — | Không lưu, tác nhân chưa đăng nhập có quyền đọc hồ sơ. |
-| 11 | User | S2 | Lớp | User | T3, vai trò người dùng có tài khoản M01. |
-| 12 | Mod | S2 | Lớp | User | T3, vai trò MOD của cùng tài khoản, có quyền sửa hồ sơ chính mình. |
-| 13 | Admin | S2 | Lớp | User | T3, vai trò ADMIN của cùng tài khoản, có quyền sửa hồ sơ chính mình. |
-| 14 | username | S2 | Loại bỏ | — | Ngoài phạm vi module (M01), thuộc tính User.username đã có trong EC-M01, M02 dùng và cho đổi theo quy tắc M01. |
-| 15 | avatar / ảnh tải lên / ảnh gốc của avatar / ảnh avatar mới | S2 | Thuộc tính | UserProfile.avatar | T9, giá trị ảnh đại diện của hồ sơ. FR yêu cầu giữ ảnh gốc và xóa ảnh cũ khi thay thành công. |
-| 16 | display_name | S2 | Loại bỏ | — | Ngoài phạm vi module (M01), thuộc tính User.displayName đã có, M02 lấy để hiển thị và đổi theo quy tắc M01. |
-| 17 | bio | S2 | Thuộc tính | UserProfile.bio | T9, đoạn giới thiệu mô tả hồ sơ. |
-| 18 | Lớp/Khối | S2 | Thuộc tính | UserProfile.gradeLevel | T9, giá trị cấp học tùy chọn trên hồ sơ. |
-| 19 | ngày tham gia | S2 | Thuộc tính | User.joinedOn | T9, TN:Ngày tham gia xác định ngày tạo tài khoản M01. Đề nghị bổ sung dữ liệu của lớp ngoài theo quy ước liên module, đã duyệt cùng bước 2. |
-| 20 | badge đã đạt | S2 | Lớp | EarnedBadge | T4, dữ liệu M12 ghi nhận việc người dùng đạt huy hiệu, tên tạm chờ EC-M12. |
-| 21 | danh hiệu Ngôi sao tuần | S2 | Lớp | WeeklyStarAward | T4, kết quả đạt danh hiệu của M12 được hiển thị trong tuần sau khi chốt. Đây là tham chiếu kết quả đã trao, tên tạm chờ EC-M12. |
-| 22 | tuần vừa chốt | S2 | Loại bỏ | — | Ngoài phạm vi module (M12), kỳ xét kết quả danh hiệu, M02 áp dụng điều kiện hiển thị theo BR-M02-37. |
-| 23 | số người theo dõi | S2 | Thuộc tính | UserProfile.followerCount | T7, số đếm tính từ quan hệ theo dõi người dùng sau khi lọc trạng thái theo BR-M02-27. |
-| 24 | số đang theo dõi | S2 | Thuộc tính | UserProfile.followingCount | T7, số tài khoản đang theo dõi được tính theo quy tắc lọc BR-M02-27. |
-| 25 | số lượng (danh sách theo dõi) | S5 | Loại bỏ | — | Chung chung, hai số đếm cụ thể đã được phân loại thành followerCount và followingCount. |
-| 26 | người xem / tài khoản người xem | S3 | Lớp | User | T3, vai trò tài khoản đang xem hồ sơ. Trường hợp Guest đã xét riêng. |
-| 27 | trạng thái bài viết | S3 | Loại bỏ | — | Ngoài phạm vi module (M03), dữ liệu của Post dùng để chọn bài hiện trên hồ sơ. |
-| 28 | tính ẩn danh / bài ẩn danh | S3 | Lớp | Post | T4, vẫn là Post, M11 quy định ẩn danh và quyền xem danh tính. M02 lọc bài theo FR-M02-01.07 và FR-M02-01.17. |
-| 29 | tư cách thành viên | S3 | Lớp | GroupMember | T4, dữ liệu thành viên M11 dùng để kiểm tra khả năng xem bài nhóm Private. |
-| 30 | nhóm Private / nhóm | S3 | Lớp | Group | T4, dữ liệu M11, dùng cùng GroupMember khi quyết định bài được xem. |
-| 31 | chủ hồ sơ | S3 | Lớp | User | T3, tài khoản sở hữu hồ sơ đang được thao tác. |
-| 32 | bài nháp / bài chờ duyệt / bài bị từ chối / bài tự ẩn / bài đã xóa | S3 | Lớp | Post | T4, các bài viết cùng lớp Post ở những trạng thái do M03 quản lý. |
-| 33 | thời điểm tạo bài | S3 | Loại bỏ | — | Ngoài phạm vi module (M03), dữ liệu Post được dùng sắp xếp danh sách bài viết. |
-| 34 | trạng thái tài khoản | S4 | Loại bỏ | — | Ngoài phạm vi module (M01), thuộc tính User.accountState đã có, dùng để lọc hồ sơ và danh sách. |
-| 35 | khả năng xem hồ sơ / tình trạng bị khóa | S4 | Loại bỏ | — | Giao diện, kết quả hiển thị theo User.accountState và quy tắc FR-M02-01.11/01.12. |
-| 36 | BANNED / DEACTIVATED / DELETED / ACTIVE | S4 | Loại bỏ | — | Giá trị của User.accountState, thuộc tính đã có ở EC-M01. |
-| 37 | nội dung hồ sơ | S4 | Loại bỏ | — | Chung chung, bao gồm những thông tin hồ sơ đã được xét từng danh từ. |
-| 38 | danh sách người theo dõi / danh sách người dùng đang được theo dõi | S5 | Loại bỏ | — | Giao diện, kết quả truy xuất UserFollow và User theo BR-M02-27. Các đối tượng và số đếm đã được xét riêng. |
-| 39 | người theo dõi / người dùng được theo dõi | S5 | Lớp | User | T3, hai vai trò của tài khoản trong UserFollow, để xét quan hệ ở bước 3. |
-| 40 | thời điểm bắt đầu theo dõi | S5 | Loại bỏ | — | Ngoài phạm vi module (M07), thuộc tính của UserFollow dùng để sắp xếp danh sách. |
-| 41 | số ký tự bio đã dùng | S6 | Thuộc tính | UserProfile.bioLength | T7, độ dài bio tính sau khi cắt khoảng trắng đầu và cuối theo BR-M02-33. |
-| 42 | quy tắc / mã module (M01, M03, M05, M07, M11, M12, M14, M15, M16) | S6 | Loại bỏ | — | Trừu tượng, quy định nghiệp vụ và ký hiệu phân chia phạm vi tài liệu. |
-| 43 | avatar cũ | S7 | Loại bỏ | — | Hành động không lưu dấu vết, ảnh bị xóa khi thay avatar thành công theo FR-M02-04.05, FR không yêu cầu giữ lịch sử ảnh. |
-| 44 | avatar mặc định | S7 | Loại bỏ | — | Giao diện, giá trị thay thế khi chưa đặt ảnh theo BR-M02-32, hình thức chờ giai đoạn thiết kế theo thuật ngữ Avatar mặc định. |
-| 45 | người lưu | S8 | Lớp | User | T3, tài khoản thực hiện lưu bài, thuộc M01. |
-| 46 | thời điểm lưu | S8 | Thuộc tính | Bookmark.savedAt | T9, mốc tạo bookmark, dùng sắp xếp và cung cấp dữ liệu Trending. |
-| 47 | danh sách bài đã lưu / danh sách bookmark | S8 | Loại bỏ | — | Giao diện, danh sách các Bookmark của chủ tài khoản, có thứ tự tính từ savedAt. |
-| 48 | Khóa toàn bộ | S9 | Loại bỏ | — | Ngoài phạm vi module (M03), một giá trị mức khóa bài, M02 vẫn cho lưu và bỏ lưu theo BR-M02-25. |
-| 49 | bài tạm thời không xem được | S10 | Lớp | Post | T4, bài viết hiện có mà người lưu tạm thiếu quyền xem, được hiển thị theo BR-M02-29. |
-| 50 | vị trí (trong danh sách bookmark) | S10 | Loại bỏ | — | Giao diện, vị trí suy ra thứ tự savedAt theo BR-M02-31, chưa có yêu cầu lưu số thứ tự riêng. |
-| 51 | tác giả bài viết | S11 | Lớp | User | T3, tài khoản tác giả do M03 tham chiếu. |
-| 52 | Trending Topic/Tag / Trending Post | S12 | Loại bỏ | — | Ngoài phạm vi module (M05, M14), kết quả tính tại module sử dụng dữ liệu bookmark. M02 cung cấp dữ liệu đầu vào. |
-| 53 | số bookmark | S12 | Loại bỏ | — | Ngoài phạm vi module (M14), giá trị đếm trên bài dùng tính Trending Post. M02 cung cấp các Bookmark cho M14 tính, giữ yêu cầu ở mục 2.4. |
-| 54 | bảng xếp hạng | S12 | Loại bỏ | — | Ngoài phạm vi module (M12), M02 cung cấp gradeLevel phục vụ lọc. |
-| 55 | thống kê phân bố người dùng | S12 | Loại bỏ | — | Ngoài phạm vi module (M15), M02 cung cấp gradeLevel phục vụ thống kê. |
-| 56 | trò chuyện riêng | S13 | Lớp | Conversation | T4, M16 sở hữu và thực hiện trò chuyện 1-1, tên tạm chờ EC-M16. |
-| 57 | định dạng JPEG, PNG, WebP / dung lượng tối đa / giới hạn ký tự / giá trị 10, 11, 12 | Quét: BR-M02-04, BR-M02-06, BR-M02-09 | Loại bỏ | — | Hằng số của BR-M02-04, BR-M02-06, BR-M02-09, ghi vào ràng buộc avatar, bio và gradeLevel. |
-| 58 | Nội dung không tồn tại / nhãn Tài khoản đã bị khóa | Quét: TN:Nội dung không tồn tại, FR-M02-01.12, FR-M02-07.03 | Loại bỏ | — | Giao diện, nhãn hiển thị theo trạng thái hoặc khả năng xem nội dung. |
-| 59 | mức cảnh báo / lịch sử đổi username / liên kết mạng xã hội / số stars nhận, số stars cho | Quét: FR-M02-01.13, FR-M02-01.14, FR-M02-01.15, FR-M02-01.23 | Loại bỏ | — | Ngoài phạm vi module, FR quyết định loại khỏi nội dung hồ sơ. |
-| 60 | thông báo về bài đã lưu / nhắc cập nhật cấp học | Quét: FR-M02-05.05, FR-M02-03.15 | Loại bỏ | — | Ngoài phạm vi module, FR quyết định bỏ các hành vi gửi thông báo này. |
+| 1 | hệ thống | Câu 1 | Loại bỏ | — | Trừu tượng: chỉ chính phần mềm |
+| 2 | hồ sơ | Câu 1 | Lớp | Profile | Mỗi tài khoản có một hồ sơ, được chủ hồ sơ sửa riêng và bị xóa nội dung khi tài khoản DELETED; có ba thông tin riêng (TN:Hồ sơ, BR-M02-04, BR-M02-06, BR-M02-09). Dùng tên Profile mà EC-M01 đã tham chiếu |
+| 3 | người dùng / tài khoản | Câu 1 | Lớp | User | Lớp ngoài (M01): hồ sơ thuộc một tài khoản, bookmark do người dùng tạo. "Người dùng" và "tài khoản" chỉ cùng một đối tượng; dùng tên User của EC-M01 |
+| 4 | bookmark / lưu bài | Câu 1 | Lớp | Bookmark | Mỗi lần lưu tạo một bookmark riêng, bỏ lưu thì xóa; ghi thời điểm lưu và được M05, M14 đếm (TN:Bookmark, lưu bài; BR-M02-22). Gắn một người dùng với một bài viết: xét lớp liên kết ở bước 3 |
+| 5 | bài viết | Câu 1 | Lớp | Post | Lớp ngoài (M03): đối tượng được lưu và được liệt kê ở tab Bài viết; dùng tên Post của EC-M01, EC-M05 |
+| 6 | avatar / ảnh / ảnh gốc / avatar mới | Câu 1 | Thuộc tính | Profile.avatar | Mô tả hồ sơ; hồ sơ lưu ảnh gốc (BR-M02-08) và chỉ giữ avatar hiện tại (BR-M02-07) |
+| 7 | bio | Câu 1 | Thuộc tính | Profile.bio | Mô tả hồ sơ (BR-M02-04) |
+| 8 | Lớp-Khối | Câu 1 | Thuộc tính | Profile.gradeLevel | Mô tả hồ sơ (BR-M02-09); tên gradeLevel như EC-M01 |
+| 9 | Guest | Câu 2 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu (chưa đăng nhập) |
+| 10 | User, Mod, Admin (vai trò) | Câu 2 | Lớp | User | Vai trò có tài khoản; trong module này ba vai trò có cùng quyền (mục 4.2 của FR) nên M02 không đọc vai trò |
+| 11 | trang hồ sơ | Câu 2 | Loại bỏ | — | Giao diện: trang hiển thị dữ liệu của hồ sơ và tài khoản (TN:Trang hồ sơ) |
+| 12 | địa chỉ theo username | Câu 2 | Loại bỏ | — | Giao diện: địa chỉ /u/{username} dựng từ User.username, không phân biệt chữ hoa, chữ thường (BR-M02-34) |
+| 13 | username | Câu 2 | Thuộc tính | User.username | Thông tin của tài khoản (M01) mà M02 đọc để tìm hồ sơ theo địa chỉ và hiển thị |
+| 14 | ngữ cảnh chủ hồ sơ, ngữ cảnh người xem | Câu 2 | Loại bỏ | — | Giao diện: cách hiển thị chọn theo người đang đăng nhập lúc mở trang, không lưu (BR-M02-01) |
+| 15 | người đang đăng nhập | Câu 2 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu riêng trong M02; là người dùng của phiên hiện tại, chỉ dùng để chọn ngữ cảnh |
+| 16 | chủ hồ sơ | Câu 2 | Lớp | User | Vai trò theo ngữ cảnh: người dùng sở hữu hồ sơ đang xem (TN:Chủ hồ sơ) |
+| 17 | người xem | Câu 2 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu; vai trò theo ngữ cảnh lúc xem, có thể là Guest, M02 không ghi gì về người xem (TN:Người xem) |
+| 18 | trường hợp | Câu 2 | Loại bỏ | — | Chung chung |
+| 19 | display_name | Câu 3 | Thuộc tính | User.displayName | Thông tin của tài khoản (M01) mà M02 hiển thị |
+| 20 | ngày tham gia | Câu 3 | Thuộc tính | User.createdAt | Ngày tài khoản được tạo (TN:Ngày tham gia, M01); M02 đọc để hiển thị |
+| 21 | tổng điểm | Câu 3 | Loại bỏ | — | Ngoài phạm vi module (M12): M12 tính, M02 chỉ hiển thị (BR-M02-11, BR-M02-12) |
+| 22 | badge | Câu 3 | Loại bỏ | — | Ngoài phạm vi module (M12): M12 trao, M02 chỉ hiển thị badge đã đạt (BR-M02-11, BR-M02-13) |
+| 23 | danh hiệu "Ngôi sao tuần" | Câu 3 | Loại bỏ | — | Ngoài phạm vi module (M12): M12 trao theo tuần, M02 chỉ hiển thị danh hiệu của tuần vừa chốt (BR-M02-37) |
+| 24 | tuần vừa chốt | Câu 3 | Loại bỏ | — | Ngoài phạm vi module (M12): chu kỳ chốt tuần của M12 |
+| 25 | M01, M03, M05, M07, M12, M14, M15 (tên module) | Câu 3 | Loại bỏ | — | Trừu tượng: tên các phần của hệ thống |
+| 26 | số người theo dõi | Câu 3 | Thuộc tính | Profile.followerCount | Số liệu tính ra gắn với một hồ sơ (T7): đếm lượt theo dõi tới người dùng của hồ sơ theo BR-M02-27 |
+| 27 | số đang theo dõi | Câu 3 | Thuộc tính | Profile.followingCount | Số liệu tính ra gắn với một hồ sơ (T7): đếm lượt theo dõi người dùng của chủ hồ sơ theo BR-M02-27 |
+| 28 | avatar mặc định | Câu 4 | Loại bỏ | — | Giao diện: ảnh hệ thống hiện khi Profile.avatar trống, hình thức chốt ở giai đoạn thiết kế (TN:Avatar mặc định) |
+| 29 | trạng thái tài khoản | Câu 5 | Thuộc tính | User.status | Thông tin của tài khoản (M01) mà M02 đọc |
+| 30 | ACTIVE, DEACTIVATED, DELETED, BANNED | Câu 5 | Loại bỏ | — | Giá trị của User.status |
+| 31 | "người dùng không tồn tại" | Câu 5 | Loại bỏ | — | Giao diện: câu hiện thay cho nội dung hồ sơ |
+| 32 | nhãn "Tài khoản đã bị khóa" | Câu 5 | Loại bỏ | — | Giao diện: hiện khi User.status là BANNED (TN:Nhãn "Tài khoản đã bị khóa") |
+| 33 | tab nội dung (Bài viết, Bookmark, Đã xóa) | Câu 6 | Loại bỏ | — | Giao diện: các danh sách lấy từ bài viết và bookmark (TN:Tab nội dung) |
+| 34 | thời điểm tạo bài | Câu 7 | Thuộc tính | Post.createdAt | Thông tin của bài viết (M03) mà M02 đọc để xếp tab Bài viết (TN:Thời điểm tạo bài) |
+| 35 | đã đăng, nháp, chờ duyệt, bị từ chối, tự ẩn, đã xóa | Câu 7 | Loại bỏ | — | Giá trị của Post.publishState |
+| 36 | bị ẩn | Câu 7 | Loại bỏ | — | Giá trị của Post.modState (Bị Mod ẩn, TN:Trạng thái bài) |
+| 37 | bài viết đăng ẩn danh | Câu 7 | Thuộc tính | Post.isAnonymous | Thông tin của bài viết mà M02 đọc để ẩn bài với người xem và gắn dấu "ẩn danh" cho chủ hồ sơ (TN:Bài đăng ẩn danh) |
+| 38 | nhóm Private | Câu 7 | Loại bỏ | — | Ngoài phạm vi module (M11): M02 không có dữ liệu nối với nhóm; bài nhóm Private xem được với ai theo quy tắc của M11 (TN:Bài xem được) |
+| 39 | thành viên nhóm | Câu 7 | Loại bỏ | — | Ngoài phạm vi module (M11): như nhóm Private |
+| 40 | thời hạn khôi phục | Câu 8 | Loại bỏ | — | Ngoài phạm vi module (M03): hằng số của M03; tab Đã xóa theo FR-M03-15.03 |
+| 41 | danh sách người theo dõi, danh sách đang theo dõi | Câu 9 | Loại bỏ | — | Giao diện: danh sách dựng từ lượt theo dõi (M07), không lưu riêng |
+| 42 | lượt theo dõi / quan hệ theo dõi | Câu 9 | Loại bỏ | — | Ngoài phạm vi module (M07): M07 tạo, sửa, xóa; lượt theo dõi nối hai tài khoản, không nối với Profile hay Bookmark; quan hệ User – Follow đã ghi ở EC-M01 (Q-01) |
+| 43 | thời điểm bắt đầu theo dõi | Câu 9 | Loại bỏ | — | Ngoài phạm vi module (M07): thông tin của lượt theo dõi mà M02 đọc để xếp danh sách theo dõi (Q-01) |
+| 44 | Topic | Câu 10 | Loại bỏ | — | Ngoài phạm vi module (M05): danh sách đang theo dõi không gồm Topic (BR-M02-27) |
+| 45 | người khác | Câu 11 | Loại bỏ | — | Chung chung |
+| 46 | trang sửa hồ sơ | Câu 13 | Loại bỏ | — | Giao diện |
+| 47 | quy tắc của M01 | Câu 13 | Loại bỏ | — | Ngoài phạm vi module (M01): quy tắc username, display_name |
+| 48 | bảng xếp hạng | Câu 14 | Loại bỏ | — | Ngoài phạm vi module (M12): M12 đọc Profile.gradeLevel lúc chốt bảng |
+| 49 | phân bố người dùng theo Lớp-Khối | Câu 14 | Loại bỏ | — | Ngoài phạm vi module (M15): M15 đọc Profile.gradeLevel |
+| 50 | avatar cũ | Câu 15 | Loại bỏ | — | Hành động không lưu dấu vết: avatar trước bị xóa khỏi nơi lưu ảnh khi avatar mới được đặt (BR-M02-07), không giữ lịch sử |
+| 51 | nơi lưu ảnh | Câu 15 | Loại bỏ | — | Trừu tượng: hạ tầng lưu tệp, không phải dữ liệu nghiệp vụ |
+| 52 | mức Khóa toàn bộ | Câu 16 | Loại bỏ | — | Ngoài phạm vi module (M03): mức khóa không chặn lưu, bỏ lưu (BR-M02-25) nên M02 không đọc |
+| 53 | người dùng đã lưu / người lưu | Câu 16 | Lớp | User | Vai trò theo ngữ cảnh: người tạo bookmark |
+| 54 | bài viết được lưu / bài đã lưu | Câu 16 | Lớp | Post | Vai trò của bài viết trong bookmark (TN:Bài đã lưu) |
+| 55 | thời điểm lưu | Câu 16 | Thuộc tính | Bookmark.savedAt | Mô tả bookmark (TN:Thời điểm lưu); dùng để xếp tab Bookmark (BR-M02-31) và cho M05, M14 tính Trending |
+| 56 | dòng "Nội dung không tồn tại" | Câu 18 | Loại bỏ | — | Giao diện: hiện khi bài viết được lưu không xem được; bookmark vẫn được giữ (BR-M02-29) |
+| 57 | vị trí (trong tab Bookmark) | Câu 18 | Loại bỏ | — | Giao diện: vị trí suy ra từ Bookmark.savedAt |
+| 58 | tác giả | Câu 19 | Lớp | User | Vai trò theo ngữ cảnh: người viết bài viết; quan hệ User – Post (tác giả) nối hai lớp ngoài, đã có ở EC-M01 |
+| 59 | bị xóa hẳn | Câu 19 | Loại bỏ | — | Ngoài phạm vi module (M03): bài bị xóa hẳn không còn tồn tại; việc bookmark bị xóa theo được xét ở bước 3 (BR-M02-30) |
+| 60 | Trending Topic, Trending Tag | Câu 21 | Loại bỏ | — | Ngoài phạm vi module (M05) |
+| 61 | điểm Trending Post | Câu 21 | Loại bỏ | — | Ngoài phạm vi module (M14) |
+| 62 | trạng thái bài | Quét: TN:Trạng thái bài | Thuộc tính | Post.publishState | Thông tin của bài viết (M03) mà M02 đọc; tên publishState như EC-M05 |
+| 63 | trạng thái kiểm duyệt | Quét: TN:Trạng thái bài | Thuộc tính | Post.modState | Thông tin của bài viết (M03) mà M02 đọc; tên modState như EC-M05 |
+| 64 | loại tệp và dung lượng ảnh (JPEG, PNG, WebP, 5 MB, GIF động) | Quét: FR-M02-04.03 | Loại bỏ | — | Hằng số của BR-M02-06: chỉ kiểm khi tải ảnh lên, không lưu |
+| 65 | độ dài tối đa của bio (155 ký tự) | Quét: FR-M02-03.04 | Loại bỏ | — | Hằng số của BR-M02-04 |
+| 66 | số ký tự đã dùng | Quét: FR-M02-03.03 | Loại bỏ | — | Giao diện: đếm khi nhập theo BR-M02-33, không lưu |
+| 67 | Lớp-Khối trên bài viết | Quét: BR-M02-09 | Loại bỏ | — | Ngoài phạm vi module (M03): độc lập với Profile.gradeLevel |
+| 68 | mức cảnh báo | Quét: FR-M02-01.13 | Loại bỏ | — | Ngoài phạm vi module (M08): không bao giờ hiện trên hồ sơ (BR-M02-17) |
+| 69 | lịch sử đổi username, liên kết mạng xã hội, số stars nhận, số stars cho | Quét: FR-M02-01.14 | Loại bỏ | — | Ngoài phạm vi hệ thống: FR quyết không làm hoặc không hiện (FR-M02-01.14, FR-M02-01.15, FR-M02-01.23) |
+| 70 | trò chuyện 1-1 | Quét: FR-M02-01.26 | Loại bỏ | — | Ngoài phạm vi module (M16): M02 chỉ đặt lối vào trên trang hồ sơ |
 
 ### 2.2 Lớp
 
-Ở bước 3, Bookmark có nhóm Liên kết, các lớp còn lại giữ nhóm Thực thể. Điểm, huy hiệu và danh hiệu do M12 cung cấp. Các thuộc tính số đếm của hồ sơ được phân loại theo phép thử T7. Lớp ngoài chờ xác nhận tên tại EC module sở hữu.
+<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (Mxx của tài liệu này, hoặc Myy với lớp ngoài).
+     Thuộc tính: tên mọi thuộc tính của lớp ở mục 2.3, ngăn bởi dấu phẩy, thuộc tính dẫn xuất có "/" phía trước;
+     để người đọc thấy lớp và thuộc tính trên cùng một dòng. Lớp chưa có thuộc tính ghi "—". -->
 
-| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Nguồn |
-|---|---|---|---|---|---|
-| UserProfile | Hồ sơ | Thực thể | M02 | Thông tin hồ sơ do M02 quản lý, dùng lại tên tham chiếu của EC-M01. | FR-M02-03.02, FR-M02-04.01, TN:Hồ sơ |
-| Bookmark | Bookmark | Liên kết | M02 | Một bản ghi người dùng lưu bài để đọc lại, có thời điểm lưu. Dùng lại tên trong EC-M01. | FR-M02-05.01, FR-M02-06.01, FR-M02-07.07 |
-| User | Tài khoản | Thực thể | M01 | Tài khoản, tên, trạng thái và vai trò người xem, chủ hồ sơ, người lưu. Có đề nghị bổ sung joinedOn tại mục 2.3, đã duyệt cùng bước 2. | FR-M02-01.02, FR-M02-03.01, TN:Ngày tham gia |
-| Post | Bài viết | Thực thể | M03 | Bài của chủ hồ sơ hoặc được lưu. Dùng lại tên trong EC-M01 và glossary. | FR-M02-01.07, FR-M02-01.17, FR-M02-05.01 |
-| UserFollow | Lượt theo dõi người dùng | Thực thể | M07 | Quan hệ theo dõi do M07 tạo, M02 đọc số lượng, danh sách và mốc bắt đầu. Tên đã tham chiếu trong EC-M01. | FR-M02-02.01, FR-M02-02.02, FR-M02-02.09 |
-| Group | Nhóm | Thực thể | M11 | Nhóm Private dùng kiểm tra quyền xem bài. Tên theo glossary và EC-M01. | FR-M02-01.07 |
-| GroupMember | Thành viên nhóm | Thực thể | M11 | Tư cách thành viên nhóm dùng khi lọc bài. Tên theo glossary và EC-M01. | FR-M02-01.07 |
-| Badge | Huy hiệu | Thực thể | M12 | Huy hiệu theo mốc điểm do M12 trao. Tên theo glossary, chờ EC-M12 xác nhận. | FR-M02-01.10, BR-M02-11, BR-M02-13 |
-| EarnedBadge | Huy hiệu đã đạt | Thực thể | M12 | Kết quả người dùng đạt huy hiệu do M12 cung cấp. Tên tạm, chờ EC-M12 xác nhận. | FR-M02-01.10, BR-M02-13, BR-M02-37 |
-| WeeklyStarAward | Danh hiệu Ngôi sao tuần đã đạt | Thực thể | M12 | Kết quả đạt danh hiệu của tuần vừa chốt do M12 cung cấp. Tên tạm, chờ EC-M12 xác nhận. | FR-M02-01.24, FR-M02-01.25, BR-M02-37 |
-| Conversation | Cuộc trò chuyện | Thực thể | M16 | Trò chuyện riêng được mở từ hồ sơ người khác. Tên tạm, chờ EC-M16 xác nhận. | FR-M02-01.26, FR-M02-01.27 |
-
-EarnedBadge và WeeklyStarAward tham chiếu kết quả đã được M12 trao, theo FR-M02-01.10/01.24 và BR-M02-37. Các kết quả được hiển thị theo thời điểm và điều kiện mà FR nêu. Nhóm và tên của những lớp ngoài này sẽ được EC-M12 xác nhận.
+| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
+|---|---|---|---|---|---|---|
+| Profile | Hồ sơ | Thực thể | M02 | Thông tin công khai của một người dùng mà chính người dùng đó sửa: avatar, bio, Lớp/Khối | avatar, bio, gradeLevel, /followerCount, /followingCount | FR-M02-01.02, FR-M02-03, FR-M02-04 |
+| Bookmark | Bookmark | Liên kết | M02 | Một lần người dùng lưu một bài viết để đọc lại; mỗi cặp người dùng – bài viết có nhiều nhất một bookmark | savedAt | FR-M02-05, FR-M02-06, FR-M02-07 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Tài khoản sở hữu hồ sơ và tạo bookmark; M02 đọc username, display_name, ngày tham gia, trạng thái tài khoản | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M02-01.01, FR-M02-01.02, FR-M02-01.11 |
+| Post | Bài viết | Thực thể | M03 | Bài viết được lưu và được liệt kê ở tab Bài viết; M02 đọc trạng thái, thời điểm tạo, việc đăng ẩn danh | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M02-01.07, FR-M02-05.01 |
 
 ### 2.3 Thuộc tính
 
-Tên thuộc tính dùng camelCase theo QU-03. Các cột Tính chất và Ràng buộc nguồn nêu phân biệt dữ liệu phải giữ với dữ liệu tính được từ dữ liệu hiện có.
+<!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
+     Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
+     Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
+     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
+             — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
+     Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
+     Ghi chú: bắt buộc với Đề xuất (vì sao cần) và Tham chiếu (module này dùng nó làm gì). -->
 
-| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Ràng buộc nguồn nêu | Nguồn |
-|---|---|---|---|---|---|
-| UserProfile | avatar | Ảnh đại diện | Lưu | Ảnh gốc, JPEG/PNG/WebP tối đa 5 MB theo BR-M02-06/08. Thay thành công thì xóa ảnh cũ theo BR-M02-07. Khi chưa đặt ảnh dùng avatar mặc định. Chỉ chủ tài khoản ACTIVE được thay theo BR-M02-18/36. | FR-M02-04.01, FR-M02-04.02, FR-M02-04.05, FR-M02-04.06, FR-M02-04.07, FR-M02-01.18, BR-M02-06, BR-M02-07, BR-M02-08 |
-| UserProfile | bio | Giới thiệu | Lưu | Tùy chọn, tối đa 155 ký tự theo BR-M02-04. Cắt khoảng trắng đầu/cuối trước khi đếm, toàn khoảng trắng thành trống, mỗi emoji hoặc xuống dòng là một ký tự theo BR-M02-33. Chủ tài khoản ACTIVE tự sửa. | FR-M02-03.02, FR-M02-03.04, FR-M02-03.05, FR-M02-03.09, FR-M02-03.10, FR-M02-03.11, FR-M02-03.12, FR-M02-03.13, BR-M02-04, BR-M02-33 |
-| UserProfile | gradeLevel | Lớp/Khối | Lưu | Tùy chọn, giá trị 10, 11, 12, có thể bỏ chọn theo BR-M02-09. Chỉ đổi khi người dùng tự sửa theo BR-M02-10. Độc lập với Lớp/Khối của Post. Cung cấp cho M12 và M15 theo FR mục 5.11. | FR-M02-03.02, FR-M02-03.06, FR-M02-03.07, FR-M02-03.08, FR-M02-03.14, BR-M02-09, BR-M02-10 |
-| UserProfile | followerCount | Số người theo dõi | Dẫn xuất | Đếm các quan hệ UserFollow mà tài khoản là người được theo dõi sau khi lọc tài khoản theo BR-M02-27. Tài khoản DEACTIVATED/BANNED bị loại khỏi số đếm, ACTIVE được đếm lại. | FR-M02-01.02, FR-M02-02.07, FR-M02-02.08, BR-M02-27 |
-| UserProfile | followingCount | Số người dùng đang theo dõi | Dẫn xuất | Đếm các quan hệ UserFollow mà tài khoản là người theo dõi sau khi lọc BR-M02-27. Chỉ đếm tài khoản, các đối tượng Topic/bài viết được loại theo FR-M02-02.06. | FR-M02-01.02, FR-M02-02.06, FR-M02-02.07, FR-M02-02.08, BR-M02-27 |
-| UserProfile | bioLength | Số ký tự bio | Dẫn xuất | Độ dài bio sau khi cắt khoảng trắng đầu/cuối. Mỗi emoji và xuống dòng tính một ký tự theo BR-M02-33. Áp dụng cả lúc soạn bio theo FR-M02-03.03. | FR-M02-03.03, FR-M02-03.11, FR-M02-03.12, FR-M02-03.13, BR-M02-33 |
-| Bookmark | savedAt | Thời điểm lưu | Lưu | Mốc người dùng tạo bookmark, dùng sắp xếp mới nhất trước theo BR-M02-31 và cung cấp cho M05. Mỗi người dùng lưu một bài nhiều nhất một lần theo BR-M02-22, sẽ xét thành ràng buộc quan hệ ở bước 3. | FR-M02-05.01, FR-M02-05.03, FR-M02-07.07, BR-M02-22, BR-M02-31, TN:Thời điểm lưu |
-| User | joinedOn | Ngày tham gia | Lưu | Đề nghị phần M02 bổ sung vào lớp ngoài M01. Ngày tài khoản được tạo theo TN:Ngày tham gia, dùng hiển thị tại FR-M02-01.02. EC-M01 v0.3 chưa khai dữ liệu này, đã duyệt cùng bước 2. Nguồn chỉ yêu cầu ngày tham gia nên giữ độ chi tiết ngày. | FR-M02-01.02, BR-M02-02, TN:Ngày tham gia |
-
-User.joinedOn là phần M02 đề nghị bổ sung cho lớp ngoài theo input/CONVENTIONS.md mục 5. Đây là dữ liệu đã được FR-M02 yêu cầu và định nghĩa, EC-M01 v0.3 còn thiếu. Đề nghị được duyệt cùng bước 2, để đưa về module sở hữu khi gộp hệ thống.
+| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Căn cứ | Ràng buộc nguồn nêu | Nguồn | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| Profile | avatar | Avatar | Lưu | Nguồn nêu | Tùy chọn, trống thì hiện avatar mặc định (BR-M02-32); ảnh JPEG, PNG hoặc WebP, tối đa 5 MB, không nhận GIF động (BR-M02-06); lưu ảnh gốc, hiển thị cắt tròn (BR-M02-08); đặt avatar mới thì ảnh cũ bị xóa khỏi nơi lưu ảnh (BR-M02-07); chỉ chủ hồ sơ có tài khoản ACTIVE đổi được (BR-M02-18) | FR-M02-04.01, FR-M02-04.02, FR-M02-04.05, FR-M02-01.18 | M01 ghi ở bước 3 đăng ký và xóa khi tài khoản DELETED; M03, M04, M16, M01 đọc để hiển thị |
+| Profile | bio | Bio | Lưu | Nguồn nêu | Tùy chọn; tối đa 155 ký tự đếm sau khi cắt khoảng trắng đầu và cuối, mỗi emoji, mỗi lần xuống dòng là một ký tự; chỉ gồm khoảng trắng thì lưu là trống (BR-M02-04, BR-M02-33); chỉ chủ hồ sơ có tài khoản ACTIVE sửa được (BR-M02-18) | FR-M02-03.02, FR-M02-03.04, FR-M02-03.11, FR-M02-03.12 | M01 ghi ở bước 3 đăng ký và xóa khi tài khoản DELETED |
+| Profile | gradeLevel | Lớp/Khối | Lưu | Nguồn nêu | Tùy chọn; một trong 10, 11, 12, bỏ chọn được; chỉ đổi khi chủ hồ sơ tự sửa, không tự tăng theo năm học; độc lập với Lớp/Khối trên bài viết (BR-M02-09, BR-M02-10) | FR-M02-03.02, FR-M02-03.06, FR-M02-03.08, FR-M02-03.14 | M12 đọc lúc chốt bảng xếp hạng; M15 đọc cho phân bố theo Lớp/Khối |
+| Profile | followerCount | Số người theo dõi | Dẫn xuất | Nguồn nêu | Số lượt theo dõi (M07) tới người dùng của hồ sơ, không đếm người theo dõi có tài khoản DEACTIVATED hoặc BANNED (BR-M02-27) | FR-M02-01.02, FR-M02-02.07, FR-M02-02.08 | Guest cũng thấy con số (BR-M02-14) |
+| Profile | followingCount | Số đang theo dõi | Dẫn xuất | Nguồn nêu | Số lượt theo dõi (M07) của người dùng của hồ sơ tới người dùng khác, không gồm Topic, bài viết, không đếm tài khoản DEACTIVATED hoặc BANNED (BR-M02-27) | FR-M02-01.02, FR-M02-02.06, FR-M02-02.07 | — |
+| Bookmark | savedAt | Thời điểm lưu | Lưu | Nguồn nêu | Mỗi người dùng lưu một bài viết nhiều nhất một lần (BR-M02-22); tab Bookmark xếp mới nhất trước (BR-M02-31) | FR-M02-07.07 | M05 dùng để tính Trending Topic/Tag; M14 đếm cho điểm Trending Post |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M02-01.01, FR-M02-01.20 | M02 tìm hồ sơ theo địa chỉ /u/{username} không phân biệt chữ hoa, chữ thường (BR-M02-34) và hiển thị; quy tắc thuộc M01 |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M02-01.02 | M02 hiển thị trên trang hồ sơ; đổi ở trang sửa hồ sơ theo quy tắc của M01 |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M01-01.02, FR-M01-05.19 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M02-01.11, FR-M02-01.12, FR-M02-02.07, FR-M02-03.09 | M02 đọc để chọn cách hiện hồ sơ, lọc và đếm danh sách theo dõi, từ chối sửa hồ sơ, đổi avatar khi không ACTIVE |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M02-01.02 | M02 hiển thị ngày tham gia (TN:Ngày tham gia); EC-M01 đã có thuộc tính này |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M02-01.19 | M02 xếp tab Bài viết (TN:Thời điểm tạo bài); tên tạm, chờ EC-M03 |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03 | M02 chọn bài hiện ở tab Bài viết theo ngữ cảnh và nhận ra bài đã lưu không xem được |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M02-01.07, FR-M02-07.03 | M02 ẩn bài bị Mod ẩn với người xem và hiện dòng "Nội dung không tồn tại" ở tab Bookmark |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M03-06.03, FR-M03-06.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M03-07.01, BR-M03-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | — | FR-M02-01.07, FR-M02-01.17 | M02 ẩn bài ẩn danh với người xem, gắn dấu "ẩn danh" cho chủ hồ sơ; khái niệm của M11 (TN:Bài đăng ẩn danh), tên tạm, chờ EC-M03, EC-M11 |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | — | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | — | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | — | FR-M11-14.01, FR-M11-14.05 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
-Ba dòng đầu giữ đúng tên thực thể của bảng FR-M02 mục 5.9. Các dòng sau ghi phần có thêm từ yêu cầu và giao tiếp.
+<!-- Mỗi thực thể ở bảng "Dữ liệu nghiệp vụ" của FR một dòng; chép đúng tên ở cột Thực thể của FR.
+     Xử lý: Khớp | Đã thêm qua sổ danh từ | Mô hình có thêm: … | Lệch: … (kèm Q-nn). -->
 
 | Thực thể trong FR | Trong mô hình | Xử lý |
 |---|---|---|
-| Hồ sơ | UserProfile và phần User.joinedOn đề nghị bổ sung | Khớp avatar, bio và gradeLevel. Ngày tham gia được TN:Ngày tham gia định nghĩa là ngày tạo tài khoản M01 nên đề nghị User.joinedOn, đã duyệt cùng bước 2. Mô hình có thêm followerCount, followingCount và bioLength dẫn xuất từ FR-M02-01.02, FR-M02-02.07/02.08 và FR-M02-03.03, BR-M02-27/33. |
-| Bookmark | Bookmark | Khớp savedAt và ý nghĩa người lưu, bài được lưu. Người lưu và bài là lớp User/Post, sẽ xét quan hệ ở bước 3. FR-M02-05.03, BR-M02-22 quy định mỗi người lưu một bài nhiều nhất một lần. |
-| Quan hệ theo dõi | UserFollow (M07) | Khớp ở phần M02 sử dụng để hiển thị người theo dõi và đang theo dõi. Bảng 5.9 ghi phạm vi chung có người dùng/Topic/bài viết, FR-M02-02.06 và BR-M02-27 xác định danh sách M02 chỉ gồm tài khoản. Dùng lớp UserFollow đã tham chiếu ở EC-M01, các dạng theo dõi khác thuộc M07. |
-| Bổ sung từ các yêu cầu và giao tiếp | User, Post, Group, GroupMember, Badge, EarnedBadge, WeeklyStarAward, Conversation | Mô hình có thêm lớp ngoài được các yêu cầu FR-M02-01.07, FR-M02-01.10, FR-M02-01.24, FR-M02-01.26 nêu. Mỗi lớp có nguồn trong mục 2.2. Các tên lớp mới của M12/M16 là tên tạm cần EC module sở hữu xác nhận. |
-| Dữ liệu hiển thị từ M12 và cung cấp cho M14 | Tổng điểm và số bookmark của bài | Tổng điểm hiện thời được M12 cung cấp theo FR-M02-01.09 và BR-M02-11/12. M02 cung cấp dữ liệu Bookmark cho M14 tính số bookmark theo mục 5.11. Giữ yêu cầu giao tiếp này để xét trong phần liên module. |
-
-Các thuộc tính dẫn xuất của UserProfile và phần đề nghị User.joinedOn cần được người dùng nhìn tại cổng bước 2. Những dữ liệu tài khoản đã có như username, displayName, accountState được dùng từ User của M01 theo FR-M02 mục 5.11.
-
+| Hồ sơ | Profile | Khớp: avatar, bio, gradeLevel; tài khoản là quan hệ, xét ở bước 3; ngày tham gia (FR ghi theo draft) là thông tin của tài khoản nên thành User.createdAt (TN:Ngày tham gia). Mô hình có thêm: /followerCount, /followingCount (FR-M02-01.02, BR-M02-27). Ma trận CRUD ghi M01 tạo hồ sơ khi tạo tài khoản; Profile vẫn do M02 sở hữu vì FR-M02 định nghĩa thực thể và mọi quy tắc của nó, EC-M01 cũng ghi Profile thuộc M02 |
+| Bookmark | Bookmark | Khớp: savedAt; người lưu và bài viết được lưu là quan hệ, xét ở bước 3 |
+| Quan hệ theo dõi | — | Lệch, đã xử lý theo Q-01 (thuộc M07, mô hình hóa ở EC-M07): FR ghi là thực thể M02 đọc; mô hình loại (sổ danh từ dòng 42) vì M07 sở hữu và lượt theo dõi không nối với lớp nào của M02; số người theo dõi, số đang theo dõi thành thuộc tính dẫn xuất của Profile (Q-01) |
 
 ## 3. Quan hệ giữa các lớp
 
-Người dùng duyệt bước 2 và yêu cầu thực hiện bước 3 ngày 2026-11-16. Bước 3 đang chờ chốt. Nguồn vẫn là FR-M02 v1.6 đã chốt.
-
 ### 3.1 Ma trận cặp lớp
 
-T là quan hệ trực tiếp. G(X) là đường gián tiếp qua lớp X. Chỉ xét nửa trên, các ô tự liên hệ được xét và để trống khi FR chưa nêu tự liên hệ. M02 xét các cặp có UserProfile hoặc Bookmark. Cặp hai lớp ngoài được để module sở hữu ghi.
+<!-- T = quan hệ trực tiếp; G(X) = chỉ gián tiếp qua lớp X; trống = không liên quan. Chỉ điền nửa trên. -->
 
-| Lớp | UserProfile | Bookmark | User | Post | UserFollow | Group | GroupMember | Badge | EarnedBadge | WeeklyStarAward | Conversation |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| UserProfile |  | G(User) | T | G(User) | T |  |  | G(EarnedBadge) | T | T |  |
-| Bookmark |  |  | T | T |  |  |  |  |  |  |  |
-| User |  |  |  |  |  |  |  |  |  |  |  |
-| Post |  |  |  |  |  |  |  |  |  |  |  |
-| UserFollow |  |  |  |  |  |  |  |  |  |  |  |
-| Group |  |  |  |  |  |  |  |  |  |  |  |
-| GroupMember |  |  |  |  |  |  |  |  |  |  |  |
-| Badge |  |  |  |  |  |  |  |  |  |  |  |
-| EarnedBadge |  |  |  |  |  |  |  |  |  |  |  |
-| WeeklyStarAward |  |  |  |  |  |  |  |  |  |  |  |
-| Conversation |  |  |  |  |  |  |  |  |  |  |  |
+Không có dòng cho User, Post vì không xét cặp hai lớp ngoài. Riêng quan hệ lưu bài giữa User và Post do FR-M02 định
+nghĩa (mục Dữ liệu nghiệp vụ: bookmark "thuộc một người dùng và một bài viết") nên được xét ở mục 3.2 và tách qua
+Bookmark; trong ma trận nó hiện thành hai ô Bookmark – User, Bookmark – Post. Module không có lớp thống kê.
 
-UserProfile tới Bookmark và Post qua tài khoản chủ hồ sơ. Badge được sử dụng qua kết quả EarnedBadge. Group và GroupMember là ngữ cảnh quyền xem bài do M11 cung cấp. Conversation là điểm tới của lối vào trò chuyện do M16 thực hiện theo FR-M02-01.26. Những yêu cầu giao tiếp này được giữ ở mục 5. Các quan hệ cụ thể giữa tài khoản, bài viết, nhóm, huy hiệu và cuộc trò chuyện được EC module sở hữu trình.
-
-Ba ô T của UserProfile với UserFollow, EarnedBadge và WeeklyStarAward là Phụ thuộc. Theo quy tắc loại quan hệ của skill, những cặp này được đọc theo chiều sử dụng dữ liệu, bội số ghi dấu gạch ngang.
+| | Bookmark | User | Post |
+|---|---|---|---|
+| Profile | G(User) | T |  |
+| Bookmark |  | T | T |
 
 ### 3.2 Quan hệ số lượng
 
+<!-- Mỗi ô T của ma trận một dòng. Dạng đọc theo thứ tự A–B: 1-1 | 1-n | n-1 | n-n.
+     Xử lý: Giữ nguyên | Gộp vào <Lớp>: … | Giữ: … | Tách: thêm lớp <X>. -->
+
 | Cặp | Câu A → B | Câu B → A | Dạng | Xử lý |
 |---|---|---|---|---|
-| User – Post (khái niệm lưu bài) | Một người dùng có thể lưu nhiều bài viết. | Một bài viết có thể được nhiều người dùng lưu. | n-n | Tách bằng lớp Bookmark đã có từ bước 2. Đổi Nhóm thành Liên kết, giữ savedAt của cặp. Đây là quan hệ khái niệm trước khi tách, bảng 3.4 chỉ giữ hai nửa qua lớp M02. |
-| User – UserProfile | Một tài khoản có đúng một hồ sơ theo TN:Hồ sơ. | Một hồ sơ thuộc đúng một tài khoản. | 1-1 | Giữ hai lớp do khác module sở hữu. R-M02-01. |
-| User – Bookmark | Một tài khoản có thể có nhiều bookmark. | Một bookmark thuộc đúng một người lưu. | 1-n | Giữ nguyên nửa thứ nhất của n-n, R-M02-02. |
-| Post – Bookmark | Một bài viết có thể có nhiều bookmark do nhiều người lưu. | Một bookmark lưu đúng một bài viết. | 1-n | Giữ nguyên nửa thứ hai của n-n, R-M02-03. |
-
-Dòng User–Post mô tả thao tác lưu bài trước khi tách. Sau khi tách, M02 ghi các quan hệ chạm tới lớp Bookmark do M02 sở hữu.
-
-Ràng buộc BR-M02-22 và FR-M02-05.03 xác định một cặp người lưu–bài viết có tối đa một Bookmark đang tồn tại. Bỏ lưu làm bản ghi Bookmark bị xóa theo FR-M02-06.01. Lưu lại tạo bản ghi với thời điểm lưu của lần lưu lại. Phân tích vòng đời này dựa trên CRUD tạo/xóa và thứ tự theo thời điểm lưu tại BR-M02-31.
-
-Quan hệ 1-1 User–UserProfile giữ hai lớp do khác module sở hữu, đồng thời hồ sơ có dữ liệu riêng avatar, bio và gradeLevel.
-
-**Đọc hai chiều các Phụ thuộc**
-
-| ID | Chiều sử dụng | Chiều cung cấp |
-|---|---|---|
-| R-M02-04 | UserProfile dùng UserFollow để tính số theo dõi. | UserFollow do M07 tạo và quản lý, hồ sơ truy xuất để tính số đếm. |
-| R-M02-05 | UserProfile dùng EarnedBadge để hiển thị huy hiệu đã đạt. | EarnedBadge được M12 cung cấp, việc hiển thị trên hồ sơ sử dụng kết quả này. |
-| R-M02-06 | UserProfile dùng WeeklyStarAward để hiển thị danh hiệu tuần vừa chốt. | WeeklyStarAward được M12 cung cấp, hồ sơ kiểm tra kỳ hiển thị theo BR-M02-37. |
+| User – Profile | Một tài khoản có đúng một hồ sơ. | Một hồ sơ thuộc đúng một tài khoản. | 1-1 | Giữ: khác module sở hữu (User của M01, Profile của M02) và khác vòng đời: khi tài khoản DELETED, tài khoản được giữ còn nội dung hồ sơ bị xóa |
+| User – Post (lưu bài) | Một tài khoản có thể lưu nhiều bài viết. | Một bài viết có thể được nhiều tài khoản lưu. | n-n | Tách: thêm lớp Bookmark (đã có từ bước 2, đổi Nhóm sang Liên kết); mỗi cặp tài khoản – bài viết có nhiều nhất một bookmark (BR-M02-22) |
+| User – Bookmark | Một tài khoản có thể có nhiều bookmark. | Một bookmark thuộc đúng một tài khoản (người lưu). | 1-n | Giữ nguyên |
+| Post – Bookmark | Một bài viết có thể có nhiều bookmark của các người dùng khác nhau. | Một bookmark ứng với đúng một bài viết (bài viết được lưu). | 1-n | Giữ nguyên |
 
 ### 3.3 Lớp liên kết
 
+<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB".
+     "Thuộc tính riêng của liên kết": tên các thuộc tính (đã ghi ở mục 2.3); không có thì ghi rõ vì sao. -->
+
 | Lớp liên kết | Tách từ quan hệ n-n | Thuộc tính riêng của liên kết | Nguồn |
 |---|---|---|---|
-| Bookmark | User – Post | savedAt | FR-M02-05.01, FR-M02-05.03, FR-M02-07.07, BR-M02-22, BR-M02-31 |
-
-Bookmark đã được trích từ đoạn mô tả và phân loại thành lớp ở bước 2. Bước 3 xác định thêm nhóm Liên kết vì cặp User–Post xác định duy nhất một bản ghi đang tồn tại. savedAt thuộc lần lưu của cặp đó và đã nằm trên Bookmark từ bước 2.
+| Bookmark | User – Post | savedAt | FR-M02-05.01, FR-M02-07.07, BR-M02-22 |
 
 ### 3.4 Quan hệ
 
+<!-- Bội số A = số đối tượng A ứng với một đối tượng B (ghi ở đầu A trên sơ đồ). Cú pháp: 1, 0..1, 0..*, 1..*, 1..3.
+     Loại: Kế thừa | Hợp thành | Kết tập | Liên kết | Phụ thuộc.
+     Bên chính: lớp cha (Kế thừa), lớp toàn thể (Hợp thành, Kết tập), lớp được dùng (Phụ thuộc); "—" với Liên kết.
+     Kế thừa và Phụ thuộc ghi "—" ở Bội số A, Bội số B, Dạng. Không được còn dạng n-n. -->
+
 | ID | Lớp A | Bội số A | Lớp B | Bội số B | Dạng | Loại | Bên chính | Căn cứ | Nguồn |
 |---|---|---|---|---|---|---|---|---|---|
-| R-M02-01 | User | 1 | UserProfile | 1 | 1-1 | Kết tập | User | Tài khoản có một hồ sơ theo TN:Hồ sơ. M01 sở hữu tài khoản, M02 sở hữu dữ liệu hồ sơ, nên giữ hai lớp theo tiêu chí 1-1 khác module. FR nói xóa các trường cá nhân khi DELETED qua giao tiếp M01, chưa nêu xóa bản thân đối tượng hồ sơ. | FR-M02-01.02, FR-M02-03.02, FR-M02-04.01, TN:Hồ sơ |
-| R-M02-02 | User | 1 | Bookmark | 0..* | 1-n | Liên kết | — | Nửa quan hệ User–Post n-n đã tách qua Bookmark. Mỗi bookmark ghi một người lưu cố định. Quy tắc c của skill ưu tiên Liên kết cho quan hệ tới lớp Liên kết. FR mục 5.11 yêu cầu xóa bookmark khi tài khoản người lưu DELETED. Khác loại với R-M01-22 của EC-M01 v0.3, xem Q-02. | FR-M02-05.01, FR-M02-05.03, FR-M02-06.01, BR-M02-22 |
-| R-M02-03 | Post | 1 | Bookmark | 0..* | 1-n | Liên kết | — | Nửa còn lại của quan hệ n-n. Mỗi Bookmark gắn một Post, nhiều người có thể lưu cùng bài. FR-M02-07.06 yêu cầu xóa Bookmark khi bài bị xóa hẳn hoặc tác giả DELETED. Giữ Liên kết theo bước 3 của skill. | FR-M02-05.01, FR-M02-07.06, BR-M02-22, BR-M02-30 |
-| R-M02-04 | UserProfile | — | UserFollow | — | — | Phụ thuộc | UserFollow | Hồ sơ dùng UserFollow để tính followerCount và followingCount, lọc theo trạng thái tài khoản. Các quan hệ theo dõi do M07 quản lý, hồ sơ lấy dữ liệu để tính các số đếm. | FR-M02-01.02, FR-M02-02.01, FR-M02-02.02, FR-M02-02.07, FR-M02-02.08, BR-M02-27 |
-| R-M02-05 | UserProfile | — | EarnedBadge | — | — | Phụ thuộc | EarnedBadge | Hồ sơ dùng kết quả huy hiệu đã đạt do M12 cung cấp để hiển thị. Những kết quả này thuộc vòng đời trao huy hiệu của M12, tên lớp đang chờ EC-M12 xác nhận. | FR-M02-01.10, BR-M02-11, BR-M02-13 |
-| R-M02-06 | UserProfile | — | WeeklyStarAward | — | — | Phụ thuộc | WeeklyStarAward | Hồ sơ dùng kết quả đạt Ngôi sao tuần do M12 cung cấp, đối chiếu tuần vừa chốt để hiển thị trong thời gian BR-M02-37 quy định. Kết quả đã trao thuộc M12. | FR-M02-01.24, FR-M02-01.25, BR-M02-37 |
-
-**Câu đọc kiểm chiều**
-
-| ID | Câu đọc |
-|---|---|
-| R-M02-01 | User có một UserProfile. Bên toàn thể là User theo nghĩa tài khoản có hồ sơ. |
-| R-M02-02 | Bookmark ghi đúng một User là người lưu. Đây là nửa User–Bookmark của lớp liên kết. |
-| R-M02-03 | Bookmark ghi đúng một Post được lưu. Đây là nửa Post–Bookmark của lớp liên kết. |
-| R-M02-04 | UserProfile dùng UserFollow để tính followerCount và followingCount. |
-| R-M02-05 | UserProfile dùng EarnedBadge để hiển thị huy hiệu đã đạt. |
-| R-M02-06 | UserProfile dùng WeeklyStarAward để xác định việc hiển thị Ngôi sao tuần. |
-
-R-M02-01 chọn Kết tập với User là bên toàn thể theo nghĩa tài khoản có hồ sơ, đồng thời giữ ranh giới sở hữu M01/M02. Với hai dòng Bookmark, thứ tự phân loại của skill đặt Liên kết sinh từ n-n trước điều kiện Hợp thành. Quy tắc xóa theo bài/người lưu vẫn được giữ tại mục 5.
-
-Có 6 quan hệ gồm 1 quan hệ 1-1, 2 quan hệ 1-n và 3 Phụ thuộc. Các lớp M02 đều có quan hệ. Nhóm Bookmark là Liên kết. Các quan hệ sau tách ở bảng 3.4 đều có bội số tối đa một ở ít nhất một đầu.
-
-
+| R-M02-01 | User | 1 | Profile | 1 | 1-1 | Kết tập | User | Tài khoản có một hồ sơ; không ghi hợp thành vì tài khoản không bao giờ bị xóa hẳn: khi DELETED chỉ avatar, bio, Lớp/Khối của hồ sơ bị xóa (mục Giao tiếp với module khác, dòng Dùng M01). Cùng loại và chiều với R-M01-09 | BR-M02-01, FR-M02-01.11, FR-M02-03.02 |
+| R-M02-02 | User | 1 | Bookmark | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n User – Post (lưu bài) đã tách qua lớp liên kết Bookmark; người lưu | FR-M02-05.01, BR-M02-22 |
+| R-M02-03 | Post | 1 | Bookmark | 0..* | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n User – Post (lưu bài); bài viết được lưu. Bookmark bị xóa khi bài bị xóa hẳn (BR-M02-30) | FR-M02-05.01, FR-M02-07.06, BR-M02-30 |
 
 ## 4. Sơ đồ lớp phân tích
 
-Mã PlantUML được gen_puml.py sinh từ các bảng.
+<!-- BEGIN:DIAGRAM -->
+![Sơ đồ lớp phân tích — EC-M02](diagrams/EC-M02.png)
 
-<!-- BEGIN:PUML -->
-```plantuml
-@startuml
-hide circle
-hide methods
-skinparam classAttributeIconSize 0
-
-class UserProfile {
-  -avatar
-  -bio
-  -gradeLevel
-  -/followerCount
-  -/followingCount
-  -/bioLength
-}
-class Bookmark {
-  -savedAt
-}
-class User <<M01>> {
-  -joinedOn
-}
-class Post <<M03>> {
-}
-class UserFollow <<M07>> {
-}
-class Group <<M11>> {
-}
-class GroupMember <<M11>> {
-}
-class Badge <<M12>> {
-}
-class EarnedBadge <<M12>> {
-}
-class WeeklyStarAward <<M12>> {
-}
-class Conversation <<M16>> {
-}
-
-(User, Post) .. Bookmark
-User "1" o-- "1" UserProfile
-UserProfile ..> UserFollow
-UserProfile ..> EarnedBadge
-UserProfile ..> WeeklyStarAward
-
-@enduml
-```
-<!-- END:PUML -->
-
-UserProfile sử dụng các dữ liệu hiển thị và kết quả bên ngoài theo phạm vi mục 5. Các lớp ngoài chỉ làm ngữ cảnh có thể xuất hiện riêng trong sơ đồ phạm vi M02.
-
+Mã nguồn sơ đồ: [diagrams/EC-M02.puml](diagrams/EC-M02.puml). Ảnh và tệp .puml do `gen_puml.py` sinh từ các bảng của tài liệu này; muốn đổi sơ đồ thì sửa bảng rồi chạy lại tool, không sửa tay.
+<!-- END:DIAGRAM -->
 
 ## 5. Liên module
 
+<!-- Mỗi lớp có Sở hữu khác module này một dòng. -->
+
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| User | M01 | R-M02-01/02. Tài khoản chủ hồ sơ và người lưu. Lấy username, displayName, accountState. Ngày tham gia theo FR-M02-01.02, TN:Ngày tham gia. | joinedOn, đề nghị đã được duyệt cùng bước 2. Đưa về EC-M01 khi gộp hệ thống. |
-| Post | M03 | R-M02-03. Bài được Bookmark lưu. Hiển thị bài của chủ hồ sơ qua User và dùng trạng thái, thời điểm tạo để lọc/sắp xếp. FR-M02-07.06 yêu cầu xóa Bookmark khi bài bị xóa hẳn hoặc tác giả DELETED. | — |
-| UserFollow | M07 | R-M02-04. Cấp dữ liệu số đếm, danh sách và thời điểm bắt đầu theo dõi theo FR-M02-02.01/02.02/02.09. Tài khoản DEACTIVATED/BANNED bị loại khỏi số đếm theo BR-M02-27. | — |
-| Group | M11 | Ngữ cảnh nhóm Private và bài ẩn danh để quyết định bài xem được theo FR-M02-01.07/01.17 và mục 5.11. | — |
-| GroupMember | M11 | Cung cấp tư cách thành viên để lọc bài nhóm Private. Bài tạm thời thiếu quyền xem vẫn giữ Bookmark theo FR-M02-07.03/07.04. | — |
-| Badge | M12 | Danh mục huy hiệu được dùng qua kết quả EarnedBadge theo FR-M02-01.10, BR-M02-11/13. | — |
-| EarnedBadge | M12 | R-M02-05. Kết quả huy hiệu đã đạt được M12 cung cấp. Tên tạm chờ EC-M12 xác nhận. | — |
-| WeeklyStarAward | M12 | R-M02-06. Kết quả Ngôi sao tuần được hiển thị theo tuần vừa chốt và BR-M02-37. Tên tạm chờ EC-M12 xác nhận. | — |
-| Conversation | M16 | Lối vào trò chuyện riêng từ hồ sơ người khác theo FR-M02-01.26/01.27. Quyền và vòng đời cuộc trò chuyện do M16 định nghĩa. Tên tạm chờ EC-M16 xác nhận. | — |
-
-M02 cung cấp Bookmark, savedAt và việc bỏ lưu cho M05, cung cấp dữ liệu số Bookmark của bài cho M14 theo FR mục 5.11. UserProfile.gradeLevel phục vụ M12 lọc bảng xếp hạng và M15 thống kê. Tổng điểm hiện thời do M12 cung cấp theo FR-M02-01.09, BR-M02-11/12.
-
-Xóa nghiệp vụ tài khoản người lưu theo giao tiếp M01 sẽ xóa Bookmark của người lưu. FR-M02-07.06 và BR-M02-30 yêu cầu xóa Bookmark khi bài bị xóa hẳn hoặc tác giả DELETED. Với trường hợp tạm thiếu quyền xem, Bookmark và savedAt vẫn giữ để bài hiện lại ở vị trí cũ theo FR-M02-07.03/07.04.
-
-EC-M01 v0.3 có R-M01-22 phân loại User–Bookmark là Hợp thành. Bước 3 M02 xác định Bookmark là lớp Liên kết và R-M02-02 là Liên kết theo quy tắc c của skill. Điểm lệch loại quan hệ này cần được đồng bộ ở lượt gộp, xem Q-02. Các quy tắc xóa theo tài khoản vẫn được bảo toàn trong cả hai cách biểu diễn.
-
-
+| User | M01 | Tài khoản có một hồ sơ (R-M02-01) và là người lưu của bookmark (R-M02-02); đọc username, displayName, createdAt, status để tìm và hiển thị hồ sơ, lọc và đếm danh sách theo dõi, chặn sửa hồ sơ khi không ACTIVE | — |
+| Post | M03 | Bài viết được lưu (R-M02-03), bookmark bị xóa khi bài bị xóa hẳn; đọc createdAt, publishState, modState, isAnonymous để chọn bài ở tab Bài viết và nhận ra bài đã lưu không xem được | — |
 
 ## 6. Câu hỏi và điểm chưa chốt
 
+<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-Mxx". -->
+
 | Mã | Loại | Câu hỏi | Trả lời | Ghi vào |
 |---|---|---|---|---|
-| Q-01 | Lệch | Đề nghị User.joinedOn do M01 sở hữu để biểu diễn ngày tài khoản được tạo mà FR-M02-01.02 và TN:Ngày tham gia yêu cầu. | Người dùng duyệt bước 2 và yêu cầu sang bước 3 ngày 2026-11-16. Ghi nhận duyệt đề nghị trong bản bước 2 đang trình. | Mục 2.3 và 5 của EC-M02. Đưa phần bổ sung về EC-M01 ở lượt gộp hệ thống. |
-| Q-02 | Lệch | R-M01-22 của EC-M01 v0.3 là Hợp thành, còn R-M02-02 là Liên kết sau khi Bookmark được xác định là lớp Liên kết. Đề nghị giữ R-M02-02 theo quy tắc c của bước 3 và đồng bộ loại tại lượt gộp. Bạn đồng ý cách xử lý này? | Chờ duyệt ở cổng bước 3. Bản nháp dùng Liên kết và giữ đầy đủ quy tắc xóa của FR-M02-07.06 cùng giao tiếp M01. | Mục 3.3, 3.4 và 5. EC-M01 là tài liệu module khác, điểm lệch sẽ được đưa vào quyết định gộp. |
-
-QU-10 và QU-11 đang được áp dụng theo mặc định đã trình của skill trong bản nháp, gồm PlantUML do tool sinh và bội số 1, 0..1, 0..*, 1..* hoặc khoảng FR nêu. Trình xác nhận chung tại cổng chốt EC-M02, sau đó ghi vào tệp conventions.md khi người dùng đồng ý.
-
+| Q-01 | Lệch | Mục Dữ liệu nghiệp vụ của FR-M02 ghi "Quan hệ theo dõi" (M07 tạo, M02 đọc). Lượt theo dõi chỉ nối hai tài khoản (User – User), không nối với Profile hay Bookmark, nên nếu giữ làm lớp ngoài thì nó không có quan hệ nào với lớp của M02 (quy tắc liên module không cho ghi quan hệ giữa hai lớp ngoài). Đề xuất: loại khỏi EC-M02; giữ số người theo dõi, số đang theo dõi là thuộc tính dẫn xuất của Profile; quan hệ User – Follow đã có ở EC-M01 (R-M01-13, R-M01-14) và sẽ có ở EC-M07 | Follow thuộc phạm vi M07 nên được mô hình hóa ở EC-M07 (phương án A); EC-M02 không giữ lớp này, số người theo dõi, số đang theo dõi là thuộc tính dẫn xuất của Profile | Mục 2.1 dòng 42, 43; mục 2.4 |
 
 ## 7. Lịch sử sửa đổi
 
 | Phiên bản | Ngày | Nội dung | Người sửa |
 |---|---|---|---|
-| 0.1 | 2026-11-16 | Tạo bản nháp từ FR-M02 v1.6, soạn 13 câu mô tả và truy vết 7 chức năng, chờ duyệt bước 1 | Phạm Văn Đức |
-| 0.2 | 2026-11-16 | Người dùng duyệt bước 1, thực hiện bước 2 với 60 dòng danh từ, 11 lớp và 8 thuộc tính, đề nghị bổ sung ngày tham gia cho User ở Q-01, chờ duyệt bước 2 | Phạm Văn Đức |
-| 0.3 | 2026-11-16 | Người dùng duyệt bước 2 và yêu cầu bước 3, xác định Bookmark là lớp Liên kết với savedAt, lập ma trận và 6 quan hệ, đề nghị đồng bộ R-M01-22 tại Q-02, sinh PlantUML, chờ chốt EC-M02 | Phạm Văn Đức |
-
+| 0.1 | 2026-11-18 | Tạo mới | Phạm Văn Đức |
+| 1.0 | 2026-11-18 | Chốt sau 3 bước; Q-01: quan hệ theo dõi thuộc M07, mô hình hóa ở EC-M07 | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-03: publishStatus → publishState, moderationStatus → modState; MD-05: ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 41 dòng Tham chiếu, tên tiếng Việt của thuộc tính lớp ngoài theo module sở hữu: User.username: Username → Tên định danh; User.displayName: Display_name → Tên hiển thị; User.createdAt: Ngày tham gia → Thời điểm tạo tài khoản; Post.createdAt: Thời điểm tạo bài → Thời điểm tạo; bỏ các ghi chú "tên tạm, chờ EC-…" đã hết hiệu lực ở mô tả lớp và mục Liên module | Phạm Văn Đức |

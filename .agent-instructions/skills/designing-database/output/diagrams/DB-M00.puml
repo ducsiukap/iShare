@@ -1,0 +1,95 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity hotels {
+  * id : integer <<PK>>
+  --
+  * name : varchar(50)
+  * star_level : integer
+  * address : varchar(250)
+  description : varchar(500)
+}
+entity rooms {
+  * id : integer <<PK>>
+  --
+  * name : varchar(50)
+  * type : varchar(50)
+  * price : real
+  description : varchar(250)
+  * hotel_id : integer <<FK>>
+}
+entity clients {
+  * id : integer <<PK>>
+  --
+  * id_card : varchar(20)
+  * full_name : varchar(50)
+  * address : varchar(250)
+  email : varchar(50)
+  * tel : varchar(20)
+  note : varchar(250)
+}
+entity users {
+  * id : integer <<PK>>
+  --
+  * username : varchar(25)
+  * password : varchar(25)
+  * full_name : varchar(50)
+  * position : varchar(50)
+}
+entity bookings {
+  * id : integer <<PK>>
+  --
+  * book_day : date
+  note : varchar(250)
+  * client_id : integer <<FK>>
+  * user_id : integer <<FK>>
+}
+entity booked_rooms {
+  * id : integer <<PK>>
+  --
+  * checkin : date
+  * checkout : date
+  * price : real
+  note : varchar(250)
+  * is_checked_in : boolean
+  * booking_id : integer <<FK>>
+  * room_id : integer <<FK>>
+}
+entity bills {
+  * id : integer <<PK>>
+  --
+  * payment_date : date
+  * amount : real
+  * payment_type : varchar(50)
+  note : varchar(250)
+  * booking_id : integer <<FK>>
+  * user_id : integer <<FK>>
+}
+entity services {
+  * id : integer <<PK>>
+  --
+  * name : varchar(50)
+  * unity : varchar(50)
+  * price : real
+}
+entity used_services {
+  * id : integer <<PK>>
+  --
+  * price : real
+  * quantity : integer
+  * booked_room_id : integer <<FK>>
+  * service_id : integer <<FK>>
+}
+
+hotels ||--o{ rooms : hotel_id
+clients ||--o{ bookings : client_id
+users ||--o{ bookings : user_id
+bookings ||--o{ booked_rooms : booking_id
+rooms ||--o{ booked_rooms : room_id
+bookings ||--o{ bills : booking_id
+users ||--o{ bills : user_id
+booked_rooms ||--o{ used_services : booked_room_id
+services ||--o{ used_services : service_id
+
+@enduml

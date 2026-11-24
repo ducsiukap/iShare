@@ -2,12 +2,12 @@
 module: M11
 ten_module: Group
 ma_tai_lieu: EC-M11
-phien_ban: 0.4
-trang_thai: Bản nháp
-ngay: 2026-11-18
+phien_ban: 1.1
+trang_thai: Đã chốt
+ngay: 2026-11-20
 tac_gia: Phạm Văn Đức
 nguon: FR-M11 v1.3
-steps_completed: [1, 2]
+steps_completed: [1, 2, 3]
 ---
 # Phân tích lớp thực thể — M11 Group
 
@@ -18,51 +18,106 @@ steps_completed: [1, 2]
 | Dự án | iShare |
 | Module | M11 — Group |
 | Đầu vào | FR-M11 phiên bản 1.3 |
-| Trạng thái | Bản nháp |
-| Phiên bản | 0.4 |
-| Ngày | 2026-11-18 |
+| Trạng thái | Đã chốt |
+| Phiên bản | 1.1 |
+| Ngày | 2026-11-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
      - Không đổi tên cột, không xóa cột, không đổi số mục: tool đọc bảng theo số mục và tên cột.
      - Ô không có nội dung ghi "—".
      - Mục chưa tới bước làm thì để dòng "(Chưa làm — bước N)".
-     - Cột Nguồn ghi mã trong FR: FR-M11-nn, FR-M11-nn.mm, BR-M11-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
-     - Sơ đồ ở mục 4 do gen_puml.py sinh; không sửa tay. -->
+     - Cột Nguồn ghi mã trong FR: FR-Mxx-nn, FR-Mxx-nn.mm, BR-Mxx-nn, hoặc TN:<thuật ngữ> (mục 2.1 của FR).
+     - Mục 4 chỉ chứa ảnh sơ đồ. gen_puml.py ghi mã PlantUML vào tệp riêng diagrams/EC-Mxx.puml, render
+       diagrams/EC-Mxx.png và đặt ảnh vào mục 4. Không chép mã PlantUML vào tài liệu, không sửa tay tệp .puml hay ảnh. -->
 
 ## 1. Mô tả chức năng
 
 ### 1.1 Đoạn mô tả
 
-(S1) M11 quản lý nhóm, thành viên nhóm, yêu cầu tham gia, danh sách chặn và việc duyệt nội dung ở cấp nhóm. (S2) Người dùng đã đăng nhập tạo nhóm với tên, mô tả, chế độ Public hoặc Private, câu hỏi tham gia tùy chọn và công tắc duyệt trước, ẩn danh, hệ thống ghi người tạo là Owner với thời điểm tham gia bằng thời điểm tạo nhóm. (S3) Owner sửa thông tin và cài đặt nhóm, hệ thống áp chế độ xem, câu hỏi tham gia và công tắc duyệt trước cho các thao tác tiếp theo, giữ ẩn danh cho bài đã đăng ẩn danh và chấp nhận các yêu cầu đang chờ nếu nhóm chuyển sang chế độ vào ngay. (S4) Hệ thống cho Guest và người dùng xem nhóm Public, giới hạn quyền xem nhóm Private theo tư cách thành viên, xếp danh sách nhóm theo thời điểm tạo và cung cấp danh sách thành viên kèm vai trò nhóm cho người được xem nhóm. (S5) Hệ thống dùng chế độ nhóm và tư cách thành viên để xác định quyền xem, bình luận, vote, báo cáo và bookmark bài nhóm, cung cấp dữ liệu lọc cho hồ sơ, tìm kiếm, feed và Trending Topic hoặc Tag, đồng thời cho Mod hoặc Admin xem nội dung Private trong vụ báo cáo M08 đang giữ. (S6) Người ngoài nhóm vào ngay nhóm Public không có câu hỏi tham gia, hoặc gửi yêu cầu tham gia ở trạng thái Chờ duyệt cho nhóm Private hay nhóm Public có câu hỏi, kèm câu trả lời khi có câu hỏi, và có thể rút yêu cầu đang chờ để chuyển sang Đã rút. (S7) Thành viên chia sẻ link mời chung của nhóm hoặc mời người dùng cụ thể qua thông báo M07 kèm link, người được mời tham gia theo điều kiện hiện tại của nhóm. (S8) Owner hoặc Group Mod xem yêu cầu tham gia kèm câu trả lời, chuyển yêu cầu sang Đã chấp nhận hoặc Đã từ chối, và khi chấp nhận thì hệ thống thêm Member, ghi thời điểm tham gia và phát sự kiện M07 cho người gửi. (S9) Owner hoặc Group Mod ghi người gửi yêu cầu vào danh sách chặn của nhóm, làm yêu cầu Chờ duyệt chuyển sang Đã từ chối và ngăn việc tham gia cho đến khi được bỏ chặn. (S10) Owner bổ nhiệm Member làm Group Mod, ghi thời điểm bổ nhiệm và thông báo qua M07, hoặc giáng Group Mod về Member. (S11) Owner hoặc Group Mod có thể kick thành viên trong phạm vi quyền của mình, Member và Group Mod có thể tự rời, hệ thống giữ bài viết, bình luận, danh tính hiển thị và điểm của thành viên đã rời hoặc bị kick, đồng thời gửi thông báo cho người bị kick. (S12) Owner rời nhóm có thành viên khác phải chỉ định người kế nhiệm, hệ thống chuyển vai trò Owner rồi đưa Owner cũ ra khỏi nhóm, còn nhóm chỉ có Owner được xóa mềm khi Owner xác nhận rời. (S13) Khi tài khoản Owner bị ban, vô hiệu hóa hoặc xóa, hệ thống chọn Group Mod theo thâm niên từ lần bổ nhiệm gần nhất hoặc Member theo thời điểm tham gia sớm nhất nếu không còn Group Mod, chuyển quyền, giữ Owner cũ làm Member khi có người kế nhiệm và xóa mềm nhóm khi không còn thành viên khác. (S14) Thành viên gửi bài viết M03 gắn với nhóm, cổng duyệt dùng điểm quét AI M13 và công tắc duyệt trước để quyết định Đã đăng, chờ nhóm duyệt hoặc Bị từ chối, với luồng riêng cho Owner, Admin và trường hợp AI tắt hoặc quét thất bại. (S15) Khi nhóm bật ẩn danh, thành viên chọn ẩn danh cho từng bài viết, hệ thống giữ danh tính thật của tác giả và hiển thị danh tính ấy cho Owner, Group Mod của nhóm, Mod và Admin trong phạm vi quyền xem. (S16) Owner hoặc Group Mod nhận bài viết từ hàng chờ duyệt của nhóm, hệ thống ghi người đang giữ và dùng thời điểm thao tác cuối để nhả bài khi quá hạn, người đang giữ có thể chấp nhận để đăng hoặc từ chối kèm lý do. (S17) Tác giả có thể sửa và gửi lại bài bị nhóm từ chối, hệ thống đưa bài bị AI tự từ chối trở lại cổng duyệt khi M09 chấp nhận khiếu nại và công bố kết quả Đã đăng hoặc Bị từ chối qua sự kiện thông báo của M03 và M07. (S18) Owner hoặc Group Mod gỡ bài viết hoặc bình luận thuộc phạm vi quyền bằng cách xóa mềm, hệ thống giới hạn người xem, giữ trạng thái đăng của bài viết để M15 thống kê, gửi thông báo cho tác giả qua M07 và giữ điểm do M12 quản lý. (S19) Khi Owner xóa nhóm, hệ thống chuyển nhóm sang Đã xóa, ngừng hiển thị nhóm và nội dung, đồng thời giữ dữ liệu và điểm của thành viên. (S20) Hệ thống áp trạng thái kiểm duyệt M08 lên nhóm, giữ dữ liệu khi nhóm bị ẩn, giới hạn thao tác và cho đọc nội dung theo quyền xem khi nhóm bị khóa, rồi khôi phục các thao tác bị chặn khi mở khóa. (S21) Khi cờ tính năng Group của M10 tắt, hệ thống từ chối thao tác nhóm của người dùng khác Admin, duy trì dữ liệu và khả năng hiển thị nhóm, bài nhóm tại các lối truy cập liên module, đồng thời tiếp tục kiểm duyệt M08 và tự chuyển quyền Owner.
+Hệ thống quản lý nhóm của iShare: nhóm, thành viên nhóm, yêu cầu tham gia, việc chặn tham gia và bài nhóm đi qua cổng
+duyệt của nhóm. Bài nhóm là bài viết do M03 quản lý được gắn với một nhóm; một bài viết thuộc nhiều nhất một nhóm.
 
-<!-- Một đoạn văn, mỗi câu đánh số (S1) (S2) … Xem steps/01-describe-functions.md. -->
+Hệ thống cho phép người dùng đã đăng nhập tạo nhóm với tên nhóm, mô tả nhóm, chế độ Public hoặc Private, công tắc duyệt
+trước, công tắc ẩn danh và câu hỏi tham gia tùy chọn; hệ thống ghi lại người tạo và thời điểm tạo, đặt trạng thái tồn
+tại Hoạt động và trạng thái kiểm duyệt của nhóm Bình thường, và ghi người tạo là thành viên nhóm đầu tiên với vai trò
+nhóm Owner. Hệ thống giới hạn số nhóm một người dùng tạo trong một khoảng thời gian, tính cả nhóm đã bị xóa. Hệ thống
+cho phép Owner sửa tên nhóm, mô tả nhóm và đổi chế độ, công tắc duyệt trước, công tắc ẩn danh, câu hỏi tham gia; khi
+nhóm thành nhóm vào ngay, mọi yêu cầu tham gia đang Chờ duyệt được chấp nhận.
+
+Hệ thống cho phép mọi người, kể cả Guest, xem trang danh sách nhóm gồm các nhóm Public và các nhóm Private mà người xem
+là thành viên nhóm, xếp theo thời điểm tạo, mỗi nhóm kèm tên nhóm, mô tả nhóm và chế độ. Người xem được trang nhóm theo
+chế độ thấy bài nhóm và danh sách thành viên nhóm kèm vai trò nhóm; bài ẩn danh hiện nhãn "Ẩn danh" thay cho tác giả,
+trừ với Owner, Group Mod của nhóm, Mod và Admin.
+
+Hệ thống cho phép người ngoài nhóm tham gia nhóm: với nhóm vào ngay, người ngoài nhóm thành thành viên nhóm với vai trò
+nhóm Member ngay; với nhóm khác, người ngoài nhóm gửi một yêu cầu tham gia kèm câu trả lời khi nhóm có câu hỏi tham gia,
+ở trạng thái Chờ duyệt. Mỗi người gửi có nhiều nhất một yêu cầu tham gia Chờ duyệt cho mỗi nhóm, được rút yêu cầu tham
+gia sang Đã rút và được gửi lại ngay sau khi bị từ chối. Hệ thống cho phép mọi thành viên nhóm mời người khác bằng link
+mời chung không hết hạn của nhóm, gửi kèm thông báo mời qua M07; lời mời không phải một đối tượng riêng và người được
+mời tham gia theo luồng tham gia. Hệ thống cho phép Owner và Group Mod xem các yêu cầu tham gia Chờ duyệt kèm câu trả
+lời, chấp nhận yêu cầu tham gia để thêm người gửi làm thành viên nhóm với vai trò nhóm Member, hoặc từ chối yêu cầu tham
+gia sang Đã từ chối. Hệ thống cho phép Owner và Group Mod chặn người dùng khỏi nhóm, xem danh sách chặn và bỏ chặn;
+người bị chặn không vào được nhóm bằng cách nào và yêu cầu tham gia Chờ duyệt của người bị chặn chuyển sang Đã từ chối.
+Mỗi khi một người dùng thành thành viên nhóm, hệ thống ghi lại người dùng, nhóm, vai trò nhóm và thời điểm tham gia.
+
+Hệ thống cho phép Owner bổ nhiệm một Member làm Group Mod, ghi lại thời điểm bổ nhiệm Group Mod, và giáng Group Mod về
+Member; Owner kick được Member và Group Mod, Group Mod kick được Member. Hệ thống cho phép thành viên nhóm rời nhóm; bài
+nhóm và bình luận của người rời nhóm hoặc bị kick được giữ nguyên, và Owner chỉ rời được sau khi chỉ định người kế nhiệm
+là một thành viên nhóm khác. Khi tài khoản của Owner bị ban, bị vô hiệu hóa hoặc bị xóa, hệ thống tự chuyển vai trò
+nhóm Owner cho Group Mod có thâm niên Group Mod dài nhất, không có Group Mod thì cho Member có thời điểm tham gia sớm
+nhất, và giữ Owner cũ làm Member; nhóm chỉ còn Owner thì bị xóa mềm.
+
+Hệ thống cho phép thành viên nhóm gửi bài nhóm, và cho tác giả chọn đăng ẩn danh cho từng bài nhóm khi công tắc ẩn danh
+của nhóm bật; hệ thống luôn giữ danh tính thật của tác giả bài ẩn danh. Bài nhóm của thành viên khác Owner đi qua cổng
+duyệt của nhóm theo điểm quét do M13 trả về và công tắc duyệt trước: bị tự từ chối, vào hàng chờ duyệt của nhóm hoặc
+được đăng; hệ thống ghi lại điểm quét của bài nhóm. Bài nhóm của Owner không vào hàng chờ duyệt của nhóm mà theo luồng
+duyệt của M03. Hệ thống cho phép Owner và Group Mod nhận một bài nhóm trong hàng chờ duyệt của nhóm, ghi lại người đang
+giữ bài và thời điểm thao tác cuối, rồi chấp nhận để đăng hoặc từ chối kèm lý do từ chối; người đang giữ bài không thao
+tác thì bài nhóm được tự nhả về hàng chờ duyệt của nhóm, và Group Mod không duyệt bài nhóm của chính mình. Hệ thống cho
+phép Owner và Group Mod gỡ bài nhóm và bình luận khỏi nhóm bằng xóa mềm, đặt dấu bị gỡ khỏi nhóm; quyết định kiểm duyệt
+cấp nhóm không khiếu nại được.
+
+Hệ thống cho phép Owner xóa nhóm bằng xóa mềm: nhóm chuyển sang trạng thái tồn tại Đã xóa, không hiện với ai nhưng dữ
+liệu của nhóm được giữ. Hệ thống áp trạng thái kiểm duyệt của nhóm Bị ẩn, Bị khóa do M08 quyết lên cách nhóm hiển thị
+và các thao tác được phép trong nhóm. Trong khi cờ tính năng Group do M10 quản lý tắt, hệ thống từ chối thao tác của
+người dùng khác Admin với nhóm nhưng giữ nguyên dữ liệu của nhóm và vẫn tự chuyển vai trò nhóm Owner.
+
+<!-- Văn xuôi bình thường, có thể chia vài đoạn. KHÔNG ghi mã câu (S1), (S2)… trong đoạn văn: người đọc không hiểu
+     các mã đó. Số câu chỉ nằm ở bảng 1.2. Xem steps/01-describe-functions.md. -->
 
 ### 1.2 Truy vết câu
 
-| Câu | Nội dung tóm tắt | Nguồn |
+<!-- Mỗi câu của đoạn mô tả một dòng, theo đúng thứ tự. Câu: 1, 2, 3…
+     Nội dung câu: chép NGUYÊN VĂN câu đó từ mục 1.1 (tool so khớp từng câu với đoạn văn).
+     Nguồn: mã chức năng hoặc yêu cầu của FR mà câu dựa vào. -->
+
+| Câu | Nội dung câu | Nguồn |
 |---|---|---|
-| S1 | Phạm vi dữ liệu của Group | FR-M11-01, FR-M11-04, FR-M11-06, FR-M11-07, FR-M11-13, FR-M11-14 |
-| S2 | Tạo nhóm, cấu hình ban đầu và Owner | FR-M11-01, FR-M11-01.01, FR-M11-01.02, FR-M11-01.11 |
-| S3 | Thay đổi cài đặt và tác động lên dữ liệu | FR-M11-02, FR-M11-02.01, FR-M11-02.02, FR-M11-02.05, FR-M11-02.06, FR-M11-02.07, FR-M11-02.14, FR-M11-02.15 |
-| S4 | Quyền xem nhóm và danh sách thành viên | FR-M11-03, FR-M11-03.01, FR-M11-03.02, FR-M11-03.04, FR-M11-03.05, FR-M11-03.14, FR-M11-03.16, FR-M11-03.17 |
-| S5 | Điều kiện truy cập nội dung và cung cấp dữ liệu liên module | FR-M11-02.03, FR-M11-02.04, FR-M11-03.06, FR-M11-03.07, FR-M11-03.08, FR-M11-03.12, FR-M11-03.13, FR-M11-12.12, FR-M11-12.13 |
-| S6 | Tham gia ngay, gửi và rút yêu cầu | FR-M11-04, FR-M11-04.01, FR-M11-04.02, FR-M11-04.03, FR-M11-04.10 |
-| S7 | Link mời, thông báo mời và luồng tham gia | FR-M11-05, FR-M11-05.01, FR-M11-05.02, FR-M11-05.05, FR-M11-05.06 |
-| S8 | Duyệt yêu cầu và ghi nhận thành viên | FR-M11-06, FR-M11-06.01, FR-M11-06.02, FR-M11-06.03, FR-M11-06.04, FR-M11-06.07 |
-| S9 | Chặn, bỏ chặn và trạng thái yêu cầu | FR-M11-07, FR-M11-07.01, FR-M11-07.02, FR-M11-07.03, FR-M11-07.04, FR-M11-07.05 |
-| S10 | Bổ nhiệm, giáng và mốc bổ nhiệm | FR-M11-08, FR-M11-08.01, FR-M11-08.02, FR-M11-08.03 |
-| S11 | Chấm dứt tư cách thành viên và giữ nội dung | FR-M11-09, FR-M11-09.01, FR-M11-09.02, FR-M11-09.05, FR-M11-09.06, FR-M11-10, FR-M11-10.01, FR-M11-10.02, FR-M11-10.08, FR-M11-10.09 |
-| S12 | Chuyển quyền khi Owner tự rời | FR-M11-10.03, FR-M11-10.04, FR-M11-10.05, FR-M11-10.06, FR-M11-10.07, FR-M11-15 |
-| S13 | Kế nhiệm tự động theo trạng thái tài khoản và thâm niên | FR-M11-11, FR-M11-11.01, FR-M11-11.02, FR-M11-11.03, FR-M11-11.04, FR-M11-11.05, FR-M11-11.06, FR-M11-11.07 |
-| S14 | Định tuyến bài viết qua cổng duyệt nhóm | FR-M11-12, FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20 |
-| S15 | Ẩn danh theo bài và danh tính tác giả | FR-M11-02.06, FR-M11-03.09, FR-M11-03.10, FR-M11-12.07, FR-M11-12.08, FR-M11-12.10 |
-| S16 | Hàng chờ, người giữ, thời điểm và kết quả duyệt | FR-M11-13, FR-M11-13.01, FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, FR-M11-13.05, FR-M11-13.06, FR-M11-13.10, FR-M11-13.13 |
-| S17 | Gửi lại bài, kết quả khiếu nại và thông báo | FR-M11-13.05, FR-M11-13.06, FR-M11-13.11, FR-M11-13.12, FR-M11-13.14 |
-| S18 | Gỡ nội dung, quyền xem và dữ liệu liên module | FR-M11-14, FR-M11-14.01, FR-M11-14.04, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08 |
-| S19 | Xóa mềm và giữ dữ liệu | FR-M11-15, FR-M11-15.01, FR-M11-15.02, FR-M11-15.03 |
-| S20 | Áp dụng trạng thái Ẩn, Khóa và mở khóa | FR-M11-16, FR-M11-16.01, FR-M11-16.02, FR-M11-16.03, FR-M11-16.04, FR-M11-16.05, FR-M11-16.06, FR-M11-16.07, FR-M11-16.09, FR-M11-16.10 |
-| S21 | Áp dụng cờ Group và duy trì xử lý tự động | FR-M11-17, FR-M11-17.01, FR-M11-17.03, FR-M11-17.04, FR-M11-17.05, FR-M11-17.07, FR-M11-17.08, FR-M11-11.04 |
+| 1 | Hệ thống quản lý nhóm của iShare: nhóm, thành viên nhóm, yêu cầu tham gia, việc chặn tham gia và bài nhóm đi qua cổng duyệt của nhóm. | FR-M11-01, FR-M11-04, FR-M11-07, FR-M11-12 |
+| 2 | Bài nhóm là bài viết do M03 quản lý được gắn với một nhóm; một bài viết thuộc nhiều nhất một nhóm. | FR-M11-12.01, BR-M11-01 |
+| 3 | Hệ thống cho phép người dùng đã đăng nhập tạo nhóm với tên nhóm, mô tả nhóm, chế độ Public hoặc Private, công tắc duyệt trước, công tắc ẩn danh và câu hỏi tham gia tùy chọn; hệ thống ghi lại người tạo và thời điểm tạo, đặt trạng thái tồn tại Hoạt động và trạng thái kiểm duyệt của nhóm Bình thường, và ghi người tạo là thành viên nhóm đầu tiên với vai trò nhóm Owner. | FR-M11-01, FR-M11-01.01, FR-M11-01.02, FR-M11-01.11, FR-M11-01.12 |
+| 4 | Hệ thống giới hạn số nhóm một người dùng tạo trong một khoảng thời gian, tính cả nhóm đã bị xóa. | FR-M11-01.03, FR-M11-01.06 |
+| 5 | Hệ thống cho phép Owner sửa tên nhóm, mô tả nhóm và đổi chế độ, công tắc duyệt trước, công tắc ẩn danh, câu hỏi tham gia; khi nhóm thành nhóm vào ngay, mọi yêu cầu tham gia đang Chờ duyệt được chấp nhận. | FR-M11-02, FR-M11-02.01, FR-M11-02.02, FR-M11-02.05, FR-M11-02.06, FR-M11-02.07, FR-M11-02.14 |
+| 6 | Hệ thống cho phép mọi người, kể cả Guest, xem trang danh sách nhóm gồm các nhóm Public và các nhóm Private mà người xem là thành viên nhóm, xếp theo thời điểm tạo, mỗi nhóm kèm tên nhóm, mô tả nhóm và chế độ. | FR-M11-03, FR-M11-03.01, FR-M11-03.02, FR-M11-03.03, FR-M11-03.16, FR-M11-03.17 |
+| 7 | Người xem được trang nhóm theo chế độ thấy bài nhóm và danh sách thành viên nhóm kèm vai trò nhóm; bài ẩn danh hiện nhãn "Ẩn danh" thay cho tác giả, trừ với Owner, Group Mod của nhóm, Mod và Admin. | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.09, FR-M11-03.10, FR-M11-03.14 |
+| 8 | Hệ thống cho phép người ngoài nhóm tham gia nhóm: với nhóm vào ngay, người ngoài nhóm thành thành viên nhóm với vai trò nhóm Member ngay; với nhóm khác, người ngoài nhóm gửi một yêu cầu tham gia kèm câu trả lời khi nhóm có câu hỏi tham gia, ở trạng thái Chờ duyệt. | FR-M11-04, FR-M11-04.01, FR-M11-04.02, FR-M11-04.03, FR-M11-04.08 |
+| 9 | Mỗi người gửi có nhiều nhất một yêu cầu tham gia Chờ duyệt cho mỗi nhóm, được rút yêu cầu tham gia sang Đã rút và được gửi lại ngay sau khi bị từ chối. | FR-M11-04.04, FR-M11-04.09, FR-M11-04.10 |
+| 10 | Hệ thống cho phép mọi thành viên nhóm mời người khác bằng link mời chung không hết hạn của nhóm, gửi kèm thông báo mời qua M07; lời mời không phải một đối tượng riêng và người được mời tham gia theo luồng tham gia. | FR-M11-05, FR-M11-05.01, FR-M11-05.02, FR-M11-05.04, FR-M11-05.05, FR-M11-05.06 |
+| 11 | Hệ thống cho phép Owner và Group Mod xem các yêu cầu tham gia Chờ duyệt kèm câu trả lời, chấp nhận yêu cầu tham gia để thêm người gửi làm thành viên nhóm với vai trò nhóm Member, hoặc từ chối yêu cầu tham gia sang Đã từ chối. | FR-M11-06, FR-M11-06.01, FR-M11-06.02, FR-M11-06.03 |
+| 12 | Hệ thống cho phép Owner và Group Mod chặn người dùng khỏi nhóm, xem danh sách chặn và bỏ chặn; người bị chặn không vào được nhóm bằng cách nào và yêu cầu tham gia Chờ duyệt của người bị chặn chuyển sang Đã từ chối. | FR-M11-07, FR-M11-07.01, FR-M11-07.03, FR-M11-07.04, FR-M11-07.05, FR-M11-04.06 |
+| 13 | Mỗi khi một người dùng thành thành viên nhóm, hệ thống ghi lại người dùng, nhóm, vai trò nhóm và thời điểm tham gia. | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02 |
+| 14 | Hệ thống cho phép Owner bổ nhiệm một Member làm Group Mod, ghi lại thời điểm bổ nhiệm Group Mod, và giáng Group Mod về Member; Owner kick được Member và Group Mod, Group Mod kick được Member. | FR-M11-08, FR-M11-08.01, FR-M11-08.02, FR-M11-09, FR-M11-09.01, FR-M11-09.02 |
+| 15 | Hệ thống cho phép thành viên nhóm rời nhóm; bài nhóm và bình luận của người rời nhóm hoặc bị kick được giữ nguyên, và Owner chỉ rời được sau khi chỉ định người kế nhiệm là một thành viên nhóm khác. | FR-M11-10, FR-M11-10.01, FR-M11-10.02, FR-M11-10.03, FR-M11-10.04, FR-M11-09.05 |
+| 16 | Khi tài khoản của Owner bị ban, bị vô hiệu hóa hoặc bị xóa, hệ thống tự chuyển vai trò nhóm Owner cho Group Mod có thâm niên Group Mod dài nhất, không có Group Mod thì cho Member có thời điểm tham gia sớm nhất, và giữ Owner cũ làm Member; nhóm chỉ còn Owner thì bị xóa mềm. | FR-M11-11, FR-M11-11.01, FR-M11-11.02, FR-M11-11.03, FR-M11-11.05, FR-M11-11.06 |
+| 17 | Hệ thống cho phép thành viên nhóm gửi bài nhóm, và cho tác giả chọn đăng ẩn danh cho từng bài nhóm khi công tắc ẩn danh của nhóm bật; hệ thống luôn giữ danh tính thật của tác giả bài ẩn danh. | FR-M11-12, FR-M11-12.07, FR-M11-12.08, FR-M11-12.10 |
+| 18 | Bài nhóm của thành viên khác Owner đi qua cổng duyệt của nhóm theo điểm quét do M13 trả về và công tắc duyệt trước: bị tự từ chối, vào hàng chờ duyệt của nhóm hoặc được đăng; hệ thống ghi lại điểm quét của bài nhóm. | FR-M11-12.01, FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.14, FR-M11-12.15 |
+| 19 | Bài nhóm của Owner không vào hàng chờ duyệt của nhóm mà theo luồng duyệt của M03. | FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20 |
+| 20 | Hệ thống cho phép Owner và Group Mod nhận một bài nhóm trong hàng chờ duyệt của nhóm, ghi lại người đang giữ bài và thời điểm thao tác cuối, rồi chấp nhận để đăng hoặc từ chối kèm lý do từ chối; người đang giữ bài không thao tác thì bài nhóm được tự nhả về hàng chờ duyệt của nhóm, và Group Mod không duyệt bài nhóm của chính mình. | FR-M11-13, FR-M11-13.02, FR-M11-13.04, FR-M11-13.05, FR-M11-13.06, FR-M11-13.10, FR-M11-13.13 |
+| 21 | Hệ thống cho phép Owner và Group Mod gỡ bài nhóm và bình luận khỏi nhóm bằng xóa mềm, đặt dấu bị gỡ khỏi nhóm; quyết định kiểm duyệt cấp nhóm không khiếu nại được. | FR-M11-14, FR-M11-14.01, FR-M11-14.03, FR-M11-13.07 |
+| 22 | Hệ thống cho phép Owner xóa nhóm bằng xóa mềm: nhóm chuyển sang trạng thái tồn tại Đã xóa, không hiện với ai nhưng dữ liệu của nhóm được giữ. | FR-M11-15, FR-M11-15.01, FR-M11-15.02 |
+| 23 | Hệ thống áp trạng thái kiểm duyệt của nhóm Bị ẩn, Bị khóa do M08 quyết lên cách nhóm hiển thị và các thao tác được phép trong nhóm. | FR-M11-16, FR-M11-16.01, FR-M11-16.04, FR-M11-16.07 |
+| 24 | Trong khi cờ tính năng Group do M10 quản lý tắt, hệ thống từ chối thao tác của người dùng khác Admin với nhóm nhưng giữ nguyên dữ liệu của nhóm và vẫn tự chuyển vai trò nhóm Owner. | FR-M11-17, FR-M11-17.01, FR-M11-17.03, FR-M11-17.04, FR-M11-11.04 |
 
 ## 2. Danh từ và phân loại
 
@@ -70,140 +125,207 @@ steps_completed: [1, 2]
 
 <!-- Phân loại: Lớp | Thuộc tính | Loại bỏ.
      Kết quả: tên lớp; hoặc Lớp.thuộcTính; hoặc "—" khi loại bỏ.
-     Xuất hiện ở: S<n> (câu của đoạn mô tả) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
+     Xuất hiện ở: "Câu n" (số câu ở bảng 1.2) hoặc "Quét: <mã FR>" (lượt quét bổ sung). -->
 
 | # | Danh từ | Xuất hiện ở | Phân loại | Kết quả | Lý do |
 |---|---|---|---|---|---|
-| 1 | nhóm | S1 | Lớp | Group | T8. Có vòng đời, chế độ, cài đặt và trạng thái riêng. |
-| 2 | thành viên nhóm / thành viên / Owner / Group Mod / Member / người kế nhiệm / Owner cũ | S1 | Lớp | GroupMember | T3. Các vai trò Owner, Group Mod, Member là giá trị của GroupMember.role trong một nhóm. |
-| 3 | yêu cầu tham gia | S1 | Lớp | GroupJoinRequest | T8. Mỗi lần gửi có vòng đời duyệt, từ chối hoặc rút riêng. |
-| 4 | danh sách chặn / chặn tham gia / dấu chặn tham gia | S1 | Lớp | GroupJoinBlock | Lớp liên kết Group và User theo Q-01. Cặp tồn tại khi đang chặn, kết thúc khi bỏ chặn. |
-| 5 | duyệt nội dung ở cấp nhóm / quyết định kiểm duyệt cấp nhóm | S1 | Loại bỏ | — | Trừu tượng. Quyết định làm đổi dữ liệu của bài hoặc bình luận. FR nêu kết quả, lý do khi từ chối và dấu gỡ, chưa nêu lịch sử quyết định cấp nhóm riêng. |
-| 6 | người dùng đã đăng nhập / người ngoài nhóm / người được mời / người gửi yêu cầu / người bị chặn / người tạo / tài khoản / Mod / Admin / tác giả | S2 | Lớp | User | T3. Cùng tài khoản M01 trong các ngữ cảnh khác nhau. Vai trò nhóm xét theo GroupMember. |
-| 7 | tên nhóm | S2 | Thuộc tính | Group.name | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 8 | mô tả nhóm | S2 | Thuộc tính | Group.description | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 9 | chế độ nhóm / chế độ xem | S2 | Thuộc tính | Group.visibility | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 10 | Public / Private | S2 | Loại bỏ | — | Giá trị của Group.visibility. |
-| 11 | câu hỏi tham gia | S2 | Thuộc tính | Group.joinQuestion | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 12 | công tắc duyệt trước | S2 | Thuộc tính | Group.preApprovalEnabled | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 13 | công tắc ẩn danh | S2 | Thuộc tính | Group.anonymousPostingEnabled | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 14 | Bật / Tắt | S2 | Loại bỏ | — | Giá trị của các công tắc trong Group và SystemConfiguration. |
-| 15 | hệ thống | S2 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu riêng. |
-| 16 | thời điểm tham gia | S2 | Thuộc tính | GroupMember.joinedAt | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 17 | thời điểm tạo nhóm | S2 | Thuộc tính | Group.createdAt | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 18 | thông tin nhóm / cài đặt nhóm | S3 | Loại bỏ | — | Chung chung. Tập các thuộc tính của Group đã xét riêng. |
-| 19 | thay đổi cài đặt / thao tác tiếp theo / thời điểm đổi | S3 | Loại bỏ | — | Trừu tượng. FR nêu hiệu lực đối với thao tác sau khi đổi, chưa yêu cầu lịch sử hoặc mốc đổi được lưu riêng. |
-| 20 | bài viết / bài nhóm / bài ẩn danh / bài đã đăng ẩn danh | S3 | Lớp | Post | T4. Cùng bài viết M03, có ngữ cảnh nhóm và thuộc tính ẩn danh khi phù hợp. |
-| 21 | chế độ vào ngay / nhóm vào ngay | S3 | Loại bỏ | — | Trừu tượng. Điều kiện nghiệp vụ tính từ Group.visibility là Public và Group.joinQuestion trống theo BR-M11-07/32. |
-| 22 | Guest | S4 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu. |
-| 23 | quyền xem / tư cách thành viên | S4 | Loại bỏ | — | Trừu tượng đối với quyền xem. Điều kiện tính từ chế độ, trạng thái và sự tồn tại của GroupMember, không phải lớp quyền riêng. |
-| 24 | danh sách nhóm / danh sách thành viên | S4 | Loại bỏ | — | Giao diện. Kết quả lọc và sắp xếp Group hoặc GroupMember. |
-| 25 | vai trò nhóm | S4 | Thuộc tính | GroupMember.role | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 26 | bình luận | S5 | Lớp | Comment | T4. M04 sở hữu; M11 cần kiểm tra quyền và đánh dấu nội dung bị gỡ cấp nhóm. |
-| 27 | vote / báo cáo / bookmark | S5 | Loại bỏ | — | Ngoài phạm vi module (M12, M08, M02). M11 cung cấp điều kiện thao tác; dữ liệu lượt vote, báo cáo và bookmark thuộc module nguồn. |
-| 28 | hồ sơ / tìm kiếm / feed / Trending Topic hoặc Tag | S5 | Loại bỏ | — | Ngoài phạm vi module (M02, M06, M14, M05). Các chức năng nhận điều kiện lọc bài nhóm. |
-| 29 | quyền bình luận / quyền vote / quyền báo cáo / quyền bookmark / dữ liệu lọc | S5 | Loại bỏ | — | Trừu tượng. Là kết quả áp quy tắc truy cập, không phải dữ liệu quyền riêng được lưu. |
-| 30 | vụ báo cáo đang giữ / vụ báo cáo | S5 | Lớp | ReportCase | T4. Ngữ cảnh dữ liệu M08 cấp quyền xem nội dung Private trong vụ. |
-| 31 | nội dung nhóm | S5 | Loại bỏ | — | Chung chung. Gồm bài viết và bình luận; đã xét theo từng đối tượng. |
-| 32 | vào ngay / gửi yêu cầu tham gia / rút yêu cầu tham gia | S6 | Loại bỏ | — | Trừu tượng. Là hành động tạo GroupMember hoặc tạo, đổi trạng thái GroupJoinRequest. |
-| 33 | trạng thái yêu cầu tham gia | S6 | Thuộc tính | GroupJoinRequest.status | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 34 | Chờ duyệt (yêu cầu) / Đã chấp nhận / Đã từ chối / Đã rút | S6 | Loại bỏ | — | Giá trị của GroupJoinRequest.status. |
-| 35 | câu trả lời | S6 | Thuộc tính | GroupJoinRequest.answer | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 36 | link mời chung / link mời | S7 | Thuộc tính | Group.inviteLink | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 37 | thông báo / thông báo mời | S7 | Lớp | Notification | T4. M07 sở hữu thông báo nhóm; M11 phát các sự kiện nguồn. |
-| 38 | lời mời / mời đích danh | S7 | Loại bỏ | — | Trừu tượng. Dùng link chung và thông báo, FR-M11-05.04 xác định lời mời không có bản ghi chấp nhận hoặc từ chối riêng. |
-| 39 | luồng tham gia / điều kiện tham gia | S7 | Loại bỏ | — | Trừu tượng. Là quy tắc theo Group và GroupJoinRequest. |
-| 40 | sự kiện thông báo M07 | S8 | Loại bỏ | — | Trừu tượng. Là giao tiếp giữa module, bản ghi người nhận thuộc Notification của M07. |
-| 41 | chấp nhận yêu cầu / từ chối yêu cầu | S8 | Loại bỏ | — | Trừu tượng. Đổi GroupJoinRequest.status; chấp nhận còn tạo GroupMember. |
-| 42 | bỏ chặn | S9 | Loại bỏ | — | Trừu tượng. Gỡ dấu chặn của cặp nhóm và tài khoản, FR không nêu lịch sử riêng. |
-| 43 | thời điểm bổ nhiệm / lần bổ nhiệm gần nhất | S10 | Thuộc tính | GroupMember.appointedAt | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 44 | bổ nhiệm / giáng Group Mod | S10 | Loại bỏ | — | Trừu tượng. Đổi GroupMember.role và cập nhật mốc bổ nhiệm khi bổ nhiệm. FR không yêu cầu lịch sử bổ nhiệm riêng. |
-| 45 | kick / rời nhóm | S11 | Loại bỏ | — | Trừu tượng. Kết thúc tư cách GroupMember, bài viết và bình luận vẫn thuộc nhóm. FR không nêu bản ghi hành động riêng. |
-| 46 | danh tính hiển thị / danh tính thật | S11 | Loại bỏ | — | Ngoài phạm vi module ở cấp thuộc tính tài khoản. M11 giữ quan hệ tác giả hiện có của Post và dùng cờ ẩn danh để xác định cách hiển thị. |
-| 47 | điểm của thành viên / điểm của tác giả | S11 | Loại bỏ | — | Ngoài phạm vi module (M12). M11 truyền ngữ cảnh nghiệp vụ để M12 giữ nguyên điểm theo FR. |
-| 48 | chuyển vai trò Owner / tự chuyển quyền Owner / chỉ định người kế nhiệm | S12 | Loại bỏ | — | Trừu tượng. Quy tắc chuyển vai trò GroupMember; không có lịch sử chuyển quyền riêng trong FR. |
-| 49 | xác nhận rời | S12 | Loại bỏ | — | Hành động không lưu dấu vết riêng. Là điều kiện trước khi xóa mềm nhóm chỉ có Owner. |
-| 50 | xóa nhóm / xóa mềm nhóm / trạng thái tồn tại của nhóm | S12 | Thuộc tính | Group.status | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 51 | ban / vô hiệu hóa / xóa tài khoản / trạng thái tài khoản | S13 | Loại bỏ | — | Ngoài phạm vi module (M01, M08). M11 dùng trạng thái User và sự kiện đổi trạng thái để chọn Owner. |
-| 52 | thâm niên Group Mod | S13 | Thuộc tính | GroupMember.moderatorTenure | T7. Đại lượng tính từ vai trò hiện hành và thời điểm bổ nhiệm gần nhất. |
-| 53 | cổng duyệt của nhóm / luồng duyệt | S14 | Loại bỏ | — | Trừu tượng. Quy tắc định tuyến từ điểm quét và cấu hình, áp lên Post. |
-| 54 | kết quả quét nội dung | S14 | Lớp | ContentScan | T4. Dùng kết quả quét có tên đã định nghĩa tại M08; giao tiếp điểm quét với M13. |
-| 55 | điểm quét AI | S14 | Loại bỏ | — | Ngoài phạm vi module ở cấp thuộc tính. Điểm quét thuộc ContentScan.score, được cổng duyệt nhóm đọc. |
-| 56 | công tắc AI tổng / công tắc Moderation / cờ tính năng Group | S14 | Loại bỏ | — | Ngoài phạm vi module (M10). Các giá trị thuộc SystemConfiguration, M11 chỉ đọc. |
-| 57 | cấu hình hệ thống | Quét: FR-M11-12.14, FR-M11-17.03 | Lớp | SystemConfiguration | T4. M10 sở hữu các công tắc dùng để vận hành nhóm. |
-| 58 | trạng thái đăng / Đã đăng / Bị từ chối | S14 | Loại bỏ | — | Ngoài phạm vi module (M03). Giá trị trạng thái đã có trên Post.publishState; M11 chỉ mô tả thay đổi và giai đoạn duyệt thuộc nhóm. |
-| 59 | AI tắt / quét thất bại | S14 | Loại bỏ | — | Trừu tượng. Sự kiện hoặc điều kiện định tuyến; nguồn quét thuộc M08 và M13, cấu hình thuộc M10. |
-| 60 | lựa chọn ẩn danh / tính ẩn danh | S15 | Thuộc tính | Post.isAnonymous | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 61 | hàng chờ duyệt của nhóm | S16 | Loại bỏ | — | Trừu tượng. Tập Post gắn với nhóm và đang ở giai đoạn chờ nhóm duyệt; FR không nêu bản ghi hàng chờ riêng. |
-| 62 | người đang giữ bài | S16 | Lớp | GroupMember | T3. Người giữ trong ngữ cảnh nhóm phải là Owner hoặc Group Mod. Tham chiếu cụ thể xét ở bước 3. |
-| 63 | nhận bài / nhả bài / chấp nhận bài / từ chối bài | S16 | Loại bỏ | — | Trừu tượng. Hành động cập nhật người đang giữ, mốc thao tác và trạng thái của Post. |
-| 64 | thời điểm thao tác cuối | S16 | Thuộc tính | Post.groupReviewLastActionAt | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 65 | thời hạn giữ bài | S16 | Loại bỏ | — | Hằng số của BR-M11-20. Tính từ mốc thao tác cuối và 30 phút; không thêm trường thời hạn. |
-| 66 | lý do từ chối bài | S16 | Loại bỏ | — | Ngoài phạm vi module ở cấp thuộc tính có sẵn. Dùng Post.rejectionReason đã có ở EC-M03; khi nhóm từ chối phải có lý do theo FR-M11-13.06/10. |
-| 67 | khiếu nại / kết quả khiếu nại | S17 | Lớp | Appeal | T4. M09 quản lý kết quả; M11 dùng kết quả chấp nhận với bài bị AI từ chối. |
-| 68 | sửa và gửi lại bài | S17 | Loại bỏ | — | Trừu tượng. Tác giả sửa Post và đưa qua cổng duyệt thêm lần theo FR-M11-13.11; chưa nêu lịch sử hàng chờ độc lập. |
-| 69 | dấu bị gỡ khỏi nhóm trên bài viết | S18 | Thuộc tính | Post.removedFromGroup | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 70 | dấu bị gỡ khỏi nhóm trên bình luận | S18 | Thuộc tính | Comment.removedFromGroup | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 71 | gỡ khỏi nhóm / xóa mềm nội dung | S18 | Loại bỏ | — | Trừu tượng. Hành động đặt dấu trên Post hoặc Comment và phát sự kiện M07; không thêm lớp hành động riêng. |
-| 72 | thống kê trạng thái đăng | S18 | Loại bỏ | — | Ngoài phạm vi module (M15). M11 cung cấp nguyên trạng thái đăng của bài bị gỡ. |
-| 73 | Hoạt động / Đã xóa (nhóm) | S19 | Loại bỏ | — | Giá trị của Group.status. |
-| 74 | trạng thái kiểm duyệt của nhóm | S20 | Thuộc tính | Group.moderationState | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 75 | Bình thường / Bị ẩn / Bị khóa | S20 | Loại bỏ | — | Giá trị của Group.moderationState. |
-| 76 | ẩn nhóm / khóa nhóm / mở khóa nhóm | S20 | Loại bỏ | — | Ngoài phạm vi module (M08). M11 áp dụng trạng thái và điều kiện nghiệp vụ. |
-| 77 | lối truy cập liên module | S21 | Loại bỏ | — | Giao diện. Danh sách bề mặt hiện nhóm và bài nhóm khi cờ tắt, không tạo đối tượng dữ liệu. |
-| 78 | giới hạn nhóm tạo trong 24 giờ / 24 giờ gần nhất | Quét: FR-M11-01.03 | Loại bỏ | — | Hằng số của BR-M11-03. Tối đa 5 nhóm trong khoảng 24 giờ, tính cả nhóm đã xóa và áp dụng cho Admin. |
-| 79 | số nhóm đã tạo trong 24 giờ | Quét: FR-M11-01.03, FR-M11-01.06 | Loại bỏ | — | Trừu tượng với mô hình lớp. Điều kiện kiểm giới hạn tính theo người tạo và Group.createdAt trong cửa sổ trượt, chưa phải số liệu cần lưu hoặc hiển thị. |
-| 80 | độ dài tên và mô tả nhóm / ký tự | Quét: FR-M11-01.08, FR-M11-01.09 | Loại bỏ | — | Hằng số của BR-M11-31. Độ dài dùng để kiểm Group.name và Group.description. |
-| 81 | giai đoạn chờ duyệt của bài nhóm | Quét: TN:Chờ duyệt (đang quét), Chờ duyệt (chờ nhóm duyệt) | Thuộc tính | Post.groupReviewStage | T9. Giá trị mô tả đối tượng nghiệp vụ. |
-| 82 | ngưỡng điểm quét | Quét: FR-M11-12.02, FR-M11-12.03 | Loại bỏ | — | Hằng số của BR-M11-18 và BR-M11-40. Dùng các mốc 0.5 và 0.9 để định tuyến; không lưu trên Group. |
+| 1 | hệ thống | Câu 1 | Loại bỏ | — | Trừu tượng: chỉ chính phần mềm |
+| 2 | nhóm | Câu 1 | Lớp | Group | Có danh tính và ba trạng thái riêng (tồn tại, kiểm duyệt, chế độ; mục Chuyển trạng thái), nhiều thông tin riêng (tên, mô tả, cài đặt, link mời), được tạo, sửa, xóa mềm (ma trận CRUD); dùng tên Group của glossary mà EC-M03, EC-M06, EC-M07, EC-M08 đã đặt tạm |
+| 3 | iShare | Câu 1 | Loại bỏ | — | Trừu tượng: tên sản phẩm |
+| 4 | thành viên nhóm | Câu 1 | Lớp | GroupMember | FR gọi là thực thể với vai trò nhóm, thời điểm tham gia, thời điểm bổ nhiệm Group Mod (mục Dữ liệu nghiệp vụ); được tạo khi tham gia, sửa khi đổi vai trò, xóa khi rời hoặc bị kick (ma trận CRUD). Ở bước 3 là lớp liên kết của quan hệ n-n User – Group |
+| 5 | yêu cầu tham gia | Câu 1 | Lớp | GroupJoinRequest | Có trạng thái riêng (Chờ duyệt, Đã chấp nhận, Đã từ chối, Đã rút; mục Chuyển trạng thái) và câu trả lời; một người có nhiều yêu cầu theo thời gian tới cùng một nhóm (mục Dữ liệu nghiệp vụ) |
+| 6 | việc chặn tham gia / chặn tham gia | Câu 1 | Loại bỏ | — | Chung chung: quan hệ giữa nhóm và người bị chặn (dòng 55), không có thông tin riêng (mục Dữ liệu nghiệp vụ, dòng Chặn tham gia chỉ nêu nhóm và người bị chặn); xét ở bước 3 |
+| 7 | bài nhóm | Câu 1 | Lớp | Post | Lớp ngoài (M03): bài viết gắn với một nhóm (TN:Bài nhóm), không phải loại bài riêng (BR-M11-01); dùng tên Post của EC-M03 |
+| 8 | cổng duyệt của nhóm | Câu 1 | Loại bỏ | — | Hành động không lưu dấu vết: bước quyết định bài nhóm bị từ chối, chờ nhóm duyệt hay được đăng (TN:Cổng duyệt của nhóm); kết quả ghi bằng Post.publishState và Post.isAwaitingGroupReview |
+| 9 | bài viết | Câu 2 | Lớp | Post | Lớp ngoài (M03); "bài nhóm" là bài viết có nhóm (dòng 7) |
+| 10 | M03, M07, M08, M10, M13 (tên module) | Câu 2 | Loại bỏ | — | Trừu tượng: tên các phần của hệ thống |
+| 11 | người dùng đã đăng nhập / người dùng / tài khoản | Câu 3 | Lớp | User | Lớp ngoài (M01): người tạo nhóm, thành viên nhóm, người gửi yêu cầu, người bị chặn; dùng tên User của EC-M01 |
+| 12 | tên nhóm | Câu 3 | Thuộc tính | Group.name | Nhập khi tạo, Owner sửa được (FR-M11-01.01, FR-M11-02.01); tên name mà EC-M06 đã tham chiếu |
+| 13 | mô tả nhóm | Câu 3 | Thuộc tính | Group.description | Nhập khi tạo, Owner sửa được (FR-M11-01.01, FR-M11-02.01) |
+| 14 | chế độ | Câu 3 | Thuộc tính | Group.privacy | Public hoặc Private, có bảng chuyển trạng thái (mục Chuyển trạng thái: Nhóm — chế độ); tên privacy mà EC-M03, EC-M06 đã tham chiếu |
+| 15 | Public / Private | Câu 3 | Loại bỏ | — | Giá trị của Group.privacy |
+| 16 | công tắc duyệt trước | Câu 3 | Thuộc tính | Group.isPreApprovalOn | Cài đặt Bật, Tắt của nhóm (TN:Công tắc duyệt trước) |
+| 17 | công tắc ẩn danh | Câu 3 | Thuộc tính | Group.isAnonymousOn | Cài đặt Bật, Tắt của nhóm (TN:Công tắc ẩn danh) |
+| 18 | câu hỏi tham gia | Câu 3 | Thuộc tính | Group.joinQuestion | Tối đa một câu hỏi mỗi nhóm (BR-M11-08) nên là một giá trị của nhóm |
+| 19 | người tạo | Câu 3 | Lớp | User | Vai trò theo ngữ cảnh: tài khoản tạo nhóm (mục Dữ liệu nghiệp vụ, dòng Nhóm); dùng để đếm giới hạn tạo nhóm kể cả khi vai trò Owner đã chuyển (BR-M11-03); quan hệ xét ở bước 3 |
+| 20 | thời điểm tạo | Câu 3 | Thuộc tính | Group.createdAt | Mục Dữ liệu nghiệp vụ nêu: đếm số nhóm tạo trong 24 giờ, xếp danh sách nhóm |
+| 21 | trạng thái tồn tại | Câu 3 | Thuộc tính | Group.isDeleted | Hai giá trị Hoạt động, Đã xóa (TN:Trạng thái tồn tại của nhóm); mục Dữ liệu nghiệp vụ gọi là "đã xóa" |
+| 22 | Hoạt động / Đã xóa | Câu 3 | Loại bỏ | — | Giá trị của Group.isDeleted (sai, đúng) |
+| 23 | trạng thái kiểm duyệt của nhóm | Câu 3 | Thuộc tính | Group.modState | Bình thường, Bị khóa, Bị ẩn do M08 quyết (TN:Trạng thái kiểm duyệt của nhóm); tên modState mà EC-M08 đã định nghĩa trên lớp ngoài Group |
+| 24 | Bình thường / Bị ẩn / Bị khóa | Câu 3 | Loại bỏ | — | Giá trị của Group.modState |
+| 25 | vai trò nhóm | Câu 3 | Thuộc tính | GroupMember.role | Một trong ba giá trị Owner, Group Mod, Member của thành viên trong một nhóm (TN:Vai trò nhóm); khác User.role |
+| 26 | Owner / Owner cũ | Câu 3 | Lớp | User | Vai trò theo ngữ cảnh: thành viên nhóm có GroupMember.role là Owner; mỗi nhóm đúng một (BR-M11-04); xem Q-04 |
+| 27 | số nhóm | Câu 4 | Loại bỏ | — | Hằng số của BR-M11-03: tối đa 5 nhóm; đếm trên các nhóm có cùng người tạo theo Group.createdAt |
+| 28 | khoảng thời gian | Câu 4 | Loại bỏ | — | Hằng số của BR-M11-03: 24 giờ gần nhất tính tới lúc tạo (TN:24 giờ gần nhất); ghi ở ràng buộc của Group.createdAt |
+| 29 | nhóm đã bị xóa | Câu 4 | Loại bỏ | — | Chung chung: nhóm có Group.isDeleted đúng (FR-M11-01.06) |
+| 30 | nhóm vào ngay | Câu 5 | Thuộc tính | Group.isInstantJoin | Nhóm Public không có câu hỏi tham gia (TN:Nhóm vào ngay) → thuộc tính dẫn xuất từ Group.privacy và Group.joinQuestion |
+| 31 | Chờ duyệt | Câu 5 | Loại bỏ | — | Giá trị của GroupJoinRequest.status |
+| 32 | mọi người | Câu 6 | Loại bỏ | — | Chung chung: mọi người xem, kể cả Guest |
+| 33 | Guest | Câu 6 | Loại bỏ | — | Không lưu: tác nhân không có dữ liệu |
+| 34 | trang danh sách nhóm | Câu 6 | Loại bỏ | — | Giao diện (TN:Trang danh sách nhóm) |
+| 35 | người xem | Câu 6 | Loại bỏ | — | Chung chung: người dùng hoặc Guest xem nhóm; quyền xem tính từ Group.privacy và việc có GroupMember hay không (BR-M11-13, BR-M11-34); M11 không ghi việc xem |
+| 36 | trang nhóm | Câu 7 | Loại bỏ | — | Giao diện |
+| 37 | danh sách thành viên nhóm | Câu 7 | Loại bỏ | — | Chung chung: các GroupMember của nhóm kèm GroupMember.role (BR-M11-34) |
+| 38 | bài ẩn danh | Câu 7 | Loại bỏ | — | Chung chung: bài nhóm có Post.isAnonymous đúng (TN:Bài ẩn danh) |
+| 39 | nhãn "Ẩn danh" | Câu 7 | Loại bỏ | — | Giao diện: cách hiển thị tác giả của bài ẩn danh (BR-M11-17) |
+| 40 | tác giả | Câu 7 | Lớp | User | Vai trò theo ngữ cảnh: tài khoản viết bài viết, bình luận; quan hệ tác giả thuộc M03, M04, M11 không ghi lại |
+| 41 | Group Mod | Câu 7 | Lớp | User | Vai trò theo ngữ cảnh: thành viên nhóm có GroupMember.role là Group Mod (TN:Group Mod); khác Mod hệ thống |
+| 42 | Mod / Admin | Câu 7 | Lớp | User | Vai trò hệ thống có tài khoản; phân biệt bằng User.role (M01, M10) |
+| 43 | người ngoài nhóm | Câu 8 | Lớp | User | Vai trò theo ngữ cảnh: người dùng đã đăng nhập không có GroupMember của nhóm đang xét (TN:Người ngoài nhóm) |
+| 44 | Member | Câu 8 | Lớp | User | Vai trò theo ngữ cảnh: thành viên nhóm có GroupMember.role là Member |
+| 45 | câu trả lời | Câu 8 | Thuộc tính | GroupJoinRequest.answer | Mục Dữ liệu nghiệp vụ nêu trên yêu cầu tham gia; Owner, Group Mod xem khi duyệt (FR-M11-06.01) |
+| 46 | trạng thái | Câu 8 | Thuộc tính | GroupJoinRequest.status | Có bảng chuyển trạng thái riêng (mục Chuyển trạng thái: Yêu cầu tham gia) |
+| 47 | người gửi | Câu 9 | Lớp | User | Vai trò theo ngữ cảnh: tài khoản gửi yêu cầu tham gia (mục Dữ liệu nghiệp vụ); quan hệ xét ở bước 3 |
+| 48 | Đã rút / Đã từ chối | Câu 9 | Loại bỏ | — | Giá trị của GroupJoinRequest.status |
+| 49 | link mời chung / link mời | Câu 10 | Thuộc tính | Group.inviteLink | Mỗi nhóm một link chung, không hết hạn (BR-M11-12); tên inviteLink mà EC-M07 đã tham chiếu |
+| 50 | thông báo mời / thông báo | Câu 10 | Loại bỏ | — | Ngoài phạm vi module (M07): M11 gửi sự kiện, M07 tạo thông báo; quan hệ thông báo – nhóm do EC-M07 ghi (R-M07-07) |
+| 51 | lời mời | Câu 10 | Loại bỏ | — | Chung chung: không phải thực thể riêng có chấp nhận, từ chối (TN:Lời mời, link mời; FR-M11-05.04); là thông báo mời của M07 kèm Group.inviteLink |
+| 52 | người khác / người được mời | Câu 10 | Loại bỏ | — | Chung chung: người dùng nhận thông báo mời; M11 không ghi ai được mời (FR-M11-05.04); khi tham gia thì thành người gửi yêu cầu hoặc thành viên nhóm |
+| 53 | luồng tham gia | Câu 10 | Loại bỏ | — | Hành động không lưu dấu vết: cách vào nhóm theo BR-M11-07; kết quả là GroupMember hoặc GroupJoinRequest |
+| 54 | danh sách chặn | Câu 12 | Loại bỏ | — | Chung chung: các người dùng bị nhóm chặn (dòng 55, FR-M11-07.04) |
+| 55 | người bị chặn | Câu 12 | Lớp | User | Vai trò theo ngữ cảnh: người dùng bị nhóm chặn tham gia (mục Dữ liệu nghiệp vụ, dòng Chặn tham gia); quan hệ chặn xét ở bước 3 |
+| 56 | thời điểm tham gia | Câu 13 | Thuộc tính | GroupMember.joinedAt | Mục Dữ liệu nghiệp vụ nêu (TN:Thời điểm tham gia) |
+| 57 | thời điểm bổ nhiệm Group Mod | Câu 14 | Thuộc tính | GroupMember.modAppointedAt | FR-M11-08.01 yêu cầu ghi; tính thâm niên Group Mod (BR-M11-26) |
+| 58 | kick | Câu 14 | Loại bỏ | — | Hành động không lưu dấu vết: đưa thành viên ra khỏi nhóm như tự rời (TN:Kick, BR-M11-24), tức xóa GroupMember; thông báo do M07 gửi |
+| 59 | bình luận | Câu 15 | Lớp | Comment | Lớp ngoài (M04): bình luận trong nhóm bị Owner, Group Mod gỡ khỏi nhóm (FR-M11-14.01); dùng tên Comment của EC-M04 |
+| 60 | người rời nhóm | Câu 15 | Loại bỏ | — | Chung chung: người dùng không còn GroupMember của nhóm; M11 không ghi ai đã rời (ma trận CRUD: thành viên nhóm bị xóa); quyền sửa bài sau khi rời tính từ Group.privacy (BR-M11-24) |
+| 61 | người kế nhiệm | Câu 15 | Loại bỏ | — | Hành động không lưu dấu vết: chỉ đổi GroupMember.role của người được chọn sang Owner (FR-M11-10.04) |
+| 62 | việc tài khoản bị ban, bị vô hiệu hóa, bị xóa | Câu 16 | Loại bỏ | — | Giá trị của User.status (BANNED, DEACTIVATED, DELETED) mà M11 đọc để tự chuyển vai trò Owner (TN:Owner mất quyền ngoài ý muốn) |
+| 63 | thâm niên Group Mod | Câu 16 | Loại bỏ | — | Chung chung: thời gian kể từ GroupMember.modAppointedAt; Group Mod có modAppointedAt sớm nhất là người có thâm niên dài nhất (TN:Thâm niên Group Mod, BR-M11-26), không cần lưu riêng |
+| 64 | xóa mềm | Câu 16 | Loại bỏ | — | Chung chung: cách xóa giữ dữ liệu; với nhóm là Group.isDeleted, với nội dung gỡ khỏi nhóm là Post.isRemovedFromGroup, Comment.isRemovedFromGroup |
+| 65 | đăng ẩn danh | Câu 17 | Thuộc tính | Post.isAnonymous | Mục Dữ liệu nghiệp vụ nêu "ẩn danh (Có, Không)" trên phần M11 của bài viết |
+| 66 | danh tính thật | Câu 17 | Loại bỏ | — | Chung chung: là tác giả của bài viết (quan hệ của M03), luôn được giữ (BR-M11-17) |
+| 67 | điểm quét | Câu 18 | Thuộc tính | Post.scanScore | Mục Dữ liệu nghiệp vụ nêu "điểm quét" trên phần M11 của bài viết (TN:Điểm quét) |
+| 68 | hàng chờ duyệt của nhóm | Câu 18 | Thuộc tính | Post.isAwaitingGroupReview | Hàng chờ là tập các bài nhóm đang chờ nhóm duyệt, không có thông tin riêng (TN:Hàng chờ duyệt của nhóm); điều cần lưu là bài đã vào hàng chờ của nhóm hay còn đang quét (TN:Chờ duyệt (đang quét), Chờ duyệt (chờ nhóm duyệt)); cùng cách Post.isInReviewQueue của EC-M03 |
+| 69 | luồng duyệt của M03 | Câu 19 | Loại bỏ | — | Ngoài phạm vi module (M03): bài của Owner có điểm 0.5–< 0.9 hoặc quét lỗi vào hàng chờ của Mod hệ thống (BR-M11-40) |
+| 70 | người đang giữ bài | Câu 20 | Lớp | GroupMember | Vai trò theo ngữ cảnh: Owner hoặc Group Mod của nhóm, tức một thành viên nhóm có vai trò Owner hoặc Group Mod (TN:Nhận bài); quan hệ xét ở bước 3; xem Q-01 |
+| 71 | thời điểm thao tác cuối | Câu 20 | Thuộc tính | Post.lastHolderActionAt | Mục Dữ liệu nghiệp vụ nêu trên phần M11 của bài viết (TN:Thời điểm thao tác cuối) |
+| 72 | lý do từ chối | Câu 20 | Thuộc tính | Post.rejectionReason | Mục Dữ liệu nghiệp vụ nêu "lý do khi nhóm từ chối"; EC-M03 đã có Post.rejectionReason cho lý do từ chối mà tác giả xem; xem Q-02 |
+| 73 | dấu bị gỡ khỏi nhóm | Câu 21 | Thuộc tính | Post.isRemovedFromGroup | Mục Dữ liệu nghiệp vụ nêu trên phần M11 của bài viết (TN:Bị gỡ khỏi nhóm); EC-M03 dòng 99 để EC-M11 ghi |
+| 74 | quyết định kiểm duyệt cấp nhóm | Câu 21 | Loại bỏ | — | Chung chung: việc nhóm từ chối bài chờ duyệt, gỡ bài, bình luận (TN:Quyết định kiểm duyệt cấp nhóm); dấu vết là Post.rejectionReason, Post.isRemovedFromGroup, Comment.isRemovedFromGroup; không khiếu nại (BR-M11-21) |
+| 75 | dữ liệu của nhóm | Câu 22 | Loại bỏ | — | Chung chung: nhóm, thành viên nhóm, yêu cầu tham gia và bài nhóm, giữ nguyên khi xóa mềm (BR-M11-23) |
+| 76 | thao tác | Câu 23 | Loại bỏ | — | Hành động không lưu dấu vết: thao tác bị chặn khi nhóm Bị khóa hoặc cờ Group tắt không được ghi (BR-M11-28, BR-M11-29) |
+| 77 | cờ tính năng Group | Câu 24 | Loại bỏ | — | Ngoài phạm vi module (M10): M11 chỉ đọc; không có dữ liệu của M11 gắn với cờ (như EC-M03, EC-M05, EC-M06 với công tắc AI) |
+| 78 | dấu bị gỡ khỏi nhóm của bình luận | Quét: TN:Bị gỡ khỏi nhóm | Thuộc tính | Comment.isRemovedFromGroup | Thuật ngữ nói dấu đặt trên bài, bình luận khi Owner hoặc Group Mod gỡ khỏi nhóm; EC-M04 dòng 72 để EC-M11 ghi |
+| 79 | ký tự (tên, mô tả nhóm) | Quét: BR-M11-31 | Loại bỏ | — | Hằng số của BR-M11-31: tên 1–100 ký tự, mô tả tối đa 500 ký tự; ghi ở ràng buộc của Group.name, Group.description |
+| 80 | 30 phút tự nhả | Quét: BR-M11-20 | Loại bỏ | — | Hằng số của BR-M11-20; ghi ở ràng buộc của Post.lastHolderActionAt |
+| 81 | Chờ duyệt (đang quét) / Chờ duyệt (chờ nhóm duyệt) | Quét: TN:Chờ duyệt (đang quét), Chờ duyệt (chờ nhóm duyệt) | Loại bỏ | — | Giá trị của Post.isAwaitingGroupReview (sai, đúng) trong trạng thái đăng Chờ duyệt của M03 |
+| 82 | trạng thái đăng | Quét: FR-M11-12.02 | Thuộc tính | Post.publishState | Thông tin của bài viết (M03) mà M11 ghi theo cổng duyệt của nhóm (FR-M11-12.02 đến FR-M11-12.05, FR-M11-13.05, FR-M11-13.06) |
+| 83 | Đã đăng / Bị từ chối | Quét: FR-M11-12.02 | Loại bỏ | — | Giá trị của Post.publishState |
+| 84 | kế nhiệm Owner | Quét: TN:Kế nhiệm Owner | Loại bỏ | — | Hành động không lưu dấu vết riêng: chỉ đổi GroupMember.role (FR-M11-10.04, FR-M11-11.01) |
+| 85 | feed chính / tab Group | Quét: TN:Feed chính | Loại bỏ | — | Ngoài phạm vi module (M14): nơi hiện bài nhóm theo Group.privacy (BR-M11-14) |
+| 86 | "Nội dung không tồn tại" | Quét: FR-M11-02.13 | Loại bỏ | — | Giao diện |
+| 87 | leaderboard, reputation theo nhóm | Quét: BR-M11-02 | Loại bỏ | — | Ngoài phạm vi hệ thống: đã quyết không làm (BR-M11-02) |
 
 ### 2.2 Lớp
 
-<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (M11 của tài liệu này, hoặc Myy với lớp ngoài). -->
+<!-- Nhóm: Thực thể | Liên kết | Thống kê. Sở hữu: mã module sở hữu lớp (Mxx của tài liệu này, hoặc Myy với lớp ngoài).
+     Thuộc tính: tên mọi thuộc tính của lớp ở mục 2.3, ngăn bởi dấu phẩy, thuộc tính dẫn xuất có "/" phía trước;
+     để người đọc thấy lớp và thuộc tính trên cùng một dòng. Lớp chưa có thuộc tính ghi "—". -->
 
-| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Nguồn |
-|---|---|---|---|---|---|
-| Group | Nhóm | Thực thể | M11 | Không gian nhóm do người dùng tạo và Owner quản lý, có chế độ, cài đặt, trạng thái tồn tại và trạng thái kiểm duyệt do M08 quyết định. Dùng tên glossary và các EC trước. | FR-M11-01.01, FR-M11-02, FR-M11-15.01, FR-M11-16, BR-M11-01 |
-| GroupMember | Thành viên nhóm | Liên kết | M11 | Tư cách thành viên theo nhóm, có đúng một vai trò nhóm, thời điểm tham gia và mốc bổ nhiệm khi là Group Mod. Dùng tên glossary và các EC trước. | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02, FR-M11-08.01, BR-M11-05 |
-| GroupJoinRequest | Yêu cầu tham gia | Thực thể | M11 | Bản ghi theo từng lần xin vào nhóm, có vòng đời duyệt, từ chối hoặc rút, kèm câu trả lời khi có câu hỏi. | FR-M11-04.03, FR-M11-04.10, FR-M11-06.02, FR-M11-06.03, BR-M11-09 |
-| GroupJoinBlock | Dấu chặn tham gia | Liên kết | M11 | Cặp nhóm và tài khoản đang bị nhóm chặn. Bỏ chặn kết thúc cặp. Không lưu thêm mốc hoặc lịch sử chặn theo FR hiện hành. | FR-M11-04.06, FR-M11-07.01, FR-M11-07.04, FR-M11-07.05, BR-M11-10 |
-| User | Tài khoản | Thực thể | M01 | Người tạo, người gửi yêu cầu, người bị chặn và tài khoản có tư cách thành viên. Trạng thái tài khoản dùng để xét kế nhiệm Owner. | FR-M11-01.02, FR-M11-04.03, FR-M11-07.01, FR-M11-11.01 |
-| Post | Bài viết | Thực thể | M03 | Bài có thể thuộc một nhóm. M11 bổ sung dữ liệu ẩn danh, hàng chờ duyệt nhóm và dấu bị gỡ khỏi nhóm. | FR-M11-12.01, FR-M11-12.07, FR-M11-13.01, FR-M11-13.02, FR-M11-14.01, BR-M11-01 |
-| Comment | Bình luận | Thực thể | M04 | Bình luận trên bài nhóm, M11 bổ sung dấu bị gỡ cấp nhóm theo quy tắc quyền xem của M11. | FR-M11-03.08, FR-M11-10.02, FR-M11-14.01, BR-M11-30 |
-| Notification | Thông báo | Thực thể | M07 | M07 gửi các thông báo nhóm theo sự kiện M11 và xử lý quyền xem nội dung đích. | FR-M11-05.02, FR-M11-06.04, FR-M11-06.07, FR-M11-08.03, FR-M11-09.06, FR-M11-10.07, FR-M11-11.07, FR-M11-14.06 |
-| ContentScan | Kết quả quét nội dung | Thực thể | M08 | Dùng tên EC-M08. Cổng duyệt dùng điểm quét, giao tiếp FR-M11 mục 5.21 cung cấp kết quả từ M13. | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, BR-M11-18 |
-| ReportCase | Vụ báo cáo | Thực thể | M08 | Ngữ cảnh để Mod hoặc Admin đang giữ vụ xem nội dung Private được báo cáo. | FR-M11-03.12, FR-M11-14.04, BR-M11-33 |
-| Appeal | Khiếu nại | Thực thể | M09 | Kết quả khiếu nại đối với bài nhóm bị AI từ chối có thể đưa bài trở lại cổng duyệt nhóm. | FR-M11-13.12, FR-M11-13.14, BR-M11-38 |
-| SystemConfiguration | Cấu hình hệ thống | Thực thể | M10 | Cung cấp cờ Group, công tắc AI tổng và công tắc Moderation. Dùng tên đã được EC-M10 định nghĩa. | FR-M11-12.14, FR-M11-17.01, FR-M11-17.03, BR-M11-29 |
+| Lớp | Tên tiếng Việt | Nhóm | Sở hữu | Mô tả | Thuộc tính | Nguồn |
+|---|---|---|---|---|---|---|
+| Group | Nhóm | Thực thể | M11 | Không gian cộng đồng Public hoặc Private có thành viên, bài nhóm và cổng duyệt riêng; xóa mềm | name, description, privacy, joinQuestion, isPreApprovalOn, isAnonymousOn, createdAt, isDeleted, modState, inviteLink, /isInstantJoin | FR-M11-01.01, FR-M11-02.01, FR-M11-15.01 |
+| GroupMember | Thành viên nhóm | Liên kết | M11 | Một người dùng trong một nhóm với đúng một vai trò nhóm; tách từ quan hệ n-n User – Group | role, joinedAt, modAppointedAt | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02, FR-M11-08.01 |
+| GroupJoinRequest | Yêu cầu tham gia | Thực thể | M11 | Đề nghị vào nhóm của một người ngoài nhóm, chờ Owner hoặc Group Mod duyệt; không bị xóa | answer, status | FR-M11-04.03, FR-M11-06.02, FR-M11-06.03, FR-M11-04.10 |
+| GroupJoinBlock | Chặn tham gia | Liên kết | M11 | Một người dùng bị một nhóm chặn tham gia; tách từ quan hệ n-n User – Group | — | FR-M11-07.01, FR-M11-07.05 |
+| User | Người dùng (tài khoản) | Thực thể | M01 | Người tạo nhóm, thành viên nhóm, người gửi yêu cầu tham gia, người bị chặn | email, password, username, displayName, role, status, verificationLevel, googleLink, deactivatedAt, /deactivationEndsAt, /isGoogleAccount, createdAt, /unreadNotificationCount, /banCount, isRoot, totalPoints | FR-M11-01.02, FR-M11-04.03, FR-M11-07.01, FR-M11-11.01 |
+| Post | Bài viết | Thực thể | M03 | Bài nhóm: bài viết gắn với một nhóm, đi qua cổng duyệt của nhóm | title, content, /contentText, gradeLevel, createdAt, updatedAt, publishState, modState, lockLevel, lockedBy, publishedAt, rejectionReason, violationCategory, isInReviewQueue, isEditedWhileHidden, deletedAt, publishStateBeforeDelete, isPermanentlyDeleted, /isPubliclyVisible, /isEdited, /commentCount, rejectedAt, isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup, isPointsDeducted, deductedPoints, /upvoteCount, embedding, needsEmbedding, /bookmarkCount | FR-M11-12.01, FR-M11-13.02, FR-M11-14.01 |
+| Comment | Bình luận | Thực thể | M04 | Bình luận trong nhóm bị Owner, Group Mod gỡ khỏi nhóm | content, publishedAt, editedAt, modState, deletedAt, /isDeleted, /isEdited, /isVisible, /upvoteCount, scannedAt, /isScannedCurrent, /replyRate, isRemovedFromGroup, isPointsDeducted | FR-M11-14.01 |
 
 ### 2.3 Thuộc tính
 
-<!-- Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
-     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất) — chép từ FR kèm mã. -->
+<!-- Mỗi lớp có ĐỦ thuộc tính để người đọc hình dung được nó; xếp các dòng theo lớp.
+     Tính chất: Lưu | Dẫn xuất. Chưa có id, chưa có kiểu, chưa có khóa ngoại.
+     Căn cứ: Nguồn nêu (FR nói tới) | Đề xuất (FR không nói, nhưng chức năng hoặc quy tắc ở cột Nguồn cần nó) |
+             Tham chiếu (thuộc tính của lớp ngoài; module sở hữu lớp đó định nghĩa. Sau lượt gộp hệ thống,
+             lớp ngoài ghi đủ thuộc tính như EC-SYS, MD-05).
+     Ràng buộc nguồn nêu: độ dài tối đa, duy nhất, bắt buộc/tùy chọn, tập giá trị, mặc định, công thức (với Dẫn xuất)
+             — chép từ FR kèm mã. Đề xuất mà FR không nêu ràng buộc thì ghi "—".
+     Nguồn: mã FR/BR nêu thuộc tính; với Đề xuất là mã chức năng hoặc quy tắc cần nó.
+     Ghi chú: bắt buộc với Đề xuất (vì sao cần) và Tham chiếu (module này dùng nó làm gì). -->
 
-| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Ràng buộc nguồn nêu | Nguồn |
-|---|---|---|---|---|---|
-| Group | name | Tên nhóm | Lưu | Bắt buộc, tối đa 100 ký tự, được trùng tên nhóm khác theo BR-M11-31. | FR-M11-01.08, FR-M11-01.10, FR-M11-02.01, FR-M11-02.11, BR-M11-31 |
-| Group | description | Mô tả nhóm | Lưu | Tùy chọn, tối đa 500 ký tự theo BR-M11-31. | FR-M11-01.09, FR-M11-02.01, FR-M11-02.11, BR-M11-31 |
-| Group | visibility | Chế độ nhóm | Lưu | Public hoặc Private, bắt buộc chọn khi tạo. Owner được đổi, áp dụng cho thao tác sau thời điểm đổi. | FR-M11-01.01, FR-M11-02.02, BR-M11-15 |
-| Group | joinQuestion | Câu hỏi tham gia | Lưu | Tùy chọn, mặc định trống, tối đa một câu mỗi nhóm. Owner đặt, sửa hoặc bỏ, áp dụng cho đề nghị gửi sau đó. | FR-M11-01.11, FR-M11-01.12, FR-M11-02.07, FR-M11-02.08, BR-M11-08 |
-| Group | preApprovalEnabled | Công tắc duyệt trước | Lưu | Bật hoặc Tắt, mặc định Tắt. Thay đổi áp dụng cho bài gửi sau đó. Tắt không loại bài đã chờ duyệt khỏi hàng chờ. | FR-M11-01.12, FR-M11-02.05, FR-M11-02.15, BR-M11-18 |
-| Group | anonymousPostingEnabled | Công tắc ẩn danh | Lưu | Bật hoặc Tắt, mặc định Tắt. Tắt chặn lựa chọn cho bài mới; bài đã đăng ẩn danh giữ nguyên. | FR-M11-01.12, FR-M11-02.06, FR-M11-12.07, FR-M11-12.08, BR-M11-16 |
-| GroupMember | joinedAt | Thời điểm tham gia | Lưu | Ghi khi vào ngay, khi chấp nhận yêu cầu, kể cả do đổi sang vào ngay, hoặc lúc tạo nhóm đối với Owner đầu tiên. | FR-M11-01.02, FR-M11-02.14, FR-M11-04.01, FR-M11-06.02, BR-M11-32 |
-| Group | createdAt | Thời điểm tạo nhóm | Lưu | Dùng để xếp nhóm mới nhất trước và xác định số nhóm do người tạo tạo trong 24 giờ gần nhất, kể cả các nhóm đã xóa. | FR-M11-01.02, FR-M11-01.03, FR-M11-01.06, FR-M11-03.17, BR-M11-03, BR-M11-35 |
-| GroupMember | role | Vai trò nhóm | Lưu | Owner, Group Mod hoặc Member, đúng một vai trò mỗi thành viên trong một nhóm. Mỗi nhóm có đúng một Owner. Owner đầu tiên là người tạo; người vào nhóm thông thường là Member. | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02, FR-M11-08.01, FR-M11-08.02, BR-M11-04, BR-M11-05 |
-| GroupJoinRequest | status | Trạng thái yêu cầu | Lưu | Khởi tạo Chờ duyệt, có thể sang Đã chấp nhận, Đã từ chối hoặc Đã rút. Cùng người và nhóm chỉ có tối đa một yêu cầu Chờ duyệt. Chặn làm yêu cầu chờ bị từ chối; đổi sang vào ngay chấp nhận yêu cầu chờ. | FR-M11-02.14, FR-M11-04.03, FR-M11-04.09, FR-M11-04.10, FR-M11-06.02, FR-M11-06.03, FR-M11-07.03, BR-M11-09, BR-M11-36 |
-| GroupJoinRequest | answer | Câu trả lời tham gia | Lưu | Bắt buộc có nội dung nếu nhóm có câu hỏi khi gửi. Owner và Group Mod đọc khi duyệt; FR không nêu giới hạn độ dài. | FR-M11-04.03, FR-M11-04.08, FR-M11-06.01, BR-M11-08 |
-| Group | inviteLink | Link mời nhóm | Lưu | Mỗi nhóm đúng một link chung, không hết hạn, không thu hồi hoặc tạo lại. Mời đích danh chuyển link qua thông báo M07. | FR-M11-05.01, FR-M11-05.02, FR-M11-05.06, FR-M11-05.07, BR-M11-12 |
-| GroupMember | appointedAt | Thời điểm bổ nhiệm Group Mod | Lưu | Dùng cho thành viên đang là Group Mod. Ghi mốc lần bổ nhiệm gần nhất, tính lại từ đầu sau khi được bổ nhiệm lại theo BR-M11-26. | FR-M11-08.01, FR-M11-11.06, BR-M11-05, BR-M11-26 |
-| Group | status | Trạng thái tồn tại | Lưu | Hoạt động hoặc Đã xóa; khởi tạo Hoạt động. Đã xóa khi Owner xóa, xác nhận rời nhóm chỉ có Owner hoặc Owner mất quyền trong nhóm chỉ còn mình. Giữ dữ liệu nhóm và nội dung. | FR-M11-01.01, FR-M11-10.06, FR-M11-11.03, FR-M11-15.01, FR-M11-15.02, BR-M11-23 |
-| GroupMember | moderatorTenure | Thâm niên Group Mod | Dẫn xuất | Khoảng thời gian từ appointedAt của lần bổ nhiệm gần nhất tới thời điểm xét kế nhiệm, chỉ tính GroupMember hiện giữ vai trò Group Mod. | FR-M11-11.01, FR-M11-11.06, BR-M11-26 |
-| Post | isAnonymous | Ẩn danh của bài nhóm | Lưu | Phần M11 bổ sung trên Post. Có hoặc Không cho từng bài nhóm. Chỉ chọn Có khi nhóm bật ẩn danh; tắt công tắc không đổi bài đã đăng ẩn danh. Giữ quan hệ tác giả thật. | FR-M11-02.06, FR-M11-03.09, FR-M11-03.10, FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10, BR-M11-16, BR-M11-17 |
-| Post | groupReviewLastActionAt | Thời điểm thao tác cuối khi giữ bài | Lưu | Phần M11 bổ sung trên Post. Khi có người giữ bài nhóm, dùng mốc thao tác gần nhất của người giữ. Quá 30 phút không thao tác thì trả về hàng chờ nhóm theo BR-M11-20. | FR-M11-13.02, FR-M11-13.04, BR-M11-20 |
-| Post | removedFromGroup | Dấu bị gỡ khỏi nhóm | Lưu | Phần M11 xác nhận trên Post, giữ cùng tên đã tham chiếu trong EC-M03. Xóa mềm do Owner hoặc Group Mod, giữ trạng thái đăng, chỉ còn hiển thị với các đối tượng được BR-M11-30 cho phép. | FR-M11-14.01, FR-M11-14.05, BR-M11-30 |
-| Comment | removedFromGroup | Dấu bị gỡ khỏi nhóm | Lưu | Phần M11 bổ sung trên Comment. Xóa mềm do Owner hoặc Group Mod, giữ quyền xem đặc thù; tác giả không tự hiện lại. | FR-M11-14.01, FR-M11-14.05, BR-M11-30, TN:Bị gỡ khỏi nhóm |
-| Group | moderationState | Trạng thái kiểm duyệt nhóm | Lưu | Bình thường, Bị khóa hoặc Bị ẩn. Khởi tạo Bình thường. M08 quyết định thay đổi, M11 áp dụng quyền xem và thao tác. Cùng tên đã được EC-M08 dùng cho Group. | FR-M11-01.01, FR-M11-16.01, FR-M11-16.03, FR-M11-16.06, BR-M11-27, BR-M11-28 |
-| Post | groupReviewStage | Giai đoạn duyệt của bài nhóm | Lưu | Phần M11 bổ sung trên Post khi publishState là Chờ duyệt. Phân biệt đang quét và chờ nhóm duyệt. Trường hợp hàng chờ Mod hệ thống của bài Owner được xử lý theo M03, không xếp vào hàng chờ nhóm. | FR-M11-12.01, FR-M11-12.03, FR-M11-12.15, FR-M11-12.18, FR-M11-13.01, TN:Chờ duyệt (đang quét), Chờ duyệt (chờ nhóm duyệt) |
+| Lớp | Thuộc tính | Tên tiếng Việt | Tính chất | Căn cứ | Ràng buộc nguồn nêu | Nguồn | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| Group | name | Tên nhóm | Lưu | Nguồn nêu | Bắt buộc, tối đa 100 ký tự (BR-M11-31); được trùng với nhóm khác (FR-M11-01.10) | FR-M11-01.01, FR-M11-01.08, FR-M11-02.01, BR-M11-31 | M06 tìm nhóm theo tên (EC-M06) |
+| Group | description | Mô tả nhóm | Lưu | Nguồn nêu | Tùy chọn, tối đa 500 ký tự (BR-M11-31) | FR-M11-01.01, FR-M11-01.09, FR-M11-02.01 | — |
+| Group | privacy | Chế độ | Lưu | Nguồn nêu | Public, Private; người tạo chọn khi tạo; Owner đổi bất kỳ lúc nào, chế độ mới áp cho thao tác sau thời điểm đổi (BR-M11-15) | FR-M11-01.01, FR-M11-02.02, BR-M11-15 | Tên privacy mà EC-M03, EC-M06 đã tham chiếu |
+| Group | joinQuestion | Câu hỏi tham gia | Lưu | Nguồn nêu | Tùy chọn, tối đa một câu hỏi mỗi nhóm, mặc định trống (BR-M11-08, BR-M11-31); Owner đặt, sửa, bỏ; câu hỏi mới áp cho yêu cầu gửi sau đó (FR-M11-02.07) | FR-M11-01.11, FR-M11-02.07, FR-M11-02.08, BR-M11-08 | — |
+| Group | isPreApprovalOn | Công tắc duyệt trước | Lưu | Nguồn nêu | Bật, Tắt; mặc định Tắt (BR-M11-31); giá trị mới dùng cho bài gửi sau thời điểm đổi; tắt không nhả các bài đang chờ (BR-M11-18) | FR-M11-01.12, FR-M11-02.05, FR-M11-02.15, BR-M11-18 | — |
+| Group | isAnonymousOn | Công tắc ẩn danh | Lưu | Nguồn nêu | Bật, Tắt; mặc định Tắt (BR-M11-31); tắt chỉ chặn chọn ẩn danh cho bài mới (BR-M11-16) | FR-M11-01.12, FR-M11-02.06, BR-M11-16 | — |
+| Group | createdAt | Thời điểm tạo | Lưu | Nguồn nêu | Mỗi người dùng tạo tối đa 5 nhóm trong 24 giờ gần nhất tính tới lúc tạo, tính cả nhóm đã xóa, Admin cũng bị giới hạn (BR-M11-03); danh sách nhóm xếp mới nhất trước (BR-M11-35) | FR-M11-01.03, FR-M11-03.17, BR-M11-03, BR-M11-35 | — |
+| Group | isDeleted | Đã xóa | Lưu | Nguồn nêu | Trạng thái tồn tại Hoạt động (sai) hoặc Đã xóa (đúng) (TN:Trạng thái tồn tại của nhóm); mới tạo là Hoạt động; Đã xóa là trạng thái cuối; xóa mềm, dữ liệu được giữ (BR-M11-23) | FR-M11-01.01, FR-M11-15.01, FR-M11-10.06, FR-M11-11.03 | — |
+| Group | modState | Trạng thái kiểm duyệt của nhóm | Lưu | Nguồn nêu | Bình thường, Bị khóa, Bị ẩn; mới tạo là Bình thường (FR-M11-01.01); M08 quyết trong vụ báo cáo; Bị ẩn là trạng thái cuối, không bỏ ẩn (FR-M08-18.03, BR-M08-50, BR-M11-27); nhóm Bị khóa có thể bị ẩn ở vụ sau (FR-M08-18.08) | FR-M11-01.01, FR-M11-16.01, FR-M11-16.04, FR-M11-16.06, FR-M08-18.01, FR-M08-18.04, FR-M08-18.07 | Gộp dòng của EC-M08 theo MD-06; M08 ghi, M11 áp lên hiển thị và thao tác |
+| Group | inviteLink | Link mời | Lưu | Nguồn nêu | Một link chung mỗi nhóm, không hết hạn, không thu hồi, không tạo lại (BR-M11-12) | FR-M11-05.01, FR-M11-05.06, FR-M11-05.07 | M07 đưa vào thông báo "được mời" (EC-M07, tên inviteLink) |
+| Group | isInstantJoin | Nhóm vào ngay | Dẫn xuất | Nguồn nêu | Đúng khi privacy là Public và joinQuestion trống (TN:Nhóm vào ngay, BR-M11-07) | FR-M11-04.01, FR-M11-02.14, BR-M11-32 | Người ngoài nhóm vào ngay; đổi cài đặt làm giá trị này thành đúng thì mọi yêu cầu Chờ duyệt được chấp nhận (BR-M11-32) |
+| GroupMember | role | Vai trò nhóm | Lưu | Nguồn nêu | Owner, Group Mod, Member theo thứ bậc Member < Group Mod < Owner (TN:Vai trò nhóm, BR-M11-05); mỗi nhóm đúng một Owner (BR-M11-04); khác vai trò hệ thống User.role | FR-M11-01.02, FR-M11-08.01, FR-M11-08.02, FR-M11-10.04, FR-M11-11.01 | — |
+| GroupMember | joinedAt | Thời điểm tham gia | Lưu | Nguồn nêu | Lúc vào ngay, lúc yêu cầu được chấp nhận, hoặc lúc tạo nhóm với Owner đầu tiên (TN:Thời điểm tham gia) | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02, FR-M11-11.02 | Chọn Member tham gia sớm nhất làm Owner khi không còn Group Mod (BR-M11-26) |
+| GroupMember | modAppointedAt | Thời điểm bổ nhiệm Group Mod | Lưu | Nguồn nêu | Chỉ có khi role là Group Mod; ghi mỗi lần bổ nhiệm, thâm niên tính từ lần bổ nhiệm gần nhất (BR-M11-26, FR-M11-11.06) | FR-M11-08.01, FR-M11-11.01, FR-M11-11.06 | Chọn Group Mod thâm niên dài nhất làm Owner (BR-M11-26) |
+| GroupJoinRequest | answer | Câu trả lời | Lưu | Nguồn nêu | Bắt buộc, không để trống khi nhóm có câu hỏi tham gia (BR-M11-08, FR-M11-04.08) | FR-M11-04.03, FR-M11-04.08, FR-M11-06.01 | Owner, Group Mod xem khi duyệt; xem Q-03 |
+| GroupJoinRequest | status | Trạng thái | Lưu | Nguồn nêu | Chờ duyệt, Đã chấp nhận, Đã từ chối, Đã rút (TN:Yêu cầu tham gia); mới gửi là Chờ duyệt; mỗi người nhiều nhất một yêu cầu Chờ duyệt cho mỗi nhóm (BR-M11-09); không xóa (ma trận CRUD) | FR-M11-04.03, FR-M11-06.02, FR-M11-06.03, FR-M11-07.03, FR-M11-04.10, FR-M11-02.14 | — |
+| User | email | Email | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-01.06, FR-M01-12.06 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | password | Mật khẩu | Lưu | Tham chiếu | — | FR-M01-01.10, FR-M01-08.01, FR-M01-09.02 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | username | Tên định danh | Lưu | Tham chiếu | — | FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-12.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | displayName | Tên hiển thị | Lưu | Tham chiếu | — | FR-M11-03.14, FR-M11-03.09 | Hiển thị thành viên trong danh sách thành viên nhóm; thay bằng "Ẩn danh" ở bài ẩn danh với người xem thường |
+| User | role | Vai trò | Lưu | Tham chiếu | — | FR-M11-12.06, FR-M11-12.20, FR-M11-03.10, FR-M11-03.11, FR-M11-17.03 | Bài của Admin không bị quét và theo công tắc duyệt trước; Mod, Admin thấy danh tính thật của bài ẩn danh và chỉ xem nhóm Private trong vụ báo cáo; Admin vẫn dùng module khi cờ Group tắt |
+| User | status | Trạng thái tài khoản | Lưu | Tham chiếu | — | FR-M11-11.01 | Owner có trạng thái BANNED, DEACTIVATED hoặc DELETED thì hệ thống tự chuyển vai trò Owner (TN:Owner mất quyền ngoài ý muốn) |
+| User | verificationLevel | Mức xác minh | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-02.01, FR-M01-03.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | googleLink | Liên kết Google | Lưu | Tham chiếu | — | FR-M01-04.04, FR-M01-12.08 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivatedAt | Thời điểm vô hiệu hóa | Lưu | Tham chiếu | — | FR-M01-10.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | deactivationEndsAt | Thời điểm hết thời hạn vô hiệu hóa | Dẫn xuất | Tham chiếu | — | FR-M01-10.07, FR-M01-11.05, FR-M01-12.01, FR-M01-12.05 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isGoogleAccount | Là tài khoản Google | Dẫn xuất | Tham chiếu | — | FR-M01-05.13, FR-M01-08.06, FR-M01-09.07 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | createdAt | Thời điểm tạo tài khoản | Lưu | Tham chiếu | — | FR-M01-01.01, FR-M01-04.01 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | unreadNotificationCount | Số thông báo chưa đọc | Dẫn xuất | Tham chiếu | — | FR-M07-05.10, BR-M07-12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | banCount | Số lần đã bị ban | Dẫn xuất | Tham chiếu | — | FR-M08-14.12, BR-M08-34 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | isRoot | Là tài khoản ADMIN gốc | Lưu | Tham chiếu | — | FR-M10-07.04, FR-M10-01.05, BR-M10-10, BR-M10-11 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| User | totalPoints | Tổng điểm | Lưu | Tham chiếu | — | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M01 định nghĩa |
+| Post | title | Tiêu đề | Lưu | Tham chiếu | — | FR-M03-01.14, FR-M03-04.08, FR-M03-07.04 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | content | Nội dung | Lưu | Tham chiếu | — | FR-M03-01.02, FR-M03-01.03, FR-M03-01.15, FR-M03-04.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | contentText | Nội dung chữ | Dẫn xuất | Tham chiếu | — | FR-M03-07.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | gradeLevel | Lớp/Khối | Lưu | Tham chiếu | — | FR-M03-01.05, FR-M03-01.06, FR-M03-01.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | createdAt | Thời điểm tạo | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | updatedAt | Thời điểm cập nhật | Lưu | Tham chiếu | — | FR-M03-01.08 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishState | Trạng thái đăng | Lưu | Tham chiếu | — | FR-M11-12.02, FR-M11-12.05, FR-M11-13.05, FR-M11-13.06, FR-M11-13.14 | M11 ghi theo cổng duyệt của nhóm: Bị từ chối, Chờ duyệt, Đã đăng; bài bị gỡ khỏi nhóm giữ trạng thái đăng (TN:Bị gỡ khỏi nhóm) |
+| Post | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M03-01.12, FR-M03-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockLevel | Mức khóa | Lưu | Tham chiếu | — | FR-M03-01.09, FR-M03-14.01, FR-M03-14.03 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | lockedBy | Người khóa | Lưu | Tham chiếu | — | FR-M03-14.01, FR-M03-14.02, FR-M03-14.09 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectionReason | Lý do từ chối | Lưu | Tham chiếu | — | FR-M11-13.06, FR-M11-13.10 | M11 ghi lý do bắt buộc khi nhóm từ chối bài (BR-M11-38) vào cùng thuộc tính lý do từ chối của EC-M03 (Q-02) |
+| Post | violationCategory | Nhóm vi phạm | Lưu | Tham chiếu | — | FR-M03-05.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isInReviewQueue | Đang trong hàng chờ duyệt | Lưu | Tham chiếu | — | FR-M03-06.01, FR-M03-05.02, FR-M03-05.04, FR-M03-15.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEditedWhileHidden | Có bản sửa lưu trong lúc Tự ẩn chưa quét | Lưu | Tham chiếu | — | FR-M03-13.06, FR-M03-05.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | publishStateBeforeDelete | Trạng thái trước khi xóa | Lưu | Tham chiếu | — | FR-M03-15.01, FR-M03-16.01, FR-M03-16.06 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPermanentlyDeleted | Đã xóa hẳn | Lưu | Tham chiếu | — | FR-M03-17.01, FR-M03-17.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isPubliclyVisible | Hiển thị công khai | Dẫn xuất | Tham chiếu | — | FR-M03-07.01, BR-M03-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M03-12.01 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | commentCount | Số bình luận của bài | Dẫn xuất | Tham chiếu | — | FR-M04-01.10, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | rejectedAt | Thời điểm bị từ chối | Lưu | Tham chiếu | — | BR-M09-04, FR-M09-01.14, FR-M09-06.02, FR-M09-08.14 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | isAnonymous | Đăng ẩn danh | Lưu | Tham chiếu | Có, Không; chỉ chọn được khi bài thuộc nhóm có công tắc ẩn danh bật (BR-M11-16); giữ nguyên khi công tắc tắt sau đó; danh tính thật luôn được giữ (BR-M11-17) | FR-M11-12.07, FR-M11-12.08, FR-M11-12.09, FR-M11-12.10 | M11 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). M02, M14 đọc (mục Giao tiếp) |
+| Post | scanScore | Điểm quét | Lưu | Tham chiếu | 0 đến 1, do M13 trả về (TN:Điểm quét); cổng duyệt của nhóm dùng ngưỡng 0.9 và 0.5 (BR-M11-18); không có khi AI tắt, quét thất bại hoặc tác giả là Admin | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 | M11 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Mục Dữ liệu nghiệp vụ ghi trên phần M11 của bài viết |
+| Post | isAwaitingGroupReview | Đang chờ nhóm duyệt | Lưu | Tham chiếu | Đúng khi bài ở giai đoạn Chờ duyệt (chờ nhóm duyệt), sai khi Chờ duyệt (đang quét) hoặc bài đã ra khỏi hàng chờ của nhóm (TN:Chờ duyệt (đang quét), Chờ duyệt (chờ nhóm duyệt)) | FR-M11-12.03, FR-M11-12.04, FR-M11-13.01, FR-M11-02.15 | M11 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Hàng chờ duyệt của nhóm là các bài nhóm có giá trị này đúng (cùng cách Post.isInReviewQueue của EC-M03 cho hàng chờ của Mod) |
+| Post | lastHolderActionAt | Thời điểm thao tác cuối | Lưu | Tham chiếu | Đặt lúc nhận bài và mỗi lần người giữ mở xem, chấp nhận, từ chối; 30 phút không thao tác thì bài tự được nhả về hàng chờ (TN:Thời điểm thao tác cuối, BR-M11-20) | FR-M11-13.02, FR-M11-13.04, BR-M11-20 | M11 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Cùng tên và cơ chế với ReportCase.lastHolderActionAt (EC-M08), Appeal.lastHolderActionAt (EC-M09) |
+| Post | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | Đặt khi Owner, Group Mod gỡ khỏi nhóm (xóa mềm); không phải trạng thái đăng; tác giả không tự bỏ được (TN:Bị gỡ khỏi nhóm, BR-M11-30) | FR-M11-14.01, FR-M11-14.05 | M11 định nghĩa; đã đưa vào lớp Post của EC-M03 (MD-05). Nội dung chỉ còn hiện với tác giả, Owner, Group Mod của nhóm, Mod, Admin (FR-M11-14.01) |
+| Post | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | deductedPoints | Số điểm đã trừ | Lưu | Tham chiếu | — | FR-M12-02.08, FR-M12-02.10, FR-M12-02.12 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M12-01.01, FR-M12-01.02 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | embedding | Embedding | Lưu | Tham chiếu | — | FR-M13-03.01, FR-M13-03.02, FR-M13-03.03, FR-M13-03.07 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | needsEmbedding | Đang chờ tạo bù embedding | Lưu | Tham chiếu | — | FR-M13-03.08, FR-M13-03.09, FR-M13-03.10, BR-M13-26 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Post | bookmarkCount | Số bookmark | Dẫn xuất | Tham chiếu | — | FR-M14-03.02, FR-M14-03.10 | Ghi đủ lớp sau gộp (MD-05); EC-M03 định nghĩa |
+| Comment | content | Nội dung bình luận | Lưu | Tham chiếu | — | FR-M04-04.01, FR-M04-05.07, BR-M04-01, BR-M04-19 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | publishedAt | Thời điểm đăng | Lưu | Tham chiếu | — | FR-M04-02.01, FR-M04-04.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | editedAt | Thời điểm sửa | Lưu | Tham chiếu | — | FR-M04-04.02, BR-M04-07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | modState | Trạng thái kiểm duyệt | Lưu | Tham chiếu | — | FR-M04-01.09, FR-M04-02.02, FR-M04-03.04 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | deletedAt | Thời điểm xóa | Lưu | Tham chiếu | — | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isDeleted | Đã xóa | Dẫn xuất | Tham chiếu | — | FR-M04-05.01, FR-M04-05.07 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isEdited | Đã chỉnh sửa | Dẫn xuất | Tham chiếu | — | FR-M04-01.06 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isVisible | Hiển thị bình thường | Dẫn xuất | Tham chiếu | — | FR-M04-01.07, FR-M04-03.01, BR-M04-18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | upvoteCount | Số upvote | Dẫn xuất | Tham chiếu | — | FR-M04-01.03, FR-M04-01.14, BR-M04-05 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | scannedAt | Thời điểm quét gần nhất | Lưu | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isScannedCurrent | Đã quét với nội dung hiện tại | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, FR-M08-08.08 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | replyRate | Tốc độ trả lời | Dẫn xuất | Tham chiếu | — | FR-M08-08.01, BR-M08-20 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
+| Comment | isRemovedFromGroup | Bị gỡ khỏi nhóm | Lưu | Tham chiếu | Như Post.isRemovedFromGroup (TN:Bị gỡ khỏi nhóm, BR-M11-30) | FR-M11-14.01, FR-M11-14.05 | M11 định nghĩa; đã đưa vào lớp Comment của EC-M04 (MD-05) |
+| Comment | isPointsDeducted | Đã trừ điểm | Lưu | Tham chiếu | — | FR-M12-02.11, FR-M12-02.19, FR-M12-02.20, FR-M12-02.18 | Ghi đủ lớp sau gộp (MD-05); EC-M04 định nghĩa |
 
 ### 2.4 Đối chiếu với mục Dữ liệu nghiệp vụ của FR
 
@@ -212,12 +334,11 @@ steps_completed: [1, 2]
 
 | Thực thể trong FR | Trong mô hình | Xử lý |
 |---|---|---|
-| Nhóm | Group | Khớp |
-| Thành viên nhóm | GroupMember | Mô hình có thêm GroupMember.moderatorTenure là giá trị dẫn xuất từ lần bổ nhiệm gần nhất, có nguồn FR-M11-11.06 và BR-M11-26. |
-| Yêu cầu tham gia | GroupJoinRequest | Khớp về dữ liệu FR hiện hành. Bản sao câu hỏi được duyệt theo Q-02 và chờ cập nhật FR-M11 trước khi thêm vào lớp. |
-| Chặn tham gia | GroupJoinBlock | Khớp với Q-01. Cặp Group–User chứa đủ thông tin chặn nêu trong FR. |
-| Bài viết (M03) — phần M11 | Post, ContentScan | Mô hình có thêm Post.groupReviewStage để phân biệt các giai đoạn của Chờ duyệt được nêu tại mục 2.1 và 5.20, có nguồn FR-M11-12 và FR-M11-13. Dùng ContentScan.score và Post.rejectionReason hiện có. Nhóm và người giữ được xét dưới dạng quan hệ ở bước 3. |
-| Tham chiếu ngoài | User, Comment, Notification, ReportCase, Appeal, SystemConfiguration | Mô hình có thêm lớp tham chiếu theo FR-M11-03.12, FR-M11-05.02, FR-M11-11.01, FR-M11-13.14, FR-M11-14.01, FR-M11-17.01 và mục 5.21. Comment.removedFromGroup là phần M11 bổ sung theo FR-M11-14.01 và TN:Bị gỡ khỏi nhóm. |
+| Nhóm | Group | Khớp: tên → name; mô tả → description; chế độ → privacy; câu hỏi tham gia → joinQuestion; công tắc duyệt trước → isPreApprovalOn; công tắc ẩn danh → isAnonymousOn; đã xóa → isDeleted; trạng thái kiểm duyệt → modState; thời điểm tạo → createdAt; link mời → inviteLink; người tạo → quan hệ với User (bước 3). Owner → thành viên nhóm có GroupMember.role Owner, không có quan hệ riêng (Q-04). Mô hình có thêm: /isInstantJoin (TN:Nhóm vào ngay, BR-M11-32) |
+| Thành viên nhóm | GroupMember | Khớp: vai trò nhóm → role; thời điểm tham gia → joinedAt; thời điểm được bổ nhiệm Group Mod → modAppointedAt; người dùng, nhóm → quan hệ; ở bước 3 là lớp liên kết của quan hệ n-n User – Group |
+| Yêu cầu tham gia | GroupJoinRequest | Khớp: câu trả lời → answer; trạng thái → status; người gửi, nhóm → quan hệ (bước 3) |
+| Chặn tham gia | GroupJoinBlock | Khớp: nhóm, người bị chặn → quan hệ; ở bước 3 là lớp liên kết của quan hệ n-n User – Group (chặn), không có thuộc tính riêng |
+| Bài viết (M03) — phần M11 | Post, Comment | Khớp: nhóm (tùy chọn) → quan hệ Group – Post; ẩn danh → isAnonymous; điểm quét → scanScore; thời điểm thao tác cuối → lastHolderActionAt; dấu bị gỡ khỏi nhóm → isRemovedFromGroup (M11 bổ sung trên Post). Lệch: người đang giữ → quan hệ GroupMember – Post (Q-01); lý do khi nhóm từ chối → Post.rejectionReason của EC-M03 (Q-02). Mô hình có thêm: isAwaitingGroupReview (TN:Chờ duyệt (chờ nhóm duyệt), FR-M11-13.01); Comment.isRemovedFromGroup (TN:Bị gỡ khỏi nhóm nói cả bình luận) |
 
 ## 3. Quan hệ giữa các lớp
 
@@ -225,22 +346,17 @@ steps_completed: [1, 2]
 
 <!-- T = quan hệ trực tiếp; G(X) = chỉ gián tiếp qua lớp X; trống = không liên quan. Chỉ điền nửa trên. -->
 
-| Lớp | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 Group |  | T | T | T | T | T | G(Post) | T | P | P | P | P |
-| 2 GroupMember |  |  |  |  | T | T | P | P |  |  |  |  |
-| 3 GroupJoinRequest |  |  |  |  | T |  |  |  |  |  |  |  |
-| 4 GroupJoinBlock |  |  |  |  | T |  |  |  |  |  |  |  |
-| 5 User |  |  |  |  |  |  |  |  |  |  |  |  |
-| 6 Post |  |  |  |  |  |  |  |  |  |  |  |  |
-| 7 Comment |  |  |  |  |  |  |  |  |  |  |  |  |
-| 8 Notification |  |  |  |  |  |  |  |  |  |  |  |  |
-| 9 ContentScan |  |  |  |  |  |  |  |  |  |  |  |  |
-| 10 ReportCase |  |  |  |  |  |  |  |  |  |  |  |  |
-| 11 Appeal |  |  |  |  |  |  |  |  |  |  |  |  |
-| 12 SystemConfiguration |  |  |  |  |  |  |  |  |  |  |  |  |
+Chỉ ghi các hàng của lớp thuộc M11 có từ bước 2; cặp hai lớp ngoài không xét (CONVENTIONS mục 5). Ô T giữa Group và
+User ứng với ba quan hệ: người tạo (1-n), thành viên (n-n, tách bằng GroupMember đã có từ bước 2) và chặn tham gia (n-n,
+tách bằng GroupJoinBlock), mỗi quan hệ một dòng ở mục 3.2. Các ô GroupMember – Group và GroupMember – User để trống vì
+đó là hai nửa của quan hệ n-n thành viên. Comment không có quan hệ với lớp nào của M11: M11 chỉ đặt dấu bị gỡ khỏi nhóm
+trên bình luận; bình luận thuộc nhóm qua bài viết (quan hệ của M04, M03).
 
-Ô `T` của Group–User có bốn ngữ cảnh, gồm người tạo, tư cách thành viên, chặn tham gia và lần gửi yêu cầu. Ô `P` là phụ thuộc nghiệp vụ, không xét bội số. Ô `G(Post)` đọc là Group liên hệ với Comment qua Post. Cặp hai lớp ngoài được dẫn chiếu theo EC sở hữu; ngoại lệ là các phụ thuộc trực tiếp vào GroupMember đã ghi rõ ở mục 3.4.
+| | GroupMember | GroupJoinRequest | User | Post | Comment |
+|---|---|---|---|---|---|
+| Group |   | T | T | T |   |
+| GroupMember |   |   |   | T |   |
+| GroupJoinRequest |   |   | T |   |   |
 
 ### 3.2 Quan hệ số lượng
 
@@ -249,34 +365,30 @@ steps_completed: [1, 2]
 
 | Cặp | Câu A → B | Câu B → A | Dạng | Xử lý |
 |---|---|---|---|---|
-| Group – User (tư cách thành viên) | Một Group có nhiều User là thành viên qua thời gian, và có Owner khi còn hoạt động. | Một User có thể tham gia nhiều Group. | n-n | Tách: dùng lớp tư cách thành viên |
-| Group – User (chặn tham gia) | Một Group có thể chặn nhiều User. | Một User có thể bị nhiều Group chặn độc lập. | n-n | Tách: dùng lớp chặn tham gia |
-| Group – User (lần gửi yêu cầu) | Một Group có thể nhận yêu cầu từ nhiều User. | Một User có thể gửi yêu cầu tới nhiều Group và gửi nhiều lần tới cùng một nhóm theo BR-M11-09. | n-n | Tách: dùng lớp lần gửi yêu cầu |
-| Group – User (người tạo) (R-M11-01) | Một Group ghi đúng một User tạo nhóm. | Một User có thể tạo từ 0 đến nhiều Group theo thời gian. | n-1 | Giữ nguyên |
-| Group – GroupMember (R-M11-02) | Một Group có từ 0 đến nhiều GroupMember trong mô hình tổng quát. Khi Hoạt động, Group phải có ít nhất Owner. | Một GroupMember thuộc đúng một Group. | 1-n | Giữ nguyên |
-| GroupMember – User (R-M11-03) | Một GroupMember tương ứng đúng một User. | Một User có từ 0 đến nhiều GroupMember. | n-1 | Giữ nguyên |
-| Group – GroupJoinBlock (R-M11-04) | Một Group có thể có từ 0 đến nhiều GroupJoinBlock. | Một GroupJoinBlock thuộc đúng một Group. | 1-n | Giữ nguyên |
-| GroupJoinBlock – User (R-M11-05) | Một GroupJoinBlock chỉ chặn đúng một User. | Một User có thể có từ 0 đến nhiều GroupJoinBlock, ở các nhóm khác nhau. | n-1 | Giữ nguyên |
-| Group – GroupJoinRequest (R-M11-06) | Một Group có thể nhận từ 0 đến nhiều GroupJoinRequest. | Một GroupJoinRequest gửi tới đúng một Group. | 1-n | Giữ nguyên |
-| GroupJoinRequest – User (R-M11-07) | Một GroupJoinRequest do đúng một User gửi. | Một User có thể gửi từ 0 đến nhiều GroupJoinRequest. | n-1 | Giữ nguyên |
-| Group – Post (R-M11-08) | Một Group có thể chứa từ 0 đến nhiều Post. | Một Post có thể thuộc 0 hoặc 1 Group. | 1-n | Giữ nguyên |
-| Group – Notification (đích nhóm) (R-M11-09) | Một Group có thể là đích của từ 0 đến nhiều Notification. | Một Notification ghi 0 hoặc 1 Group làm đích. | 1-n | Giữ nguyên |
-| GroupMember – Post (người đang giữ bài) (R-M11-10) | Một GroupMember đủ quyền có thể giữ các Post theo thời gian. FR không nêu giới hạn số bài mỗi người được giữ. | Một Post chờ nhóm duyệt có 0 hoặc 1 GroupMember đang giữ. | 1-n | Giữ nguyên |
+| User – Group (người tạo) | Một người dùng có thể tạo nhiều nhóm ở các thời điểm khác nhau. | Một nhóm do đúng một người dùng tạo; người tạo vẫn được ghi khi vai trò Owner đã chuyển cho người khác. | 1-n | Giữ nguyên |
+| User – Group (thành viên) | Một người dùng có thể là thành viên của nhiều nhóm, không giới hạn (BR-M11-03). | Một nhóm có ít nhất một thành viên (Owner) và có thể có nhiều thành viên. | n-n | Tách: thêm lớp GroupMember (đã có từ bước 2, đổi Nhóm thành Liên kết) |
+| User – Group (chặn tham gia) | Một người dùng có thể bị nhiều nhóm chặn. | Một nhóm có thể chặn nhiều người dùng. | n-n | Tách: thêm lớp GroupJoinBlock |
+| User – GroupJoinRequest | Một người dùng có thể gửi nhiều yêu cầu tham gia ở các thời điểm khác nhau, nhiều nhất một yêu cầu Chờ duyệt cho mỗi nhóm. | Một yêu cầu tham gia do đúng một người dùng gửi. | 1-n | Giữ nguyên |
+| Group – GroupJoinRequest | Một nhóm có thể có nhiều yêu cầu tham gia. | Một yêu cầu tham gia gửi tới đúng một nhóm. | 1-n | Giữ nguyên |
+| Group – Post | Một nhóm có thể có nhiều bài nhóm. | Một bài viết thuộc nhiều nhất một nhóm (BR-M11-01). | 1-n | Giữ nguyên |
+| GroupMember – Post (người đang giữ) | Một thành viên nhóm có vai trò Owner hoặc Group Mod có thể đang giữ nhiều bài nhóm trong hàng chờ duyệt của nhóm. | Một bài nhóm tại một thời điểm có nhiều nhất một người đang giữ; không có khi bài chưa được nhận hoặc đã tự nhả. | 1-n | Giữ nguyên |
+| User – GroupMember | Một người dùng có thể có nhiều thành viên nhóm, nhiều nhất một cho mỗi nhóm. | Một thành viên nhóm là đúng một người dùng. | 1-n | Giữ nguyên |
+| Group – GroupMember | Một nhóm có ít nhất một thành viên nhóm, là Owner (BR-M11-04). | Một thành viên nhóm thuộc đúng một nhóm. | 1-n | Giữ nguyên |
+| User – GroupJoinBlock | Một người dùng có thể có nhiều lần bị chặn tham gia, nhiều nhất một cho mỗi nhóm. | Một lần chặn tham gia nhắm vào đúng một người dùng. | 1-n | Giữ nguyên |
+| Group – GroupJoinBlock | Một nhóm có thể có nhiều lần chặn tham gia. | Một lần chặn tham gia thuộc đúng một nhóm. | 1-n | Giữ nguyên |
 
-GroupJoinRequest giữ Nhóm = Thực thể vì mỗi lần gửi có nội dung và vòng đời riêng; một cặp Group–User có thể có nhiều lần gửi. Chấp nhận yêu cầu tạo tư cách thành viên, nhưng FR không yêu cầu giữ liên kết từ GroupMember đến một yêu cầu riêng; thành viên có thể vào ngay hoặc là Owner đầu tiên.
-
-Ở Group, người tạo là tài khoản lịch sử, còn Owner hiện hành được xác định qua GroupMember.role. Mỗi nhóm Hoạt động có đúng một Owner. Thay Owner không thay người tạo, nên giới hạn tạo tiếp tục tính đúng và tính cả nhóm đã xóa mềm.
-
-Điều kiện tác giả là thành viên được kiểm khi gửi bài. Post và Comment tiếp tục tham chiếu tác giả theo M03/M04 sau khi người đó rời hoặc bị kick. GroupMember liên quan trực tiếp tới Post chỉ trong ngữ cảnh người đang giữ bài để duyệt.
+Hai cặp n-n (User – Group thành viên, User – Group chặn tham gia) được tách; bốn dòng cuối là các quan hệ 1-n mới. Không
+có cặp 1-1. M11 không có lớp thống kê.
 
 ### 3.3 Lớp liên kết
 
-<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB". -->
+<!-- Mỗi lớp có Nhóm = Liên kết một dòng. "Tách từ quan hệ n-n" viết dạng "LớpA – LớpB".
+     "Thuộc tính riêng của liên kết": tên các thuộc tính (đã ghi ở mục 2.3); không có thì ghi rõ vì sao. -->
 
 | Lớp liên kết | Tách từ quan hệ n-n | Thuộc tính riêng của liên kết | Nguồn |
 |---|---|---|---|
-| GroupMember | Group – User | role, joinedAt, appointedAt, moderatorTenure (dẫn xuất). Tối đa một tư cách hiện hành cho một cặp. Owner là vai trò trên GroupMember. | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02, FR-M11-08.01, FR-M11-11.06, BR-M11-04, BR-M11-26 |
-| GroupJoinBlock | Group – User | —. Một cặp đang tồn tại biểu thị User đang bị Group chặn. Khi bỏ chặn, cặp kết thúc. | FR-M11-04.06, FR-M11-07.01, FR-M11-07.05, BR-M11-10 |
+| GroupMember | User – Group | role, joinedAt, modAppointedAt (đều thuộc cặp người dùng – nhóm: cùng một người có vai trò, thời điểm tham gia khác nhau ở mỗi nhóm) | FR-M11-01.02, FR-M11-04.01, FR-M11-08.01 |
+| GroupJoinBlock | User – Group | Không có: FR chỉ nêu nhóm và người bị chặn (mục Dữ liệu nghiệp vụ, dòng Chặn tham gia); không ghi người chặn hay thời điểm chặn | FR-M11-07.01, FR-M11-07.04, FR-M11-07.05 |
 
 ### 3.4 Quan hệ
 
@@ -287,104 +399,23 @@ GroupJoinRequest giữ Nhóm = Thực thể vì mỗi lần gửi có nội dung
 
 | ID | Lớp A | Bội số A | Lớp B | Bội số B | Dạng | Loại | Bên chính | Căn cứ | Nguồn |
 |---|---|---|---|---|---|---|---|---|---|
-| R-M11-01 | Group | 0..* | User | 1 | n-1 | Kết tập | Group | Group ghi đúng một người tạo ban đầu để tính giới hạn tạo, kể cả nhóm đã xóa mềm và nhóm đã đổi Owner. User có vòng đời riêng. | FR-M11-01.02, FR-M11-01.03, FR-M11-01.06, FR-M11-10.04, BR-M11-03, BR-M11-04 |
-| R-M11-02 | Group | 1 | GroupMember | 0..* | 1-n | Liên kết | — | Mỗi GroupMember thuộc đúng một Group. Nhóm Hoạt động có ít nhất Owner. Bội số tổng quát không áp cận dưới của nhóm Hoạt động cho nhóm Đã xóa. | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02, FR-M11-15.02, BR-M11-04, BR-M11-23 |
-| R-M11-03 | GroupMember | 0..* | User | 1 | n-1 | Liên kết | — | GroupMember xác định tư cách và vai trò của một User trong một Group. Mỗi cặp có tối đa một tư cách hiện hành. Rời hoặc bị kick kết thúc tư cách, tham gia lại ghi thời điểm tham gia mới. | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02, FR-M11-09.01, FR-M11-09.07, FR-M11-10.01, BR-M11-05, BR-M11-24 |
-| R-M11-04 | Group | 1 | GroupJoinBlock | 0..* | 1-n | Liên kết | — | Mỗi dấu chặn thuộc đúng một Group. Chặn chỉ có hiệu lực trong nhóm đó. | FR-M11-07.01, FR-M11-07.04, FR-M11-07.05, BR-M11-10 |
-| R-M11-05 | GroupJoinBlock | 0..* | User | 1 | n-1 | Liên kết | — | Mỗi dấu chặn chỉ đích danh một User. Sự tồn tại của cặp biểu thị đang chặn theo Q-01, gỡ dấu khi bỏ chặn. | FR-M11-04.06, FR-M11-07.01, FR-M11-07.05, BR-M11-10 |
-| R-M11-06 | Group | 1 | GroupJoinRequest | 0..* | 1-n | Kết tập | Group | Group có tập yêu cầu tham gia và giữ vòng đời của từng yêu cầu. FR áp xóa mềm nhóm và trạng thái cho yêu cầu đã rút, không quy định xóa dây chuyền trước đó. | FR-M11-04.03, FR-M11-04.04, FR-M11-04.10, FR-M11-06.01, FR-M11-15.02, BR-M11-09, BR-M11-23 |
-| R-M11-07 | GroupJoinRequest | 0..* | User | 1 | n-1 | Kết tập | GroupJoinRequest | GroupJoinRequest ghi đúng một người gửi. Có thể gửi nhiều lần theo thời gian tới cùng nhóm, tối đa một yêu cầu Chờ duyệt cho mỗi cặp. | FR-M11-04.03, FR-M11-04.04, FR-M11-04.09, FR-M11-04.10, BR-M11-09 |
-| R-M11-08 | Group | 0..1 | Post | 0..* | 1-n | Kết tập | Post | Post ghi nhóm chứa bài, phù hợp R-M03-14. Nhóm có thể xóa mềm và giữ nội dung, bài cũng có thể thuộc Forum và có vòng đời M03. | FR-M11-12.01, FR-M11-12.16, FR-M11-15.02, BR-M11-01, BR-M11-23 |
-| R-M11-09 | Group | 0..1 | Notification | 0..* | 1-n | Kết tập | Notification | Thông báo loại có đích nhóm ghi một Group, phù hợp R-M07-08. Các thông báo đích bài, bình luận dùng quan hệ đích của M07. Một sự kiện nhóm có thể thông báo cho nhiều người. | FR-M11-05.02, FR-M11-06.04, FR-M11-06.07, FR-M11-08.03, FR-M11-09.06, FR-M11-10.07, FR-M11-11.07, BR-M11-37 |
-| R-M11-10 | GroupMember | 0..1 | Post | 0..* | 1-n | Kết tập | Post | Post ghi thành viên đang giữ bài theo FR-M11-13.02. Chỉ Owner hoặc Group Mod cùng nhóm giữ bài, mỗi bài có tối đa một người giữ hiện hành. Việc mất quyền trong lúc giữ bài theo Q-03. | FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, FR-M11-13.08, FR-M11-13.13, BR-M11-20 |
-| R-M11-11 | Group | — | SystemConfiguration | — | — | Phụ thuộc | SystemConfiguration | Group dùng cờ Group và công tắc AI từ cấu hình hệ thống M10. Việc tự chuyển quyền Owner vẫn chạy khi cờ Group tắt. | FR-M11-11.04, FR-M11-12.14, FR-M11-17.01, FR-M11-17.03, BR-M11-29 |
-| R-M11-12 | Group | — | ContentScan | — | — | Phụ thuộc | ContentScan | Cổng duyệt nhóm dùng điểm của kết quả quét bài để chọn trạng thái. Không đặt trường điểm quét trên Group, và giữ quan hệ Post dùng ContentScan của EC-M03/08. | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, BR-M11-18 |
-| R-M11-13 | Group | — | ReportCase | — | — | Phụ thuộc | ReportCase | Quyền xem nội dung Private của Mod, Admin ngoài nhóm dùng ngữ cảnh vụ báo cáo đang giữ. Quan hệ vụ báo cáo có đích Group thuộc EC-M08. | FR-M11-03.12, FR-M11-14.04, BR-M11-33 |
-| R-M11-14 | Appeal | — | Group | — | — | Phụ thuộc | Group | Khi kết quả chấp nhận khiếu nại bài nhóm bị AI từ chối, luồng M09 dùng cổng duyệt nhóm. Cùng hướng R-M09-14. | FR-M11-13.12, FR-M11-13.14, BR-M11-38 |
-| R-M11-15 | Comment | — | GroupMember | — | — | Phụ thuộc | GroupMember | Quyền bình luận, sửa, xóa và gỡ cấp nhóm xét tư cách và vai trò. Cùng hướng R-M04-10. Bình luận tiếp tục tồn tại khi tư cách thành viên kết thúc. | FR-M11-03.07, FR-M11-03.08, FR-M11-10.02, FR-M11-10.08, FR-M11-10.09, FR-M11-14.01, FR-M11-14.08 |
-| R-M11-16 | Notification | — | GroupMember | — | — | Phụ thuộc | GroupMember | Thông báo nội dung Private dùng quyền xem nhóm. Vai trò nhóm còn xác định người nhận thông báo yêu cầu mới. Cùng hướng R-M07-26. | FR-M11-03.05, FR-M11-03.06, FR-M11-06.07, BR-M11-37 |
-
-**Cách đọc các quan hệ kết tập.** Group ghi người tạo (R-M11-01) và có các yêu cầu tham gia (R-M11-06). GroupJoinRequest ghi người gửi (R-M11-07). Post ghi nhóm và thành viên đang giữ bài (R-M11-08/10). Notification ghi nhóm khi nhóm là đích thông báo (R-M11-09). Các lớp tham chiếu có vòng đời riêng hoặc FR giữ dữ liệu qua xóa mềm; vì vậy các dòng này được mô hình hóa là Kết tập.
-
-**Kiểm duyệt và vòng đời.** Bài nhóm chỉ có một người giữ tại một thời điểm. Người giữ phải là Owner hoặc Group Mod cùng nhóm và Group Mod không duyệt bài của mình. Khi mốc giữ hết hạn, bài được nhả theo BR-M11-20. Đã duyệt cách nhả bài khi mất quyền và cách chọn Owner khi đồng hạng ở Q-03/04. Hai quy tắc chờ cập nhật FR-M11.
-
-**Ký pháp sơ đồ.** Group–User có cạnh ghi người tạo và hai lớp liên kết khác nhau. Công cụ sinh sơ đồ biểu diễn mỗi lớp liên kết bằng hai nhánh 1-n riêng để giữ rõ từng quan hệ và bội số.
+| R-M11-01 | User | 1 | Group | 0..* | 1-n | Kết tập | Group | Người tạo: nhóm ghi lại tài khoản tạo nó (mục Dữ liệu nghiệp vụ, dòng Nhóm); dùng để đếm giới hạn tạo nhóm, kể cả nhóm đã xóa (BR-M11-03). Tài khoản tồn tại độc lập, nhóm không bị xóa theo tài khoản (BR-M11-26) | FR-M11-01.02, FR-M11-01.03, BR-M11-03 |
+| R-M11-02 | User | 1 | GroupMember | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n User – Group (thành viên) đã tách qua GroupMember | FR-M11-01.02, FR-M11-04.01, FR-M11-06.02 |
+| R-M11-03 | Group | 1 | GroupMember | 1..* | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n User – Group (thành viên); mỗi nhóm luôn có đúng một Owner nên có ít nhất một thành viên (BR-M11-04) | FR-M11-01.02, BR-M11-04 |
+| R-M11-04 | User | 1 | GroupJoinBlock | 0..* | 1-n | Liên kết | — | Nửa thứ nhất của quan hệ n-n User – Group (chặn tham gia) đã tách qua GroupJoinBlock | FR-M11-07.01 |
+| R-M11-05 | Group | 1 | GroupJoinBlock | 0..* | 1-n | Liên kết | — | Nửa thứ hai của quan hệ n-n User – Group (chặn tham gia) | FR-M11-07.01, FR-M11-07.04 |
+| R-M11-06 | User | 1 | GroupJoinRequest | 0..* | 1-n | Kết tập | GroupJoinRequest | Người gửi: yêu cầu tham gia ghi lại tài khoản gửi nó (mục Dữ liệu nghiệp vụ); tài khoản tồn tại độc lập | FR-M11-04.03, FR-M11-04.09 |
+| R-M11-07 | Group | 1 | GroupJoinRequest | 0..* | 1-n | Kết tập | Group | Nhóm có nhiều yêu cầu tham gia (mục Dữ liệu nghiệp vụ, cột Quan hệ của dòng Nhóm). Đủ điều (i) và (ii) nhưng không có căn cứ cho điều (iii): nhóm chỉ xóa mềm, dữ liệu giữ nguyên (BR-M11-23), nên không ghi hợp thành | FR-M11-04.03, FR-M11-06.01, BR-M11-23 |
+| R-M11-08 | Group | 0..1 | Post | 0..* | 1-n | Kết tập | Group | Nhóm có nhiều bài nhóm (mục Dữ liệu nghiệp vụ); bài viết tồn tại độc lập, bị gỡ khỏi nhóm vẫn giữ trạng thái đăng. Cùng loại, chiều và bội số với R-M03-06 của EC-M03 (lượt gộp khử trùng). Trùng R-M03-06 (MD-08) | FR-M11-12.01, BR-M11-01 |
+| R-M11-09 | GroupMember | 0..1 | Post | 0..* | 1-n | Kết tập | Post | Người đang giữ: bài nhóm trong hàng chờ ghi lại Owner hoặc Group Mod đang giữ nó (FR-M11-13.02, mục Dữ liệu nghiệp vụ); người giữ phải là thành viên của chính nhóm có bài, vai trò Owner hoặc Group Mod, và không phải tác giả nếu là Group Mod (BR-M11-39); không có khi chưa ai nhận hoặc đã tự nhả (BR-M11-20). Xem Q-01 | FR-M11-13.02, FR-M11-13.03, FR-M11-13.04, BR-M11-20 |
 
 ## 4. Sơ đồ lớp phân tích
 
-<!-- BEGIN:PUML -->
-```plantuml
-@startuml
-hide circle
-hide methods
-skinparam classAttributeIconSize 0
+<!-- BEGIN:DIAGRAM -->
+![Sơ đồ lớp phân tích — EC-M11](diagrams/EC-M11.png)
 
-class Group {
-  -name
-  -description
-  -visibility
-  -joinQuestion
-  -preApprovalEnabled
-  -anonymousPostingEnabled
-  -createdAt
-  -inviteLink
-  -status
-  -moderationState
-}
-class GroupMember {
-  -joinedAt
-  -role
-  -appointedAt
-  -/moderatorTenure
-}
-class GroupJoinRequest {
-  -status
-  -answer
-}
-class GroupJoinBlock {
-}
-class User <<M01>> {
-}
-class Post <<M03>> {
-  -isAnonymous
-  -groupReviewLastActionAt
-  -removedFromGroup
-  -groupReviewStage
-}
-class Comment <<M04>> {
-  -removedFromGroup
-}
-class Notification <<M07>> {
-}
-class ContentScan <<M08>> {
-}
-class ReportCase <<M08>> {
-}
-class Appeal <<M09>> {
-}
-class SystemConfiguration <<M10>> {
-}
-
-Group "0..*" o-- "1" User
-Group "1" -- "0..*" GroupMember
-GroupMember "0..*" -- "1" User
-Group "1" -- "0..*" GroupJoinBlock
-GroupJoinBlock "0..*" -- "1" User
-Group "1" o-- "0..*" GroupJoinRequest
-GroupJoinRequest "0..*" o-- "1" User
-Post "0..*" o-- "0..1" Group
-Notification "0..*" o-- "0..1" Group
-Post "0..*" o-- "0..1" GroupMember
-Group ..> SystemConfiguration
-Group ..> ContentScan
-Group ..> ReportCase
-Appeal ..> Group
-Comment ..> GroupMember
-Notification ..> GroupMember
-
-@enduml
-```
-<!-- END:PUML -->
+Mã nguồn sơ đồ: [diagrams/EC-M11.puml](diagrams/EC-M11.puml). Ảnh và tệp .puml do `gen_puml.py` sinh từ các bảng của tài liệu này; muốn đổi sơ đồ thì sửa bảng rồi chạy lại tool, không sửa tay.
+<!-- END:DIAGRAM -->
 
 ## 5. Liên module
 
@@ -392,31 +423,25 @@ Notification ..> GroupMember
 
 | Lớp | Module sở hữu | Module này dùng thế nào | Thuộc tính module này bổ sung |
 |---|---|---|---|
-| User | M01 | Người tạo nhóm, người nắm tư cách thành viên, người gửi yêu cầu hoặc bị chặn. Trạng thái tài khoản kích hoạt kế nhiệm Owner. Tác giả bài và bình luận vẫn thuộc quan hệ M03, M04 sau khi rời nhóm. | — |
-| Post | M03 | Thuộc tối đa một Group. Quyền gửi bài xét tư cách hiện hành, tác giả tham chiếu User. Người giữ bài duyệt tham chiếu GroupMember. Trạng thái đăng và lý do từ chối dùng dữ liệu Post hiện có. | isAnonymous, groupReviewStage, groupReviewLastActionAt, removedFromGroup |
-| Comment | M04 | Nhóm của bình luận đi qua Post. Đọc tư cách thành viên và chế độ nhóm cho quyền xem, thao tác và gỡ cấp nhóm. | removedFromGroup |
-| Notification | M07 | Thông báo M11 dùng đích nhóm, bài hoặc bình luận tương ứng và quyền xem nhóm Private. Mời đích danh gửi link mời chung. | — |
-| ContentScan | M08 | Dùng điểm quét tại cổng duyệt. M08 sở hữu lớp theo EC-M08; M13 cung cấp kết quả qua hợp đồng giao tiếp. | — |
-| ReportCase | M08 | Cấp ngữ cảnh vụ đang giữ để Mod hoặc Admin xem nội dung Private trong vụ. Quan hệ đối tượng báo cáo và đa hình xử lý tại M08. | — |
-| Appeal | M09 | Luồng chấp nhận khiếu nại bài AI từ chối dùng cổng duyệt M11. Quyết định cấp nhóm thuộc ngoại lệ không khiếu nại. | — |
-| SystemConfiguration | M10 | Cờ Group và các công tắc AI tổng, Moderation chi phối truy cập và duyệt. Chức năng đang tắt vẫn cho Admin thao tác theo quyền. | — |
+| User | M01 | Người tạo nhóm (R-M11-01), thành viên nhóm (R-M11-02), người bị chặn (R-M11-04), người gửi yêu cầu tham gia (R-M11-06). Đọc role (Admin, Mod), status (kích hoạt kế nhiệm Owner), displayName (danh sách thành viên) | — |
+| Post | M03 | Bài nhóm (R-M11-08, trùng R-M03-06); người đang giữ bài trong hàng chờ duyệt của nhóm (R-M11-09). Ghi publishState và rejectionReason theo cổng duyệt của nhóm | isAnonymous, scanScore, isAwaitingGroupReview, lastHolderActionAt, isRemovedFromGroup — đã đưa vào lớp của EC-M03 (MD-05) |
+| Comment | M04 | Đặt dấu bị gỡ khỏi nhóm khi Owner, Group Mod gỡ bình luận; không có quan hệ với lớp nào của M11 | isRemovedFromGroup — đã đưa vào lớp của EC-M04 (MD-05) |
 
 ## 6. Câu hỏi và điểm chưa chốt
 
-<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-M11". -->
+<!-- Loại: Thiếu | Mơ hồ | Mâu thuẫn | Lệch. Ghi vào: mục của tài liệu này đã sửa theo câu trả lời, hoặc "Chờ cập nhật FR-Mxx". -->
 
 | Mã | Loại | Câu hỏi | Trả lời | Ghi vào |
 |---|---|---|---|---|
-| Q-01 | Lệch | Biểu diễn chặn tham gia tại mục 5.19 của FR-M11. | Đã duyệt GroupJoinBlock là lớp liên kết Group–User. Sự tồn tại của cặp có nghĩa đang chặn. | Mục 2.1, 2.2, 2.4 và 3.1–3.4. |
-| Q-02 | Mơ hồ | FR-M11-02.07 và FR-M11-06.01 chưa quy định lưu câu hỏi cũ cho yêu cầu vẫn chờ sau khi sửa. | Đã duyệt giữ bản sao câu hỏi tại thời điểm gửi cùng câu trả lời. | Chờ cập nhật FR-M11. Chưa thêm thuộc tính bản sao. |
-| Q-03 | Thiếu | FR-M11-13.02/03/04/08 quy định quyền giữ, xử lý và mốc tự nhả; FR-M11-08.02, FR-M11-09.01/02, FR-M11-10.01 cho phép người giữ mất quyền do giáng, kick hoặc rời nhóm. Khi đó bài được nhả ngay hay chờ hết hạn? Đề xuất nhả ngay khi người đang giữ không còn đủ quyền duyệt. | Đã duyệt nhả bài ngay khi người đang giữ mất quyền duyệt do bị giáng, bị kick hoặc rời nhóm. | Chờ làm rõ FR-M11. Mục 3.4 chỉ ghi liên kết đang giữ và mốc tự nhả hiện hành. |
-| Q-04 | Thiếu | FR-M11-11.01/02/06 và BR-M11-26 ưu tiên theo thâm niên hoặc thời điểm tham gia. BR-M11-32 có thể tạo nhiều Member có cùng thời điểm tham gia. Đề xuất chọn đúng một người theo thứ tự ổn định khi các ứng viên đồng hạng, ưu tiên thời điểm tham gia sớm hơn nếu đồng hạng thâm niên Group Mod. | Đã duyệt chọn đúng một người theo thứ tự ổn định khi đồng hạng. Nếu Group Mod có cùng thâm niên, ưu tiên người tham gia nhóm sớm hơn trước khi áp dụng thứ tự ổn định. | Chờ làm rõ FR-M11. Chưa thêm tiêu chí phá hòa vào mô hình. |
+| Q-01 | Lệch | Mục Dữ liệu nghiệp vụ ghi "người đang giữ" trên phần M11 của bài viết, tức quan hệ User – Post giữa hai lớp ngoài, mà EC không ghi quan hệ giữa hai lớp ngoài (CONVENTIONS mục 5). Đề xuất: người đang giữ là một GroupMember (thành viên của chính nhóm có bài, vai trò Owner hoặc Group Mod), quan hệ GroupMember 0..1 – Post 0..* (R-M11-09); thành viên rời nhóm hoặc bị kick thì bài được nhả theo. Phương án khác: ghi quan hệ User – Post như FR viết, để lượt gộp EC-SYS xử lý | Người dùng đồng ý (2026-11-19): người đang giữ là một GroupMember (Owner hoặc Group Mod của chính nhóm), quan hệ GroupMember – Post (R-M11-09) | Mục 2.1 dòng 70; mục 3.2; mục 3.4 R-M11-09 |
+| Q-02 | Lệch | "Lý do khi nhóm từ chối" (mục Dữ liệu nghiệp vụ) có cần thuộc tính riêng không? Đề xuất: dùng chung Post.rejectionReason của EC-M03 (lý do từ chối tác giả xem được), M11 ghi khi nhóm từ chối; một bài tại một thời điểm chỉ bị một bên từ chối (nhóm, Mod hoặc AI) | Người dùng đồng ý (2026-11-19): dùng chung Post.rejectionReason của EC-M03, M11 ghi khi nhóm từ chối | Mục 2.1 dòng 72; mục 2.3 Post.rejectionReason |
+| Q-03 | Thiếu | Owner sửa câu hỏi tham gia khi đang có yêu cầu Chờ duyệt: FR-M11-02.07 áp câu hỏi mới cho yêu cầu gửi sau đó, nhưng FR-M11-06.01 chỉ hiện câu trả lời, nên người duyệt có thể thấy câu trả lời cũ cạnh câu hỏi mới. Đề xuất: giữ như FR (không lưu câu hỏi trên yêu cầu); nếu muốn lưu câu hỏi lúc gửi thì đó là yêu cầu mới, cần cập nhật FR-M11 trước | Người dùng đồng ý (2026-11-19): giữ như FR, không lưu câu hỏi trên yêu cầu tham gia; FR-M11 không đổi | Mục 2.3 GroupJoinRequest.answer |
+| Q-04 | Mơ hồ | Mục Dữ liệu nghiệp vụ ghi "Owner" là thuộc tính của Nhóm và "một Owner" ở cột Quan hệ. Đề xuất: không có quan hệ Owner riêng; Owner là GroupMember có role Owner (mỗi nhóm đúng một, BR-M11-04), còn người tạo là quan hệ riêng R-M11-01 vì không đổi khi Owner được chuyển | Người dùng đồng ý (2026-11-19): Owner là GroupMember có role Owner, không có quan hệ Owner riêng; người tạo là quan hệ riêng R-M11-01 | Mục 2.1 dòng 26; mục 2.4 |
 
 ## 7. Lịch sử sửa đổi
 
 | Phiên bản | Ngày | Nội dung | Người sửa |
 |---|---|---|---|
-| 0.1 | 2026-11-18 | Soạn 21 câu mô tả và truy vết 17 chức năng từ FR-M11 v1.3, chờ duyệt bước 1 | Codex |
-| 0.2 | 2026-11-18 | Ghi nhận duyệt bước 1, phân loại danh từ, lập bảng lớp và thuộc tính, đối chiếu FR-M11 và ghi câu hỏi | Codex |
-| 0.3 | 2026-11-18 | Ghi nhận duyệt bước 2 và Q-01/02. Lập ma trận, bội số, lớp liên kết, quan hệ, PlantUML và liên module. Ghi Q-03/04, chờ chốt EC-M11. | Codex |
-| 0.4 | 2026-11-18 | Ghi nhận duyệt Q-03 và Q-04, chờ cập nhật FR-M11 và chốt EC-M11. | Codex |
+| 0.1 | 2026-11-19 | Tạo mới; làm liền 3 bước theo yêu cầu của người dùng (không dừng ở cổng), chờ duyệt và trả lời Q-01 đến Q-04 | Phạm Văn Đức |
+| 1.0 | 2026-11-19 | Chốt sau 3 bước: 4 lớp của M11, 3 lớp ngoài, 9 quan hệ (R-M11-01 đến R-M11-09); Q-01 đến Q-04 đã trả lời | Phạm Văn Đức |
+| 1.1 | 2026-11-20 | Áp dụng quyết định gộp hệ thống (EC-SYS): MD-05: dòng module này bổ sung trên lớp ngoài đổi thành Tham chiếu: Post.isAnonymous, Post.scanScore, Post.isAwaitingGroupReview, Post.lastHolderActionAt, Post.isRemovedFromGroup, Comment.isRemovedFromGroup, ghi đủ thuộc tính của lớp ngoài theo EC-SYS: thêm 52 dòng Tham chiếu; MD-06: gộp ràng buộc của Group.modState với dòng của EC-M08; MD-08: R-M11-08 ghi là trùng R-M03-06; MD-12: JoinRequest → GroupJoinRequest | Phạm Văn Đức |

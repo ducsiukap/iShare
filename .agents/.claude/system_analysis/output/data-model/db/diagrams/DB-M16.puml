@@ -1,0 +1,63 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity conversations {
+  * id : bigint <<PK>>
+  --
+  * type : varchar(30)
+  name : varchar(100)
+  is_approval_on : boolean
+  invite_link : text
+}
+entity conversation_members {
+  * id : bigint <<PK>>
+  --
+  role : varchar(30)
+  * status : varchar(30)
+  left_at : timestamptz
+  * user_id : bigint <<FK>>
+  * conversation_id : bigint <<FK>>
+  last_read_message_id : bigint <<FK>>
+}
+entity messages {
+  * id : bigint <<PK>>
+  --
+  * content : text
+  * sent_at : timestamptz
+  * is_recalled : boolean
+  * conversation_id : bigint <<FK>>
+  * sender_id : bigint <<FK>>
+}
+entity chat_member_proposals {
+  * id : bigint <<PK>>
+  --
+  * status : varchar(30)
+  * created_at : timestamptz
+  * conversation_id : bigint <<FK>>
+  * proposed_user_id : bigint <<FK>>
+  * proposer_id : bigint <<FK>>
+}
+entity chat_join_requests {
+  * id : bigint <<PK>>
+  --
+  * status : varchar(30)
+  * created_at : timestamptz
+  * conversation_id : bigint <<FK>>
+  * requester_id : bigint <<FK>>
+}
+entity users <<M01>> {
+}
+
+users ||--o{ conversation_members : user_id
+conversations ||--o{ conversation_members : conversation_id
+messages |o--o{ conversation_members : last_read_message_id
+conversations ||--o{ messages : conversation_id
+users ||--o{ messages : sender_id
+conversations ||--o{ chat_member_proposals : conversation_id
+users ||--o{ chat_member_proposals : proposed_user_id
+users ||--o{ chat_member_proposals : proposer_id
+conversations ||--o{ chat_join_requests : conversation_id
+users ||--o{ chat_join_requests : requester_id
+
+@enduml

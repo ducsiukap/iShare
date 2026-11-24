@@ -87,9 +87,9 @@ steps_completed: []
 
 ## 5. Sơ đồ lớp thiết kế
 
-<!-- BEGIN:PUML -->
+<!-- BEGIN:DIAGRAM -->
 (Chưa làm — bước 4)
-<!-- END:PUML -->
+<!-- END:DIAGRAM -->
 
 ## 6. Liên module
 

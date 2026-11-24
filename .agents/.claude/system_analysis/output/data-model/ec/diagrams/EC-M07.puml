@@ -1,0 +1,197 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Notification {
+  -eventType
+  -isRead
+  -occurredAt
+  -lastUpdatedAt
+  -appealLink
+  -/isUpvoteWindowOpen
+  -/otherUpvoterCount
+}
+class Follow {
+  -followedAt
+}
+class NotificationEmail {
+  -eventType
+  -queuedAt
+  -status
+  -retryCount
+  -appealLink
+}
+class NotificationSetting {
+  -isAllChatMuted
+}
+class CountedUpvoter {
+}
+class MutedPost {
+}
+class MutedConversation {
+}
+class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
+  -role
+  -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
+}
+class Topic <<M05>> {
+  -name
+  -deletedAt
+}
+class Post <<M03>> {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
+}
+class Comment <<M04>> {
+  -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
+}
+class Group <<M11>> {
+  -name
+  -description
+  -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
+  -modState
+  -inviteLink
+  -/isInstantJoin
+}
+class Report <<M08>> {
+  -reason
+  -description
+  -isAiCreated
+  -scanScore
+  -/status
+  -/conclusion
+  -/concentrationIndex
+  -reportedAt
+}
+class Warning <<M08>> {
+  -reason
+  -issuedAt
+  -isIssuedByAi
+  -status
+  -levelAfter
+}
+class Ban <<M08>> {
+  -kind
+  -duration
+  -startedAt
+  -/endsAt
+  -reason
+  -status
+  -/appealDeadline
+}
+class Appeal <<M09>> {
+  -type
+  -explanation
+  -submittedAt
+  -status
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+  -/roleAtAction
+}
+class Proposal <<M10>> {
+  -type
+  -sentAt
+  -status
+}
+class Badge <<M12>> {
+  -name
+  -threshold
+}
+class EarnedTitle <<M12>> {
+  -week
+}
+class Conversation <<M16>> {
+  -type
+  -name
+  -isApprovalOn
+  -inviteLink
+}
+
+(Notification, User) .. CountedUpvoter
+(User, Post) .. MutedPost
+(User, Conversation) .. MutedConversation
+Notification "0..*" o-- "1" User
+Notification "0..*" o-- "0..1" User
+Notification "0..*" o-- "0..1" Post
+Notification "0..*" o-- "0..1" Comment
+Notification "0..*" o-- "0..1" Group
+Notification "0..*" o-- "0..1" Report
+Notification "0..1" o-- "0..1" Warning
+Notification "0..2" o-- "0..1" Ban
+Notification "0..1" o-- "0..1" Appeal
+Notification "1" o-- "0..1" Proposal
+Notification "0..*" o-- "0..1" Badge
+Notification "0..*" o-- "0..1" EarnedTitle
+Follow "0..*" o-- "1" User
+Follow "0..*" o-- "0..1" User
+Follow "0..*" o-- "0..1" Topic
+NotificationEmail "0..*" o-- "1" User
+User "1" o-- "0..1" NotificationSetting
+
+@enduml
