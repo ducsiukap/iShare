@@ -1,0 +1,108 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Group {
+  -name
+  -description
+  -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
+  -modState
+  -inviteLink
+  -/isInstantJoin
+}
+class GroupMember {
+  -role
+  -joinedAt
+  -modAppointedAt
+}
+class GroupJoinRequest {
+  -answer
+  -status
+}
+class GroupJoinBlock {
+}
+class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
+  -role
+  -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
+}
+class Post <<M03>> {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
+}
+class Comment <<M04>> {
+  -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
+}
+
+(User, Group) .. GroupMember
+(User, Group) .. GroupJoinBlock
+Group "0..*" o-- "1" User
+GroupJoinRequest "0..*" o-- "1" User
+Group "1" o-- "0..*" GroupJoinRequest
+Group "0..1" o-- "0..*" Post
+Post "0..*" o-- "0..1" GroupMember
+
+@enduml

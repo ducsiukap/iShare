@@ -1,0 +1,188 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Report {
+  -id : long
+  -reason : ReportReason
+  -description : String
+  -isAiCreated : boolean
+  -scanScore : double
+  -/status : ReportStatus
+  -/conclusion : ReportConclusion
+  -/concentrationIndex : double
+  -reportedAt : Instant
+  -evidences : List<ReportEvidence>
+  -reporter : User
+}
+class ReportEvidence {
+  -id : long
+  -image : String
+}
+class ReportCase {
+  -id : long
+  -targetType : ReportTargetType
+  -status : ReportStatus
+  -openedAt : Instant
+  -/reportCount : int
+  -/priorityScore : int
+  -isBanRequest : boolean
+  -lastHolderActionAt : Instant
+  -conclusion : ReportConclusion
+  -conclusionReason : String
+  -concludedAt : Instant
+  -reports : List<Report>
+  -post : Post
+  -comment : Comment
+  -reportedUser : User
+  -group : Group
+  -holder : User
+  -concludedBy : User
+}
+class Warning {
+  -id : long
+  -reason : String
+  -issuedAt : Instant
+  -isIssuedByAi : boolean
+  -status : WarningStatus
+  -levelAfter : WarningLevel
+  -reportCase : ReportCase
+  -warnedUser : User
+  -issuedBy : User
+  -post : Post
+  -comment : Comment
+}
+class UserWarningStatus {
+  -id : long
+  -warningCount : int
+  -/level : WarningLevel
+  -probationEndsAt : Instant
+  -user : User
+}
+class Ban {
+  -id : long
+  -kind : BanKind
+  -duration : int
+  -startedAt : Instant
+  -/endsAt : Instant
+  -reason : String
+  -status : BanStatus
+  -/appealDeadline : Instant
+  -reportCase : ReportCase
+  -bannedUser : User
+  -bannedBy : User
+}
+class ModerationLog {
+  -id : long
+  -actionType : ModerationActionType
+  -reason : String
+  -createdAt : Instant
+  -isByAi : boolean
+  -actor : User
+  -targetUser : User
+  -post : Post
+  -comment : Comment
+  -group : Group
+  -tag : Tag
+  -reportCase : ReportCase
+}
+class User <<M01>> {
+}
+class Post <<M03>> {
+}
+class Comment <<M04>> {
+}
+class Group <<M11>> {
+}
+class Tag <<M05>> {
+}
+enum ReportReason {
+  SPAM
+  MISINFORMATION
+  PLAGIARISM
+  HARASSMENT
+  HATE
+  SEXUAL
+  VIOLENCE
+  SYSTEMATIC_HARASSMENT
+  FAKE_GROUP
+  OTHER
+}
+enum ReportTargetType {
+  POST
+  COMMENT
+  USER
+  GROUP
+}
+enum ReportStatus {
+  OPEN
+  RESOLVED
+}
+enum ReportConclusion {
+  ACTION_TAKEN
+  DISMISSED
+}
+enum WarningStatus {
+  ACTIVE
+  REMOVED
+  OVERTURNED
+}
+enum WarningLevel {
+  CLEAN
+  LIGHT
+  MEDIUM
+  HEAVY
+}
+enum BanKind {
+  TEMPORARY
+  PERMANENT
+}
+enum BanStatus {
+  ACTIVE
+  EXPIRED
+  LIFTED
+  OVERTURNED
+}
+enum ModerationActionType {
+  WARN
+  REMOVE_AI_WARNING
+  BAN
+  UNBAN
+  HIDE_CONTENT
+  HIDE_GROUP
+  LOCK_GROUP
+  UNLOCK_GROUP
+  CONCLUDE_CASE
+  DISABLE_TAG
+  ENABLE_TAG
+  CHANGE_POST_TOPIC_TAG
+}
+
+ReportCase "1" o-- "1..*" Report
+Report "1" o-- "0..3" ReportEvidence
+Report "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" Post
+ReportCase "0..*" o-- "0..1" Comment
+ReportCase "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" Group
+ReportCase "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" User
+Warning "0..*" o-- "0..1" ReportCase
+Ban "0..*" o-- "1" ReportCase
+Warning "0..*" o-- "1" User
+Warning "0..*" o-- "0..1" User
+Warning "0..*" o-- "0..1" Post
+Warning "0..*" o-- "0..1" Comment
+UserWarningStatus "1" o-- "1" User
+Ban "0..*" o-- "1" User
+Ban "0..*" o-- "1" User
+ModerationLog "0..*" o-- "0..1" User
+ModerationLog "0..*" o-- "0..1" User
+ModerationLog "0..*" o-- "0..1" Post
+ModerationLog "0..*" o-- "0..1" Comment
+ModerationLog "0..*" o-- "0..1" Group
+ModerationLog "0..*" o-- "0..1" Tag
+ModerationLog "0..*" o-- "0..1" ReportCase
+
+@enduml

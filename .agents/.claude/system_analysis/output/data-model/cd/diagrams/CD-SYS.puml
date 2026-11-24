@@ -1,0 +1,1133 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class AdminLog {
+  -id : long
+  -actionType : AdminActionType
+  -reason : String
+  -createdAt : Instant
+  -isBySystem : boolean
+  -actor : User
+  -targetUser : User
+  -configSwitch : ConfigSwitch
+  -banner : Banner
+  -post : Post
+  -comment : Comment
+  -group : Group
+  -reportCase : ReportCase
+  -appeal : Appeal
+  -topic : Topic
+  -tag : Tag
+}
+class AiDecisionLog {
+  -id : long
+  -callType : AiCallType
+  -isSuccess : boolean
+  -rawOutput : String
+  -createdAt : Instant
+  -/scanScore : double
+  -/violationCategory : ViolationCategory
+  -/scoreBand : ScoreBand
+  -post : Post
+  -comment : Comment
+}
+class Appeal {
+  -id : long
+  -type : AppealType
+  -explanation : String
+  -submittedAt : Instant
+  -status : AppealStatus
+  -lastHolderActionAt : Instant
+  -conclusion : AppealConclusion
+  -conclusionReason : String
+  -concludedAt : Instant
+  -/roleAtAction : UserRole
+  -evidences : List<AppealEvidence>
+  -appellant : User
+  -holder : User
+  -concludedBy : User
+  -warning : Warning
+  -ban : Ban
+  -reportCase : ReportCase
+  -post : Post
+}
+class AppealEvidence {
+  -id : long
+  -image : String
+}
+class AppealStat <<stat>> {
+  -period : StatPeriod
+  -/countByType : Map<AppealType, Integer>
+  -/countByResult : Map<AppealResultGroup, Integer>
+}
+class Badge {
+  -id : long
+  -name : String
+  -threshold : int
+}
+class Ban {
+  -id : long
+  -kind : BanKind
+  -duration : int
+  -startedAt : Instant
+  -/endsAt : Instant
+  -reason : String
+  -status : BanStatus
+  -/appealDeadline : Instant
+  -reportCase : ReportCase
+  -bannedUser : User
+  -bannedBy : User
+}
+class BanStat <<stat>> {
+  -period : StatPeriod
+  -/banTrend : Map<Instant, Map<BanKind, Integer>>
+  -/unbanTrend : Map<Instant, Integer>
+}
+class Banner {
+  -id : long
+  -content : String
+  -status : BannerStatus
+  -dismissals : List<BannerDismissal>
+}
+class BannerDismissal {
+  -id : long
+  -user : User
+}
+class Bookmark {
+  -id : long
+  -savedAt : Instant
+  -post : Post
+}
+class ChatJoinRequest {
+  -id : long
+  -status : ChatRequestStatus
+  -createdAt : Instant
+  -requester : User
+}
+class ChatMemberProposal {
+  -id : long
+  -status : ChatRequestStatus
+  -createdAt : Instant
+  -proposedUser : User
+  -proposer : User
+}
+class ChosenTopic {
+  -id : long
+  -topic : Topic
+}
+class Comment {
+  -id : long
+  -content : String
+  -publishedAt : Instant
+  -editedAt : Instant
+  -modState : CommentModState
+  -deletedAt : Instant
+  -/isDeleted : boolean
+  -/isEdited : boolean
+  -/isVisible : boolean
+  -/upvoteCount : int
+  -scannedAt : Instant
+  -/isScannedCurrent : boolean
+  -/replyRate : int
+  -isRemovedFromGroup : boolean
+  -isPointsDeducted : boolean
+  -mentions : List<Mention>
+  -author : User
+  -replies : List<Comment>
+  -repliedTo : Comment
+  -upvotes : List<Upvote>
+}
+class CommentStat <<stat>> {
+  -period : StatPeriod
+  -/newCommentTrend : Map<Instant, Integer>
+}
+class ConfigSwitch {
+  -id : long
+  -name : ConfigSwitchName
+  -status : SwitchStatus
+}
+class Conversation {
+  -id : long
+  -type : ConversationType
+  -name : String
+  -isApprovalOn : boolean
+  -inviteLink : String
+  -members : List<ConversationMember>
+  -messages : List<Message>
+  -memberProposals : List<ChatMemberProposal>
+  -chatJoinRequests : List<ChatJoinRequest>
+}
+class ConversationMember {
+  -id : long
+  -role : ChatRole
+  -status : ConversationMemberStatus
+  -leftAt : Instant
+  -user : User
+  -lastReadMessage : Message
+}
+class CountedUpvoter {
+  -id : long
+  -upvoter : User
+}
+class EarnedBadge {
+  -id : long
+  -achievedAt : Instant
+  -badge : Badge
+}
+class EarnedTitle {
+  -id : long
+  -week : Instant
+  -user : User
+}
+class Follow {
+  -id : long
+  -followedAt : Instant
+  -follower : User
+  -followedUser : User
+  -topic : Topic
+}
+class Group {
+  -id : long
+  -name : String
+  -description : String
+  -privacy : GroupPrivacy
+  -joinQuestion : String
+  -isPreApprovalOn : boolean
+  -isAnonymousOn : boolean
+  -createdAt : Instant
+  -isDeleted : boolean
+  -modState : GroupModState
+  -inviteLink : String
+  -/isInstantJoin : boolean
+  -posts : List<Post>
+  -creator : User
+  -members : List<GroupMember>
+  -joinBlocks : List<GroupJoinBlock>
+  -joinRequests : List<GroupJoinRequest>
+}
+class GroupJoinBlock {
+  -id : long
+  -blockedUser : User
+}
+class GroupJoinRequest {
+  -id : long
+  -answer : String
+  -status : GroupJoinRequestStatus
+  -requester : User
+}
+class GroupMember {
+  -id : long
+  -role : GroupRole
+  -joinedAt : Instant
+  -modAppointedAt : Instant
+  -user : User
+}
+class Leaderboard {
+  -id : long
+  -period : LeaderboardPeriod
+  -periodStart : Instant
+  -computedAt : Instant
+  -entries : List<LeaderboardEntry>
+}
+class LeaderboardEntry {
+  -id : long
+  -periodPoints : int
+  -rank : int
+  -gradeLevel : GradeLevel
+  -/isWeeklyStar : boolean
+  -user : User
+}
+class LoginSession {
+  -id : long
+  -device : String
+  -accessExpiresAt : Instant
+  -refreshToken : String
+  -refreshExpiresAt : Instant
+}
+class MagicLink {
+  -id : long
+  -purpose : MagicLinkPurpose
+  -token : String
+  -sentAt : Instant
+  -/expiresAt : Instant
+  -isUsed : boolean
+}
+class Mention {
+  -id : long
+  -notifiedAt : Instant
+  -mentionedUser : User
+}
+class Message {
+  -id : long
+  -content : String
+  -sentAt : Instant
+  -isRecalled : boolean
+  -sender : User
+}
+class ModerationLog {
+  -id : long
+  -actionType : ModerationActionType
+  -reason : String
+  -createdAt : Instant
+  -isByAi : boolean
+  -actor : User
+  -targetUser : User
+  -post : Post
+  -comment : Comment
+  -group : Group
+  -tag : Tag
+  -reportCase : ReportCase
+}
+class MutedConversation {
+  -id : long
+  -conversation : Conversation
+}
+class MutedPost {
+  -id : long
+  -post : Post
+}
+class Notification {
+  -id : long
+  -eventType : NotificationEventType
+  -isRead : boolean
+  -occurredAt : Instant
+  -lastUpdatedAt : Instant
+  -appealLink : String
+  -/isUpvoteWindowOpen : boolean
+  -/otherUpvoterCount : int
+  -recipient : User
+  -actor : User
+  -countedUpvoters : List<CountedUpvoter>
+  -post : Post
+  -comment : Comment
+  -group : Group
+  -report : Report
+  -warning : Warning
+  -ban : Ban
+  -appeal : Appeal
+  -proposal : Proposal
+  -badge : Badge
+  -earnedTitle : EarnedTitle
+}
+class NotificationEmail {
+  -id : long
+  -eventType : EmailEventType
+  -queuedAt : Instant
+  -status : EmailStatus
+  -retryCount : int
+  -appealLink : String
+  -recipient : User
+}
+class NotificationSetting {
+  -id : long
+  -isAllChatMuted : boolean
+}
+class PolicyConsent {
+  -id : long
+  -agreedAt : Instant
+  -policyVersion : PolicyVersion
+}
+class PolicyVersion {
+  -id : long
+  -version : String
+  -content : String
+  -releasedAt : Instant
+  -/isCurrent : boolean
+}
+class Poll {
+  -id : long
+  -allowMultiple : boolean
+  -showResultBeforeVote : boolean
+  -expiresAt : Instant
+  -isClosed : boolean
+  -/totalSelectionCount : int
+  -options : List<PollOption>
+}
+class PollOption {
+  -id : long
+  -label : String
+  -/selectionCount : int
+  -/percentage : int
+  -selections : List<PollSelection>
+}
+class PollSelection {
+  -id : long
+  -voter : User
+}
+class Post {
+  -id : long
+  -title : String
+  -content : String
+  -/contentText : String
+  -gradeLevel : GradeLevel
+  -createdAt : Instant
+  -updatedAt : Instant
+  -publishState : PublishState
+  -modState : ModState
+  -lockLevel : LockLevel
+  -lockedBy : LockedBy
+  -publishedAt : Instant
+  -rejectionReason : String
+  -violationCategory : ViolationCategory
+  -isInReviewQueue : boolean
+  -isEditedWhileHidden : boolean
+  -deletedAt : Instant
+  -publishStateBeforeDelete : PublishState
+  -isPermanentlyDeleted : boolean
+  -/isPubliclyVisible : boolean
+  -/isEdited : boolean
+  -/commentCount : int
+  -rejectedAt : Instant
+  -isAnonymous : boolean
+  -scanScore : double
+  -isAwaitingGroupReview : boolean
+  -lastHolderActionAt : Instant
+  -isRemovedFromGroup : boolean
+  -isPointsDeducted : boolean
+  -deductedPoints : int
+  -/upvoteCount : int
+  -embedding : float[]
+  -needsEmbedding : boolean
+  -/bookmarkCount : int
+  -mentions : List<Mention>
+  -attachments : List<PostAttachment>
+  -poll : Poll
+  -revisions : List<PostRevision>
+  -author : User
+  -comments : List<Comment>
+  -postTopics : List<PostTopic>
+  -postTags : List<PostTag>
+  -groupHolder : GroupMember
+  -upvotes : List<Upvote>
+  -summary : PostSummary
+}
+class PostAttachment {
+  -id : long
+  -kind : AttachmentKind
+  -fileFormat : FileFormat
+  -fileSize : int
+  -fileUrl : String
+  -fileName : String
+}
+class PostRevision {
+  -id : long
+  -content : String
+  -title : String
+  -editedAt : Instant
+}
+class PostSearchStat <<stat>> {
+  -/relevanceScore : double
+  -/engagementRaw : double
+  -/engagementScore : double
+  -/finalScore : double
+  -/snippet : String
+}
+class PostStat <<stat>> {
+  -period : StatPeriod
+  -/countByPublishState : Map<PostStateGroup, Integer>
+  -/countByModState : Map<ModState, Integer>
+  -/newPostTrend : Map<Instant, Integer>
+  -/countByTopic : Map<String, Integer>
+}
+class PostSummary {
+  -id : long
+  -content : String
+  -createdAt : Instant
+}
+class PostTag {
+  -id : long
+  -tag : Tag
+}
+class PostTopic {
+  -id : long
+  -topic : Topic
+}
+class PostTrendingStat <<stat>> {
+  -/score : double
+  -/age : double
+  -/computedAt : Instant
+}
+class Profile {
+  -id : long
+  -avatar : String
+  -bio : String
+  -gradeLevel : GradeLevel
+  -/followerCount : int
+  -/followingCount : int
+}
+class Proposal {
+  -id : long
+  -type : ProposalType
+  -sentAt : Instant
+  -status : ProposalStatus
+  -sender : User
+  -nominee : User
+}
+class ReactivationCode {
+  -id : long
+  -code : String
+  -sentAt : Instant
+  -/expiresAt : Instant
+  -failedAttemptCount : int
+}
+class Report {
+  -id : long
+  -reason : ReportReason
+  -description : String
+  -isAiCreated : boolean
+  -scanScore : double
+  -/status : ReportStatus
+  -/conclusion : ReportConclusion
+  -/concentrationIndex : double
+  -reportedAt : Instant
+  -evidences : List<ReportEvidence>
+  -reporter : User
+}
+class ReportCase {
+  -id : long
+  -targetType : ReportTargetType
+  -status : ReportStatus
+  -openedAt : Instant
+  -/reportCount : int
+  -/priorityScore : int
+  -isBanRequest : boolean
+  -lastHolderActionAt : Instant
+  -conclusion : ReportConclusion
+  -conclusionReason : String
+  -concludedAt : Instant
+  -reports : List<Report>
+  -post : Post
+  -comment : Comment
+  -reportedUser : User
+  -group : Group
+  -holder : User
+  -concludedBy : User
+}
+class ReportEvidence {
+  -id : long
+  -image : String
+}
+class ReportStat <<stat>> {
+  -period : StatPeriod
+  -/countByStatus : Map<ReportStatGroup, Integer>
+  -/countByReason : Map<ReportTargetType, Map<ReportReason, Integer>>
+}
+class SuggestedTopic {
+  -id : long
+  -topic : Topic
+}
+class Tag {
+  -id : long
+  -name : String
+  -status : TagStatus
+  -createdAt : Instant
+}
+class TagTrendingStat <<stat>> {
+  -/score : int
+  -/newPostCount : int
+  -/rank : int
+  -/computedAt : Instant
+}
+class Topic {
+  -id : long
+  -name : String
+  -deletedAt : Instant
+}
+class TopicSuggestion {
+  -id : long
+  -status : TopicSuggestionStatus
+  -createdAt : Instant
+  -suggestedTopics : List<SuggestedTopic>
+  -post : Post
+  -author : User
+}
+class TopicSuggestionFeedback {
+  -id : long
+  -recordedAt : Instant
+  -chosenTopics : List<ChosenTopic>
+  -topicSuggestion : TopicSuggestion
+}
+class TopicSuggestionStat <<stat>> {
+  -period : StatPeriod
+  -/suggestedCount : int
+  -/keptCount : int
+  -/retentionRate : double
+}
+class TopicTrendingStat <<stat>> {
+  -/score : int
+  -/newPostCount : int
+  -/rank : int
+  -/computedAt : Instant
+}
+class Upvote {
+  -id : long
+  -upvotedAt : Instant
+  -upvoter : User
+}
+class User {
+  -id : long
+  -email : String
+  -password : String
+  -username : String
+  -displayName : String
+  -role : UserRole
+  -status : AccountStatus
+  -verificationLevel : VerificationLevel
+  -googleLink : String
+  -deactivatedAt : Instant
+  -/deactivationEndsAt : Instant
+  -/isGoogleAccount : boolean
+  -createdAt : Instant
+  -/unreadNotificationCount : int
+  -/banCount : int
+  -isRoot : boolean
+  -totalPoints : int
+  -magicLinks : List<MagicLink>
+  -reactivationCodes : List<ReactivationCode>
+  -loginSessions : List<LoginSession>
+  -policyConsents : List<PolicyConsent>
+  -profile : Profile
+  -bookmarks : List<Bookmark>
+  -notificationSetting : NotificationSetting
+  -mutedPosts : List<MutedPost>
+  -mutedConversations : List<MutedConversation>
+  -earnedBadges : List<EarnedBadge>
+}
+class UserStat <<stat>> {
+  -period : StatPeriod
+  -/countByStatus : Map<UserStatGroup, Integer>
+  -/registrationTrend : Map<Instant, Integer>
+  -/countByRole : Map<UserRole, Integer>
+  -/countByGradeLevel : Map<GradeLevelGroup, Integer>
+  -/countByWarningLevel : Map<WarningLevelGroup, Integer>
+}
+class UserWarningStatus {
+  -id : long
+  -warningCount : int
+  -/level : WarningLevel
+  -probationEndsAt : Instant
+  -user : User
+}
+class Warning {
+  -id : long
+  -reason : String
+  -issuedAt : Instant
+  -isIssuedByAi : boolean
+  -status : WarningStatus
+  -levelAfter : WarningLevel
+  -reportCase : ReportCase
+  -warnedUser : User
+  -issuedBy : User
+  -post : Post
+  -comment : Comment
+}
+class WarningStat <<stat>> {
+  -period : StatPeriod
+  -/levelTrend : Map<Instant, Map<WarningLevel, Integer>>
+}
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
+}
+enum AccountStatus {
+  ACTIVE
+  DEACTIVATED
+  DELETED
+  BANNED
+}
+enum VerificationLevel {
+  NONE
+  EMAIL_VERIFIED
+  SETUP_COMPLETED
+}
+enum MagicLinkPurpose {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+}
+enum GradeLevel {
+  GRADE_10
+  GRADE_11
+  GRADE_12
+}
+enum PublishState {
+  DRAFT
+  PENDING
+  PUBLISHED
+  HIDDEN
+  REJECTED
+  DELETED
+}
+enum ModState {
+  NORMAL
+  FLAGGED
+  HIDDEN
+}
+enum LockLevel {
+  NONE
+  COMMENT_LOCKED
+  FULLY_LOCKED
+}
+enum LockedBy {
+  AUTHOR
+  MOD
+}
+enum ViolationCategory {
+  HARASSMENT
+  HATE
+  SEXUAL
+  VIOLENCE
+}
+enum AttachmentKind {
+  IMAGE
+  DOCUMENT
+}
+enum FileFormat {
+  JPEG
+  PNG
+  WEBP
+  PDF
+  DOCX
+  XLSX
+  PPTX
+}
+enum CommentModState {
+  NORMAL
+  HIDDEN
+}
+enum TagStatus {
+  ACTIVE
+  DISABLED
+}
+enum TopicSuggestionStatus {
+  VALID
+  OUTDATED
+}
+enum NotificationEventType {
+  PASSWORD_CHANGED
+  GOOGLE_LINKED
+  NEW_FOLLOWER
+  FOLLOWED_USER_NEW_POST
+  POST_PUBLISHED
+  POST_REJECTED
+  POST_HIDDEN
+  POLL_ENDED
+  POST_UPVOTED
+  COMMENT_UPVOTED
+  NEW_COMMENT
+  REPLY
+  MENTION
+  COMMENT_HIDDEN
+  REPORT_RESULT
+  WARNING_ISSUED
+  BANNED
+  UNBANNED
+  BAN_APPEAL_CONCLUDED
+  POST_APPEAL_CONCLUDED
+  WARNING_APPEAL_CONCLUDED
+  GROUP_INVITED
+  GROUP_JOIN_REQUESTED
+  GROUP_JOIN_APPROVED
+  GROUP_MOD_APPOINTED
+  GROUP_KICKED
+  GROUP_OWNER_TRANSFERRED
+  GROUP_CONTENT_REMOVED
+  BADGE_EARNED
+  WEEKLY_STAR_EARNED
+  MOD_PROPOSAL
+  ADMIN_PROPOSAL
+}
+enum EmailEventType {
+  PASSWORD_CHANGED
+  GOOGLE_LINKED
+  DELETION_WARNING
+  BANNED
+  UNBANNED
+  BAN_APPEAL_CONCLUDED
+}
+enum EmailStatus {
+  PENDING
+  SENT
+  STOPPED
+}
+enum ReportReason {
+  SPAM
+  MISINFORMATION
+  PLAGIARISM
+  HARASSMENT
+  HATE
+  SEXUAL
+  VIOLENCE
+  SYSTEMATIC_HARASSMENT
+  FAKE_GROUP
+  OTHER
+}
+enum ReportTargetType {
+  POST
+  COMMENT
+  USER
+  GROUP
+}
+enum ReportStatus {
+  OPEN
+  RESOLVED
+}
+enum ReportConclusion {
+  ACTION_TAKEN
+  DISMISSED
+}
+enum WarningStatus {
+  ACTIVE
+  REMOVED
+  OVERTURNED
+}
+enum WarningLevel {
+  CLEAN
+  LIGHT
+  MEDIUM
+  HEAVY
+}
+enum BanKind {
+  TEMPORARY
+  PERMANENT
+}
+enum BanStatus {
+  ACTIVE
+  EXPIRED
+  LIFTED
+  OVERTURNED
+}
+enum ModerationActionType {
+  WARN
+  REMOVE_AI_WARNING
+  BAN
+  UNBAN
+  HIDE_CONTENT
+  HIDE_GROUP
+  LOCK_GROUP
+  UNLOCK_GROUP
+  CONCLUDE_CASE
+  DISABLE_TAG
+  ENABLE_TAG
+  CHANGE_POST_TOPIC_TAG
+}
+enum AppealType {
+  BAN
+  WARNING
+  POST
+}
+enum AppealStatus {
+  PENDING
+  CONCLUDED
+}
+enum AppealConclusion {
+  ACCEPTED
+  REJECTED
+}
+enum ProposalType {
+  MOD
+  ADMIN
+}
+enum ProposalStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  EXPIRED
+}
+enum ConfigSwitchName {
+  AI_ENABLED
+  AI_SEARCH
+  AI_MODERATION
+  AI_TOPIC_SUGGESTION
+  MAINTENANCE_MODE
+  REGISTRATION_PAUSED
+  GROUP_ENABLED
+  CHAT_ENABLED
+  GAMIFICATION_ENABLED
+}
+enum SwitchStatus {
+  ON
+  OFF
+}
+enum BannerStatus {
+  SHOWN
+  HIDDEN
+}
+enum AdminActionType {
+  PROPOSE_MOD
+  PROPOSE_ADMIN
+  ACCEPT_PROPOSAL
+  DEMOTE_MOD
+  REVOKE_ADMIN
+  RESIGN
+  REVOKE_MOD_ON_BAN
+  CHANGE_SWITCH
+  SET_BANNER
+  EDIT_BANNER
+  REMOVE_BANNER
+  WARN
+  REMOVE_AI_WARNING
+  BAN
+  UNBAN
+  HIDE_CONTENT
+  HIDE_GROUP
+  LOCK_GROUP
+  UNLOCK_GROUP
+  CONCLUDE_CASE
+  CONCLUDE_APPEAL
+  ADD_TOPIC
+  MERGE_TOPIC
+  DELETE_TOPIC
+  DISABLE_TAG
+  ENABLE_TAG
+  CHANGE_POST_TOPIC_TAG
+}
+enum GroupPrivacy {
+  PUBLIC
+  PRIVATE
+}
+enum GroupModState {
+  NORMAL
+  LOCKED
+  HIDDEN
+}
+enum GroupRole {
+  OWNER
+  GROUP_MOD
+  MEMBER
+}
+enum GroupJoinRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  WITHDRAWN
+}
+enum LeaderboardPeriod {
+  WEEK
+  MONTH
+  ALL_TIME
+}
+enum AiCallType {
+  MODERATION_SCAN
+  POST_EMBEDDING
+  TOPIC_SUGGESTION
+}
+enum ScoreBand {
+  HIGH
+  SUSPICIOUS
+  CLEAN
+}
+enum StatPeriod {
+  TODAY
+  LAST_7_DAYS
+  LAST_30_DAYS
+  ALL_TIME
+}
+enum UserStatGroup {
+  PENDING_EMAIL_VERIFICATION
+  PENDING_PROFILE_SETUP
+  ACTIVE
+  DEACTIVATED
+  BANNED
+  DELETED
+}
+enum GradeLevelGroup {
+  GRADE_10
+  GRADE_11
+  GRADE_12
+  NOT_SET
+}
+enum WarningLevelGroup {
+  CLEAN
+  LIGHT
+  MEDIUM
+  HEAVY
+  BANNED
+}
+enum PostStateGroup {
+  PENDING
+  PUBLISHED
+  HIDDEN
+  REJECTED
+  DELETED
+  PERMANENTLY_DELETED
+}
+enum ReportStatGroup {
+  OPEN
+  RESOLVED_ACTION_TAKEN
+  RESOLVED_DISMISSED
+}
+enum AppealResultGroup {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+enum ConversationType {
+  DIRECT
+  GROUP
+}
+enum ChatRole {
+  ADMIN
+  MEMBER
+}
+enum ConversationMemberStatus {
+  ACTIVE
+  LEFT
+  REMOVED
+}
+enum ChatRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+User "1" o-- "0..*" MagicLink
+User "1" o-- "0..*" ReactivationCode
+User "1" o-- "0..*" LoginSession
+User "1" o-- "0..*" PolicyConsent
+PolicyConsent "0..*" o-- "1" PolicyVersion
+Mention "0..*" o-- "1" User
+Post "0..1" o-- "0..*" Mention
+Comment "0..1" o-- "0..*" Mention
+User "1" o-- "1" Profile
+User "1" o-- "0..*" Bookmark
+Bookmark "0..*" o-- "1" Post
+Post "1" o-- "0..13" PostAttachment
+Post "1" o-- "0..1" Poll
+Poll "1" *-- "2..10" PollOption
+Post "1" o-- "0..*" PostRevision
+Post "0..*" o-- "1" User
+Group "0..1" o-- "0..*" Post
+PollOption "1" o-- "0..*" PollSelection
+PollSelection "0..*" o-- "1" User
+Post "1" o-- "0..*" Comment
+Comment "0..*" o-- "1" User
+Comment "0..1" o-- "0..*" Comment
+Comment "0..*" o-- "0..1" Comment
+PostTopic "0..*" o-- "1" Topic
+Post "1" o-- "0..3" PostTopic
+PostTag "0..*" o-- "1" Tag
+Post "1" o-- "0..5" PostTag
+TopicSuggestion "1" o-- "1..3" SuggestedTopic
+SuggestedTopic "0..*" o-- "1" Topic
+TopicSuggestionFeedback "1" o-- "1..3" ChosenTopic
+ChosenTopic "0..*" o-- "1" Topic
+TopicSuggestionFeedback "0..1" o-- "1" TopicSuggestion
+TopicSuggestion "0..*" o-- "1" Post
+TopicSuggestion "0..*" o-- "0..1" User
+Notification "0..*" o-- "1" User
+Notification "0..*" o-- "0..1" User
+Notification "1" o-- "0..*" CountedUpvoter
+CountedUpvoter "0..*" o-- "1" User
+Notification "0..*" o-- "0..1" Post
+Notification "0..*" o-- "0..1" Comment
+Notification "0..*" o-- "0..1" Group
+Notification "0..*" o-- "0..1" Report
+Notification "0..1" o-- "0..1" Warning
+Notification "0..2" o-- "0..1" Ban
+Notification "0..1" o-- "0..1" Appeal
+Notification "1" o-- "0..1" Proposal
+Notification "0..*" o-- "0..1" Badge
+Notification "0..*" o-- "0..1" EarnedTitle
+Follow "0..*" o-- "1" User
+Follow "0..*" o-- "0..1" User
+Follow "0..*" o-- "0..1" Topic
+NotificationEmail "0..*" o-- "1" User
+User "1" o-- "0..1" NotificationSetting
+User "1" o-- "0..*" MutedPost
+MutedPost "0..*" o-- "1" Post
+User "1" o-- "0..*" MutedConversation
+MutedConversation "0..*" o-- "1" Conversation
+ReportCase "1" o-- "1..*" Report
+Report "1" o-- "0..3" ReportEvidence
+Report "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" Post
+ReportCase "0..*" o-- "0..1" Comment
+ReportCase "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" Group
+ReportCase "0..*" o-- "0..1" User
+ReportCase "0..*" o-- "0..1" User
+Warning "0..*" o-- "0..1" ReportCase
+Ban "0..*" o-- "1" ReportCase
+Warning "0..*" o-- "1" User
+Warning "0..*" o-- "0..1" User
+Warning "0..*" o-- "0..1" Post
+Warning "0..*" o-- "0..1" Comment
+UserWarningStatus "1" o-- "1" User
+Ban "0..*" o-- "1" User
+Ban "0..*" o-- "1" User
+ModerationLog "0..*" o-- "0..1" User
+ModerationLog "0..*" o-- "0..1" User
+ModerationLog "0..*" o-- "0..1" Post
+ModerationLog "0..*" o-- "0..1" Comment
+ModerationLog "0..*" o-- "0..1" Group
+ModerationLog "0..*" o-- "0..1" Tag
+ModerationLog "0..*" o-- "0..1" ReportCase
+Appeal "1" o-- "0..3" AppealEvidence
+Appeal "0..*" o-- "1" User
+Appeal "0..*" o-- "0..1" User
+Appeal "0..*" o-- "0..1" User
+Appeal "0..1" o-- "0..1" Warning
+Appeal "0..1" o-- "0..1" Ban
+Appeal "0..1" o-- "0..1" ReportCase
+Appeal "0..*" o-- "0..1" Post
+Proposal "0..*" o-- "1" User
+Proposal "0..*" o-- "1" User
+AdminLog "0..*" o-- "0..1" User
+AdminLog "0..*" o-- "0..1" User
+AdminLog "0..*" o-- "0..1" ConfigSwitch
+AdminLog "0..*" o-- "0..1" Banner
+AdminLog "0..*" o-- "0..1" Post
+AdminLog "0..*" o-- "0..1" Comment
+AdminLog "0..*" o-- "0..1" Group
+AdminLog "0..*" o-- "0..1" ReportCase
+AdminLog "0..*" o-- "0..1" Appeal
+AdminLog "0..*" o-- "0..1" Topic
+AdminLog "0..*" o-- "0..1" Tag
+Banner "1" o-- "0..*" BannerDismissal
+BannerDismissal "0..*" o-- "1" User
+Group "0..*" o-- "1" User
+GroupMember "0..*" o-- "1" User
+Group "1" o-- "1..*" GroupMember
+GroupJoinBlock "0..*" o-- "1" User
+Group "1" o-- "0..*" GroupJoinBlock
+GroupJoinRequest "0..*" o-- "1" User
+Group "1" o-- "0..*" GroupJoinRequest
+Post "0..*" o-- "0..1" GroupMember
+Upvote "0..*" o-- "0..1" User
+Post "0..1" o-- "0..*" Upvote
+Comment "0..1" o-- "0..*" Upvote
+User "1" o-- "0..5" EarnedBadge
+EarnedBadge "0..*" o-- "1" Badge
+EarnedTitle "0..*" o-- "1" User
+Leaderboard "1" o-- "0..*" LeaderboardEntry
+LeaderboardEntry "0..3" o-- "1" User
+AiDecisionLog "0..*" o-- "0..1" Post
+AiDecisionLog "0..*" o-- "0..1" Comment
+Post "1" o-- "0..1" PostSummary
+ConversationMember "0..*" o-- "1" User
+Conversation "1" o-- "1..*" ConversationMember
+Conversation "1" o-- "0..*" Message
+Message "0..*" o-- "1" User
+ConversationMember "0..*" o-- "0..1" Message
+Conversation "1" o-- "0..*" ChatMemberProposal
+ChatMemberProposal "0..*" o-- "1" User
+ChatMemberProposal "0..*" o-- "1" User
+Conversation "1" o-- "0..*" ChatJoinRequest
+ChatJoinRequest "0..*" o-- "1" User
+Topic <|-- TopicTrendingStat
+Tag <|-- TagTrendingStat
+Post <|-- PostSearchStat
+TopicSuggestionStat ..> TopicSuggestionFeedback
+Post <|-- PostTrendingStat
+UserStat ..> User
+PostStat ..> Post
+CommentStat ..> Comment
+ReportStat ..> Report
+WarningStat ..> Warning
+BanStat ..> Ban
+AppealStat ..> Appeal
+
+@enduml

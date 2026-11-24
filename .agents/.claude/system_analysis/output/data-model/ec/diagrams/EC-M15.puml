@@ -1,0 +1,199 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class UserStat <<stat>> {
+  -period
+  -/countByStatus
+  -/registrationTrend
+  -/countByRole
+  -/countByGradeLevel
+  -/countByWarningLevel
+}
+class PostStat <<stat>> {
+  -period
+  -/countByPublishState
+  -/countByModState
+  -/newPostTrend
+  -/countByTopic
+}
+class CommentStat <<stat>> {
+  -period
+  -/newCommentTrend
+}
+class ReportStat <<stat>> {
+  -period
+  -/countByStatus
+  -/countByReason
+}
+class WarningStat <<stat>> {
+  -period
+  -/levelTrend
+}
+class BanStat <<stat>> {
+  -period
+  -/banTrend
+  -/unbanTrend
+}
+class AppealStat <<stat>> {
+  -period
+  -/countByType
+  -/countByResult
+}
+class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
+  -role
+  -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
+}
+class Profile <<M02>> {
+  -avatar
+  -bio
+  -gradeLevel
+  -/followerCount
+  -/followingCount
+}
+class UserWarningStatus <<M08>> {
+  -warningCount
+  -/level
+  -probationEndsAt
+}
+class Post <<M03>> {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
+}
+class Topic <<M05>> {
+  -name
+  -deletedAt
+}
+class Comment <<M04>> {
+  -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
+}
+class TopicSuggestionStat <<M13>> {
+  -period
+  -/suggestedCount
+  -/keptCount
+  -/retentionRate
+}
+class Report <<M08>> {
+  -reason
+  -description
+  -isAiCreated
+  -scanScore
+  -/status
+  -/conclusion
+  -/concentrationIndex
+  -reportedAt
+}
+class ReportCase <<M08>> {
+  -targetType
+  -status
+  -openedAt
+  -/reportCount
+  -/priorityScore
+  -isBanRequest
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+}
+class Warning <<M08>> {
+  -reason
+  -issuedAt
+  -isIssuedByAi
+  -status
+  -levelAfter
+}
+class Ban <<M08>> {
+  -kind
+  -duration
+  -startedAt
+  -/endsAt
+  -reason
+  -status
+  -/appealDeadline
+}
+class ModerationLog <<M08>> {
+  -actionType
+  -reason
+  -createdAt
+  -isByAi
+}
+class Appeal <<M09>> {
+  -type
+  -explanation
+  -submittedAt
+  -status
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+  -/roleAtAction
+}
+
+UserStat ..> User
+PostStat ..> Post
+CommentStat ..> Comment
+ReportStat ..> Report
+WarningStat ..> Warning
+BanStat ..> Ban
+AppealStat ..> Appeal
+
+@enduml

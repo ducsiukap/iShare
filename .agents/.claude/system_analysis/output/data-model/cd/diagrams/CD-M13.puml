@@ -1,0 +1,58 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class AiDecisionLog {
+  -id : long
+  -callType : AiCallType
+  -isSuccess : boolean
+  -rawOutput : String
+  -createdAt : Instant
+  -/scanScore : double
+  -/violationCategory : ViolationCategory
+  -/scoreBand : ScoreBand
+  -post : Post
+  -comment : Comment
+}
+class PostSummary {
+  -id : long
+  -content : String
+  -createdAt : Instant
+}
+class TopicSuggestionStat <<stat>> {
+  -period : StatPeriod
+  -/suggestedCount : int
+  -/keptCount : int
+  -/retentionRate : double
+}
+class Post <<M03>> {
+  -summary : PostSummary
+}
+class Comment <<M04>> {
+}
+class TopicSuggestionFeedback <<M05>> {
+}
+enum AiCallType {
+  MODERATION_SCAN
+  POST_EMBEDDING
+  TOPIC_SUGGESTION
+}
+enum ScoreBand {
+  HIGH
+  SUSPICIOUS
+  CLEAN
+}
+enum StatPeriod {
+  TODAY
+  LAST_7_DAYS
+  LAST_30_DAYS
+  ALL_TIME
+}
+
+AiDecisionLog "0..*" o-- "0..1" Post
+AiDecisionLog "0..*" o-- "0..1" Comment
+Post "1" o-- "0..1" PostSummary
+TopicSuggestionStat ..> TopicSuggestionFeedback
+
+@enduml

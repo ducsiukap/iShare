@@ -1,0 +1,91 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity posts {
+  * id : bigint <<PK>>
+  --
+  title : varchar(150)
+  content : text
+  grade_level : varchar(30)
+  * created_at : timestamptz
+  * updated_at : timestamptz
+  * publish_state : varchar(30)
+  * mod_state : varchar(30)
+  * lock_level : varchar(30)
+  locked_by : varchar(30)
+  published_at : timestamptz
+  rejection_reason : text
+  violation_category : varchar(30)
+  * is_in_review_queue : boolean
+  * is_edited_while_hidden : boolean
+  deleted_at : timestamptz
+  publish_state_before_delete : varchar(30)
+  * is_permanently_deleted : boolean
+  rejected_at : timestamptz
+  * is_anonymous : boolean
+  scan_score : double precision
+  * is_awaiting_group_review : boolean
+  last_holder_action_at : timestamptz
+  * is_removed_from_group : boolean
+  * is_points_deducted : boolean
+  deducted_points : integer
+  embedding : vector(1536)
+  * needs_embedding : boolean
+  * author_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+}
+entity post_attachments {
+  * id : bigint <<PK>>
+  --
+  * kind : varchar(30)
+  * file_format : varchar(30)
+  * file_size : integer
+  * file_url : text
+  * file_name : text
+  * post_id : bigint <<FK>>
+}
+entity polls {
+  * id : bigint <<PK>>
+  --
+  * allow_multiple : boolean
+  * show_result_before_vote : boolean
+  * expires_at : timestamptz
+  * is_closed : boolean
+  * post_id : bigint <<FK>>
+}
+entity poll_options {
+  * id : bigint <<PK>>
+  --
+  * label : text
+  * poll_id : bigint <<FK>>
+}
+entity poll_selections {
+  * id : bigint <<PK>>
+  --
+  * poll_option_id : bigint <<FK>>
+  * voter_id : bigint <<FK>>
+}
+entity post_revisions {
+  * id : bigint <<PK>>
+  --
+  * content : text
+  * title : text
+  * edited_at : timestamptz
+  * post_id : bigint <<FK>>
+}
+entity groups <<M11>> {
+}
+entity users <<M01>> {
+}
+
+users ||--o{ posts : author_id
+groups |o--o{ posts : group_id
+posts ||--o{ post_attachments : post_id
+posts ||--o| polls : post_id
+polls ||--o{ poll_options : poll_id
+poll_options ||--o{ poll_selections : poll_option_id
+users ||--o{ poll_selections : voter_id
+posts ||--o{ post_revisions : post_id
+
+@enduml

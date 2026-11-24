@@ -1,0 +1,100 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Topic {
+  -id : long
+  -name : String
+  -deletedAt : Instant
+}
+class Tag {
+  -id : long
+  -name : String
+  -status : TagStatus
+  -createdAt : Instant
+}
+class TopicSuggestion {
+  -id : long
+  -status : TopicSuggestionStatus
+  -createdAt : Instant
+  -suggestedTopics : List<SuggestedTopic>
+  -post : Post
+  -author : User
+}
+class TopicSuggestionFeedback {
+  -id : long
+  -recordedAt : Instant
+  -chosenTopics : List<ChosenTopic>
+  -topicSuggestion : TopicSuggestion
+}
+class TopicTrendingStat <<stat>> {
+  -/score : int
+  -/newPostCount : int
+  -/rank : int
+  -/computedAt : Instant
+}
+class TagTrendingStat <<stat>> {
+  -/score : int
+  -/newPostCount : int
+  -/rank : int
+  -/computedAt : Instant
+}
+class PostTopic {
+  -id : long
+  -topic : Topic
+}
+class PostTag {
+  -id : long
+  -tag : Tag
+}
+class SuggestedTopic {
+  -id : long
+  -topic : Topic
+}
+class ChosenTopic {
+  -id : long
+  -topic : Topic
+}
+class Post <<M03>> {
+  -postTopics : List<PostTopic>
+  -postTags : List<PostTag>
+}
+class User <<M01>> {
+}
+class Follow <<M07>> {
+  -topic : Topic
+}
+class ModerationLog <<M08>> {
+  -tag : Tag
+}
+class AdminLog <<M10>> {
+  -topic : Topic
+}
+enum TagStatus {
+  ACTIVE
+  DISABLED
+}
+enum TopicSuggestionStatus {
+  VALID
+  OUTDATED
+}
+
+PostTopic "0..*" o-- "1" Topic
+Post "1" o-- "0..3" PostTopic
+PostTag "0..*" o-- "1" Tag
+Post "1" o-- "0..5" PostTag
+TopicSuggestion "1" o-- "1..3" SuggestedTopic
+SuggestedTopic "0..*" o-- "1" Topic
+TopicSuggestionFeedback "1" o-- "1..3" ChosenTopic
+ChosenTopic "0..*" o-- "1" Topic
+TopicSuggestionFeedback "0..1" o-- "1" TopicSuggestion
+TopicSuggestion "0..*" o-- "1" Post
+TopicSuggestion "0..*" o-- "0..1" User
+Follow "0..*" o-- "0..1" Topic
+AdminLog "0..*" o-- "0..1" Topic
+ModerationLog "0..*" o-- "0..1" Tag
+Topic <|-- TopicTrendingStat
+Tag <|-- TagTrendingStat
+
+@enduml

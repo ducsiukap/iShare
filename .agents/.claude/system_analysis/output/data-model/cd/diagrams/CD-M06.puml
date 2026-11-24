@@ -1,0 +1,26 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class PostSearchStat <<stat>> {
+  -/relevanceScore : double
+  -/engagementRaw : double
+  -/engagementScore : double
+  -/finalScore : double
+  -/snippet : String
+}
+class Post <<M03>> {
+}
+class User <<M01>> {
+}
+class Tag <<M05>> {
+}
+class Topic <<M05>> {
+}
+class Group <<M11>> {
+}
+
+Post <|-- PostSearchStat
+
+@enduml

@@ -1,0 +1,107 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Post {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
+}
+class PostAttachment {
+  -kind
+  -fileFormat
+  -fileSize
+  -fileUrl
+  -fileName
+}
+class Poll {
+  -allowMultiple
+  -showResultBeforeVote
+  -expiresAt
+  -isClosed
+  -/totalSelectionCount
+}
+class PollOption {
+  -label
+  -/selectionCount
+  -/percentage
+}
+class PollSelection {
+}
+class PostRevision {
+  -content
+  -title
+  -editedAt
+}
+class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
+  -role
+  -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
+}
+class Group <<M11>> {
+  -name
+  -description
+  -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
+  -modState
+  -inviteLink
+  -/isInstantJoin
+}
+
+(PollOption, User) .. PollSelection
+Post "1" o-- "0..13" PostAttachment
+Post "1" o-- "0..1" Poll
+Poll "1" *-- "2..10" PollOption
+Post "1" o-- "0..*" PostRevision
+Post "0..*" o-- "1" User
+Group "0..1" o-- "0..*" Post
+
+@enduml

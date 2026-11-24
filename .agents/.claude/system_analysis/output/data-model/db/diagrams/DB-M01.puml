@@ -1,0 +1,83 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity users {
+  * id : bigint <<PK>>
+  --
+  email : text
+  password : text
+  username : varchar(20)
+  display_name : varchar(50)
+  * role : varchar(30)
+  * status : varchar(30)
+  * verification_level : varchar(30)
+  google_link : varchar(255)
+  deactivated_at : timestamptz
+  * created_at : timestamptz
+  * is_root : boolean
+  * total_points : integer
+}
+entity magic_links {
+  * id : bigint <<PK>>
+  --
+  * purpose : varchar(30)
+  * token : text
+  * sent_at : timestamptz
+  * is_used : boolean
+  * user_id : bigint <<FK>>
+}
+entity reactivation_codes {
+  * id : bigint <<PK>>
+  --
+  * code : varchar(6)
+  * sent_at : timestamptz
+  * failed_attempt_count : integer
+  * user_id : bigint <<FK>>
+}
+entity login_sessions {
+  * id : bigint <<PK>>
+  --
+  * device : text
+  * access_expires_at : timestamptz
+  * refresh_token : text
+  * refresh_expires_at : timestamptz
+  * user_id : bigint <<FK>>
+}
+entity mentions {
+  * id : bigint <<PK>>
+  --
+  notified_at : timestamptz
+  * mentioned_user_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+}
+entity policy_versions {
+  * id : bigint <<PK>>
+  --
+  * version : text
+  * content : text
+  * released_at : timestamptz
+}
+entity policy_consents {
+  * id : bigint <<PK>>
+  --
+  * agreed_at : timestamptz
+  * user_id : bigint <<FK>>
+  * policy_version_id : bigint <<FK>>
+}
+entity comments <<M04>> {
+}
+entity posts <<M03>> {
+}
+
+users ||--o{ magic_links : user_id
+users ||--o{ reactivation_codes : user_id
+users ||--o{ login_sessions : user_id
+users ||--o{ mentions : mentioned_user_id
+posts |o--o{ mentions : post_id
+comments |o--o{ mentions : comment_id
+users ||--o{ policy_consents : user_id
+policy_versions ||--o{ policy_consents : policy_version_id
+
+@enduml

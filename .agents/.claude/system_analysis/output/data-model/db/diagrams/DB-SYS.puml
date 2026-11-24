@@ -1,0 +1,744 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity admin_logs {
+  * id : bigint <<PK>>
+  --
+  * action_type : varchar(30)
+  reason : text
+  * created_at : timestamptz
+  * is_by_system : boolean
+  actor_id : bigint <<FK>>
+  target_user_id : bigint <<FK>>
+  config_switch_id : bigint <<FK>>
+  banner_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  report_case_id : bigint <<FK>>
+  appeal_id : bigint <<FK>>
+  topic_id : bigint <<FK>>
+  tag_id : bigint <<FK>>
+}
+entity ai_decision_logs {
+  * id : bigint <<PK>>
+  --
+  * call_type : varchar(30)
+  * is_success : boolean
+  raw_output : text
+  * created_at : timestamptz
+  score_band : varchar(30)
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+}
+entity appeals {
+  * id : bigint <<PK>>
+  --
+  * type : varchar(30)
+  * explanation : text
+  * submitted_at : timestamptz
+  * status : varchar(30)
+  last_holder_action_at : timestamptz
+  conclusion : varchar(30)
+  conclusion_reason : text
+  concluded_at : timestamptz
+  * role_at_action : varchar(30)
+  * appellant_id : bigint <<FK>>
+  holder_id : bigint <<FK>>
+  concluded_by_id : bigint <<FK>>
+  warning_id : bigint <<FK>>
+  ban_id : bigint <<FK>>
+  report_case_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+}
+entity appeal_evidences {
+  * id : bigint <<PK>>
+  --
+  * image : text
+  * appeal_id : bigint <<FK>>
+}
+entity badges {
+  * id : bigint <<PK>>
+  --
+  * name : text
+  * threshold : integer
+}
+entity bans {
+  * id : bigint <<PK>>
+  --
+  * kind : varchar(30)
+  duration : integer
+  * started_at : timestamptz
+  * reason : text
+  * status : varchar(30)
+  * report_case_id : bigint <<FK>>
+  * banned_user_id : bigint <<FK>>
+  * banned_by_id : bigint <<FK>>
+}
+entity banners {
+  * id : bigint <<PK>>
+  --
+  * content : varchar(200)
+  * status : varchar(30)
+}
+entity banner_dismissals {
+  * id : bigint <<PK>>
+  --
+  * banner_id : bigint <<FK>>
+  * user_id : bigint <<FK>>
+}
+entity bookmarks {
+  * id : bigint <<PK>>
+  --
+  * saved_at : timestamptz
+  * user_id : bigint <<FK>>
+  * post_id : bigint <<FK>>
+}
+entity chat_join_requests {
+  * id : bigint <<PK>>
+  --
+  * status : varchar(30)
+  * created_at : timestamptz
+  * conversation_id : bigint <<FK>>
+  * requester_id : bigint <<FK>>
+}
+entity chat_member_proposals {
+  * id : bigint <<PK>>
+  --
+  * status : varchar(30)
+  * created_at : timestamptz
+  * conversation_id : bigint <<FK>>
+  * proposed_user_id : bigint <<FK>>
+  * proposer_id : bigint <<FK>>
+}
+entity chosen_topics {
+  * id : bigint <<PK>>
+  --
+  * topic_suggestion_feedback_id : bigint <<FK>>
+  * topic_id : bigint <<FK>>
+}
+entity comments {
+  * id : bigint <<PK>>
+  --
+  * content : text
+  * published_at : timestamptz
+  edited_at : timestamptz
+  * mod_state : varchar(30)
+  deleted_at : timestamptz
+  scanned_at : timestamptz
+  * is_removed_from_group : boolean
+  * is_points_deducted : boolean
+  * post_id : bigint <<FK>>
+  * author_id : bigint <<FK>>
+  parent_comment_id : bigint <<FK>>
+  replied_to_id : bigint <<FK>>
+}
+entity config_switches {
+  * id : bigint <<PK>>
+  --
+  * name : varchar(30)
+  * status : varchar(30)
+}
+entity conversations {
+  * id : bigint <<PK>>
+  --
+  * type : varchar(30)
+  name : varchar(100)
+  is_approval_on : boolean
+  invite_link : text
+}
+entity conversation_members {
+  * id : bigint <<PK>>
+  --
+  role : varchar(30)
+  * status : varchar(30)
+  left_at : timestamptz
+  * user_id : bigint <<FK>>
+  * conversation_id : bigint <<FK>>
+  last_read_message_id : bigint <<FK>>
+}
+entity counted_upvoters {
+  * id : bigint <<PK>>
+  --
+  * notification_id : bigint <<FK>>
+  * upvoter_id : bigint <<FK>>
+}
+entity earned_badges {
+  * id : bigint <<PK>>
+  --
+  * achieved_at : timestamptz
+  * user_id : bigint <<FK>>
+  * badge_id : bigint <<FK>>
+}
+entity earned_titles {
+  * id : bigint <<PK>>
+  --
+  * week : timestamptz
+  * user_id : bigint <<FK>>
+}
+entity follows {
+  * id : bigint <<PK>>
+  --
+  * followed_at : timestamptz
+  * follower_id : bigint <<FK>>
+  followed_user_id : bigint <<FK>>
+  topic_id : bigint <<FK>>
+}
+entity groups {
+  * id : bigint <<PK>>
+  --
+  * name : varchar(100)
+  description : varchar(500)
+  * privacy : varchar(30)
+  join_question : text
+  * is_pre_approval_on : boolean
+  * is_anonymous_on : boolean
+  * created_at : timestamptz
+  * is_deleted : boolean
+  * mod_state : varchar(30)
+  * invite_link : text
+  * creator_id : bigint <<FK>>
+}
+entity group_join_blocks {
+  * id : bigint <<PK>>
+  --
+  * blocked_user_id : bigint <<FK>>
+  * group_id : bigint <<FK>>
+}
+entity group_join_requests {
+  * id : bigint <<PK>>
+  --
+  answer : text
+  * status : varchar(30)
+  * requester_id : bigint <<FK>>
+  * group_id : bigint <<FK>>
+}
+entity group_members {
+  * id : bigint <<PK>>
+  --
+  * role : varchar(30)
+  * joined_at : timestamptz
+  mod_appointed_at : timestamptz
+  * user_id : bigint <<FK>>
+  * group_id : bigint <<FK>>
+}
+entity leaderboards {
+  * id : bigint <<PK>>
+  --
+  * period : varchar(30)
+  period_start : timestamptz
+  * computed_at : timestamptz
+}
+entity leaderboard_entries {
+  * id : bigint <<PK>>
+  --
+  * period_points : integer
+  * rank : integer
+  grade_level : varchar(30)
+  * leaderboard_id : bigint <<FK>>
+  * user_id : bigint <<FK>>
+}
+entity login_sessions {
+  * id : bigint <<PK>>
+  --
+  * device : text
+  * access_expires_at : timestamptz
+  * refresh_token : text
+  * refresh_expires_at : timestamptz
+  * user_id : bigint <<FK>>
+}
+entity magic_links {
+  * id : bigint <<PK>>
+  --
+  * purpose : varchar(30)
+  * token : text
+  * sent_at : timestamptz
+  * is_used : boolean
+  * user_id : bigint <<FK>>
+}
+entity mentions {
+  * id : bigint <<PK>>
+  --
+  notified_at : timestamptz
+  * mentioned_user_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+}
+entity messages {
+  * id : bigint <<PK>>
+  --
+  * content : text
+  * sent_at : timestamptz
+  * is_recalled : boolean
+  * conversation_id : bigint <<FK>>
+  * sender_id : bigint <<FK>>
+}
+entity moderation_logs {
+  * id : bigint <<PK>>
+  --
+  * action_type : varchar(30)
+  * reason : text
+  * created_at : timestamptz
+  * is_by_ai : boolean
+  actor_id : bigint <<FK>>
+  target_user_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  tag_id : bigint <<FK>>
+  report_case_id : bigint <<FK>>
+}
+entity muted_conversations {
+  * id : bigint <<PK>>
+  --
+  * user_id : bigint <<FK>>
+  * conversation_id : bigint <<FK>>
+}
+entity muted_posts {
+  * id : bigint <<PK>>
+  --
+  * user_id : bigint <<FK>>
+  * post_id : bigint <<FK>>
+}
+entity notifications {
+  * id : bigint <<PK>>
+  --
+  * event_type : varchar(30)
+  * is_read : boolean
+  * occurred_at : timestamptz
+  * last_updated_at : timestamptz
+  appeal_link : text
+  * recipient_id : bigint <<FK>>
+  actor_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  report_id : bigint <<FK>>
+  warning_id : bigint <<FK>>
+  ban_id : bigint <<FK>>
+  appeal_id : bigint <<FK>>
+  proposal_id : bigint <<FK>>
+  badge_id : bigint <<FK>>
+  earned_title_id : bigint <<FK>>
+}
+entity notification_emails {
+  * id : bigint <<PK>>
+  --
+  * event_type : varchar(30)
+  * queued_at : timestamptz
+  * status : varchar(30)
+  * retry_count : integer
+  appeal_link : text
+  * recipient_id : bigint <<FK>>
+}
+entity notification_settings {
+  * id : bigint <<PK>>
+  --
+  * is_all_chat_muted : boolean
+  * user_id : bigint <<FK>>
+}
+entity policy_consents {
+  * id : bigint <<PK>>
+  --
+  * agreed_at : timestamptz
+  * user_id : bigint <<FK>>
+  * policy_version_id : bigint <<FK>>
+}
+entity policy_versions {
+  * id : bigint <<PK>>
+  --
+  * version : text
+  * content : text
+  * released_at : timestamptz
+}
+entity polls {
+  * id : bigint <<PK>>
+  --
+  * allow_multiple : boolean
+  * show_result_before_vote : boolean
+  * expires_at : timestamptz
+  * is_closed : boolean
+  * post_id : bigint <<FK>>
+}
+entity poll_options {
+  * id : bigint <<PK>>
+  --
+  * label : text
+  * poll_id : bigint <<FK>>
+}
+entity poll_selections {
+  * id : bigint <<PK>>
+  --
+  * poll_option_id : bigint <<FK>>
+  * voter_id : bigint <<FK>>
+}
+entity posts {
+  * id : bigint <<PK>>
+  --
+  title : varchar(150)
+  content : text
+  grade_level : varchar(30)
+  * created_at : timestamptz
+  * updated_at : timestamptz
+  * publish_state : varchar(30)
+  * mod_state : varchar(30)
+  * lock_level : varchar(30)
+  locked_by : varchar(30)
+  published_at : timestamptz
+  rejection_reason : text
+  violation_category : varchar(30)
+  * is_in_review_queue : boolean
+  * is_edited_while_hidden : boolean
+  deleted_at : timestamptz
+  publish_state_before_delete : varchar(30)
+  * is_permanently_deleted : boolean
+  rejected_at : timestamptz
+  * is_anonymous : boolean
+  scan_score : double precision
+  * is_awaiting_group_review : boolean
+  last_holder_action_at : timestamptz
+  * is_removed_from_group : boolean
+  * is_points_deducted : boolean
+  deducted_points : integer
+  embedding : vector(1536)
+  * needs_embedding : boolean
+  * author_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  group_holder_id : bigint <<FK>>
+}
+entity post_attachments {
+  * id : bigint <<PK>>
+  --
+  * kind : varchar(30)
+  * file_format : varchar(30)
+  * file_size : integer
+  * file_url : text
+  * file_name : text
+  * post_id : bigint <<FK>>
+}
+entity post_revisions {
+  * id : bigint <<PK>>
+  --
+  * content : text
+  * title : text
+  * edited_at : timestamptz
+  * post_id : bigint <<FK>>
+}
+entity post_summaries {
+  * id : bigint <<PK>>
+  --
+  * content : text
+  * created_at : timestamptz
+  * post_id : bigint <<FK>>
+}
+entity post_tags {
+  * id : bigint <<PK>>
+  --
+  * tag_id : bigint <<FK>>
+  * post_id : bigint <<FK>>
+}
+entity post_topics {
+  * id : bigint <<PK>>
+  --
+  * topic_id : bigint <<FK>>
+  * post_id : bigint <<FK>>
+}
+entity post_trending_stats {
+  * post_id : bigint <<PK>> <<FK>>
+  --
+  * score : double precision
+  * computed_at : timestamptz
+}
+entity profiles {
+  * id : bigint <<PK>>
+  --
+  avatar : text
+  bio : text
+  grade_level : varchar(30)
+  * user_id : bigint <<FK>>
+}
+entity proposals {
+  * id : bigint <<PK>>
+  --
+  * type : varchar(30)
+  * sent_at : timestamptz
+  * status : varchar(30)
+  * sender_id : bigint <<FK>>
+  * nominee_id : bigint <<FK>>
+}
+entity reactivation_codes {
+  * id : bigint <<PK>>
+  --
+  * code : varchar(6)
+  * sent_at : timestamptz
+  * failed_attempt_count : integer
+  * user_id : bigint <<FK>>
+}
+entity reports {
+  * id : bigint <<PK>>
+  --
+  * reason : varchar(30)
+  description : text
+  * is_ai_created : boolean
+  scan_score : double precision
+  * reported_at : timestamptz
+  * report_case_id : bigint <<FK>>
+  reporter_id : bigint <<FK>>
+}
+entity report_cases {
+  * id : bigint <<PK>>
+  --
+  * target_type : varchar(30)
+  * status : varchar(30)
+  * opened_at : timestamptz
+  * is_ban_request : boolean
+  last_holder_action_at : timestamptz
+  conclusion : varchar(30)
+  conclusion_reason : text
+  concluded_at : timestamptz
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+  reported_user_id : bigint <<FK>>
+  group_id : bigint <<FK>>
+  holder_id : bigint <<FK>>
+  concluded_by_id : bigint <<FK>>
+}
+entity report_evidences {
+  * id : bigint <<PK>>
+  --
+  * image : text
+  * report_id : bigint <<FK>>
+}
+entity suggested_topics {
+  * id : bigint <<PK>>
+  --
+  * topic_suggestion_id : bigint <<FK>>
+  * topic_id : bigint <<FK>>
+}
+entity tags {
+  * id : bigint <<PK>>
+  --
+  * name : varchar(30)
+  * status : varchar(30)
+  * created_at : timestamptz
+}
+entity tag_trending_stats {
+  * tag_id : bigint <<PK>> <<FK>>
+  --
+  * score : integer
+  * new_post_count : integer
+  * computed_at : timestamptz
+}
+entity topics {
+  * id : bigint <<PK>>
+  --
+  * name : text
+  deleted_at : timestamptz
+}
+entity topic_suggestions {
+  * id : bigint <<PK>>
+  --
+  * status : varchar(30)
+  * created_at : timestamptz
+  * post_id : bigint <<FK>>
+  author_id : bigint <<FK>>
+}
+entity topic_suggestion_feedbacks {
+  * id : bigint <<PK>>
+  --
+  * recorded_at : timestamptz
+  * topic_suggestion_id : bigint <<FK>>
+}
+entity topic_trending_stats {
+  * topic_id : bigint <<PK>> <<FK>>
+  --
+  * score : integer
+  * new_post_count : integer
+  * computed_at : timestamptz
+}
+entity upvotes {
+  * id : bigint <<PK>>
+  --
+  * upvoted_at : timestamptz
+  upvoter_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+}
+entity users {
+  * id : bigint <<PK>>
+  --
+  email : text
+  password : text
+  username : varchar(20)
+  display_name : varchar(50)
+  * role : varchar(30)
+  * status : varchar(30)
+  * verification_level : varchar(30)
+  google_link : varchar(255)
+  deactivated_at : timestamptz
+  * created_at : timestamptz
+  * is_root : boolean
+  * total_points : integer
+}
+entity user_warning_statuses {
+  * id : bigint <<PK>>
+  --
+  * warning_count : integer
+  probation_ends_at : timestamptz
+  * user_id : bigint <<FK>>
+}
+entity warnings {
+  * id : bigint <<PK>>
+  --
+  * reason : text
+  * issued_at : timestamptz
+  * is_issued_by_ai : boolean
+  * status : varchar(30)
+  * level_after : varchar(30)
+  report_case_id : bigint <<FK>>
+  * warned_user_id : bigint <<FK>>
+  issued_by_id : bigint <<FK>>
+  post_id : bigint <<FK>>
+  comment_id : bigint <<FK>>
+}
+
+users |o--o{ admin_logs : actor_id
+users |o--o{ admin_logs : target_user_id
+config_switches |o--o{ admin_logs : config_switch_id
+banners |o--o{ admin_logs : banner_id
+posts |o--o{ admin_logs : post_id
+comments |o--o{ admin_logs : comment_id
+groups |o--o{ admin_logs : group_id
+report_cases |o--o{ admin_logs : report_case_id
+appeals |o--o{ admin_logs : appeal_id
+topics |o--o{ admin_logs : topic_id
+tags |o--o{ admin_logs : tag_id
+posts |o--o{ ai_decision_logs : post_id
+comments |o--o{ ai_decision_logs : comment_id
+users ||--o{ appeals : appellant_id
+users |o--o{ appeals : holder_id
+users |o--o{ appeals : concluded_by_id
+warnings |o--o| appeals : warning_id
+bans |o--o| appeals : ban_id
+report_cases |o--o| appeals : report_case_id
+posts |o--o{ appeals : post_id
+appeals ||--o{ appeal_evidences : appeal_id
+report_cases ||--o{ bans : report_case_id
+users ||--o{ bans : banned_user_id
+users ||--o{ bans : banned_by_id
+banners ||--o{ banner_dismissals : banner_id
+users ||--o{ banner_dismissals : user_id
+users ||--o{ bookmarks : user_id
+posts ||--o{ bookmarks : post_id
+conversations ||--o{ chat_join_requests : conversation_id
+users ||--o{ chat_join_requests : requester_id
+conversations ||--o{ chat_member_proposals : conversation_id
+users ||--o{ chat_member_proposals : proposed_user_id
+users ||--o{ chat_member_proposals : proposer_id
+topic_suggestion_feedbacks ||--o{ chosen_topics : topic_suggestion_feedback_id
+topics ||--o{ chosen_topics : topic_id
+posts ||--o{ comments : post_id
+users ||--o{ comments : author_id
+comments |o--o{ comments : parent_comment_id
+comments |o--o{ comments : replied_to_id
+users ||--o{ conversation_members : user_id
+conversations ||--o{ conversation_members : conversation_id
+messages |o--o{ conversation_members : last_read_message_id
+notifications ||--o{ counted_upvoters : notification_id
+users ||--o{ counted_upvoters : upvoter_id
+users ||--o{ earned_badges : user_id
+badges ||--o{ earned_badges : badge_id
+users ||--o{ earned_titles : user_id
+users ||--o{ follows : follower_id
+users |o--o{ follows : followed_user_id
+topics |o--o{ follows : topic_id
+users ||--o{ groups : creator_id
+users ||--o{ group_join_blocks : blocked_user_id
+groups ||--o{ group_join_blocks : group_id
+users ||--o{ group_join_requests : requester_id
+groups ||--o{ group_join_requests : group_id
+users ||--o{ group_members : user_id
+groups ||--o{ group_members : group_id
+leaderboards ||--o{ leaderboard_entries : leaderboard_id
+users ||--o{ leaderboard_entries : user_id
+users ||--o{ login_sessions : user_id
+users ||--o{ magic_links : user_id
+users ||--o{ mentions : mentioned_user_id
+posts |o--o{ mentions : post_id
+comments |o--o{ mentions : comment_id
+conversations ||--o{ messages : conversation_id
+users ||--o{ messages : sender_id
+users |o--o{ moderation_logs : actor_id
+users |o--o{ moderation_logs : target_user_id
+posts |o--o{ moderation_logs : post_id
+comments |o--o{ moderation_logs : comment_id
+groups |o--o{ moderation_logs : group_id
+tags |o--o{ moderation_logs : tag_id
+report_cases |o--o{ moderation_logs : report_case_id
+users ||--o{ muted_conversations : user_id
+conversations ||--o{ muted_conversations : conversation_id
+users ||--o{ muted_posts : user_id
+posts ||--o{ muted_posts : post_id
+users ||--o{ notifications : recipient_id
+users |o--o{ notifications : actor_id
+posts |o--o{ notifications : post_id
+comments |o--o{ notifications : comment_id
+groups |o--o{ notifications : group_id
+reports |o--o{ notifications : report_id
+warnings |o--o| notifications : warning_id
+bans |o--o{ notifications : ban_id
+appeals |o--o| notifications : appeal_id
+proposals |o--o| notifications : proposal_id
+badges |o--o{ notifications : badge_id
+earned_titles |o--o{ notifications : earned_title_id
+users ||--o{ notification_emails : recipient_id
+users ||--o| notification_settings : user_id
+users ||--o{ policy_consents : user_id
+policy_versions ||--o{ policy_consents : policy_version_id
+posts ||--o| polls : post_id
+polls ||--o{ poll_options : poll_id
+poll_options ||--o{ poll_selections : poll_option_id
+users ||--o{ poll_selections : voter_id
+users ||--o{ posts : author_id
+groups |o--o{ posts : group_id
+group_members |o--o{ posts : group_holder_id
+posts ||--o{ post_attachments : post_id
+posts ||--o{ post_revisions : post_id
+posts ||--o| post_summaries : post_id
+tags ||--o{ post_tags : tag_id
+posts ||--o{ post_tags : post_id
+topics ||--o{ post_topics : topic_id
+posts ||--o{ post_topics : post_id
+posts ||--o| post_trending_stats : post_id
+users ||--o| profiles : user_id
+users ||--o{ proposals : sender_id
+users ||--o{ proposals : nominee_id
+users ||--o{ reactivation_codes : user_id
+report_cases ||--o{ reports : report_case_id
+users |o--o{ reports : reporter_id
+posts |o--o{ report_cases : post_id
+comments |o--o{ report_cases : comment_id
+users |o--o{ report_cases : reported_user_id
+groups |o--o{ report_cases : group_id
+users |o--o{ report_cases : holder_id
+users |o--o{ report_cases : concluded_by_id
+reports ||--o{ report_evidences : report_id
+topic_suggestions ||--o{ suggested_topics : topic_suggestion_id
+topics ||--o{ suggested_topics : topic_id
+tags ||--o| tag_trending_stats : tag_id
+posts ||--o{ topic_suggestions : post_id
+users |o--o{ topic_suggestions : author_id
+topic_suggestions ||--o| topic_suggestion_feedbacks : topic_suggestion_id
+topics ||--o| topic_trending_stats : topic_id
+users |o--o{ upvotes : upvoter_id
+posts |o--o{ upvotes : post_id
+comments |o--o{ upvotes : comment_id
+users ||--o| user_warning_statuses : user_id
+report_cases |o--o{ warnings : report_case_id
+users ||--o{ warnings : warned_user_id
+users |o--o{ warnings : issued_by_id
+posts |o--o{ warnings : post_id
+comments |o--o{ warnings : comment_id
+
+@enduml

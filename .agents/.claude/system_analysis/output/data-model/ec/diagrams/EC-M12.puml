@@ -1,0 +1,119 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Upvote {
+  -upvotedAt
+}
+class Badge {
+  -name
+  -threshold
+}
+class EarnedBadge {
+  -achievedAt
+}
+class EarnedTitle {
+  -week
+}
+class Leaderboard {
+  -period
+  -periodStart
+  -computedAt
+}
+class LeaderboardEntry {
+  -periodPoints
+  -rank
+  -gradeLevel
+  -/isWeeklyStar
+}
+class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
+  -role
+  -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
+}
+class Post <<M03>> {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
+}
+class Comment <<M04>> {
+  -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
+}
+class Profile <<M02>> {
+  -avatar
+  -bio
+  -gradeLevel
+  -/followerCount
+  -/followingCount
+}
+class UserWarningStatus <<M08>> {
+  -warningCount
+  -/level
+  -probationEndsAt
+}
+
+(User, Badge) .. EarnedBadge
+(User, Leaderboard) .. LeaderboardEntry
+Upvote "0..*" o-- "0..1" User
+Post "0..1" o-- "0..*" Upvote
+Comment "0..1" o-- "0..*" Upvote
+EarnedTitle "0..*" o-- "1" User
+
+@enduml

@@ -1,0 +1,157 @@
+@startuml
+hide circle
+hide methods
+skinparam classAttributeIconSize 0
+
+class Proposal {
+  -type
+  -sentAt
+  -status
+}
+class ConfigSwitch {
+  -name
+  -status
+}
+class Banner {
+  -content
+  -status
+}
+class BannerDismissal {
+}
+class AdminLog {
+  -actionType
+  -reason
+  -createdAt
+  -isBySystem
+}
+class User <<M01>> {
+  -email
+  -password
+  -username
+  -displayName
+  -role
+  -status
+  -verificationLevel
+  -googleLink
+  -deactivatedAt
+  -/deactivationEndsAt
+  -/isGoogleAccount
+  -createdAt
+  -/unreadNotificationCount
+  -/banCount
+  -isRoot
+  -totalPoints
+}
+class Post <<M03>> {
+  -title
+  -content
+  -/contentText
+  -gradeLevel
+  -createdAt
+  -updatedAt
+  -publishState
+  -modState
+  -lockLevel
+  -lockedBy
+  -publishedAt
+  -rejectionReason
+  -violationCategory
+  -isInReviewQueue
+  -isEditedWhileHidden
+  -deletedAt
+  -publishStateBeforeDelete
+  -isPermanentlyDeleted
+  -/isPubliclyVisible
+  -/isEdited
+  -/commentCount
+  -rejectedAt
+  -isAnonymous
+  -scanScore
+  -isAwaitingGroupReview
+  -lastHolderActionAt
+  -isRemovedFromGroup
+  -isPointsDeducted
+  -deductedPoints
+  -/upvoteCount
+  -embedding
+  -needsEmbedding
+  -/bookmarkCount
+}
+class Comment <<M04>> {
+  -content
+  -publishedAt
+  -editedAt
+  -modState
+  -deletedAt
+  -/isDeleted
+  -/isEdited
+  -/isVisible
+  -/upvoteCount
+  -scannedAt
+  -/isScannedCurrent
+  -/replyRate
+  -isRemovedFromGroup
+  -isPointsDeducted
+}
+class Group <<M11>> {
+  -name
+  -description
+  -privacy
+  -joinQuestion
+  -isPreApprovalOn
+  -isAnonymousOn
+  -createdAt
+  -isDeleted
+  -modState
+  -inviteLink
+  -/isInstantJoin
+}
+class ReportCase <<M08>> {
+  -targetType
+  -status
+  -openedAt
+  -/reportCount
+  -/priorityScore
+  -isBanRequest
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+}
+class Appeal <<M09>> {
+  -type
+  -explanation
+  -submittedAt
+  -status
+  -lastHolderActionAt
+  -conclusion
+  -conclusionReason
+  -concludedAt
+  -/roleAtAction
+}
+class Topic <<M05>> {
+  -name
+  -deletedAt
+}
+class Tag <<M05>> {
+  -name
+  -status
+  -createdAt
+}
+
+(User, Banner) .. BannerDismissal
+Proposal "0..*" o-- "1" User
+Proposal "0..*" o-- "1" User
+AdminLog "0..*" o-- "0..1" User
+AdminLog "0..*" o-- "0..1" User
+AdminLog "0..*" o-- "0..1" ConfigSwitch
+AdminLog "0..*" o-- "0..1" Banner
+AdminLog "0..*" o-- "0..1" Post
+AdminLog "0..*" o-- "0..1" Comment
+AdminLog "0..*" o-- "0..1" Group
+AdminLog "0..*" o-- "0..1" ReportCase
+AdminLog "0..*" o-- "0..1" Appeal
+AdminLog "0..*" o-- "0..1" Topic
+AdminLog "0..*" o-- "0..1" Tag
+
+@enduml
