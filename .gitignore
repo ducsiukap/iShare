@@ -24,3 +24,7 @@ __pycache__/
 .agents/.gpt/system_analysis
 # Tệp tạm của tool các skill mô hình dữ liệu (sinh lại được)
 .agents/.claude/system_analysis/output/data-model/**/.work/
+
+# Ảnh chụp giao diện của bên khác dùng cho moodboard (chỉ tham chiếu nội bộ, không commit)
+.agents/.claude/design/output/moodboard/*.jpg
+.agents/.claude/design/output/moodboard/*.png
