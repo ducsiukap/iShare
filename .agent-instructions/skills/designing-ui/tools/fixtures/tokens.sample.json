@@ -1,0 +1,65 @@
+{
+  "name": "iShare (mẫu thử tool — không phải đề xuất thiết kế)",
+  "version": 1,
+  "color": {
+    "themes": [{"id": "light", "name": "Sáng"}],
+    "tokens": [
+      {"name": "paper", "value": "#fbfaf6", "usage": "Màu giấy gốc."},
+      {"name": "bg", "value": "{paper}", "usage": "Nền trang."},
+      {"name": "surface", "value": "#ffffff", "usage": "Nền khối nội dung."},
+      {"name": "ink", "value": "#23201b", "usage": "Chữ chính trên bg và surface."},
+      {"name": "ink-muted", "value": "#5e584f", "usage": "Chữ phụ: thời gian, nhãn phụ."},
+      {"name": "line", "value": "#e4ded3", "usage": "Đường kẻ phân nhóm (trang trí, không mang nghĩa)."},
+      {"name": "line-strong", "value": "#857d70", "usage": "Viền ô nhập, viền nút phụ."},
+      {"name": "primary", "value": "#1f5e8c", "usage": "Hành động chính, liên kết."},
+      {"name": "on-primary", "value": "#ffffff", "usage": "Chữ trên primary."},
+      {"name": "accent", "value": "#b4561f", "usage": "Điểm nhấn: upvote đang bật."},
+      {"name": "focus", "value": "{primary}", "usage": "Vòng focus."},
+      {"name": "success", "value": "#2f6b3a", "usage": "Thành công."},
+      {"name": "success-soft", "value": "#e7f1e8", "usage": "Nền thông báo thành công."},
+      {"name": "warning", "value": "#7d5200", "usage": "Cảnh báo."},
+      {"name": "warning-soft", "value": "#fbf0d9", "usage": "Nền cảnh báo."},
+      {"name": "danger", "value": "#a53a2a", "usage": "Lỗi, xóa."},
+      {"name": "danger-soft", "value": "#f9e7e3", "usage": "Nền lỗi."},
+      {"name": "info", "value": "#1f5e8c", "usage": "Thông tin."},
+      {"name": "info-soft", "value": "#e6eff6", "usage": "Nền thông tin."}
+    ]
+  },
+  "type": {
+    "fonts": [],
+    "families": {
+      "heading": "\"Literata\", Georgia, serif",
+      "body": "\"Be Vietnam Pro\", sans-serif"
+    },
+    "groups": [
+      {"name": "Tiêu đề", "family": "heading", "styles": [
+        {"name": "h1", "fontSize": "32px", "lineHeight": "40px", "fontWeight": 700},
+        {"name": "h2", "fontSize": "24px", "lineHeight": "32px", "fontWeight": 600}
+      ]},
+      {"name": "Thân", "family": "body", "styles": [
+        {"name": "body", "fontSize": "17px", "lineHeight": 1.6, "fontWeight": 400},
+        {"name": "body-sm", "fontSize": "15px", "lineHeight": 1.55, "fontWeight": 400},
+        {"name": "caption", "fontSize": "13px", "lineHeight": 1.5, "fontWeight": 400},
+        {"name": "label", "fontSize": "14px", "lineHeight": 1.5, "fontWeight": 600}
+      ]}
+    ]
+  },
+  "spacing": {"tokens": [
+    {"name": "space-1", "value": "4px", "usage": "Khoảng cách nhỏ nhất."},
+    {"name": "space-2", "value": "8px", "usage": "Giữa icon và chữ."},
+    {"name": "space-3", "value": "12px", "usage": "Đệm nút."},
+    {"name": "space-4", "value": "16px", "usage": "Đệm khối nhỏ."},
+    {"name": "space-6", "value": "24px", "usage": "Giữa các nhóm."},
+    {"name": "space-8", "value": "32px", "usage": "Đệm trang trên mobile."},
+    {"name": "space-12", "value": "48px", "usage": "Đệm trang trên desktop."}
+  ]},
+  "radius": {"tokens": [
+    {"name": "radius-sm", "value": "4px", "usage": "Tag, ô nhập."},
+    {"name": "radius-md", "value": "8px", "usage": "Nút, khối."},
+    {"name": "radius-full", "value": "9999px", "usage": "Ảnh đại diện."}
+  ]},
+  "shadow": {"tokens": [
+    {"name": "shadow-1", "value": "0 1px 2px rgba(35, 32, 27, 0.08)", "usage": "Menu thả."},
+    {"name": "shadow-2", "value": "0 8px 24px rgba(35, 32, 27, 0.12)", "usage": "Dialog."}
+  ]}
+}

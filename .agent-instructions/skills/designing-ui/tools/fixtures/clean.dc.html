@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Fixture: artboard sạch theo tokens.sample.json</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:wght@600;700&family=Be+Vietnam+Pro:wght@400;600&display=swap">
+<style>
+body{margin:0}
+a{color:#1f5e8c}a:hover{color:#23201b}
+.page{background:#fbfaf6; padding:48px; font-family:"Be Vietnam Pro", sans-serif; color:#23201b}
+.post{background:#ffffff; border:1px solid #e4ded3; border-radius:8px; padding:24px; max-width:720px; display:flex; flex-direction:column; gap:16px}
+.title{font-family:"Literata", Georgia, serif; font-size:32px; line-height:40px; font-weight:700; margin:0}
+.meta{font-size:13px; line-height:1.5; color:#5e584f; display:flex; gap:8px}
+.tag{font-size:14px; line-height:1.5; font-weight:600; color:#1f5e8c; border:1px solid #857d70; border-radius:4px; padding:4px 8px}
+.body{font-size:17px; line-height:1.6; font-weight:400; margin:0}
+.actions{display:flex; gap:12px; align-items:center}
+.upvote{display:inline-flex; gap:8px; align-items:center; font-size:14px; line-height:1.5; font-weight:600; color:#b4561f; background:#ffffff; border:1px solid #857d70; border-radius:8px; padding:8px 12px; transition:background-color .15s ease}
+.icon-btn{width:32px; height:32px; border:1px solid #857d70; border-radius:8px; background:#ffffff; color:#23201b}
+.field{display:flex; flex-direction:column; gap:4px; font-size:15px; line-height:1.55}
+.field input{border:1px solid #857d70; border-radius:4px; padding:8px 12px; font-size:15px; line-height:1.55}
+</style>
+</helmet>
+<div class="page">
+  <article class="post">
+    <h1 class="title">Giải phương trình bậc hai bằng mấy cách?</h1>
+    <p class="meta"><span>Lan Phạm</span><span>Lớp 10 · Toán</span><span>08/11/2026 10:00</span></p>
+    <p><a class="tag" href="/t/daiso">#daiso</a></p>
+    <p class="body">Mình đang ôn phần phương trình bậc hai. Với x² + 2x + 1 = 0, ngoài cách dùng công thức nghiệm, còn cách phân tích nhân tử nào nhanh hơn không ạ?</p>
+    <div class="actions">
+      <button class="upvote" type="button" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3l5 6H3z" fill="none" stroke="#b4561f"/></svg>Upvote · 12</button>
+      <button class="icon-btn" type="button" aria-label="Báo cáo bài viết"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2v12M4 3h8l-2 3 2 3H4" fill="none" stroke="#23201b"/></svg></button>
+    </div>
+    <label class="field" for="reply">Viết bình luận
+      <input id="reply" type="text" placeholder="Chia sẻ cách giải của bạn">
+    </label>
+  </article>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":700}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
