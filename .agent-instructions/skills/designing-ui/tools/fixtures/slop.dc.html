@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fixture: giao diện "kiểu AI" (phải báo nhiều lỗi)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap">
+<style>
+body{margin:0}
+.hero{background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 80px; text-align: center}
+.hero h1{font-family: Inter, sans-serif; font-size: 16px; line-height: 1.2; background: linear-gradient(90deg,#8b5cf6,#06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent}
+.eyebrow{text-transform: uppercase; letter-spacing: .2em}
+.kicker{text-transform: uppercase}
+.tag{text-transform: uppercase}
+.card{border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: 0 20px 40px rgba(0,0,0,.15); padding: 24px}
+.card2{border-radius: 16px; box-shadow: 0 25px 50px rgba(0,0,0,.2)}
+.card3{border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,.2)}
+.card4{border-radius: 16px}
+.card5{border-radius: 16px}
+.callout{border-left: 4px solid #7c3aed; padding: 16px}
+.glass{backdrop-filter: blur(12px); background: rgba(255,255,255,.2)}
+.glow{box-shadow: 0 0 24px #a855f7; text-shadow: 0 0 8px #a855f7}
+.title{color: #000000; font-weight: 600}
+.btn:hover{animation: bounce 1s; transition: transform .2s cubic-bezier(.68,-0.55,.27,1.55)}
+@keyframes bounce{0%{transform: scale(1)}50%{transform: scale(1.1)}}
+</style>
+</helmet>
+<div class="hero">
+  <span class="eyebrow">✨ Now with AI</span>
+  <h1>Unlock your potential with iShare</h1>
+  <p>Nền tảng giúp bạn khai phá tri thức một cách liền mạch, nhanh hơn 10x. Được tin dùng bởi hàng triệu học sinh.</p>
+  <a class="btn" href="/start">Get started →</a>
+</div>
+<div class="card"><span class="kicker">Tính năng</span><h3>🚀 Lorem ipsum dolor sit amet</h3><p>John Doe — Nguyễn Văn A</p></div>
+<div class="card2 glass"><span class="tag">Mới</span>Seamless experience</div>
+<div class="card3 glow">✅ Hoàn thành</div>
+<div class="card4" onclick="go()">Bấm vào đây</div>
+<div class="card5 callout"><img src="/x.png"><input type="text" placeholder="Email"><button><svg width="16" height="16"></svg></button></div>
+<p class="title">Trải nghiệm tuyệt vời</p>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

@@ -30,6 +30,7 @@ Not sure which phase? Writing or fixing code → Coding. Producing visual design
 | Identify project/module use cases and write detailed specifications with UML and traceability (7 gated steps) | [use-case-analysis](./skills/use-case-analysis/SKILL.md) · [user guide](./skills/use-case-analysis/README.md) | System Analysis |
 | Turn module FR + US into six-part business scenarios with complete exception paths (4 steps) | [scenarios](./skills/scenarios/SKILL.md) · [user guide](./skills/scenarios/README.md) | System Analysis |
 | Architecture, database, API, ADR, performance | [technical-design](./skills/technical-design/SKILL.md) | System Analysis (Phase 7, 8) |
+| Design the UI from FR/US/SC: brief, references, aesthetic direction, screen inventory, flows and wireframes, design system, hi-fi batches, QA, handoff (9 gated steps; Claude Design + Figma; blocks "AI-generated" look) | [designing-ui](./skills/designing-ui/SKILL.md) · [user guide](./skills/designing-ui/README.md) | Design |
 
 Planned: `analyzing-dependencies`, `assessing-tech-feasibility`.
 
