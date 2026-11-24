@@ -12,6 +12,9 @@
 # Tệp tạm của tool skill FR (sinh lại được)
 .agents/.claude/system_analysis/output/fr/.work/
 
+# Cache renderer use case (sinh lại được; không đưa JAR vào Git)
+.agents/.gpt/system_analysis/.work/
+
 # Python
 __pycache__/
 *.pyc

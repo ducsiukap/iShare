@@ -1,0 +1,187 @@
+# Quy tắc quyết định mô hình use case
+
+[Vietnamese Doc]
+
+Đọc ở bước 1–4 và khi review ngữ nghĩa. Quy ước ID/cổng do [SKILL.md](../SKILL.md)
+sở hữu; không lặp lại ở từng bước.
+
+## Boundary, actor và mức mục tiêu
+
+Chọn subject: toàn iShare, subsystem hoặc bối cảnh nghiệp vụ. Module nội bộ
+không thành actor ngoài iShare vì có lời gọi liên module. Dịch vụ ngoài có
+trong FR có thể là actor hỗ trợ. “Hệ thống” trong FR thường là tác nhân thực thi
+nội bộ; không sao chép máy móc thành actor của chính subject.
+
+Actor là vai trò tương tác; không đồng nhất với tài khoản/RBAC. Phân biệt người
+có mục tiêu (primary) với người/dịch vụ hỗ trợ (supporting). BANNED, chủ sở hữu
+nội dung và thành viên nhóm thường là điều kiện ngữ cảnh; chỉ tách actor khi có
+vai trò tương tác đáng phân biệt. Actor generalization cần khả năng thay thế
+vai trò chung trong tương tác kế thừa; quyền vẫn đối chiếu FR.
+
+| Mức | Tiêu chí | Sử dụng |
+|---|---|---|
+| Summary | Đặt nhiều mục tiêu vào bối cảnh | UC tổng quát có mục tiêu hoặc package; không ép thành cha UML |
+| User goal | Một công việc gắn kết, kết quả có giá trị với actor | Trọng tâm danh mục và đặc tả |
+| Subfunction | Hành vi hỗ trợ đáng tách để hiểu/tái sử dụng | Cần lý do tách, không cần actor trực tiếp khởi tạo |
+
+Không dùng số FR, số màn hình hoặc độ phức tạp tối thiểu để công nhận một UC.
+Hành trình nhiều phiên có thể hợp lệ; ghi ranh giới và mức mục tiêu. Không bắt
+buộc UI: tác nhân ngoài có thể tương tác bằng sự kiện/dữ liệu.
+
+## UC chính, UC con và hai loại ánh xạ
+
+Mỗi module có UC chính (tier=core) để đưa lên tổng quan hệ thống, và UC con
+(tier=sub) để xây sơ đồ chi tiết module. Core có mục tiêu/năng lực bao quát,
+giá trị và ranh giới rõ; sub cụ thể hóa thành mục tiêu/hành vi gắn kết.
+Sub có thể ở mức User goal, không chỉ Subfunction; tier độc lập với level.
+
+Mỗi core có ít nhất một sub, mỗi sub có ít nhất một core. Không quota số lượng.
+Sub dùng chung có một ID, nhiều mapping. Mapping chính–con không tự sinh
+include/extend/generalization; có thể nhóm bằng package hoặc bảng phân rã.
+
+Ví dụ M01: core “Quản lý phiên truy cập” bao quát sub Đăng nhập và Đăng xuất
+với mục tiêu quản lý quyền truy cập theo phiên. Đăng xuất vẫn là UC cụ thể
+độc lập trong chi tiết, không extend lần Đăng nhập đã kết thúc. “Quản lý mật
+khẩu” có thể là core mức Summary nếu nêu rõ giá trị bảo vệ/khôi phục quyền
+truy cập; sub Đổi mật khẩu và Lấy lại mật khẩu không vì thế kế thừa nhau hoặc
+buộc chạy trong cùng một lần thực hiện.
+
+System overview lấy nguyên core từ US module, không thay bằng bộ summary mới.
+Module chưa có mô hình ghi thiếu, không tự bịa. Chi tiết module gồm sub/actor
+theo decomposition, giữ core làm ngữ cảnh.
+
+## Giữ trong luồng hay tách UC?
+
+Với từng hành vi, xác định mục tiêu/kết quả, nguồn và cách biểu diễn đơn giản
+nhất vẫn bảo toàn yêu cầu:
+
+- UC con độc lập về mục tiêu trong chi tiết; không bắt buộc phân rã tiếp cấp
+  thứ ba. UC chính vẫn phải có mapping đến UC con.
+- Bước/subflow cho thao tác thuộc cùng công việc.
+- Alternative/exception flow cho phương thức khác, lỗi hoặc từ chối.
+- Tiền/hậu điều kiện, BR, quy tắc hiển thị/dữ liệu.
+- Tác vụ tự động theo thời gian/sự kiện; không tự chọn cron/JWT/CSDL nếu FR
+  không ràng buộc cách cài đặt.
+
+Chỉ tách UC hỗ trợ khi có lợi rõ cho tái sử dụng, độ rõ hoặc quản lý độ phức
+tạp. Gõ @, mở form, kiểm tra định dạng và hiện lỗi thường là bước/quy tắc.
+Có mã FR chứng minh căn cứ, không tự chứng minh cần oval.
+
+Chốt từng ứng viên bằng actor/goal/trigger/kết quả/phạm vi; so chéo để tìm trùng,
+thiếu, chồng phạm vi và mapping 1:1 hình thức theo
+[quality-gates](quality-gates.md). Hai tầng là quy ước đầu ra iShare, không phải
+bằng chứng có hai mục tiêu khác nhau. Thiếu khác biệt thì ghi vấn đề cần review.
+
+FR↔UC là nhiều–nhiều: giữ, gộp, tách hoặc phân bổ. Tên dùng cụm động từ phản ánh
+mục tiêu gắn kết; “Đăng nhập bằng email và mật khẩu” hợp lệ. “Quản lý…” không
+tự chứng minh mức User goal hay quan hệ kế thừa.
+
+## Luồng và hợp đồng
+
+Luồng chính là một đường thành công cụ thể: bước có ID, ai làm gì, thông tin
+trao đổi và kết quả. Không bắt buộc actor/system xen kẽ cứng nhắc. Chỉ nêu UI
+nếu FR ràng buộc; không tự thiết kế màn hình hoặc vị trí nút.
+
+Nhánh ghi bước rẽ, điều kiện, hành vi, nơi quay lại hoặc kết thúc. Phương thức
+thay thế không đồng nghĩa thực thi song song. Tiền điều kiện được giả định
+trước khi bắt đầu; kiểm tra có thể thất bại trong luồng cần nhánh tương ứng.
+Không dùng tiền điều kiện để giấu một trường hợp FR yêu cầu xử lý.
+
+Kết quả thất bại chỉ ghi bảo đảm có căn cứ FR. Thiếu quy tắc giao dịch,
+rollback/retry có ảnh hưởng nghiệp vụ thì ghi gap, không tự điền yêu cầu mới.
+Walkthrough từng đường đi và điểm hợp luồng theo quality-gates trước khi chốt
+semantic_review. Mỗi nhánh phải đạt postcondition phù hợp, không chỉ có link END.
+
+## Quan hệ
+
+### Rà quan hệ cho từng UC chính
+
+Lấy tập core và các sub từ decomposition, đọc luồng/hợp đồng rồi xét cả:
+(a) core–sub; (b) sub–sub. Xác định source/target theo hành vi, không theo tầng.
+Sub có thể là UC bao hàm, UC cơ sở hoặc UC tổng quát của một quan hệ khác.
+Không bắt buộc mọi cặp có cạnh. Quan hệ có bằng chứng vào bảng relation; cặp
+đã xem xét nhưng không có quan hệ ghi lý do/cách thể hiện. Sơ đồ chi tiết riêng
+của core giữ node core, toàn bộ sub và mọi cạnh đã xác định giữa các node đó.
+Với UC dùng chung ngoài nhóm, thêm node tham chiếu cùng ID để thể hiện đúng
+đích cạnh; không chuyển đích về core cho sơ đồ thành hình sao.
+
+### Association
+
+Actor–UC thể hiện tham gia tương tác, không phải thứ tự gọi, đường dẫn màn
+hình hay cơ chế cấp quyền. Nối tới UC độc lập/chuyên biệt nếu phù hợp; không
+nối mọi actor tới cha rộng rồi mặc định được thực hiện mọi UC con.
+
+### Include
+
+Nguồn: UC bao hàm; đích: UC được bao hàm. Ghi bước gọi và cách quay lại/thoát
+khi lỗi. Chèn hành vi không tương đương “B xảy ra trước A” hoặc “A cần trạng
+thái B tạo”. Đã đăng nhập trước Đổi mật khẩu là tiền điều kiện nếu FR mô tả
+như vậy; không bắt đăng nhập lại bằng include.
+
+Include diễn tả hành vi được bao hàm bắt buộc, không phải phần bổ sung tùy chọn.
+Khi đường đi đến điểm gọi, phải thực hiện hợp đồng included; condition không
+là guard UML của include. Nếu điểm gọi chỉ xuất hiện ở một nhánh, phải ghi
+đường đi, bằng chứng và lý do tách; không suy include chỉ từ chữ “nếu”. Mặc định
+giữ nhánh khi chưa chứng minh được quan hệ. Nếu rubric áp dụng yêu cầu included
+ở mọi lần thực hiện including, đối chiếu rõ với mô hình nhánh và ghi cần xác
+minh khi bất đồng; không âm thầm đổi hành vi nguồn để làm vừa sơ đồ.
+
+Tái sử dụng là lý do thường gặp, không phải yêu cầu có ít nhất hai nơi gọi.
+Cần giải thích việc tách. Include không quyết định thứ tự giữa các phần được
+bao hàm; ghi thứ tự và xử lý lỗi trong luồng.
+
+### Extend
+
+Nguồn: UC mở rộng; đích: UC cơ sở. Cơ sở phải có ý nghĩa và đủ mô tả mà không
+cần đọc phần mở rộng. Extension point thuộc **cơ sở**, trỏ tới bước luồng.
+Quan hệ ghi guard, phần hành vi chèn và điểm quay lại/kết thúc.
+
+Có điều kiện, ngoại lệ, nút cùng trang hoặc link điều hướng chưa đủ để tạo
+extend. Mặc định viết nhánh; chỉ tách nếu cần quản lý phần bổ sung độc lập.
+Khi guard đúng, extension có thể phải thực hiện; không diễn giải thành luôn
+tùy ý người dùng. Đăng xuất khi lần đăng nhập đã kết thúc là UC riêng.
+Re-consent có trigger cả khi phiên còn hiệu lực, không chỉ khi đăng nhập mới.
+
+### Generalization
+
+Nguồn: UC chuyên biệt; đích: UC tổng quát. Ghi hợp đồng chung, cấu trúc/hành vi
+được kế thừa, phần chuyên biệt và ràng buộc. Cha có thể concrete hoặc abstract;
+nếu abstract, nêu phần chưa hoàn chỉnh để con cụ thể hóa. Không dùng kế thừa
+chỉ để gom CRUD cùng đối tượng.
+
+Email/Google có thể là alternative flows trong Đăng nhập, hoặc UC chuyên
+biệt nếu cần quản lý luồng riêng và hợp đồng chung rõ. Không ép một đáp án.
+Các con không phải bước nối tiếp của cha; package không sinh quan hệ UML.
+Rà khả năng thay thế: con bảo toàn mục tiêu/kết quả và các cam kết của cha;
+phần chuyên biệt có nguồn, không phủ nhận hợp đồng cha hoặc tự cấp quyền thêm.
+
+## Liên module và hành vi tự động
+
+UC có owner rõ, một ID trên mọi view, được nhiều UC sử dụng. Đối chiếu sự kiện,
+quyền xem và kết quả ở cả hai bên giao tiếp. Không thêm việc vì sơ đồ còn trống.
+Relation liên module có nơi khai báo chính và impact record theo quality-gates;
+khai báo mới ở overview chưa đồng bộ owner phải ghi proposal/cần đồng bộ.
+
+AUT ghi trigger thời gian/sự kiện, điều kiện/trạng thái trước, kết quả/trạng thái
+sau, quy tắc dữ liệu và nguồn. Không dựng clock/scheduler actor giả. Có thể dùng
+UC theo sự kiện khi boundary/tương tác ngoài phù hợp; nếu không, AUT hoặc quy
+tắc chuyển trạng thái đủ để đặc tả. Không bỏ mất yêu cầu chỉ vì chạy tự động.
+
+FR chi tiết trỏ đến anchor bước/nhánh/điều kiện/BR/AUT. Đủ nhóm FR không chứng
+minh đủ hành vi. “Đủ” cần BA đọc nội dung; tool chỉ kiểm cấu trúc/tham chiếu.
+
+## Nguồn phương pháp
+
+Các nguồn cung cấp phương pháp, không thay FR cung cấp tính năng:
+
+- [OMG UML 2.5.1](https://www.omg.org/spec/UML/2.5.1), chương 18 UseCases.
+- [Jacobson & Cockburn — Use-Case Foundation](https://www.ivarjacobson.com/publications/use-case-foundation).
+- [NTNU — Use Case Levels](https://ttm4115.iik.ntnu.no/unit-4-req/preparation-1.html).
+- [IBM — Include](https://www.ibm.com/docs/en/rsas/7.5.0?topic=diagrams-include-relationships).
+- [RUP — Extend](https://www.cin.ufpe.br/~if682/RUP/process/modguide/md_exrel.htm)
+  và [RUP — Generalization](https://home.iscte-iul.pt/~hro/RUPSmallProjects/core.base_rup/guidances/guidelines/use-case_generalization_B301F53B.html)
+  (tài liệu Rational/IBM lưu tại trường đại học).
+- [IBM — Use case specification outline](https://www.ibm.com/docs/en/engineering-lifecycle-management-suite/doors-next/7.2.0?topic=cases-use-case-specification-outline).
+
+ID, bảng, số bước và cổng là quy ước iShare, không phải luật UML. Nếu có rubric
+giảng viên, ghi riêng để đối chiếu, không đổi ngữ nghĩa UML để khớp ví dụ.
