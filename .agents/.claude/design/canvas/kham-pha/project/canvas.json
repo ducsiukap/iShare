@@ -1,0 +1,270 @@
+{
+  "attachments": {},
+  "boards": {
+    "Main.dc.html": {
+      "h": 560,
+      "is_interactive": true,
+      "page": "huong",
+      "title": "Mục lục bước 3",
+      "w": 720,
+      "x": 0,
+      "y": 0
+    },
+    "bang-mau.dc.html": {
+      "h": 1000,
+      "page": "mau",
+      "title": "Bảng màu thay thế",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "font-test.dc.html": {
+      "expand": "fill",
+      "h": 7980,
+      "page": "font",
+      "title": "Thử font tiếng Việt",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "huong-1--chi-tiet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 2740,
+      "page": "huong",
+      "title": "Hướng 1 — Sổ tay · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 900
+    },
+    "huong-1--chi-tiet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 2740,
+      "page": "huong",
+      "title": "Hướng 1 — Sổ tay · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 900
+    },
+    "huong-2--chi-tiet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 2880,
+      "page": "huong",
+      "title": "Hướng 2 — Bảng tin · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 4240
+    },
+    "huong-2--chi-tiet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 2880,
+      "page": "huong",
+      "title": "Hướng 2 — Bảng tin · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 4240
+    },
+    "huong-3--chi-tiet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 2840,
+      "page": "huong",
+      "title": "Hướng 3 — Giấy kiểm tra · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 7720
+    },
+    "huong-3--chi-tiet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 2840,
+      "page": "huong",
+      "title": "Hướng 3 — Giấy kiểm tra · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 7720
+    },
+    "huong-4--chi-tiet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 2700,
+      "page": "chon",
+      "title": "Chi tiết bài viết · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 300
+    },
+    "huong-4--chi-tiet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 2700,
+      "page": "chon",
+      "title": "Chi tiết bài viết · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 300
+    },
+    "huong-4--ho-so--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 1060,
+      "page": "chon",
+      "title": "Hồ sơ người dùng · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 5600
+    },
+    "huong-4--ho-so--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1060,
+      "page": "chon",
+      "title": "Hồ sơ người dùng · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 5600
+    },
+    "huong-4--trang-chu--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 1440,
+      "page": "chon",
+      "title": "Trang chủ · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 3560
+    },
+    "huong-4--trang-chu--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1440,
+      "page": "chon",
+      "title": "Trang chủ · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 3560
+    },
+    "huong-4--viet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 1140,
+      "page": "chon",
+      "title": "Viết bài · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 7260
+    },
+    "huong-4--viet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1140,
+      "page": "chon",
+      "title": "Viết bài · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 7260
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-24T03:52:27Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "chon",
+    "view": "canvas"
+  },
+  "notes": {
+    "tieu-de-chon-chi-tiet-bai": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "chon",
+      "text": "Chi tiết bài viết",
+      "w": 240,
+      "x": 0,
+      "y": 0
+    },
+    "tieu-de-chon-ho-so": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "chon",
+      "text": "Hồ sơ người dùng (người khác xem)",
+      "w": 240,
+      "x": 0,
+      "y": 5300
+    },
+    "tieu-de-chon-trang-chu": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "chon",
+      "text": "Trang chủ — Thịnh hành › Bài viết",
+      "w": 240,
+      "x": 0,
+      "y": 3260
+    },
+    "tieu-de-chon-viet-bai": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "chon",
+      "text": "Viết bài (bài nháp)",
+      "w": 240,
+      "x": 0,
+      "y": 6960
+    },
+    "tieu-de-huong-1": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "huong",
+      "text": "Hướng 1 — Sổ tay",
+      "w": 240,
+      "x": 0,
+      "y": 600
+    },
+    "tieu-de-huong-2": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "huong",
+      "text": "Hướng 2 — Bảng tin",
+      "w": 240,
+      "x": 0,
+      "y": 3940
+    },
+    "tieu-de-huong-3": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "huong",
+      "text": "Hướng 3 — Giấy kiểm tra",
+      "w": 240,
+      "x": 0,
+      "y": 7420
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "huong-1--chi-tiet-bai--desktop.dc.html",
+    "huong-1--chi-tiet-bai--desktop--dark.dc.html",
+    "huong-2--chi-tiet-bai--desktop.dc.html",
+    "huong-2--chi-tiet-bai--desktop--dark.dc.html",
+    "huong-3--chi-tiet-bai--desktop.dc.html",
+    "huong-3--chi-tiet-bai--desktop--dark.dc.html",
+    "bang-mau.dc.html",
+    "font-test.dc.html",
+    "huong-4--chi-tiet-bai--desktop.dc.html",
+    "huong-4--chi-tiet-bai--desktop--dark.dc.html",
+    "huong-4--trang-chu--desktop.dc.html",
+    "huong-4--trang-chu--desktop--dark.dc.html",
+    "huong-4--ho-so--desktop.dc.html",
+    "huong-4--ho-so--desktop--dark.dc.html",
+    "huong-4--viet-bai--desktop.dc.html",
+    "huong-4--viet-bai--desktop--dark.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "huong",
+      "name": "Bước 3 — Hướng thẩm mỹ"
+    },
+    {
+      "id": "mau",
+      "name": "Bảng màu"
+    },
+    {
+      "id": "font",
+      "name": "Font"
+    },
+    {
+      "id": "chon",
+      "name": "Hướng đã chọn — 4 màn hình"
+    }
+  ],
+  "title": "iShare — Khám phá",
+  "v": 3
+}
