@@ -75,9 +75,10 @@ khác trước khi vẽ.
    `DESIGN.md` (`canvas_kham_pha`). Thư mục gốc bản sao: `.agents/.claude/design/canvas/kham-pha/`.
 2. **Không dùng design system nào** cho canvas này ở bước 3: nói rõ điều đó khi làm theo hướng dẫn của type, và dùng
    token plan của từng hướng. Không để canvas tự áp "mặc định" của type.
-3. Trang (page) "Bước 3 — Hướng thẩm mỹ": mỗi hướng hai artboard, `huong-<n>--chi-tiet-bai--desktop.dc.html` (trang
-   co giãn, rộng 1440) và `huong-<n>--chi-tiet-bai--mobile.dc.html` (rộng 390). Mỗi hàng một hướng, có ghi chú tiêu đề
-   là tên hướng. Trang "Font": artboard font test.
+3. Trang (page) "Bước 3 — Hướng thẩm mỹ": mỗi hướng một artboard `huong-<n>--chi-tiet-bai--desktop.dc.html` (trang
+   co giãn, rộng 1440); thêm `huong-<n>--chi-tiet-bai--mobile.dc.html` (rộng 390) **chỉ khi** `PRODUCT.md` mục 3 có hỗ
+   trợ điện thoại; thêm `huong-<n>--chi-tiet-bai--desktop--dark.dc.html` khi `PRODUCT.md` có dark mode, để thấy hướng
+   có sống được ở cả hai theme. Mỗi hàng một hướng, có ghi chú tiêu đề là tên hướng. Trang "Font": artboard font test.
 4. Mỗi artboard: nội dung thật ở mục A; phần tử tương tác là `button`/`a`/`input` thật; icon là SVG nét (không emoji);
    chỉ font từ Google Fonts qua `<link>` trong `<helmet>`.
 5. Lý do và so sánh viết trong tin nhắn cổng, không viết lên artboard.
@@ -100,13 +101,14 @@ khác trước khi vẽ.
 
 ## Đầu ra
 
-- Canvas "iShare — Khám phá": trang "Bước 3 — Hướng thẩm mỹ" (2–3 hướng × desktop + mobile), trang "Font".
+- Canvas "iShare — Khám phá": trang "Bước 3 — Hướng thẩm mỹ" (2–3 hướng × các bản theo `PRODUCT.md`: desktop, mobile
+  nếu có, tối nếu có), trang "Font".
 - Bản sao trong `.agents/.claude/design/canvas/kham-pha/`.
 - `DESIGN.md` mục 2, 5, 7 (sau khi chọn).
 
 ## Trình ở cổng
 
-- Mỗi hướng: tên, ý tưởng gốc, token plan rút gọn, điểm mạnh, rủi ro, link artboard desktop/mobile.
+- Mỗi hướng: tên, ý tưởng gốc, token plan rút gọn (cả bảng màu tối nếu có dark mode), điểm mạnh, rủi ro, link artboard.
 - Đề xuất của mình (hướng nào, vì sao) — người dùng vẫn là người chọn.
 - Kết quả tool và WARN giữ lại.
 - Câu hỏi Q3-01 (chọn/trộn), Q3-02, Q3-03.

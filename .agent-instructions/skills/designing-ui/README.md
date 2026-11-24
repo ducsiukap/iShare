@@ -27,7 +27,7 @@ Sửa màn hình luôn sửa trên Claude Design rồi đẩy lại Figma, khôn
 |---|---|---|
 | 1. Brief | Đọc FR/US/SC, viết `PRODUCT.md`: người dùng, bối cảnh, việc chính, ràng buộc, giọng văn | Logo/màu có sẵn, mong muốn của cô giáo, 3 từ muốn và 3 từ không muốn, thiết bị chính, dark mode, xưng hô |
 | 2. Reference | Lập moodboard: mỗi reference ghi mượn gì, vì sao, không mượn gì | 3–5 app thích, 3 app ghét kèm lý do; ảnh app học tập học sinh đang dùng |
-| 3. Hướng thẩm mỹ | 2–3 hướng khác hẳn nhau, vẽ trên cùng màn hình mẫu "Chi tiết bài viết" (bản desktop và mobile) | Chọn một hướng hoặc trộn |
+| 3. Hướng thẩm mỹ | 2–3 hướng khác hẳn nhau, vẽ trên cùng màn hình mẫu "Chi tiết bài viết" (desktop; thêm mobile, bản tối nếu brief có) | Chọn một hướng hoặc trộn |
 | 4. Danh mục màn hình | Liệt kê mọi màn hình của 16 module, truy vết FR/UC/SC, trạng thái cần vẽ, chia đợt | Phạm vi, chia đợt |
 | 5. Luồng và wireframe | Sơ đồ trang, điều hướng, khung xám cho các luồng chính | Luồng, điều hướng |
 | 6. Design system | Tokens (màu, chữ, khoảng cách, bo góc, bóng), test font tiếng Việt, component lõi | Font, màu, mật độ, bo góc, bộ icon |

@@ -12,7 +12,8 @@ Kiểm:
   có trong bảng <!-- ui:batches -->;
 - truy vết ngược: mọi UC con (tier = sub) có màn hình hoặc nằm trong <!-- ui:no-screen -->; SC chưa được nhắc tới;
 - nguồn đổi: so bảng <!-- ui:sources --> (path | version) với phiên bản hiện tại (FR: phien_ban; US/SC: date);
-- artboard (khi có --artboards): mỗi màn hình × trạng thái × thiết bị có tệp <id>--<state>--<device>.dc.html;
+- artboard (khi có --artboards): mỗi màn hình × trạng thái × thiết bị có tệp <id>--<state>--<device>.dc.html
+  (bản tối <id>--<state>--<device>--dark.dc.html được đếm riêng);
   artboard SCR-* không khớp danh mục.
 Mã thoát: 0 nếu không có ERROR, 1 nếu có ERROR, 2 nếu lỗi tham số/tệp.
 """
@@ -218,18 +219,23 @@ def main():
     # artboard
     found_total = None
     if args.artboards:
-        files = set()
+        files, dark = set(), set()
         for d in args.artboards:
             for dp, _, fn in os.walk(d):
                 for n in fn:
                     mm = re.match(r"^(.*?)\.(?:dc\.html|html)$", n)
                     if mm:
-                        files.add(mm.group(1))
+                        base = mm.group(1)
+                        if re.search(r"--dark$", base):
+                            dark.add(re.sub(r"--dark$", "", base))
+                        files.add(re.sub(r"--(?:dark|light)$", "", base))
         exp = {k: v for k, v in expected.items() if not args.batch or v[1] == args.batch}
         miss = sorted(k for k in exp if k not in files)
         found_total = len(exp) - len(miss)
         for k in miss:
             (errors if args.require_artboards else infos).append("Thiếu artboard: %s.dc.html" % k)
+        if dark:
+            infos.append("Có bản tối cho %d/%d artboard mong đợi" % (len([k for k in exp if k in dark]), len(exp)))
         for f in sorted(files):
             if f.startswith("SCR-") and f not in expected:
                 warns.append("Artboard không khớp danh mục (sai tên hoặc màn hình/trạng thái chưa khai báo): %s" % f)
