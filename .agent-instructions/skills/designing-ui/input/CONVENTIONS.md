@@ -97,6 +97,9 @@ Chỉ dùng chữ không dấu, số, `-`, `.`; không khoảng trắng.
 | `owner` / `visitor` | Cùng màn hình nhìn từ chủ sở hữu / người khác | M02 |
 | `guest` | Người chưa đăng nhập | ACT-001 |
 | `mod` / `admin` | Cùng màn hình nhìn từ Mod / Admin | ACT-003 |
+| `expired` | Liên kết, mã hoặc đề xuất đã hết hạn | FR-M01-02, FR-M01-09, FR-M01-11, FR-M10-03 |
+| `paused` | Chức năng đang tạm dừng (tạm dừng đăng ký) | FR-M10-11 |
+| `submitted` | Đã gửi xong, chờ bước sau ở nơi khác (email, người xét) | FR-M01-09, FR-M08-01, FR-M09-01 |
 
 Cần trạng thái mới: thêm dòng vào bảng này (slug chữ thường, nối bằng `-`) và ghi nguồn. Không đặt slug tùy tiện
 trong inventory.

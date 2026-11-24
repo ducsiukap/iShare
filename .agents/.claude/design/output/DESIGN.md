@@ -1,11 +1,11 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.2
+phien_ban: 0.3
 trang_thai: Bản nháp
 ngay: 2026-11-24
 tac_gia: Phạm Văn Đức
-steps_completed: [1, 2, 3]
-buoc_hien_tai: 4
+steps_completed: [1, 2, 3, 4]
+buoc_hien_tai: 5
 che_do: kham-pha
 dot_da_duyet: []
 dot_da_day_figma: []
@@ -23,9 +23,9 @@ figma_file:
 
 | Mục | Giá trị |
 |---|---|
-| Bước hiện tại | 4 — Danh mục màn hình |
+| Bước hiện tại | 5 — Luồng và wireframe |
 | Hướng thẩm mỹ | "Sổ tay" (DD-UI-08) |
-| Số màn hình / artboard | (bước 4) |
+| Số màn hình / artboard | 75 màn hình; 281 artboard sáng + 75 tối = 356 (screen-inventory.md, DD-UI-14, DD-UI-15) |
 | Đợt đã duyệt | — |
 
 ## 2. Hướng thẩm mỹ đã chọn (bước 3)
@@ -98,6 +98,12 @@ Nguồn sự thật: `tokens/tokens.json`. Mục này chỉ tóm tắt để đ�
 | DD-UI-11 | Upvote là nút trơn như các nút bên cạnh (không viền, không nền), nổi bật bằng màu chủ đạo, chữ đậm, icon nét dày; đã upvote thì icon tô đặc. Upvote bình luận làm cùng cách | Người dùng yêu cầu; trạng thái đã upvote do Claude đề xuất, duyệt cùng bước 3 | Ý kiến bước 3 | 3 | 2026-11-24 |
 | DD-UI-12 | Bình luận và trả lời có avatar tròn cạnh tên người viết | Người dùng yêu cầu | Ý kiến bước 3 | 3 | 2026-11-24 |
 | DD-UI-13 | Danh sách bài (trang chủ, hồ sơ): thẻ có trích đoạn 2 dòng; số upvote và bình luận chỉ để xem, không bấm upvote tại danh sách. Trang chủ không có cột phụ vì FR-M14 không có nội dung phụ cho trang chủ | Claude đề xuất, duyệt cùng bước 3 | — | 3 | 2026-11-24 |
+| DD-UI-14 | Vẽ hết 75 màn hình trong danh mục, không để màn hình nào sau MS1; 5 đợt theo thứ tự A → B → C → D → E | Người dùng chọn | Q4-01, Q4-02 | 4 | 2026-11-25 |
+| DD-UI-15 | Theme tối: sản phẩm hỗ trợ mọi màn hình, mọi trạng thái (màu từ tokens). Artboard `--dark` chỉ vẽ cho trạng thái `default` của mỗi màn hình (75); bước 6 kiểm tương phản mọi cặp màu ở cả hai theme; bước 8 tự bật theme tối cho mọi trạng thái còn lại để soát | Người dùng đồng ý đề xuất | PRODUCT.md câu hỏi mở #4 | 4 | 2026-11-25 |
+| DD-UI-16 | Nút Theo dõi / Bỏ theo dõi Chủ đề đặt ở Danh sách Chủ đề và ở đầu trang Kết quả tìm kiếm khi lọc theo đúng một Chủ đề | Nguồn có thao tác (SC-M07-001) nhưng không nói nơi đặt; người dùng đồng ý đề xuất | screen-inventory.md câu hỏi #1 | 4 | 2026-11-25 |
+| DD-UI-17 | Trang Cài đặt tài khoản (mở từ menu avatar) gom: đổi mật khẩu, mức cảnh cáo của mình, từ chức (Mod/Admin), vô hiệu hóa tài khoản | Nguồn không nói nơi đặt; người dùng đồng ý | screen-inventory.md câu hỏi #2 | 4 | 2026-11-25 |
+| DD-UI-18 | Gỡ ban: Mod/Admin xem hồ sơ tài khoản đang bị ban có nút Gỡ ban (SC-M08-011: gỡ trực tiếp trên tài khoản, không qua vụ) | Người dùng đồng ý | screen-inventory.md câu hỏi #3 | 4 | 2026-11-25 |
+| DD-UI-19 | Mẫu email hệ thống (xác minh, đặt lại mật khẩu, mã kích hoạt, ban/gỡ ban, thông báo qua email) chưa nằm trong phạm vi vẽ; định dạng email quyết sau | Người dùng hoãn | screen-inventory.md câu hỏi #5 | 4 | 2026-11-25 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -143,3 +149,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 |---|---|---|
 | 0.1 | 2026-11-24 | Tạo tệp ở bước 1; bước 1 được duyệt (DD-UI-01…04); bước 2 được duyệt (AP-P-01, DD-UI-05…07); bước 3: vẽ 3 hướng + bảng màu + font test trên canvas "iShare — Khám phá", thêm dữ liệu mẫu MAU-01…05; người dùng chọn trộn (khung hướng 1, màu hướng 2, ô tìm kiếm hướng 2, bo góc hướng 3, thanh thao tác hướng 2) — vẽ thử 4 màn hình, dữ liệu MAU-06…08 |
 | 0.2 | 2026-11-24 | Bước 3 được duyệt: hướng "Sổ tay" (mục 2, DD-UI-08…13); thêm dữ liệu mẫu MAU-06…08 |
+| 0.3 | 2026-11-25 | Bước 4 được duyệt: screen-inventory.md (75 màn hình, rà soát lại theo SC); DD-UI-14…19 |
