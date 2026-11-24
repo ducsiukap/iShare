@@ -1,6 +1,6 @@
 # Phân tích use case — M12 Gamification
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2; tiếng Việt, giữ thuật ngữ cần thiết.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3; tiếng Việt, giữ thuật ngữ cần thiết.
 
 Đầu ra gồm **3 UC chính, 10 UC con**, 12 mapping, đặc tả, truy vết và 4 SVG (tổng quan module, một detail cho mỗi core). Sáu AUT giữ các hành vi điểm/thành tích/xếp hạng tự động, không tạo quyền chỉnh tay cho Mod/Admin hoặc actor Hệ thống. Chỉ phân tích M12.
 
@@ -10,8 +10,9 @@
 | key | value |
 |---|---|
 | document_id | US-M12 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M12 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,10 +21,12 @@
 | approved_steps | - |
 | source_baseline | FR-M12 v1.1; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M07 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M14 v1.1; FR-M15 v1.1 |
 | author | Codex |
-| date | 2026-11-01 |
-| approval_evidence | Người dùng cho phép tự làm các bước cần thiết ở lượt M04, áp dụng chuỗi module hiện tại. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M12 hoặc từng kết quả bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | - |
+| semantic_review | pending |
 | diagram_check | pass |
+
+**Lịch sử trước migration 2.3:** các dòng dưới giữ nguyên bằng chứng đã ghi, không phải approved_steps của revision mới.
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
 |---|---|---|---|---|
@@ -34,6 +37,21 @@
 | 5 | 143 dòng truy vết, 135 tiêu chí chi tiết/BR; 13 FR liên quan | Chưa duyệt | FR-M12 v1.1; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M07 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M14 v1.1; FR-M15 v1.1 | Baseline liên quan đổi |
 | 6 | 4 view đã kiểm cú pháp/render/hình, đúng node/11 cạnh; mỗi view chỉ một SVG | Chưa duyệt | PlantUML 1.2026.8 | Mô hình/nguồn đổi |
 | 7 | Đã review nguồn/ngữ nghĩa/truy vết/UML/hình/liên kết, hồ sơ Chờ duyệt và giữ giới hạn nguồn | Chưa duyệt | Skill v2.2 | Phản hồi/baseline đổi |
+
+
+### Revision 2.3 — 2026-11-24
+
+Người dùng yêu cầu cập nhật toàn bộ US theo skill 2.3 và cho phép làm liên tục bảy bước. Quyền thực hiện không phê duyệt kết quả; revision này giữ `approved_steps=-`, trạng thái **Chờ duyệt**. Bản trước ghi skill 2.2, approved_steps=-. Bằng chứng quyền thực hiện trước: Người dùng cho phép tự làm các bước cần thiết ở lượt M04, áp dụng chuỗi module hiện tại. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M12 hoặc từng kết quả bước.
+
+| Bước | Công việc revision hiện tại | Trạng thái cổng |
+|---|---|---|
+| 1 | Đối chiếu baseline owner/normative, boundary và kiểm kê FR/BR đang dùng. | Đã review; chưa duyệt |
+| 2 | Rà goal/trigger/kết quả/phạm vi của core/sub tại bảng chất lượng 2.3. | Đã review; giữ các vấn đề ghi rõ |
+| 3 | Walkthrough main và từng alternative theo QA revision; không suy kết quả tại nhánh thiếu nguồn. | Đã review; các đường blocking chưa chốt |
+| 4 | Đối chiếu relation và association thực tế với SVG, không tạo cạnh từ decomposition. | Đã review mô hình hiện có |
+| 5 | Giữ trace chi tiết, phân vai nguồn và bổ sung vòng đời từng gap. | Đã review trong scope; không sửa FR/register |
+| 6 | Kiểm XML/node/association/quan hệ SVG hiện có; giữ artifact US-relative và render lịch sử riêng. | Root đã parse/render mới và so XML visual tree; xem UC-V23-REVIEW.md, không nhận đã xem mọi ảnh |
+| 7 | Chạy checker --final sau review, ghi lỗi/cảnh báo thật; semantic_review còn pending do đường blocking. | Review đã làm; chưa đạt cổng cuối |
 
 ## 1. Phạm vi, nguồn và tổng hợp yêu cầu
 
@@ -51,21 +69,24 @@
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M12.md | 1.1 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Không dùng ví dụ hoặc US trước làm nguồn tính năng. Đối chiếu [US-M08](US-M08.md), [US-M09](US-M09.md), [US-M10](US-M10.md), [US-M11](US-M11.md) để giữ ID/ranh giới, nguồn chức năng vẫn là FR đã chốt.
+
+
+**Quy chuẩn tên:** [UC-NAMING](UC-NAMING.md), ngày 2026-11-24, trạng thái **Chờ duyệt cách diễn đạt**; đây là đề xuất tên đang dùng, không tự trở thành quy chuẩn đã duyệt. Nguồn `owner` sở hữu hành vi; `normative` ràng buộc giao tiếp/quyền, đều phải Đã chốt đúng baseline.
 
 ### Actor và quyền
 
@@ -100,18 +121,18 @@ ACT-007 → ACT-008 → ACT-002 thể hiện kế thừa năng lực người d�
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
 | UC-M12-020 | Đánh giá nội dung bằng upvote | core | User goal | ACT-002, ACT-007 | - | M12 | #uc-m12-020 | FR-M12-01, FR-M12-02, BR-M12-01, BR-M12-02, BR-M12-03, BR-M12-04, BR-M12-05, BR-M12-07, BR-M12-28 |
-| UC-M12-021 | Tra cứu bảng xếp hạng | core | User goal | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-021 | FR-M12-04, FR-M12-05, FR-M12-06, BR-M12-14, BR-M12-16, BR-M12-18, BR-M12-19, BR-M12-20, BR-M12-21, BR-M12-22, BR-M12-24, BR-M12-29 |
-| UC-M12-022 | Theo dõi điểm và thành tích đóng góp | core | Summary | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-022 | FR-M12-02, FR-M12-03, FR-M12-05, FR-M12-07, BR-M12-05, BR-M12-06, BR-M12-11, BR-M12-12, BR-M12-13, BR-M12-24, BR-M12-27, BR-M12-28 |
+| UC-M12-021 | Xem bảng xếp hạng | core | User goal | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-021 | FR-M12-04, FR-M12-05, FR-M12-06, BR-M12-14, BR-M12-16, BR-M12-18, BR-M12-19, BR-M12-20, BR-M12-21, BR-M12-22, BR-M12-24, BR-M12-29 |
+| UC-M12-022 | Xem điểm và thành tích | core | Summary | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-022 | FR-M12-02, FR-M12-03, FR-M12-05, FR-M12-07, BR-M12-05, BR-M12-06, BR-M12-11, BR-M12-12, BR-M12-13, BR-M12-24, BR-M12-27, BR-M12-28 |
 | UC-M12-001 | Kiểm tra quyền upvote | sub | Subfunction | ACT-002, ACT-007 | - | M12 | #uc-m12-001 | FR-M12-01, BR-M12-03, BR-M12-04, FR-M03-14.06, FR-M11-16.04, FR-M11-17.08 |
-| UC-M12-002 | Ghi nhận hoặc rút upvote | sub | Subfunction | ACT-002, ACT-007 | - | M12 | #uc-m12-002 | FR-M12-01.01, FR-M12-01.02, FR-M12-01.03, FR-M12-01.04, BR-M12-01, BR-M12-02, BR-M12-07 |
-| UC-M12-003 | Cập nhật điểm từ thay đổi upvote | sub | Subfunction | ACT-002, ACT-007 | - | M12 | #uc-m12-003 | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.04, FR-M12-02.18, BR-M12-05, BR-M12-07 |
-| UC-M12-004 | Kiểm tra quyền dùng chức năng Gamification | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-004 | FR-M12-08, BR-M12-28, FR-M10-12.04 |
-| UC-M12-005 | Chọn dữ liệu bảng theo chu kỳ | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-005 | FR-M12-06.02, FR-M12-06.04, FR-M12-06.06, FR-M12-06.07, FR-M12-04.14, BR-M12-14, BR-M12-19, BR-M12-22 |
-| UC-M12-006 | Lọc Lớp/Khối và xác định hạng hiển thị | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-006 | FR-M12-06.03, FR-M12-06.08, FR-M12-06.09, BR-M12-16, BR-M12-18, BR-M12-20 |
+| UC-M12-002 | Upvote hoặc rút upvote | sub | Subfunction | ACT-002, ACT-007 | - | M12 | #uc-m12-002 | FR-M12-01.01, FR-M12-01.02, FR-M12-01.03, FR-M12-01.04, BR-M12-01, BR-M12-02, BR-M12-07 |
+| UC-M12-003 | Cập nhật điểm upvote | sub | Subfunction | ACT-002, ACT-007 | - | M12 | #uc-m12-003 | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.04, FR-M12-02.18, BR-M12-05, BR-M12-07 |
+| UC-M12-004 | Kiểm tra điều kiện dùng Gamification | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-004 | FR-M12-08, BR-M12-28, FR-M10-12.04 |
+| UC-M12-005 | Lấy dữ liệu xếp hạng theo chu kỳ | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-005 | FR-M12-06.02, FR-M12-06.04, FR-M12-06.06, FR-M12-06.07, FR-M12-04.14, BR-M12-14, BR-M12-19, BR-M12-22 |
+| UC-M12-006 | Lọc bảng xếp hạng theo lớp và khối | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-006 | FR-M12-06.03, FR-M12-06.08, FR-M12-06.09, BR-M12-16, BR-M12-18, BR-M12-20 |
 | UC-M12-007 | Áp trạng thái tài khoản lên bảng đã chốt | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-007 | FR-M12-04.07, FR-M12-04.08, FR-M12-04.09, FR-M12-04.10, FR-M12-04.11, FR-M12-04.12, FR-M12-04.17, FR-M12-04.18, BR-M12-20, BR-M12-21 |
-| UC-M12-008 | Xác định thứ hạng theo điểm | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-008 | FR-M12-04.02, FR-M12-04.06, FR-M12-06.05, FR-M12-06.08, FR-M12-06.10, BR-M12-16, BR-M12-18 |
-| UC-M12-009 | Cung cấp điểm và thành tích được công bố | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-009 | FR-M12-03.06, FR-M12-03.07, FR-M12-03.11, FR-M12-05.12, FR-M12-05.13, FR-M12-08.10, BR-M12-12, BR-M12-13, BR-M12-24, BR-M12-28 |
-| UC-M12-010 | Xác định nhãn tài khoản bị khóa | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-010 | FR-M12-07, FR-M12-08.10, BR-M12-27, BR-M12-28 |
+| UC-M12-008 | Xếp hạng theo điểm | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-008 | FR-M12-04.02, FR-M12-04.06, FR-M12-06.05, FR-M12-06.08, FR-M12-06.10, BR-M12-16, BR-M12-18 |
+| UC-M12-009 | Hiển thị điểm và thành tích | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-009 | FR-M12-03.06, FR-M12-03.07, FR-M12-03.11, FR-M12-05.12, FR-M12-05.13, FR-M12-08.10, BR-M12-12, BR-M12-13, BR-M12-24, BR-M12-28 |
+| UC-M12-010 | Hiển thị nhãn tài khoản bị khóa | sub | Subfunction | ACT-001, ACT-002, ACT-007 | - | M12 | #uc-m12-010 | FR-M12-07, FR-M12-08.10, BR-M12-27, BR-M12-28 |
 
 Tier độc lập level. Core020/021 là User goal; core022 Summary thể hiện giá trị theo dõi đóng góp qua dữ liệu tích hợp, không tạo lại UC Xem hồ sơ của M02. Sub đều là hành vi gắn kết cần dùng lại/làm rõ trong mục tiêu, không phải loại oval theo từng nút hoặc ngưỡng. AUT bao phủ phần nghiệp vụ tự động, không vì không có oval mà bỏ yêu cầu.
 
@@ -154,13 +175,30 @@ Mode module, chưa tổng hợp các core hệ thống ngoài M12.
 | D-M12-06 | Theo dõi thành tích | Core022 Summary, UC009/010 | M12 sở hữu số liệu/quy tắc công bố, M02 sở hữu trang hồ sơ. | Không UC M12 trùng Xem hồ sơ, không include điều hướng hồ sơ trong mỗi lượt xem bảng. |
 | D-M12-07 | Cờ và nhãn | UC004 kiểm yêu cầu; UC010 nhãn/dữ liệu; RULE006 | Chặn thao tác không có nghĩa dừng số liệu hoặc tự động; nhãn không tự thay quyền nội dung. | Không clock/AI actor hoặc UI chỉnh chính sách/điểm. |
 
+
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+Không áp dụng cho mode module; tập core được tổng hợp tại [US-overview](US-overview.md).
+
+### Kiểm chất lượng goal/phân rã revision 2.3
+
+| Core | Actor/trigger/kết quả và đóng góp của sub | Quyết định và trade-off | Nguồn |
+|---|---|---|---|
+| UC-M12-020 (User goal) | Actor ACT-002, ACT-007; Một lượt đánh giá/rút đạt kết quả nút, số vote và điểm tức thời; kiểm cờ/quyền, chuyển vote và cộng điểm là subfunction khác trách nhiệm, không mỗi trạng thái nút một UC. | Giữ 4 sub theo mapping: UC-M12-001, UC-M12-002, UC-M12-003, UC-M12-004. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M12-01, FR-M12-02, BR-M12-01, BR-M12-02, BR-M12-03, BR-M12-04, BR-M12-05, BR-M12-07, BR-M12-28 |
+| UC-M12-021 (User goal) | Actor ACT-001, ACT-002, ACT-007; Một lần xem bảng chọn chu kỳ, lọc, áp trạng thái và trình bày hạng; sub005–008 đóng góp dữ liệu/hạng còn sub004/010 dùng lại chính sách. Batch tạo bảng là AUT, không chạy lại khi mở. | Giữ 6 sub theo mapping: UC-M12-004, UC-M12-005, UC-M12-006, UC-M12-007, UC-M12-008, UC-M12-010. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M12-04, FR-M12-05, FR-M12-06, BR-M12-14, BR-M12-16, BR-M12-18, BR-M12-19, BR-M12-20, BR-M12-21, BR-M12-22, BR-M12-24, BR-M12-29 |
+| UC-M12-022 (Summary) | Actor ACT-001, ACT-002, ACT-007; Summary theo dõi đóng góp ở nơi owner được phép hiển thị, gồm điểm/badge/danh hiệu và nhãn ban; sub009 cung cấp dữ liệu, sub010 giữ nhãn xuyên module. Không phải một UC Xem hồ sơ mới. | Giữ 2 sub theo mapping: UC-M12-009, UC-M12-010. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M12-02, FR-M12-03, FR-M12-05, FR-M12-07, BR-M12-05, BR-M12-06, BR-M12-11, BR-M12-12, BR-M12-13, BR-M12-24, BR-M12-27, BR-M12-28 |
+
+Không có mapping 1:1 core–sub trong revision này. Đối chiếu level ở catalog/spec/brief/rationale; tier không quyết định level. Các sub có cùng caller vẫn được phân biệt bằng trigger/kết quả; mapping không tự tạo UML. Giữ ID và nhãn hiện có; không tạo mục tiêu mới để đủ hai tầng.
+
 ## 3. Đặc tả
 
 ### 3.1 UC chính Summary
 
 <a id="uc-m12-022"></a>
 
-#### UC-M12-022 — Theo dõi điểm và thành tích đóng góp
+#### UC-M12-022 — Xem điểm và thành tích
 
 **Actor:** ACT-001, ACT-002, ACT-007. **Mục tiêu/giá trị:** Người xem thấy đóng góp và thành tích được công bố đúng, giữ minh bạch trạng thái ban.
 
@@ -222,7 +260,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-021"></a>
 <a id="uc-m12-021-contract"></a>
 
-#### UC-M12-021 — Tra cứu bảng xếp hạng
+#### UC-M12-021 — Xem bảng xếp hạng
 
 **UC con:** [UC-M12-004](#uc-m12-004), [UC-M12-005](#uc-m12-005), [UC-M12-006](#uc-m12-006), [UC-M12-007](#uc-m12-007), [UC-M12-008](#uc-m12-008), [UC-M12-010](#uc-m12-010).
 
@@ -335,7 +373,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-002"></a>
 <a id="uc-m12-002-contract"></a>
 
-#### UC-M12-002 — Ghi nhận hoặc rút upvote
+#### UC-M12-002 — Upvote hoặc rút upvote
 
 **Thuộc core:** [UC-M12-020](#uc-m12-020). Đổi trạng thái bật/tắt đúng lượt.
 
@@ -388,7 +426,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-003"></a>
 <a id="uc-m12-003-contract"></a>
 
-#### UC-M12-003 — Cập nhật điểm từ thay đổi upvote
+#### UC-M12-003 — Cập nhật điểm upvote
 
 **Thuộc core:** [UC-M12-020](#uc-m12-020). Điểm theo thay đổi upvote cập nhật tức thời.
 
@@ -439,7 +477,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-004"></a>
 <a id="uc-m12-004-contract"></a>
 
-#### UC-M12-004 — Kiểm tra quyền dùng chức năng Gamification
+#### UC-M12-004 — Kiểm tra điều kiện dùng Gamification
 
 **Thuộc core:** [UC-M12-020](#uc-m12-020), [UC-M12-021](#uc-m12-021). Áp cờ cho yêu cầu tương tác/mở bảng, dùng chung.
 
@@ -490,7 +528,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-005"></a>
 <a id="uc-m12-005-contract"></a>
 
-#### UC-M12-005 — Chọn dữ liệu bảng theo chu kỳ
+#### UC-M12-005 — Lấy dữ liệu xếp hạng theo chu kỳ
 
 **Thuộc core:** [UC-M12-021](#uc-m12-021). Lấy đúng bảng hiện hành theo chu kỳ.
 
@@ -542,7 +580,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-006"></a>
 <a id="uc-m12-006-contract"></a>
 
-#### UC-M12-006 — Lọc Lớp/Khối và xác định hạng hiển thị
+#### UC-M12-006 — Lọc bảng xếp hạng theo lớp và khối
 
 **Thuộc core:** [UC-M12-021](#uc-m12-021). So sánh đúng nhóm Lớp-Khối theo snapshot.
 
@@ -646,7 +684,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-008"></a>
 <a id="uc-m12-008-contract"></a>
 
-#### UC-M12-008 — Xác định thứ hạng theo điểm
+#### UC-M12-008 — Xếp hạng theo điểm
 
 **Thuộc core:** [UC-M12-021](#uc-m12-021). Dùng chung thuật toán nghiệp vụ đồng hạng.
 
@@ -696,7 +734,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-009"></a>
 <a id="uc-m12-009-contract"></a>
 
-#### UC-M12-009 — Cung cấp điểm và thành tích được công bố
+#### UC-M12-009 — Hiển thị điểm và thành tích
 
 **Thuộc core:** [UC-M12-022](#uc-m12-022). Cung cấp thành tích công bố cho owner hiển thị.
 
@@ -749,7 +787,7 @@ Subfunction nhận ngữ cảnh caller, không thành nút tự chạy bỏ qua 
 <a id="uc-m12-010"></a>
 <a id="uc-m12-010-contract"></a>
 
-#### UC-M12-010 — Xác định nhãn tài khoản bị khóa
+#### UC-M12-010 — Hiển thị nhãn tài khoản bị khóa
 
 **Thuộc core:** [UC-M12-021](#uc-m12-021), [UC-M12-022](#uc-m12-022). Dùng chung nhãn ban theo trạng thái thực.
 
@@ -1075,7 +1113,8 @@ AUT004/005 sử dụng quy tắc UC008 khi tính/chốt, nhưng AUT không trở
 
 ### 4.3 Association actor–UC
 
-| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 |---|---|---|---|---|
 | ACT-002 | UC-M12-020 | Upvote / rút | Đăng nhập, không tự upvote, qua các lớp quyền nội dung. | FR-M12-01, FR-M12-02, BR-M12-01, BR-M12-02, BR-M12-03, BR-M12-04, BR-M12-05, BR-M12-07, BR-M12-28 |
 | ACT-007 | UC-M12-020 | Qua cờ; vẫn kiểm nội dung | Admin được dùng khi cờ tắt, không miễn quyền nội dung. | FR-M12-01, FR-M12-02, BR-M12-01, BR-M12-02, BR-M12-03, BR-M12-04, BR-M12-05, BR-M12-07, BR-M12-28 |
@@ -1149,8 +1188,8 @@ Mỗi FR chi tiết/BR trỏ tiêu chí nguyên nghĩa bên trong UC/AUT/RULE c�
 | BR-M12-17 | #rule-m12-004-br-m12-17 | Đủ | Đối chiếu [đặc tả](#rule-m12-004); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | BR-M12-18 | #uc-m12-008-br-m12-18 | Đủ | Đối chiếu [đặc tả](#uc-m12-008) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | BR-M12-19 | #aut-m12-004-br-m12-19 | Đủ | Đối chiếu [đặc tả](#aut-m12-004); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
-| BR-M12-20 | #uc-m12-007-br-m12-20 | Đủ | Đối chiếu [đặc tả](#uc-m12-007) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
-| BR-M12-21 | #uc-m12-007-br-m12-21 | Đủ | Đối chiếu [đặc tả](#uc-m12-007) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
+| BR-M12-20 | #uc-m12-007-br-m12-20 | Một phần | NOTE-M12-04: đã đặc tả hiển thị từng trạng thái riêng; chưa chốt ưu tiên nếu DELETED đồng thời còn HEAVY trên bảng đã chốt. |
+| BR-M12-21 | #uc-m12-007-br-m12-21 | Một phần | NOTE-M12-04: đã đặc tả hiển thị từng trạng thái riêng; chưa chốt ưu tiên nếu DELETED đồng thời còn HEAVY trên bảng đã chốt. |
 | BR-M12-22 | #uc-m12-005-br-m12-22 | Đủ | Đối chiếu [đặc tả](#uc-m12-005) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | BR-M12-23 | #aut-m12-005-br-m12-23 | Đủ | Đối chiếu [đặc tả](#aut-m12-005); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | BR-M12-24 | #aut-m12-005-br-m12-24 | Đủ | Đối chiếu [đặc tả](#aut-m12-005); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
@@ -1220,14 +1259,14 @@ Mỗi FR chi tiết/BR trỏ tiêu chí nguyên nghĩa bên trong UC/AUT/RULE c�
 | FR-M12-04.08 | #aut-m12-004-fr-m12-04-08 | Đủ | Đối chiếu [đặc tả](#aut-m12-004); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | FR-M12-04.09 | #aut-m12-004-fr-m12-04-09 | Đủ | Đối chiếu [đặc tả](#aut-m12-004); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | FR-M12-04.10 | #uc-m12-007-fr-m12-04-10 | Đủ | Đối chiếu [đặc tả](#uc-m12-007) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
-| FR-M12-04.11 | #uc-m12-007-fr-m12-04-11 | Đủ | Đối chiếu [đặc tả](#uc-m12-007) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
+| FR-M12-04.11 | #uc-m12-007-fr-m12-04-11 | Một phần | NOTE-M12-04: đã đặc tả hiển thị từng trạng thái riêng; chưa chốt ưu tiên nếu DELETED đồng thời còn HEAVY trên bảng đã chốt. |
 | FR-M12-04.12 | #uc-m12-007-fr-m12-04-12 | Đủ | Đối chiếu [đặc tả](#uc-m12-007) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | FR-M12-04.13 | #rule-m12-004-fr-m12-04-13 | Đủ | Đối chiếu [đặc tả](#rule-m12-004); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | FR-M12-04.14 | #uc-m12-005-fr-m12-04-14 | Đủ | Đối chiếu [đặc tả](#uc-m12-005) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | FR-M12-04.15 | #rule-m12-003-fr-m12-04-15 | Đủ | Đối chiếu [đặc tả](#rule-m12-003); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | FR-M12-04.16 | #rule-m12-003-fr-m12-04-16 | Đủ | Đối chiếu [đặc tả](#rule-m12-003); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | FR-M12-04.17 | #aut-m12-004-fr-m12-04-17 | Đủ | Đối chiếu [đặc tả](#aut-m12-004); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
-| FR-M12-04.18 | #uc-m12-007-fr-m12-04-18 | Đủ | Đối chiếu [đặc tả](#uc-m12-007) → [UC-M12-021](#uc-m12-021). Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
+| FR-M12-04.18 | #uc-m12-007-fr-m12-04-18 | Một phần | NOTE-M12-04: đã đặc tả hiển thị từng trạng thái riêng; chưa chốt ưu tiên nếu DELETED đồng thời còn HEAVY trên bảng đã chốt. |
 | FR-M12-04.19 | #aut-m12-004-fr-m12-04-19 | Đủ | Đối chiếu [đặc tả](#aut-m12-004); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
 | FR-M12-05 | #aut-m12-005 | Đủ | Đối chiếu [đặc tả](#aut-m12-005); tác vụ/quy tắc xuyên UC ở mục 3. Các mã con hiệu lực được kiểm riêng. |
 | FR-M12-05.01 | #aut-m12-005-fr-m12-05-01 | Đủ | Đối chiếu [đặc tả](#aut-m12-005); tác vụ/quy tắc xuyên UC ở mục 3. Tiêu chí khớp nguồn và luồng/quy tắc xử lý. |
@@ -1323,7 +1362,7 @@ Chỉ UC-M12-020, UC-M12-021, UC-M12-022. Không có quan hệ UC–UC giữa c�
 | UC-M12-020 | include | UC-M12-002 | [Đặc tả](#uc-m12-020-main-3) | Được phép tương tác; [Trở về](#uc-m12-020-main-4) |
 | UC-M12-002 | include | UC-M12-003 | [Đặc tả](#uc-m12-002-main-3) | Sau chuyển trạng thái upvote hợp lệ; [Trở về](#uc-m12-002-main-4) |
 
-#### UC-M12-021 — Tra cứu bảng xếp hạng
+#### UC-M12-021 — Xem bảng xếp hạng
 
 **Focus:** UC-M12-021. **Node:** UC-M12-021, UC-M12-004, UC-M12-005, UC-M12-006, UC-M12-007, UC-M12-008, UC-M12-010. **Cạnh UC–UC:** 6.
 
@@ -1338,7 +1377,7 @@ Chỉ UC-M12-020, UC-M12-021, UC-M12-022. Không có quan hệ UC–UC giữa c�
 | UC-M12-021 | include | UC-M12-010 | [Đặc tả](#uc-m12-021-main-6) | Dòng có tên còn hiển thị; [Trở về](#uc-m12-021-main-7) |
 | UC-M12-006 | include | UC-M12-008 | [Đặc tả](#uc-m12-006-main-3) | Lọc Khối10/11/12; Tất cả không gọi để nén hạng; [Trở về](#uc-m12-006-main-4) |
 
-#### UC-M12-022 — Theo dõi điểm và thành tích đóng góp
+#### UC-M12-022 — Xem điểm và thành tích
 
 **Focus:** UC-M12-022. **Node:** UC-M12-022, UC-M12-009, UC-M12-010. **Cạnh UC–UC:** 1.
 
@@ -1359,12 +1398,12 @@ Chưa có US-overview.md ở baseline; phạm vi lượt này chỉ M12. Khi t�
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| C-M12 | core | - | UC-M12-020, UC-M12-021, UC-M12-022 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M12/C-M12.svg |
-| D-M12-020 | detail | UC-M12-020 | UC-M12-020, UC-M12-001, UC-M12-002, UC-M12-003, UC-M12-004 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M12/D-M12-020.svg |
-| D-M12-021 | detail | UC-M12-021 | UC-M12-021, UC-M12-004, UC-M12-005, UC-M12-006, UC-M12-007, UC-M12-008, UC-M12-010 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M12/D-M12-021.svg |
-| D-M12-022 | detail | UC-M12-022 | UC-M12-022, UC-M12-009, UC-M12-010 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M12/D-M12-022.svg |
+| C-M12 | core | - | UC-M12-020, UC-M12-021, UC-M12-022 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M12/C-M12.svg |
+| D-M12-020 | detail | UC-M12-020 | UC-M12-020, UC-M12-001, UC-M12-002, UC-M12-003, UC-M12-004 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M12/D-M12-020.svg |
+| D-M12-021 | detail | UC-M12-021 | UC-M12-021, UC-M12-004, UC-M12-005, UC-M12-006, UC-M12-007, UC-M12-008, UC-M12-010 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M12/D-M12-021.svg |
+| D-M12-022 | detail | UC-M12-022 | UC-M12-022, UC-M12-009, UC-M12-010 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M12/D-M12-022.svg |
 
-### 7.1 Bằng chứng kiểm tra
+### 7.1 Bằng chứng kiểm tra lịch sử 2.2 (không phải lần kiểm 2.3)
 
 | Hạng mục | Lệnh/phương pháp | Kết quả thực tế | Giới hạn/bằng chứng |
 |---|---|---|---|
@@ -1394,3 +1433,83 @@ Chưa có US-overview.md ở baseline; phạm vi lượt này chỉ M12. Khi t�
 
 Chưa có US-M12 trước lượt này; không đổi ID đã duyệt. Giữ ACT-001/ACT-002/ACT-008/ACT-007. Hoàn tất bước 7 chỉ là hồ sơ Chờ duyệt; chỉ ghi Đã duyệt sau khi người dùng chấp nhận kết quả cuối, quyền làm liên tục không thay bằng chứng phê duyệt.
 
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+
+### 7.4 Walkthrough từng đường đi — revision 2.3
+
+Bảng dưới ghi riêng main và mỗi nhánh của từng hợp đồng, dùng trạng thái/guard thực tế. “Đối chiếu” chỉ áp phần nguồn đã định; các NOTE nêu rõ phần chưa thể kết luận. Một END ghi cần làm rõ không phải failure guarantee đã chốt.
+
+| UC/đường đi | Trạng thái/quyền trước | Điểm rẽ và return/END | Postcondition thực tế/giới hạn | Nguồn/kết quả |
+|---|---|---|---|---|
+| UC-M12-020/[main](#uc-m12-020-main-1) | Trigger: Người dùng bấm nút upvote trên bài viết hoặc bình luận của người khác. Trước: Định danh/phiên theo M01, có nội dung đích; quyền và trạng thái kiểm trong luồng. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Upvote đổi đúng một trạng thái, số upvote hiệu lực và điểm tác giả cập nhật ngay, phát sự kiện cho M07. | FR-M12-01, FR-M12-02, BR-M12-01, BR-M12-02, BR-M12-03, BR-M12-04, BR-M12-05, BR-M12-07, BR-M12-28; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-020/[A1](#uc-m12-020-alt-1) | Định danh/phiên theo M01, có nội dung đích; quyền và trạng thái kiểm trong luồng. Guard: Cờ tắt, người thao tác không Admin. | Rẽ [Bước 1](#uc-m12-020-main-1); END: không upvote/rút. | UC004 từ chối với thông báo bận; nút và số upvote vẫn hiện theo nguồn. | FR-M12-08.01, FR-M12-08.08, FR-M12-08.10, BR-M12-28; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-020/[A2](#uc-m12-020-alt-2) | Định danh/phiên theo M01, có nội dung đích; quyền và trạng thái kiểm trong luồng. Guard: UC001 không đạt quyền hoặc điều kiện nội dung. | Rẽ [Bước 2](#uc-m12-020-main-2); END: đánh giá không được thực hiện. | Từ chối thao tác; không dùng việc đã xem từ trước để vượt thay đổi khóa/Private. | FR-M12-01.07, FR-M12-01.08, FR-M12-01.10, FR-M12-01.11, FR-M12-01.12; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-020/[A3](#uc-m12-020-alt-3) | Định danh/phiên theo M01, có nội dung đích; quyền và trạng thái kiểm trong luồng. Guard: Đã có upvote hiệu lực của chính người này. | Rẽ [Bước 3](#uc-m12-020-main-3); [Tiếp tục](#uc-m12-020-main-4) | UC002 đi nhánh rút lại, không thêm một upvote thứ hai. | FR-M12-01.02, FR-M12-01.03, BR-M12-02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-021/[main](#uc-m12-021-main-1) | Trigger: Mở bảng xếp hạng, đổi tab/Lớp-Khối hoặc cuộn tiếp. Trước: Không cần đăng nhập khi cờ cho phép; dữ liệu bảng do AUT004/005 tạo, không tính lại tổng khi đọc. | 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8; END: đạt kết quả đường chính của hợp đồng. | Bảng đúng chu kỳ/bộ lọc, đồng hạng/ẩn/hiện mờ/nhãn đúng; tải mọi dòng đủ điều kiện theo lô20. | FR-M12-04, FR-M12-05, FR-M12-06, BR-M12-14, BR-M12-16, BR-M12-18, BR-M12-19, BR-M12-20, BR-M12-21, BR-M12-22, BR-M12-24, BR-M12-29; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-021/[A1](#uc-m12-021-alt-1) | Không cần đăng nhập khi cờ cho phép; dữ liệu bảng do AUT004/005 tạo, không tính lại tổng khi đọc. Guard: UC004 từ chối do cờ tắt và không Admin. | Rẽ [Bước 2](#uc-m12-021-main-2); END: chưa mở bảng. | Hiện Hệ thống đang bận, vui lòng thử lại sau; lối vào vẫn hiện. | FR-M12-08.01, FR-M12-08.02, FR-M12-08.06, FR-M12-08.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-021/[A2](#uc-m12-021-alt-2) | Không cần đăng nhập khi cờ cho phép; dữ liệu bảng do AUT004/005 tạo, không tính lại tổng khi đọc. Guard: Chọn bảng của chu kỳ cũ hơn hoặc tuần/tháng đang chạy. | Rẽ [Bước 3](#uc-m12-021-main-3); END: không cung cấp bảng ngoài phạm vi. | Không có chức năng xem bảng này; chỉ ba loại kết quả hiện hành. | FR-M12-06.02, FR-M12-06.04, FR-M12-06.06, FR-M12-06.07, BR-M12-22; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-021/[A3](#uc-m12-021-alt-3) | Không cần đăng nhập khi cờ cho phép; dữ liệu bảng do AUT004/005 tạo, không tính lại tổng khi đọc. Guard: Đổi tab hoặc Lớp/Khối. | Rẽ [Bước 4](#uc-m12-021-main-4); [Tiếp tục](#uc-m12-021-main-3) | Thực hiện lại lấy đúng dữ liệu và tập lọc; không dùng Lớp/Khối hồ sơ mới để sửa snapshot đã chốt. | FR-M12-06.03, FR-M12-06.08, FR-M12-06.09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-021/[A4](#uc-m12-021-alt-4) | Không cần đăng nhập khi cờ cho phép; dữ liệu bảng do AUT004/005 tạo, không tính lại tổng khi đọc. Guard: Cuộn tiếp khi còn dòng. | Rẽ [Bước 7](#uc-m12-021-main-7); [Tiếp tục](#uc-m12-021-main-7) | Tải tiếp 20 dòng theo cùng tập/thứ tự, lô cuối ít hơn 20 nếu còn ít; không giới hạn Top20. | FR-M12-06.13, BR-M12-29; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-001/[main](#uc-m12-001-main-1) | Trigger: Core020 chèn trước đổi upvote. Trước: Biết người thao tác, nội dung, tác giả, bài cha nếu là bình luận; UC004 kiểm cờ Gamification. | 1 → 2 → 3; END: đạt kết quả đường chính của hợp đồng. | Trả đủ điều kiện; HEAVY không bị chặn chỉ vì mức cảnh cáo. | FR-M12-01, BR-M12-03, BR-M12-04, FR-M03-14.06, FR-M11-16.04, FR-M11-17.08; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-001/[A1](#uc-m12-001-alt-1) | Biết người thao tác, nội dung, tác giả, bài cha nếu là bình luận; UC004 kiểm cờ Gamification. Guard: Guest hoặc tự upvote. | Rẽ [Bước 1](#uc-m12-001-main-1); END: không đủ quyền. | Từ chối, không chỉ dựa vào trạng thái nút. | FR-M12-01.06, FR-M12-01.07, FR-M12-01.08, BR-M12-03, BR-M12-04; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-001/[A2](#uc-m12-001-alt-2) | Biết người thao tác, nội dung, tác giả, bài cha nếu là bình luận; UC004 kiểm cờ Gamification. Guard: Nội dung không còn hiển thị/đã xóa/bị ẩn hoặc module gốc chặn tương tác. | Rẽ [Bước 2](#uc-m12-001-main-2); END: không được upvote/rút theo điều kiện nội dung. | Từ chối; quyền đọc bằng ngữ cảnh báo cáo không tự tạo quyền vote thường. | FR-M12-01.10, FR-M12-01.11, FR-M12-01.12, BR-M12-04, FR-M11-16.04, FR-M11-17.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-002/[main](#uc-m12-002-main-1) | Trigger: Core020 chèn sau kiểm quyền. Trước: Caller đã qua UC004/UC001; có loại bài/bình luận và người thao tác. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Không có→Có hiệu lực kèm thời điểm; Có hiệu lực→Đã rút; tối đa một hiệu lực/người/nội dung và điểm cập nhật qua UC003. | FR-M12-01.01, FR-M12-01.02, FR-M12-01.03, FR-M12-01.04, BR-M12-01, BR-M12-02, BR-M12-07; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-002/[A1](#uc-m12-002-alt-1) | Caller đã qua UC004/UC001; có loại bài/bình luận và người thao tác. Guard: Đã có upvote hiệu lực của người này. | Rẽ [Bước 2](#uc-m12-002-main-2); [Tiếp tục](#uc-m12-002-main-3) | Chuyển sang Đã rút, không thêm lượt thứ hai; cập nhật điểm theo nhánh rút. | FR-M12-01.02, FR-M12-01.03, BR-M12-02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-002/[A2](#uc-m12-002-alt-2) | Caller đã qua UC004/UC001; có loại bài/bình luận và người thao tác. Guard: Có yêu cầu trùng/đồng thời nhằm tạo thêm lượt hiệu lực. | Rẽ [Bước 2](#uc-m12-002-main-2); END: không có hai lượt hiệu lực của cùng người/nội dung. | Giữ ràng buộc tối đa một lượt hiệu lực; cơ chế đồng bộ và cách nhận diện yêu cầu lặp chưa chốt, không tự chọn giao dịch/khóa. | FR-M12-01.03, BR-M12-02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-003/[main](#uc-m12-003-main-1) | Trigger: UC002 chèn sau một chuyển trạng thái upvote hợp lệ. Trước: Có nội dung, tác giả, loại upvote, chuyển thêm/rút, trạng thái Đang tính điểm/Đã trừ điểm. | 1 → 2 → 3; END: đạt kết quả đường chính của hợp đồng. | Tổng khớp công thức 2×Post Star+1×Comment Star trên nội dung chưa trừ; đổi tức thời; upvote của người đã xóa vẫn tính. | FR-M12-02.01, FR-M12-02.02, FR-M12-02.03, FR-M12-02.04, FR-M12-02.18, BR-M12-05, BR-M12-07; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-003/[A1](#uc-m12-003-alt-1) | Có nội dung, tác giả, loại upvote, chuyển thêm/rút, trạng thái Đang tính điểm/Đã trừ điểm. Guard: Nội dung Đã trừ điểm. | Rẽ [Bước 1](#uc-m12-003-main-1); END: giữ nguyên phần nội dung không được tính. | Không tính upvote của nội dung này vào tổng; không tự cộng lại do có sự kiện upvote. Khả năng rút khi đã trừ mà còn xem được chưa được nguồn mô tả riêng; không cấp quyền mới, giữ công thức/giới hạn ở NOTE-M12-03. | FR-M12-02.18, BR-M12-05; pending-confirmation: NOTE-M12-03 |
+| UC-M12-003/[A2](#uc-m12-003-alt-2) | Có nội dung, tác giả, loại upvote, chuyển thêm/rút, trạng thái Đang tính điểm/Đã trừ điểm. Guard: Người đã upvote nay DELETED. | Rẽ [Bước 1](#uc-m12-003-main-1); [Tiếp tục](#uc-m12-003-main-2) | Giữ lượt đã cho trong điểm người nhận, không còn ghi nhận người cho theo M01; không xóa điểm chỉ vì mất danh tính người cho. | FR-M12-02.04, BR-M12-05, FR-M01-12.09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-004/[main](#uc-m12-004-main-1) | Trigger: Core020 hoặc core021 chèn khi có yêu cầu người dùng. Trước: Có loại yêu cầu, trạng thái cờ và vai trò hệ thống; đây không là bộ chặn mọi nơi hiển thị dữ liệu M12. | 1 → 2; END: đạt kết quả đường chính của hợp đồng. | Cho phép khi cờ Bật, hoặc người yêu cầu ADMIN; không cấp quyền nội dung thay UC001 hoặc quyền chỉnh điểm. | FR-M12-08, BR-M12-28, FR-M10-12.04; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-004/[A1](#uc-m12-004-alt-1) | Có loại yêu cầu, trạng thái cờ và vai trò hệ thống; đây không là bộ chặn mọi nơi hiển thị dữ liệu M12. Guard: Cờ Tắt và không ADMIN, gồm Guest/Mod. | Rẽ [Bước 2](#uc-m12-004-main-2); END: không thực hiện yêu cầu. | Từ chối Hệ thống đang bận, vui lòng thử lại sau; nút upvote/lối vào còn, số upvote/điểm/huy hiệu/danh hiệu/nhãn vẫn hiển thị. AUT trừ-hoàn/trao/tính/chốt/thông báo vẫn chạy. | FR-M12-08.01, FR-M12-08.02, FR-M12-08.03, FR-M12-08.04, FR-M12-08.08, FR-M12-08.09, FR-M12-08.10, BR-M12-28; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-004/[A2](#uc-m12-004-alt-2) | Có loại yêu cầu, trạng thái cờ và vai trò hệ thống; đây không là bộ chặn mọi nơi hiển thị dữ liệu M12. Guard: Bật lại cờ sau thời gian tắt. | Rẽ [Bước 1](#uc-m12-004-main-1); [Tiếp tục](#uc-m12-004-main-2) | Cho yêu cầu mới theo quyền, không làm bù những yêu cầu bị từ chối hoặc khôi phục một upvote người dùng chưa thực hiện hợp lệ. | FR-M12-08.05, BR-M12-28; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-005/[main](#uc-m12-005-main-1) | Trigger: Core021 chèn với tab được chọn. Trước: Cờ đã qua UC004; AUT004/005 sở hữu tạo dữ liệu. Bảng chưa được tạo lần đầu là giới hạn nguồn. | 1 → 2 → 3; END: đạt kết quả đường chính của hợp đồng. | Tuần/tháng trả bảng vừa chốt đang hiển thị; Toàn thời gian trả lần tính60 phút gần nhất, giữ thời điểm/Lớp-Khối tại lúc tính. | FR-M12-06.02, FR-M12-06.04, FR-M12-06.06, FR-M12-06.07, FR-M12-04.14, BR-M12-14, BR-M12-19, BR-M12-22; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-005/[A1](#uc-m12-005-alt-1) | Cờ đã qua UC004; AUT004/005 sở hữu tạo dữ liệu. Bảng chưa được tạo lần đầu là giới hạn nguồn. Guard: Yêu cầu chu kỳ cũ/năm/tuần-tháng đang chạy. | Rẽ [Bước 1](#uc-m12-005-main-1); END: không trả bảng ngoài phạm vi. | Không có chức năng xem; chỉ các kết quả hiện hành theo nguồn. | FR-M12-06.06, FR-M12-04.05, FR-M12-04.14, BR-M12-22; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-005/[A2](#uc-m12-005-alt-2) | Cờ đã qua UC004; AUT004/005 sở hữu tạo dữ liệu. Bảng chưa được tạo lần đầu là giới hạn nguồn. Guard: Chưa có lần tính/chốt hoặc chu kỳ kết thúc nhưng chưa đến batch đầu tiên. | Rẽ [Bước 2](#uc-m12-005-main-2); END: giữ điểm cần làm rõ NOTE-M12-01. | Nguồn chưa chốt trạng thái hiển thị lần đầu/khoảng chờ này; không tự bịa số liệu hoặc coi bảng cũ là chu kỳ mới. | FR-M12-05.01, FR-M12-05.08, BR-M12-19, BR-M12-22, BR-M12-25; pending-confirmation: NOTE-M12-01 |
+| UC-M12-006/[main](#uc-m12-006-main-1) | Trigger: Core021 chèn với bảng đã chọn và bộ lọc. Trước: Có snapshot bảng từ UC005, gồm Lớp/Khối tại lúc chốt/tính; chưa áp ẩn dòng động của bảng đã chốt. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Hạng trong Khối 10/11/12 theo cùng quy tắc đồng hạng; Tất cả gồm người chưa đặt Lớp/Khối. Không sửa snapshot nguồn. | FR-M12-06.03, FR-M12-06.08, FR-M12-06.09, BR-M12-16, BR-M12-18, BR-M12-20; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-006/[A1](#uc-m12-006-alt-1) | Có snapshot bảng từ UC005, gồm Lớp/Khối tại lúc chốt/tính; chưa áp ẩn dòng động của bảng đã chốt. Guard: Chọn Tất cả. | Rẽ [Bước 1](#uc-m12-006-main-1); [Tiếp tục](#uc-m12-006-main-4) | Giữ toàn bộ tập của bảng, gồm người chưa đặt Lớp/Khối, dùng hạng đã ghi. Không gọi UC008 để tạo hạng mới do một dòng đang bị ẩn. | FR-M12-06.03, FR-M12-06.08, FR-M12-06.09, BR-M12-16, BR-M12-20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-006/[A2](#uc-m12-006-alt-2) | Có snapshot bảng từ UC005, gồm Lớp/Khối tại lúc chốt/tính; chưa áp ẩn dòng động của bảng đã chốt. Guard: Người trên bảng đã đổi Lớp/Khối sau lần tính/chốt. | Rẽ [Bước 1](#uc-m12-006-main-1); [Tiếp tục](#uc-m12-006-main-2) | Bỏ qua thay đổi đối với snapshot này, lần tính/chốt tương ứng sau lấy giá trị mới theo nguồn. | FR-M12-06.09, BR-M12-16; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-007/[main](#uc-m12-007-main-1) | Trigger: Core021 chèn sau lấy bảng/lọc; trạng thái hiện hành có thể đã đổi từ lúc chốt. Trước: Dữ liệu snapshot đã có, chỉ các dòng vốn thuộc bảng; không tạo thêm dòng của người bị loại ngay lúc chốt. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | HEAVY/BANNED/DEACTIVATED sau chốt ẩn dòng, hết điều kiện hiện lại; DELETED sau chốt hiện mờ/nhãn; hạng người khác giữ nguyên. | FR-M12-04.07, FR-M12-04.08, FR-M12-04.09, FR-M12-04.10, FR-M12-04.11, FR-M12-04.12, FR-M12-04.17, FR-M12-04.18, BR-M12-20, BR-M12-21; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-007/[A1](#uc-m12-007-alt-1) | Dữ liệu snapshot đã có, chỉ các dòng vốn thuộc bảng; không tạo thêm dòng của người bị loại ngay lúc chốt. Guard: DELETED sau lúc chốt. | Rẽ [Bước 1](#uc-m12-007-main-1); [Tiếp tục](#uc-m12-007-main-4) | Giữ dòng hiện mờ với [Người dùng đã xóa] đến lần chốt sau thay bảng; không đưa tài khoản vào lần chốt mới. Nếu đồng thời còn dấu HEAVY, ưu tiên giao nhau chưa được nguồn chốt riêng, xem NOTE-M12-04. | FR-M12-04.11, FR-M12-04.12, BR-M12-21; pending-confirmation: NOTE-M12-04 |
+| UC-M12-007/[A2](#uc-m12-007-alt-2) | Dữ liệu snapshot đã có, chỉ các dòng vốn thuộc bảng; không tạo thêm dòng của người bị loại ngay lúc chốt. Guard: Tab Toàn thời gian. | Rẽ [Bước 1](#uc-m12-007-main-1); [Tiếp tục](#uc-m12-007-main-4) | Dùng kết quả lần tính gần nhất; việc loại/đưa trở lại do AUT004 theo kỳ, DELETED loại ở lần tính kế. Không áp phép chỉnh bảng đã chốt để tự tính lại toàn thời gian khi xem. | FR-M12-04.01, FR-M12-04.10, FR-M12-04.12, BR-M12-19, BR-M12-20, BR-M12-21; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-008/[main](#uc-m12-008-main-1) | Trigger: UC006 chèn khi lọc Khối; AUT004/005 sử dụng cho bảng mới. Trước: Caller cung cấp tập ứng viên có điểm chu kỳ >0 và đủ điều kiện ở thời điểm cần xét; khi lọc snapshot không xét lại dữ liệu điểm. | 1 → 2 → 3; END: đạt kết quả đường chính của hợp đồng. | Hạng=1+số người có điểm cao hơn; bằng điểm cùng hạng; trong cùng hạng username A→Z, không đổi hạng. | FR-M12-04.02, FR-M12-04.06, FR-M12-06.05, FR-M12-06.08, FR-M12-06.10, BR-M12-16, BR-M12-18; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-008/[A1](#uc-m12-008-alt-1) | Caller cung cấp tập ứng viên có điểm chu kỳ >0 và đủ điều kiện ở thời điểm cần xét; khi lọc snapshot không xét lại dữ liệu điểm. Guard: Tập rỗng hoặc không ai điểm >0. | Rẽ [Bước 1](#uc-m12-008-main-1); END: không có dòng đủ điều kiện. | Trả không có người xếp hạng; khi chốt tuần, AUT005 không trao danh hiệu cho ai. | FR-M12-04.02, FR-M12-05.09, BR-M12-18, BR-M12-23; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-009/[main](#uc-m12-009-main-1) | Trigger: Nơi hiển thị được phép như M02 yêu cầu dữ liệu M12 cho người dùng được xem. Trước: Quyền xem hồ sơ/nội dung do module gốc áp; không chạy qua cổng chặn mở bảng/upvote chỉ vì đang hiển thị số liệu. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Tổng điểm tức thời; badge đã đạt/ngày đầu không ngưỡng-tiến độ, danh hiệu chỉ tuần vừa chốt; nhãn ban đúng; cờ tắt không ngừng những dữ liệu này. | FR-M12-03.06, FR-M12-03.07, FR-M12-03.11, FR-M12-05.12, FR-M12-05.13, FR-M12-08.10, BR-M12-12, BR-M12-13, BR-M12-24, BR-M12-28; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-009/[A1](#uc-m12-009-alt-1) | Quyền xem hồ sơ/nội dung do module gốc áp; không chạy qua cổng chặn mở bảng/upvote chỉ vì đang hiển thị số liệu. Guard: Không đạt danh hiệu ở tuần vừa chốt. | Rẽ [Bước 2](#uc-m12-009-main-2); [Tiếp tục](#uc-m12-009-main-3) | Không cung cấp nhãn Ngôi sao tuần hiện hành, vẫn giữ các bản ghi lần đạt để lưu theo nguồn, không đưa lịch sử ra UI. | FR-M12-05.12, FR-M12-05.13, BR-M12-24; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-009/[A2](#uc-m12-009-alt-2) | Quyền xem hồ sơ/nội dung do module gốc áp; không chạy qua cổng chặn mở bảng/upvote chỉ vì đang hiển thị số liệu. Guard: Đã giảm điểm dưới ngưỡng badge. | Rẽ [Bước 2](#uc-m12-009-main-2); [Tiếp tục](#uc-m12-009-main-3) | Vẫn cung cấp badge đã có với ngày đầu; không thu hồi hoặc tạo một lần đạt mới. | FR-M12-03.04, FR-M12-03.05, FR-M12-03.06, BR-M12-12; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-010/[main](#uc-m12-010-main-1) | Trigger: Core021/UC009 chèn khi dựng dòng/nơi hiển thị; các module có tên tài khoản dùng cùng quy tắc. Trước: Biết trạng thái tài khoản hiện hành, ngữ cảnh tên đã được owner cho hiển thị; không tiết lộ tác giả thật của bài ẩn danh. | 1 → 2 → 3; END: đạt kết quả đường chính của hợp đồng. | BANNED có nhãn Tài khoản đã bị khóa; hết BANNED bỏ nhãn; DEACTIVATED là nhãn khác thuộc M01/M02; không ẩn hồ sơ/nội dung chỉ vì ban. | FR-M12-07, FR-M12-08.10, BR-M12-27, BR-M12-28; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M12-010/[A1](#uc-m12-010-alt-1) | Biết trạng thái tài khoản hiện hành, ngữ cảnh tên đã được owner cho hiển thị; không tiết lộ tác giả thật của bài ẩn danh. Guard: Tài khoản được gỡ/hết/lật ban và không còn BANNED. | Rẽ [Bước 1](#uc-m12-010-main-1); [Tiếp tục](#uc-m12-010-main-3) | Bỏ nhãn; nếu lật một ban cũ nhưng còn ban hiện hành khác thì vẫn theo trạng thái thực do M09 cung cấp. | FR-M12-07.03, BR-M12-27; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M12-010/[A2](#uc-m12-010-alt-2) | Biết trạng thái tài khoản hiện hành, ngữ cảnh tên đã được owner cho hiển thị; không tiết lộ tác giả thật của bài ẩn danh. Guard: Không có tên thật được phép xuất hiện hoặc nội dung bị lớp khác ẩn. | Rẽ [Bước 1](#uc-m12-010-main-1); END: không thay quyền xem hoặc danh tính. | Không tự tiết lộ tên/hiện lại nội dung chỉ để gắn nhãn; quyền lớp đó do owner. | BR-M12-27, FR-M02-01.12, FR-M11-03.09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+
+### 7.5 Vòng đời gap/nguồn cần xác nhận — revision 2.3
+
+Bảng 7.2 giữ nội dung phát hiện trước; bảng này bổ sung phạm vi, mức chặn và điều kiện đóng. Các đường đã xác định tiếp tục dùng; phần blocking không được nhận semantic pass. Người có quyền quyết định chưa được chỉ định trong nguồn thì ghi **chưa xác định**, không mặc định Admin sản phẩm có quyền phê duyệt yêu cầu.
+
+| ID/nguồn baseline | UC/đường đi bị ảnh hưởng | Mức chặn và lý do | Người xác nhận | Register | Trạng thái | Điều kiện đóng/bằng chứng |
+|---|---|---|---|---|---|---|
+| NOTE-M12-01; FR-M12 baseline tại metadata; FR-M12-04.01, FR-M12-05.01, FR-M12-05.08, BR-M12-22, BR-M12-25 | UC-M12-005/A2, UC-M12-021; trước bảng đầu tiên/khoảng chờ chốt | blocking: kết quả hiển thị khi chưa có dữ liệu nguồn chưa xác định | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M12-02; FR-M12 baseline tại metadata; FR-M12-05.01, BR-M12-15, BR-M12-16, BR-M12-20, BR-M12-23, BR-M12-25 | AUT-M12-004/005; thay trạng thái/điểm giữa cuối kỳ và batch | blocking: mốc eligibility/số liệu của tổ hợp cuối kỳ chưa đủ quyết định | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M12-03; FR-M12 baseline tại metadata; FR-M12-02.12, FR-M12-02.18, BR-M12-05, BR-M12-07, BR-M12-10 | UC-M12-003/A1; AUT trừ/hoàn nhiều lần | blocking: kết quả điểm/quyền rút trong chuỗi xử lý này chưa được chốt | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M12-04; FR-M12 baseline tại metadata; BR-M12-16, BR-M12-20, BR-M12-21, FR-M12-06.08, FR-M12-04.18 | UC-M12-006/007 và UC-M12-007/A1; lọc + ẩn hoặc DELETED+HEAVY | blocking: ưu tiên trạng thái giao nhau chưa xác định; thứ tự lọc/ẩn là diễn giải cần duyệt | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M12-05; FR-M12 baseline tại metadata; FR-M12 §1.2; FR-M12-05.12, FR-M12-05.13, BR-M12-24, DEC-247 | UC-M12-009; danh hiệu chỉ tuần vừa chốt | nonblocking: chi tiết/BR hiện hành và DEC-247 đã phân định lưu với hiển thị, không tạo lịch sử UI | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | resolved trong đối chiếu nguồn; cách diễn đạt US chờ duyệt | FR/BR và DEC-247 nêu chỉ lưu lịch sử, không hiển thị; bằng chứng duyệt revision US còn chờ. |
+| NOTE-M12-06; FR-M12 baseline tại metadata; BR-M12-27, FR-M11-03.09, FR-M11-03.10; FR-M01-12.09 | UC-M12-010/A2; nhãn với Ẩn danh/DELETED | nonblocking: không công bố tên trái owner; cách trình bày nhãn chưa chốt không đổi quyền đã biết | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M12-07; FR-M12 baseline tại metadata; FR-M12-01.03, BR-M12-07, BR-M12-25, FR-M12-01.13 | UC-M12-002/A2; AUT tính/chốt/thông báo lúc lỗi/đồng thời | nonblocking: giới hạn một vote và deadline đã rõ; cơ chế transaction/khôi phục cần thiết kế hoặc phân tích thêm nếu đổi kết quả | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+
+### Kiểm sơ đồ và cổng cuối của revision 2.3
+
+Các SVG bàn giao không đổi ở lượt này. XML/node/cạnh được audit từ file thật; `result=pass` có bằng chứng render lịch sử ở 7.1 và đối chiếu mới của root tại [UC-V23-REVIEW](UC-V23-REVIEW.md); chính agent module không chạy lại renderer. `diagram_check=pass` dựa trên tích hợp root: parse/render lại đủ 81 view exit 0, cây XML hiển thị của SVG gốc và bản render lại giống nhau; root xem 4 PNG mẫu, không tuyên bố xem ảnh thủ công cả 81. Xem [bằng chứng chung](UC-V23-REVIEW.md). Metadata `semantic_review=pending` do các đường blocking nêu trên, không phủ nhận phần đã có căn cứ. Kết quả checker revision được ghi sau khi thực thi, không sao chép số pass của bản cũ.
+
+### Kết quả kiểm thực thi revision 2.3
+
+| Lớp kiểm | Thực thi/kết quả | Giới hạn |
+|---|---|---|
+| Schema/trace | `python -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M12.md --final`: exit 1, errors=2, warnings=1. Hai lỗi: `Final review needs recorded semantic review`; `Final review needs diagram/render evidence`. | Đây là cổng chưa đạt có chủ ý vì phần blocking và render revision chưa xong; không gọi errors=0 hoặc nhận kết quả lịch sử thay lượt này. Cảnh báo còn review thủ công không tự đóng gap. |
+| XML và mô hình SVG | Audit file thực tế: 4 XML root SVG; members đúng catalog/decomposition; 11 association actor–UC trong bảng bằng đúng tập cạnh trực tiếp trên SVG; các relation UC–UC khớp endpoint/hướng/loại. Không sửa SVG. | Root đã parse/render lại 81 view exit 0, đối chiếu visual XML tree của 81 SVG gốc đều giống bản render mới; xem 4 PNG mẫu. Bằng chứng chung [UC-V23-REVIEW](UC-V23-REVIEW.md), không tuyên bố mọi ảnh đã được xem bằng mắt. |
+| Đối chiếu tiêu chí nguồn | 135 FR chi tiết/BR hiệu lực có nguyên văn tiêu chí được bảo toàn trong US, khớp nguồn owner sau bỏ anchor/khoảng trắng; mọi mã chi tiết tham chiếu tồn tại trong nguồn owner/normative Đã chốt đúng phiên bản.  | So khớp tiêu chí/mã hỗ trợ review, không chứng minh tự động mọi flow tương đương nguồn. Không đổi FR/register. |
+| Walkthrough | 12 main và 26 alternative ghi trạng thái/guard/return/END/postcondition/nguồn ở 7.4; bảng 7.5 chỉ rõ các đường chưa đủ kết luận. | `semantic_review=pending`; Chờ duyệt và không có approved_steps cho revision mới. |
+
+**Cập nhật kiểm chứng tích hợp:** `diagram_check=pass` theo [hồ sơ chung](UC-V23-REVIEW.md): root parse/render 81 SVG exit 0, các cây XML hiển thị giữ nguyên, 4 PNG mẫu đã xem. Chỉ một SVG/view được bàn giao; không sửa SVG ở lượt follow-up này. Semantic review vẫn pending cho các phần blocking thực sự còn lại.

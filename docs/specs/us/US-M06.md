@@ -1,6 +1,6 @@
 # Phân tích use case — M06 Search
 
-[Vietnamese Doc] — Phân tích bằng tiếng Việt theo skill use-case-analysis v2.2; giữ thuật ngữ nghiệp vụ cần thiết.
+[Vietnamese Doc] — Phân tích bằng tiếng Việt theo skill use-case-analysis v2.3; giữ thuật ngữ nghiệp vụ cần thiết.
 
 ## Metadata và tiến độ
 
@@ -8,8 +8,9 @@
 | key | value |
 |---|---|
 | document_id | US-M06 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M06 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -18,9 +19,9 @@
 | approved_steps | - |
 | source_baseline | FR-M06 v1.5; FR-M01 v1.10; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M07 v1.5; FR-M08 v1.7; FR-M10 v1.4; FR-M11 v1.3; FR-M12 v1.1; FR-M13 v1.3; FR-M14 v1.1 |
 | author | Codex |
-| date | 2026-10-30 |
-| approval_evidence | Người dùng đã chỉ định tự thực hiện các bước cần thiết, không hỏi đồng ý ở lượt M04; tiếp tục áp dụng cho chuỗi phân tích module. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M06 hoặc từng bước; chưa có xác nhận kết quả cuối. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | Lượt cập nhật v2.3: người dùng cho phép cập nhật trực tiếp và thực hiện liên tục bảy bước trong phạm vi bộ US. Quyền làm không phải phê duyệt kết quả; approved_steps=-, giữ Chờ duyệt. |
+| semantic_review | pending |
 | diagram_check | pass |
 
 | Bước | Phần hoàn tất | Xác nhận | Baseline | Cần làm lại |
@@ -47,17 +48,17 @@
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M06.md | 1.5 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
 
 Nguồn phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [quy tắc mô hình](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [quy tắc sơ đồ](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Chỉ dùng để quyết định cách biểu diễn, không suy thêm tính năng.
 
@@ -88,18 +89,18 @@ ACT-003 → ACT-002 là kế thừa actor (tam giác rỗng), không cấp quy�
 <!-- uc:catalog -->
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
-| UC-M06-020 | Tìm và khai thác kết quả tìm kiếm | core | User goal | ACT-001, ACT-002, ACT-003 | ACT-006 | M06 | #uc-m06-020 | FR-M06-02, FR-M06-03, FR-M06-04, BR-M06-16, BR-M06-17, BR-M06-19, BR-M06-21 |
-| UC-M06-021 | Tra cứu nhanh người dùng, Tag, Topic và Group | core | Summary | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-021 | FR-M06-01, FR-M06-03, BR-M06-02, BR-M06-04, BR-M06-09, BR-M06-22 |
-| UC-M06-022 | Dùng lại và quản lý lịch sử tìm kiếm trên thiết bị | core | Summary | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-022 | FR-M06-05, BR-M06-20 |
-| UC-M06-001 | Nhận gợi ý khi gõ | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-001 | FR-M06-01, BR-M06-02, BR-M06-03, BR-M06-04, BR-M06-09, BR-M06-21, BR-M06-22 |
+| UC-M06-020 | Tìm kiếm nội dung | core | User goal | ACT-001, ACT-002, ACT-003 | ACT-006 | M06 | #uc-m06-020 | FR-M06-02, FR-M06-03, FR-M06-04, BR-M06-16, BR-M06-17, BR-M06-19, BR-M06-21 |
+| UC-M06-021 | Tra cứu nhanh theo tên | core | Summary | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-021 | FR-M06-01, FR-M06-03, BR-M06-02, BR-M06-04, BR-M06-09, BR-M06-22 |
+| UC-M06-022 | Quản lý lịch sử tìm kiếm | core | Summary | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-022 | FR-M06-05, BR-M06-20 |
+| UC-M06-001 | Xem gợi ý tìm kiếm | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-001 | FR-M06-01, BR-M06-02, BR-M06-03, BR-M06-04, BR-M06-09, BR-M06-21, BR-M06-22 |
 | UC-M06-002 | Tìm bài viết | sub | User goal | ACT-001, ACT-002, ACT-003 | ACT-006 | M06 | #uc-m06-002 | FR-M06-02, FR-M06-04.17, FR-M06-04.18, FR-M06-04.19, BR-M06-05, BR-M06-06, BR-M06-07, BR-M06-08, BR-M06-23 |
-| UC-M06-003 | Bổ sung kết quả phụ theo tên | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-003 | FR-M06-03, FR-M06-04.12, BR-M06-09, BR-M06-10, BR-M06-17, BR-M06-22, BR-M06-24, BR-M06-25 |
-| UC-M06-004 | Thay đổi bộ lọc và cách sắp xếp | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-004 | FR-M06-04, BR-M06-15, BR-M06-16, BR-M06-21, BR-M06-23 |
-| UC-M06-005 | Dùng lại truy vấn từ lịch sử tìm kiếm | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-005 | FR-M06-05.04, FR-M06-05.08, FR-M06-05.09, BR-M06-20, BR-M06-21 |
-| UC-M06-006 | Áp giới hạn tần suất tìm kiếm | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-006 | FR-M06-01.07, FR-M06-02.20, FR-M06-02.21, FR-M06-02.30, FR-M06-04.20, BR-M06-21 |
-| UC-M06-007 | Khớp tên và áp quyền thực thể | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-007 | FR-M06-01.04, FR-M06-01.05, FR-M06-01.10, FR-M06-01.11, FR-M06-01.12, FR-M06-01.13, FR-M06-03.03, FR-M06-03.04, FR-M06-03.06, FR-M06-03.07, FR-M06-03.08, FR-M06-03.09, FR-M06-03.10, BR-M06-09, BR-M06-10, BR-M06-24, BR-M06-25 |
-| UC-M06-008 | Áp bộ lọc và xếp hạng kết quả bài | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-008 | FR-M06-02.07, FR-M06-02.08, FR-M06-02.09, FR-M06-02.10, FR-M06-02.11, FR-M06-02.12, FR-M06-02.13, FR-M06-02.27, FR-M06-02.28, FR-M06-02.29, FR-M06-04, BR-M06-11, BR-M06-12, BR-M06-13, BR-M06-14, BR-M06-15, BR-M06-16 |
-| UC-M06-009 | Xóa toàn bộ lịch sử tìm kiếm | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-009 | FR-M06-05.05, FR-M06-05.09, BR-M06-20 |
+| UC-M06-003 | Tìm người dùng, Tag, Topic và nhóm | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-003 | FR-M06-03, FR-M06-04.12, BR-M06-09, BR-M06-10, BR-M06-17, BR-M06-22, BR-M06-24, BR-M06-25 |
+| UC-M06-004 | Lọc và sắp xếp kết quả tìm kiếm | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-004 | FR-M06-04, BR-M06-15, BR-M06-16, BR-M06-21, BR-M06-23 |
+| UC-M06-005 | Tìm lại từ lịch sử | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-005 | FR-M06-05.04, FR-M06-05.08, FR-M06-05.09, BR-M06-20, BR-M06-21 |
+| UC-M06-006 | Kiểm tra giới hạn tìm kiếm | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-006 | FR-M06-01.07, FR-M06-02.20, FR-M06-02.21, FR-M06-02.30, FR-M06-04.20, BR-M06-21 |
+| UC-M06-007 | Kiểm tra tên và quyền xem kết quả | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-007 | FR-M06-01.04, FR-M06-01.05, FR-M06-01.10, FR-M06-01.11, FR-M06-01.12, FR-M06-01.13, FR-M06-03.03, FR-M06-03.04, FR-M06-03.06, FR-M06-03.07, FR-M06-03.08, FR-M06-03.09, FR-M06-03.10, BR-M06-09, BR-M06-10, BR-M06-24, BR-M06-25 |
+| UC-M06-008 | Lọc và xếp hạng bài viết | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-008 | FR-M06-02.07, FR-M06-02.08, FR-M06-02.09, FR-M06-02.10, FR-M06-02.11, FR-M06-02.12, FR-M06-02.13, FR-M06-02.27, FR-M06-02.28, FR-M06-02.29, FR-M06-04, BR-M06-11, BR-M06-12, BR-M06-13, BR-M06-14, BR-M06-15, BR-M06-16 |
+| UC-M06-009 | Xóa lịch sử tìm kiếm | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M06 | #uc-m06-009 | FR-M06-05.05, FR-M06-05.09, BR-M06-20 |
 
 `tier` độc lập với `level`. Khi tổng hợp hệ thống chỉ lấy ba UC core nguyên ID/tên/owner. UC dùng chung có một ID dù xuất hiện ở nhiều view.
 
@@ -122,6 +123,10 @@ ACT-003 → ACT-002 là kế thừa actor (tam giác rỗng), không cấp quy�
 
 Phân rã không tự tạo mũi tên UML. UC003/006 dùng chung giữa core020 và core021. UC007 là tham chiếu thêm ở hình core020; core020 là tham chiếu ở hình core021/core022, giữ đúng endpoint quan hệ mà không nhân bản UC.
 
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
 ### 2.3 Tổng hợp hệ thống
 
 <!-- uc:module-models -->
@@ -140,13 +145,24 @@ Phân rã không tự tạo mũi tên UML. UC003/006 dùng chung giữa core020 
 | D-M06-05 | Lịch sử cục bộ | [UC-M06-005](#uc-m06-005), [UC-M06-009](#uc-m06-009), AUT001/002 | Tách mục tiêu chủ động và tự động theo sự kiện | Không tạo actor kho lịch sử/bộ hẹn giờ |
 | D-M06-06 | Hai tầng đầu ra | 3 core, 9 sub; mỗi core một detail | Core có node, đủ sub/cạnh có nguồn | Không thêm cạnh chỉ để nối oval |
 
+
+### Đối chiếu độ gắn kết v2.3 — goal/trigger/kết quả/phạm vi
+
+UC-NAMING ngày 2026-11-24 đang **Chờ duyệt cách diễn đạt**; giữ tên/ID hiện hành vì chưa phát hiện bằng chứng đổi phạm vi. Mục này là quyết định phân tích chờ duyệt, không nâng quy chuẩn tên thành đã chốt.
+
+| Cặp/phạm vi | Khác biệt hợp đồng và ranh giới | Quyết định và đánh đổi | Nguồn |
+| --- | --- | --- | --- |
+| 020 ↔ 002/003/004/006/008 | 020 nhận một lượt gửi/đổi điều kiện và kết thúc ở trang chung; 002 chỉ tạo tập bài, 003 chỉ tên phụ, 004 đổi điều kiện, 006 ngân sách, 008 quyền/xếp. | Giữ core User goal và các hợp đồng con; không gộp tên phụ thành tìm bài độc lập vì phải cùng lượt/trang. Gộp mọi thứ trong020 ít oval hơn nhưng mất hợp đồng dùng lại; tách AI/full-text thành UC riêng nhân bản cùng kết quả. | FR-M06-02, FR-M06-03, FR-M06-04, BR-M06-21 |
+| 021 ↔ 001/003/006/007 | 021 bao quát tra tên trước/sau gửi; 001 trigger dừng gõ300ms; 003 chỉ sau gửi có chữ; 007 chung khớp tên/quyền. Cùng thuật toán không đồng nghĩa cùng trigger/kết quả trang. | Giữ Summary và dùng chung003/006/007; gộp001+003 làm mất hai ngân sách/thời điểm. Tách bốn loại tên làm tăng số UC và lặp quyền. | FR-M06-01, FR-M06-03, BR-M06-02 |
+| 022 ↔ 005/009 + AUT001/002 | 022 quản lý10 chuỗi theo trình duyệt qua nhiều sự kiện; 005 chọn chuỗi→gửi ngay; 009 xóa toàn bộ→không còn mục. | Giữ Summary; không include xóa vào tìm lại. Gộp hai goal sẽ làm khó phân biệt trạng thái cuối và quyền riêng tư; tách cập nhật tự động thành actor/UC không có tương tác nguồn. Không mapping1:1. | FR-M06-05, BR-M06-20 |
+
 ## 3. Đặc tả nghiệp vụ
 
 ### 3.1 UC chính
 
 <a id="uc-m06-020"></a>
 
-### UC-M06-020 — Tìm và khai thác kết quả tìm kiếm
+### UC-M06-020 — Tìm kiếm nội dung
 
 **Actor chính:** ACT-001, ACT-002, ACT-003. **Hỗ trợ:** ACT-006. **Mức:** User goal. **Giá trị:** Nhận một trang kết quả chung đúng truy vấn/bộ lọc/quyền và khai thác dần các kết quả bài. **Kết quả:** Bài là kết quả chính, tên thực thể là phụ khi truy vấn có chữ; quyền/thuật toán/thứ tự/tải dần được áp đúng.
 
@@ -242,7 +258,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 | BR-M06-01 | <a id="uc-m06-020-br-m06-01"></a>Đối tượng tìm được gồm bài viết, người dùng, Tag, Topic, Group. Bình luận không tìm được. |
 <a id="uc-m06-021"></a>
 
-### UC-M06-021 — Tra cứu nhanh người dùng, Tag, Topic và Group
+### UC-M06-021 — Tra cứu nhanh theo tên
 
 **Actor chính:** ACT-001, ACT-002, ACT-003. **Hỗ trợ:** -. **Mức:** Summary. **Giá trị:** Tìm các thực thể theo tên trước hoặc sau khi gửi, với cách khớp và quyền nhất quán. **Kết quả:** Tối đa 3 mục mỗi loại, đúng tên/trạng thái/thành viên, không lộ Private hoặc tài khoản không tìm được.
 
@@ -259,7 +275,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 **Ngoại lệ/kết thúc:** Không gợi ý bài viết, không dùng quyền Mod/Admin để mở rộng kết quả.
 <a id="uc-m06-022"></a>
 
-### UC-M06-022 — Dùng lại và quản lý lịch sử tìm kiếm trên thiết bị
+### UC-M06-022 — Quản lý lịch sử tìm kiếm
 
 **Actor chính:** ACT-001, ACT-002, ACT-003. **Hỗ trợ:** -. **Mức:** Summary. **Giá trị:** Xem/dùng lại truy vấn gần đây hoặc xóa lịch sử trên đúng trình duyệt đang dùng. **Kết quả:** Lịch sử tối đa 10 chuỗi không trùng, chọn mục gửi ngay; chỉ xóa toàn bộ, đăng xuất xóa tại trình duyệt.
 
@@ -279,7 +295,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 <a id="uc-m06-001"></a>
 
-### UC-M06-001 — Nhận gợi ý khi gõ
+### UC-M06-001 — Xem gợi ý tìm kiếm
 
 **UC chính liên quan:** [UC-M06-021](#uc-m06-021).
 
@@ -466,7 +482,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 <a id="uc-m06-003"></a>
 
-### UC-M06-003 — Bổ sung kết quả phụ theo tên
+### UC-M06-003 — Tìm người dùng, Tag, Topic và nhóm
 
 **UC chính liên quan:** [UC-M06-020](#uc-m06-020), [UC-M06-021](#uc-m06-021).
 
@@ -544,7 +560,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 <a id="uc-m06-004"></a>
 
-### UC-M06-004 — Thay đổi bộ lọc và cách sắp xếp
+### UC-M06-004 — Lọc và sắp xếp kết quả tìm kiếm
 
 **UC chính liên quan:** [UC-M06-020](#uc-m06-020).
 
@@ -627,7 +643,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 <a id="uc-m06-005"></a>
 
-### UC-M06-005 — Dùng lại truy vấn từ lịch sử tìm kiếm
+### UC-M06-005 — Tìm lại từ lịch sử
 
 **UC chính liên quan:** [UC-M06-022](#uc-m06-022).
 
@@ -703,7 +719,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 <a id="uc-m06-006"></a>
 
-### UC-M06-006 — Áp giới hạn tần suất tìm kiếm
+### UC-M06-006 — Kiểm tra giới hạn tìm kiếm
 
 **UC chính liên quan:** [UC-M06-020](#uc-m06-020), [UC-M06-021](#uc-m06-021).
 
@@ -783,7 +799,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 <a id="uc-m06-007"></a>
 
-### UC-M06-007 — Khớp tên và áp quyền thực thể
+### UC-M06-007 — Kiểm tra tên và quyền xem kết quả
 
 **UC chính liên quan:** [UC-M06-021](#uc-m06-021).
 
@@ -872,7 +888,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 <a id="uc-m06-008"></a>
 
-### UC-M06-008 — Áp bộ lọc và xếp hạng kết quả bài
+### UC-M06-008 — Lọc và xếp hạng bài viết
 
 **UC chính liên quan:** [UC-M06-020](#uc-m06-020).
 
@@ -897,7 +913,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 | Bước | Ai | Hành động/phản hồi | Tiếp tục | Nguồn |
 |---|---|---|---|---|
-| 1 | iShare | Áp các ràng buộc đầu ra về quyền xem bài hiện hành và tất cả bộ lọc; mỗi loại một giá trị, nhiều loại AND. Following là bài tác giả hoặc Topic đang theo dõi, nhưng ẩn danh chỉ giữ nhờ Topic. | 2 | FR-M06-02.07, FR-M06-02.08, FR-M06-02.09, FR-M06-02.10, FR-M06-02.11, FR-M06-02.12, FR-M06-02.13, FR-M06-02.27, FR-M06-02.28, FR-M06-02.29, FR-M06-04, BR-M06-11, BR-M06-12, BR-M06-13, BR-M06-14, BR-M06-15, BR-M06-16 |
+| 1 | iShare | Áp các ràng buộc đầu ra về quyền xem bài hiện hành và tất cả bộ lọc; mỗi loại một giá trị, nhiều loại AND. Following là bài tác giả hoặc Topic đang theo dõi, nhưng ẩn danh chỉ giữ nhờ Topic. Với truy vấn rỗng có lọc, chuyển thẳng bước 5: không thực hiện bước 2–4 tính Top120/điểm Liên quan. Các số bước biểu diễn ràng buộc đầu ra, không chốt thứ tự lọc/Top120 của NOTE-M06-01. | 2 khi có chữ; 5 khi rỗng có lọc | FR-M06-02.07, FR-M06-02.08, FR-M06-02.09, FR-M06-02.10, FR-M06-02.11, FR-M06-02.12, FR-M06-02.13, FR-M06-02.27, FR-M06-02.28, FR-M06-02.29, FR-M06-04, BR-M06-11, BR-M06-12, BR-M06-13, BR-M06-14, BR-M06-15, BR-M06-16 |
 
 <a id="uc-m06-008-main-2"></a>
 
@@ -987,7 +1003,7 @@ Các nội dung baseline dưới đây là điều kiện chấp nhận của lu
 
 <a id="uc-m06-009"></a>
 
-### UC-M06-009 — Xóa toàn bộ lịch sử tìm kiếm
+### UC-M06-009 — Xóa lịch sử tìm kiếm
 
 **UC chính liên quan:** [UC-M06-022](#uc-m06-022).
 
@@ -1196,13 +1212,32 @@ Include là gọi hành vi bắt buộc tại bước nêu trong luồng, có th
 
 ### Association actor–UC
 
-| Actor | UC | Tương tác | Điều kiện quyền | Nguồn |
-|---|---|---|---|---|
-| ACT-001 | UC-M06-020, UC-M06-021, UC-M06-022, UC-M06-001, UC-M06-002, UC-M06-004, UC-M06-005, UC-M06-009 | Khởi tạo/nhận kết quả | Công khai, full-text; Following/Thông minh nhắc đăng nhập; history trình duyệt | FR-M06-01.06, FR-M06-02.23, FR-M06-04.13, BR-M06-20 |
-| ACT-002 | UC-M06-020, UC-M06-021, UC-M06-022, UC-M06-001, UC-M06-002, UC-M06-004, UC-M06-005, UC-M06-009 | Khởi tạo/nhận kết quả | Quyền thực tế; AI đủ hai cờ; Following theo M07 | FR-M06-02.03, FR-M06-04.04, BR-M06-11 |
-| ACT-003 | Các association kế thừa từ ACT-002 | Người tìm vai trò Mod/Admin | Không vượt quyền Private; hình không lặp các nét association | BR-M06-25 |
-| ACT-001, ACT-002, ACT-003 | UC-M06-006, UC-M06-007, UC-M06-008 | Ngữ cảnh qua UC gọi, không kích hoạt riêng | Quyền/tần suất/điểm theo người tìm và loại sự kiện | BR-M06-09, BR-M06-13, BR-M06-21, BR-M06-25 |
-| ACT-006 | UC-M06-020, UC-M06-002 | Hỗ trợ embedding qua M13 | Có chữ, tài khoản đủ cờ AI; ở core là tóm tắt năng lực con | FR-M06-02.03, FR-M06-02.05, FR-M13-04.01 |
+
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
+| --- | --- | --- | --- | --- |
+| ACT-001 | UC-M06-001 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-01, BR-M06-02, BR-M06-03, BR-M06-04, BR-M06-09, BR-M06-21, BR-M06-22 |
+| ACT-001 | UC-M06-002 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-02, FR-M06-04.17, FR-M06-04.18, FR-M06-04.19, BR-M06-05, BR-M06-06, BR-M06-07, BR-M06-08, BR-M06-23 |
+| ACT-001 | UC-M06-004 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-04, BR-M06-15, BR-M06-16, BR-M06-21, BR-M06-23 |
+| ACT-001 | UC-M06-005 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-05.04, FR-M06-05.08, FR-M06-05.09, BR-M06-20, BR-M06-21 |
+| ACT-001 | UC-M06-009 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-05.05, FR-M06-05.09, BR-M06-20 |
+| ACT-001 | UC-M06-020 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-02, FR-M06-03, FR-M06-04, BR-M06-16, BR-M06-17, BR-M06-19, BR-M06-21 |
+| ACT-001 | UC-M06-021 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-01, FR-M06-03, BR-M06-02, BR-M06-04, BR-M06-09, BR-M06-22 |
+| ACT-001 | UC-M06-022 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-05, BR-M06-20 |
+| ACT-002 | UC-M06-001 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-01, BR-M06-02, BR-M06-03, BR-M06-04, BR-M06-09, BR-M06-21, BR-M06-22 |
+| ACT-002 | UC-M06-002 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-02, FR-M06-04.17, FR-M06-04.18, FR-M06-04.19, BR-M06-05, BR-M06-06, BR-M06-07, BR-M06-08, BR-M06-23 |
+| ACT-002 | UC-M06-004 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-04, BR-M06-15, BR-M06-16, BR-M06-21, BR-M06-23 |
+| ACT-002 | UC-M06-005 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-05.04, FR-M06-05.08, FR-M06-05.09, BR-M06-20, BR-M06-21 |
+| ACT-002 | UC-M06-009 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-05.05, FR-M06-05.09, BR-M06-20 |
+| ACT-002 | UC-M06-020 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-02, FR-M06-03, FR-M06-04, BR-M06-16, BR-M06-17, BR-M06-19, BR-M06-21 |
+| ACT-002 | UC-M06-021 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-01, FR-M06-03, BR-M06-02, BR-M06-04, BR-M06-09, BR-M06-22 |
+| ACT-002 | UC-M06-022 | primary | Guest dùng full-text/các lọc chung; Following và ngữ nghĩa chỉ tài khoản đủ điều kiện. Tên/bài Private chỉ thành viên; vai trò staff không vượt quyền; lịch sử chỉ trình duyệt hiện tại. | FR-M06-05, BR-M06-20 |
+| ACT-006 | UC-M06-002 | supporting | Chỉ hỗ trợ embedding truy vấn khi người tìm có phiên, truy vấn có chữ và AI tổng/Search bật; không cấp quyền xem Private. | FR-M06-02.03, FR-M06-02.05, FR-M13-04.01, FR-M13-04.04 |
+| ACT-006 | UC-M06-020 | supporting | Chỉ hỗ trợ embedding truy vấn khi người tìm có phiên, truy vấn có chữ và AI tổng/Search bật; không cấp quyền xem Private. | FR-M06-02.03, FR-M06-02.05, FR-M13-04.01, FR-M13-04.04 |
+
+Bảng marker chỉ kê các cạnh trực tiếp thực sự có trên SVG hiện hành; actor chuyên biệt kế thừa tương tác từ actor cha nhưng vẫn chịu guard riêng. Không nhân toàn bộ primary/supporting của catalog thành association. Subfunction nhận ngữ cảnh từ caller không có cạnh khởi chạy riêng; actor chỉ bị từ chối giữ ở nhánh. Core Summary chỉ biểu diễn năng lực, không cấp toàn bộ quyền sub.
+
+
 
 ### Các cặp không có quan hệ UC–UC
 
@@ -1283,7 +1318,7 @@ FR/BR trỏ tới tiêu chí cụ thể ở UC/AUT/RULE; từ luồng/nhánh/ti�
 | FR-M06-02.25 | #uc-m06-002-fr-m06-02-25 | Đủ | UC-M06-002: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-02.26 | #uc-m06-002-fr-m06-02-26 | Đủ | UC-M06-002: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-02.27 | #uc-m06-008-fr-m06-02-27 | Đủ | UC-M06-008: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
-| FR-M06-02.28 | #uc-m06-008-fr-m06-02-28 | Đủ | UC-M06-008: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
+| FR-M06-02.28 | #uc-m06-008-fr-m06-02-28 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M06-01. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M06-02.29 | #uc-m06-008-fr-m06-02-29 | Đủ | UC-M06-008: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-02.30 | #uc-m06-006-fr-m06-02-30 | Đủ | UC-M06-006: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-02.31 | #uc-m06-020-fr-m06-02-31 | Đủ | UC-M06-020: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
@@ -1306,7 +1341,7 @@ FR/BR trỏ tới tiêu chí cụ thể ở UC/AUT/RULE; từ luồng/nhánh/ti�
 | FR-M06-04.06 | #uc-m06-008-fr-m06-04-06 | Đủ | UC-M06-008: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-04.07 | #uc-m06-008-fr-m06-04-07 | Đủ | UC-M06-008: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-04.08 | #uc-m06-004-fr-m06-04-08 | Đủ | UC-M06-004: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
-| FR-M06-04.09 | #uc-m06-004-fr-m06-04-09 | Đủ | UC-M06-004: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
+| FR-M06-04.09 | #uc-m06-004-fr-m06-04-09 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M06-01. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M06-04.10 | #uc-m06-008-fr-m06-04-10 | Đủ | UC-M06-008: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-04.11 | #uc-m06-008-fr-m06-04-11 | Đủ | UC-M06-008: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-04.12 | #uc-m06-003-fr-m06-04-12 | Đủ | UC-M06-003: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
@@ -1324,7 +1359,7 @@ FR/BR trỏ tới tiêu chí cụ thể ở UC/AUT/RULE; từ luồng/nhánh/ti�
 | FR-M06-05.04 | #uc-m06-005-fr-m06-05-04 | Đủ | UC-M06-005: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-05.05 | #uc-m06-009-fr-m06-05-05 | Đủ | UC-M06-009: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-05.06 | #aut-m06-001-fr-m06-05-06 | Đủ | AUT-M06-001: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
-| FR-M06-05.07 | #aut-m06-001-fr-m06-05-07 | Đủ | AUT-M06-001: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
+| FR-M06-05.07 | #aut-m06-001-fr-m06-05-07 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M06-02. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M06-05.08 | #uc-m06-005-fr-m06-05-08 | Đủ | UC-M06-005: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-05.09 | #uc-m06-009-fr-m06-05-09 | Đủ | UC-M06-009: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | FR-M06-05.10 | #aut-m06-002-fr-m06-05-10 | Đủ | AUT-M06-002: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
@@ -1347,7 +1382,7 @@ FR/BR trỏ tới tiêu chí cụ thể ở UC/AUT/RULE; từ luồng/nhánh/ti�
 | BR-M06-17 | #rule-m06-003-br-m06-17 | Đủ | RULE-M06-003: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | BR-M06-18 | #rule-m06-003-br-m06-18 | Đủ | RULE-M06-003: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | BR-M06-19 | #rule-m06-003-br-m06-19 | Đủ | RULE-M06-003: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
-| BR-M06-20 | #aut-m06-001-br-m06-20 | Đủ | AUT-M06-001: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
+| BR-M06-20 | #aut-m06-001-br-m06-20 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M06-02. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | BR-M06-21 | #uc-m06-006-br-m06-21 | Đủ | UC-M06-006: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | BR-M06-22 | #rule-m06-002-br-m06-22 | Đủ | RULE-M06-002: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
 | BR-M06-23 | #rule-m06-002-br-m06-23 | Đủ | RULE-M06-002: tiêu chí nguồn cùng luồng/quy tắc tương ứng. |
@@ -1375,6 +1410,14 @@ FR/BR trỏ tới tiêu chí cụ thể ở UC/AUT/RULE; từ luồng/nhánh/ti�
 | M13 | UC-M06-002; FR-M06-02.03, FR-M06-02.05 | Embedding, hai lần thử rồi fallback riêng truy vấn, cùng lượt đã kiểm | FR-M13-04.01, FR-M13-04.02, FR-M13-04.03, FR-M13-04.04; FR-M13-01.04, FR-M13-01.05, FR-M13-01.06 | Không AI cho Guest/tên/rỗng; lỗi không đổi cờ |
 | M14 | UC-M06-020; FR-M06-02.01 | Following trống dẫn Search, vẫn áp điều kiện gửi/rỗng | Giao tiếp M06 trong FR-M14 | Mở trang không tự tìm toàn bộ bài |
 
+
+### Nơi sở hữu quan hệ, hợp đồng liên module và impact v2.3
+
+| Owner / dependency | Hợp đồng caller/callee hoặc kết luận UML | Nguồn và nơi khai báo chính | View/backlink và trạng thái đồng bộ | Căn cứ |
+| --- | --- | --- | --- | --- |
+| M13 / M06 | [UC-M06-002](#uc-m06-002) main-2/A1 nhận embedding từ M13; không có cạnh UML liên module trong bảng relation M06. | M06 owner lựa chọn cách tìm/fallback; [FR-M13](../fr/FR-M13.md) v1.3 normative owner lời gọi/tối đa hai lần thử; FR-M06 v1.5 owner lượt tìm. | [US-M13](US-M13.md); [US-overview](US-overview.md); D-M06-020. Giữ endpoint UC002/ACT006, không nâng thành core M13 hay tạo include ngầm. Đề xuất backlink M13→M06, chưa xác nhận đã đồng bộ owner. | FR-M06-02.03, FR-M06-02.05, FR-M13-04.01, FR-M13-04.04 |
+| M11 / M06 | UC007/008 dùng quyền nhóm hiện hành; mở kết quả khi cờ Group tắt do M11 xử lý. | M11 owner thành viên/cờ và truy cập; M06 owner chỉ lọc kết quả. Baseline FR-M11 v1.3 và FR-M06 v1.5. | [US-M11](US-M11.md), D-M06-020/021; khi đổi quyền phải rà cả tên nhóm lẫn bài, không quyền staff vượt Private. Dependency dữ liệu không tự thành include. | FR-M06-01.13, FR-M06-02.08, FR-M11-03.11, FR-M11-03.12 |
+
 ## 6. Sơ đồ use case
 
 Mỗi view chỉ có một SVG bàn giao. Boundary iShare, package M06 để nhóm; actor ngoài boundary. Vàng là core, xanh là sub, xám là tham chiếu; màu không thay ký pháp. ACT-003 kế thừa ACT-002. AI chỉ gắn với nhánh có tìm bài ngữ nghĩa. Nguồn PlantUML/PNG kiểm hình ở workspace agent.
@@ -1387,7 +1430,7 @@ Mỗi view chỉ có một SVG bàn giao. Boundary iShare, package M06 để nh�
 
 View tổng quan chỉ có core; không thêm mũi tên từ phân rã.
 
-### D-M06-020 — Tìm và khai thác kết quả tìm kiếm
+### D-M06-020 — Tìm kiếm nội dung
 
 **Subject:** iShare. **Focus:** UC-M06-020. **Node:** UC-M06-020, UC-M06-002, UC-M06-003, UC-M06-004, UC-M06-006, UC-M06-008, UC-M06-007.
 
@@ -1402,7 +1445,7 @@ View tổng quan chỉ có core; không thêm mũi tên từ phân rã.
 | UC-M06-002 | include | UC-M06-008 | #uc-m06-002-main-4 | FR-M06-02.07, FR-M06-02.27, FR-M06-04.09, BR-M06-13, BR-M06-16 |
 | UC-M06-003 | include | UC-M06-007 | #uc-m06-003-main-2 | FR-M06-03.03, FR-M06-03.06, FR-M06-03.07, FR-M06-03.08, BR-M06-09 |
 
-### D-M06-021 — Tra cứu nhanh người dùng, Tag, Topic và Group
+### D-M06-021 — Tra cứu nhanh theo tên
 
 **Subject:** iShare. **Focus:** UC-M06-021. **Node:** UC-M06-021, UC-M06-001, UC-M06-003, UC-M06-006, UC-M06-007, UC-M06-020.
 
@@ -1418,7 +1461,7 @@ View tổng quan chỉ có core; không thêm mũi tên từ phân rã.
 
 Core020 là tham chiếu giữ đúng base của extend và cổng lượt gửi; không bung UC002/AI trong ngữ cảnh tên. Các UC dùng chung giữ một ID.
 
-### D-M06-022 — Dùng lại và quản lý lịch sử tìm kiếm trên thiết bị
+### D-M06-022 — Quản lý lịch sử tìm kiếm
 
 **Subject:** iShare. **Focus:** UC-M06-022. **Node:** UC-M06-022, UC-M06-005, UC-M06-009, UC-M06-020.
 
@@ -1439,10 +1482,10 @@ Chưa tổng hợp trong phạm vi M06. Khi tạo US-overview, lấy nguyên UC-
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| C-M06 | core | - | UC-M06-020, UC-M06-021, UC-M06-022 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M06/C-M06.svg |
-| D-M06-020 | detail | UC-M06-020 | UC-M06-020, UC-M06-002, UC-M06-003, UC-M06-004, UC-M06-006, UC-M06-008, UC-M06-007 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M06/D-M06-020.svg |
-| D-M06-021 | detail | UC-M06-021 | UC-M06-021, UC-M06-001, UC-M06-003, UC-M06-006, UC-M06-007, UC-M06-020 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M06/D-M06-021.svg |
-| D-M06-022 | detail | UC-M06-022 | UC-M06-022, UC-M06-005, UC-M06-009, UC-M06-020 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M06/D-M06-022.svg |
+| C-M06 | core | - | UC-M06-020, UC-M06-021, UC-M06-022 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M06/C-M06.svg |
+| D-M06-020 | detail | UC-M06-020 | UC-M06-020, UC-M06-002, UC-M06-003, UC-M06-004, UC-M06-006, UC-M06-008, UC-M06-007 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M06/D-M06-020.svg |
+| D-M06-021 | detail | UC-M06-021 | UC-M06-021, UC-M06-001, UC-M06-003, UC-M06-006, UC-M06-007, UC-M06-020 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M06/D-M06-021.svg |
+| D-M06-022 | detail | UC-M06-022 | UC-M06-022, UC-M06-005, UC-M06-009, UC-M06-020 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M06/D-M06-022.svg |
 
 <a id="qa-results"></a>
 
@@ -1463,17 +1506,134 @@ Chưa tổng hợp trong phạm vi M06. Khi tạo US-overview, lấy nguyên UC-
 
 Bốn hình được kiểm trực quan: C-M06 chỉ UC chính; D-M06-020 có nhánh bài/tên và include con–con; D-M06-021 có UC007 dùng chung và base core020 của extend; D-M06-022 có chọn lịch sử include core020, xóa lịch sử độc lập. Association tới core tóm tắt năng lực; node tham chiếu không bung toàn bộ hành vi ngoài focus.
 
-Trạng thái Chờ duyệt ghi nhận hồ sơ hoàn thành phân tích/QA theo nguồn hiện có, chưa phải stakeholder phê duyệt.
+Trạng thái Chờ duyệt giữ nguyên; lượt v2.3 chưa chốt các nhánh blocking ở ledger. Không có phê duyệt stakeholder.
 
 ### Điểm cần làm rõ và giới hạn nguồn
 
-| ID | Nguồn | Vấn đề | Ảnh hưởng | Trạng thái/quyết định |
-|---|---|---|---|---|
-| NOTE-M06-01 | FR-M06-02.28, FR-M06-04.09, BR-M06-13, BR-M06-15 | Top120 theo liên quan trước sort đã chốt, nhưng vị trí áp bộ lọc so với chọn Top120 chưa nêu rõ. | Thiết kế cần làm rõ nếu thứ tự làm đổi tập ứng viên. | Giữ ràng buộc đầu ra/Top120-trước-sort; không tự chốt thứ tự lọc/Top120. Coverage Đủ cho hành vi đã có. |
-| NOTE-M06-02 | FR-M06-05.07, BR-M06-20 | Chưa chốt so trùng history theo case/khoảng trắng/dấu. | Cần làm rõ quy tắc dữ liệu trước triển khai. | Giữ chuỗi trùng lên đầu; không áp fuzzy/chuẩn hóa khớp tên cho history. |
-| NOTE-M06-03 | FR-M06-02.18, FR-M06-02.29, FR-M06-04.15 | Không trùng/thiếu đã chốt; cơ chế ổn định khi dữ liệu đồng thời đổi/khóa hòa cuối cùng chưa nêu. | Thiết kế tải dần phải chứng minh ràng buộc. | Không phát minh API/cursor/snapshot trong UC. |
-| TBD-M06-01 | Phần TBD FR-M06, OPEN-006 | SEO/SSR tìm kiếm công khai đang hoãn. | Không bổ sung UC/thiết kế SEO. | Giữ hoãn. |
-| NOTE-M06-04 | Phụ lục Q12; FR-M06-04.04, BR-M06-15 | Câu trả lời cũ Following không phải baseline cuối. | Dùng câu cũ sẽ thêm bài được theo dõi. | Đã xử lý theo v1.5: chỉ người dùng/Topic; ẩn danh chỉ Topic. |
+| ID | Nguồn | Vấn đề | Ảnh hưởng | Trạng thái/quyết định | UC/đường bị ảnh hưởng | Mức chặn và lý do | Người quyết định | Register / trạng thái | Bằng chứng đóng và phần làm lại |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| NOTE-M06-01 | FR-M06-02.28, FR-M06-04.09, BR-M06-13, BR-M06-15 | Top120 theo liên quan trước sort đã chốt, nhưng vị trí áp bộ lọc so với chọn Top120 chưa nêu rõ. | Thiết kế cần làm rõ nếu thứ tự làm đổi tập ứng viên. | Giữ ràng buộc đầu ra/Top120-trước-sort; không tự chốt thứ tự lọc/Top120. Trace Một phần ở điều kiện lọc/Top120; phần danh định đã có đích. | UC-M06-008 main-1→2; UC-M06-020/004 kết quả có chữ + bộ lọc | blocking: thứ tự lọc/Top120 làm đổi tập kết quả; chưa thể nghiệm thu nhánh này | Chưa xác định người quyết định chính sách Search | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt lọc trước/sau chọn120 và phạm vi chuẩn hóa; sửa FR-M06, UC008/002/004/020, trace và test ví dụ >120 bài. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M06-02 | FR-M06-05.07, BR-M06-20 | Chưa chốt so trùng history theo case/khoảng trắng/dấu. | Cần làm rõ quy tắc dữ liệu trước triển khai. | Giữ chuỗi trùng lên đầu; không áp fuzzy/chuẩn hóa khớp tên cho history. | AUT-M06-001; UC-M06-005 main-4; lịch sử có khác hoa/dấu/khoảng trắng | blocking: không xác định được hai chuỗi có là một mục; chặn nghiệm thu nhánh trùng | Chưa xác định người quyết định dữ liệu Search | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt định nghĩa trùng chuỗi và ví dụ; cập nhật FR-M06-05.07/BR-M06-20, AUT001 và các ca history. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M06-03 | FR-M06-02.18, FR-M06-02.29, FR-M06-04.15 | Không trùng/thiếu đã chốt; cơ chế ổn định khi dữ liệu đồng thời đổi/khóa hòa cuối cùng chưa nêu. | Thiết kế tải dần phải chứng minh ràng buộc. | Không phát minh API/cursor/snapshot trong UC. | UC-M06-020 main-4, A4; RULE-M06-003; tải tiếp khi dữ liệu thay đổi/hòa cuối | nonblocking: không đổi yêu cầu không trùng/thiếu; cơ chế cursor/snapshot là thiết kế, chưa có bằng chứng triển khai | Chưa xác định đầu mối thiết kế Search | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chứng minh bằng thiết kế và kiểm thử dữ liệu thay đổi/hòa cuối rằng không trùng/thiếu; chỉ sửa FR nếu cần quyết định nghiệp vụ mới. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| TBD-M06-01 | Phần TBD FR-M06, OPEN-006 | SEO/SSR tìm kiếm công khai đang hoãn. | Không bổ sung UC/thiết kế SEO. | Giữ hoãn. | Phạm vi tìm kiếm công khai; không có UC SEO/SSR | nonblocking: chủ đích hoãn ngoài phạm vi UC hiện hành | Chưa xác định người quyết định mở lại SEO | [OPEN hiện hữu](../../../.agents/.claude/system_analysis/output/registers/open-issues.md) OPEN-006; open/hoãn ngoài scope | Quyết định mở lại được duyệt trong register và baseline FR mới trước khi bổ sung UC. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M06-04 | Phụ lục Q12; FR-M06-04.04, BR-M06-15 | Câu trả lời cũ Following không phải baseline cuối. | Dùng câu cũ sẽ thêm bài được theo dõi. | Đã xử lý theo v1.5: chỉ người dùng/Topic; ẩn danh chỉ Topic. | UC-M06-008 main-1, FR-M06-04.04/BR-M06-15; Following | nonblocking: giới hạn cũ đã được FR v1.5 thay rõ; không có quyết định mới | Theo phê duyệt FR-M06 v1.5, không suy người xác nhận cá nhân | [Register quyết định nguồn](../../../.agents/.claude/system_analysis/output/registers/decisions.md); resolved theo nguồn, chưa phê duyệt US | Dùng FR-M06 v1.5 làm bằng chứng lịch sử; không cần quyết định mới nếu baseline không đổi. Đây là chứng cứ lịch sử; không tạo xác nhận mới. |
 
 Không sửa FR/register trong lượt này. Các NOTE là giới hạn nguồn để review, không phải quyết định mới hoặc mục stakeholder đã duyệt. Không chuyển đổi ID cũ vì US-M06 được tạo mới. Trạng thái **Chờ duyệt**; chỉ đổi **Đã duyệt** sau xác nhận kết quả của người dùng.
 
+
+
+
+### Phân biệt bằng chứng lịch sử và lượt cập nhật v2.3
+
+Các bảng kiểm cấu trúc/render/hình và câu “đã kiểm” có trước mục này là **bằng chứng lịch sử v2.2 / lượt chuẩn hóa tên**, không phải lệnh vừa chạy. Quyền thực hiện lịch sử: Người dùng đã chỉ định tự thực hiện các bước cần thiết, không hỏi đồng ý ở lượt M04; tiếp tục áp dụng cho chuỗi phân tích module. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M06 hoặc từng bước; chưa có xác nhận kết quả cuối.
+
+Trong lượt cập nhật các module được giao, giữ nguyên 25 view trong phạm vi M06–M10 (từng module theo bảng diagrams), chưa chạy lại renderer hoặc quan sát hình mới. Đã parse XML SVG hiện hữu, đối chiếu node/cạnh UC và association trực tiếp với bảng; endpoint, nhãn UC và ký pháp không sửa nên không phát sinh yêu cầu render mới. `diagram_check=pass` chỉ kế thừa hình đã render và audit parity hiện tại, không hàm ý BA/phê duyệt hoặc render lại.
+
+| Lớp kiểm v2.3 | Kết quả thực tế | Giới hạn |
+| --- | --- | --- |
+| Schema/nguồn | Baseline owner/normative Đã chốt; giữ source_baseline/ID/anchor; nâng marker associations và artifact US-relative. | Checker --final được chạy sau walkthrough; semantic_review=pending vì các blocking trong ledger, không ép pass. |
+| SVG/XML/parity | 4 SVG XML hợp lệ; 18 cặp association trực tiếp đã nhập marker; quan hệ UC giữ endpoint. | Không render mới; kiểm hình lịch sử không chứng minh ngữ nghĩa nhánh thiếu nguồn. |
+| Walkthrough | 10 đặc tả có luồng chính và mỗi nhánh đã lập before/return/END/postcondition/source. | Gap cụ thể giới hạn kết luận; không coi bao phủ mã hay criteria chép từ FR là closure. |
+
+### Walkthrough v2.3 theo từng đặc tả và đường đi
+
+Bảng dưới ghi trạng thái trước, guard và điểm trở lại thực tế. `END cần chốt` là điểm dừng phân tích của nhánh thiếu nguồn, không phải hành vi sản phẩm đã được phê duyệt. Đường trở lại chỉ dùng success khi guard cho phép hoàn tất; không áp success của cha cho no-op/từ chối. Cột gap giới hạn phần có thể nghiệm thu. Các core Summary được đối chiếu ở bảng độ gắn kết; các đường thực thi nằm ở đặc tả con dưới đây.
+
+#### UC-M06-020 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Gửi truy vấn; đổi bộ lọc/sắp xếp; mở bài theo Topic/Tag; hoặc chọn truy vấn lịch sử. Trước: Không bắt buộc đăng nhập để tìm công khai; xác định người tìm và loại sự kiện để kiểm lượt gửi một lần. Không coi AI là tiền điều kiện. | [1](#uc-m06-020-main-1) → [2](#uc-m06-020-main-2) → [3](#uc-m06-020-main-3) → [4](#uc-m06-020-main-4) → [5](#uc-m06-020-main-5) → END: Bài là kết quả chính, tên thực thể là phụ khi truy vấn có chữ; quyền/thuật toán/thứ tự/tải dần được áp đúng. | Bài là kết quả chính, tên thực thể là phụ khi truy vấn có chữ; quyền/thuật toán/thứ tự/tải dần được áp đúng. | FR-M06-02, FR-M06-03, FR-M06-04, BR-M06-16, BR-M06-17, BR-M06-19, BR-M06-21; Giữ mở: NOTE-M06-01, NOTE-M06-03 |
+| [A1](#uc-m06-020-alt-1) | Tại bước 2: Vượt giới hạn lượt gửi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A1 → END: lượt bị từ chối | Thông báo quá nhiều yêu cầu; từ chối riêng lượt đó, không captcha/khóa dài hạn. Kết thúc: lượt bị từ chối. | FR-M06-02.20, FR-M06-02.21|
+| [A2](#uc-m06-020-alt-2) | Tại bước 3: Truy vấn rỗng và không bộ lọc; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A2 → END: không tìm | Không tìm; không gọi AI hay tự liệt kê toàn bộ bài. Kết thúc: không tìm. | FR-M06-02.31|
+| [A3](#uc-m06-020-alt-3) | Tại bước 3: Truy vấn rỗng có bộ lọc; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A3 → 4 | [UC-M06-002](#uc-m06-002)/008 liệt kê mọi bài khớp theo quyền, không giới hạn 120, mặc định Mới nhất và không AI; không khởi chạy tìm tên phụ chỉ vì truy vấn rỗng. Sau khi trở lại và hoàn tất: Bài là kết quả chính, tên thực thể là phụ khi truy vấn có chữ; quyền/thuật toán/thứ tự/tải dần được áp đúng. | FR-M06-04.17, FR-M06-04.18, FR-M06-04.19, FR-M06-03.01|
+| [A4](#uc-m06-020-alt-4) | Tại bước 4: Đã tải 120 bài của truy vấn có chữ và cuộn tiếp; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 4 → A4 → END: đạt trần truy vấn có chữ | Dừng tải, hiện Thu hẹp tìm kiếm để có kết quả chính xác hơn. Không hiện thông báo chỉ vì vừa có 120 nếu chưa cuộn tiếp. Kết thúc: đạt trần truy vấn có chữ. | FR-M06-02.19, BR-M06-19|
+
+#### UC-M06-001 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người dùng ngừng gõ đủ 300 mili giây sau ít nhất một ký tự. Trước: Không bắt buộc đăng nhập; chuỗi/tần suất/quyền được xét trong luồng. | [1](#uc-m06-001-main-1) → [2](#uc-m06-001-main-2) → [3](#uc-m06-001-main-3) → [4](#uc-m06-001-main-4) → END: Tối đa 3 người dùng/Tag/Topic/Group mỗi loại, giống chuỗi hơn đứng trước, đúng phạm vi quyền. | Tối đa 3 người dùng/Tag/Topic/Group mỗi loại, giống chuỗi hơn đứng trước, đúng phạm vi quyền. | FR-M06-01, BR-M06-02, BR-M06-03, BR-M06-04, BR-M06-09, BR-M06-21, BR-M06-22; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m06-001-alt-1) | Tại bước 1: Gõ tiếp trước 300 mili giây; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: chưa trả gợi ý chuỗi cũ | Không gợi ý cho chuỗi trước; thời gian chờ áp cho chuỗi mới theo quy tắc nguồn. Kết thúc: chưa trả gợi ý chuỗi cũ. | FR-M06-01.02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m06-001-alt-2) | Tại bước 2: Vượt ngân sách gợi ý trong 60 giây; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → END: lượt bị từ chối | Từ chối lượt này và báo quá nhiều yêu cầu; không captcha/khóa lâu dài. Kết thúc: lượt bị từ chối. | FR-M06-01.07, FR-M06-02.21; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m06-001-alt-3) | Tại bước 3: AI tổng/Search tắt hoặc lỗi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A3 → 4 | Vẫn khớp tên/gợi ý bình thường; không cần M13 cho hành vi này. Sau khi trở lại và hoàn tất: Tối đa 3 người dùng/Tag/Topic/Group mỗi loại, giống chuỗi hơn đứng trước, đúng phạm vi quyền. | FR-M06-01.08, BR-M06-22; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M06-002 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Được [UC-M06-020](#uc-m06-020) gọi cho truy vấn có chữ hoặc rỗng có bộ lọc. Trước: Cùng ngữ cảnh lượt gửi đã được [UC-M06-006](#uc-m06-006) kiểm ở [UC-M06-020](#uc-m06-020); không tính thêm lượt cho thành phần bài. Không giả định mọi bài được phép xem. | [1](#uc-m06-002-main-1) → [2](#uc-m06-002-main-2) → [3](#uc-m06-002-main-3) → [4](#uc-m06-002-main-4) → [5](#uc-m06-002-main-5) → END: Truy vấn có chữ chọn ngữ nghĩa/full-text đúng nhánh; rỗng có lọc không AI; trả bài đúng quyền/xếp hạng cho trang chung. | Truy vấn có chữ chọn ngữ nghĩa/full-text đúng nhánh; rỗng có lọc không AI; trả bài đúng quyền/xếp hạng cho trang chung. | FR-M06-02, FR-M06-04.17, FR-M06-04.18, FR-M06-04.19, BR-M06-05, BR-M06-06, BR-M06-07, BR-M06-08, BR-M06-23; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m06-002-alt-1) | Tại bước 2: Embedding truy vấn thất bại sau hai lần thử tại M13; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A1 → 3 | Dùng full-text riêng truy vấn này; giữ công tắc và ngữ nghĩa cho truy vấn sau khi đủ điều kiện. Sau khi trở lại và hoàn tất: Truy vấn có chữ chọn ngữ nghĩa/full-text đúng nhánh; rỗng có lọc không AI; trả bài đúng quyền/xếp hạng cho trang chung. | FR-M06-02.05, BR-M06-07; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m06-002-alt-2) | Tại bước 2: Guest bấm Tìm kiếm thông minh; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → END: giữ kết quả hiện tại | Nhắc đăng nhập, giữ kết quả full-text, kể cả AI tắt; không thực hiện gọi AI thay Guest. Kết thúc: giữ kết quả hiện tại. | FR-M06-02.24, FR-M06-02.25; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m06-002-alt-3) | Tại bước 2: Truy vấn rỗng có bộ lọc; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A3 → 4 | Liệt kê theo quyền/bộ lọc, không gọi AI, không có Liên quan, không giới hạn 120. Sau khi trở lại và hoàn tất: Truy vấn có chữ chọn ngữ nghĩa/full-text đúng nhánh; rỗng có lọc không AI; trả bài đúng quyền/xếp hạng cho trang chung. | FR-M06-04.17, FR-M06-04.18, FR-M06-04.19; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M06-003 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Guard có chữ tại EP-SEARCH-AUX của [UC-M06-020](#uc-m06-020). Trước: Dùng cùng lượt gửi đã kiểm của trang chung, không tách thêm ngân sách cho kết quả phụ. | [1](#uc-m06-003-main-1) → [2](#uc-m06-003-main-2) → [3](#uc-m06-003-main-3) → [4](#uc-m06-003-main-4) → END: Tối đa 3 kết quả mỗi loại người dùng/Tag/Topic/Group, xếp giống tên hơn trước, không bị bộ lọc bài tác động. | Tối đa 3 kết quả mỗi loại người dùng/Tag/Topic/Group, xếp giống tên hơn trước, không bị bộ lọc bài tác động. | FR-M06-03, FR-M06-04.12, BR-M06-09, BR-M06-10, BR-M06-17, BR-M06-22, BR-M06-24, BR-M06-25; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m06-003-alt-1) | Tại bước 2: AI tổng/Search tắt hoặc lỗi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A1 → 3 | Vẫn tìm tên bình thường; không dùng kết quả lỗi AI của bài để chặn kết quả phụ. Sau khi trở lại và hoàn tất: Tối đa 3 kết quả mỗi loại người dùng/Tag/Topic/Group, xếp giống tên hơn trước, không bị bộ lọc bài tác động. | FR-M06-03.05; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m06-003-alt-2) | Tại bước 2: Không có thực thể khớp trong phạm vi được phép; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → 3 | Không thêm thực thể ngoài quyền để đủ số 3; tối đa không phải số bắt buộc. Sau khi trở lại và hoàn tất: Tối đa 3 kết quả mỗi loại người dùng/Tag/Topic/Group, xếp giống tên hơn trước, không bị bộ lọc bài tác động. | FR-M06-03.02, FR-M06-03.07, FR-M06-03.08; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M06-004 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người dùng đổi bộ lọc/sắp xếp hoặc mở xem bài theo Topic/Tag. Trước: Không bắt buộc đăng nhập cho các bộ lọc chung; Following cần phiên và quan hệ M07. Không giả định mọi thao tác Guest được áp. | [1](#uc-m06-004-main-1) → [2](#uc-m06-004-main-2) → [3](#uc-m06-004-main-3) → [4](#uc-m06-004-main-4) → END: Lượt tìm mới theo lựa chọn hợp lệ, bộ lọc kết hợp AND, chỉ áp vào bài; Topic/Tag mở với truy vấn rỗng. | Lượt tìm mới theo lựa chọn hợp lệ, bộ lọc kết hợp AND, chỉ áp vào bài; Topic/Tag mở với truy vấn rỗng. | FR-M06-04, BR-M06-15, BR-M06-16, BR-M06-21, BR-M06-23; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m06-004-alt-1) | Tại bước 1: Guest bấm chỉ nội dung đang theo dõi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: giữ bộ lọc chưa được áp | Nhắc đăng nhập và không áp bộ lọc, không coi đây là cấp quyền hoặc tự đăng nhập. Kết thúc: giữ bộ lọc chưa được áp. | FR-M06-04.13, BR-M06-23; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m06-004-alt-2) | Tại bước 2: Truy vấn rỗng và không còn bộ lọc; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → END: không tìm | Core020 không tìm, không tự liệt kê mọi bài. Kết thúc: không tìm. | FR-M06-02.31; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m06-004-alt-3) | Tại bước 3: Lượt gửi mới vượt hạn; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A3 → END: lượt bị từ chối | Theo [UC-M06-006](#uc-m06-006) từ chối riêng lượt, không khóa quyền tìm dài hạn. Kết thúc: lượt bị từ chối. | FR-M06-04.20, BR-M06-21; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M06-005 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Đặt con trỏ vào ô tìm rồi chọn một mục lịch sử. Trước: Lịch sử trên đúng trình duyệt, không gắn tài khoản; Guest cũng dùng được. | [1](#uc-m06-005-main-1) → [2](#uc-m06-005-main-2) → [3](#uc-m06-005-main-3) → [4](#uc-m06-005-main-4) → END: Danh sách mới nhất trước; chọn mục gửi ngay như một lượt gửi, không chỉ điền ô. | Danh sách mới nhất trước; chọn mục gửi ngay như một lượt gửi, không chỉ điền ô. | FR-M06-05.04, FR-M06-05.08, FR-M06-05.09, BR-M06-20, BR-M06-21; Giữ mở: NOTE-M06-02 |
+| [A1](#uc-m06-005-alt-1) | Tại bước 1: Chưa có mục lịch sử hoặc người dùng chưa chọn mục; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: chưa gửi từ lịch sử | Không có lần tìm lại; có thể chỉ đọc danh sách, không tự gửi truy vấn. Kết thúc: chưa gửi từ lịch sử. | FR-M06-05.04, FR-M06-05.08|
+| [A2](#uc-m06-005-alt-2) | Tại bước 3: Lượt gửi từ lịch sử vượt hạn; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A2 → END: lượt bị từ chối | Từ chối riêng lần gửi theo [UC-M06-006](#uc-m06-006), không bỏ qua hạn vì truy vấn cũ. Kết thúc: lượt bị từ chối. | BR-M06-21|
+
+#### UC-M06-006 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | [UC-M06-001](#uc-m06-001) gọi cho lượt gợi ý hoặc [UC-M06-020](#uc-m06-020) gọi cho lượt gửi. Trước: Có loại lượt và ngữ cảnh Guest/IP hoặc tài khoản; cùng một lượt gửi chỉ được kiểm tại cổng trang chung. | [1](#uc-m06-006-main-1) → [2](#uc-m06-006-main-2) → [3](#uc-m06-006-main-3) → [4](#uc-m06-006-main-4) → END: Trong hạn được thực hiện; vượt hạn chỉ từ chối lượt đang xét và báo quá nhiều yêu cầu. | Trong hạn được thực hiện; vượt hạn chỉ từ chối lượt đang xét và báo quá nhiều yêu cầu. | FR-M06-01.07, FR-M06-02.20, FR-M06-02.21, FR-M06-02.30, FR-M06-04.20, BR-M06-21; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m06-006-alt-1) | Tại bước 2: Ngân sách loại lượt đang xét đã hết trong cửa sổ; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A1 → END: từ chối | Từ chối riêng lượt; không captcha/khóa lâu dài. Kết thúc: từ chối. | FR-M06-01.07, FR-M06-02.20, FR-M06-02.21, BR-M06-21; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m06-006-alt-2) | Tại bước 1: Người dùng cuộn tải tiếp kết quả; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A2 → END: không tính lượt | Không phát sinh lượt gợi ý/gửi, không trừ ngân sách như tìm mới. Kết thúc: không tính lượt. | FR-M06-02.30; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M06-007 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | [UC-M06-001](#uc-m06-001) hoặc [UC-M06-003](#uc-m06-003) gọi với chuỗi và người tìm. Trước: Có chuỗi ít nhất một ký tự/có chữ và ngữ cảnh người tìm; không có lời gọi AI. | [1](#uc-m06-007-main-1) → [2](#uc-m06-007-main-2) → [3](#uc-m06-007-main-3) → [4](#uc-m06-007-main-4) → END: Tập tên hợp lệ, tối đa 3 mỗi loại theo độ giống; chỉ tài khoản ACTIVE hoàn tất bước 3 và Group Private của thành viên. | Tập tên hợp lệ, tối đa 3 mỗi loại theo độ giống; chỉ tài khoản ACTIVE hoàn tất bước 3 và Group Private của thành viên. | FR-M06-01.04, FR-M06-01.05, FR-M06-01.10, FR-M06-01.11, FR-M06-01.12, FR-M06-01.13, FR-M06-03.03, FR-M06-03.04, FR-M06-03.06, FR-M06-03.07, FR-M06-03.08, FR-M06-03.09, FR-M06-03.10, BR-M06-09, BR-M06-10, BR-M06-24, BR-M06-25; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m06-007-alt-1) | Tại bước 2: Tài khoản DEACTIVATED/DELETED/BANNED hoặc chưa xong bước 3, Tag vô hiệu, Group Private ngoài thành viên; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A1 → 3 | Loại khỏi tập trả, không hiện mục rồi mới báo không quyền. Sau khi trở lại và hoàn tất: Tập tên hợp lệ, tối đa 3 mỗi loại theo độ giống; chỉ tài khoản ACTIVE hoàn tất bước 3 và Group Private của thành viên. | FR-M06-01.12, FR-M06-01.13, FR-M06-03.04, FR-M06-03.07, FR-M06-03.08; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m06-007-alt-2) | Tại bước 2: Thành viên Private tìm đúng nhóm hoặc Tag được kích hoạt lại; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → 3 | Nhóm được phép tìm thấy/Tag lại đủ điều kiện; vẫn phải khớp tên. Sau khi trở lại và hoàn tất: Tập tên hợp lệ, tối đa 3 mỗi loại theo độ giống; chỉ tài khoản ACTIVE hoàn tất bước 3 và Group Private của thành viên. | FR-M06-03.09, BR-M06-10, BR-M06-25; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M06-008 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính — truy vấn có chữ | [UC-M06-002](#uc-m06-002) gọi sau xác định cách tìm và bài khớp. Trước: Có dữ liệu khớp/Điểm liên quan, quyền, upvote/comment, cảnh cáo, bộ lọc/cách xếp. Không chọn một thứ tự thực hiện chưa được nguồn chốt ngoài ràng buộc Top120 trước sắp xếp. | [1](#uc-m06-008-main-1) → [2](#uc-m06-008-main-2) → [3](#uc-m06-008-main-3) → [4](#uc-m06-008-main-4) → [5](#uc-m06-008-main-5) → END: Danh sách thỏa quyền và tất cả bộ lọc; với chữ chỉ xếp tập 120 ứng viên theo liên quan; rỗng có lọc không trần 120. | Danh sách thỏa quyền và tất cả bộ lọc; với chữ chỉ xếp tập 120 ứng viên theo liên quan; rỗng có lọc không trần 120. | FR-M06-02.07, FR-M06-02.08, FR-M06-02.09, FR-M06-02.10, FR-M06-02.11, FR-M06-02.12, FR-M06-02.13, FR-M06-02.27, FR-M06-02.28, FR-M06-02.29, FR-M06-04, BR-M06-11, BR-M06-12, BR-M06-13, BR-M06-14, BR-M06-15, BR-M06-16; Giữ mở: NOTE-M06-01, NOTE-M06-04 |
+| Rỗng có bộ lọc | Đã qua UC002/giới hạn lượt; không có Điểm liên quan; bộ lọc và quyền hiện hành. | [1](#uc-m06-008-main-1) → [5](#uc-m06-008-main-5) → UC002-main-5 | Mọi bài khớp quyền/lọc, Mới nhất mặc định hoặc Upvote; không AI/Top120/điểm Liên quan. | FR-M06-04.17, FR-M06-04.18, FR-M06-04.19; không đi các bước 2–4 của nhánh có chữ. |
+| [A1](#uc-m06-008-alt-1) | Tại bước 1: Không đủ quyền bài/Private hoặc nhóm vừa đổi Public→Private với người ngoài; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → 2: tiếp tục với tập bài hợp lệ | Không đưa bài vào kết quả các lần tìm sau; Mod/Admin không tự vượt quyền thành viên. Sau khi trở lại và hoàn tất: Danh sách thỏa quyền và tất cả bộ lọc; với chữ chỉ xếp tập 120 ứng viên theo liên quan; rỗng có lọc không trần 120. | FR-M06-02.07, FR-M06-02.08, FR-M06-02.09|
+| [A2](#uc-m06-008-alt-2) | Tại bước 1: Guest yêu cầu Following-only; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A2 → END: không áp bộ lọc | Không áp bộ lọc, nhắc đăng nhập qua [UC-M06-004](#uc-m06-004); không dùng tập theo dõi của tài khoản khác. Kết thúc: không áp bộ lọc. | FR-M06-04.13|
+| [A3](#uc-m06-008-alt-3) | Tại bước 3: Mọi ứng viên cùng điểm tương tác thô; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A3 → 4 | Đặt điểm tương tác = 0, không chia cho 0 hoặc tự đặt tất cả = 1. Sau khi trở lại và hoàn tất: Danh sách thỏa quyền và tất cả bộ lọc; với chữ chỉ xếp tập 120 ứng viên theo liên quan; rỗng có lọc không trần 120. | BR-M06-13|
+
+#### UC-M06-009 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người dùng bấm xóa lịch sử. Trước: Có ngữ cảnh trình duyệt hiện tại, không yêu cầu lịch sử gắn tài khoản hoặc phải đăng nhập. | [1](#uc-m06-009-main-1) → [2](#uc-m06-009-main-2) → END: Toàn bộ lịch sử tại trình duyệt đó bị xóa, không còn mục để chọn lại. | Toàn bộ lịch sử tại trình duyệt đó bị xóa, không còn mục để chọn lại. | FR-M06-05.05, FR-M06-05.09, BR-M06-20; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+
+
+### Phạm vi kết luận coverage v2.3
+
+Các dòng Một phần trong trace chỉ ra điều kiện biên/quyền/kết quả còn thiếu quyết định ở ledger; phần còn lại của cùng yêu cầu vẫn giữ nguồn và đích. Các gap về cơ chế giao dịch/đồng thời/giao thức không tự giảm mọi dòng về Một phần: hành vi danh định đã quyết vẫn được đối chiếu, còn bảo đảm thất bại hoặc thiết kế chưa có bằng chứng được giữ giới hạn riêng. Không dùng số mã có anchor hay bản sao tiêu chí FR để tuyên bố tất cả yêu cầu đã được xác nhận nghiệp vụ.
+
+
+### Kết quả checker thực chạy sau review v2.3
+
+Chạy `python -X utf8 -B .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M06.md --final` sau walkthrough: **exit 1, errors=2, warnings=1**. Một lỗi báo 4 yêu cầu còn Một phần; một lỗi báo semantic_review chưa pass; cảnh báo nhắc review thủ công. Kiểm draft cùng baseline **errors=0** (hai cảnh báo tương ứng coverage/review). Đây là gate chưa đạt do các quyết định nguồn còn mở, không phải lỗi schema, ID, marker hoặc SVG. Giữ Chờ duyệt và approved_steps=-.
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.

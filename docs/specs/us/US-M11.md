@@ -1,6 +1,6 @@
 # Phân tích use case — M11 Group
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2, viết tiếng Việt và giữ thuật ngữ cần thiết.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3, viết tiếng Việt và giữ thuật ngữ cần thiết.
 
 Đầu ra hai tầng gồm **5 UC chính, 24 UC con**, 30 mapping, đặc tả, quan hệ, truy vết và 6 SVG: tổng quan module, một detail riêng cho mỗi core. Mô hình phân biệt quyền nhóm với quyền hệ thống, cổng duyệt nhóm với cổng Mod hệ thống, dấu gỡ với trạng thái đăng. Chỉ phân tích M11, không xây thêm Group Chat hoặc follow nhóm.
 
@@ -10,8 +10,9 @@
 | key | value |
 |---|---|
 | document_id | US-M11 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M11 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,10 +21,12 @@
 | approved_steps | - |
 | source_baseline | FR-M11 v1.3; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M07 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M12 v1.1; FR-M13 v1.3; FR-M14 v1.1; FR-M15 v1.1 |
 | author | Codex |
-| date | 2026-11-01 |
-| approval_evidence | Người dùng cho phép tự làm các bước cần thiết ở lượt M04, áp dụng chuỗi module đang thực hiện. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M11 hoặc kết quả từng bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | - |
+| semantic_review | pending |
 | diagram_check | pass |
+
+**Lịch sử trước migration 2.3:** các dòng dưới giữ nguyên bằng chứng đã ghi, không phải approved_steps của revision mới.
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
 |---|---|---|---|---|
@@ -34,6 +37,21 @@
 | 5 | 227 dòng truy vết, 210 tiêu chí chi tiết/BR; 14 FR liên quan | Chưa duyệt | FR-M11 v1.3; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M07 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M12 v1.1; FR-M13 v1.3; FR-M14 v1.1; FR-M15 v1.1 | Baseline liên quan đổi |
 | 6 | 6 view đã kiểm cú pháp/render/hình; đúng node và 32 quan hệ, 34 cạnh xuất hiện; mỗi view chỉ một SVG | Chưa duyệt | PlantUML 1.2026.8 | Mô hình/nguồn đổi |
 | 7 | Đã review nguồn/luồng/UML/truy vết/hình/liên kết, hồ sơ Chờ duyệt và giữ các giới hạn nguồn | Chưa duyệt | Skill v2.2 | Phản hồi/baseline đổi |
+
+
+### Revision 2.3 — 2026-11-24
+
+Người dùng yêu cầu cập nhật toàn bộ US theo skill 2.3 và cho phép làm liên tục bảy bước. Quyền thực hiện không phê duyệt kết quả; revision này giữ `approved_steps=-`, trạng thái **Chờ duyệt**. Bản trước ghi skill 2.2, approved_steps=-. Bằng chứng quyền thực hiện trước: Người dùng cho phép tự làm các bước cần thiết ở lượt M04, áp dụng chuỗi module đang thực hiện. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M11 hoặc kết quả từng bước.
+
+| Bước | Công việc revision hiện tại | Trạng thái cổng |
+|---|---|---|
+| 1 | Đối chiếu baseline owner/normative, boundary và kiểm kê FR/BR đang dùng. | Đã review; chưa duyệt |
+| 2 | Rà goal/trigger/kết quả/phạm vi của core/sub tại bảng chất lượng 2.3. | Đã review; giữ các vấn đề ghi rõ |
+| 3 | Walkthrough main và từng alternative theo QA revision; không suy kết quả tại nhánh thiếu nguồn. | Đã review; các đường blocking chưa chốt |
+| 4 | Đối chiếu relation và association thực tế với SVG, không tạo cạnh từ decomposition. | Đã review mô hình hiện có |
+| 5 | Giữ trace chi tiết, phân vai nguồn và bổ sung vòng đời từng gap. | Đã review trong scope; không sửa FR/register |
+| 6 | Kiểm XML/node/association/quan hệ SVG hiện có; giữ artifact US-relative và render lịch sử riêng. | Root đã parse/render mới và so XML visual tree; xem UC-V23-REVIEW.md, không nhận đã xem mọi ảnh |
+| 7 | Chạy checker --final sau review, ghi lỗi/cảnh báo thật; semantic_review còn pending do đường blocking. | Review đã làm; chưa đạt cổng cuối |
 
 ## 1. Phạm vi, nguồn và tổng hợp yêu cầu
 
@@ -51,22 +69,25 @@
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M11.md | 1.3 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Không suy tính năng từ ví dụ hoặc US cũ. Đọc [US-M08](US-M08.md), [US-M09](US-M09.md), [US-M10](US-M10.md) để giữ actor/ranh giới; nguồn chức năng vẫn là FR đã chốt.
+
+
+**Quy chuẩn tên:** [UC-NAMING](UC-NAMING.md), ngày 2026-11-24, trạng thái **Chờ duyệt cách diễn đạt**; đây là đề xuất tên đang dùng, không tự trở thành quy chuẩn đã duyệt. Nguồn `owner` sở hữu hành vi; `normative` ràng buộc giao tiếp/quyền, đều phải Đã chốt đúng baseline.
 
 ### Actor và điều kiện quyền
 
@@ -113,35 +134,35 @@ ACT-011 → ACT-010 → ACT-009 → ACT-002 là phân cấp tương tác theo nh
 <!-- uc:catalog -->
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
-| UC-M11-030 | Khởi tạo và quản trị nhóm | core | Summary | ACT-002, ACT-011 | - | M11 | #uc-m11-030 | FR-M11-01, FR-M11-02, FR-M11-15, BR-M11-03, BR-M11-04, BR-M11-06, BR-M11-23, BR-M11-31, BR-M11-32 |
-| UC-M11-031 | Khám phá và xem nhóm | core | Summary | ACT-001, ACT-002, ACT-009, ACT-008, ACT-007 | - | M11 | #uc-m11-031 | FR-M11-03, BR-M11-11, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-33, BR-M11-34, BR-M11-35 |
-| UC-M11-032 | Quản lý tham gia và thành viên | core | Summary | ACT-002, ACT-009, ACT-010, ACT-011 | - | M11 | #uc-m11-032 | FR-M11-04, FR-M11-05, FR-M11-06, FR-M11-07, FR-M11-08, FR-M11-09, FR-M11-10, FR-M11-11, BR-M11-05, BR-M11-06, BR-M11-07, BR-M11-08, BR-M11-09, BR-M11-10, BR-M11-12, BR-M11-24, BR-M11-25, BR-M11-26 |
+| UC-M11-030 | Tạo và quản lý nhóm | core | Summary | ACT-002, ACT-011 | - | M11 | #uc-m11-030 | FR-M11-01, FR-M11-02, FR-M11-15, BR-M11-03, BR-M11-04, BR-M11-06, BR-M11-23, BR-M11-31, BR-M11-32 |
+| UC-M11-031 | Tìm và xem nhóm | core | Summary | ACT-001, ACT-002, ACT-009, ACT-008, ACT-007 | - | M11 | #uc-m11-031 | FR-M11-03, BR-M11-11, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-33, BR-M11-34, BR-M11-35 |
+| UC-M11-032 | Quản lý tham gia và thành viên nhóm | core | Summary | ACT-002, ACT-009, ACT-010, ACT-011 | - | M11 | #uc-m11-032 | FR-M11-04, FR-M11-05, FR-M11-06, FR-M11-07, FR-M11-08, FR-M11-09, FR-M11-10, FR-M11-11, BR-M11-05, BR-M11-06, BR-M11-07, BR-M11-08, BR-M11-09, BR-M11-10, BR-M11-12, BR-M11-24, BR-M11-25, BR-M11-26 |
 | UC-M11-033 | Đăng bài trong nhóm | core | User goal | ACT-009, ACT-010, ACT-011 | ACT-006 | M11 | #uc-m11-033 | FR-M11-12, FR-M11-13.11, FR-M11-13.12, FR-M11-13.14, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-38, BR-M11-40 |
-| UC-M11-034 | Kiểm duyệt nội dung cấp nhóm | core | Summary | ACT-010, ACT-011 | - | M11 | #uc-m11-034 | FR-M11-13, FR-M11-14, BR-M11-05, BR-M11-06, BR-M11-20, BR-M11-21, BR-M11-22, BR-M11-30, BR-M11-38, BR-M11-39 |
+| UC-M11-034 | Kiểm duyệt nội dung nhóm | core | Summary | ACT-010, ACT-011 | - | M11 | #uc-m11-034 | FR-M11-13, FR-M11-14, BR-M11-05, BR-M11-06, BR-M11-20, BR-M11-21, BR-M11-22, BR-M11-30, BR-M11-38, BR-M11-39 |
 | UC-M11-001 | Tạo nhóm | sub | User goal | ACT-002 | - | M11 | #uc-m11-001 | FR-M11-01, BR-M11-03, BR-M11-04, BR-M11-31 |
 | UC-M11-002 | Sửa thông tin và cài đặt nhóm | sub | User goal | ACT-011 | - | M11 | #uc-m11-002 | FR-M11-02, BR-M11-06, BR-M11-08, BR-M11-15, BR-M11-16, BR-M11-18, BR-M11-31, BR-M11-32 |
 | UC-M11-003 | Xóa nhóm | sub | User goal | ACT-011 | - | M11 | #uc-m11-003 | FR-M11-15, BR-M11-06, BR-M11-23 |
 | UC-M11-004 | Xem danh sách nhóm | sub | User goal | ACT-001, ACT-002 | - | M11 | #uc-m11-004 | FR-M11-03.01, FR-M11-03.02, FR-M11-03.03, FR-M11-03.16, FR-M11-03.17, BR-M11-11, BR-M11-35 |
-| UC-M11-005 | Xem trang nhóm và nội dung nhóm | sub | User goal | ACT-001, ACT-002, ACT-009, ACT-008, ACT-007 | - | M11 | #uc-m11-005 | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.07, FR-M11-03.08, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.13, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-33 |
-| UC-M11-006 | Xem danh sách thành viên và vai trò | sub | User goal | ACT-001, ACT-002, ACT-009, ACT-011 | - | M11 | #uc-m11-006 | FR-M11-03.14, FR-M11-03.15, FR-M11-08.05, BR-M11-34 |
+| UC-M11-005 | Xem trang nhóm | sub | User goal | ACT-001, ACT-002, ACT-009, ACT-008, ACT-007 | - | M11 | #uc-m11-005 | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.07, FR-M11-03.08, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.13, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-33 |
+| UC-M11-006 | Xem thành viên và vai trò trong nhóm | sub | User goal | ACT-001, ACT-002, ACT-009, ACT-011 | - | M11 | #uc-m11-006 | FR-M11-03.14, FR-M11-03.15, FR-M11-08.05, BR-M11-34 |
 | UC-M11-007 | Tham gia nhóm | sub | User goal | ACT-002 | - | M11 | #uc-m11-007 | FR-M11-04, FR-M11-05.05, BR-M11-03, BR-M11-07, BR-M11-08, BR-M11-09, BR-M11-10, BR-M11-12 |
 | UC-M11-008 | Rút yêu cầu tham gia | sub | User goal | ACT-002 | - | M11 | #uc-m11-008 | FR-M11-04.10, BR-M11-36 |
 | UC-M11-009 | Mời người khác vào nhóm | sub | User goal | ACT-009 | - | M11 | #uc-m11-009 | FR-M11-05, BR-M11-12 |
 | UC-M11-010 | Duyệt yêu cầu tham gia | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-010 | FR-M11-06, BR-M11-06, BR-M11-07, BR-M11-08, BR-M11-09, BR-M11-37 |
-| UC-M11-011 | Quản lý chặn tham gia | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-011 | FR-M11-07, BR-M11-06, BR-M11-10 |
-| UC-M11-012 | Bổ nhiệm hoặc giáng Group Mod | sub | User goal | ACT-011 | - | M11 | #uc-m11-012 | FR-M11-08, BR-M11-05, BR-M11-06, BR-M11-26, BR-M11-37 |
-| UC-M11-013 | Kick thành viên khỏi nhóm | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-013 | FR-M11-09, FR-M11-08.05, BR-M11-05, BR-M11-06, BR-M11-24 |
+| UC-M11-011 | Chặn hoặc bỏ chặn tham gia nhóm | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-011 | FR-M11-07, BR-M11-06, BR-M11-10 |
+| UC-M11-012 | Bổ nhiệm hoặc gỡ Group Mod | sub | User goal | ACT-011 | - | M11 | #uc-m11-012 | FR-M11-08, BR-M11-05, BR-M11-06, BR-M11-26, BR-M11-37 |
+| UC-M11-013 | Xóa thành viên khỏi nhóm | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-013 | FR-M11-09, FR-M11-08.05, BR-M11-05, BR-M11-06, BR-M11-24 |
 | UC-M11-014 | Rời nhóm | sub | User goal | ACT-009, ACT-010, ACT-011 | - | M11 | #uc-m11-014 | FR-M11-10, BR-M11-24, BR-M11-25, BR-M11-28 |
-| UC-M11-015 | Chuyển Owner trước khi tự rời | sub | Subfunction | ACT-011 | - | M11 | #uc-m11-015 | FR-M11-10.03, FR-M11-10.04, FR-M11-10.05, FR-M11-10.07, FR-M11-08.05, BR-M11-04, BR-M11-25, BR-M11-37 |
-| UC-M11-016 | Điều phối cổng duyệt bài nhóm | sub | Subfunction | ACT-009, ACT-010, ACT-011 | ACT-006 | M11 | #uc-m11-016 | FR-M11-12, FR-M11-13.14, BR-M11-18, BR-M11-19, BR-M11-38, BR-M11-40, FR-M13-02.08, FR-M13-02.11 |
-| UC-M11-017 | Tra cứu hàng chờ duyệt của nhóm | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-017 | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-20, BR-M11-33, BR-M11-39 |
-| UC-M11-018 | Nhận bài chờ duyệt | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-018 | FR-M11-13.02, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39 |
-| UC-M11-019 | Kết luận bài chờ duyệt | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-019 | FR-M11-13.03, FR-M11-13.05, FR-M11-13.06, FR-M11-13.07, FR-M11-13.08, FR-M11-13.09, FR-M11-13.10, FR-M11-13.11, FR-M11-13.12, FR-M11-13.13, BR-M11-18, BR-M11-20, BR-M11-21, BR-M11-38, BR-M11-39 |
+| UC-M11-015 | Chuyển quyền chủ nhóm trước khi rời | sub | Subfunction | ACT-011 | - | M11 | #uc-m11-015 | FR-M11-10.03, FR-M11-10.04, FR-M11-10.05, FR-M11-10.07, FR-M11-08.05, BR-M11-04, BR-M11-25, BR-M11-37 |
+| UC-M11-016 | Xử lý quy trình duyệt bài nhóm | sub | Subfunction | ACT-009, ACT-010, ACT-011 | ACT-006 | M11 | #uc-m11-016 | FR-M11-12, FR-M11-13.14, BR-M11-18, BR-M11-19, BR-M11-38, BR-M11-40, FR-M13-02.08, FR-M13-02.11 |
+| UC-M11-017 | Xem hàng chờ duyệt bài nhóm | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-017 | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-20, BR-M11-33, BR-M11-39 |
+| UC-M11-018 | Nhận duyệt bài viết | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-018 | FR-M11-13.02, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39 |
+| UC-M11-019 | Duyệt hoặc từ chối bài viết | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-019 | FR-M11-13.03, FR-M11-13.05, FR-M11-13.06, FR-M11-13.07, FR-M11-13.08, FR-M11-13.09, FR-M11-13.10, FR-M11-13.11, FR-M11-13.12, FR-M11-13.13, BR-M11-18, BR-M11-20, BR-M11-21, BR-M11-38, BR-M11-39 |
 | UC-M11-020 | Gỡ bài hoặc bình luận khỏi nhóm | sub | User goal | ACT-010, ACT-011 | - | M11 | #uc-m11-020 | FR-M11-14, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30 |
-| UC-M11-021 | Kiểm tra quyền duyệt và giữ bài | sub | Subfunction | ACT-010, ACT-011 | - | M11 | #uc-m11-021 | FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-06, BR-M11-20, BR-M11-33, BR-M11-39 |
-| UC-M11-022 | Áp dụng xóa mềm nhóm | sub | Subfunction | ACT-011 | - | M11 | #uc-m11-022 | FR-M11-15, FR-M11-10.06, FR-M11-11.03, BR-M11-23, BR-M11-25, BR-M11-26 |
-| UC-M11-023 | Xác định quyền xem và danh tính tác giả | sub | Subfunction | ACT-001, ACT-002, ACT-009, ACT-008, ACT-007 | - | M11 | #uc-m11-023 | FR-M11-03, BR-M11-11, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-27, BR-M11-30, BR-M11-33, BR-M11-34, BR-M11-35 |
-| UC-M11-024 | Kiểm tra điều kiện thao tác nhóm | sub | Subfunction | ACT-001, ACT-002, ACT-009, ACT-010, ACT-011, ACT-008, ACT-007 | - | M11 | #uc-m11-024 | FR-M11-16, FR-M11-17, BR-M11-06, BR-M11-13, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, BR-M11-33 |
+| UC-M11-021 | Kiểm tra quyền xử lý bài chờ duyệt | sub | Subfunction | ACT-010, ACT-011 | - | M11 | #uc-m11-021 | FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-06, BR-M11-20, BR-M11-33, BR-M11-39 |
+| UC-M11-022 | Xử lý dữ liệu khi xóa nhóm | sub | Subfunction | ACT-011 | - | M11 | #uc-m11-022 | FR-M11-15, FR-M11-10.06, FR-M11-11.03, BR-M11-23, BR-M11-25, BR-M11-26 |
+| UC-M11-023 | Hiển thị nội dung nhóm theo quyền xem | sub | Subfunction | ACT-001, ACT-002, ACT-009, ACT-008, ACT-007 | - | M11 | #uc-m11-023 | FR-M11-03, BR-M11-11, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-27, BR-M11-30, BR-M11-33, BR-M11-34, BR-M11-35 |
+| UC-M11-024 | Kiểm tra điều kiện thao tác trong nhóm | sub | Subfunction | ACT-001, ACT-002, ACT-009, ACT-010, ACT-011, ACT-008, ACT-007 | - | M11 | #uc-m11-024 | FR-M11-16, FR-M11-17, BR-M11-06, BR-M11-13, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, BR-M11-33 |
 
 Chỉ năm core được đưa lên tổng quan hệ thống. Tier độc lập level: core033 là User goal có luồng gửi cụ thể; bốn core còn lại là Summary bao quát các mục tiêu độc lập. Sub có User goal và Subfunction; không dùng mỗi ngưỡng AI, công tắc hoặc phép kiểm làm một oval. Không UC abstract hoặc generalization UC cần thiết trong mô hình này.
 
@@ -204,13 +225,32 @@ Mode module, chỉ làm M11; chưa tổng hợp toàn hệ thống hoặc tạo 
 | D-M11-08 | Private, ẩn danh, Khóa/Ẩn/cờ | UC023/024, RULE và AUT | Tái dùng quyền/hiệu lực trạng thái, không actor của chính hệ thống. | Không gán quyền mở Private từ quyền thấy tác giả thật hoặc miễn cờ Admin. |
 | D-M11-09 | Thông báo/embedding, quá hạn | 6 AUT có trigger/trước/sau/dữ liệu | Giữ các hành vi sự kiện/time, owner phân tách. | Không bỏ bao phủ chỉ vì gọi là chạy ngầm; không thêm email hoặc audit mới. |
 
+
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+Không áp dụng cho mode module; tập core được tổng hợp tại [US-overview](US-overview.md).
+
+### Kiểm chất lượng goal/phân rã revision 2.3
+
+| Core | Actor/trigger/kết quả và đóng góp của sub | Quyết định và trade-off | Nguồn |
+|---|---|---|---|
+| UC-M11-030 (Summary) | Actor ACT-002, ACT-011; Tạo, chỉnh cài đặt và kết thúc cộng đồng cùng bảo vệ vòng đời nhóm; sub001/002/003 có trigger và kết quả riêng, sub022 dùng lại hệ quả xóa. Không gộp các phiên quản trị thành một lần CRUD bắt buộc. | Giữ 5 sub theo mapping: UC-M11-001, UC-M11-002, UC-M11-003, UC-M11-022, UC-M11-024. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M11-01, FR-M11-02, FR-M11-15, BR-M11-03, BR-M11-04, BR-M11-06, BR-M11-23, BR-M11-31, BR-M11-32 |
+| UC-M11-031 (Summary) | Actor ACT-001, ACT-002, ACT-009, ACT-008, ACT-007; Actor khám phá nhóm rồi đọc thông tin/nội dung/thành viên; sub004/005/006 là các mục tiêu đọc độc lập, sub023/024 là phép kiểm dùng chung, không nhân quyền Private từ quyền thấy lối vào. | Giữ 5 sub theo mapping: UC-M11-004, UC-M11-005, UC-M11-006, UC-M11-023, UC-M11-024. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M11-03, BR-M11-11, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-33, BR-M11-34, BR-M11-35 |
+| UC-M11-032 (Summary) | Actor ACT-002, ACT-009, ACT-010, ACT-011; Hành trình xin vào, mời, duyệt/chặn và quản lý vai trò/rời nhóm cùng giữ tư cách thành viên; các kết quả Chờ duyệt/Member/Đã rút/rời/kế nhiệm khác nhau, không phải chuỗi thao tác mọi người đều chạy. | Giữ 12 sub theo mapping: UC-M11-006, UC-M11-007, UC-M11-008, UC-M11-009, UC-M11-010, UC-M11-011, UC-M11-012, UC-M11-013, UC-M11-014, UC-M11-015, UC-M11-022, UC-M11-024. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M11-04, FR-M11-05, FR-M11-06, FR-M11-07, FR-M11-08, FR-M11-09, FR-M11-10, FR-M11-11, BR-M11-05, BR-M11-06, BR-M11-07, BR-M11-08, BR-M11-09, BR-M11-10, BR-M11-12, BR-M11-24, BR-M11-25, BR-M11-26 |
+| UC-M11-033 (User goal) | Actor ACT-009, ACT-010, ACT-011; Core User goal kết thúc một lượt gửi bài bằng đúng trạng thái/cổng; sub016 quyết định cổng và sub024 kiểm quyền. Không đồng nhất giá trị đăng bài với thao tác chấm AI hoặc mặc định Admin là Owner. | Giữ 2 sub theo mapping: UC-M11-016, UC-M11-024. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M11-12, FR-M11-13.11, FR-M11-13.12, FR-M11-13.14, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-38, BR-M11-40 |
+| UC-M11-034 (Summary) | Actor ACT-010, ACT-011; Đọc queue, nhận giữ, kết luận và gỡ nội dung phục vụ kiểm duyệt riêng nhóm; sub021 quản lý quyền theo pha, gỡ không cần giữ bài. Không gộp gỡ bài đã đăng với kết luận bài chờ. | Giữ 6 sub theo mapping: UC-M11-017, UC-M11-018, UC-M11-019, UC-M11-020, UC-M11-021, UC-M11-024. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M11-13, FR-M11-14, BR-M11-05, BR-M11-06, BR-M11-20, BR-M11-21, BR-M11-22, BR-M11-30, BR-M11-38, BR-M11-39 |
+
+Không có mapping 1:1 core–sub trong revision này. Đối chiếu level ở catalog/spec/brief/rationale; tier không quyết định level. Các sub có cùng caller vẫn được phân biệt bằng trigger/kết quả; mapping không tự tạo UML. Giữ ID và nhãn hiện có; không tạo mục tiêu mới để đủ hai tầng.
+
 ## 3. Đặc tả
 
 ### 3.1 Mô tả các UC chính Summary
 
 <a id="uc-m11-030"></a>
 
-#### UC-M11-030 — Khởi tạo và quản trị nhóm
+#### UC-M11-030 — Tạo và quản lý nhóm
 
 **Actor:** ACT-002, ACT-011. **Mục tiêu/giá trị:** Tạo và duy trì một cộng đồng có Owner, cấu hình rõ, kết thúc bằng xóa mềm đúng quyền.
 
@@ -224,7 +264,7 @@ Mode module, chỉ làm M11; chưa tổng hợp toàn hệ thống hoặc tạo 
 
 <a id="uc-m11-031"></a>
 
-#### UC-M11-031 — Khám phá và xem nhóm
+#### UC-M11-031 — Tìm và xem nhóm
 
 **Actor:** ACT-001, ACT-002, ACT-009, ACT-008, ACT-007. **Mục tiêu/giá trị:** Người xem tìm cộng đồng qua danh sách, đọc nhóm/nội dung/danh sách thành viên theo quyền, bảo toàn riêng tư và ẩn danh.
 
@@ -238,7 +278,7 @@ Mode module, chỉ làm M11; chưa tổng hợp toàn hệ thống hoặc tạo 
 
 <a id="uc-m11-032"></a>
 
-#### UC-M11-032 — Quản lý tham gia và thành viên
+#### UC-M11-032 — Quản lý tham gia và thành viên nhóm
 
 **Actor:** ACT-002, ACT-009, ACT-010, ACT-011. **Mục tiêu/giá trị:** Người dùng gia nhập/rời cộng đồng; Owner/Group Mod quản trị thành viên và duy trì một Owner.
 
@@ -252,7 +292,7 @@ Mode module, chỉ làm M11; chưa tổng hợp toàn hệ thống hoặc tạo 
 
 <a id="uc-m11-034"></a>
 
-#### UC-M11-034 — Kiểm duyệt nội dung cấp nhóm
+#### UC-M11-034 — Kiểm duyệt nội dung nhóm
 
 **Actor:** ACT-010, ACT-011. **Mục tiêu/giá trị:** Owner/Group Mod giữ chất lượng nội dung nhóm bằng duyệt hàng chờ và gỡ nội dung đúng thẩm quyền.
 
@@ -557,7 +597,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-005"></a>
 <a id="uc-m11-005-contract"></a>
 
-#### UC-M11-005 — Xem trang nhóm và nội dung nhóm
+#### UC-M11-005 — Xem trang nhóm
 
 **Thuộc core:** [UC-M11-031](#uc-m11-031). Đọc thông tin/nội dung theo lớp quyền.
 
@@ -617,7 +657,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-006"></a>
 <a id="uc-m11-006-contract"></a>
 
-#### UC-M11-006 — Xem danh sách thành viên và vai trò
+#### UC-M11-006 — Xem thành viên và vai trò trong nhóm
 
 **Thuộc core:** [UC-M11-031](#uc-m11-031), [UC-M11-032](#uc-m11-032). Xem thành viên/vai trò; dùng lại khi Owner quản trị.
 
@@ -742,7 +782,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 | trigger | Người gửi chọn rút yêu cầu. |
 | preconditions | Có yêu cầu/nhóm đích, định danh người gửi; trạng thái kiểm trong luồng. |
 | success | Yêu cầu Chờ duyệt của chính người gửi thành Đã rút, không trở thành Member. |
-| failure | Không cho rút yêu cầu người khác/không Chờ duyệt theo hợp đồng quyền nguồn; hành vi rút ở nhóm Khóa chưa được nêu riêng (NOTE-M11-04). |
+| failure | Không cho rút yêu cầu người khác/không Chờ duyệt theo hợp đồng quyền nguồn; nhóm Khóa không cấm rút yêu cầu; cờ/phiên và điều kiện sở hữu/Chờ duyệt vẫn áp (NOTE-M11-04 đã đối chiếu). |
 | abstract | false |
 | common_contract | Không áp dụng: không dùng generalization UC. |
 
@@ -759,7 +799,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 | ID nhánh | Bước rẽ | Điều kiện | Xử lý | Quay lại/kết thúc | Nguồn |
 |---|---|---|---|---|---|
 | <a id="uc-m11-008-alt-1"></a>A1 | [Bước 3](#uc-m11-008-main-3) | Yêu cầu không thuộc người gửi hoặc không còn Chờ duyệt. | Không thực hiện rút ngoài điều kiện FR quy định; không tự xóa dữ liệu yêu cầu. | END: không rút yêu cầu này. | FR-M11-04.10, BR-M11-36 |
-| <a id="uc-m11-008-alt-2"></a>A2 | [Bước 2](#uc-m11-008-main-2) | Nhóm Bị khóa và yêu cầu thao tác rút. | Nguồn chưa liệt kê rút yêu cầu trong các thao tác chặn/cho phép; không tự chốt cho/chặn. Áp phần đã rõ, đưa quyết định còn thiếu về phân tích yêu cầu. | END: cần làm rõ NOTE-M11-04 cho tình huống này. | BR-M11-28, BR-M11-36 |
+| <a id="uc-m11-008-alt-2"></a>A2 | [Bước 2](#uc-m11-008-main-2) | Nhóm Bị khóa và yêu cầu thao tác rút. | Cho rút yêu cầu đang Chờ duyệt của chính người gửi: FR-M11-04.10/BR-M11-36 vẫn áp, danh sách thao tác bị khóa tại FR-M11-16.04/FR-M11-16.07/FR-M11-16.08 không cấm rút. Tiếp tục kiểm sở hữu và Chờ duyệt, không coi rút là tham gia hoặc duyệt yêu cầu. | [Tiếp tục](#uc-m11-008-main-3): kiểm điều kiện và chuyển Đã rút; nếu không đạt đi A1. | BR-M11-28, BR-M11-36 |
 
 <a id="uc-m11-008-rules"></a>
 
@@ -883,7 +923,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-011"></a>
 <a id="uc-m11-011-contract"></a>
 
-#### UC-M11-011 — Quản lý chặn tham gia
+#### UC-M11-011 — Chặn hoặc bỏ chặn tham gia nhóm
 
 **Thuộc core:** [UC-M11-032](#uc-m11-032). Kiểm soát người bị chặn tham gia.
 
@@ -915,7 +955,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 
 | ID nhánh | Bước rẽ | Điều kiện | Xử lý | Quay lại/kết thúc | Nguồn |
 |---|---|---|---|---|---|
-| <a id="uc-m11-011-alt-1"></a>A1 | [Bước 1](#uc-m11-011-main-1) | Chọn xem danh sách chặn. | Kiểm quyền/cờ/trạng thái đọc bằng UC024, hiện những người đang bị chặn; ở nhóm Khóa nguồn chưa liệt kê xem danh sách chặn, xem NOTE-M11-04. | END: danh sách theo phần quyền đã chốt. | FR-M11-07.02, FR-M11-07.04, BR-M11-10, BR-M11-28 |
+| <a id="uc-m11-011-alt-1"></a>A1 | [Bước 1](#uc-m11-011-main-1) | Chọn xem danh sách chặn. | Kiểm quyền/cờ/trạng thái đọc bằng UC024, hiện những người đang bị chặn; nhóm Khóa vẫn cho đọc danh sách theo FR-M11-07.04; chỉ chặn/bỏ chặn là thao tác bị từ chối ở FR-M11-16.07. Xem NOTE-M11-04 đã đối chiếu. | END: danh sách theo phần quyền đã chốt. | FR-M11-07.02, FR-M11-07.04, BR-M11-10, BR-M11-28 |
 | <a id="uc-m11-011-alt-2"></a>A2 | [Bước 1](#uc-m11-011-main-1) | Chọn bỏ chặn một người. | Qua UC024 với hành vi bỏ chặn; cho người đó vào lại theo UC007, không khôi phục tự động yêu cầu bị từ chối/thành viên. | END: bỏ chặn; chờ người đó thực hiện luồng tham gia. | FR-M11-07.05, BR-M11-10 |
 | <a id="uc-m11-011-alt-3"></a>A3 | [Bước 2](#uc-m11-011-main-2) | Member/người ngoài hoặc nhóm không cho chặn/bỏ chặn. | Từ chối. | END: không sửa danh sách chặn. | FR-M11-07.02, FR-M11-16.07 |
 
@@ -937,7 +977,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-012"></a>
 <a id="uc-m11-012-contract"></a>
 
-#### UC-M11-012 — Bổ nhiệm hoặc giáng Group Mod
+#### UC-M11-012 — Bổ nhiệm hoặc gỡ Group Mod
 
 **Thuộc core:** [UC-M11-032](#uc-m11-032). Phân công/chấm dứt Group Mod.
 
@@ -990,7 +1030,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-013"></a>
 <a id="uc-m11-013-contract"></a>
 
-#### UC-M11-013 — Kick thành viên khỏi nhóm
+#### UC-M11-013 — Xóa thành viên khỏi nhóm
 
 **Thuộc core:** [UC-M11-032](#uc-m11-032). Đưa người thuộc thẩm quyền ra khỏi nhóm.
 
@@ -1099,7 +1139,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-015"></a>
 <a id="uc-m11-015-contract"></a>
 
-#### UC-M11-015 — Chuyển Owner trước khi tự rời
+#### UC-M11-015 — Chuyển quyền chủ nhóm trước khi rời
 
 **Thuộc core:** [UC-M11-032](#uc-m11-032). Duy trì Owner khi người cũ tự rời.
 
@@ -1148,7 +1188,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-016"></a>
 <a id="uc-m11-016-contract"></a>
 
-#### UC-M11-016 — Điều phối cổng duyệt bài nhóm
+#### UC-M11-016 — Xử lý quy trình duyệt bài nhóm
 
 **Thuộc core:** [UC-M11-033](#uc-m11-033). Quyết đúng kết quả/hàng chờ của bài nhóm.
 
@@ -1212,7 +1252,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-017"></a>
 <a id="uc-m11-017-contract"></a>
 
-#### UC-M11-017 — Tra cứu hàng chờ duyệt của nhóm
+#### UC-M11-017 — Xem hàng chờ duyệt bài nhóm
 
 **Thuộc core:** [UC-M11-034](#uc-m11-034). Xem tập bài chờ riêng nhóm.
 
@@ -1260,7 +1300,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-018"></a>
 <a id="uc-m11-018-contract"></a>
 
-#### UC-M11-018 — Nhận bài chờ duyệt
+#### UC-M11-018 — Nhận duyệt bài viết
 
 **Thuộc core:** [UC-M11-034](#uc-m11-034). Nhận quyền giữ để xử lý.
 
@@ -1308,7 +1348,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-019"></a>
 <a id="uc-m11-019-contract"></a>
 
-#### UC-M11-019 — Kết luận bài chờ duyệt
+#### UC-M11-019 — Duyệt hoặc từ chối bài viết
 
 **Thuộc core:** [UC-M11-034](#uc-m11-034). Ra kết quả chấp nhận hoặc từ chối có lý do.
 
@@ -1419,7 +1459,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-021"></a>
 <a id="uc-m11-021-contract"></a>
 
-#### UC-M11-021 — Kiểm tra quyền duyệt và giữ bài
+#### UC-M11-021 — Kiểm tra quyền xử lý bài chờ duyệt
 
 **Thuộc core:** [UC-M11-034](#uc-m11-034). Dùng chung quyền theo pha xem/nhận/kết luận.
 
@@ -1471,7 +1511,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-022"></a>
 <a id="uc-m11-022-contract"></a>
 
-#### UC-M11-022 — Áp dụng xóa mềm nhóm
+#### UC-M11-022 — Xử lý dữ liệu khi xóa nhóm
 
 **Thuộc core:** [UC-M11-030](#uc-m11-030), [UC-M11-032](#uc-m11-032). Tái dùng hệ quả xóa mềm/giữ dữ liệu/điểm.
 
@@ -1521,7 +1561,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-023"></a>
 <a id="uc-m11-023-contract"></a>
 
-#### UC-M11-023 — Xác định quyền xem và danh tính tác giả
+#### UC-M11-023 — Hiển thị nội dung nhóm theo quyền xem
 
 **Thuộc core:** [UC-M11-031](#uc-m11-031). Dùng chung lọc dữ liệu/riêng tư/danh tính thật.
 
@@ -1572,7 +1612,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 <a id="uc-m11-024"></a>
 <a id="uc-m11-024-contract"></a>
 
-#### UC-M11-024 — Kiểm tra điều kiện thao tác nhóm
+#### UC-M11-024 — Kiểm tra điều kiện thao tác trong nhóm
 
 **Thuộc core:** [UC-M11-030](#uc-m11-030), [UC-M11-031](#uc-m11-031), [UC-M11-032](#uc-m11-032), [UC-M11-033](#uc-m11-033), [UC-M11-034](#uc-m11-034). Áp cờ/trạng thái/quyền hành vi dùng chung.
 
@@ -1587,7 +1627,7 @@ Subfunction nhận ngữ cảnh caller, không có nút bỏ qua quyền. Nguồ
 | trigger | Các caller chèn với hành vi, nhóm/đích và ngữ cảnh lối vào. |
 | preconditions | Có loại hành vi, người yêu cầu, nhóm nếu đã có; với tạo không cần nhóm tồn tại. Không phải lệnh quản trị có thể gọi độc lập. |
 | success | Trả cho phép trong phần nguồn đã chốt; Admin chỉ được miễn cờ, không tự miễn Private/thành viên/Owner/Khóa. |
-| failure | Từ chối đúng điều kiện đã chốt; tình huống rút/xem danh sách chặn ở nhóm Khóa chưa được chốt không bị tự quyết (NOTE-M11-04). |
+| failure | Từ chối đúng điều kiện đã chốt; nhóm Khóa vẫn cho rút yêu cầu của mình và Owner/Group Mod đọc danh sách chặn theo quy tắc dương; chặn/bỏ chặn vẫn bị từ chối (NOTE-M11-04 đã đối chiếu). |
 | abstract | false |
 | common_contract | Không áp dụng: không dùng generalization UC. |
 
@@ -1841,7 +1881,7 @@ Rời/kick giữ bài-bình luận, tác giả/ẩn danh/điểm. Sau rời Publ
 
 #### RULE-M11-006 — Nhóm Khóa/Ẩn và cờ tính năng
 
-Đã xóa hoặc Bị ẩn không hiện nhóm/nội dung; Bị ẩn giữ dữ liệu và không có bỏ ẩn. Bị khóa vẫn đọc theo Public/Private, bookmark/báo cáo được; chặn tất cả: đăng, bình luận, vote, poll, tham gia/mời, duyệt yêu cầu/bài, gỡ, kick, chặn/bỏ chặn, bổ nhiệm/giáng, sửa/cài đặt/xóa và Owner rời; Member/Group Mod tự rời và tự chuyển Owner vẫn chạy. Mở khóa do M08 trả điều kiện như thường, không vượt Private/quyền/cờ. Cờ Group tắt chặn thao tác người không ADMIN với đúng thông báo Hệ thống đang bận, vui lòng thử lại sau; nhóm/bài vẫn ở các lối vào đã nêu; kế nhiệm và kiểm duyệt M08 vẫn chạy; dữ liệu không thay do tắt, bật lại không bù yêu cầu. Admin chỉ qua cờ, vẫn phải đúng thành viên/Owner và nhóm không Khóa/Ẩn/Xóa. Phân biệt danh sách lối vào còn hiển thị với mở nhóm/nội dung bị chặn (NOTE-M11-05); rút yêu cầu/xem danh sách chặn trong Khóa chưa được nguồn tách riêng (NOTE-M11-04).
+Đã xóa hoặc Bị ẩn không hiện nhóm/nội dung; Bị ẩn giữ dữ liệu và không có bỏ ẩn. Bị khóa vẫn đọc theo Public/Private, bookmark/báo cáo được; chặn tất cả: đăng, bình luận, vote, poll, tham gia/mời, duyệt yêu cầu/bài, gỡ, kick, chặn/bỏ chặn, bổ nhiệm/giáng, sửa/cài đặt/xóa và Owner rời; Member/Group Mod tự rời và tự chuyển Owner vẫn chạy. Mở khóa do M08 trả điều kiện như thường, không vượt Private/quyền/cờ. Cờ Group tắt chặn thao tác người không ADMIN với đúng thông báo Hệ thống đang bận, vui lòng thử lại sau; nhóm/bài vẫn ở các lối vào đã nêu; kế nhiệm và kiểm duyệt M08 vẫn chạy; dữ liệu không thay do tắt, bật lại không bù yêu cầu. Admin chỉ qua cờ, vẫn phải đúng thành viên/Owner và nhóm không Khóa/Ẩn/Xóa. Phân biệt danh sách lối vào còn hiển thị với mở nhóm/nội dung bị chặn (NOTE-M11-05); rút yêu cầu Chờ duyệt của chính mình và Owner/Group Mod đọc danh sách chặn vẫn theo FR-M11-04.10/FR-M11-07.04, không nằm trong tập cấm khi Khóa. NOTE-M11-04 đã đối chiếu bằng phép hợp thành quy tắc, không tạo ngoại lệ mới.
 
 **Căn cứ:** BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, FR-M11-16, FR-M11-17.
 
@@ -1915,7 +1955,8 @@ Core033→UC016 và Core033→UC024 là cạnh chính–con; các cạnh UC003�
 
 ### 4.3 Association actor–UC
 
-| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 |---|---|---|---|---|
 | ACT-002 | UC-M11-030 | Tạo nhóm | Theo điều kiện quyền và nhánh của UC | FR-M11-01, FR-M11-02, FR-M11-15, BR-M11-03, BR-M11-04, BR-M11-06, BR-M11-23, BR-M11-31, BR-M11-32 |
 | ACT-011 | UC-M11-030 | Quản trị nhóm | Theo điều kiện quyền và nhánh của UC | FR-M11-01, FR-M11-02, FR-M11-15, BR-M11-03, BR-M11-04, BR-M11-06, BR-M11-23, BR-M11-31, BR-M11-32 |
@@ -2363,7 +2404,7 @@ Chỉ UC-M11-030, UC-M11-031, UC-M11-032, UC-M11-033, UC-M11-034. Không có c�
 
 ### 6.2 Chi tiết riêng từng UC chính
 
-#### UC-M11-030 — Khởi tạo và quản trị nhóm
+#### UC-M11-030 — Tạo và quản lý nhóm
 
 **Focus:** UC-M11-030. **Node:** UC-M11-030, UC-M11-001, UC-M11-002, UC-M11-003, UC-M11-022, UC-M11-024. **Cạnh UC–UC:** 4.
 
@@ -2378,7 +2419,7 @@ Chỉ UC-M11-030, UC-M11-031, UC-M11-032, UC-M11-033, UC-M11-034. Không có c�
 
 Core Summary vẫn hiện thành node ngữ cảnh, toàn bộ sub theo mapping đều có mặt; các cặp không có lời chèn giữ mapping/brief tại mục 2–4, không tự nối core với tất cả sub.
 
-#### UC-M11-031 — Khám phá và xem nhóm
+#### UC-M11-031 — Tìm và xem nhóm
 
 **Focus:** UC-M11-031. **Node:** UC-M11-031, UC-M11-004, UC-M11-005, UC-M11-006, UC-M11-023, UC-M11-024. **Cạnh UC–UC:** 6.
 
@@ -2395,7 +2436,7 @@ Core Summary vẫn hiện thành node ngữ cảnh, toàn bộ sub theo mapping 
 
 Core Summary vẫn hiện thành node ngữ cảnh, toàn bộ sub theo mapping đều có mặt; các cặp không có lời chèn giữ mapping/brief tại mục 2–4, không tự nối core với tất cả sub.
 
-#### UC-M11-032 — Quản lý tham gia và thành viên
+#### UC-M11-032 — Quản lý tham gia và thành viên nhóm
 
 **Focus:** UC-M11-032. **Node:** UC-M11-032, UC-M11-006, UC-M11-007, UC-M11-008, UC-M11-009, UC-M11-010, UC-M11-011, UC-M11-012, UC-M11-013, UC-M11-014, UC-M11-015, UC-M11-022, UC-M11-024, UC-M11-023. **Cạnh UC–UC:** 15.
 
@@ -2434,7 +2475,7 @@ Core Summary vẫn hiện thành node ngữ cảnh, toàn bộ sub theo mapping 
 | UC-M11-033 | include | UC-M11-024 | [Đặc tả](#uc-m11-033-main-1) | Mỗi lần thực hiện hành vi; các nhánh cùng loại kiểm theo pha; [Trở về](#uc-m11-033-main-2) |
 | UC-M11-033 | include | UC-M11-016 | [Đặc tả](#uc-m11-033-main-3) | Gửi mới hoặc gửi lại; kết quả không đăng ngay kết thúc theo nhánh; [Trở về](#uc-m11-033-main-4) |
 
-#### UC-M11-034 — Kiểm duyệt nội dung cấp nhóm
+#### UC-M11-034 — Kiểm duyệt nội dung nhóm
 
 **Focus:** UC-M11-034. **Node:** UC-M11-034, UC-M11-017, UC-M11-018, UC-M11-019, UC-M11-020, UC-M11-021, UC-M11-024. **Cạnh UC–UC:** 7.
 
@@ -2454,21 +2495,21 @@ Core Summary vẫn hiện thành node ngữ cảnh, toàn bộ sub theo mapping 
 
 ### 6.3 Tổng quan toàn hệ thống
 
-Chưa có US-overview.md ở baseline. Yêu cầu hiện tại chỉ M11; khi tổng hợp hệ thống, lấy nguyên năm core tại catalog (ID/tên/level/actor/owner) và trỏ về tài liệu này. Không đưa 24 sub lên view hệ thống hoặc coi các module chưa phân tích đã đầy đủ.
+Revision 2.3 đã có [US-overview](US-overview.md); ghi nhận “chưa có” ở lần phân tích cũ là lịch sử. Yêu cầu hiện tại chỉ M11; khi tổng hợp hệ thống, lấy nguyên năm core tại catalog (ID/tên/level/actor/owner) và trỏ về tài liệu này. Không đưa 24 sub lên view hệ thống hoặc coi các module chưa phân tích đã đầy đủ.
 
 ## 7. Kiểm tra và phê duyệt
 
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| C-M11 | core | - | UC-M11-030, UC-M11-031, UC-M11-032, UC-M11-033, UC-M11-034 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M11/C-M11.svg |
-| D-M11-030 | detail | UC-M11-030 | UC-M11-030, UC-M11-001, UC-M11-002, UC-M11-003, UC-M11-022, UC-M11-024 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M11/D-M11-030.svg |
-| D-M11-031 | detail | UC-M11-031 | UC-M11-031, UC-M11-004, UC-M11-005, UC-M11-006, UC-M11-023, UC-M11-024 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M11/D-M11-031.svg |
-| D-M11-032 | detail | UC-M11-032 | UC-M11-032, UC-M11-006, UC-M11-007, UC-M11-008, UC-M11-009, UC-M11-010, UC-M11-011, UC-M11-012, UC-M11-013, UC-M11-014, UC-M11-015, UC-M11-022, UC-M11-024, UC-M11-023 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M11/D-M11-032.svg |
-| D-M11-033 | detail | UC-M11-033 | UC-M11-033, UC-M11-016, UC-M11-024 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M11/D-M11-033.svg |
-| D-M11-034 | detail | UC-M11-034 | UC-M11-034, UC-M11-017, UC-M11-018, UC-M11-019, UC-M11-020, UC-M11-021, UC-M11-024 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M11/D-M11-034.svg |
+| C-M11 | core | - | UC-M11-030, UC-M11-031, UC-M11-032, UC-M11-033, UC-M11-034 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M11/C-M11.svg |
+| D-M11-030 | detail | UC-M11-030 | UC-M11-030, UC-M11-001, UC-M11-002, UC-M11-003, UC-M11-022, UC-M11-024 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M11/D-M11-030.svg |
+| D-M11-031 | detail | UC-M11-031 | UC-M11-031, UC-M11-004, UC-M11-005, UC-M11-006, UC-M11-023, UC-M11-024 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M11/D-M11-031.svg |
+| D-M11-032 | detail | UC-M11-032 | UC-M11-032, UC-M11-006, UC-M11-007, UC-M11-008, UC-M11-009, UC-M11-010, UC-M11-011, UC-M11-012, UC-M11-013, UC-M11-014, UC-M11-015, UC-M11-022, UC-M11-024, UC-M11-023 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M11/D-M11-032.svg |
+| D-M11-033 | detail | UC-M11-033 | UC-M11-033, UC-M11-016, UC-M11-024 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M11/D-M11-033.svg |
+| D-M11-034 | detail | UC-M11-034 | UC-M11-034, UC-M11-017, UC-M11-018, UC-M11-019, UC-M11-020, UC-M11-021, UC-M11-024 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M11/D-M11-034.svg |
 
-### 7.1 Bằng chứng kiểm tra
+### 7.1 Bằng chứng kiểm tra lịch sử 2.2 (không phải lần kiểm 2.3)
 
 | Hạng mục | Lệnh/phương pháp | Kết quả thực tế | Giới hạn/bằng chứng |
 |---|---|---|---|
@@ -2485,7 +2526,7 @@ Chưa có US-overview.md ở baseline. Yêu cầu hiện tại chỉ M11; khi t�
 | NOTE-M11-01 | FR-M11-11.01, FR-M11-11.02, BR-M11-26 | Chưa chốt cách chọn khi hai Group Mod cùng thời điểm bổ nhiệm hoặc Member cùng thời điểm tham gia; chưa nêu điều kiện trạng thái tài khoản của người kế nhiệm. | Ảnh hưởng chọn ứng viên cụ thể; không thay thứ tự ưu tiên đã chốt. | Giữ Group Mod thâm niên dài nhất rồi Member vào sớm nhất; không tự tie-break theo ID/ngẫu nhiên hoặc lọc ACTIVE. Owner cũ vẫn Member theo yêu cầu. |
 | NOTE-M11-02 | FR-M11-01.08, FR-M11-01.09, FR-M11-02.11, BR-M11-31, BR-M11-08 | Đếm ký tự tên/mô tả chưa chốt đơn vị Unicode/trim; câu hỏi/câu trả lời chưa có giới hạn độ dài hoặc lưu phiên bản câu hỏi sau sửa. | Ảnh hưởng biên dữ liệu và diễn giải câu trả lời cũ; không cản các biên bắt buộc đã có. | Giữ tên bắt buộc≤100, mô tả tùy chọn≤500 và câu trả lời không trống nếu có câu hỏi; không tự thêm min/max/trim hoặc snapshot câu hỏi. |
 | NOTE-M11-03 | BR-M11-05, FR-M11-14.08, FR-M11-14.01 | Cấm tác động ngang/cao hơn và dòng cụ thể cấm Group Mod gỡ của Group Mod khác chưa quy định rõ dùng quyền nhóm gỡ chính nội dung mình. | Không tự biến quyền tác giả M03/M04 thành quyền gỡ nhóm hoặc tự đặt lệnh cấm mới. | Đặc tả đường chính gỡ thành viên thấp hơn và từ chối tác động Owner/Group Mod khác; tình huống gỡ chính mình dưới quyền nhóm cần làm rõ; quyền sửa/xóa tác giả theo owner. |
-| NOTE-M11-04 | BR-M11-28, FR-M11-16.07, FR-M11-16.09, BR-M11-36, FR-M11-07.04 | Danh sách chặn/cho phép khi Khóa không nêu riêng rút yêu cầu đang chờ hoặc chỉ xem danh sách chặn. | Chưa chốt hai hành vi này trong trạng thái Khóa. | Không suy rút yêu cầu là tự rời Member hoặc duyệt yêu cầu; không suy xem danh sách là bỏ chặn. Giữ đúng tập đã liệt kê, đưa hai trường hợp về phân tích yêu cầu. |
+| NOTE-M11-04 (đã đối chiếu) | FR-M11-04.10, BR-M11-36, FR-M11-07.04; FR-M11-16.04, FR-M11-16.07, FR-M11-16.08, BR-M11-28; DEC-235, DEC-238 | Điểm nghi ngờ trước đây đã được giải bằng hợp thành quy tắc dương với danh sách thao tác bị cấm khi Khóa. | Cho người gửi rút yêu cầu Chờ duyệt của mình; cho Owner/Group Mod đọc danh sách chặn. Chặn/bỏ chặn vẫn bị cấm; phiên/cờ/Ẩn/Xóa vẫn áp. | resolved theo nguồn hiện hành; không cần thêm quyết định cho giao trạng thái chỉ vì nguồn không lặp lại mọi tổ hợp. |
 | NOTE-M11-05 | FR-M11-17.01, FR-M11-17.07, FR-M11-17.08, BR-M11-29 | Câu tổng quát chặn mọi thao tác tới module khi cờ tắt đi cùng yêu cầu cụ thể vẫn hiện nhóm/bài ở danh sách nhóm và các lối vào. | Cần phân biệt việc liệt kê lối vào với mở nhóm/nội dung, tránh ẩn hết các lối vào. | Áp yêu cầu cụ thể: vẫn hiện lối vào/danh sách theo quyền; mở nhóm, bài, tương tác của người không ADMIN bị chặn với thông báo bận. UC004/024 ghi ngữ cảnh rõ, không coi cờ tắt cấp quyền Private. |
 | NOTE-M11-06 | FR-M11-02.05, FR-M11-02.15, BR-M11-20, BR-M11-39, BR-M11-40, FR-M11-13.14; BR-M03-46 | Chưa nêu đầy đủ cách xử lý khi nhóm/Owner/vai trò người giữ thay đổi lúc AI/duyệt/khiếu nại đang chờ, người giữ mất vai trò, hoặc Group Mod có bài chờ sau đó thành Owner. | Ảnh hưởng định tuyến/giữ bài trong tình huống chuyển tiếp; không được tự bỏ kiểm quyền hiện tại hoặc di chuyển/xả queue. | Giữ công tắc mới cho bài gửi sau đổi, tắt duyệt trước không nhả bài; kiểm vai trò/giữ khi thao tác. Không tự nhả ngay khi mất vai trò hoặc chuyển bài cũ sang queue khác. M09 đã gửi lại thì giữ trạng thái, không quét lại sau chấp nhận; trường hợp nhóm đổi trạng thái cần nguồn quyết định thêm. |
 | NOTE-M11-07 | FR-M11-10.04, FR-M11-02.14, FR-M11-15.01, BR-M11-37 | Nguồn chưa chốt giao dịch/lỗi/thứ tự phát thông báo, chuyển Owner rồi đưa người cũ ra, chấp nhận hàng loạt hoặc tác vụ chạy đồng thời. | Ảnh hưởng bảo đảm khi thất bại và triển khai kỹ thuật. | Không tự bổ sung atomicity, rollback, retry, outbox, khóa dữ liệu hoặc thông báo lỗi mới; giữ hợp đồng thành công/thứ tự nghiệp vụ và đưa phần thiếu về phân tích yêu cầu/kỹ thuật. |
@@ -2500,3 +2541,147 @@ Chưa có US-overview.md ở baseline. Yêu cầu hiện tại chỉ M11; khi t�
 
 Chưa có US-M11 trước lượt này, không đổi ID UC đã duyệt. Giữ ACT-001/002/006/007/008 hiện có; bổ sung ACT-009/010/011 cho vai trò nhóm riêng, không tái dùng ACT-003 gộp Mod/Admin để làm Group Mod. Chỉ chuyển Đã duyệt khi người dùng chấp nhận kết quả cuối; tự thực hiện đủ bảy bước không là bằng chứng phê duyệt.
 
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+
+### 7.4 Walkthrough từng đường đi — revision 2.3
+
+Bảng dưới ghi riêng main và mỗi nhánh của từng hợp đồng, dùng trạng thái/guard thực tế. “Đối chiếu” chỉ áp phần nguồn đã định; các NOTE nêu rõ phần chưa thể kết luận. Một END ghi cần làm rõ không phải failure guarantee đã chốt.
+
+| UC/đường đi | Trạng thái/quyền trước | Điểm rẽ và return/END | Postcondition thực tế/giới hạn | Nguồn/kết quả |
+|---|---|---|---|---|
+| UC-M11-033/[main](#uc-m11-033-main-1) | Trigger: Thành viên gửi bài mới hoặc sửa/gửi lại bài Bị từ chối. Trước: Định danh, bài và dữ liệu soạn/sửa do M03 cung cấp; không giả định quyền đăng hoặc kết quả quét trước khi kiểm. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Đường chính: bài Đã đăng đúng phạm vi nhóm và lựa chọn ẩn danh. Các nhánh Chờ duyệt/Bị từ chối giữ kết quả của cổng và quyền tiếp tục đúng nguồn. | FR-M11-12, FR-M11-13.11, FR-M11-13.12, FR-M11-13.14, BR-M11-01, BR-M11-16, BR-M11-17, BR-M11-18, BR-M11-19, BR-M11-38, BR-M11-40; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-033/[A1](#uc-m11-033-alt-1) | Định danh, bài và dữ liệu soạn/sửa do M03 cung cấp; không giả định quyền đăng hoặc kết quả quét trước khi kiểm. Guard: UC024 không đạt quyền hoặc trạng thái. | Rẽ [Bước 1](#uc-m11-033-main-1); END: không đăng bài. | Dừng gửi bài theo từ chối của bộ kiểm. | FR-M11-12.11, FR-M11-16.04, FR-M11-17.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-033/[A2](#uc-m11-033-alt-2) | Định danh, bài và dữ liệu soạn/sửa do M03 cung cấp; không giả định quyền đăng hoặc kết quả quét trước khi kiểm. Guard: Công tắc ẩn danh tắt hoặc bài không thuộc nhóm. | Rẽ [Bước 2](#uc-m11-033-main-2); [Tiếp tục](#uc-m11-033-main-3) | Không cho lựa chọn ẩn danh; tác giả chỉ gửi theo lựa chọn hợp lệ. | FR-M11-12.08, FR-M11-12.09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-033/[A3](#uc-m11-033-alt-3) | Định danh, bài và dữ liệu soạn/sửa do M03 cung cấp; không giả định quyền đăng hoặc kết quả quét trước khi kiểm. Guard: UC016 trả Chờ duyệt. | Rẽ [Bước 3](#uc-m11-033-main-3); END: bài chờ đúng nơi. | Giữ bài trong đúng hàng chờ nhóm hoặc Mod hệ thống theo kết quả; không hiện cho người xem thường. Tác giả theo dõi trạng thái qua M03. | FR-M11-12.03, FR-M11-12.04, FR-M11-12.15, FR-M11-12.18; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-033/[A4](#uc-m11-033-alt-4) | Định danh, bài và dữ liệu soạn/sửa do M03 cung cấp; không giả định quyền đăng hoặc kết quả quét trước khi kiểm. Guard: UC016 trả Bị từ chối bởi AI. | Rẽ [Bước 3](#uc-m11-033-main-3); END: Bị từ chối; có đường tiếp theo theo nguồn. | Cho tác giả biết kết quả qua owner M03/M07, sửa/gửi lại hoặc khiếu nại M09 như bài thường; không coi là nhóm từ chối. | FR-M11-12.02, FR-M11-12.17, FR-M11-13.12, BR-M11-21, BR-M11-38; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-033/[A5](#uc-m11-033-alt-5) | Định danh, bài và dữ liệu soạn/sửa do M03 cung cấp; không giả định quyền đăng hoặc kết quả quét trước khi kiểm. Guard: Tác giả sửa và gửi lại bài bị nhóm từ chối. | Rẽ [Bước 1](#uc-m11-033-main-1); [Tiếp tục](#uc-m11-033-main-2) | Qua cổng nhóm thêm một lần, áp lại các điều kiện và kết quả; không tự chuyển Đã đăng hoặc khiếu nại quyết định cấp nhóm. | FR-M11-13.11, BR-M11-38; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-001/[main](#uc-m11-001-main-1) | Trigger: Người dùng chọn tạo nhóm. Trước: Phiên/định danh theo M01; quyền và hạn mức kiểm trong luồng. | 1 → 2 → 3 → 4 → 5; END: đạt kết quả của đường chính theo hợp đồng. | Nhóm Hoạt động, Bình thường, một Owner đầu tiên có thời điểm tham gia lúc tạo; cấu hình và link chung được giữ. | FR-M11-01, BR-M11-03, BR-M11-04, BR-M11-31; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-001/[A1](#uc-m11-001-alt-1) | Phiên/định danh theo M01; quyền và hạn mức kiểm trong luồng. Guard: Guest hoặc bộ kiểm UC024 không đạt. | Rẽ [Bước 2](#uc-m11-001-main-2); END: không tạo nhóm. | Từ chối tạo. | FR-M11-01.04, FR-M11-17.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-001/[A2](#uc-m11-001-alt-2) | Phiên/định danh theo M01; quyền và hạn mức kiểm trong luồng. Guard: Đã tạo 5 nhóm trong 24 giờ gần nhất. | Rẽ [Bước 3](#uc-m11-001-main-3); END: vượt hạn mức. | Từ chối; xóa nhóm cũ không làm giảm số đã tạo trong khoảng, Admin không được miễn. | FR-M11-01.03, FR-M11-01.06, FR-M11-01.07, BR-M11-03; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-001/[A3](#uc-m11-001-alt-3) | Phiên/định danh theo M01; quyền và hạn mức kiểm trong luồng. Guard: Tên trống/>100 hoặc mô tả >500 ký tự. | Rẽ [Bước 3](#uc-m11-001-main-3); END: dữ liệu không đạt. | Từ chối lưu. | FR-M11-01.08, FR-M11-01.09, BR-M11-31; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-002/[main](#uc-m11-002-main-1) | Trigger: Owner lưu thay đổi tên/mô tả/Public-Private/duyệt trước/ẩn danh/câu hỏi. Trước: Có nhóm đích; quyền Owner và trạng thái kiểm trong luồng. | 1 → 2 → 3 → 4 → 5; END: đạt kết quả của đường chính theo hợp đồng. | Cài đặt mới áp các thao tác/bài/yêu cầu gửi sau đổi; dữ liệu đang có được giữ theo ngoại lệ cụ thể. | FR-M11-02, BR-M11-06, BR-M11-08, BR-M11-15, BR-M11-16, BR-M11-18, BR-M11-31, BR-M11-32; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-002/[A1](#uc-m11-002-alt-1) | Có nhóm đích; quyền Owner và trạng thái kiểm trong luồng. Guard: Group Mod/Member/người ngoài đổi thông tin hoặc cài đặt; hoặc UC024 từ chối. | Rẽ [Bước 2](#uc-m11-002-main-2); END: không sửa nhóm. | Từ chối thay đổi. | FR-M11-02.09, FR-M11-02.10, FR-M11-16.07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-002/[A2](#uc-m11-002-alt-2) | Có nhóm đích; quyền Owner và trạng thái kiểm trong luồng. Guard: Tên trống/>100 hoặc mô tả >500. | Rẽ [Bước 3](#uc-m11-002-main-3); END: dữ liệu không đạt. | Từ chối lưu. | FR-M11-02.11; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-002/[A3](#uc-m11-002-alt-3) | Có nhóm đích; quyền Owner và trạng thái kiểm trong luồng. Guard: Chỉ sửa câu hỏi hoặc thay đổi khác không làm thành nhóm vào ngay. | Rẽ [Bước 5](#uc-m11-002-main-5); END: cài đặt đã đổi, hàng chờ giữ theo nguồn. | Không tự chấp nhận yêu cầu cũ; không tự nhả bài chờ. | FR-M11-02.14, FR-M11-02.15, BR-M11-32; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-003/[main](#uc-m11-003-main-1) | Trigger: Owner chọn xóa nhóm. Trước: Có nhóm đích; kiểm quyền/trạng thái trong luồng. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Nhóm Đã xóa và không còn hiện cùng nội dung với ai; dữ liệu/điểm được giữ. | FR-M11-15, BR-M11-06, BR-M11-23; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-003/[A1](#uc-m11-003-alt-1) | Có nhóm đích; kiểm quyền/trạng thái trong luồng. Guard: Người thao tác không Owner hoặc UC024 từ chối. | Rẽ [Bước 2](#uc-m11-003-main-2); END: không xóa nhóm. | Từ chối xóa. | FR-M11-15.04, FR-M11-16.07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-004/[main](#uc-m11-004-main-1) | Trigger: Mở trang danh sách nhóm, gồm lối Khám phá Group từ M14. Trước: Không cần đăng nhập để xem nhóm Public; danh tính/thành viên dùng nếu có. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Danh sách có Public và Private đã tham gia, tên/mô tả/chế độ, xếp tạo mới nhất trước; không hiện nhóm không được xem. | FR-M11-03.01, FR-M11-03.02, FR-M11-03.03, FR-M11-03.16, FR-M11-03.17, BR-M11-11, BR-M11-35; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-004/[A1](#uc-m11-004-alt-1) | Không cần đăng nhập để xem nhóm Public; danh tính/thành viên dùng nếu có. Guard: Người xem không là thành viên của nhóm Private, kể cả Guest/Mod/Admin. | Rẽ [Bước 3](#uc-m11-004-main-3); [Tiếp tục](#uc-m11-004-main-4) | Không đưa nhóm đó vào danh sách. | FR-M11-03.02, FR-M11-03.11, BR-M11-11, BR-M11-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-004/[A2](#uc-m11-004-alt-2) | Không cần đăng nhập để xem nhóm Public; danh tính/thành viên dùng nếu có. Guard: Cờ Group tắt. | Rẽ [Bước 2](#uc-m11-004-main-2); [Tiếp tục](#uc-m11-004-main-3) | Vẫn giữ nhóm/bài ở các lối vào đã nêu; mở nhóm hoặc tương tác là yêu cầu khác và UC024 chặn người không ADMIN. Diễn giải ngoại lệ cụ thể này được ghi tại NOTE-M11-05. | FR-M11-17.01, FR-M11-17.07, FR-M11-17.08, BR-M11-29; pending-confirmation: NOTE-M11-05 |
+| UC-M11-005/[main](#uc-m11-005-main-1) | Trigger: Mở trang nhóm hoặc bài/nội dung nhóm, kể cả qua link/bookmark/thông báo/lời mời. Trước: Có nhóm/nội dung đích và ngữ cảnh vào; không giả định đã có quyền Private. | 1 → 2 → 3 → 4 → 5; END: đạt kết quả của đường chính theo hợp đồng. | Chỉ trả dữ liệu được xem và nhãn tác giả đúng; Public xem được cả Guest, Private theo thành viên/ngoại lệ đúng ngữ cảnh. | FR-M11-03.04, FR-M11-03.05, FR-M11-03.06, FR-M11-03.07, FR-M11-03.08, FR-M11-03.09, FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, FR-M11-03.13, FR-M11-03.18, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-33; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-005/[A1](#uc-m11-005-alt-1) | Có nhóm/nội dung đích và ngữ cảnh vào; không giả định đã có quyền Private. Guard: Người ngoài mở lời mời/link mời Private. | Rẽ [Bước 3](#uc-m11-005-main-3); END: phần giới thiệu qua lời mời. | Chỉ hiện tên/mô tả để đi tiếp UC007 theo luồng tham gia; không hiện nội dung hoặc danh sách thành viên. | FR-M11-03.06, FR-M11-03.18, BR-M11-12; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-005/[A2](#uc-m11-005-alt-2) | Có nhóm/nội dung đích và ngữ cảnh vào; không giả định đã có quyền Private. Guard: Người ngoài mở Private bằng lối thông thường (gồm Mod/Admin không là thành viên). | Rẽ [Bước 3](#uc-m11-005-main-3); END: không cho xem. | Không hiển thị thông tin/nội dung; trường hợp nhóm vừa chuyển Private mà tải lại/mở lại hiện Nội dung không tồn tại. | FR-M11-03.06, FR-M11-03.11, FR-M11-02.13, BR-M11-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-005/[A3](#uc-m11-005-alt-3) | Có nhóm/nội dung đích và ngữ cảnh vào; không giả định đã có quyền Private. Guard: Mod/Admin xem nội dung Private từ vụ báo cáo mình đang giữ. | Rẽ [Bước 3](#uc-m11-005-main-3); END: xem trong M08. | Theo ngữ cảnh kiểm duyệt M08 được xem nội dung trong vụ và danh tính thật; không cho tự mở trang nhóm hay hàng chờ nhóm từ quyền này. | FR-M11-03.10, FR-M11-03.12, BR-M11-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-005/[A4](#uc-m11-005-alt-4) | Có nhóm/nội dung đích và ngữ cảnh vào; không giả định đã có quyền Private. Guard: Nhóm Xóa/Ẩn hoặc cờ tắt với người không ADMIN. | Rẽ [Bước 2](#uc-m11-005-main-2); END: không mở được nhóm/nội dung. | Áp từ chối UC024, không lộ nội dung. | FR-M11-15.05, FR-M11-16.01, FR-M11-17.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-005/[A5](#uc-m11-005-alt-5) | Có nhóm/nội dung đích và ngữ cảnh vào; không giả định đã có quyền Private. Guard: Nhóm vừa chuyển Private khi người ngoài vẫn đang đọc bản đã tải. | Rẽ [Bước 5](#uc-m11-005-main-5); END: không tương tác theo quyền cũ. | Cho tiếp tục đọc bản đang hiện, chặn bình luận/vote/báo cáo; lần tải lại/mở lại không được xem. | FR-M11-02.03, FR-M11-02.04, FR-M11-02.12, FR-M11-02.13, BR-M11-15; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-006/[main](#uc-m11-006-main-1) | Trigger: Người xem mở danh sách thành viên, hoặc UC012/013/015 chèn hiển thị danh sách cho Owner chọn. Trước: Có nhóm và ngữ cảnh người xem; caller đã quản lý mục tiêu khi chèn, quyền đọc vẫn kiểm. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Danh sách thành viên kèm vai trò, chỉ khi được xem trang nhóm; không lộ qua preview lời mời Private. | FR-M11-03.14, FR-M11-03.15, FR-M11-08.05, BR-M11-34; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-006/[A1](#uc-m11-006-alt-1) | Có nhóm và ngữ cảnh người xem; caller đã quản lý mục tiêu khi chèn, quyền đọc vẫn kiểm. Guard: Không được xem trang nhóm (ví dụ người ngoài Private). | Rẽ [Bước 3](#uc-m11-006-main-3); END: không cho xem. | Không hiển thị danh sách thành viên. | FR-M11-03.15, BR-M11-34; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-006/[A2](#uc-m11-006-alt-2) | Có nhóm và ngữ cảnh người xem; caller đã quản lý mục tiêu khi chèn, quyền đọc vẫn kiểm. Guard: UC024 không đạt (ví dụ cờ tắt với người không ADMIN). | Rẽ [Bước 2](#uc-m11-006-main-2); END: không cho xem. | Từ chối đọc danh sách. | FR-M11-17.01, BR-M11-29; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-007/[main](#uc-m11-007-main-1) | Trigger: Chọn tham gia hoặc đi vào luồng tham gia qua lời mời/link mời. Trước: Có nhóm đích, định danh nếu đã đăng nhập; kiểm chặn và yêu cầu hiện có trong luồng. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Public không câu hỏi: Member ngay với thời điểm tham gia lúc chọn. Còn lại: yêu cầu Chờ duyệt có câu trả lời nếu có câu hỏi. | FR-M11-04, FR-M11-05.05, BR-M11-03, BR-M11-07, BR-M11-08, BR-M11-09, BR-M11-10, BR-M11-12; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-007/[A1](#uc-m11-007-alt-1) | Có nhóm đích, định danh nếu đã đăng nhập; kiểm chặn và yêu cầu hiện có trong luồng. Guard: Guest tham gia. | Rẽ [Bước 2](#uc-m11-007-main-2); END: chưa gia nhập. | Từ chối và yêu cầu đăng nhập M01; không include đăng nhập vào UC này. | FR-M11-04.05; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-007/[A2](#uc-m11-007-alt-2) | Có nhóm đích, định danh nếu đã đăng nhập; kiểm chặn và yêu cầu hiện có trong luồng. Guard: Bị nhóm chặn. | Rẽ [Bước 3](#uc-m11-007-main-3); END: không gia nhập. | Từ chối cả vào ngay/gửi yêu cầu/qua lời mời. | FR-M11-04.06, BR-M11-10; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-007/[A3](#uc-m11-007-alt-3) | Có nhóm đích, định danh nếu đã đăng nhập; kiểm chặn và yêu cầu hiện có trong luồng. Guard: Đang có yêu cầu Chờ duyệt tới nhóm. | Rẽ [Bước 3](#uc-m11-007-main-3); END: giữ yêu cầu hiện tại. | Từ chối yêu cầu mới trùng. | FR-M11-04.09, BR-M11-09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-007/[A4](#uc-m11-007-alt-4) | Có nhóm đích, định danh nếu đã đăng nhập; kiểm chặn và yêu cầu hiện có trong luồng. Guard: Nhóm Public có câu hỏi hoặc Private. | Rẽ [Bước 4](#uc-m11-007-main-4); END: Chờ duyệt; chưa là Member. | Nếu có câu hỏi, hiện để trả lời, bắt buộc có câu trả lời; tạo yêu cầu Chờ duyệt kèm câu trả lời, AUT005 báo Owner/Group Mod. Không có câu hỏi thì không buộc câu trả lời. | FR-M11-04.02, FR-M11-04.03, FR-M11-06.07, BR-M11-07, BR-M11-08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-007/[A5](#uc-m11-007-alt-5) | Có nhóm đích, định danh nếu đã đăng nhập; kiểm chặn và yêu cầu hiện có trong luồng. Guard: Nhóm có câu hỏi nhưng để trống câu trả lời. | Rẽ [Bước 4](#uc-m11-007-main-4); END: yêu cầu chưa gửi. | Từ chối gửi yêu cầu. | FR-M11-04.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-007/[A6](#uc-m11-007-alt-6) | Có nhóm đích, định danh nếu đã đăng nhập; kiểm chặn và yêu cầu hiện có trong luồng. Guard: Yêu cầu trước bị từ chối hoặc người đã rời/bị kick quay lại. | Rẽ [Bước 3](#uc-m11-007-main-3); [Tiếp tục](#uc-m11-007-main-4) | Cho gửi yêu cầu mới/tham gia theo chế độ hiện hành ngay, không cooldown/không giới hạn lần; vẫn kiểm chặn và yêu cầu Chờ duyệt. | FR-M11-04.04, FR-M11-09.07, BR-M11-09, BR-M11-24; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-008/[main](#uc-m11-008-main-1) | Trigger: Người gửi chọn rút yêu cầu. Trước: Có yêu cầu/nhóm đích, định danh người gửi; trạng thái kiểm trong luồng. | 1 → 2 → 3; END: đạt kết quả của đường chính theo hợp đồng. | Yêu cầu Chờ duyệt của chính người gửi thành Đã rút, không trở thành Member. | FR-M11-04.10, BR-M11-36; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-008/[A1](#uc-m11-008-alt-1) | Có yêu cầu/nhóm đích, định danh người gửi; trạng thái kiểm trong luồng. Guard: Yêu cầu không thuộc người gửi hoặc không còn Chờ duyệt. | Rẽ [Bước 3](#uc-m11-008-main-3); END: không rút yêu cầu này. | Không thực hiện rút ngoài điều kiện FR quy định; không tự xóa dữ liệu yêu cầu. | FR-M11-04.10, BR-M11-36; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-008/[A2](#uc-m11-008-alt-2) | Có yêu cầu/nhóm đích, định danh người gửi; trạng thái kiểm trong luồng. Guard: Nhóm Bị khóa và yêu cầu thao tác rút. | Rẽ [Bước 2](#uc-m11-008-main-2); [Tiếp tục](#uc-m11-008-main-3): kiểm điều kiện và chuyển Đã rút; nếu không đạt đi A1. | Cho rút yêu cầu đang Chờ duyệt của chính người gửi: FR-M11-04.10/BR-M11-36 vẫn áp, danh sách thao tác bị khóa tại FR-M11-16.04/FR-M11-16.07/FR-M11-16.08 không cấm rút. Tiếp tục kiểm sở hữu và Chờ duyệt, không coi rút là tham gia hoặc duyệt yêu cầu. | FR-M11-04.10, BR-M11-36, FR-M11-16.04, FR-M11-16.07, FR-M11-16.08; Đối chiếu phép hợp thành: nhóm Khóa không chặn rút, main3 chỉ đạt Đã rút khi đúng người gửi và còn Chờ duyệt. |
+| UC-M11-009/[main](#uc-m11-009-main-1) | Trigger: Thành viên chọn lấy link hoặc mời một người cụ thể. Trước: Có nhóm; kiểm tư cách thành viên/trạng thái trong luồng. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Nhận đúng link chung, hoặc phát thông báo mời ứng dụng kèm link; không tạo thực thể mời cần Chấp nhận/Từ chối. | FR-M11-05, BR-M11-12; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-009/[A1](#uc-m11-009-alt-1) | Có nhóm; kiểm tư cách thành viên/trạng thái trong luồng. Guard: Guest hoặc người không là thành viên, hoặc nhóm/cờ không cho mời. | Rẽ [Bước 2](#uc-m11-009-main-2); END: không mời được. | Từ chối mời/lấy link. | FR-M11-05.03, FR-M11-16.04, FR-M11-17.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-010/[main](#uc-m11-010-main-1) | Trigger: Mở danh sách yêu cầu và chọn chấp nhận/từ chối một yêu cầu. Trước: Có nhóm/yêu cầu đích, quyền và trạng thái kiểm khi làm. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Chấp nhận: Đã chấp nhận, Member với thời điểm lúc chấp nhận và thông báo cho người gửi. Từ chối: Đã từ chối, không thêm Member/không thông báo. | FR-M11-06, BR-M11-06, BR-M11-07, BR-M11-08, BR-M11-09, BR-M11-37; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-010/[A1](#uc-m11-010-alt-1) | Có nhóm/yêu cầu đích, quyền và trạng thái kiểm khi làm. Guard: Member/người ngoài hoặc trạng thái/cờ không cho. | Rẽ [Bước 2](#uc-m11-010-main-2); END: không đổi yêu cầu. | Từ chối duyệt. | FR-M11-06.05, FR-M11-16.07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-010/[A2](#uc-m11-010-alt-2) | Có nhóm/yêu cầu đích, quyền và trạng thái kiểm khi làm. Guard: Yêu cầu không còn Chờ duyệt. | Rẽ [Bước 4](#uc-m11-010-main-4); END: giữ trạng thái hiện tại. | Từ chối chấp nhận/từ chối lần nữa. | FR-M11-06.06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-010/[A3](#uc-m11-010-alt-3) | Có nhóm/yêu cầu đích, quyền và trạng thái kiểm khi làm. Guard: Người duyệt chọn Từ chối. | Rẽ [Bước 3](#uc-m11-010-main-3); END: Đã từ chối. | Kiểm yêu cầu còn Chờ duyệt; chuyển Đã từ chối, không gửi thông báo; người gửi được gửi yêu cầu mới ngay. | FR-M11-06.03, FR-M11-06.09, BR-M11-09, BR-M11-37; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-011/[main](#uc-m11-011-main-1) | Trigger: Owner/Group Mod chặn người gửi, xem danh sách chặn hoặc bỏ chặn. Trước: Có nhóm và người đích; kiểm vai trò/trạng thái khi thực hiện. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Chặn: có trong danh sách, yêu cầu Chờ duyệt thành Đã từ chối; bỏ chặn: được quay lại luồng tham gia, không tự thành Member. | FR-M11-07, BR-M11-06, BR-M11-10; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-011/[A1](#uc-m11-011-alt-1) | Có nhóm và người đích; kiểm vai trò/trạng thái khi thực hiện. Guard: Chọn xem danh sách chặn. | Rẽ [Bước 1](#uc-m11-011-main-1); END: danh sách theo phần quyền đã chốt. | Kiểm quyền/cờ/trạng thái đọc bằng UC024, hiện những người đang bị chặn; nhóm Khóa vẫn cho đọc danh sách theo FR-M11-07.04; chỉ chặn/bỏ chặn là thao tác bị từ chối ở FR-M11-16.07. Xem NOTE-M11-04 đã đối chiếu. | FR-M11-07.04, FR-M11-16.07, BR-M11-10, BR-M11-28; Đối chiếu: được đọc dưới vai trò Owner/Group Mod; không thực hiện chặn/bỏ chặn trong nhóm Khóa. |
+| UC-M11-011/[A2](#uc-m11-011-alt-2) | Có nhóm và người đích; kiểm vai trò/trạng thái khi thực hiện. Guard: Chọn bỏ chặn một người. | Rẽ [Bước 1](#uc-m11-011-main-1); END: bỏ chặn; chờ người đó thực hiện luồng tham gia. | Qua UC024 với hành vi bỏ chặn; cho người đó vào lại theo UC007, không khôi phục tự động yêu cầu bị từ chối/thành viên. | FR-M11-07.05, BR-M11-10; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-011/[A3](#uc-m11-011-alt-3) | Có nhóm và người đích; kiểm vai trò/trạng thái khi thực hiện. Guard: Member/người ngoài hoặc nhóm không cho chặn/bỏ chặn. | Rẽ [Bước 2](#uc-m11-011-main-2); END: không sửa danh sách chặn. | Từ chối. | FR-M11-07.02, FR-M11-16.07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-012/[main](#uc-m11-012-main-1) | Trigger: Owner chọn bổ nhiệm Member hoặc giáng Group Mod. Trước: Có nhóm/người đích; không suy từ vai trò Mod/Admin hệ thống. | 1 → 2 → 3 → 4 → 5; END: đạt kết quả của đường chính theo hợp đồng. | Member thành Group Mod kèm thời điểm bổ nhiệm; hoặc Group Mod về Member; chỉ bổ nhiệm có thông báo. | FR-M11-08, BR-M11-05, BR-M11-06, BR-M11-26, BR-M11-37; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-012/[A1](#uc-m11-012-alt-1) | Có nhóm/người đích; không suy từ vai trò Mod/Admin hệ thống. Guard: Người thao tác không Owner hoặc UC024 không đạt. | Rẽ [Bước 2](#uc-m11-012-main-2); END: không đổi vai trò nhóm. | Từ chối bổ nhiệm/giáng. | FR-M11-08.04, FR-M11-16.07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-012/[A2](#uc-m11-012-alt-2) | Có nhóm/người đích; không suy từ vai trò Mod/Admin hệ thống. Guard: Owner chọn giáng một Group Mod. | Rẽ [Bước 4](#uc-m11-012-main-4); END: Group Mod thành Member. | Đưa về Member; không thông báo cho người bị giáng, thâm niên nếu được bổ nhiệm lại tính từ lần mới. | FR-M11-08.02, FR-M11-08.06, BR-M11-26, BR-M11-37; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-012/[A3](#uc-m11-012-alt-3) | Có nhóm/người đích; không suy từ vai trò Mod/Admin hệ thống. Guard: Đích không thuộc loại vai trò nguồn của thao tác đã chọn. | Rẽ [Bước 4](#uc-m11-012-main-4); END: không đổi vai trò. | Không áp chuyển Member→Group Mod hoặc Group Mod→Member ngoài điều kiện nguồn; không tác động người ngang/cao hơn. | FR-M11-08.01, FR-M11-08.02, BR-M11-05; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-013/[main](#uc-m11-013-main-1) | Trigger: Owner/Group Mod chọn kick thành viên. Trước: Có nhóm/người đích; kiểm vai trò hiện tại và trạng thái trong luồng. | 1 → 2 → 3 → 4 → 5; END: đạt kết quả của đường chính theo hợp đồng. | Đích ra khỏi nhóm, bài/bình luận/tác giả/ẩn danh/điểm giữ nguyên; nhận thông báo, có thể tham gia lại như người tự rời. | FR-M11-09, FR-M11-08.05, BR-M11-05, BR-M11-06, BR-M11-24; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-013/[A1](#uc-m11-013-alt-1) | Có nhóm/người đích; kiểm vai trò hiện tại và trạng thái trong luồng. Guard: Người thao tác là Group Mod. | Rẽ [Bước 1](#uc-m11-013-main-1); [Tiếp tục](#uc-m11-013-main-4) | Qua UC024 bước 2; chỉ chọn Member để kick, không bắt thực hiện luồng chọn danh sách riêng của Owner. | FR-M11-09.02, BR-M11-05; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-013/[A2](#uc-m11-013-alt-2) | Có nhóm/người đích; kiểm vai trò hiện tại và trạng thái trong luồng. Guard: Group Mod kick Group Mod khác/Owner, hoặc Member/người ngoài kick. | Rẽ [Bước 2](#uc-m11-013-main-2); END: không kick. | Từ chối. | FR-M11-09.03, FR-M11-09.04; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-013/[A3](#uc-m11-013-alt-3) | Có nhóm/người đích; kiểm vai trò hiện tại và trạng thái trong luồng. Guard: Nhóm Khóa hoặc UC024 không đạt. | Rẽ [Bước 2](#uc-m11-013-main-2); END: không kick. | Từ chối. | FR-M11-16.07, FR-M11-17.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-014/[main](#uc-m11-014-main-1) | Trigger: Thành viên chọn rời nhóm. Trước: Có nhóm và định danh thành viên; vai trò, trạng thái kiểm trong luồng. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Thành viên ra khỏi nhóm; Owner rời khi đã chuyển quyền hoặc xóa nhóm cuối sau cảnh báo/xác nhận; nội dung/điểm đúng quy tắc. | FR-M11-10, BR-M11-24, BR-M11-25, BR-M11-28; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-014/[A1](#uc-m11-014-alt-1) | Có nhóm và định danh thành viên; vai trò, trạng thái kiểm trong luồng. Guard: Người rời là Owner và còn thành viên khác, nhóm/cờ cho phép. | Rẽ [Bước 2](#uc-m11-014-main-2); [Tiếp tục](#uc-m11-014-main-3) | Chèn UC015: chọn thành viên khác, xác nhận rời, chuyển quyền trước; sau UC015 thành công tiếp tục đưa Owner cũ ra khỏi nhóm. | FR-M11-10.03, FR-M11-10.04, FR-M11-10.05, FR-M11-10.07, BR-M11-25; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-014/[A2](#uc-m11-014-alt-2) | Có nhóm và định danh thành viên; vai trò, trạng thái kiểm trong luồng. Guard: Owner là thành viên duy nhất, nhóm/cờ cho phép. | Rẽ [Bước 2](#uc-m11-014-main-2); END: Đã xóa sau xác nhận; nếu không xác nhận thì không thực hiện xóa. | Cảnh báo nhóm sẽ bị xóa; chỉ khi Owner xác nhận mới chèn UC022 xóa mềm nhóm. Không xác nhận thì không xóa theo hành vi này. | FR-M11-10.06, BR-M11-25; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-014/[A3](#uc-m11-014-alt-3) | Có nhóm và định danh thành viên; vai trò, trạng thái kiểm trong luồng. Guard: Owner chưa chỉ định kế nhiệm khi nhóm còn người khác hoặc nhóm Bị khóa. | Rẽ [Bước 2](#uc-m11-014-main-2); END: Owner chưa rời. | Từ chối rời; không tự kế nhiệm thay cho lựa chọn tự rời của Owner. | FR-M11-10.05, FR-M11-16.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-015/[main](#uc-m11-015-main-1) | Trigger: Nhánh Owner có thành viên khác của UC014 chèn hành vi. Trước: Caller đã kiểm Owner/nhóm/cờ cho phép rời; có ít nhất một thành viên khác. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Thành viên khác được chọn thành Owner trước khi caller đưa Owner cũ ra; thông báo đúng người. | FR-M11-10.03, FR-M11-10.04, FR-M11-10.05, FR-M11-10.07, FR-M11-08.05, BR-M11-04, BR-M11-25, BR-M11-37; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-015/[A1](#uc-m11-015-alt-1) | Caller đã kiểm Owner/nhóm/cờ cho phép rời; có ít nhất một thành viên khác. Guard: Chưa chỉ định một thành viên khác. | Rẽ [Bước 3](#uc-m11-015-main-3); END: UC014 không đưa Owner ra. | Từ chối rời; không tự chọn người thay. | FR-M11-10.05, BR-M11-25; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-016/[main](#uc-m11-016-main-1) | Trigger: UC033 chèn sau gửi; AUT004 chèn ngữ cảnh M09 chấp nhận AI từ chối với điểm sạch, không quét lại. Trước: Bài đã gắn tối đa một nhóm, có tác giả thật, vai trò nhóm/hệ thống và cấu hình cần dùng. Caller chịu quyền khởi phát; AUT không giả là yêu cầu đăng mới. | 1 → 2 → 3; END: đạt kết quả của đường chính theo hợp đồng. | Trả đúng trạng thái Đã đăng, Chờ nhóm duyệt, Chờ Mod hệ thống hoặc Bị AI từ chối; không thay kiểm duyệt hệ thống bằng nhóm. | FR-M11-12, FR-M11-13.14, BR-M11-18, BR-M11-19, BR-M11-38, BR-M11-40, FR-M13-02.08, FR-M13-02.11; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-016/[A1](#uc-m11-016-alt-1) | Bài đã gắn tối đa một nhóm, có tác giả thật, vai trò nhóm/hệ thống và cấu hình cần dùng. Caller chịu quyền khởi phát; AUT không giả là yêu cầu đăng mới. Guard: Tác giả là Admin. | Rẽ [Bước 2](#uc-m11-016-main-2); END: trả trạng thái theo Admin/Owner. | Không quét: Admin không Owner theo công tắc duyệt trước (Bật→chờ nhóm, Tắt→Đã đăng); Admin là Owner→Đã đăng ngay. | FR-M11-12.06, FR-M11-12.20, BR-M11-19, BR-M11-40; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-016/[A2](#uc-m11-016-alt-2) | Bài đã gắn tối đa một nhóm, có tác giả thật, vai trò nhóm/hệ thống và cấu hình cần dùng. Caller chịu quyền khởi phát; AUT không giả là yêu cầu đăng mới. Guard: AI tổng hoặc Moderation tắt. | Rẽ [Bước 2](#uc-m11-016-main-2); END: trả trạng thái không quét. | Không quét: không Owner theo duyệt trước (Bật→chờ nhóm, Tắt→Đã đăng); Owner→Đã đăng ngay. Không coi AI tắt là lỗi. | FR-M11-12.14, FR-M11-12.19, BR-M11-18, BR-M11-40; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-016/[A3](#uc-m11-016-alt-3) | Bài đã gắn tối đa một nhóm, có tác giả thật, vai trò nhóm/hệ thống và cấu hình cần dùng. Caller chịu quyền khởi phát; AUT không giả là yêu cầu đăng mới. Guard: Tác giả là Owner, không Admin, AI bật. | Rẽ [Bước 2](#uc-m11-016-main-2); END: trả kết quả Owner. | Vẫn quét qua M13; <0.5→Đã đăng; ≥0.9→Bị từ chối; 0.5≤điểm<0.9 hoặc lỗi sau một lần thử lại→hàng chờ Mod hệ thống M03. Bỏ qua duyệt trước và hàng chờ nhóm. | FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, BR-M11-40; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-016/[A4](#uc-m11-016-alt-4) | Bài đã gắn tối đa một nhóm, có tác giả thật, vai trò nhóm/hệ thống và cấu hình cần dùng. Caller chịu quyền khởi phát; AUT không giả là yêu cầu đăng mới. Guard: Tác giả không Owner, điểm ≥0.9. | Rẽ [Bước 3](#uc-m11-016-main-3); END: Bị AI từ chối. | Bị từ chối tự động; không vào hàng chờ nhóm. Khiếu nại theo M09, không coi là quyết định cấp nhóm. | FR-M11-12.02, BR-M11-18, BR-M11-21; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-016/[A5](#uc-m11-016-alt-5) | Bài đã gắn tối đa một nhóm, có tác giả thật, vai trò nhóm/hệ thống và cấu hình cần dùng. Caller chịu quyền khởi phát; AUT không giả là yêu cầu đăng mới. Guard: Không Owner, 0.5≤điểm<0.9; hoặc <0.5 nhưng duyệt trước Bật. | Rẽ [Bước 3](#uc-m11-016-main-3); END: trả chờ nhóm. | Đưa Chờ duyệt (chờ nhóm duyệt), dù duyệt trước tắt ở khoảng trung bình. | FR-M11-12.03, FR-M11-12.04, BR-M11-18; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-016/[A6](#uc-m11-016-alt-6) | Bài đã gắn tối đa một nhóm, có tác giả thật, vai trò nhóm/hệ thống và cấu hình cần dùng. Caller chịu quyền khởi phát; AUT không giả là yêu cầu đăng mới. Guard: Không Owner và quét thất bại sau một lần thử lại. | Rẽ [Bước 2](#uc-m11-016-main-2); END: trả chờ nhóm do lỗi quét. | Đưa Chờ duyệt (chờ nhóm duyệt) bất kể duyệt trước, không đưa nhầm sang hàng Mod hệ thống. | FR-M11-12.15, BR-M11-18; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-016/[A7](#uc-m11-016-alt-7) | Bài đã gắn tối đa một nhóm, có tác giả thật, vai trò nhóm/hệ thống và cấu hình cần dùng. Caller chịu quyền khởi phát; AUT không giả là yêu cầu đăng mới. Guard: M09 đã chấp nhận bài bị AI tự từ chối, tác giả chưa gửi lại trước kết luận. | Rẽ [Bước 1](#uc-m11-016-main-1); END: kết quả cổng sau khiếu nại. | Không gọi AI. Xử lý như điểm <0.5: Owner hoặc duyệt trước Tắt→Đã đăng, còn lại→chờ nhóm. Nếu tác giả đã gửi lại, AUT004/M09 giữ trạng thái hiện tại, không gọi nhánh này để ghi đè. | FR-M11-13.14, BR-M11-38, BR-M03-46; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-017/[main](#uc-m11-017-main-1) | Trigger: Owner/Group Mod mở hàng chờ của nhóm. Trước: Có nhóm, quyền và trạng thái kiểm trong luồng. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Danh sách bài chờ nhóm duyệt đúng nhóm và thông tin cần đọc; không tự nhận bài chỉ vì xem. | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, BR-M11-20, BR-M11-33, BR-M11-39; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-017/[A1](#uc-m11-017-alt-1) | Có nhóm, quyền và trạng thái kiểm trong luồng. Guard: Member/người ngoài, kể cả Mod/Admin không có vai trò nhóm phù hợp. | Rẽ [Bước 2](#uc-m11-017-main-2); END: không xem queue. | Từ chối mở hàng chờ. | FR-M11-13.08, FR-M11-13.09, BR-M11-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-017/[A2](#uc-m11-017-alt-2) | Có nhóm, quyền và trạng thái kiểm trong luồng. Guard: Nhóm Khóa hoặc UC024 không đạt. | Rẽ [Bước 2](#uc-m11-017-main-2); END: không mở queue. | Từ chối thao tác. | FR-M11-16.07, FR-M11-17.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-018/[main](#uc-m11-018-main-1) | Trigger: Owner/Group Mod chọn nhận bài. Trước: Có nhóm/bài đích; kiểm quyền, trạng thái, tự duyệt và người giữ trong luồng. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Người thao tác được ghi là người giữ, có mốc để tính 30 phút không thao tác; người khác không kết luận được. | FR-M11-13.02, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-33, BR-M11-39; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-018/[A1](#uc-m11-018-alt-1) | Có nhóm/bài đích; kiểm quyền, trạng thái, tự duyệt và người giữ trong luồng. Guard: Group Mod chọn bài của chính mình. | Rẽ [Bước 3](#uc-m11-018-main-3); END: không nhận bài. | Từ chối nhận; Owner hoặc Group Mod khác xử lý. | FR-M11-13.13, BR-M11-39; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-018/[A2](#uc-m11-018-alt-2) | Có nhóm/bài đích; kiểm quyền, trạng thái, tự duyệt và người giữ trong luồng. Guard: Đã có người khác giữ bài hoặc không đúng hàng chờ/không đủ quyền. | Rẽ [Bước 3](#uc-m11-018-main-3); END: không nhận được. | UC021 từ chối, không ghi đè người giữ. | BR-M11-20, FR-M11-13.08, FR-M11-13.09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-019/[main](#uc-m11-019-main-1) | Trigger: Người đang giữ chọn Chấp nhận hoặc Từ chối. Trước: Có nhóm/bài/lựa chọn; không dùng tiền điều kiện để giấu kiểm người giữ hoặc lý do. | 1 → 2 → 3 → 4 → 5; END: đạt kết quả của đường chính theo hợp đồng. | Chấp nhận→Đã đăng; Từ chối có lý do→Bị từ chối; có sự kiện bài tương ứng M07/M03; không khiếu nại cấp nhóm. | FR-M11-13.03, FR-M11-13.05, FR-M11-13.06, FR-M11-13.07, FR-M11-13.08, FR-M11-13.09, FR-M11-13.10, FR-M11-13.11, FR-M11-13.12, FR-M11-13.13, BR-M11-18, BR-M11-20, BR-M11-21, BR-M11-38, BR-M11-39; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-019/[A1](#uc-m11-019-alt-1) | Có nhóm/bài/lựa chọn; không dùng tiền điều kiện để giấu kiểm người giữ hoặc lý do. Guard: Chọn Từ chối có lý do. | Rẽ [Bước 1](#uc-m11-019-main-1); END: Bị từ chối cấp nhóm. | Vẫn kiểm UC024/UC021; lưu lý do và chuyển Bị từ chối, phát sự kiện bài bị từ chối qua AUT005. Tác giả có thể sửa/gửi lại qua UC033 thêm một lần cổng; không khiếu nại quyết định nhóm. | FR-M11-13.06, FR-M11-13.07, FR-M11-13.11, BR-M11-21, BR-M11-38; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-019/[A2](#uc-m11-019-alt-2) | Có nhóm/bài/lựa chọn; không dùng tiền điều kiện để giấu kiểm người giữ hoặc lý do. Guard: Từ chối nhưng không nhập lý do. | Rẽ [Bước 1](#uc-m11-019-main-1); END: chưa kết luận Từ chối. | Từ chối thao tác. | FR-M11-13.10, BR-M11-38; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-019/[A3](#uc-m11-019-alt-3) | Có nhóm/bài/lựa chọn; không dùng tiền điều kiện để giấu kiểm người giữ hoặc lý do. Guard: Người thao tác khác người giữ, không còn vai trò phù hợp hoặc Group Mod kết luận bài mình. | Rẽ [Bước 3](#uc-m11-019-main-3); END: chưa kết luận. | Từ chối qua UC021; không ra quyết định hợp lệ. | FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-019/[A4](#uc-m11-019-alt-4) | Có nhóm/bài/lựa chọn; không dùng tiền điều kiện để giấu kiểm người giữ hoặc lý do. Guard: Nhóm Khóa hoặc cờ/trạng thái không cho. | Rẽ [Bước 2](#uc-m11-019-main-2); END: không duyệt bài. | UC024 từ chối. | FR-M11-16.07, FR-M11-17.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-020/[main](#uc-m11-020-main-1) | Trigger: Owner/Group Mod chọn gỡ nội dung trong nhóm. Trước: Có nội dung thuộc nhóm và tác giả; không cần nhận một bài trong queue để gỡ. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Nội dung mang dấu Bị gỡ khỏi nhóm; bài giữ trạng thái đăng, chỉ hiện cho tập được phép; dữ liệu/điểm giữ, tác giả nhận thông báo, không tự hiện lại/khiếu nại cấp nhóm. | FR-M11-14, BR-M11-05, BR-M11-06, BR-M11-21, BR-M11-22, BR-M11-30; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-020/[A1](#uc-m11-020-alt-1) | Có nội dung thuộc nhóm và tác giả; không cần nhận một bài trong queue để gỡ. Guard: Member/người ngoài dùng quyền nhóm; hoặc Group Mod gỡ nội dung Owner/Group Mod khác. | Rẽ [Bước 2](#uc-m11-020-main-2); END: không gỡ theo quyền nhóm. | Từ chối. | FR-M11-14.02, FR-M11-14.08, BR-M11-05; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-020/[A2](#uc-m11-020-alt-2) | Có nội dung thuộc nhóm và tác giả; không cần nhận một bài trong queue để gỡ. Guard: Tác giả tự hiện lại hoặc khiếu nại thao tác cấp nhóm. | Rẽ [Bước 4](#uc-m11-020-main-4); END: không tự hiện lại/khiếu nại cấp nhóm. | Từ chối; giữ phân biệt với khiếu nại chế tài hệ thống/AI. | FR-M11-14.03, FR-M11-14.05, BR-M11-21, BR-M11-30; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-020/[A3](#uc-m11-020-alt-3) | Có nội dung thuộc nhóm và tác giả; không cần nhận một bài trong queue để gỡ. Guard: Nội dung của chính người gỡ dưới quyền nhóm. | Rẽ [Bước 2](#uc-m11-020-main-2); END: chưa chốt quyền gỡ bằng vai trò nhóm trong tình huống này. | Không suy rõ từ cấm tác động ngang vai trò và ngoại lệ cụ thể chỉ nêu Group Mod khác. Giữ quyền sửa/xóa của tác giả theo M03/M04, đưa quyền gỡ nhóm tình huống này về NOTE-M11-03. | BR-M11-05, FR-M11-14.08; pending-confirmation: NOTE-M11-03 |
+| UC-M11-021/[main](#uc-m11-021-main-1) | Trigger: UC017/018/019 chèn với pha xem, nhận hoặc kết luận. Trước: Có nhóm, vai trò hiện tại, bài nếu có và người giữ; caller đã áp UC024 cho điều kiện nhóm/cờ. | 1 → 2 → 3; END: đạt kết quả của đường chính theo hợp đồng. | Cho xem queue đúng vai trò; cho nhận khi không tự nhận và không bị người khác giữ; cho kết luận khi đúng người giữ và không tự duyệt. | FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-06, BR-M11-20, BR-M11-33, BR-M11-39; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-021/[A1](#uc-m11-021-alt-1) | Có nhóm, vai trò hiện tại, bài nếu có và người giữ; caller đã áp UC024 cho điều kiện nhóm/cờ. Guard: Pha xem queue. | Rẽ [Bước 1](#uc-m11-021-main-1); [Tiếp tục](#uc-m11-021-main-3) | Chỉ cần quyền Owner/Group Mod và điều kiện nhóm đã kiểm; không cần giữ bài và không loại bài của mình chỉ vì cấm tự nhận/duyệt. | FR-M11-13.01, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-39; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-021/[A2](#uc-m11-021-alt-2) | Có nhóm, vai trò hiện tại, bài nếu có và người giữ; caller đã áp UC024 cho điều kiện nhóm/cờ. Guard: Pha kết luận. | Rẽ [Bước 2](#uc-m11-021-main-2); [Tiếp tục](#uc-m11-021-main-3) | Kiểm người thao tác đúng người giữ bài chờ, còn quyền nhóm; Group Mod không chấp nhận/từ chối bài mình. | FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20, BR-M11-39; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-021/[A3](#uc-m11-021-alt-3) | Có nhóm, vai trò hiện tại, bài nếu có và người giữ; caller đã áp UC024 cho điều kiện nhóm/cờ. Guard: Không có vai trò nhóm đúng hoặc bộ kiểm theo pha không đạt. | Rẽ [Bước 1](#uc-m11-021-main-1); END: bộ kiểm không đạt. | Từ chối; caller không nhận/kết luận. Không tự tạo quy tắc tự nhả ngay khi mất vai trò vì nguồn chưa có. | FR-M11-13.03, FR-M11-13.08, FR-M11-13.09, FR-M11-13.13, BR-M11-20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-022/[main](#uc-m11-022-main-1) | Trigger: UC003, nhánh Owner cuối đã xác nhận của UC014, hoặc AUT002 khi Owner là người duy nhất. Trước: Caller đã chứng minh điều kiện: Owner được xóa, hoặc Owner cuối đã cảnh báo/xác nhận, hoặc sự kiện mất quyền ngoài ý muốn. Không là lệnh xóa công khai bỏ kiểm quyền. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Nhóm Đã xóa, nhóm và mọi nội dung không hiện với ai, giữ dữ liệu/điểm; nhóm vẫn tính vào hạn tạo trong 24 giờ nếu còn trong khoảng. | FR-M11-15, FR-M11-10.06, FR-M11-11.03, BR-M11-23, BR-M11-25, BR-M11-26; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-022/[A1](#uc-m11-022-alt-1) | Caller đã chứng minh điều kiện: Owner được xóa, hoặc Owner cuối đã cảnh báo/xác nhận, hoặc sự kiện mất quyền ngoài ý muốn. Không là lệnh xóa công khai bỏ kiểm quyền. Guard: Owner cuối tự rời nhưng chưa xác nhận cảnh báo. | Rẽ [Bước 1](#uc-m11-022-main-1); END: không xóa theo tự rời. | UC014 không gọi phần xóa; không xóa do hành vi này. | FR-M11-10.06, BR-M11-25; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-023/[main](#uc-m11-023-main-1) | Trigger: UC004/005/006 chèn ngữ cảnh danh sách/trang/nội dung/thành viên. Trước: Có người xem nếu đăng nhập, nhóm/nội dung hoặc tập ứng viên và loại lối vào; UC024 đã kiểm điều kiện thao tác chung. | 1 → 2 → 3; END: đạt kết quả của đường chính theo hợp đồng. | Trả đúng dữ liệu và nhãn tác giả, giữ mọi lớp tồn tại/kiểm duyệt/riêng tư/xuất bản/gỡ; không tự cấp quyền truy cập từ quyền thấy danh tính thật. | FR-M11-03, BR-M11-11, BR-M11-13, BR-M11-14, BR-M11-15, BR-M11-17, BR-M11-27, BR-M11-30, BR-M11-33, BR-M11-34, BR-M11-35; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-023/[A1](#uc-m11-023-alt-1) | Có người xem nếu đăng nhập, nhóm/nội dung hoặc tập ứng viên và loại lối vào; UC024 đã kiểm điều kiện thao tác chung. Guard: Người ngoài Private đi qua lời mời/link mời. | Rẽ [Bước 1](#uc-m11-023-main-1); END: preview theo lời mời. | Chỉ trả tên/mô tả để theo luồng tham gia, không trả nội dung/thành viên hoặc tự làm Member. | FR-M11-03.06, FR-M11-03.18, BR-M11-12; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-023/[A2](#uc-m11-023-alt-2) | Có người xem nếu đăng nhập, nhóm/nội dung hoặc tập ứng viên và loại lối vào; UC024 đã kiểm điều kiện thao tác chung. Guard: Mod/Admin không thành viên xem nội dung từ vụ báo cáo mình đang giữ. | Rẽ [Bước 1](#uc-m11-023-main-1); [Tiếp tục](#uc-m11-023-main-3) | Chỉ cho đúng ngữ cảnh nội dung trong M08, không mở trang/queue nhóm Private; sau đó áp trường tác giả thật nếu ẩn danh. | FR-M11-03.10, FR-M11-03.11, FR-M11-03.12, BR-M11-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-023/[A3](#uc-m11-023-alt-3) | Có người xem nếu đăng nhập, nhóm/nội dung hoặc tập ứng viên và loại lối vào; UC024 đã kiểm điều kiện thao tác chung. Guard: Không đủ quyền Private ở lối thường hoặc vừa Public→Private mở lại. | Rẽ [Bước 1](#uc-m11-023-main-1); END: không trả nội dung theo quyền cũ. | Không hiển thị; tải lại/mở lại từ link/bookmark/thông báo ở tình huống đổi chế độ trả Nội dung không tồn tại. Bản đã tải từ trước chỉ đọc, không tương tác. | FR-M11-02.12, FR-M11-02.13, FR-M11-03.06, BR-M11-15; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-024/[main](#uc-m11-024-main-1) | Trigger: Các caller chèn với hành vi, nhóm/đích và ngữ cảnh lối vào. Trước: Có loại hành vi, người yêu cầu, nhóm nếu đã có; với tạo không cần nhóm tồn tại. Không phải lệnh quản trị có thể gọi độc lập. | 1 → 2 → 3 → 4; END: đạt kết quả của đường chính theo hợp đồng. | Trả cho phép trong phần nguồn đã chốt; Admin chỉ được miễn cờ, không tự miễn Private/thành viên/Owner/Khóa. | FR-M11-16, FR-M11-17, BR-M11-06, BR-M11-13, BR-M11-23, BR-M11-27, BR-M11-28, BR-M11-29, BR-M11-33; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M11-024/[A1](#uc-m11-024-alt-1) | Có loại hành vi, người yêu cầu, nhóm nếu đã có; với tạo không cần nhóm tồn tại. Không phải lệnh quản trị có thể gọi độc lập. Guard: Cờ Group tắt, không ADMIN, yêu cầu mở nhóm/bài/tương tác/thao tác nhóm. | Rẽ [Bước 1](#uc-m11-024-main-1); END: không cho thao tác. | Từ chối với đúng thông báo bận; vẫn giữ lối vào/dữ liệu/tự động, bật lại không làm bù. | FR-M11-17.01, FR-M11-17.02, FR-M11-17.04, FR-M11-17.05, FR-M11-17.06, FR-M11-17.07, FR-M11-17.08, BR-M11-29; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-024/[A2](#uc-m11-024-alt-2) | Có loại hành vi, người yêu cầu, nhóm nếu đã có; với tạo không cần nhóm tồn tại. Không phải lệnh quản trị có thể gọi độc lập. Guard: Nhóm Bị khóa, hành vi thuộc danh sách chặn. | Rẽ [Bước 2](#uc-m11-024-main-2); END: không cho hành vi bị khóa. | Từ chối với mọi người, kể cả Owner/Group Mod/Admin; nhóm được đọc theo Public/Private, bookmark/báo cáo và Member/Group Mod tự rời vẫn cho; tự chuyển Owner vẫn chạy. | FR-M11-16.03, FR-M11-16.04, FR-M11-16.05, FR-M11-16.07, FR-M11-16.08, FR-M11-16.09, FR-M11-16.10, BR-M11-28; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-024/[A3](#uc-m11-024-alt-3) | Có loại hành vi, người yêu cầu, nhóm nếu đã có; với tạo không cần nhóm tồn tại. Không phải lệnh quản trị có thể gọi độc lập. Guard: Vai trò nhóm/quyền đích không đúng; Guest muốn tạo/tham gia hoặc thao tác cần đăng nhập. | Rẽ [Bước 3](#uc-m11-024-main-3); END: không đủ quyền. | Từ chối theo hành vi, yêu cầu đăng nhập khi tham gia Guest; không include phiên đăng nhập vào từng UC. | FR-M11-01.04, FR-M11-04.05, BR-M11-05, BR-M11-06, BR-M11-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M11-024/[A4](#uc-m11-024-alt-4) | Có loại hành vi, người yêu cầu, nhóm nếu đã có; với tạo không cần nhóm tồn tại. Không phải lệnh quản trị có thể gọi độc lập. Guard: Tạo chưa có nhóm hoặc liệt kê tập nhóm như lối vào. | Rẽ [Bước 2](#uc-m11-024-main-2); [Tiếp tục](#uc-m11-024-main-3) | Không đòi nhóm đã có cho tạo; liệt kê lọc từng nhóm theo UC023, không từ chối cả danh sách chỉ vì có một nhóm không được thấy. | FR-M11-01.01, FR-M11-03.16, FR-M11-17.07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+
+### 7.5 Vòng đời gap/nguồn cần xác nhận — revision 2.3
+
+Bảng 7.2 giữ nội dung phát hiện trước; bảng này bổ sung phạm vi, mức chặn và điều kiện đóng. Các đường đã xác định tiếp tục dùng; phần blocking không được nhận semantic pass. Người có quyền quyết định chưa được chỉ định trong nguồn thì ghi **chưa xác định**, không mặc định Admin sản phẩm có quyền phê duyệt yêu cầu.
+
+| ID/nguồn baseline | UC/đường đi bị ảnh hưởng | Mức chặn và lý do | Người xác nhận | Register | Trạng thái | Điều kiện đóng/bằng chứng |
+|---|---|---|---|---|---|---|
+| NOTE-M11-01; FR-M11 baseline tại metadata; FR-M11-11.01, FR-M11-11.02, BR-M11-26 | AUT-M11-002; kế nhiệm khi hòa thâm niên/thời điểm hoặc đích không hoạt động | blocking: chưa xác định được Owner cụ thể ở đúng tổ hợp này | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M11-02; FR-M11 baseline tại metadata; FR-M11-01.08, FR-M11-01.09, FR-M11-02.11, BR-M11-31, BR-M11-08 | UC-M11-001/002; biên ký tự và câu trả lời cũ | nonblocking: giữ biên 100/500 và không trống; đơn vị đếm/phiên bản cần chốt trước thiết kế validation | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M11-03; FR-M11 baseline tại metadata; BR-M11-05, FR-M11-14.08, FR-M11-14.01 | UC-M11-020/A3 và UC-M11-024 kiểm gỡ chính mình | blocking: thiếu quyết định quyền gỡ bằng vai trò nhóm | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M11-04; FR-M11 baseline tại metadata; BR-M11-28, FR-M11-16.07, FR-M11-16.09, BR-M11-36, FR-M11-07.04 | UC-M11-008/A2; UC-M11-011/A1; UC-M11-024/RULE006 | nonblocking: quy tắc cho phép vẫn áp vì thao tác không thuộc danh sách bị Khóa | Không cần quyết định nguồn mới; stakeholder chỉ duyệt cách diễn đạt US | DEC-235, DEC-238 đã tồn tại; không đề xuất register mới cho vấn đề này | resolved qua đối chiếu nguồn | FR-M11-04.10/BR36, FR-M11-07.04 kết hợp FR-M11-16.04/.07/.08/BR28; đã cập nhật luồng và QA, không sửa FR. |
+| NOTE-M11-05; FR-M11 baseline tại metadata; FR-M11-17.01, FR-M11-17.07, FR-M11-17.08, BR-M11-29 | UC-M11-004/A2 và UC-M11-024/A1,A4; lối vào khi cờ tắt | nonblocking: FR-M11-17.07/BR-M11-29 đã nêu ngoại lệ liệt kê; diễn giải vẫn cần duyệt | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M11-06; FR-M11 baseline tại metadata; FR-M11-02.05, FR-M11-02.15, BR-M11-20, BR-M11-39, BR-M11-40, FR-M11-13.14; BR-M03-46 | UC-M11-016/018/019/021; AUT-M11-003/004, đổi vai trò/trạng thái lúc chờ | blocking: thiếu định tuyến/kết quả giữ khi trạng thái đổi | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M11-07; FR-M11 baseline tại metadata; FR-M11-10.04, FR-M11-02.14, FR-M11-15.01, BR-M11-37 | UC-M11-002/010/014/015; AUT chấp nhận hàng loạt và thông báo khi lỗi | nonblocking: FR đã chốt thành công/thứ tự; cơ chế đồng bộ không phải hành vi tự bổ sung | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M11-08; FR-M11 baseline tại metadata; BR-M11-33, BR-M11-40, FR-M03-06.01, FR-M03-07.02, FR-M09-06.04, FR-M09-06.05 | UC-M11-005/023; giao tiếp M09 đọc Private trong khiếu nại | blocking: quyền đọc theo ngữ cảnh M09 và ranh giới dữ liệu chưa được hai owner xác nhận | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| TBD-M11-01 (đã đóng); FR-M11 v0.1; DEC-239 | Không tính là yêu cầu thiếu hoặc mã đã bỏ. | nonblocking: nguồn đã đóng, không mở lại | Chưa xác định đối với quyết định mới | OPEN-011 | resolved theo nguồn | Giữ dữ liệu/điểm theo rời/kick/gỡ/xóa. Phần M16 của OPEN-011 ngoài phạm vi không làm mở lại TBD M11.; quyết định thay đổi/đóng mới cần bằng chứng stakeholder, không suy từ migration. |
+
+### Kiểm sơ đồ và cổng cuối của revision 2.3
+
+Các SVG bàn giao không đổi ở lượt này. XML/node/cạnh được audit từ file thật; `result=pass` có bằng chứng render lịch sử ở 7.1 và đối chiếu mới của root tại [UC-V23-REVIEW](UC-V23-REVIEW.md); chính agent module không chạy lại renderer. `diagram_check=pass` dựa trên tích hợp root: parse/render lại đủ 81 view exit 0, cây XML hiển thị của SVG gốc và bản render lại giống nhau; root xem 4 PNG mẫu, không tuyên bố xem ảnh thủ công cả 81. Xem [bằng chứng chung](UC-V23-REVIEW.md). Metadata `semantic_review=pending` do các đường blocking nêu trên, không phủ nhận phần đã có căn cứ. Kết quả checker revision được ghi sau khi thực thi, không sao chép số pass của bản cũ.
+
+### Kết quả kiểm thực thi revision 2.3
+
+| Lớp kiểm | Thực thi/kết quả | Giới hạn |
+|---|---|---|
+| Schema/trace | `python -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M11.md --final`: exit 1, errors=2, warnings=1. Hai lỗi: `Final review needs recorded semantic review`; `Final review needs diagram/render evidence`. | Đây là cổng chưa đạt có chủ ý vì phần blocking và render revision chưa xong; không gọi errors=0 hoặc nhận kết quả lịch sử thay lượt này. Cảnh báo còn review thủ công không tự đóng gap. |
+| XML và mô hình SVG | Audit file thực tế: 6 XML root SVG; members đúng catalog/decomposition; 48 association actor–UC trong bảng bằng đúng tập cạnh trực tiếp trên SVG; các relation UC–UC khớp endpoint/hướng/loại. Không sửa SVG. | Root đã parse/render lại 81 view exit 0, đối chiếu visual XML tree của 81 SVG gốc đều giống bản render mới; xem 4 PNG mẫu. Bằng chứng chung [UC-V23-REVIEW](UC-V23-REVIEW.md), không tuyên bố mọi ảnh đã được xem bằng mắt. |
+| Đối chiếu tiêu chí nguồn | 210 FR chi tiết/BR hiệu lực có nguyên văn tiêu chí được bảo toàn trong US, khớp nguồn owner sau bỏ anchor/khoảng trắng; mọi mã chi tiết tham chiếu tồn tại trong nguồn owner/normative Đã chốt đúng phiên bản.  | So khớp tiêu chí/mã hỗ trợ review, không chứng minh tự động mọi flow tương đương nguồn. Không đổi FR/register. |
+| Walkthrough | 25 main và 75 alternative ghi trạng thái/guard/return/END/postcondition/nguồn ở 7.4; bảng 7.5 chỉ rõ các đường chưa đủ kết luận. | `semantic_review=pending`; Chờ duyệt và không có approved_steps cho revision mới. |
+
+**Cập nhật kiểm chứng tích hợp:** `diagram_check=pass` theo [hồ sơ chung](UC-V23-REVIEW.md): root parse/render 81 SVG exit 0, các cây XML hiển thị giữ nguyên, 4 PNG mẫu đã xem. Chỉ một SVG/view được bàn giao; không sửa SVG ở lượt follow-up này. Semantic review vẫn pending cho các phần blocking thực sự còn lại.

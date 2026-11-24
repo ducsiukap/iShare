@@ -2,7 +2,9 @@
 
 [Vietnamese Doc]
 
-Phân tích toàn bộ FR-M05 1.7 theo skill use-case-analysis 2.2. Đầu ra gồm **4 UC chính, 11 UC con**, đặc tả, phân rã, quan hệ và truy vết; **5 sơ đồ, mỗi sơ đồ một SVG**. Trạng thái: **Chờ duyệt**.
+Phân tích toàn bộ FR-M05 1.7 theo skill use-case-analysis 2.3. Đầu ra gồm **4 UC chính, 11 UC con**, đặc tả, phân rã, quan hệ và truy vết; **5 sơ đồ, mỗi sơ đồ một SVG**. Trạng thái: **Chờ duyệt**.
+
+**Giới hạn revision 2.3:** đã review phần độc lập; bước 7 chưa hoàn tất do NOTE-M05-01 (hòa giải Topic đã chọn với gợi ý mới). Trạng thái Chờ duyệt; không báo hoàn tất toàn module.
 
 ## Metadata và tiến độ
 
@@ -10,20 +12,23 @@ Phân tích toàn bộ FR-M05 1.7 theo skill use-case-analysis 2.2. Đầu ra g�
 | key | value |
 |---|---|
 | document_id | US-M05 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M05 |
 | scope | ALL |
 | status | Chờ duyệt |
 | current_step | 7 |
-| completed_steps | 1, 2, 3, 4, 5, 6, 7 |
+| completed_steps | 1, 2, 3, 4, 5, 6 |
 | approved_steps | - |
 | source_baseline | FR-M05 1.7; FR-M01 1.10; FR-M02 1.6; FR-M03 1.10; FR-M04 1.4; FR-M06 1.5; FR-M07 1.5; FR-M08 1.7; FR-M10 1.4; FR-M11 1.3; FR-M12 1.1; FR-M13 1.3; FR-M14 1.1; FR-M15 1.1 |
 | author | Codex — hỗ trợ phân tích nghiệp vụ |
-| date | 2026-10-30 |
-| approval_evidence | Người dùng yêu cầu xây dựng phân tích M05 theo skill. Quyền tự thực hiện các việc cần thiết, không hỏi đồng ý đã được cấp ở lượt trước và tiếp tục áp dụng; hoàn thiện liên tục các bước. Chưa có phê duyệt kết quả cuối hay approved_steps cho bản này. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | Yêu cầu cập nhật hiện hành cho phép thực hiện liên tục bước 1–7 theo skill 2.3; đây là quyền làm, chưa phê duyệt kết quả hoặc bất kỳ approved_steps của revision này. |
+| semantic_review | pending |
 | diagram_check | pass |
+
+**Lịch sử tiến độ revision 2.2 — không phải phê duyệt revision 2.3.** Tiến độ hiện hành ở metadata và mục Review revision 2.3 cuối tài liệu.
 
 | Bước | Kết quả | Xác nhận |
 |---|---|---|
@@ -53,21 +58,21 @@ M05 phân loại bài theo hai trục: Topic lấy từ danh mục phẳng do Ad
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M05.md | 1.7 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
 
-FR-M05 đã chốt ngày 2026-10-24, mốc DEC-271/QA-477/ISS-415/OPEN-012. Đọc đầy đủ yêu cầu M05 và đối chiếu metadata/giao tiếp/các mã liên quan bên cung cấp/nhận; không tuyên bố đặc tả mọi module liên quan. [Skill 2.2](../../../.agent-instructions/skills/use-case-analysis/SKILL.md) cung cấp phương pháp, không cung cấp tính năng mới.
+FR-M05 đã chốt ngày 2026-10-24, mốc DEC-271/QA-477/ISS-415/OPEN-012. Đọc đầy đủ yêu cầu M05 và đối chiếu metadata/giao tiếp/các mã liên quan bên cung cấp/nhận; không tuyên bố đặc tả mọi module liên quan. [Skill 2.3](../../../.agent-instructions/skills/use-case-analysis/SKILL.md) cung cấp phương pháp, không cung cấp tính năng mới.
 
 ### Actor và quyền
 
@@ -105,12 +110,12 @@ Mẫu số truy vết **148 mã = 11 nhóm + 106 FR chi tiết + 31 BR**. Không
 <!-- uc:catalog -->
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
-| UC-M05-020 | Phân loại nội dung bài viết theo Chuyên mục và Thẻ | core | User goal | ACT-002, ACT-003, ACT-007 | ACT-006 | M05 | #uc-m05-020 | FR-M05-01, FR-M05-02, FR-M05-03, BR-M05-03, BR-M05-04, BR-M05-22 |
-| UC-M05-021 | Tra cứu và khám phá Topic & Tag | core | Summary | ACT-001, ACT-002, ACT-003, ACT-007 | - | M05 | #uc-m05-021 | FR-M05-04, FR-M05-05, BR-M05-01, BR-M05-29, BR-M05-30, BR-M05-31 |
-| UC-M05-022 | Quản trị danh mục Topic hệ thống | core | Summary | ACT-007 | - | M05 | #uc-m05-022 | FR-M05-06, FR-M05-07, FR-M05-08, BR-M05-05, BR-M05-08, BR-M05-09 |
-| UC-M05-023 | Điều phối Tag và phân loại bài viết | core | Summary | ACT-003, ACT-007 | - | M05 | #uc-m05-023 | FR-M05-09, FR-M05-10, FR-M05-11, BR-M05-04, BR-M05-25, BR-M05-26, BR-M05-27 |
-| UC-M05-001 | Gán Topic cho bài viết | sub | User goal | ACT-002, ACT-003, ACT-007 | - | M05 | #uc-m05-001 | FR-M05-01, BR-M05-03, BR-M05-04 |
-| UC-M05-002 | Gợi ý Topic bằng AI | sub | User goal | ACT-002, ACT-003, ACT-007 | ACT-006 | M05 | #uc-m05-002 | FR-M05-02, BR-M05-10, BR-M05-11, BR-M05-12, BR-M05-13, BR-M05-14, BR-M05-17, BR-M05-18, BR-M05-19 |
+| UC-M05-020 | Phân loại bài viết | core | User goal | ACT-002, ACT-003, ACT-007 | ACT-006 | M05 | #uc-m05-020 | FR-M05-01, FR-M05-02, FR-M05-03, BR-M05-03, BR-M05-04, BR-M05-22 |
+| UC-M05-021 | Tra cứu Topic và Tag | core | Summary | ACT-001, ACT-002, ACT-003, ACT-007 | - | M05 | #uc-m05-021 | FR-M05-04, FR-M05-05, BR-M05-01, BR-M05-29, BR-M05-30, BR-M05-31 |
+| UC-M05-022 | Quản lý danh mục Topic | core | Summary | ACT-007 | - | M05 | #uc-m05-022 | FR-M05-06, FR-M05-07, FR-M05-08, BR-M05-05, BR-M05-08, BR-M05-09 |
+| UC-M05-023 | Quản lý Tag và phân loại bài viết | core | Summary | ACT-003, ACT-007 | - | M05 | #uc-m05-023 | FR-M05-09, FR-M05-10, FR-M05-11, BR-M05-04, BR-M05-25, BR-M05-26, BR-M05-27 |
+| UC-M05-001 | Chọn Topic cho bài viết | sub | User goal | ACT-002, ACT-003, ACT-007 | - | M05 | #uc-m05-001 | FR-M05-01, BR-M05-03, BR-M05-04 |
+| UC-M05-002 | Yêu cầu gợi ý Topic | sub | User goal | ACT-002, ACT-003, ACT-007 | ACT-006 | M05 | #uc-m05-002 | FR-M05-02, BR-M05-10, BR-M05-11, BR-M05-12, BR-M05-13, BR-M05-14, BR-M05-17, BR-M05-18, BR-M05-19 |
 | UC-M05-003 | Gắn Tag cho bài viết | sub | User goal | ACT-002, ACT-003, ACT-007 | - | M05 | #uc-m05-003 | FR-M05-03, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26 |
 | UC-M05-004 | Xem danh sách Topic và Tag | sub | User goal | ACT-001, ACT-002, ACT-003, ACT-007 | - | M05 | #uc-m05-004 | FR-M05-04, BR-M05-01, BR-M05-02, BR-M05-26 |
 | UC-M05-006 | Thêm Topic mới | sub | User goal | ACT-007 | - | M05 | #uc-m05-006 | FR-M05-06, BR-M05-01, BR-M05-05, BR-M05-06, BR-M05-07 |
@@ -145,6 +150,11 @@ Core020 ở User goal: chốt một tập phân loại bài gồm phần Topic v
 | module | path | baseline |
 |---|---|---|
 
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+
 
 Mode module: không tạo US-overview trong scope này; core là đầu vào tổng hợp hệ thống sau này, không tự đưa sub lên tổng quan hệ thống.
 
@@ -166,7 +176,7 @@ Mode module: không tạo US-overview trong scope này; core là đầu vào t�
 
 <a id="uc-m05-020"></a>
 
-### UC-M05-020 — Phân loại nội dung bài viết theo Chuyên mục và Thẻ
+### UC-M05-020 — Phân loại bài viết
 
 <!-- uc:spec UC-M05-020 -->
 | key | value |
@@ -231,7 +241,7 @@ Mode module: không tạo US-overview trong scope này; core là đầu vào t�
 
 <a id="uc-m05-021"></a>
 
-### UC-M05-021 — Tra cứu và khám phá Topic & Tag
+### UC-M05-021 — Tra cứu Topic và Tag
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -255,7 +265,7 @@ Summary không là lần gọi mọi UC con.
 
 <a id="uc-m05-022"></a>
 
-### UC-M05-022 — Quản trị danh mục Topic hệ thống
+### UC-M05-022 — Quản lý danh mục Topic
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -279,7 +289,7 @@ Summary không là lần gọi mọi UC con.
 
 <a id="uc-m05-023"></a>
 
-### UC-M05-023 — Điều phối Tag và phân loại bài viết
+### UC-M05-023 — Quản lý Tag và phân loại bài viết
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -307,7 +317,7 @@ Các cách gọi ngắn UC001/020… trong diễn giải đều thuộc M05; cat
 
 <a id="uc-m05-001"></a>
 
-### UC-M05-001 — Gán Topic cho bài viết
+### UC-M05-001 — Chọn Topic cho bài viết
 
 **UC chính:** UC-M05-020.
 
@@ -389,7 +399,7 @@ Nội dung chuẩn tắc dưới đây áp dụng cùng hợp đồng, luồng v
 
 <a id="uc-m05-002"></a>
 
-### UC-M05-002 — Gợi ý Topic bằng AI
+### UC-M05-002 — Yêu cầu gợi ý Topic
 
 **UC chính:** UC-M05-020.
 
@@ -1117,13 +1127,13 @@ Nội dung chuẩn tắc dưới đây áp dụng cùng hợp đồng, luồng v
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 1 | Nhận các phần cần xử lý và trạng thái bài; chỉ áp quy tắc Topic cho phần Topic và Tag cho phần Tag. | 2 | FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
+| 1 | Nhận các phần cần xử lý và trạng thái bài; chỉ áp quy tắc Topic cho phần Topic và Tag cho phần Tag. | 2 nếu có phần Topic; 3 nếu chỉ phần Tag | FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
 
 <a id="uc-m05-012-main-2"></a>
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 2 | Topic: loại chọn trùng, kiểm thuộc danh mục hiện tại; 0–3 cho nháp, 1–3 khi gửi/lưu sửa đã gửi; từ chối Topic thứ tư hoặc Topic bị xóa. | 3 | FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
+| 2 | Topic: loại chọn trùng, kiểm thuộc danh mục hiện tại; 0–3 cho nháp, 1–3 khi gửi/lưu sửa đã gửi; từ chối Topic thứ tư hoặc Topic bị xóa. | 3 nếu có phần Tag; 5 nếu chỉ phần Topic | FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
 
 <a id="uc-m05-012-main-3"></a>
 
@@ -1399,24 +1409,48 @@ Include đi từ core020 tới UC001/003, từ UC001/003/011 tới UC012. Extend
 
 ### Association actor–UC
 
-| Actor | UC | Vai trò tương tác | Điều kiện/ngữ cảnh | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 |---|---|---|---|---|
-| ACT-002, ACT-003, ACT-007 | UC-M05-020 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của tác giả và quyền thao tác từ M03/M01; quy tắc phân loại được kiểm tra trong luồng. | FR-M05-01, FR-M05-02, FR-M05-03, BR-M05-03, BR-M05-04, BR-M05-22 |
-| ACT-001, ACT-002, ACT-003, ACT-007 | UC-M05-021 | Chủ thể mục tiêu theo quyền | Danh mục Topic phẳng; Guest được xem; không tự tạo trang bài riêng trong M05. | FR-M05-04, FR-M05-05, BR-M05-01, BR-M05-29, BR-M05-30, BR-M05-31 |
+| ACT-002 | UC-M05-020 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của tác giả và quyền thao tác từ M03/M01; quy tắc phân loại được kiểm tra trong luồng. | FR-M05-01, FR-M05-02, FR-M05-03, BR-M05-03, BR-M05-04, BR-M05-22 |
+| ACT-003 | UC-M05-020 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của tác giả và quyền thao tác từ M03/M01; quy tắc phân loại được kiểm tra trong luồng. | FR-M05-01, FR-M05-02, FR-M05-03, BR-M05-03, BR-M05-04, BR-M05-22 |
+| ACT-007 | UC-M05-020 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của tác giả và quyền thao tác từ M03/M01; quy tắc phân loại được kiểm tra trong luồng. | FR-M05-01, FR-M05-02, FR-M05-03, BR-M05-03, BR-M05-04, BR-M05-22 |
+| ACT-001 | UC-M05-021 | Chủ thể mục tiêu theo quyền | Danh mục Topic phẳng; Guest được xem; không tự tạo trang bài riêng trong M05. | FR-M05-04, FR-M05-05, BR-M05-01, BR-M05-29, BR-M05-30, BR-M05-31 |
+| ACT-002 | UC-M05-021 | Chủ thể mục tiêu theo quyền | Danh mục Topic phẳng; Guest được xem; không tự tạo trang bài riêng trong M05. | FR-M05-04, FR-M05-05, BR-M05-01, BR-M05-29, BR-M05-30, BR-M05-31 |
+| ACT-003 | UC-M05-021 | Chủ thể mục tiêu theo quyền | Danh mục Topic phẳng; Guest được xem; không tự tạo trang bài riêng trong M05. | FR-M05-04, FR-M05-05, BR-M05-01, BR-M05-29, BR-M05-30, BR-M05-31 |
+| ACT-007 | UC-M05-021 | Chủ thể mục tiêu theo quyền | Danh mục Topic phẳng; Guest được xem; không tự tạo trang bài riêng trong M05. | FR-M05-04, FR-M05-05, BR-M05-01, BR-M05-29, BR-M05-30, BR-M05-31 |
 | ACT-007 | UC-M05-022 | Chủ thể mục tiêu theo quyền | Chỉ Admin; Mod không kế thừa các quyền này; danh mục không có Topic con hoặc đổi tên. | FR-M05-06, FR-M05-07, FR-M05-08, BR-M05-05, BR-M05-08, BR-M05-09 |
-| ACT-003, ACT-007 | UC-M05-023 | Chủ thể mục tiêu theo quyền | Vai trò Mod/Admin; tác vụ danh mục Topic vẫn chỉ Admin ở core022. | FR-M05-09, FR-M05-10, FR-M05-11, BR-M05-04, BR-M05-25, BR-M05-26, BR-M05-27 |
-| ACT-002, ACT-003, ACT-007 | UC-M05-001 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của mình; kiểm tra phiên/quyền và danh mục hiện tại. Không yêu cầu đã dùng AI. | FR-M05-01, BR-M05-03, BR-M05-04 |
-| ACT-002, ACT-003, ACT-007 | UC-M05-002 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. | FR-M05-02, BR-M05-10, BR-M05-11, BR-M05-12, BR-M05-13, BR-M05-14, BR-M05-17, BR-M05-18, BR-M05-19 |
-| ACT-002, ACT-003, ACT-007 | UC-M05-003 | Chủ thể mục tiêu theo quyền | Có phiên và quyền bài của mình; không bắt buộc có Tag. | FR-M05-03, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26 |
-| ACT-001, ACT-002, ACT-003, ACT-007 | UC-M05-004 | Chủ thể mục tiêu theo quyền | Không cần đăng nhập để xem danh sách; đọc nhãn bài vẫn theo quyền đọc bài M03/M11. | FR-M05-04, BR-M05-01, BR-M05-02, BR-M05-26 |
+| ACT-003 | UC-M05-023 | Chủ thể mục tiêu theo quyền | Vai trò Mod/Admin; tác vụ danh mục Topic vẫn chỉ Admin ở core022. | FR-M05-09, FR-M05-10, FR-M05-11, BR-M05-04, BR-M05-25, BR-M05-26, BR-M05-27 |
+| ACT-007 | UC-M05-023 | Chủ thể mục tiêu theo quyền | Vai trò Mod/Admin; tác vụ danh mục Topic vẫn chỉ Admin ở core022. | FR-M05-09, FR-M05-10, FR-M05-11, BR-M05-04, BR-M05-25, BR-M05-26, BR-M05-27 |
+| ACT-002 | UC-M05-001 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của mình; kiểm tra phiên/quyền và danh mục hiện tại. Không yêu cầu đã dùng AI. | FR-M05-01, BR-M05-03, BR-M05-04 |
+| ACT-003 | UC-M05-001 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của mình; kiểm tra phiên/quyền và danh mục hiện tại. Không yêu cầu đã dùng AI. | FR-M05-01, BR-M05-03, BR-M05-04 |
+| ACT-007 | UC-M05-001 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của mình; kiểm tra phiên/quyền và danh mục hiện tại. Không yêu cầu đã dùng AI. | FR-M05-01, BR-M05-03, BR-M05-04 |
+| ACT-002 | UC-M05-002 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. | FR-M05-02, BR-M05-10, BR-M05-11, BR-M05-12, BR-M05-13, BR-M05-14, BR-M05-17, BR-M05-18, BR-M05-19 |
+| ACT-003 | UC-M05-002 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. | FR-M05-02, BR-M05-10, BR-M05-11, BR-M05-12, BR-M05-13, BR-M05-14, BR-M05-17, BR-M05-18, BR-M05-19 |
+| ACT-007 | UC-M05-002 | Chủ thể mục tiêu theo quyền | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. | FR-M05-02, BR-M05-10, BR-M05-11, BR-M05-12, BR-M05-13, BR-M05-14, BR-M05-17, BR-M05-18, BR-M05-19 |
+| ACT-002 | UC-M05-003 | Chủ thể mục tiêu theo quyền | Có phiên và quyền bài của mình; không bắt buộc có Tag. | FR-M05-03, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26 |
+| ACT-003 | UC-M05-003 | Chủ thể mục tiêu theo quyền | Có phiên và quyền bài của mình; không bắt buộc có Tag. | FR-M05-03, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26 |
+| ACT-007 | UC-M05-003 | Chủ thể mục tiêu theo quyền | Có phiên và quyền bài của mình; không bắt buộc có Tag. | FR-M05-03, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26 |
+| ACT-001 | UC-M05-004 | Chủ thể mục tiêu theo quyền | Không cần đăng nhập để xem danh sách; đọc nhãn bài vẫn theo quyền đọc bài M03/M11. | FR-M05-04, BR-M05-01, BR-M05-02, BR-M05-26 |
+| ACT-002 | UC-M05-004 | Chủ thể mục tiêu theo quyền | Không cần đăng nhập để xem danh sách; đọc nhãn bài vẫn theo quyền đọc bài M03/M11. | FR-M05-04, BR-M05-01, BR-M05-02, BR-M05-26 |
+| ACT-003 | UC-M05-004 | Chủ thể mục tiêu theo quyền | Không cần đăng nhập để xem danh sách; đọc nhãn bài vẫn theo quyền đọc bài M03/M11. | FR-M05-04, BR-M05-01, BR-M05-02, BR-M05-26 |
+| ACT-007 | UC-M05-004 | Chủ thể mục tiêu theo quyền | Không cần đăng nhập để xem danh sách; đọc nhãn bài vẫn theo quyền đọc bài M03/M11. | FR-M05-04, BR-M05-01, BR-M05-02, BR-M05-26 |
 | ACT-007 | UC-M05-006 | Chủ thể mục tiêu theo quyền | Có phiên; vai trò Admin được kiểm tra trong luồng; không dùng quyền Mod thay quyền Admin. | FR-M05-06, BR-M05-01, BR-M05-05, BR-M05-06, BR-M05-07 |
 | ACT-007 | UC-M05-007 | Chủ thể mục tiêu theo quyền | Có phiên; kiểm tra vai trò và nguồn/đích khác nhau trong luồng. | FR-M05-07, BR-M05-09 |
 | ACT-007 | UC-M05-008 | Chủ thể mục tiêu theo quyền | Có phiên; kiểm tra Admin và mọi bài còn gắn Topic trong luồng, không giả định đã rỗng. | FR-M05-08, BR-M05-08 |
-| ACT-003, ACT-007 | UC-M05-009 | Chủ thể mục tiêu theo quyền | Có phiên và vai trò; kiểm tra trạng thái hiện tại, không có quyền sửa/gộp/xóa Tag. | FR-M05-09, BR-M05-25, BR-M05-26 |
-| ACT-003, ACT-007 | UC-M05-010 | Chủ thể mục tiêu theo quyền | Có phiên và vai trò; kiểm trạng thái trong luồng. | FR-M05-10, BR-M05-25, BR-M05-27 |
-| ACT-003, ACT-007 | UC-M05-011 | Chủ thể mục tiêu theo quyền | Có phiên, đúng vai trò; không cung cấp AI gợi ý cho ngữ cảnh này. | FR-M05-11, FR-M05-02.21, BR-M05-04, BR-M05-20, BR-M05-24 |
-| ACT-002, ACT-003, ACT-007 | UC-M05-012 | Kế thừa ngữ cảnh UC gọi | Có ngữ cảnh Topic/Tag hoặc cả hai, nháp/đã gửi; quyền do UC gọi kiểm tra, helper không cấp thêm quyền. | FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
+| ACT-003 | UC-M05-009 | Chủ thể mục tiêu theo quyền | Có phiên và vai trò; kiểm tra trạng thái hiện tại, không có quyền sửa/gộp/xóa Tag. | FR-M05-09, BR-M05-25, BR-M05-26 |
+| ACT-007 | UC-M05-009 | Chủ thể mục tiêu theo quyền | Có phiên và vai trò; kiểm tra trạng thái hiện tại, không có quyền sửa/gộp/xóa Tag. | FR-M05-09, BR-M05-25, BR-M05-26 |
+| ACT-003 | UC-M05-010 | Chủ thể mục tiêu theo quyền | Có phiên và vai trò; kiểm trạng thái trong luồng. | FR-M05-10, BR-M05-25, BR-M05-27 |
+| ACT-007 | UC-M05-010 | Chủ thể mục tiêu theo quyền | Có phiên và vai trò; kiểm trạng thái trong luồng. | FR-M05-10, BR-M05-25, BR-M05-27 |
+| ACT-003 | UC-M05-011 | Chủ thể mục tiêu theo quyền | Có phiên, đúng vai trò; không cung cấp AI gợi ý cho ngữ cảnh này. | FR-M05-11, FR-M05-02.21, BR-M05-04, BR-M05-20, BR-M05-24 |
+| ACT-007 | UC-M05-011 | Chủ thể mục tiêu theo quyền | Có phiên, đúng vai trò; không cung cấp AI gợi ý cho ngữ cảnh này. | FR-M05-11, FR-M05-02.21, BR-M05-04, BR-M05-20, BR-M05-24 |
+| ACT-002 | UC-M05-012 | Kế thừa ngữ cảnh UC gọi | Có ngữ cảnh Topic/Tag hoặc cả hai, nháp/đã gửi; quyền do UC gọi kiểm tra, helper không cấp thêm quyền. | FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
+| ACT-003 | UC-M05-012 | Kế thừa ngữ cảnh UC gọi | Có ngữ cảnh Topic/Tag hoặc cả hai, nháp/đã gửi; quyền do UC gọi kiểm tra, helper không cấp thêm quyền. | FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
+| ACT-007 | UC-M05-012 | Kế thừa ngữ cảnh UC gọi | Có ngữ cảnh Topic/Tag hoặc cả hai, nháp/đã gửi; quyền do UC gọi kiểm tra, helper không cấp thêm quyền. | FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
 | ACT-006 | UC-M05-002 | Hỗ trợ gợi ý qua M13 | Chỉ khi tác giả yêu cầu và đủ cờ/độ dài/tần suất; không tệp đính kèm. | FR-M05-02.01, FR-M13-05.01 |
+
+Bảng được chuyển từ inventory association hiện hữu, tách mỗi cặp actor–UC; không lấy tích actor catalog × UC. Vai trò của helper là tham gia qua UC gọi, không phải thao tác UI độc lập. Các cạnh ACT-003 kế thừa ACT-002 (M02–M05) và ACT-007 kế thừa ACT-003 (M05) có thể rút gọn trên hình; điều kiện quyền ở từng dòng vẫn bắt buộc. M01 không có actor generalization. Những actor chỉ gửi yêu cầu bị từ chối không có quyền thành công.
+
 
 ### Các cặp không có quan hệ UML
 
@@ -1462,8 +1496,8 @@ Một dòng cho từng mã hiện hành. FR chi tiết trỏ điều kiện nghi
 | FR-M05-01.10 | #uc-m05-012-fr-m05-01-10 | Đủ | Điều kiện của UC-M05-012; đọc cùng hợp đồng/nhánh. |
 | FR-M05-02.01 | #uc-m05-002-fr-m05-02-01 | Đủ | Điều kiện của UC-M05-002; đọc cùng hợp đồng/nhánh. |
 | FR-M05-02.02 | #uc-m05-002-fr-m05-02-02 | Đủ | Điều kiện của UC-M05-002; đọc cùng hợp đồng/nhánh. |
-| FR-M05-02.03 | #uc-m05-002-fr-m05-02-03 | Đủ | Điều kiện của UC-M05-002; đọc cùng hợp đồng/nhánh. |
-| FR-M05-02.04 | #uc-m05-002-fr-m05-02-04 | Đủ | Điều kiện của UC-M05-002; đọc cùng hợp đồng/nhánh. |
+| FR-M05-02.03 | #uc-m05-002-fr-m05-02-03 | Một phần | Đặc tả giữ nội dung nguồn; chưa chốt postcondition đường bị chặn theo NOTE-M05-01 ở QA revision 2.3. |
+| FR-M05-02.04 | #uc-m05-002-fr-m05-02-04 | Một phần | Đặc tả giữ nội dung nguồn; chưa chốt postcondition đường bị chặn theo NOTE-M05-01 ở QA revision 2.3. |
 | FR-M05-02.05 | #uc-m05-002-fr-m05-02-05 | Đủ | Điều kiện của UC-M05-002; đọc cùng hợp đồng/nhánh. |
 | FR-M05-02.06 | #uc-m05-002-fr-m05-02-06 | Đủ | Điều kiện của UC-M05-002; đọc cùng hợp đồng/nhánh. |
 | FR-M05-02.07 | #uc-m05-002-fr-m05-02-07 | Đủ | Điều kiện của UC-M05-002; đọc cùng hợp đồng/nhánh. |
@@ -1640,11 +1674,11 @@ Mỗi sơ đồ chỉ bàn giao một SVG. Actor ngoài iShare, UC trong M05; co
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| D-M05-CORE | core | - | UC-M05-020, UC-M05-021, UC-M05-022, UC-M05-023 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M05/D-M05-CORE.svg |
-| D-M05-020 | detail | UC-M05-020 | UC-M05-020, UC-M05-001, UC-M05-002, UC-M05-003, UC-M05-012 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M05/D-M05-020.svg |
-| D-M05-021 | detail | UC-M05-021 | UC-M05-021, UC-M05-004 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M05/D-M05-021.svg |
-| D-M05-022 | detail | UC-M05-022 | UC-M05-022, UC-M05-006, UC-M05-007, UC-M05-008 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M05/D-M05-022.svg |
-| D-M05-023 | detail | UC-M05-023 | UC-M05-023, UC-M05-009, UC-M05-010, UC-M05-011, UC-M05-012 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M05/D-M05-023.svg |
+| D-M05-CORE | core | - | UC-M05-020, UC-M05-021, UC-M05-022, UC-M05-023 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M05/D-M05-CORE.svg |
+| D-M05-020 | detail | UC-M05-020 | UC-M05-020, UC-M05-001, UC-M05-002, UC-M05-003, UC-M05-012 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M05/D-M05-020.svg |
+| D-M05-021 | detail | UC-M05-021 | UC-M05-021, UC-M05-004 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M05/D-M05-021.svg |
+| D-M05-022 | detail | UC-M05-022 | UC-M05-022, UC-M05-006, UC-M05-007, UC-M05-008 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M05/D-M05-022.svg |
+| D-M05-023 | detail | UC-M05-023 | UC-M05-023, UC-M05-009, UC-M05-010, UC-M05-011, UC-M05-012 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M05/D-M05-023.svg |
 
 ### D-M05-CORE — Tổng quan UC chính M05
 
@@ -1652,31 +1686,33 @@ Mỗi sơ đồ chỉ bàn giao một SVG. Actor ngoài iShare, UC trong M05; co
 
 [Xem SVG](diagrams/M05/D-M05-CORE.svg)
 
-### D-M05-020 — Phân loại nội dung bài viết theo Chuyên mục và Thẻ
+### D-M05-020 — Phân loại bài viết
 
 ![D-M05-020](diagrams/M05/D-M05-020.svg)
 
 [Xem SVG](diagrams/M05/D-M05-020.svg)
 
-### D-M05-021 — Tra cứu và khám phá Topic & Tag
+### D-M05-021 — Tra cứu Topic và Tag
 
 ![D-M05-021](diagrams/M05/D-M05-021.svg)
 
 [Xem SVG](diagrams/M05/D-M05-021.svg)
 
-### D-M05-022 — Quản trị danh mục Topic hệ thống
+### D-M05-022 — Quản lý danh mục Topic
 
 ![D-M05-022](diagrams/M05/D-M05-022.svg)
 
 [Xem SVG](diagrams/M05/D-M05-022.svg)
 
-### D-M05-023 — Điều phối Tag và phân loại bài viết
+### D-M05-023 — Quản lý Tag và phân loại bài viết
 
 ![D-M05-023](diagrams/M05/D-M05-023.svg)
 
 [Xem SVG](diagrams/M05/D-M05-023.svg)
 
 ## 7. Kiểm tra và phê duyệt
+
+**Bằng chứng lịch sử revision 2.2.** Các lệnh/render và kết quả bên dưới được giữ như lịch sử; kết quả kiểm chứng revision 2.3 nằm ở mục cuối.
 
 **Kiểm tra ngày 2026-10-30:**
 
@@ -1714,3 +1750,125 @@ Nguồn và ảnh raster chỉ phục vụ kiểm tra trong workspace tạm, kh�
 | Sơ đồ | 5 SVG bàn giao; nguồn/raster tạm ở workspace, không có link tải file trung gian. |
 
 **Chờ duyệt.** Hoàn tất phân tích/kiểm tra và quyền tự thực hiện không thay phê duyệt nội dung cuối. Chỉ chuyển Đã duyệt khi có xác nhận chấp nhận kết quả. FR đổi cần rà lại baseline, đặc tả, truy vết, quan hệ và view chịu tác động.
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+## Review revision 2.3 — 2026-11-24
+
+Quyền hiện hành: cập nhật bộ US, làm liên tục bảy bước; không phê duyệt kết quả. Baseline FR, ID và tên hiện hành được giữ. [UC-NAMING](UC-NAMING.md) ngày 2026-11-24 đang **Chờ duyệt cách diễn đạt**; được đối chiếu như lựa chọn diễn đạt hiện có, không coi là quy chuẩn đã duyệt.
+
+### Lịch sử tiến độ và bằng chứng cũ
+
+Các bảng tiến độ/render/checker ở trên là **lịch sử revision 2.2**; không phải các lệnh vừa chạy cho revision 2.3. approved_steps lịch sử = `-`; bằng chứng nguyên văn lịch sử: Người dùng yêu cầu xây dựng phân tích M05 theo skill. Quyền tự thực hiện các việc cần thiết, không hỏi đồng ý đã được cấp ở lượt trước và tiếp tục áp dụng; hoàn thiện liên tục các bước. Chưa có phê duyệt kết quả cuối hay approved_steps cho bản này.
+
+Revision 2.3: bước 1 đối chiếu owner/normative và boundary; bước 2 rà goal/level/core–sub; bước 3 walkthrough từng đặc tả; bước 4 rà core–sub/sub–sub và association; bước 5 đối chiếu trace/điều kiện chuẩn tắc; bước 6 giữ SVG hiện hành, kiểm XML/node/cạnh; bước 7 ghi kết quả và gap bên dưới. Không chạy renderer mới trong revision này; giữ bằng chứng render lịch sử cho SVG không đổi.
+
+### Độ gắn kết, mức mục tiêu và phương án
+
+| Core/sub hoặc cặp UC | Goal/trigger/kết quả/phạm vi | Quyết định và giới hạn | Nguồn |
+|---|---|---|---|
+| UC-M05-020 / UC-M05-001, UC-M05-002, UC-M05-003, UC-M05-012 | User goal chốt phân loại của một bài, không xuất bản; Topic bắt buộc theo trạng thái, Tag có thể rỗng. Gợi ý có trigger nút riêng, helper chuẩn hóa không tự lưu. | Giữ include Topic/Tag với tập Tag rỗng; AI extend chọn Topic, không gọi AI vô điều kiện. NOTE-M05-01 chặn trường hợp đã có lựa chọn trước. | FR-M05-01, FR-M05-02, FR-M05-03 |
+| UC-M05-021 / UC-M05-004 — mapping 1:1 | Summary bao quát dữ liệu danh mục/nhãn và Trending theo AUT001; sub004 User goal chỉ danh sách/nhãn. Trending tính theo chu kỳ, M14 sở hữu trình bày. | Giữ quy ước hai tầng vì phạm vi core còn AUT001 có nguồn; không thêm UC người dùng xem Trending M05 để đủ số con. | FR-M05-04, FR-M05-05, FR-M05-05.10 |
+| UC-M05-022 / UC-M05-006, UC-M05-007, UC-M05-008 | Summary danh mục chỉ Admin; thêm/gộp/xóa là User goal với trigger/kết quả khác và điều kiện xóa không giống bỏ nguồn sau gộp. | Giữ độc lập, không include gộp→xóa hoặc gen CRUD. | FR-M05-06, FR-M05-07, FR-M05-08 |
+| UC-M05-023 / UC-M05-009, UC-M05-010, UC-M05-011, UC-M05-012 | Summary Mod/Admin điều phối Tag/phân loại người khác; bật/tắt và sửa bài khác nhau, helper dữ liệu chung không chuyển quyền tác giả sang Mod. | Giữ một UC012 cho hai core; không cung cấp AI cho bài người khác. | FR-M05-09, FR-M05-10, FR-M05-11, FR-M05-02.21 |
+
+Phương án giữ hai tầng và bảng mapping bảo toàn ID/trace, tốn thêm brief; gộp core/sub 1:1 làm gọn tài liệu nhưng mất hợp đồng đầu ra hai tầng và cần quyết định đổi scope. Tách thêm oval chỉ theo thao tác làm mô hình khó bảo trì mà không thêm mục tiêu có nguồn, nên không chọn. Các phương án này là phương pháp trình bày, không thêm chức năng sản phẩm.
+
+### Walkthrough theo từng đặc tả và từng nhánh
+
+Mỗi dòng dưới kiểm một đường đã có anchor, cùng điều kiện chuẩn tắc/BR của đặc tả; không thay toàn bộ bảng bằng một pass chung. Các guard có thể phủ định một kiểm tra trong luồng; tiền điều kiện không được dùng để loại nhánh từ chối. Hậu điều kiện tại return là trạng thái trung gian, END chỉ khẳng định kết quả riêng của đường đó. Dòng main diễn tả đường thành công, các trường hợp bị gap giới hạn được tách riêng và ưu tiên hơn kết luận chung.
+
+| Đường đi/anchor | Trigger, trạng thái/quyền trước | Bước rẽ và return/END | Postcondition thực tế | Nguồn / kết quả review / gap |
+|---|---|---|---|---|
+| [UC-M05-020 / main](#uc-m05-020-main-1) | Tác giả phân loại bài khi soạn/gửi/sửa trong M03. Trước: Có ngữ cảnh bài của tác giả và quyền thao tác từ M03/M01; quy tắc phân loại được kiểm tra trong luồng. | 1 → 2 → 3 → 4; END: Bài nháp có 0–3 Topic, bài gửi/đã gửi có 1–3; Tag 0–5 hợp lệ, không trùng, không gắn Tag bị vô hiệu hóa như liên kết mới. | Bài nháp có 0–3 Topic, bài gửi/đã gửi có 1–3; Tag 0–5 hợp lệ, không trùng, không gắn Tag bị vô hiệu hóa như liên kết mới. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-01, FR-M05-02, FR-M05-03, BR-M05-03, BR-M05-04, BR-M05-22 |
+| [UC-M05-020 / A1](#uc-m05-020-alt-1) | Có ngữ cảnh bài của tác giả và quyền thao tác từ M03/M01; quy tắc phân loại được kiểm tra trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Không có Topic khi gửi/lưu sửa bài đã gửi, >3 Topic hoặc Topic không còn danh mục | Rẽ bước 2 → END: chưa chốt phân loại | Từ chối tập Topic sai; nháp vẫn được 0 Topic. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-01.03, FR-M05-01.04, FR-M05-01.07, FR-M05-01.09, FR-M05-01.10 |
+| [UC-M05-020 / A2](#uc-m05-020-alt-2) | Có ngữ cảnh bài của tác giả và quyền thao tác từ M03/M01; quy tắc phân loại được kiểm tra trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Tag vượt số/độ dài hoặc tên không hợp lệ | Rẽ bước 3 → END: chưa chốt tập Tag hợp lệ | Từ chối Tag vi phạm theo UC003/012; không tự sửa ký tự hoặc bỏ dấu. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-03.04, FR-M05-03.05, FR-M05-03.06, FR-M05-03.07 |
+| [UC-M05-001 / main](#uc-m05-001-main-1) | Tác giả chọn Topic khi soạn, gửi hoặc sửa bài đã gửi. Trước: Có ngữ cảnh bài của mình; kiểm tra phiên/quyền và danh mục hiện tại. Không yêu cầu đã dùng AI. | 1 → 2 → 3 → 4; END: Nháp 0–3 Topic; gửi/lưu sửa đã gửi 1–3 khác nhau, thuộc danh mục hiện tại. | Nháp 0–3 Topic; gửi/lưu sửa đã gửi 1–3 khác nhau, thuộc danh mục hiện tại. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-01, BR-M05-03, BR-M05-04 |
+| [UC-M05-001 / A1](#uc-m05-001-alt-1) | Có ngữ cảnh bài của mình; kiểm tra phiên/quyền và danh mục hiện tại. Không yêu cầu đã dùng AI. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập hoặc không có quyền bài | Rẽ bước 1 → END: chưa gán | Từ chối; quyền đổi bài người khác của Mod/Admin dùng UC011, không giả làm tác giả. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-01.08, FR-M05-11.04 |
+| [UC-M05-001 / A2](#uc-m05-001-alt-2) | Có ngữ cảnh bài của mình; kiểm tra phiên/quyền và danh mục hiện tại. Không yêu cầu đã dùng AI. Guard kiểm trong luồng (không giả định đã đạt): Chọn Topic thứ tư hoặc lặp lại Topic | Rẽ bước 3 → 2 | Tại điểm quay lại: Từ chối Topic thứ tư; Topic lặp chỉ giữ một lần. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-01.04, FR-M05-01.05 |
+| [UC-M05-001 / A3](#uc-m05-001-alt-3) | Có ngữ cảnh bài của mình; kiểm tra phiên/quyền và danh mục hiện tại. Không yêu cầu đã dùng AI. Guard kiểm trong luồng (không giả định đã đạt): Gửi/lưu sửa thiếu Topic hoặc Topic đã xóa trước khi gửi | Rẽ bước 3 → 2 | Tại điểm quay lại: Từ chối phần Topic không hợp lệ; không tự thay bằng Khác. Lưu nháp được 0–3. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-01.03, FR-M05-01.07, FR-M05-01.09, FR-M05-01.10 |
+| [UC-M05-002 / main](#uc-m05-002-main-1) | Tác giả bấm Gợi ý topic tại EP-TOPIC-SUGGEST, khi soạn hoặc sửa bài đã gửi. Trước: Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. | 1 → 2 → 3 → 4; END: gợi ý đã hiển thị, quay về UC-M05-001 bước 2 | Tối đa 3 Topic hợp lệ đã chọn sẵn; tác giả bỏ/chọn thêm trong hạn mức. Lần thất bại không tự chọn Topic. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-02, BR-M05-10, BR-M05-11, BR-M05-12, BR-M05-13, BR-M05-14, BR-M05-17, BR-M05-18, BR-M05-19 |
+| [UC-M05-002 / A1](#uc-m05-002-alt-1) | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập hoặc Mod/Admin đổi Topic bài người khác | Rẽ bước 2 → END: không lấy gợi ý | Từ chối/không cung cấp gợi ý trong ngữ cảnh đó. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-02.18, FR-M05-02.21 |
+| [UC-M05-002 / A2](#uc-m05-002-alt-2) | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. Guard kiểm trong luồng (không giả định đã đạt): Một trong hai cờ AI tắt | Rẽ bước 2 → END: chọn thủ công | Không cung cấp gợi ý; tác giả chọn từ danh mục thủ công. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-02.16, FR-M05-02.17 |
+| [UC-M05-002 / A3](#uc-m05-002-alt-3) | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. Guard kiểm trong luồng (không giả định đã đạt): Tổng tiêu đề/chữ <20 từ hoặc yêu cầu thứ 11 trong 60 giây gần nhất | Rẽ bước 2 → END: chưa gọi AI | Báo quá ngắn hoặc từ chối vượt tần suất; không gửi lời gọi chưa đủ điều kiện tới AI. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-02.05, FR-M05-02.15 |
+| [UC-M05-002 / A4](#uc-m05-002-alt-4) | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. Guard kiểm trong luồng (không giả định đã đạt): AI lỗi/timeout sau retry hoặc không còn Topic hợp lệ | Rẽ bước 4 → END: gợi ý thất bại, vẫn chọn thủ công | Hiện thông báo không chặn: Không thể gợi ý chủ đề lúc này, vui lòng chọn thủ công; không tự chọn Topic. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-02.06, FR-M05-02.07, FR-M05-02.08 |
+| [UC-M05-002 / A5](#uc-m05-002-alt-5) | Có ngữ cảnh bài của mình; phiên, hai cờ AI, độ dài và cửa sổ tần suất được kiểm tra, không giả định luôn đạt. Guard kiểm trong luồng (không giả định đã đạt): Chỉ một phần kết quả ngoài danh mục | Rẽ bước 4 → 4 | Tại điểm quay lại: Bỏ phần ngoài danh mục, giữ các Topic hợp lệ; không coi cả lần là thất bại nếu còn hợp lệ. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-02.19 |
+| [UC-M05-003 / main](#uc-m05-003-main-1) | Tác giả nhập/gắn/bỏ Tag khi soạn, gửi hoặc sửa bài. Trước: Có phiên và quyền bài của mình; không bắt buộc có Tag. | 1 → 2 → 3 → 4; END: 0–5 Tag hợp lệ; dùng lại Tag đã có hoặc tạo Tag chưa tồn tại ở trạng thái hoạt động, không cần duyệt. | 0–5 Tag hợp lệ; dùng lại Tag đã có hoặc tạo Tag chưa tồn tại ở trạng thái hoạt động, không cần duyệt. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-03, BR-M05-20, BR-M05-21, BR-M05-22, BR-M05-23, BR-M05-24, BR-M05-26 |
+| [UC-M05-003 / A1](#uc-m05-003-alt-1) | Có phiên và quyền bài của mình; không bắt buộc có Tag. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập hoặc không quyền bài | Rẽ bước 1 → END: không gắn Tag | Từ chối gắn/đổi; không cho gắn vào comment. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-03.12, FR-M05-03.13 |
+| [UC-M05-003 / A2](#uc-m05-003-alt-2) | Có phiên và quyền bài của mình; không bắt buộc có Tag. Guard kiểm trong luồng (không giả định đã đạt): Tag thứ sáu, tên >30 ký tự, ký tự ngoài chữ/số/_ hoặc không có chữ cái | Rẽ bước 2 → 1 | Tại điểm quay lại: Từ chối Tag vi phạm; chỉ đổi hoa thành thường, không tự bỏ dấu hay thay ký tự. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-03.04, FR-M05-03.05, FR-M05-03.06, FR-M05-03.07 |
+| [UC-M05-003 / A3](#uc-m05-003-alt-3) | Có phiên và quyền bài của mình; không bắt buộc có Tag. Guard kiểm trong luồng (không giả định đã đạt): Tag lặp hoặc tên đã tồn tại sau chuẩn hóa | Rẽ bước 2 → 3 | Tại điểm quay lại: Chỉ giữ một liên kết và dùng một Tag hiện có. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-03.03, FR-M05-03.08 |
+| [UC-M05-003 / A4](#uc-m05-003-alt-4) | Có phiên và quyền bài của mình; không bắt buộc có Tag. Guard kiểm trong luồng (không giả định đã đạt): Tag đang vô hiệu hóa | Rẽ bước 2 → 3 | Tại điểm quay lại: Giữ phần nhập như văn bản, không tái tạo một Tag hoạt động cùng tên. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-03.09 |
+| [UC-M05-004 / main](#uc-m05-004-main-1) | Người xem mở danh sách Topic/Tag hoặc xem nhãn trên bài. Trước: Không cần đăng nhập để xem danh sách; đọc nhãn bài vẫn theo quyền đọc bài M03/M11. | 1 → 2 → 3 → 4; END: Topic hiện toàn bộ danh mục phẳng, Tag chỉ hoạt động; bài chỉ hiện Tag hoạt động còn liên kết. | Topic hiện toàn bộ danh mục phẳng, Tag chỉ hoạt động; bài chỉ hiện Tag hoạt động còn liên kết. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-04, BR-M05-01, BR-M05-02, BR-M05-26 |
+| [UC-M05-004 / A1](#uc-m05-004-alt-1) | Không cần đăng nhập để xem danh sách; đọc nhãn bài vẫn theo quyền đọc bài M03/M11. Guard kiểm trong luồng (không giả định đã đạt): Tag đang vô hiệu hóa | Rẽ bước 2 hoặc 3 → END: danh sách/nhãn đúng trạng thái | Không hiển thị tại danh sách/nhãn bài; không xóa liên kết cũ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-04.03, FR-M05-04.05 |
+| [UC-M05-006 / main](#uc-m05-006-main-1) | Admin gửi tên Topic mới. Trước: Có phiên; vai trò Admin được kiểm tra trong luồng; không dùng quyền Mod thay quyền Admin. | 1 → 2 → 3; END: Topic thêm vào danh mục phẳng, chọn được khi gán/gợi ý; không tự gán vào bài cũ. | Topic thêm vào danh mục phẳng, chọn được khi gán/gợi ý; không tự gán vào bài cũ. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-06, BR-M05-01, BR-M05-05, BR-M05-06, BR-M05-07 |
+| [UC-M05-006 / A1](#uc-m05-006-alt-1) | Có phiên; vai trò Admin được kiểm tra trong luồng; không dùng quyền Mod thay quyền Admin. Guard kiểm trong luồng (không giả định đã đạt): Người thực hiện không Admin | Rẽ bước 1 → END: không thêm | Từ chối, kể cả Mod có quyền quản lý Tag. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-06.03 |
+| [UC-M05-006 / A2](#uc-m05-006-alt-2) | Có phiên; vai trò Admin được kiểm tra trong luồng; không dùng quyền Mod thay quyền Admin. Guard kiểm trong luồng (không giả định đã đạt): Tên trùng Topic hiện có theo quy tắc so sánh | Rẽ bước 2 → END: không thêm | Từ chối thêm; không tự gộp hoặc đổi tên Topic hiện có. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-06.02, FR-M05-06.08 |
+| [UC-M05-007 / main](#uc-m05-007-main-1) | Admin chọn Topic nguồn và đích để gộp. Trước: Có phiên; kiểm tra vai trò và nguồn/đích khác nhau trong luồng. | 1 → 2 → 3; END: Mọi bài dùng nguồn chuyển sang đích, không trùng; người theo dõi nguồn sang đích nếu chưa theo; nguồn bị xóa khỏi danh mục. | Mọi bài dùng nguồn chuyển sang đích, không trùng; người theo dõi nguồn sang đích nếu chưa theo; nguồn bị xóa khỏi danh mục. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-07, BR-M05-09 |
+| [UC-M05-007 / A1](#uc-m05-007-alt-1) | Có phiên; kiểm tra vai trò và nguồn/đích khác nhau trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Không Admin hoặc cùng Topic làm cả nguồn/đích | Rẽ bước 1 → END: không gộp | Từ chối gộp. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-07.03, FR-M05-07.04 |
+| [UC-M05-008 / main](#uc-m05-008-main-1) | Admin yêu cầu xóa một Topic. Trước: Có phiên; kiểm tra Admin và mọi bài còn gắn Topic trong luồng, không giả định đã rỗng. | 1 → 2 → 3; END: Topic không còn danh mục/được chọn/gợi ý; bỏ khỏi nháp và bỏ lượt theo dõi. | Topic không còn danh mục/được chọn/gợi ý; bỏ khỏi nháp và bỏ lượt theo dõi. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-08, BR-M05-08 |
+| [UC-M05-008 / A1](#uc-m05-008-alt-1) | Có phiên; kiểm tra Admin và mọi bài còn gắn Topic trong luồng, không giả định đã rỗng. Guard kiểm trong luồng (không giả định đã đạt): Người thực hiện không Admin | Rẽ bước 1 → END: không xóa | Từ chối xóa. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-08.03 |
+| [UC-M05-008 / A2](#uc-m05-008-alt-2) | Có phiên; kiểm tra Admin và mọi bài còn gắn Topic trong luồng, không giả định đã rỗng. Guard kiểm trong luồng (không giả định đã đạt): Có ít nhất một bài ngoài nháp, kể cả đã xóa còn hạn | Rẽ bước 2 → END: không xóa | Từ chối; không tự đổi sang gộp hoặc xóa bài để đủ điều kiện. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-08.02, BR-M05-08 |
+| [UC-M05-009 / main](#uc-m05-009-main-1) | Mod/Admin yêu cầu vô hiệu một Tag. Trước: Có phiên và vai trò; kiểm tra trạng thái hiện tại, không có quyền sửa/gộp/xóa Tag. | 1 → 2 → 3; END: Tag vô hiệu hóa; không hiện gợi ý/danh sách/Trending/nhãn bài; liên kết bài cũ giữ, nhập lại chỉ là văn bản; có log kiểm duyệt. | Tag vô hiệu hóa; không hiện gợi ý/danh sách/Trending/nhãn bài; liên kết bài cũ giữ, nhập lại chỉ là văn bản; có log kiểm duyệt. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-09, BR-M05-25, BR-M05-26 |
+| [UC-M05-009 / A1](#uc-m05-009-alt-1) | Có phiên và vai trò; kiểm tra trạng thái hiện tại, không có quyền sửa/gộp/xóa Tag. Guard kiểm trong luồng (không giả định đã đạt): Không phải Mod/Admin | Rẽ bước 1 → END: không vô hiệu hóa | Từ chối. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-09.04 |
+| [UC-M05-009 / A2](#uc-m05-009-alt-2) | Có phiên và vai trò; kiểm tra trạng thái hiện tại, không có quyền sửa/gộp/xóa Tag. Guard kiểm trong luồng (không giả định đã đạt): Tag đã vô hiệu hóa | Rẽ bước 1 → END: trạng thái không đổi | Giữ nguyên trạng thái; không xóa Tag hay liên kết. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-09.05 |
+| [UC-M05-010 / main](#uc-m05-010-main-1) | Mod/Admin yêu cầu kích hoạt Tag vô hiệu hóa. Trước: Có phiên và vai trò; kiểm trạng thái trong luồng. | 1 → 2 → 3; END: Tag hoạt động; xuất hiện lại ở các nơi theo quy tắc, bài cũ còn liên kết hiện lại; có log kiểm duyệt. | Tag hoạt động; xuất hiện lại ở các nơi theo quy tắc, bài cũ còn liên kết hiện lại; có log kiểm duyệt. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-10, BR-M05-25, BR-M05-27 |
+| [UC-M05-010 / A1](#uc-m05-010-alt-1) | Có phiên và vai trò; kiểm trạng thái trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Không Mod/Admin | Rẽ bước 1 → END: không kích hoạt | Từ chối. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-10.04 |
+| [UC-M05-010 / A2](#uc-m05-010-alt-2) | Có phiên và vai trò; kiểm trạng thái trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Tag đang hoạt động | Rẽ bước 1 → END: trạng thái không đổi | Giữ trạng thái, không thêm liên kết bài mới. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-10.05 |
+| [UC-M05-011 / main](#uc-m05-011-main-1) | Mod/Admin lưu thay đổi Topic hoặc Tag trên bài người khác. Trước: Có phiên, đúng vai trò; không cung cấp AI gợi ý cho ngữ cảnh này. | 1 → 2 → 3 → 4; END: Topic 1–3 trong danh mục, Tag tối đa 5 hợp lệ; log kiểm duyệt, không báo tác giả/không lịch sử công khai. | Topic 1–3 trong danh mục, Tag tối đa 5 hợp lệ; log kiểm duyệt, không báo tác giả/không lịch sử công khai. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-11, FR-M05-02.21, BR-M05-04, BR-M05-20, BR-M05-24 |
+| [UC-M05-011 / A1](#uc-m05-011-alt-1) | Có phiên, đúng vai trò; không cung cấp AI gợi ý cho ngữ cảnh này. Guard kiểm trong luồng (không giả định đã đạt): Người sửa không là tác giả/Mod/Admin | Rẽ bước 1 → END: không thay đổi | Từ chối. Tác giả chỉnh bài mình qua UC001/003, không được dùng vai trò User sửa bài người khác. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-11.04 |
+| [UC-M05-011 / A2](#uc-m05-011-alt-2) | Có phiên, đúng vai trò; không cung cấp AI gợi ý cho ngữ cảnh này. Guard kiểm trong luồng (không giả định đã đạt): Không còn Topic, >3 Topic hoặc >5 Tag, tên/danh mục/trạng thái sai | Rẽ bước 2 → END: không lưu tập sai | Từ chối phần phân loại không hợp lệ; không tự chọn Topic thay thế. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-11.03, BR-M05-04 |
+| [UC-M05-012 / main](#uc-m05-012-main-1) | UC001, UC003 hoặc UC011 gọi với tập phân loại và ngữ cảnh bài. Trước: Có ngữ cảnh Topic/Tag hoặc cả hai, nháp/đã gửi; quyền do UC gọi kiểm tra, helper không cấp thêm quyền. | 1 → 2 → 5 nếu chỉ Topic; 1 → 3 → 4 → 5 nếu chỉ Tag; 1 → 2 → 3 → 4 → 5 nếu cả hai; END trả UC001/003/011 theo caller | Trả tập không trùng và hợp lệ theo từng phần, tên Tag chuẩn hóa, phân biệt dùng lại/tạo mới/phần chữ không liên kết. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M05-01, FR-M05-03, FR-M05-11.01, FR-M05-11.02, FR-M05-11.03, BR-M05-03, BR-M05-04, BR-M05-20, BR-M05-22, BR-M05-23, BR-M05-24 |
+| [UC-M05-012 / A1](#uc-m05-012-alt-1) | Có ngữ cảnh Topic/Tag hoặc cả hai, nháp/đã gửi; quyền do UC gọi kiểm tra, helper không cấp thêm quyền. Guard kiểm trong luồng (không giả định đã đạt): Topic không danh mục hoặc sai hạn mức theo trạng thái | Rẽ bước 2 → END: tập Topic sai | Trả từ chối phần Topic, không thay bằng một Topic tự chọn. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-01.03, FR-M05-01.04, FR-M05-01.07, FR-M05-01.09 |
+| [UC-M05-012 / A2](#uc-m05-012-alt-2) | Có ngữ cảnh Topic/Tag hoặc cả hai, nháp/đã gửi; quyền do UC gọi kiểm tra, helper không cấp thêm quyền. Guard kiểm trong luồng (không giả định đã đạt): Tag sai ký tự, dài quá hạn, không có chữ hoặc Tag thứ sáu | Rẽ bước 3 → END: tập Tag sai | Trả từ chối Tag vi phạm. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-03.04, FR-M05-03.05, FR-M05-03.06, FR-M05-03.07 |
+| [UC-M05-012 / A3](#uc-m05-012-alt-3) | Có ngữ cảnh Topic/Tag hoặc cả hai, nháp/đã gửi; quyền do UC gọi kiểm tra, helper không cấp thêm quyền. Guard kiểm trong luồng (không giả định đã đạt): Tên chuẩn hóa trùng Tag vô hiệu hóa | Rẽ bước 4 → 5 | Tại điểm quay lại: Không tạo Tag hoạt động trùng tên để vượt vô hiệu hóa; phần nhập là chữ. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M05-03.09, BR-M05-26 |
+| UC-M05-002 main-4 / đã chọn Topic trước | Tác giả có sẵn Topic đã chọn và nhận gợi ý mới hợp lệ | main-4 → UC-M05-001 main-2; cách giữ/thay/hợp nhất tập cũ chưa chốt | Tối đa 3 Topic cuối vẫn bắt buộc; chưa khẳng định tập nào được chọn sẵn sau gợi ý. | BLOCKED phần hòa giải tập cũ, NOTE-M05-01; FR-M05-02.03, FR-M05-02.04. |
+
+### Vòng đời điểm cần làm rõ
+
+| ID | Nguồn/baseline | Vấn đề | UC/đường bị ảnh hưởng | Blocking/nonblocking và lý do | Người xác nhận | Register | Trạng thái/quyết định | Bằng chứng đóng/baseline cần cập nhật |
+|---|---|---|---|---|---|---|---|---|
+| TBD-M05-01 | FR-M05 1.7; chi tiết/chứng cứ ở mục 5 | SSR/SEO và preview link cho trang công khai còn hoãn theo OPEN-006. | UC-M05-004; SEO/preview link ngoài MS1 | nonblocking: phần hoãn không thay quyền đọc danh sách hiện hành | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | [OPEN-006](../../../.agents/.claude/system_analysis/output/registers/open-issues.md) theo FR-M05 | pending-confirmation / giữ giới hạn baseline | Quyết định scope/FR mới trước khi thêm; chưa có bằng chứng thay đổi phần hoãn. |
+| TBD-M05-02 | FR-M05 1.7; chi tiết/chứng cứ ở mục 5 | Lượt xem chưa là tương tác Trending ở MS1, OPEN-005/DEC-145. | AUT-M05-001; không tính lượt xem | nonblocking: MS1 đã loại lượt xem khỏi tương tác Trending | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | [OPEN-005](../../../.agents/.claude/system_analysis/output/registers/open-issues.md) / [DEC-145](../../../.agents/.claude/system_analysis/output/registers/decisions.md) theo FR-M05 | pending-confirmation / giữ giới hạn baseline | Chỉ đổi sau quyết định scope và FR mới; chưa có bằng chứng thay đổi. |
+| NOTE-M05-01 | FR-M05 1.7; chi tiết/chứng cứ ở mục 5 | AI chọn sẵn tối đa 3 Topic; nguồn chưa quy định chi tiết UI hòa giải với Topic đã chọn trước một lần gợi ý mới. | UC-M05-002 bước 4 → UC-M05-001 bước 2; core020; đã có Topic trước gợi ý mới | blocking: nguồn yêu cầu chọn sẵn tối đa 3 gợi ý nhưng chưa chốt giữ/thay/hợp nhất tập cũ; không thể xác định postcondition tập đang chọn của đường này | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | đề xuất ghi [QA tại register](../../../.agents/.claude/system_analysis/output/registers/qa-log.md) về FR-M05-02.03, FR-M05-02.04 tại register; chưa cấp mã | open — chưa chốt phần phụ thuộc | Stakeholder chốt hòa giải tập đã chọn với gợi ý; cập nhật FR-M05/M13 nếu cần và rerun walkthrough/trace; chưa có bằng chứng chấp thuận. |
+| NOTE-M05-02 | FR-M05 1.7; chi tiết/chứng cứ ở mục 5 | Tag kích hoạt lại được hiển thị lại, nhưng Trending còn yêu cầu điểm >0 và dùng kỳ tính gần nhất. | Tag kích hoạt lại được hiển thị lại, nhưng Trending còn yêu cầu điểm >0 và dùng kỳ tính gần nhất.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M05 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | Không tạo hạng điểm 0 chỉ vì kích hoạt; không tự thêm trigger tính realtime thay chu kỳ 15–30 phút. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M05-03 | FR-M05 1.7; chi tiết/chứng cứ ở mục 5 | Điều kiện xóa Topic khác thao tác bỏ nguồn sau gộp. | Điều kiện xóa Topic khác thao tác bỏ nguồn sau gộp.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M05 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | UC008 không được xóa Topic còn bài ngoài nháp; UC007 có bước di chuyển toàn bộ liên kết trước khi bỏ nguồn, không include UC008 với tiền điều kiện khác. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M05-04 | FR-M05 1.7; chi tiết/chứng cứ ở mục 5 | Phần mô tả liên quan nhắc thông báo Topic có bài mới trong tài liệu cũ không thay yêu cầu M07 hiện hành. | Phần mô tả liên quan nhắc thông báo Topic có bài mới trong tài liệu cũ không thay yêu cầu M07 hiện hành.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M05 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | Không thêm thông báo đó; FR-M07-02.24 quy định không tạo, quan hệ theo dõi vẫn được chuyển/bỏ khi gộp/xóa. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M05-05 | FR-M05 1.7; chi tiết/chứng cứ ở mục 5 | Không có quy tắc mới cho lỗi lưu trữ/transaction/log yêu cầu lặp giữ nguyên trạng thái. | UC-M05-006/007/008/009/010/011; lỗi lưu/log, lặp trạng thái | nonblocking: giữ log hành vi thành công có nguồn, không cam kết log mọi lần thử/rollback chưa quyết | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | đề xuất ghi [QA tại register](../../../.agents/.claude/system_analysis/output/registers/qa-log.md) nếu cần failure guarantee nghiệp vụ | pending-confirmation / giữ giới hạn baseline | Chốt bảo đảm thất bại/idempotency và cập nhật owner FR-M05/M08/M10; chưa có bằng chứng đóng. |
+
+Register có sẵn chỉ được nhắc khi nguồn đã dẫn; các dòng “đề xuất ghi QA” chưa được đăng vào register và không phải mã QA có thật. Không sửa FR/register trong lượt này. Khi có quyết định, cập nhật nguồn owner trước rồi rà lại luồng/trace/relation/view chịu tác động.
+
+### Ownership và tác động liên module
+
+Các cạnh UC–UC hiện khai báo trong bảng relation đều thuộc M05; không có cạnh liên module mới được thêm ở revision này. Nơi khai báo chính là US-M05 mục 4, baseline là bảng sources; các view detail có cả hai endpoint phải giữ cạnh theo đúng hướng. Giao tiếp dữ liệu/sự kiện ở mục 5 không tự tạo include/extend hoặc actor module. Mỗi FR normative vẫn phải Đã chốt.
+
+| Owner module / đặc tả chuẩn | Baseline bên cung cấp/nhận | UC cục bộ chịu tác động | Hợp đồng hai phía | Trạng thái đồng bộ / view chịu tác động |
+|---|---|---|---|---|
+| [M01 / owner](US-M01.md) | FR-M01 1.10 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M02 / owner](US-M02.md) | FR-M02 1.6 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M03 / owner](US-M03.md) | FR-M03 1.10 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M04 / owner](US-M04.md) | FR-M04 1.4 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M06 / owner](US-M06.md) | FR-M06 1.5 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M07 / owner](US-M07.md) | FR-M07 1.5 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M08 / owner](US-M08.md) | FR-M08 1.7 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M10 / owner](US-M10.md) | FR-M10 1.4 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M11 / owner](US-M11.md) | FR-M11 1.3 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M12 / owner](US-M12.md) | FR-M12 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M13 / owner](US-M13.md) | FR-M13 1.3 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M14 / owner](US-M14.md) | FR-M14 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M15 / owner](US-M15.md) | FR-M15 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M05 cùng overview; chưa tuyên bố owner đã cập nhật. |
+
+Liên kết tổng quan: [US-overview](US-overview.md); tổng quan giữ UC chính/owner, phần không chọn vẫn truy về tài liệu module. Không khẳng định overview đã đồng bộ từ việc sửa module này.
+
+### Kiểm chứng revision hiện hành
+
+| Hạng mục | Phương pháp/lệnh | Kết quả revision 2.3 | Giới hạn |
+|---|---|---|---|
+| Điều kiện chuẩn tắc | Đọc toàn bộ tệp baseline bằng audit cục bộ, đối chiếu nội dung điều kiện FR chi tiết/BR owner đã được chép trong US | 137/137 điều kiện có nội dung chuẩn hóa khớp; source digest được lưu trước cập nhật | Khớp văn bản không chứng minh hợp đồng/luồng bao phủ ngữ nghĩa; walkthrough ở trên là lớp review riêng. |
+| Walkthrough | Đối chiếu hợp đồng/nguồn và từng anchor main/alt | 12 đường main + 29 nhánh đã có hồ sơ QA; đường phụ thuộc gap còn blocked | Không phải stakeholder duyệt; lỗi hạ tầng ngoài nguồn giữ giới hạn riêng. |
+| SVG hiện hữu | XML parse, nhãn ID/tên và tập node; đối chiếu mọi cạnh UC có hai endpoint trong từng view với bảng relations | 5/5 SVG hợp lệ; 0 lệch node/nhãn/cạnh UC | Không chạy renderer mới; giữ bằng chứng render lịch sử cho file không đổi, chưa kiểm hình trực quan mới tại revision này. Association/quyền còn phải đọc bảng và kế thừa actor. |
+| Checker | `python -B -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M05.md` | Exit 0, errors=0, warnings=2 (FR-M05-02.03/FR-M05-02.04 còn Một phần và manual checks remain) | Chạy draft vì semantic_review=pending; không chạy --final để nhận hoàn tất khi blocker còn mở. |
+
+Báo cáo máy của phạm vi M01–M05: `.agents/.gpt/system_analysis/.work/us-v23-m01-m05/source-and-svg-audit.json` và `migration-report.json` (workspace, không phải artifact sơ đồ bàn giao). FR/skill/quy chuẩn tên không thay đổi bởi revision này.

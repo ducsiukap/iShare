@@ -1,6 +1,6 @@
 # Phân tích use case — M10 Admin Panel
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2; viết tiếng Việt, giữ thuật ngữ cần thiết.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3; viết tiếng Việt, giữ thuật ngữ cần thiết.
 
 Đầu ra gồm **4 UC chính, 18 UC con**, đặc tả, truy vết và 5 sơ đồ SVG: tổng quan module và một detail cho mỗi core. UC002 là hợp đồng gửi đề xuất abstract, được hai ca Mod/Admin chuyên biệt hóa; dấu ADMIN gốc là điều kiện ngữ cảnh, không phải vai trò thứ tư. Tài liệu chỉ phân tích M10.
 
@@ -10,8 +10,9 @@
 | key | value |
 |---|---|
 | document_id | US-M10 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M10 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,9 +21,9 @@
 | approved_steps | - |
 | source_baseline | FR-M10 v1.4; FR-M01 v1.10; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M07 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M11 v1.3; FR-M12 v1.1; FR-M13 v1.3; FR-M14 v1.1; FR-M15 v1.1; FR-M16 v1.0 |
 | author | Codex |
-| date | 2026-11-01 |
-| approval_evidence | Người dùng đã cho phép tự thực hiện các bước cần thiết, không hỏi đồng ý ở lượt M04; áp dụng cho chuỗi module hiện tại. Đây là quyền làm liên tục, không phải phê duyệt kết quả US-M10 hoặc từng bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | Lượt cập nhật v2.3: người dùng cho phép cập nhật trực tiếp và thực hiện liên tục bảy bước trong phạm vi bộ US. Quyền làm không phải phê duyệt kết quả; approved_steps=-, giữ Chờ duyệt. |
+| semantic_review | pending |
 | diagram_check | pass |
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
@@ -51,20 +52,20 @@
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M10.md | 1.4 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
-| docs/specs/fr/FR-M16.md | 1.0 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
+| docs/specs/fr/FR-M16.md | 1.0 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Nguồn phương pháp không cung cấp tính năng. Đối chiếu [US-M08](US-M08.md) và [US-M09](US-M09.md) để giữ ID actor và ranh giới, không coi US Chờ duyệt là FR đã chốt.
 
@@ -107,28 +108,28 @@ Actor generalization giữ ACT-007 → ACT-008 → ACT-002, thể hiện năng l
 <!-- uc:catalog -->
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
-| UC-M10-020 | Quản lý nhân sự và vai trò | core | Summary | ACT-007, ACT-002, ACT-008 | - | M10 | #uc-m10-020 | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-06, FR-M10-07, FR-M10-08, BR-M10-01, BR-M10-02, BR-M10-05, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-25, BR-M10-27 |
-| UC-M10-021 | Cấu hình hoạt động hệ thống | core | Summary | ACT-007 | - | M10 | #uc-m10-021 | FR-M10-09, FR-M10-10, FR-M10-11, FR-M10-12, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16, BR-M10-17, BR-M10-18, BR-M10-19, BR-M10-26, BR-M10-28 |
-| UC-M10-022 | Phát và tiếp nhận thông báo toàn trang | core | Summary | ACT-007, ACT-001, ACT-002 | - | M10 | #uc-m10-022 | FR-M10-13, BR-M10-20, BR-M10-26 |
-| UC-M10-023 | Tra cứu nhật ký thao tác Admin | core | User goal | ACT-007 | - | M10 | #uc-m10-023 | FR-M10-14, FR-M10-15, BR-M10-02, BR-M10-21, BR-M10-22, BR-M10-23, BR-M10-24 |
-| UC-M10-001 | Tra cứu người dùng để quản trị vai trò | sub | User goal | ACT-007 | - | M10 | #uc-m10-001 | FR-M10-01, BR-M10-02, BR-M10-29, BR-M10-30, BR-M06-09 |
-| UC-M10-002 | Gửi đề xuất nhận vai trò | sub | User goal | ACT-007 | - | M10 | #uc-m10-002 | FR-M10-02, FR-M10-07, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-11, BR-M10-27 |
-| UC-M10-003 | Đề xuất người dùng làm Mod | sub | User goal | ACT-007 | - | M10 | #uc-m10-003 | FR-M10-02, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
-| UC-M10-004 | Đề xuất người dùng làm Admin | sub | User goal | ACT-007 | - | M10 | #uc-m10-004 | FR-M10-07, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-27 |
-| UC-M10-005 | Trả lời đề xuất nhận vai trò | sub | User goal | ACT-002, ACT-008 | - | M10 | #uc-m10-005 | FR-M10-03, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
-| UC-M10-006 | Giáng cấp Mod | sub | User goal | ACT-007 | - | M10 | #uc-m10-006 | FR-M10-04, BR-M10-02, BR-M10-08 |
-| UC-M10-007 | Thu hồi vai trò Admin | sub | User goal | ACT-007 | - | M10 | #uc-m10-007 | FR-M10-08, BR-M10-10, BR-M10-11 |
-| UC-M10-008 | Tự từ chức vai trò | sub | User goal | ACT-008, ACT-007 | - | M10 | #uc-m10-008 | FR-M10-05, BR-M10-10, BR-M10-25 |
+| UC-M10-020 | Quản lý vai trò người dùng | core | Summary | ACT-007, ACT-002, ACT-008 | - | M10 | #uc-m10-020 | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-06, FR-M10-07, FR-M10-08, BR-M10-01, BR-M10-02, BR-M10-05, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-25, BR-M10-27 |
+| UC-M10-021 | Cấu hình hệ thống | core | Summary | ACT-007 | - | M10 | #uc-m10-021 | FR-M10-09, FR-M10-10, FR-M10-11, FR-M10-12, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16, BR-M10-17, BR-M10-18, BR-M10-19, BR-M10-26, BR-M10-28 |
+| UC-M10-022 | Đăng và xem thông báo toàn trang | core | Summary | ACT-007, ACT-001, ACT-002 | - | M10 | #uc-m10-022 | FR-M10-13, BR-M10-20, BR-M10-26 |
+| UC-M10-023 | Xem nhật ký quản trị | core | User goal | ACT-007 | - | M10 | #uc-m10-023 | FR-M10-14, FR-M10-15, BR-M10-02, BR-M10-21, BR-M10-22, BR-M10-23, BR-M10-24 |
+| UC-M10-001 | Tìm người dùng để phân quyền | sub | User goal | ACT-007 | - | M10 | #uc-m10-001 | FR-M10-01, BR-M10-02, BR-M10-29, BR-M10-30, BR-M06-09 |
+| UC-M10-002 | Gửi đề xuất bổ nhiệm | sub | User goal | ACT-007 | - | M10 | #uc-m10-002 | FR-M10-02, FR-M10-07, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-11, BR-M10-27 |
+| UC-M10-003 | Đề xuất bổ nhiệm Mod | sub | User goal | ACT-007 | - | M10 | #uc-m10-003 | FR-M10-02, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
+| UC-M10-004 | Đề xuất bổ nhiệm Admin | sub | User goal | ACT-007 | - | M10 | #uc-m10-004 | FR-M10-07, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-27 |
+| UC-M10-005 | Phản hồi đề xuất bổ nhiệm | sub | User goal | ACT-002, ACT-008 | - | M10 | #uc-m10-005 | FR-M10-03, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
+| UC-M10-006 | Gỡ vai trò Mod | sub | User goal | ACT-007 | - | M10 | #uc-m10-006 | FR-M10-04, BR-M10-02, BR-M10-08 |
+| UC-M10-007 | Gỡ vai trò Admin | sub | User goal | ACT-007 | - | M10 | #uc-m10-007 | FR-M10-08, BR-M10-10, BR-M10-11 |
+| UC-M10-008 | Từ chức Mod hoặc Admin | sub | User goal | ACT-008, ACT-007 | - | M10 | #uc-m10-008 | FR-M10-05, BR-M10-10, BR-M10-25 |
 | UC-M10-009 | Kiểm tra điều kiện nhận vai trò | sub | Subfunction | ACT-007, ACT-002, ACT-008 | - | M10 | #uc-m10-009 | FR-M10-02.06, FR-M10-02.07, FR-M10-02.09, FR-M10-07.01, FR-M10-07.02, FR-M10-07.07, FR-M10-07.08, FR-M10-03.10, FR-M10-03.11, BR-M10-05, BR-M10-11, BR-M10-27 |
-| UC-M10-010 | Điều chỉnh công tắc AI | sub | User goal | ACT-007 | - | M10 | #uc-m10-010 | FR-M10-09, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16 |
-| UC-M10-011 | Điều chỉnh chế độ bảo trì | sub | User goal | ACT-007 | - | M10 | #uc-m10-011 | FR-M10-10, BR-M10-13, BR-M10-17 |
-| UC-M10-012 | Điều chỉnh tạm dừng đăng ký | sub | User goal | ACT-007 | - | M10 | #uc-m10-012 | FR-M10-11, BR-M10-13, BR-M10-18 |
-| UC-M10-013 | Điều chỉnh cờ tính năng | sub | User goal | ACT-007 | - | M10 | #uc-m10-013 | FR-M10-12, BR-M10-13, BR-M10-19, BR-M10-28 |
-| UC-M10-014 | Lưu và áp dụng trạng thái công tắc | sub | Subfunction | ACT-007 | - | M10 | #uc-m10-014 | FR-M10-09.02, FR-M10-09.08, FR-M10-10.01, FR-M10-10.03, FR-M10-11.01, FR-M10-11.03, FR-M10-12.01, FR-M10-12.02, BR-M10-02, BR-M10-13 |
-| UC-M10-015 | Đặt hoặc sửa banner | sub | User goal | ACT-007 | - | M10 | #uc-m10-015 | FR-M10-13.01, FR-M10-13.03, FR-M10-13.04, FR-M10-13.05, FR-M10-13.06, FR-M10-13.08, FR-M10-13.09, BR-M10-20 |
-| UC-M10-016 | Gỡ banner toàn trang | sub | User goal | ACT-007 | - | M10 | #uc-m10-016 | FR-M10-13.02, FR-M10-13.03, BR-M10-20 |
-| UC-M10-017 | Xem và đóng banner | sub | User goal | ACT-001, ACT-002 | - | M10 | #uc-m10-017 | FR-M10-13.01, FR-M10-13.06, FR-M10-13.07, FR-M10-13.08, BR-M10-20 |
-| UC-M10-018 | Lập danh sách nhật ký theo tiêu chí | sub | Subfunction | ACT-007 | - | M10 | #uc-m10-018 | FR-M10-15.01, FR-M10-15.02, FR-M10-15.04, FR-M10-15.05, BR-M10-02, BR-M10-23 |
+| UC-M10-010 | Bật hoặc tắt AI | sub | User goal | ACT-007 | - | M10 | #uc-m10-010 | FR-M10-09, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16 |
+| UC-M10-011 | Bật hoặc tắt chế độ bảo trì | sub | User goal | ACT-007 | - | M10 | #uc-m10-011 | FR-M10-10, BR-M10-13, BR-M10-17 |
+| UC-M10-012 | Tạm dừng hoặc mở lại đăng ký | sub | User goal | ACT-007 | - | M10 | #uc-m10-012 | FR-M10-11, BR-M10-13, BR-M10-18 |
+| UC-M10-013 | Bật hoặc tắt tính năng | sub | User goal | ACT-007 | - | M10 | #uc-m10-013 | FR-M10-12, BR-M10-13, BR-M10-19, BR-M10-28 |
+| UC-M10-014 | Lưu và áp dụng cấu hình | sub | Subfunction | ACT-007 | - | M10 | #uc-m10-014 | FR-M10-09.02, FR-M10-09.08, FR-M10-10.01, FR-M10-10.03, FR-M10-11.01, FR-M10-11.03, FR-M10-12.01, FR-M10-12.02, BR-M10-02, BR-M10-13 |
+| UC-M10-015 | Đăng hoặc sửa banner thông báo | sub | User goal | ACT-007 | - | M10 | #uc-m10-015 | FR-M10-13.01, FR-M10-13.03, FR-M10-13.04, FR-M10-13.05, FR-M10-13.06, FR-M10-13.08, FR-M10-13.09, BR-M10-20 |
+| UC-M10-016 | Gỡ banner thông báo | sub | User goal | ACT-007 | - | M10 | #uc-m10-016 | FR-M10-13.02, FR-M10-13.03, BR-M10-20 |
+| UC-M10-017 | Xem và đóng banner thông báo | sub | User goal | ACT-001, ACT-002 | - | M10 | #uc-m10-017 | FR-M10-13.01, FR-M10-13.06, FR-M10-13.07, FR-M10-13.08, BR-M10-20 |
+| UC-M10-018 | Lọc nhật ký quản trị | sub | Subfunction | ACT-007 | - | M10 | #uc-m10-018 | FR-M10-15.01, FR-M10-15.02, FR-M10-15.04, FR-M10-15.05, BR-M10-02, BR-M10-23 |
 
 Chỉ bốn core dùng để tổng hợp toàn hệ thống. Core020/021/022 là Summary, không ép mọi sub thành một chuỗi thực thi. Core023 là User goal có hợp đồng đầy đủ. Các sub là User goal hoặc Subfunction độc lập với tier. UC002 abstract thuộc tầng sub vì là hợp đồng gửi dùng chung, không phải UC tổng quan hệ thống; UC003/004 là chuyên biệt Mod/Admin có kết quả và kiểm quyền rõ.
 
@@ -158,6 +159,10 @@ Chỉ bốn core dùng để tổng hợp toàn hệ thống. Core020/021/022 l�
 
 18 mapping, không sub mồ côi. Mapping là cấu trúc phân tích, không tự tạo mũi tên. UC009 được tái sử dụng theo hai ngữ cảnh gửi/chấp nhận; UC014 theo bốn loại công tắc. Không nhân bản ID theo caller. Lối Xem thao tác Mod tái sử dụng [UC-M08-025](US-M08.md#uc-m08-025), không phát minh UC M10 trùng mục tiêu hoặc chỉ số hiệu suất.
 
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
 ### 2.3 Tổng hợp hệ thống và quyết định phân tích
 
 <!-- uc:module-models -->
@@ -178,13 +183,25 @@ Mode module: chưa tổng hợp toàn hệ thống, không tạo lại danh sác
 | D-M10-07 | Theo dõi hiệu suất Mod | Nhánh điều hướng UC001 tới nhật ký M08 lọc theo Mod | FR chỉ yêu cầu mở nhật ký, không mục tiêu tính KPI mới. | Không thêm bảng xếp hạng/chỉ số/màn hình hiệu suất. |
 | D-M10-08 | Ghi và đọc log | AUT004 ghi; core023 include UC018 đọc đúng tập | Ghi theo sự kiện độc lập, đọc không làm phát sinh mục Admin. | Không cho Admin sửa/xóa nhật ký hoặc ghi quyết định AI vào log này. |
 
+
+### Đối chiếu độ gắn kết v2.3 — goal/trigger/kết quả/phạm vi
+
+UC-NAMING ngày 2026-11-24 đang **Chờ duyệt cách diễn đạt**; giữ tên/ID hiện hành vì chưa phát hiện bằng chứng đổi phạm vi. Mục này là quyết định phân tích chờ duyệt, không nâng quy chuẩn tên thành đã chốt.
+
+| Cặp/phạm vi | Khác biệt hợp đồng và ranh giới | Quyết định và đánh đổi | Nguồn |
+| --- | --- | --- | --- |
+| 020 ↔ 001–009 | Summary vai trò nhiều phiên: Admin gửi, người nhận trả lời, staff từ chức/được gỡ.002 abstract gửi,003/004 bảo toàn lưu/chờ/hạn nhưng chuyên quyền đích. | Giữ các goal độc lập vì trigger/kết quả/người thao tác khác. Gộp gửi+trả lời tạo phiên giả; bỏ abstract giảm oval nhưng lặp vòng đời.009 chỉ kiểm, không là lời mời công khai. | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-07, FR-M10-08 |
+| 021 ↔ 010/011/012/013/014 | Summary hoạt động hệ thống; mỗi công tắc cho hiệu quả khác ở owner;014 chỉ lưu bền+áp sau lúc đổi, không tự thực thi module. | Giữ User goal theo loại và014 tái dùng. Một UC cấu hình chung ngắn hơn nhưng che rào đăng ký/bảo trì/AI; generalization chỉ để gom không có bằng chứng hợp đồng chuyên biệt cần thiết. | FR-M10-09, FR-M10-10, FR-M10-11, FR-M10-12, BR-M10-13 |
+| 022 ↔ 015/016/017 | Core Summary từ công bố tới tiếp nhận; đặt/sửa đổi nội dung chung, gỡ toàn trang, đóng chỉ người xem; các phiên không chạy nối tiếp. | Giữ ba User goal; gộp Gỡ và Đóng có nguy cơ xóa toàn trang từ hành vi cá nhân. Tách Đặt/Sửa thêm oval nhưng cùng hợp đồng1–200 plain text và thaybản. | FR-M10-13, BR-M10-20 |
+| 023 ↔ 018 (1:1) | 023 Admin mở/đọc/đổi tiêu chí để xem log;018 nhận tiêu chí, kiểm quyền và trả tập, không hiển thị hay ghi audit. | Giữ User goal/Subfunction: phạm vi hiển thị khác truy xuất; inline018 đơn giản nhưng che hợp đồng quyền/bộ lọc. Không tạo thêm mục tiêu giả cho hai tầng. | FR-M10-14, FR-M10-15, BR-M10-23 |
+
 ## 3. Đặc tả
 
 ### 3.1 UC chính
 
 <a id="uc-m10-020"></a>
 
-#### UC-M10-020 — Quản lý nhân sự và vai trò
+#### UC-M10-020 — Quản lý vai trò người dùng
 
 **Actor:** ACT-007, ACT-002, ACT-008. **Mục tiêu/giá trị:** Admin chọn nhân sự và quản trị vai trò; người nhận quyết định nhận vai trò, staff tự từ chức đúng quyền. Mỗi tài khoản chỉ giữ một vai trò.
 
@@ -198,7 +215,7 @@ Mode module: chưa tổng hợp toàn hệ thống, không tạo lại danh sác
 
 <a id="uc-m10-021"></a>
 
-#### UC-M10-021 — Cấu hình hoạt động hệ thống
+#### UC-M10-021 — Cấu hình hệ thống
 
 **Actor:** ACT-007. **Mục tiêu/giá trị:** Vận hành AI, bảo trì, đăng ký và ba module có cờ lúc hệ thống đang chạy, giữ trạng thái bền.
 
@@ -212,7 +229,7 @@ Mode module: chưa tổng hợp toàn hệ thống, không tạo lại danh sác
 
 <a id="uc-m10-022"></a>
 
-#### UC-M10-022 — Phát và tiếp nhận thông báo toàn trang
+#### UC-M10-022 — Đăng và xem thông báo toàn trang
 
 **Actor:** ACT-007, ACT-001, ACT-002. **Mục tiêu/giá trị:** Admin truyền đạt một thông báo toàn trang; từng người xem đọc hoặc đóng phiên bản banner hiện tại.
 
@@ -231,7 +248,7 @@ Các Subfunction nhận ngữ cảnh của caller, không là nút cho người 
 <a id="uc-m10-023"></a>
 <a id="uc-m10-023-contract"></a>
 
-#### UC-M10-023 — Tra cứu nhật ký thao tác Admin
+#### UC-M10-023 — Xem nhật ký quản trị
 
 **UC con:** [UC-M10-018](#uc-m10-018), hành vi truy xuất/lọc chèn ở bước 2.
 
@@ -283,7 +300,7 @@ Các Subfunction nhận ngữ cảnh của caller, không là nút cho người 
 <a id="uc-m10-001"></a>
 <a id="uc-m10-001-contract"></a>
 
-#### UC-M10-001 — Tra cứu người dùng để quản trị vai trò
+#### UC-M10-001 — Tìm người dùng để phân quyền
 
 **Thuộc core:** [UC-M10-020](#uc-m10-020). Tìm tài khoản, thao tác vai trò áp dụng và lối xem lịch sử Mod.
 
@@ -341,7 +358,7 @@ Nhánh Xem thao tác tiếp tục ở [UC-M08-025](US-M08.md#uc-m08-025). Không
 <a id="uc-m10-002"></a>
 <a id="uc-m10-002-contract"></a>
 
-#### UC-M10-002 — Gửi đề xuất nhận vai trò (abstract)
+#### UC-M10-002 — Gửi đề xuất bổ nhiệm (abstract)
 
 **Thuộc core:** [UC-M10-020](#uc-m10-020). Hợp đồng chung gửi lời mời, thời hạn, thay bản và giữ vai trò.
 
@@ -386,7 +403,7 @@ UC002 không thực thi độc lập với một loại chưa xác định. [UC0
 <a id="uc-m10-003"></a>
 <a id="uc-m10-003-contract"></a>
 
-#### UC-M10-003 — Đề xuất người dùng làm Mod
+#### UC-M10-003 — Đề xuất bổ nhiệm Mod
 
 **Thuộc core:** [UC-M10-020](#uc-m10-020). Mời USER nhận MODERATOR.
 
@@ -443,7 +460,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-004"></a>
 <a id="uc-m10-004-contract"></a>
 
-#### UC-M10-004 — Đề xuất người dùng làm Admin
+#### UC-M10-004 — Đề xuất bổ nhiệm Admin
 
 **Thuộc core:** [UC-M10-020](#uc-m10-020). Gốc mời USER/MODERATOR nhận ADMIN.
 
@@ -500,7 +517,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-005"></a>
 <a id="uc-m10-005-contract"></a>
 
-#### UC-M10-005 — Trả lời đề xuất nhận vai trò
+#### UC-M10-005 — Phản hồi đề xuất bổ nhiệm
 
 **Thuộc core:** [UC-M10-020](#uc-m10-020). Người nhận quyết định nhận hoặc từ chối vai trò.
 
@@ -561,7 +578,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-006"></a>
 <a id="uc-m10-006-contract"></a>
 
-#### UC-M10-006 — Giáng cấp Mod
+#### UC-M10-006 — Gỡ vai trò Mod
 
 **Thuộc core:** [UC-M10-020](#uc-m10-020). Admin trực tiếp chấm dứt quyền Mod.
 
@@ -614,7 +631,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-007"></a>
 <a id="uc-m10-007-contract"></a>
 
-#### UC-M10-007 — Thu hồi vai trò Admin
+#### UC-M10-007 — Gỡ vai trò Admin
 
 **Thuộc core:** [UC-M10-020](#uc-m10-020). Gốc chấm dứt quyền Admin khác.
 
@@ -668,7 +685,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-008"></a>
 <a id="uc-m10-008-contract"></a>
 
-#### UC-M10-008 — Tự từ chức vai trò
+#### UC-M10-008 — Từ chức Mod hoặc Admin
 
 **Thuộc core:** [UC-M10-020](#uc-m10-020). Staff tự chấm dứt vai trò có xác nhận.
 
@@ -766,7 +783,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-010"></a>
 <a id="uc-m10-010-contract"></a>
 
-#### UC-M10-010 — Điều chỉnh công tắc AI
+#### UC-M10-010 — Bật hoặc tắt AI
 
 **Thuộc core:** [UC-M10-021](#uc-m10-021). Điều khiển AI tổng và ba loại.
 
@@ -827,7 +844,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-011"></a>
 <a id="uc-m10-011-contract"></a>
 
-#### UC-M10-011 — Điều chỉnh chế độ bảo trì
+#### UC-M10-011 — Bật hoặc tắt chế độ bảo trì
 
 **Thuộc core:** [UC-M10-021](#uc-m10-021). Giới hạn hoạt động chỉ ADMIN trong bảo trì.
 
@@ -877,7 +894,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-012"></a>
 <a id="uc-m10-012-contract"></a>
 
-#### UC-M10-012 — Điều chỉnh tạm dừng đăng ký
+#### UC-M10-012 — Tạm dừng hoặc mở lại đăng ký
 
 **Thuộc core:** [UC-M10-021](#uc-m10-021). Kiểm soát nhận tài khoản mới với ngoại lệ.
 
@@ -927,7 +944,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-013"></a>
 <a id="uc-m10-013-contract"></a>
 
-#### UC-M10-013 — Điều chỉnh cờ tính năng
+#### UC-M10-013 — Bật hoặc tắt tính năng
 
 **Thuộc core:** [UC-M10-021](#uc-m10-021). Tạm dừng thao tác ở ba module có cờ.
 
@@ -984,7 +1001,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-014"></a>
 <a id="uc-m10-014-contract"></a>
 
-#### UC-M10-014 — Lưu và áp dụng trạng thái công tắc
+#### UC-M10-014 — Lưu và áp dụng cấu hình
 
 **Thuộc core:** [UC-M10-021](#uc-m10-021). Lưu bền và áp thời điểm chung cho các thay đổi công tắc.
 
@@ -1030,7 +1047,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-015"></a>
 <a id="uc-m10-015-contract"></a>
 
-#### UC-M10-015 — Đặt hoặc sửa banner
+#### UC-M10-015 — Đăng hoặc sửa banner thông báo
 
 **Thuộc core:** [UC-M10-022](#uc-m10-022). Công bố/thay một nội dung thông báo.
 
@@ -1085,7 +1102,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-016"></a>
 <a id="uc-m10-016-contract"></a>
 
-#### UC-M10-016 — Gỡ banner toàn trang
+#### UC-M10-016 — Gỡ banner thông báo
 
 **Thuộc core:** [UC-M10-022](#uc-m10-022). Ngừng thông báo cho toàn hệ thống.
 
@@ -1132,7 +1149,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-017"></a>
 <a id="uc-m10-017-contract"></a>
 
-#### UC-M10-017 — Xem và đóng banner
+#### UC-M10-017 — Xem và đóng banner thông báo
 
 **Thuộc core:** [UC-M10-022](#uc-m10-022). Người xem đọc và đóng riêng banner hiện tại.
 
@@ -1181,7 +1198,7 @@ Kế thừa [hợp đồng UC002](#uc-m10-002-contract), [bước kiểm](#uc-m1
 <a id="uc-m10-018"></a>
 <a id="uc-m10-018-contract"></a>
 
-#### UC-M10-018 — Lập danh sách nhật ký theo tiêu chí
+#### UC-M10-018 — Lọc nhật ký quản trị
 
 **Thuộc core:** [UC-M10-023](#uc-m10-023). Cung cấp tập nhật ký đúng quyền/bộ lọc để core023 hiển thị.
 
@@ -1437,33 +1454,39 @@ UC002 chưa hoàn chỉnh khi chưa có loại/quyền/đích cụ thể nên đ
 
 ### 4.4 Association actor–UC
 
-| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
-|---|---|---|---|---|
-| ACT-007 | UC-M10-020 | Quản trị; chỉ gốc: cấp/thu hồi Admin | Admin quản trị nhân sự; thao tác Admin chỉ gốc; từ chức trừ gốc. | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-06, FR-M10-07, FR-M10-08, BR-M10-01, BR-M10-02, BR-M10-05, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-25, BR-M10-27 |
-| ACT-002 | UC-M10-020 | Trả lời đề xuất của mình | Không vào Panel; trả lời đúng đề xuất/điều kiện. | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-06, FR-M10-07, FR-M10-08, BR-M10-01, BR-M10-02, BR-M10-05, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-25, BR-M10-27 |
-| ACT-008 | UC-M10-020 | Từ chức; nhận đề xuất Admin | Tương tác cá nhân, không cấp quyền Panel. | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-06, FR-M10-07, FR-M10-08, BR-M10-01, BR-M10-02, BR-M10-05, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-25, BR-M10-27 |
-| ACT-007 | UC-M10-021 | Khởi phát/tham gia mục tiêu | ADMIN đổi các loại công tắc đã chốt. | FR-M10-09, FR-M10-10, FR-M10-11, FR-M10-12, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16, BR-M10-17, BR-M10-18, BR-M10-19, BR-M10-26, BR-M10-28 |
-| ACT-007 | UC-M10-022 | Quản lý banner | ADMIN đặt/sửa/gỡ. | FR-M10-13, BR-M10-20, BR-M10-26 |
-| ACT-001 | UC-M10-022 | Xem, đóng | Mọi người gồm Guest thấy/đóng banner. | FR-M10-13, BR-M10-20, BR-M10-26 |
-| ACT-002 | UC-M10-022 | Xem, đóng | Mọi vai trò tài khoản thấy/đóng. | FR-M10-13, BR-M10-20, BR-M10-26 |
-| ACT-007 | UC-M10-023 | Khởi phát/tham gia mục tiêu | ADMIN xem toàn bộ, chỉ đọc. | FR-M10-14, FR-M10-15, BR-M10-02, BR-M10-21, BR-M10-22, BR-M10-23, BR-M10-24 |
-| ACT-007 | UC-M10-001 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-01, BR-M10-02, BR-M10-29, BR-M10-30, BR-M06-09 |
-| ACT-007 | UC-M10-003 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-02, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
-| ACT-007 | UC-M10-004 | Chỉ gốc | Chỉ ADMIN gốc. | FR-M10-07, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-27 |
-| ACT-007 | UC-M10-006 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-04, BR-M10-02, BR-M10-08 |
-| ACT-007 | UC-M10-007 | Chỉ gốc | Chỉ ADMIN gốc. | FR-M10-08, BR-M10-10, BR-M10-11 |
-| ACT-007 | UC-M10-008 | Trừ gốc | ADMIN không phải gốc; xác nhận một lần. | FR-M10-05, BR-M10-10, BR-M10-25 |
-| ACT-007 | UC-M10-010 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-09, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16 |
-| ACT-007 | UC-M10-011 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-10, BR-M10-13, BR-M10-17 |
-| ACT-007 | UC-M10-012 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-11, BR-M10-13, BR-M10-18 |
-| ACT-007 | UC-M10-013 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-12, BR-M10-13, BR-M10-19, BR-M10-28 |
-| ACT-007 | UC-M10-015 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-13.01, FR-M10-13.03, FR-M10-13.04, FR-M10-13.05, FR-M10-13.06, FR-M10-13.08, FR-M10-13.09, BR-M10-20 |
-| ACT-007 | UC-M10-016 | Khởi phát/tham gia mục tiêu | ADMIN, theo điều kiện của UC. | FR-M10-13.02, FR-M10-13.03, BR-M10-20 |
-| ACT-002 | UC-M10-005 | Đề xuất của mình | USER nhận Mod/Admin, kiểm hiện tại khi chấp nhận. | FR-M10-03, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
-| ACT-008 | UC-M10-005 | Đề xuất Admin | Mod nhận Admin; không nhận Mod. | FR-M10-03, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
-| ACT-008 | UC-M10-008 | Của mình | Mod tự từ chức có xác nhận. | FR-M10-05, BR-M10-10, BR-M10-25 |
-| ACT-001 | UC-M10-017 | Khởi phát/tham gia mục tiêu | Guest; dấu đóng chỉ trình duyệt này. | FR-M10-13.01, FR-M10-13.06, FR-M10-13.07, FR-M10-13.08, BR-M10-20 |
-| ACT-002 | UC-M10-017 | Khởi phát/tham gia mục tiêu | Tài khoản đọc/đóng, Mod/Admin kế thừa với điều kiện tương ứng. | FR-M10-13.01, FR-M10-13.06, FR-M10-13.07, FR-M10-13.08, BR-M10-20 |
+
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
+| --- | --- | --- | --- | --- |
+| ACT-001 | UC-M10-017 | primary | Mọi người chỉ xem/đóng bản banner của mình; Guest chỉ trình duyệt; không được đặt/sửa/gỡ toàn trang. | FR-M10-13.01, FR-M10-13.06, FR-M10-13.07, FR-M10-13.08, BR-M10-20 |
+| ACT-001 | UC-M10-022 | primary | Mọi người chỉ xem/đóng bản banner của mình; Guest chỉ trình duyệt; không được đặt/sửa/gỡ toàn trang. | FR-M10-13, BR-M10-20, BR-M10-26 |
+| ACT-002 | UC-M10-005 | primary | Đúng người nhận USER cho Mod, USER/MODERATOR cho Admin; chưa trả lời/còn hiệu lực, ACTIVE+role kiểm khi Chấp nhận; không được vào Panel. | FR-M10-03, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
+| ACT-002 | UC-M10-017 | primary | Mọi người chỉ xem/đóng bản banner của mình; Guest chỉ trình duyệt; không được đặt/sửa/gỡ toàn trang. | FR-M10-13.01, FR-M10-13.06, FR-M10-13.07, FR-M10-13.08, BR-M10-20 |
+| ACT-002 | UC-M10-020 | primary | Tương tác cá nhân: nhận/phản hồi đề xuất và Mod từ chức; không có quyền Admin Panel hoặc gỡ vai trò người khác. | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-06, FR-M10-07, FR-M10-08, BR-M10-01, BR-M10-02, BR-M10-05, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-25, BR-M10-27 |
+| ACT-002 | UC-M10-022 | primary | Mọi người chỉ xem/đóng bản banner của mình; Guest chỉ trình duyệt; không được đặt/sửa/gỡ toàn trang. | FR-M10-13, BR-M10-20, BR-M10-26 |
+| ACT-007 | UC-M10-001 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-01, BR-M10-02, BR-M10-29, BR-M10-30, BR-M06-09 |
+| ACT-007 | UC-M10-003 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-02, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
+| ACT-007 | UC-M10-004 | primary | Chỉ ADMIN gốc; gửi Admin cho USER/MODERATOR đủ điều kiện hoặc thu hồi ADMIN khác không phải gốc; không mặc định mọi Admin có quyền này. | FR-M10-07, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-27 |
+| ACT-007 | UC-M10-006 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-04, BR-M10-02, BR-M10-08 |
+| ACT-007 | UC-M10-007 | primary | Chỉ ADMIN gốc; gửi Admin cho USER/MODERATOR đủ điều kiện hoặc thu hồi ADMIN khác không phải gốc; không mặc định mọi Admin có quyền này. | FR-M10-08, BR-M10-10, BR-M10-11 |
+| ACT-007 | UC-M10-008 | primary | Chỉ từ chức chính mình đang MODERATOR/ADMIN không gốc và xác nhận; ADMIN gốc tuyệt đối không từ chức. | FR-M10-05, BR-M10-10, BR-M10-25 |
+| ACT-007 | UC-M10-010 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-09, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16 |
+| ACT-007 | UC-M10-011 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-10, BR-M10-13, BR-M10-17 |
+| ACT-007 | UC-M10-012 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-11, BR-M10-13, BR-M10-18 |
+| ACT-007 | UC-M10-013 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-12, BR-M10-13, BR-M10-19, BR-M10-28 |
+| ACT-007 | UC-M10-015 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-13.01, FR-M10-13.03, FR-M10-13.04, FR-M10-13.05, FR-M10-13.06, FR-M10-13.08, FR-M10-13.09, BR-M10-20 |
+| ACT-007 | UC-M10-016 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-13.02, FR-M10-13.03, BR-M10-20 |
+| ACT-007 | UC-M10-020 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-06, FR-M10-07, FR-M10-08, BR-M10-01, BR-M10-02, BR-M10-05, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-25, BR-M10-27 |
+| ACT-007 | UC-M10-021 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-09, FR-M10-10, FR-M10-11, FR-M10-12, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16, BR-M10-17, BR-M10-18, BR-M10-19, BR-M10-26, BR-M10-28 |
+| ACT-007 | UC-M10-022 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-13, BR-M10-20, BR-M10-26 |
+| ACT-007 | UC-M10-023 | primary | ADMIN hiện hành mới vào Panel/quản lý cấu hình/banner/nhật ký. Loại đề xuất kiểm đích ACTIVE/SETUP_COMPLETED và role; quyền gốc kiểm riêng; core022 không cấp quyền quản lý cho người chỉ đọc. | FR-M10-14, FR-M10-15, BR-M10-02, BR-M10-21, BR-M10-22, BR-M10-23, BR-M10-24 |
+| ACT-008 | UC-M10-005 | primary | Đúng người nhận USER cho Mod, USER/MODERATOR cho Admin; chưa trả lời/còn hiệu lực, ACTIVE+role kiểm khi Chấp nhận; không được vào Panel. | FR-M10-03, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27 |
+| ACT-008 | UC-M10-008 | primary | Chỉ từ chức chính mình đang MODERATOR/ADMIN không gốc và xác nhận; ADMIN gốc tuyệt đối không từ chức. | FR-M10-05, BR-M10-10, BR-M10-25 |
+| ACT-008 | UC-M10-020 | primary | Tương tác cá nhân: nhận/phản hồi đề xuất và Mod từ chức; không có quyền Admin Panel hoặc gỡ vai trò người khác. | FR-M10-01, FR-M10-02, FR-M10-03, FR-M10-04, FR-M10-05, FR-M10-06, FR-M10-07, FR-M10-08, BR-M10-01, BR-M10-02, BR-M10-05, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-25, BR-M10-27 |
+
+Bảng marker chỉ kê các cạnh trực tiếp thực sự có trên SVG hiện hành; actor chuyên biệt kế thừa tương tác từ actor cha nhưng vẫn chịu guard riêng. Không nhân toàn bộ primary/supporting của catalog thành association. Subfunction nhận ngữ cảnh từ caller không có cạnh khởi chạy riêng; actor chỉ bị từ chối giữ ở nhánh. Core Summary chỉ biểu diễn năng lực, không cấp toàn bộ quyền sub.
+
+
 
 UC002 là hợp đồng abstract, UC009/014/018 là Subfunction được caller chèn; không có association thể hiện nút khởi chạy độc lập. Actor hỗ trợ không áp dụng: các dữ liệu/thông báo đi qua thành phần nội bộ iShare. Actor hierarchy không thay thế các guard ở bảng trên.
 
@@ -1562,22 +1585,22 @@ Một dòng cho mỗi mã hiệu lực; các mã chi tiết/BR trỏ đến tiê
 | BR-M10-17 | #uc-m10-011-br-m10-17 | Đủ | Đối chiếu [đặc tả](#uc-m10-011) → [core UC-M10-021](#uc-m10-021). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-18 | #uc-m10-012-br-m10-18 | Đủ | Đối chiếu [đặc tả](#uc-m10-012) → [core UC-M10-021](#uc-m10-021). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-19 | #uc-m10-013-br-m10-19 | Đủ | Đối chiếu [đặc tả](#uc-m10-013) → [core UC-M10-021](#uc-m10-021). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
-| BR-M10-20 | #rule-m10-005-br-m10-20 | Đủ | Đối chiếu [đặc tả](#rule-m10-005); quy tắc/tác vụ xuyên core theo phạm vi ở mục 3. Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
+| BR-M10-20 | #rule-m10-005-br-m10-20 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M10-02, NOTE-M10-03. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | BR-M10-21 | #aut-m10-004-br-m10-21 | Đủ | Đối chiếu [đặc tả](#aut-m10-004) → [core UC-M10-023](#uc-m10-023). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-22 | #rule-m10-006-br-m10-22 | Đủ | Đối chiếu [đặc tả](#rule-m10-006); quy tắc/tác vụ xuyên core theo phạm vi ở mục 3. Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-23 | #rule-m10-006-br-m10-23 | Đủ | Đối chiếu [đặc tả](#rule-m10-006); quy tắc/tác vụ xuyên core theo phạm vi ở mục 3. Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-24 | #aut-m10-004-br-m10-24 | Đủ | Đối chiếu [đặc tả](#aut-m10-004) → [core UC-M10-023](#uc-m10-023). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-25 | #uc-m10-008-br-m10-25 | Đủ | Đối chiếu [đặc tả](#uc-m10-008) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-26 | #aut-m10-001-br-m10-26 | Đủ | Đối chiếu [đặc tả](#aut-m10-001); quy tắc/tác vụ xuyên core theo phạm vi ở mục 3. Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
-| BR-M10-27 | #rule-m10-002-br-m10-27 | Đủ | Đối chiếu [đặc tả](#rule-m10-002); quy tắc/tác vụ xuyên core theo phạm vi ở mục 3. Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
+| BR-M10-27 | #rule-m10-002-br-m10-27 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M10-01. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | BR-M10-28 | #rule-m10-004-br-m10-28 | Đủ | Đối chiếu [đặc tả](#rule-m10-004); quy tắc/tác vụ xuyên core theo phạm vi ở mục 3. Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-29 | #uc-m10-001-br-m10-29 | Đủ | Đối chiếu [đặc tả](#uc-m10-001) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | BR-M10-30 | #uc-m10-001-br-m10-30 | Đủ | Đối chiếu [đặc tả](#uc-m10-001) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | FR-M10-01 | #uc-m10-020 | Đủ | Đối chiếu [đặc tả](#uc-m10-020) → [core UC-M10-020](#uc-m10-020). Bao gồm các mã con hiệu lực tại bảng kiểm kê và chi tiết bên dưới. |
 | FR-M10-01.01 | #uc-m10-001-fr-m10-01-01 | Đủ | Đối chiếu [đặc tả](#uc-m10-001) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | FR-M10-01.02 | #uc-m10-001-fr-m10-01-02 | Đủ | Đối chiếu [đặc tả](#uc-m10-001) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
-| FR-M10-01.03 | #uc-m10-001-fr-m10-01-03 | Đủ | Đối chiếu [đặc tả](#uc-m10-001) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
-| FR-M10-01.04 | #uc-m10-001-fr-m10-01-04 | Đủ | Đối chiếu [đặc tả](#uc-m10-001) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
+| FR-M10-01.03 | #uc-m10-001-fr-m10-01-03 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M10-05. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
+| FR-M10-01.04 | #uc-m10-001-fr-m10-01-04 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M10-05. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M10-01.05 | #uc-m10-001-fr-m10-01-05 | Đủ | Đối chiếu [đặc tả](#uc-m10-001) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | FR-M10-01.06 | #uc-m10-001-fr-m10-01-06 | Đủ | Đối chiếu [đặc tả](#uc-m10-001) → [core UC-M10-020](#uc-m10-020). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | FR-M10-02 | #uc-m10-020 | Đủ | Đối chiếu [đặc tả](#uc-m10-020) → [core UC-M10-020](#uc-m10-020). Bao gồm các mã con hiệu lực tại bảng kiểm kê và chi tiết bên dưới. |
@@ -1673,9 +1696,9 @@ Một dòng cho mỗi mã hiệu lực; các mã chi tiết/BR trỏ đến tiê
 | FR-M10-13.02 | #uc-m10-016-fr-m10-13-02 | Đủ | Đối chiếu [đặc tả](#uc-m10-016) → [core UC-M10-022](#uc-m10-022). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | FR-M10-13.03 | #uc-m10-015-fr-m10-13-03 | Đủ | Đối chiếu [đặc tả](#uc-m10-015) → [core UC-M10-022](#uc-m10-022). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | FR-M10-13.04 | #uc-m10-015-fr-m10-13-04 | Đủ | Đối chiếu [đặc tả](#uc-m10-015) → [core UC-M10-022](#uc-m10-022). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
-| FR-M10-13.05 | #uc-m10-015-fr-m10-13-05 | Đủ | Đối chiếu [đặc tả](#uc-m10-015) → [core UC-M10-022](#uc-m10-022). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
+| FR-M10-13.05 | #uc-m10-015-fr-m10-13-05 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M10-03. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M10-13.06 | #uc-m10-015-fr-m10-13-06 | Đủ | Đối chiếu [đặc tả](#uc-m10-015) → [core UC-M10-022](#uc-m10-022). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
-| FR-M10-13.07 | #uc-m10-017-fr-m10-13-07 | Đủ | Đối chiếu [đặc tả](#uc-m10-017) → [core UC-M10-022](#uc-m10-022). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
+| FR-M10-13.07 | #uc-m10-017-fr-m10-13-07 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M10-02. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M10-13.08 | #uc-m10-015-fr-m10-13-08 | Đủ | Đối chiếu [đặc tả](#uc-m10-015) → [core UC-M10-022](#uc-m10-022). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | FR-M10-13.09 | #uc-m10-015-fr-m10-13-09 | Đủ | Đối chiếu [đặc tả](#uc-m10-015) → [core UC-M10-022](#uc-m10-022). Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
 | FR-M10-13.10 | #aut-m10-001-fr-m10-13-10 | Đủ | Đối chiếu [đặc tả](#aut-m10-001); quy tắc/tác vụ xuyên core theo phạm vi ở mục 3. Tiêu chí nguồn khớp nội dung và được xử lý trong luồng/quy tắc. |
@@ -1722,6 +1745,15 @@ Một dòng cho mỗi mã hiệu lực; các mã chi tiết/BR trỏ đến tiê
 | [FR-M15](../fr/FR-M15.md) v1.1 | FR-M15-01.03, FR-M15-01.12, FR-M15-02.16, FR-M15-03.16 | Nhận vai trò để chỉ Admin xem thống kê và đếm theo vai trò. | M10 cung cấp vai trò đơn nhất; không thêm cờ M15 hoặc đưa dashboard thống kê vào US-M10. | RULE001, UC013. Nếu FR liên quan đổi, rà lại các mục này; không tự sửa nguồn. |
 | [FR-M16](../fr/FR-M16.md) v1.0 | FR-M16-15.01, FR-M16-15.02, FR-M16-15.03, FR-M16-15.04, FR-M16-15.05, FR-M16-15.06, FR-M16-15.07, FR-M16-15.08 | Nhận cờ Chat, thi hành danh sách chi tiết. | Mọi thao tác Chat liệt kê bị chặn với người không Admin; biểu tượng/số chưa đọc/nút vẫn hiện, tự tắt duyệt và hạn thu hồi còn chạy. | UC013, RULE004; Admin nhóm chat không phải ADMIN hệ thống. Nếu FR liên quan đổi, rà lại các mục này; không tự sửa nguồn. |
 
+
+### Nơi sở hữu quan hệ, hợp đồng liên module và impact v2.3
+
+| Owner / dependency | Hợp đồng caller/callee hoặc kết luận UML | Nguồn và nơi khai báo chính | View/backlink và trạng thái đồng bộ | Căn cứ |
+| --- | --- | --- | --- | --- |
+| M07 / M10 | UC005 nhận lựa chọn từ [UC-M07-006](US-M07.md#uc-m07-006); AUT002 đổi hiệu lực/hiển thị. | FR-M10 v1.4 owner role/đề xuất; FR-M07 v1.5 owner trình bày/lựa chọn. | D-M10-020, D-M07-021; NOTE-M10-01 chặn trạng thái sau từ chối Chấp nhận vì role/ACTIVE. Dependency không tự thành extend tới lần gửi đã kết thúc; đề xuất backlink M07 cần đồng bộ. | FR-M10-03.01, FR-M10-03.10, FR-M10-03.11, FR-M07-02.15 |
+| M08 / M10 | UC001-A2 điều hướng tới [UC-M08-025](US-M08.md#uc-m08-025) lọc Mod, không chèn nhật ký vào tìm người dùng. | FR-M10 v1.4 owner lối vào; FR-M08 v1.7 owner quyền nhật ký. | D-M10-020, D-M08-025. Giữ navigation/no UML relation; không sao chép UC hay tính KPI mới. | FR-M10-01.06, FR-M08-17.01 |
+| M01/M11/M12/M13/M16 / M10 | UC010–013/014 cung cấp cấu hình đã lưu; owner nhận áp rào/AI/điểm/Chat. | FR-M10 v1.4 owner công tắc; các nguồn normative giữ baseline trong sources, không dùng số version để ưu tiên thắng mâu thuẫn. | [US-M01](US-M01.md), [US-M11](US-M11.md), [US-M12](US-M12.md), [US-M13](US-M13.md), [US-M16](US-M16.md), D-M10-021; NOTE-M10-04 giữ hợp đồng lỗi chưa quyết định. Không lift endpoint vềcore hoặc tạo actor module. | FR-M10-09, FR-M10-10, FR-M10-11, FR-M10-12, BR-M10-28 |
+
 ## 6. Sơ đồ tổng quan và chi tiết
 
 Subject của cả năm hình là iShare. Node vàng là core, xanh là sub. Abstract được ghi rõ và tên in nghiêng. Màu hỗ trợ đọc, ký pháp quyết định ngữ nghĩa: include nét đứt, generalization nét liền/tam giác rỗng, association nét liền không mũi tên. Dấu gốc/điều kiện loại đề xuất nằm ở nhãn/đặc tả, không có vai trò thứ tư.
@@ -1734,7 +1766,7 @@ Tổng quan chỉ chứa UC-M10-020, UC-M10-021, UC-M10-022, UC-M10-023 và acto
 
 ### 6.2 Chi tiết riêng cho từng UC chính
 
-#### UC-M10-020 — Quản lý nhân sự và vai trò
+#### UC-M10-020 — Quản lý vai trò người dùng
 
 **Focus:** UC-M10-020. **Node:** UC-M10-020, UC-M10-001, UC-M10-002, UC-M10-003, UC-M10-004, UC-M10-005, UC-M10-006, UC-M10-007, UC-M10-008, UC-M10-009. **Số cạnh UC–UC:** 4.
 
@@ -1749,7 +1781,7 @@ Tổng quan chỉ chứa UC-M10-020, UC-M10-021, UC-M10-022, UC-M10-023 và acto
 
 Core Summary làm ngữ cảnh nghiệp vụ; chỉ các cặp có hành vi chèn/chuyên biệt hóa được nối. Không nối core xuống mọi sub chỉ để tạo cây phân cấp. Các Subfunction/abstract không là lệnh gọi độc lập của actor.
 
-#### UC-M10-021 — Cấu hình hoạt động hệ thống
+#### UC-M10-021 — Cấu hình hệ thống
 
 **Focus:** UC-M10-021. **Node:** UC-M10-021, UC-M10-010, UC-M10-011, UC-M10-012, UC-M10-013, UC-M10-014. **Số cạnh UC–UC:** 4.
 
@@ -1764,7 +1796,7 @@ Core Summary làm ngữ cảnh nghiệp vụ; chỉ các cặp có hành vi chè
 
 Core Summary làm ngữ cảnh nghiệp vụ; chỉ các cặp có hành vi chèn/chuyên biệt hóa được nối. Không nối core xuống mọi sub chỉ để tạo cây phân cấp. Các Subfunction/abstract không là lệnh gọi độc lập của actor.
 
-#### UC-M10-022 — Phát và tiếp nhận thông báo toàn trang
+#### UC-M10-022 — Đăng và xem thông báo toàn trang
 
 **Focus:** UC-M10-022. **Node:** UC-M10-022, UC-M10-015, UC-M10-016, UC-M10-017. **Số cạnh UC–UC:** 0.
 
@@ -1774,7 +1806,7 @@ Không có cạnh UC–UC có bằng chứng trong nhóm này. Hình vẫn giữ
 
 Core Summary làm ngữ cảnh nghiệp vụ; chỉ các cặp có hành vi chèn/chuyên biệt hóa được nối. Không nối core xuống mọi sub chỉ để tạo cây phân cấp. Các Subfunction/abstract không là lệnh gọi độc lập của actor.
 
-#### UC-M10-023 — Tra cứu nhật ký thao tác Admin
+#### UC-M10-023 — Xem nhật ký quản trị
 
 **Focus:** UC-M10-023. **Node:** UC-M10-023, UC-M10-018. **Số cạnh UC–UC:** 1.
 
@@ -1793,11 +1825,11 @@ Chưa có US-overview.md tại baseline. Phạm vi yêu cầu này chỉ M10; ch
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| C-M10 | core | - | UC-M10-020, UC-M10-021, UC-M10-022, UC-M10-023 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M10/C-M10.svg |
-| D-M10-020 | detail | UC-M10-020 | UC-M10-020, UC-M10-001, UC-M10-002, UC-M10-003, UC-M10-004, UC-M10-005, UC-M10-006, UC-M10-007, UC-M10-008, UC-M10-009 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M10/D-M10-020.svg |
-| D-M10-021 | detail | UC-M10-021 | UC-M10-021, UC-M10-010, UC-M10-011, UC-M10-012, UC-M10-013, UC-M10-014 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M10/D-M10-021.svg |
-| D-M10-022 | detail | UC-M10-022 | UC-M10-022, UC-M10-015, UC-M10-016, UC-M10-017 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M10/D-M10-022.svg |
-| D-M10-023 | detail | UC-M10-023 | UC-M10-023, UC-M10-018 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M10/D-M10-023.svg |
+| C-M10 | core | - | UC-M10-020, UC-M10-021, UC-M10-022, UC-M10-023 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M10/C-M10.svg |
+| D-M10-020 | detail | UC-M10-020 | UC-M10-020, UC-M10-001, UC-M10-002, UC-M10-003, UC-M10-004, UC-M10-005, UC-M10-006, UC-M10-007, UC-M10-008, UC-M10-009 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M10/D-M10-020.svg |
+| D-M10-021 | detail | UC-M10-021 | UC-M10-021, UC-M10-010, UC-M10-011, UC-M10-012, UC-M10-013, UC-M10-014 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M10/D-M10-021.svg |
+| D-M10-022 | detail | UC-M10-022 | UC-M10-022, UC-M10-015, UC-M10-016, UC-M10-017 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M10/D-M10-022.svg |
+| D-M10-023 | detail | UC-M10-023 | UC-M10-023, UC-M10-018 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M10/D-M10-023.svg |
 
 ### 7.1 Bằng chứng kiểm tra
 
@@ -1811,14 +1843,14 @@ Chưa có US-overview.md tại baseline. Phạm vi yêu cầu này chỉ M10; ch
 
 ### 7.2 Điểm cần làm rõ và giới hạn nguồn
 
-| ID | Nguồn | Vấn đề | Ảnh hưởng | Trạng thái/quyết định |
-|---|---|---|---|---|
-| NOTE-M10-01 | FR-M10-03.10, FR-M10-03.11, BR-M10-05, BR-M10-27 | Khi Chấp nhận bị từ chối vì vai trò không hợp lệ hoặc không ACTIVE, FR chỉ yêu cầu từ chối/giữ vai trò; chưa nêu đề xuất giữ Chưa trả lời hay chuyển trạng thái, có thể thử lại nếu hợp lệ trở lại không. | Chưa chốt trạng thái/khả năng thử lại trong tình huống này. | Giữ phần đã quyết: không đổi vai trò; không tự đặt Đã từ chối/Hết hiệu lực hoặc tiêu thụ lượt trả lời. Cần quay về phân tích yêu cầu cho chi tiết trạng thái. |
-| NOTE-M10-02 | FR-M10-13.07, BR-M10-20 | Nguồn chỉ nói Guest đóng theo trình duyệt; chưa nói người đăng nhập ghi nhớ theo tài khoản/thiết bị trong bao lâu hoặc qua phiên như thế nào. | Ảnh hưởng đồng bộ dấu đóng, không thay quy tắc không hiện lại bản đã đóng và hiện lại khi nội dung đổi. | Giữ kết quả hiển thị theo nguồn; không chọn lưu cookie/localStorage/server hoặc chính sách thời hạn. |
-| NOTE-M10-03 | FR-M10-13.05, BR-M10-20 | 200 ký tự được tính sau trim nhưng chưa xác định grapheme/code point/UTF-16 hoặc xử lý gõ lại cùng một nội dung có được tính bản mới khi gọi Sửa. | Ảnh hưởng kiểm thử emoji/ký tự tổ hợp và dấu đóng ở thao tác không đổi nội dung. | Chốt được các biên trống/1/200/201 theo khái niệm ký tự của nguồn; không tự chọn đơn vị kỹ thuật. Chỉ hành vi sửa nội dung/đặt mới được yêu cầu làm hiện lại. |
-| NOTE-M10-04 | FR-M10-02.08, FR-M10-07.09, FR-M10-09.02, FR-M10-14.01, BR-M10-13 | Nguồn nêu thứ tự thay bản cũ trước lưu mới và hiệu lực sau đổi, nhưng chưa chốt giao dịch/lỗi lưu/lỗi thông báo hoặc audit, nhiều yêu cầu đồng thời và cách xử lý yêu cầu đang thực hiện. | Ảnh hưởng xử lý thất bại và triển khai, không làm thay đổi hợp đồng thành công và guard hiệu lực tại lúc trả lời. | Không tự thêm rollback, outbox, retry, khóa hay cơ chế hồi tố/hủy yêu cầu đang chạy. Giữ thứ tự/điều kiện nghiệp vụ đã có, đưa chi tiết còn thiếu về phân tích yêu cầu/kỹ thuật. |
-| NOTE-M10-05 | FR-M10-01.03, FR-M10-01.04, FR-M10-01.05, BR-M10-29; BR-M06-09 | M10 tái dùng cách khớp tên M06, chưa liệt kê riêng toàn bộ tập trạng thái tài khoản được đưa vào kết quả tìm quản trị. | Không được tự đưa quy tắc chỉ ACTIVE/xong bước 3 hoặc giới hạn ba kết quả của tìm công khai sang quản trị; cũng chưa khẳng định danh sách đầy đủ tài khoản DELETED. | Đặc tả đúng cách khớp, trường và lọc vai trò đã chốt; không thêm bộ lọc trạng thái ngoài nguồn. Đối tượng đề xuất vẫn kiểm ACTIVE/xong bước 3. |
-| TBD-M10-01 (đã đóng) | FR-M10 v1.1; FR-M11-17.01, FR-M12-08.01, FR-M16-15.01 | Chi tiết cờ theo module đã được đóng, dù đoạn mô tả cũ còn dẫn xem TBD. | Không phải blocker hoặc yêu cầu mở mới. | Đã đọc và đối chiếu Group/Gamification/Chat; RULE004 và giao tiếp ghi hành vi hiện hành. |
+| ID | Nguồn | Vấn đề | Ảnh hưởng | Trạng thái/quyết định | UC/đường bị ảnh hưởng | Mức chặn và lý do | Người quyết định | Register / trạng thái | Bằng chứng đóng và phần làm lại |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| NOTE-M10-01 | FR-M10-03.10, FR-M10-03.11, BR-M10-05, BR-M10-27 | Khi Chấp nhận bị từ chối vì vai trò không hợp lệ hoặc không ACTIVE, FR chỉ yêu cầu từ chối/giữ vai trò; chưa nêu đề xuất giữ Chưa trả lời hay chuyển trạng thái, có thể thử lại nếu hợp lệ trở lại không. | Chưa chốt trạng thái/khả năng thử lại trong tình huống này. | Giữ phần đã quyết: không đổi vai trò; không tự đặt Đã từ chối/Hết hiệu lực hoặc tiêu thụ lượt trả lời. Cần quay về phân tích yêu cầu cho chi tiết trạng thái. | UC-M10-005 A5; UC009 A3/nhánh chấp nhận sai role/ACTIVE | blocking: chưa rõ đề xuất giữ hiệu lực/tiêu thụ phản hồi/thử lại; chỉ chốt không đổi role | Chưa xác định người quyết định vòng đời đề xuất M07/M10 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt trạng thái/khả năng thử lại và hiển thị M07, ghi register/FR-M10; rà UC005/009, AUT002 và US-M07-006. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M10-02 | FR-M10-13.07, BR-M10-20 | Nguồn chỉ nói Guest đóng theo trình duyệt; chưa nói người đăng nhập ghi nhớ theo tài khoản/thiết bị trong bao lâu hoặc qua phiên như thế nào. | Ảnh hưởng đồng bộ dấu đóng, không thay quy tắc không hiện lại bản đã đóng và hiện lại khi nội dung đổi. | Giữ kết quả hiển thị theo nguồn; không chọn lưu cookie/localStorage/server hoặc chính sách thời hạn. | UC-M10-017 A1/A2/A3; người đăng nhập đóng và mở trên thiết bị/phiên khác | blocking: chưa xác định phạm vi nhớ dấu đóng nên chưa nghiệm thu đường liên phiên/thiết bị | Chưa xác định người quyết định banner M10 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt phạm vi/thời hạn nhớ dấu đóng tài khoản, ghi register/FR-M10/BR-M10-20, cập nhật UC017 và QA; không tự chọn cơ chế lưu. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M10-03 | FR-M10-13.05, BR-M10-20 | 200 ký tự được tính sau trim nhưng chưa xác định grapheme/code point/UTF-16 hoặc xử lý gõ lại cùng một nội dung có được tính bản mới khi gọi Sửa. | Ảnh hưởng kiểm thử emoji/ký tự tổ hợp và dấu đóng ở thao tác không đổi nội dung. | Chốt được các biên trống/1/200/201 theo khái niệm ký tự của nguồn; không tự chọn đơn vị kỹ thuật. Chỉ hành vi sửa nội dung/đặt mới được yêu cầu làm hiện lại. | UC-M10-015 main-2/A2; UC017 A3; emoji/tổ hợp và Sửa cùng nội dung | blocking: biên 200 ký tự và bản mới không xác định cho các ca này | Chưa xác định người quyết định nội dung banner M10 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt đơn vị ký tự và sửa không đổi nội dung có là bản mới; ghi register/FR-M10-13.05/BR-M10-20, rà UC015/017 và ca biên. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M10-04 | FR-M10-02.08, FR-M10-07.09, FR-M10-09.02, FR-M10-14.01, BR-M10-13 | Nguồn nêu thứ tự thay bản cũ trước lưu mới và hiệu lực sau đổi, nhưng chưa chốt giao dịch/lỗi lưu/lỗi thông báo hoặc audit, nhiều yêu cầu đồng thời và cách xử lý yêu cầu đang thực hiện. | Ảnh hưởng xử lý thất bại và triển khai, không làm thay đổi hợp đồng thành công và guard hiệu lực tại lúc trả lời. | Không tự thêm rollback, outbox, retry, khóa hay cơ chế hồi tố/hủy yêu cầu đang chạy. Giữ thứ tự/điều kiện nghiệp vụ đã có, đưa chi tiết còn thiếu về phân tích yêu cầu/kỹ thuật. | UC-M10-002 main-2→3→4→5; UC014 main-2→3; AUT004 lỗi/concurrent/in-flight | blocking cho hợp đồng thất bại khi đã vô hiệu bản cũ hoặc lưu cấu hình nhưng audit/thông báo lỗi; không tự cam kết rollback | Chưa xác định người quyết định hợp đồng lỗi M10 và các owner nhận | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt kết quả thất bại/thứ tự/hiệu lực concurrent hoặc chứng minh thiết kế đáp ứng FR; không tự chọn outbox/khóa; rà UC002/014/callers, AUT004 và M07. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M10-05 | FR-M10-01.03, FR-M10-01.04, FR-M10-01.05, BR-M10-29; BR-M06-09 | M10 tái dùng cách khớp tên M06, chưa liệt kê riêng toàn bộ tập trạng thái tài khoản được đưa vào kết quả tìm quản trị. | Không được tự đưa quy tắc chỉ ACTIVE/xong bước 3 hoặc giới hạn ba kết quả của tìm công khai sang quản trị; cũng chưa khẳng định danh sách đầy đủ tài khoản DELETED. | Đặc tả đúng cách khớp, trường và lọc vai trò đã chốt; không thêm bộ lọc trạng thái ngoài nguồn. Đối tượng đề xuất vẫn kiểm ACTIVE/xong bước 3. | UC-M10-001 main-2→3; tập trạng thái được tìm trong Admin Panel | blocking: chưa xác định scope dữ liệu trả, nhất là DELETED; không bê filter công khai M06 | Chưa xác định người quyết định dữ liệu/quyền M01/M10 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt tập trạng thái tìm quản trị và dữ liệu cho tài khoản đã xóa, ghi register/FR-M10; rà UC001, không đổi thuật toán BR-M06-09. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| TBD-M10-01 (đã đóng) | FR-M10 v1.1; FR-M11-17.01, FR-M12-08.01, FR-M16-15.01 | Chi tiết cờ theo module đã được đóng, dù đoạn mô tả cũ còn dẫn xem TBD. | Không phải blocker hoặc yêu cầu mở mới. | Đã đọc và đối chiếu Group/Gamification/Chat; RULE004 và giao tiếp ghi hành vi hiện hành. | UC-M10-013, RULE-M10-004; Group/Gamification/Chat | nonblocking: DEC-236/245/256 đã đóng chi tiết tại owner | Theo các quyết định nguồn đã chốt | [Register quyết định nguồn](../../../.agents/.claude/system_analysis/output/registers/decisions.md); resolved theo nguồn, chưa phê duyệt US | Đối chiếu FR-M11-17.01/FR-M12-08.01/FR-M16-15.01; không có quyết định mới cần phê duyệt. Đây là chứng cứ lịch sử; không tạo xác nhận mới. |
 
 ### 7.3 ID cũ → mới
 
@@ -1828,3 +1860,193 @@ Chưa có US-overview.md tại baseline. Phạm vi yêu cầu này chỉ M10; ch
 
 M10 chưa có tài liệu US trước lượt này, không đổi ID đã duyệt. Giữ actor ACT-001/ACT-002/ACT-008/ACT-007 và tham chiếu UC-M08-025. FR/register không bị sửa để khớp mô hình. Chỉ chuyển trạng thái Đã duyệt khi người dùng chấp nhận kết quả cuối; quyền làm liên tục không thay bằng chứng phê duyệt.
 
+
+
+
+### Phân biệt bằng chứng lịch sử và lượt cập nhật v2.3
+
+Các bảng kiểm cấu trúc/render/hình và câu “đã kiểm” có trước mục này là **bằng chứng lịch sử v2.2 / lượt chuẩn hóa tên**, không phải lệnh vừa chạy. Quyền thực hiện lịch sử: Người dùng đã cho phép tự thực hiện các bước cần thiết, không hỏi đồng ý ở lượt M04; áp dụng cho chuỗi module hiện tại. Đây là quyền làm liên tục, không phải phê duyệt kết quả US-M10 hoặc từng bước.
+
+Trong lượt cập nhật các module được giao, giữ nguyên 25 view trong phạm vi M06–M10 (từng module theo bảng diagrams), chưa chạy lại renderer hoặc quan sát hình mới. Đã parse XML SVG hiện hữu, đối chiếu node/cạnh UC và association trực tiếp với bảng; endpoint, nhãn UC và ký pháp không sửa nên không phát sinh yêu cầu render mới. `diagram_check=pass` chỉ kế thừa hình đã render và audit parity hiện tại, không hàm ý BA/phê duyệt hoặc render lại.
+
+| Lớp kiểm v2.3 | Kết quả thực tế | Giới hạn |
+| --- | --- | --- |
+| Schema/nguồn | Baseline owner/normative Đã chốt; giữ source_baseline/ID/anchor; nâng marker associations và artifact US-relative. | Checker --final được chạy sau walkthrough; semantic_review=pending vì các blocking trong ledger, không ép pass. |
+| SVG/XML/parity | 5 SVG XML hợp lệ; 25 cặp association trực tiếp đã nhập marker; quan hệ UC giữ endpoint. | Không render mới; kiểm hình lịch sử không chứng minh ngữ nghĩa nhánh thiếu nguồn. |
+| Walkthrough | 19 đặc tả có luồng chính và mỗi nhánh đã lập before/return/END/postcondition/source. | Gap cụ thể giới hạn kết luận; không coi bao phủ mã hay criteria chép từ FR là closure. |
+
+### Walkthrough v2.3 theo từng đặc tả và đường đi
+
+Bảng dưới ghi trạng thái trước, guard và điểm trở lại thực tế. `END cần chốt` là điểm dừng phân tích của nhánh thiếu nguồn, không phải hành vi sản phẩm đã được phê duyệt. Đường trở lại chỉ dùng success khi guard cho phép hoàn tất; không áp success của cha cho no-op/từ chối. Cột gap giới hạn phần có thể nghiệm thu. Các core Summary được đối chiếu ở bảng độ gắn kết; các đường thực thi nằm ở đặc tả con dưới đây.
+
+#### UC-M10-023 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin mở nhật ký thao tác Admin. Trước: Phiên được M01 xử lý; quyền ADMIN được kiểm trong luồng, không dùng tiền điều kiện để bỏ nhánh từ chối. | [1](#uc-m10-023-main-1) → [2](#uc-m10-023-main-2) → [3](#uc-m10-023-main-3) → [4](#uc-m10-023-main-4) → END: đạt kết quả thành công trong hợp đồng. | Danh sách đúng tiêu chí, mới nhất trước, đủ năm trường và giờ Việt Nam; dữ liệu không bị sửa bởi việc đọc. | FR-M10-14, FR-M10-15, BR-M10-02, BR-M10-21, BR-M10-22, BR-M10-23, BR-M10-24; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-023-alt-1) | Tại bước [Bước 2](#uc-m10-023-main-2): Người mở không có vai trò ADMIN hoặc chưa đăng nhập.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-023-main-2) → A1 → END: không cho xem. | UC018 từ chối truy xuất. Kết thúc: không cho xem.. | FR-M10-15.02, BR-M10-02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-023-alt-2) | Tại bước [Bước 4](#uc-m10-023-main-4): Admin thay tiêu chí người làm hoặc loại thao tác.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 4](#uc-m10-023-main-4) → A2 → [Tiếp tục](#uc-m10-023-main-2) | Lập lại danh sách đúng tiêu chí. Sau khi trở lại và hoàn tất: Danh sách đúng tiêu chí, mới nhất trước, đủ năm trường và giờ Việt Nam; dữ liệu không bị sửa bởi việc đọc. | FR-M10-15.05; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m10-023-alt-3) | Tại bước [Bước 4](#uc-m10-023-main-4): Bất kỳ ai yêu cầu sửa hoặc xóa mục nhật ký.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 4](#uc-m10-023-main-4) → A3 → END: mục không bị sửa/xóa. | Từ chối; giữ mục nhật ký vĩnh viễn. Kết thúc: mục không bị sửa/xóa.. | FR-M10-15.03, FR-M10-14.04, BR-M10-22; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-001 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin mở phần quản lý người dùng. Trước: Định danh/phiên do M01 cung cấp; quyền truy cập được kiểm trong luồng. | [1](#uc-m10-001-main-1) → [2](#uc-m10-001-main-2) → [3](#uc-m10-001-main-3) → [4](#uc-m10-001-main-4) → [5](#uc-m10-001-main-5) → END: đạt kết quả thành công trong hợp đồng. | Danh sách đúng tên/vai trò, đủ thông tin; chọn được thao tác phù hợp mà không thay đổi vai trò chỉ vì xem. | FR-M10-01, BR-M10-02, BR-M10-29, BR-M10-30, BR-M06-09; Giữ mở: NOTE-M10-05 |
+| [A1](#uc-m10-001-alt-1) | Tại bước [Bước 2](#uc-m10-001-main-2): Guest hoặc tài khoản không có vai trò ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-001-main-2) → A1 → END: không cho xem. | Từ chối vào Admin Panel. Kết thúc: không cho xem.. | FR-M10-01.02, BR-M10-02|
+| [A2](#uc-m10-001-alt-2) | Tại bước [Bước 4](#uc-m10-001-main-4): Admin chọn Xem thao tác ở một tài khoản Mod.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 4](#uc-m10-001-main-4) → A2 → END: tiếp tục tại M08 theo quyền nhật ký của M08. | Mở nhật ký kiểm duyệt M08 lọc theo người làm là Mod đó; dùng UC-M08-025 đã có, không lập màn hình hay chỉ số hiệu suất riêng. Đây là điều hướng tới mục tiêu độc lập, không chèn thêm UC vào luồng tìm. Kết thúc: tiếp tục tại M08 theo quyền nhật ký của M08.. | FR-M10-01.06, BR-M10-30, FR-M08-17.06|
+
+#### UC-M10-002 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin gửi đề xuất của một loại cụ thể. Trước: Có loại Mod hoặc Admin và người nhận; quyền gửi theo loại được chuyên biệt hóa. UC abstract không là lệnh gửi bỏ qua loại. | [1](#uc-m10-002-main-1) → [2](#uc-m10-002-main-2) → [3](#uc-m10-002-main-3) → [4](#uc-m10-002-main-4) → [5](#uc-m10-002-main-5) → END: đạt kết quả thành công trong hợp đồng. | Đề xuất mới Chưa trả lời có thời điểm gửi, hạn 7 × 24 giờ; tối đa một đề xuất hiệu lực cùng loại/cùng người; tạo thông báo mới; vai trò người nhận giữ nguyên. | FR-M10-02, FR-M10-07, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-11, BR-M10-27; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-002-alt-1) | Tại bước [Bước 1](#uc-m10-002-main-1): Bộ kiểm UC009 từ chối.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 1](#uc-m10-002-main-1) → A1 → END: không có đề xuất gửi hợp lệ. | Không tạo đề xuất mới; trả từ chối theo nguyên nhân của bộ kiểm. Kết thúc: không có đề xuất gửi hợp lệ.. | FR-M10-02.06, FR-M10-02.07, FR-M10-02.09, FR-M10-07.01, FR-M10-07.02, FR-M10-07.07, FR-M10-07.08, BR-M10-05, BR-M10-11; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-002-alt-2) | Tại bước [Bước 2](#uc-m10-002-main-2): Đề xuất trước đã Từ chối hoặc Hết hiệu lực.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-002-main-2) → A2 → [Tiếp tục](#uc-m10-002-main-3) | Giữ trạng thái bản cũ, tiếp tục tạo bản và thông báo mới. Sau khi trở lại và hoàn tất: Đề xuất mới Chưa trả lời có thời điểm gửi, hạn 7 × 24 giờ; tối đa một đề xuất hiệu lực cùng loại/cùng người; tạo thông báo mới; vai trò người nhận giữ nguyên. | FR-M10-02.05, BR-M10-06, BR-M10-27; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-003 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin chọn gửi Đề xuất làm Mod cho một người dùng. Trước: Định danh người gửi/nhận; không giả định người nhận đã hợp lệ trước khi kiểm. | [1](#uc-m10-003-main-1) → [2](#uc-m10-003-main-2) → [3](#uc-m10-003-main-3) → END: đạt kết quả thành công trong hợp đồng. | Đề xuất làm Mod mới Chưa trả lời, thông báo mới; người nhận vẫn USER cho tới chấp nhận. | FR-M10-02, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-003-alt-1) | Tại bước [Bước 2](#uc-m10-003-main-2): Người gửi không ADMIN; hoặc người nhận MODERATOR/ADMIN; hoặc không ACTIVE/chưa xong bước 3.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-003-main-2) → A1 → END: từ chối đề xuất. | Áp nhánh từ chối của hợp đồng UC002/UC009, không phong Mod. Kết thúc: từ chối đề xuất.. | FR-M10-02.06, FR-M10-02.07, FR-M10-02.09; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-003-alt-2) | Tại bước [Bước 2](#uc-m10-003-main-2): Có đề xuất Mod còn hiệu lực hoặc bản Mod cũ đã từ chối/hết hiệu lực.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-003-main-2) → A2 → [Tiếp tục](#uc-m10-003-main-3) | Áp đúng nhánh thay/lập mới UC002; chỉ thay cùng loại. Đề xuất Admin của người này độc lập. Sau khi trở lại và hoàn tất: Đề xuất làm Mod mới Chưa trả lời, thông báo mới; người nhận vẫn USER cho tới chấp nhận. | FR-M10-02.05, FR-M10-02.08, BR-M10-27; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-004 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | ADMIN gốc chọn gửi Đề xuất làm Admin. Trước: Biết người gửi/nhận; dấu gốc là thuộc tính tài khoản ADMIN, không phải vai trò thứ tư. | [1](#uc-m10-004-main-1) → [2](#uc-m10-004-main-2) → [3](#uc-m10-004-main-3) → END: đạt kết quả thành công trong hợp đồng. | Đề xuất Admin mới Chưa trả lời và thông báo mới; vai trò USER hoặc MODERATOR của người nhận giữ nguyên đến khi chấp nhận. | FR-M10-07, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-10, BR-M10-11, BR-M10-27; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-004-alt-1) | Tại bước [Bước 2](#uc-m10-004-main-2): Người gửi không ADMIN hoặc là ADMIN không phải gốc.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-004-main-2) → A1 → END: không gửi đề xuất. | Từ chối theo quyền của UC002/UC009. Kết thúc: không gửi đề xuất.. | FR-M10-07.01, FR-M10-07.07, BR-M10-11; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-004-alt-2) | Tại bước [Bước 2](#uc-m10-004-main-2): Người nhận đã ADMIN hoặc không ACTIVE/chưa xong bước 3.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-004-main-2) → A2 → END: không gửi đề xuất. | Từ chối theo UC009. Kết thúc: không gửi đề xuất.. | FR-M10-07.02, FR-M10-07.08; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m10-004-alt-3) | Tại bước [Bước 2](#uc-m10-004-main-2): Có đề xuất Admin cùng người còn hiệu lực.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-004-main-2) → A3 → [Tiếp tục](#uc-m10-004-main-3) | Chuyển bản Admin cũ Hết hiệu lực trước khi lưu mới; không thay đề xuất Mod của người này. Sau khi trở lại và hoàn tất: Đề xuất Admin mới Chưa trả lời và thông báo mới; vai trò USER hoặc MODERATOR của người nhận giữ nguyên đến khi chấp nhận. | FR-M10-07.09, BR-M10-27; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-005 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người nhận bấm Chấp nhận hoặc Từ chối trên thông báo M07. Trước: Định danh/phiên theo M01, thông báo tham chiếu một đề xuất. Không cần vào Admin Panel; quyền chủ đề xuất, hiệu lực, trạng thái được kiểm trong luồng. | [1](#uc-m10-005-main-1) → [2](#uc-m10-005-main-2) → [3](#uc-m10-005-main-3) → [4](#uc-m10-005-main-4) → [5](#uc-m10-005-main-5) → END: đạt kết quả thành công trong hợp đồng. | Chấp nhận hợp lệ đổi ngay một vai trò và Đã chấp nhận; Từ chối giữ vai trò và Đã từ chối; hiện lựa chọn đã chọn, không trả lời lại. | FR-M10-03, BR-M10-05, BR-M10-06, BR-M10-07, BR-M10-27; Giữ mở: NOTE-M10-01 |
+| [A1](#uc-m10-005-alt-1) | Tại bước [Bước 1](#uc-m10-005-main-1): Người nhận chọn Từ chối.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 1](#uc-m10-005-main-1) → A1 → END: Đã từ chối; vai trò giữ nguyên. | Vẫn thực hiện kiểm chủ bản, một lần và hiệu lực ở bước 2. Nếu đạt, giữ vai trò, chuyển Đã từ chối, M07 hiện Từ chối; không chạy bộ kiểm ACTIVE/vai trò của nhánh Chấp nhận và không ghi thay đổi vai trò không xảy ra. Kết thúc: Đã từ chối; vai trò giữ nguyên.. | FR-M10-03.03, FR-M10-03.04, FR-M10-03.07, FR-M10-03.08, BR-M10-06, BR-M10-07, BR-M10-21|
+| [A2](#uc-m10-005-alt-2) | Tại bước [Bước 2](#uc-m10-005-main-2): Người trả lời khác người nhận.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-005-main-2) → A2 → END: không đổi vai trò. | Từ chối. Kết thúc: không đổi vai trò.. | FR-M10-03.07|
+| [A3](#uc-m10-005-alt-3) | Tại bước [Bước 2](#uc-m10-005-main-2): Đề xuất đã Đã chấp nhận hoặc Đã từ chối.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-005-main-2) → A3 → END: không đổi vai trò. | Từ chối trả lời lần nữa; giữ lựa chọn đã chọn. Kết thúc: không đổi vai trò.. | FR-M10-03.04, FR-M10-03.06, BR-M10-07|
+| [A4](#uc-m10-005-alt-4) | Tại bước [Bước 2](#uc-m10-005-main-2): Đề xuất Hết hiệu lực do đủ 7 × 24 giờ hoặc bị đề xuất mới cùng loại thay.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-005-main-2) → A4 → END: vai trò giữ nguyên. | Từ chối; quá hạn hiện Đã hết hạn và không chọn được, bản bị thay cũng không trả lời được theo M07. Kết thúc: vai trò giữ nguyên.. | FR-M10-03.08, BR-M10-07, BR-M10-27, FR-M07-02.31, FR-M07-02.32|
+| [A5](#uc-m10-005-alt-5) | Tại bước [Bước 3](#uc-m10-005-main-3): Vai trò hiện tại không còn hợp lệ hoặc tài khoản không ACTIVE.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 3](#uc-m10-005-main-3) → A5 → END: chấp nhận không thành công; NOTE-M10-01. | UC009 từ chối chấp nhận; không đổi vai trò. Không tự đánh dấu Đã từ chối/Hết hiệu lực do nguyên nhân này khi FR chưa quy định. Kết thúc: chấp nhận không thành công; NOTE-M10-01.. | FR-M10-03.10, FR-M10-03.11, BR-M10-05, BR-M10-27; Nhánh chưa chốt: NOTE-M10-01 |
+
+#### UC-M10-006 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin chọn giáng cấp một tài khoản Mod. Trước: Có tài khoản được chọn; quyền người gửi/vai trò đích được kiểm khi làm. | [1](#uc-m10-006-main-1) → [2](#uc-m10-006-main-2) → [3](#uc-m10-006-main-3) → [4](#uc-m10-006-main-4) → END: đạt kết quả thành công trong hợp đồng. | Đích đổi MODERATOR→USER ngay, không cần đồng ý, không khiếu nại; AUT004 ghi thao tác. | FR-M10-04, BR-M10-02, BR-M10-08; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-006-alt-1) | Tại bước [Bước 2](#uc-m10-006-main-2): Người thao tác không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-006-main-2) → A1 → END: không đổi vai trò. | Từ chối giáng cấp. Kết thúc: không đổi vai trò.. | FR-M10-04.04, BR-M10-02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-006-alt-2) | Tại bước [Bước 2](#uc-m10-006-main-2): Tài khoản đích không MODERATOR.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-006-main-2) → A2 → END: không đổi vai trò. | Từ chối; không dùng giáng cấp Mod để thu hồi ADMIN. Kết thúc: không đổi vai trò.. | FR-M10-04.05; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-007 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | ADMIN gốc chọn thu hồi vai trò Admin của tài khoản được chọn. Trước: Định danh người thao tác/đích; không giả định quyền gốc hoặc đích ADMIN hợp lệ trước bước kiểm. | [1](#uc-m10-007-main-1) → [2](#uc-m10-007-main-2) → [3](#uc-m10-007-main-3) → [4](#uc-m10-007-main-4) → END: đạt kết quả thành công trong hợp đồng. | Admin đích khác gốc về USER ngay, kể cả trước đó từng Mod; không cần đồng ý, không khiếu nại; hệ thống vẫn có ADMIN gốc. | FR-M10-08, BR-M10-10, BR-M10-11; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-007-alt-1) | Tại bước [Bước 2](#uc-m10-007-main-2): Người thao tác không ADMIN hoặc ADMIN không phải gốc.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-007-main-2) → A1 → END: không đổi vai trò. | Từ chối. Kết thúc: không đổi vai trò.. | FR-M10-08.01, FR-M10-08.05, BR-M10-11; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-007-alt-2) | Tại bước [Bước 2](#uc-m10-007-main-2): Đích không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-007-main-2) → A2 → END: không đổi vai trò. | Từ chối thu hồi. Kết thúc: không đổi vai trò.. | FR-M10-08.02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m10-007-alt-3) | Tại bước [Bước 2](#uc-m10-007-main-2): Đích là ADMIN gốc.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-007-main-2) → A3 → END: gốc giữ ADMIN. | Từ chối tuyệt đối, kể cả yêu cầu từ chính gốc. Kết thúc: gốc giữ ADMIN.. | FR-M10-08.04, BR-M10-10; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-008 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Chính tài khoản chọn từ chức. Trước: Định danh chính người thao tác; không yêu cầu Mod vào Admin Panel, nguồn chưa thiết kế vị trí lối vào. | [1](#uc-m10-008-main-1) → [2](#uc-m10-008-main-2) → [3](#uc-m10-008-main-3) → [4](#uc-m10-008-main-4) → [5](#uc-m10-008-main-5) → END: đạt kết quả thành công trong hợp đồng. | Vai trò về USER sau xác nhận, người làm nhật ký là chính người từ chức; nhận lại vai trò chỉ qua đề xuất mới. | FR-M10-05, BR-M10-10, BR-M10-25; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-008-alt-1) | Tại bước [Bước 2](#uc-m10-008-main-2): Người thao tác không MODERATOR hoặc ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-008-main-2) → A1 → END: không đổi vai trò. | Từ chối. Kết thúc: không đổi vai trò.. | FR-M10-05.02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-008-alt-2) | Tại bước [Bước 2](#uc-m10-008-main-2): Người thao tác là ADMIN gốc.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-008-main-2) → A2 → END: gốc giữ ADMIN. | Từ chối từ chức. Kết thúc: gốc giữ ADMIN.. | FR-M10-05.05, BR-M10-10; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m10-008-alt-3) | Tại bước [Bước 4](#uc-m10-008-main-4): Người thao tác hủy xác nhận.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 4](#uc-m10-008-main-4) → A3 → END: không từ chức. | Giữ nguyên vai trò. Kết thúc: không từ chức.. | FR-M10-05.03, BR-M10-25; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-009 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | UC002 (kế thừa qua UC003/004) hoặc UC005 nhánh Chấp nhận chèn bộ kiểm. Trước: Caller đã cung cấp ngữ cảnh, loại, người gửi/người nhận và trạng thái; ở nhánh Chấp nhận UC005 đã kiểm chủ đề xuất và hiệu lực. | [1](#uc-m10-009-main-1) → [2](#uc-m10-009-main-2) → [3](#uc-m10-009-main-3) → END: đạt kết quả thành công trong hợp đồng. | Trả đủ điều kiện; không đổi đề xuất hoặc vai trò trong bộ kiểm. | FR-M10-02.06, FR-M10-02.07, FR-M10-02.09, FR-M10-07.01, FR-M10-07.02, FR-M10-07.07, FR-M10-07.08, FR-M10-03.10, FR-M10-03.11, BR-M10-05, BR-M10-11, BR-M10-27; Giữ mở: NOTE-M10-01 |
+| [A1](#uc-m10-009-alt-1) | Tại bước [Bước 1](#uc-m10-009-main-1): Ngữ cảnh là chấp nhận từ UC005.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 1](#uc-m10-009-main-1) → A1 → [Tiếp tục](#uc-m10-009-main-3) | Không kiểm lại quyền người gửi cũ. Kiểm người nhận hiện ACTIVE và vai trò hiện tại: USER cho Mod; USER hoặc MODERATOR cho Admin. Điều kiện hoàn tất bước 3 là điều kiện khi gửi, không tự thêm một bước xác minh đăng ký mới lúc trả lời. Sau khi trở lại và hoàn tất: Trả đủ điều kiện; không đổi đề xuất hoặc vai trò trong bộ kiểm. | FR-M10-03.10, FR-M10-03.11, BR-M10-05, BR-M10-27|
+| [A2](#uc-m10-009-alt-2) | Tại bước [Bước 1](#uc-m10-009-main-1): Quyền gửi hoặc vai trò đích không hợp lệ cho loại.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 1](#uc-m10-009-main-1) → A2 → END: bộ kiểm không đạt. | Trả từ chối; UC002/UC005 không đi tới phần ghi thay đổi. Kết thúc: bộ kiểm không đạt.. | FR-M10-02.06, FR-M10-02.07, FR-M10-07.01, FR-M10-07.02, FR-M10-07.07, FR-M10-03.10|
+| [A3](#uc-m10-009-alt-3) | Tại bước [Bước 2](#uc-m10-009-main-2): Khi gửi đích không ACTIVE/chưa SETUP_COMPLETED; hoặc khi chấp nhận đích không ACTIVE.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-009-main-2) → A3 → END: bộ kiểm không đạt. | Trả từ chối; không tự đặt trạng thái đề xuất do lỗi này. Kết thúc: bộ kiểm không đạt.. | FR-M10-02.09, FR-M10-07.08, FR-M10-03.11, BR-M10-05|
+
+#### UC-M10-010 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin đổi AI tổng hoặc Search/Moderation/Topic suggestion. Trước: Có định danh người thao tác, tên công tắc và trạng thái Bật/Tắt; quyền ADMIN được kiểm khi lưu. | [1](#uc-m10-010-main-1) → [2](#uc-m10-010-main-2) → [3](#uc-m10-010-main-3) → [4](#uc-m10-010-main-4) → [5](#uc-m10-010-main-5) → END: đạt kết quả thành công trong hợp đồng. | Công tắc lưu bền và có hiệu lực cho thao tác sau đổi; tổng tắt phủ mọi AI, riêng được lưu ngay cả khi tổng tắt. | FR-M10-09, BR-M10-04, BR-M10-12, BR-M10-13, BR-M10-14, BR-M10-15, BR-M10-16; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-010-alt-1) | Tại bước [Bước 2](#uc-m10-010-main-2): Người thao tác không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-010-main-2) → A1 → END: cấu hình không đổi. | UC014 từ chối đổi công tắc. Kết thúc: cấu hình không đổi.. | FR-M10-09.08, BR-M10-02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-010-alt-2) | Tại bước [Bước 1](#uc-m10-010-main-1): Yêu cầu công tắc email, công tắc riêng tóm tắt hoặc sửa hằng số chính sách.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 1](#uc-m10-010-main-1) → A2 → END: không thực hiện thay đổi này. | Ngoài khả năng Admin Panel đã chốt: không có mục UI cho các yêu cầu này; không suy thêm endpoint hay màn hình quản lý. Kết thúc: không thực hiện thay đổi này.. | FR-M10-09.05, FR-M10-09.09, BR-M10-04, BR-M10-12, BR-M10-15; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m10-010-alt-3) | Tại bước [Bước 4](#uc-m10-010-main-4): Một lời gọi AI lỗi tạm thời ở module nhận.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 4](#uc-m10-010-main-4) → A3 → END: cấu hình M10 giữ trạng thái đã lưu. | Xử lý ở M13/module gọi; không đổi công tắc và không coi việc AI tắt do Admin là lỗi. Kết thúc: cấu hình M10 giữ trạng thái đã lưu.. | FR-M10-09.07, BR-M10-16, BR-M13-07; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-011 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin đổi chế độ bảo trì. Trước: Biết người thao tác và trạng thái Bật/Tắt; quyền được kiểm trong luồng. | [1](#uc-m10-011-main-1) → [2](#uc-m10-011-main-2) → [3](#uc-m10-011-main-3) → [4](#uc-m10-011-main-4) → END: đạt kết quả thành công trong hợp đồng. | Lưu trạng thái và cung cấp M01; khi bật chỉ ADMIN được dùng, kể cả áp từ chối cho phiên hiện có của người khác. | FR-M10-10, BR-M10-13, BR-M10-17; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-011-alt-1) | Tại bước [Bước 2](#uc-m10-011-main-2): Người thao tác không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-011-main-2) → A1 → END: không đổi chế độ. | UC014 từ chối. Kết thúc: không đổi chế độ.. | FR-M10-10.03, BR-M10-02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-012 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin đổi tạm dừng đăng ký. Trước: Định danh người thao tác và trạng thái cần đổi; quyền được kiểm khi thực hiện. | [1](#uc-m10-012-main-1) → [2](#uc-m10-012-main-2) → [3](#uc-m10-012-main-3) → [4](#uc-m10-012-main-4) → END: đạt kết quả thành công trong hợp đồng. | Lưu trạng thái; khi bật M01 từ chối email mới/Google lần đầu nhưng vẫn cho liên kết Google vào tài khoản có sẵn và tiếp bước 2,3 nếu đã qua bước 1. | FR-M10-11, BR-M10-13, BR-M10-18; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-012-alt-1) | Tại bước [Bước 2](#uc-m10-012-main-2): Người thao tác không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-012-main-2) → A1 → END: không đổi trạng thái. | UC014 từ chối. Kết thúc: không đổi trạng thái.. | FR-M10-11.03, BR-M10-02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-013 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin đổi cờ Group, Chat hoặc Gamification. Trước: Biết người thao tác, một trong ba cờ và trạng thái; kiểm quyền trong luồng. | [1](#uc-m10-013-main-1) → [2](#uc-m10-013-main-2) → [3](#uc-m10-013-main-3) → [4](#uc-m10-013-main-4) → [5](#uc-m10-013-main-5) → END: đạt kết quả thành công trong hợp đồng. | Lưu trạng thái; khi tắt người không Admin bị chặn theo owner; lối vào còn, dữ liệu giữ, tự động và kiểm duyệt vẫn chạy, Admin vẫn dùng được. | FR-M10-12, BR-M10-13, BR-M10-19, BR-M10-28; Giữ mở: TBD-M10-01 (đã đóng) |
+| [A1](#uc-m10-013-alt-1) | Tại bước [Bước 2](#uc-m10-013-main-2): Người thao tác không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-013-main-2) → A1 → END: cờ không đổi. | UC014 từ chối. Kết thúc: cờ không đổi.. | FR-M10-12.02, BR-M10-02; Cần quyết định nguồn: TBD-M10-01 (đã đóng) |
+| [A2](#uc-m10-013-alt-2) | Tại bước [Bước 1](#uc-m10-013-main-1): Yêu cầu cờ module ngoài Group/Chat/Gamification.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 1](#uc-m10-013-main-1) → A2 → END: không có thay đổi cấu hình loại này. | Không có cờ tương ứng trong phạm vi cấu hình đã chốt; không bổ sung UI. Kết thúc: không có thay đổi cấu hình loại này.. | FR-M10-12.03, BR-M10-19; Cần quyết định nguồn: TBD-M10-01 (đã đóng) |
+
+#### UC-M10-014 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | UC010/011/012/013 chèn hành vi lưu cấu hình. Trước: Caller đã xác định công tắc nằm trong danh sách và giá trị Bật/Tắt; phiên/định danh do M01. | [1](#uc-m10-014-main-1) → [2](#uc-m10-014-main-2) → [3](#uc-m10-014-main-3) → END: đạt kết quả thành công trong hợp đồng. | Trạng thái mới được lưu, có hiệu lực cho các thao tác sau đổi không cần triển khai lại; trả về caller áp ý nghĩa riêng. | FR-M10-09.02, FR-M10-09.08, FR-M10-10.01, FR-M10-10.03, FR-M10-11.01, FR-M10-11.03, FR-M10-12.01, FR-M10-12.02, BR-M10-02, BR-M10-13; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-014-alt-1) | Tại bước [Bước 1](#uc-m10-014-main-1): Người yêu cầu không ADMIN hoặc chưa đăng nhập.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 1](#uc-m10-014-main-1) → A1 → END: trạng thái không đổi. | Từ chối lưu; caller dừng thay đổi. Kết thúc: trạng thái không đổi.. | BR-M10-02, FR-M10-09.08, FR-M10-10.03, FR-M10-11.03, FR-M10-12.02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-015 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin đặt banner mới hoặc sửa banner đang hiện. Trước: Định danh Admin; với sửa, có banner đang hiện. Kiểm quyền/nội dung trong luồng. | [1](#uc-m10-015-main-1) → [2](#uc-m10-015-main-2) → [3](#uc-m10-015-main-3) → [4](#uc-m10-015-main-4) → [5](#uc-m10-015-main-5) → END: đạt kết quả thành công trong hợp đồng. | Tối đa một banner văn bản thuần 1–200 ký tự sau trim, hiện mọi trang cho mọi người; đặt mới/sửa nội dung làm hiện lại với cả người đã đóng. | FR-M10-13.01, FR-M10-13.03, FR-M10-13.04, FR-M10-13.05, FR-M10-13.06, FR-M10-13.08, FR-M10-13.09, BR-M10-20; Giữ mở: NOTE-M10-03 |
+| [A1](#uc-m10-015-alt-1) | Tại bước [Bước 2](#uc-m10-015-main-2): Người thao tác không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-015-main-2) → A1 → END: không thực hiện quản lý banner. | Từ chối đặt/sửa/gỡ banner theo quy tắc chung. Kết thúc: không thực hiện quản lý banner.. | FR-M10-13.03, BR-M10-02|
+| [A2](#uc-m10-015-alt-2) | Tại bước [Bước 2](#uc-m10-015-main-2): Sau khi bỏ khoảng trắng hai đầu, nội dung trống hoặc dài hơn 200 ký tự.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-015-main-2) → A2 → END: yêu cầu đặt/sửa bị từ chối. | Từ chối nội dung. Kết thúc: yêu cầu đặt/sửa bị từ chối.. | FR-M10-13.05, BR-M10-20|
+
+#### UC-M10-016 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Admin chọn gỡ banner đang hiện. Trước: Có banner đang hiện; kiểm quyền trong luồng. | [1](#uc-m10-016-main-1) → [2](#uc-m10-016-main-2) → [3](#uc-m10-016-main-3) → [4](#uc-m10-016-main-4) → END: đạt kết quả thành công trong hợp đồng. | Banner không còn hiện trên mọi trang; AUT004 ghi thao tác gỡ. | FR-M10-13.02, FR-M10-13.03, BR-M10-20; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-016-alt-1) | Tại bước [Bước 2](#uc-m10-016-main-2): Người thao tác không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-016-main-2) → A1 → END: không gỡ banner. | Từ chối. Kết thúc: không gỡ banner.. | FR-M10-13.03, BR-M10-02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M10-017 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Một người mở trang khi có banner; hoặc chọn đóng banner đang thấy. Trước: Có ngữ cảnh người xem/trình duyệt; không cần quyền Admin hay đăng nhập. | [1](#uc-m10-017-main-1) → [2](#uc-m10-017-main-2) → [3](#uc-m10-017-main-3) → [4](#uc-m10-017-main-4) → END: đạt kết quả thành công trong hợp đồng. | Banner văn bản thuần hiện đúng người; đóng thì không hiện lại bản đó cho người ấy, nhưng đặt mới/sửa nội dung thì hiện lại. | FR-M10-13.01, FR-M10-13.06, FR-M10-13.07, FR-M10-13.08, BR-M10-20; Giữ mở: NOTE-M10-02, NOTE-M10-03 |
+| [A1](#uc-m10-017-alt-1) | Tại bước [Bước 2](#uc-m10-017-main-2): Không có banner Đang hiện hoặc người xem đã đóng bản hiện tại.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-017-main-2) → A1 → END: trang không có banner cho người này. | Không hiện banner này cho người xem. Kết thúc: trang không có banner cho người này.. | FR-M10-13.02, FR-M10-13.07, BR-M10-20|
+| [A2](#uc-m10-017-alt-2) | Tại bước [Bước 3](#uc-m10-017-main-3): Người xem chọn đóng banner.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 3](#uc-m10-017-main-3) → A2 → END: đã đóng bản hiện tại. | Không hiện banner đó cho người này nữa, không gỡ cho người khác; Guest chỉ có hiệu lực ở trình duyệt đã đóng. Không tự chọn cookie/localStorage hay cơ chế đồng bộ. Kết thúc: đã đóng bản hiện tại.. | FR-M10-13.07, BR-M10-20|
+| [A3](#uc-m10-017-alt-3) | Tại bước [Bước 2](#uc-m10-017-main-2): Admin sửa nội dung hoặc đặt banner mới sau lần người này đã đóng.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-017-main-2) → A3 → [Tiếp tục](#uc-m10-017-main-3) | Hiện lại với mọi người, kể cả người đã đóng; việc này là điều kiện hiển thị của lượt xem sau, không gọi UC015 từ lượt xem. Sau khi trở lại và hoàn tất: Banner văn bản thuần hiện đúng người; đóng thì không hiện lại bản đó cho người ấy, nhưng đặt mới/sửa nội dung thì hiện lại. | FR-M10-13.08, BR-M10-20|
+
+#### UC-M10-018 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Core023 chèn truy xuất với tiêu chí hiện hành. Trước: Biết định danh người xem và tiêu chí tùy chọn; đối tượng là nhật ký thao tác Admin, không phải nhật ký AI hoặc chỉ vụ của Mod. | [1](#uc-m10-018-main-1) → [2](#uc-m10-018-main-2) → [3](#uc-m10-018-main-3) → END: đạt kết quả thành công trong hợp đồng. | Trả danh sách đúng quyền và tiêu chí, thứ tự mới nhất trước; tiêu chí trống trả toàn bộ tập Admin được xem. | FR-M10-15.01, FR-M10-15.02, FR-M10-15.04, FR-M10-15.05, BR-M10-02, BR-M10-23; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m10-018-alt-1) | Tại bước [Bước 1](#uc-m10-018-main-1): Người yêu cầu không ADMIN.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 1](#uc-m10-018-main-1) → A1 → END: caller không cho xem. | Từ chối truy xuất. Kết thúc: caller không cho xem.. | FR-M10-15.02, BR-M10-02; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m10-018-alt-2) | Tại bước [Bước 2](#uc-m10-018-main-2): Admin đổi người làm hoặc loại thao tác.; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | [Bước 2](#uc-m10-018-main-2) → A2 → [Tiếp tục](#uc-m10-018-main-3) | Thực hiện lại bộ lọc theo tiêu chí mới. Sau khi trở lại và hoàn tất: Trả danh sách đúng quyền và tiêu chí, thứ tự mới nhất trước; tiêu chí trống trả toàn bộ tập Admin được xem. | FR-M10-15.05, BR-M10-23; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+
+### Phạm vi kết luận coverage v2.3
+
+Các dòng Một phần trong trace chỉ ra điều kiện biên/quyền/kết quả còn thiếu quyết định ở ledger; phần còn lại của cùng yêu cầu vẫn giữ nguồn và đích. Các gap về cơ chế giao dịch/đồng thời/giao thức không tự giảm mọi dòng về Một phần: hành vi danh định đã quyết vẫn được đối chiếu, còn bảo đảm thất bại hoặc thiết kế chưa có bằng chứng được giữ giới hạn riêng. Không dùng số mã có anchor hay bản sao tiêu chí FR để tuyên bố tất cả yêu cầu đã được xác nhận nghiệp vụ.
+
+
+### Kết quả checker thực chạy sau review v2.3
+
+Chạy `python -X utf8 -B .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M10.md --final` sau walkthrough: **exit 1, errors=2, warnings=1**. Một lỗi báo 6 yêu cầu còn Một phần; một lỗi báo semantic_review chưa pass; cảnh báo nhắc review thủ công. Kiểm draft cùng baseline **errors=0** (hai cảnh báo tương ứng coverage/review). Đây là gate chưa đạt do các quyết định nguồn còn mở, không phải lỗi schema, ID, marker hoặc SVG. Giữ Chờ duyệt và approved_steps=-.
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.

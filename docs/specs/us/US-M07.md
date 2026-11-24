@@ -1,6 +1,6 @@
 # Phân tích use case — M07 Notification
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2; dùng tiếng Việt, giữ thuật ngữ nghiệp vụ cần thiết.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3; dùng tiếng Việt, giữ thuật ngữ nghiệp vụ cần thiết.
 
 Tài liệu phân tích **M07 Notification**, đúng tên trong FR-M07; Search là M06 đã có tài liệu riêng. Đầu ra có hai tầng, 4 UC chính, 11 UC con, đặc tả, tác vụ tự động, quan hệ, truy vết và 5 SVG. UC chính dùng làm đầu vào tổng hợp toàn hệ thống, UC con dùng cho chi tiết từng mục tiêu.
 
@@ -10,8 +10,9 @@ Tài liệu phân tích **M07 Notification**, đúng tên trong FR-M07; Search l
 | key | value |
 |---|---|
 | document_id | US-M07 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M07 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,9 +21,9 @@ Tài liệu phân tích **M07 Notification**, đúng tên trong FR-M07; Search l
 | approved_steps | - |
 | source_baseline | FR-M07 v1.5; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M12 v1.1; FR-M14 v1.1; FR-M16 v1.0 |
 | author | Codex |
-| date | 2026-10-30 |
-| approval_evidence | Người dùng đã cho phép tự thực hiện các bước cần thiết, không hỏi đồng ý trong lượt M04; quyền thực hiện liên tục áp dụng cho chuỗi module hiện tại. Không coi đó là phê duyệt US-M07 hay xác nhận kết quả từng bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | Lượt cập nhật v2.3: người dùng cho phép cập nhật trực tiếp và thực hiện liên tục bảy bước trong phạm vi bộ US. Quyền làm không phải phê duyệt kết quả; approved_steps=-, giữ Chờ duyệt. |
+| semantic_review | pending |
 | diagram_check | pass |
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
@@ -51,19 +52,19 @@ Tài liệu phân tích **M07 Notification**, đúng tên trong FR-M07; Search l
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M07.md | 1.5 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
-| docs/specs/fr/FR-M16.md | 1.0 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
+| docs/specs/fr/FR-M16.md | 1.0 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Phương pháp chỉ quy định cách biểu diễn, không là nguồn tính năng.
 
@@ -101,8 +102,8 @@ Quyền gắn với từng luồng: thông báo của chính mình, cài đặt 
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
 | UC-M07-020 | Quản lý theo dõi người dùng và Topic | core | Summary | ACT-002, ACT-003 | - | M07 | #uc-m07-020 | FR-M07-01, BR-M07-15, BR-M07-23, BR-M07-25 |
-| UC-M07-021 | Tiếp nhận và xử lý thông báo cá nhân | core | Summary | ACT-002, ACT-003 | ACT-005 | M07 | #uc-m07-021 | FR-M07-02, FR-M07-03, FR-M07-04, FR-M07-05, FR-M07-06, BR-M07-01, BR-M07-03, BR-M07-09, BR-M07-20 |
-| UC-M07-022 | Điều chỉnh cách nhận thông báo cá nhân | core | Summary | ACT-002, ACT-003 | - | M07 | #uc-m07-022 | FR-M07-08, FR-M07-09, BR-M07-07, BR-M07-08 |
+| UC-M07-021 | Xử lý thông báo | core | Summary | ACT-002, ACT-003 | ACT-005 | M07 | #uc-m07-021 | FR-M07-02, FR-M07-03, FR-M07-04, FR-M07-05, FR-M07-06, BR-M07-01, BR-M07-03, BR-M07-09, BR-M07-20 |
+| UC-M07-022 | Cài đặt thông báo | core | Summary | ACT-002, ACT-003 | - | M07 | #uc-m07-022 | FR-M07-08, FR-M07-09, BR-M07-07, BR-M07-08 |
 | UC-M07-023 | Kiểm tra tin nhắn mới | core | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-023 | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, BR-M07-02 |
 | UC-M07-001 | Theo dõi người dùng hoặc Topic | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-001 | FR-M07-01.01, FR-M07-01.02, FR-M07-01.03, FR-M07-01.04, FR-M07-01.10, FR-M07-01.11, FR-M07-01.12, BR-M07-15, BR-M07-25 |
 | UC-M07-002 | Bỏ theo dõi người dùng hoặc Topic | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-002 | FR-M07-01.03, FR-M07-01.08, FR-M07-01.09, FR-M07-01.10, BR-M07-25 |
@@ -110,11 +111,11 @@ Quyền gắn với từng luồng: thông báo của chính mình, cài đặt 
 | UC-M07-004 | Mở thông báo và nội dung liên quan | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-004 | FR-M07-05.05, FR-M07-05.13, FR-M07-06.01, FR-M07-06.02, FR-M07-06.04, BR-M07-14, BR-M07-27 |
 | UC-M07-005 | Đánh dấu tất cả thông báo đã đọc | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-005 | FR-M07-06.03, FR-M07-06.05, FR-M07-06.06, BR-M07-14 |
 | UC-M07-006 | Phản hồi đề xuất làm Mod hoặc Admin | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-006 | FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32, BR-M07-20 |
-| UC-M07-007 | Cập nhật trạng thái đọc thông báo | sub | Subfunction | ACT-002, ACT-003 | - | M07 | #uc-m07-007 | FR-M07-05.05, FR-M07-06.01, FR-M07-06.03, FR-M07-06.04, FR-M07-06.05, FR-M07-06.06, BR-M07-14, BR-M07-27 |
-| UC-M07-008 | Xác định số cuộc trò chuyện chưa đọc | sub | Subfunction | ACT-002, ACT-003 | - | M07 | #uc-m07-008 | FR-M07-07.02, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
-| UC-M07-009 | Bật hoặc tắt thông báo theo bài | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-009 | FR-M07-08, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, BR-M07-07 |
-| UC-M07-010 | Bật hoặc tắt popup của một cuộc trò chuyện | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-010 | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.06, FR-M07-09.07, BR-M07-08 |
-| UC-M07-011 | Bật hoặc tắt popup toàn bộ Chat | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-011 | FR-M07-09.03, FR-M07-09.04, FR-M07-09.06, FR-M07-09.07, BR-M07-08 |
+| UC-M07-007 | Ghi nhận thông báo đã đọc | sub | Subfunction | ACT-002, ACT-003 | - | M07 | #uc-m07-007 | FR-M07-05.05, FR-M07-06.01, FR-M07-06.03, FR-M07-06.04, FR-M07-06.05, FR-M07-06.06, BR-M07-14, BR-M07-27 |
+| UC-M07-008 | Đếm cuộc trò chuyện chưa đọc | sub | Subfunction | ACT-002, ACT-003 | - | M07 | #uc-m07-008 | FR-M07-07.02, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10 |
+| UC-M07-009 | Cài đặt thông báo cho bài viết | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-009 | FR-M07-08, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, BR-M07-07 |
+| UC-M07-010 | Cài đặt thông báo cuộc trò chuyện | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-010 | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.06, FR-M07-09.07, BR-M07-08 |
+| UC-M07-011 | Cài đặt thông báo Chat | sub | User goal | ACT-002, ACT-003 | - | M07 | #uc-m07-011 | FR-M07-09.03, FR-M07-09.04, FR-M07-09.06, FR-M07-09.07, BR-M07-08 |
 
 Chỉ các UC core được lấy nguyên ID/tên/owner để ghép overview toàn hệ thống. `tier` độc lập với `level`: core023 là User goal, các core khác Summary; UC007/008 là Subfunction có hợp đồng hỗ trợ đáng tách.
 
@@ -137,6 +138,10 @@ Chỉ các UC core được lấy nguyên ID/tên/owner để ghép overview to�
 
 Không có UC con mồ côi; UC007 có một định nghĩa dù hai caller. Mapping chỉ nói đóng góp nghiệp vụ, không tự tạo include/extend. AUT/RULE cũng ghi core liên quan để truy vết hành vi tự động về mục tiêu bao quát.
 
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
 ### 2.3 Tổng hợp hệ thống và quyết định mô hình
 
 <!-- uc:module-models -->
@@ -155,6 +160,18 @@ Chưa có US-overview tại thời điểm phân tích; không tạo/cập nhậ
 | D-M07-05 | Chat và chuông | [UC-M07-023](#uc-m07-023), [UC-M07-008](#uc-m07-008) + AUT008 | Hai hệ trạng thái đọc/kênh riêng; một goal kiểm tra và một hợp đồng số cuộc | Không đếm tin thay cuộc; không tách click biểu tượng thành UC điều hướng riêng |
 | D-M07-06 | Mute bài/cuộc/global | [UC-M07-022](#uc-m07-022) Summary; UC009/010/011 | Phạm vi/tác động/điều kiện thành viên khác nhau | Không gộp thành tắt toàn bộ mọi thông báo hoặc giả quyền override |
 | D-M07-07 | Đẩy/email/upvote | 9 AUT, 5 RULE | Trigger và before/after riêng, vẫn đặc tả/truy vết đủ | Không nhãn nền chung chung, không vẽ timer actor |
+
+
+### Đối chiếu độ gắn kết v2.3 — goal/trigger/kết quả/phạm vi
+
+UC-NAMING ngày 2026-11-24 đang **Chờ duyệt cách diễn đạt**; giữ tên/ID hiện hành vì chưa phát hiện bằng chứng đổi phạm vi. Mục này là quyết định phân tích chờ duyệt, không nâng quy chuẩn tên thành đã chốt.
+
+| Cặp/phạm vi | Khác biệt hợp đồng và ranh giới | Quyết định và đánh đổi | Nguồn |
+| --- | --- | --- | --- |
+| 020 ↔ 001/002 | Quan hệ quan tâm là bối cảnh nhiều phiên; follow từ thao tác tạo quan hệ+timestamp, unfollow từ quan hệ đã có tới xóa, không chạy nối tiếp. | Giữ Summary; gộp thành toggle ít UC nhưng che hai kết quả/sự kiện, kế thừa hai thao tác không bảo toàn cùng hợp đồng. | FR-M07-01, BR-M07-15, BR-M07-25 |
+| 021 ↔ 003/004/005/006/007 + AUT | Core xử lý vòng đời kênh đến phản hồi; xem giữ read, mở đổi một, mark-all đổi mọi của mình, phản hồi đổi đề xuất qua M10. | Giữ các User goal và007 dùng chung; gộp read vào xem vi phạm FR. Tách mọi sự kiện thành UC làm lặp phân phối và trộn quyền recipient với owner. | FR-M07-02, FR-M07-03, FR-M07-04, FR-M07-05, FR-M07-06 |
+| 022 ↔ 009/010/011 | Cùng giảm gián đoạn cá nhân; bài chặn tương tác nhất định, cuộc đòi thành viên, global chi phối popup nhưng không xóa mute riêng. | Giữ Summary thay vì toggle chung có quyền rộng. Ba UC độc lập dễ kiểm quyền; đổi lấy lặp mô tả công tắc được gom bằng RULE, không bằng kế thừa. | FR-M07-08, FR-M07-09, BR-M07-07, BR-M07-08 |
+| 023 ↔ 008 (1:1) | 023 trigger xem/bấm icon, kết quả chỉ báo và tới inbox; 008 chỉ nhận mốc đọc M16, trả số cuộc được thấy, không điều hướng. | Giữ User goal/Subfunction theo quy ước hai tầng vì khác tương tác/kết quả; inline008 đơn giản hơn nhưng mất hợp đồng tính số dùng trong cập nhật chỉ báo. Không bịa sub thứ2 hoặc nâng008 lên overview. | FR-M07-07, FR-M16-07.10, BR-M07-02 |
 
 ## 3. Đặc tả
 
@@ -181,7 +198,7 @@ Chưa có US-overview tại thời điểm phân tích; không tạo/cập nhậ
 Summary cho bối cảnh nhiều mục tiêu; không giả định các UC con cùng thực hiện hoặc chèn vào mọi lần tương tác.
 <a id="uc-m07-021"></a>
 
-### UC-M07-021 — Tiếp nhận và xử lý thông báo cá nhân
+### UC-M07-021 — Xử lý thông báo
 
 **Actor chính:** ACT-002, ACT-003. **Hỗ trợ:** ACT-005. **Mức:** Summary. **Giá trị:** Biết sự kiện liên quan tới mình qua kênh đã chốt và xử lý thông báo, nội dung hoặc đề xuất vai trò. **Kết quả:** Thông báo được lưu và phân phối đúng kênh; người dùng xem của mình, đọc/mở và phản hồi hợp lệ.
 
@@ -201,7 +218,7 @@ Summary cho bối cảnh nhiều mục tiêu; không giả định các UC con c
 Summary cho bối cảnh nhiều mục tiêu; không giả định các UC con cùng thực hiện hoặc chèn vào mọi lần tương tác.
 <a id="uc-m07-022"></a>
 
-### UC-M07-022 — Điều chỉnh cách nhận thông báo cá nhân
+### UC-M07-022 — Cài đặt thông báo
 
 **Actor chính:** ACT-002, ACT-003. **Hỗ trợ:** -. **Mức:** Summary. **Giá trị:** Giảm gián đoạn theo bài hoặc Chat mà vẫn giữ những cập nhật bắt buộc và số cuộc chưa đọc. **Kết quả:** Trạng thái nhận/tắt được cập nhật đúng phạm vi; bật lại có hiệu lực từ lúc đó.
 
@@ -590,6 +607,7 @@ Các tiêu chí dưới đây giữ nội dung quy định hiệu lực, là đi
 | <a id="uc-m07-006-alt-1"></a>A1 | 1 | Đã trả lời | Hiện lựa chọn đã chọn, không nhận lựa chọn mới. | END: giữ kết quả cũ | FR-M07-02.28 |
 | <a id="uc-m07-006-alt-2"></a>A2 | 1 | Quá hạn 7 × 24 giờ, chưa trả lời | Hiện Đã hết hạn theo trạng thái M10, không cho Chấp nhận/Từ chối. | END: không đổi vai trò | FR-M07-02.31, BR-M07-20 |
 | <a id="uc-m07-006-alt-3"></a>A3 | 1 | Đã có đề xuất mới cùng loại cho cùng người | Đề xuất cũ không còn nút chọn có hiệu lực; thông báo mới giữ ID bản ghi riêng. | END: đề xuất cũ không được trả lời | FR-M07-02.30, FR-M07-02.32 |
+| <a id="uc-m07-006-alt-4"></a>A4 | 2 | Chọn Chấp nhận nhưng M10 kiểm tài khoản không ACTIVE hoặc vai trò hiện tại không còn hợp lệ cho loại đề xuất | Nhận từ chối của UC-M10-005/009, không đổi vai trò và không khẳng định Chấp nhận đã thành công. Trạng thái đề xuất/khả năng thử lại còn NOTE-M10-01 tại owner; không tự hiển thị Đã từ chối/Hết hiệu lực. | END: không đổi vai trò; trạng thái tiếp theo chờ owner chốt | FR-M10-03.10, FR-M10-03.11, BR-M10-27 |
 
 <a id="uc-m07-006-rules"></a>
 
@@ -611,7 +629,7 @@ Các tiêu chí dưới đây giữ nội dung quy định hiệu lực, là đi
 
 <a id="uc-m07-007"></a>
 
-### UC-M07-007 — Cập nhật trạng thái đọc thông báo
+### UC-M07-007 — Ghi nhận thông báo đã đọc
 
 **UC chính:** [UC-M07-021](#uc-m07-021).
 
@@ -663,7 +681,7 @@ Các tiêu chí dưới đây giữ nội dung quy định hiệu lực, là đi
 
 <a id="uc-m07-008"></a>
 
-### UC-M07-008 — Xác định số cuộc trò chuyện chưa đọc
+### UC-M07-008 — Đếm cuộc trò chuyện chưa đọc
 
 **UC chính:** [UC-M07-023](#uc-m07-023).
 
@@ -712,7 +730,7 @@ Các tiêu chí dưới đây giữ nội dung quy định hiệu lực, là đi
 
 <a id="uc-m07-009"></a>
 
-### UC-M07-009 — Bật hoặc tắt thông báo theo bài
+### UC-M07-009 — Cài đặt thông báo cho bài viết
 
 **UC chính:** [UC-M07-022](#uc-m07-022).
 
@@ -765,7 +783,7 @@ Các tiêu chí dưới đây giữ nội dung quy định hiệu lực, là đi
 
 <a id="uc-m07-010"></a>
 
-### UC-M07-010 — Bật hoặc tắt popup của một cuộc trò chuyện
+### UC-M07-010 — Cài đặt thông báo cuộc trò chuyện
 
 **UC chính:** [UC-M07-022](#uc-m07-022).
 
@@ -819,7 +837,7 @@ Các tiêu chí dưới đây giữ nội dung quy định hiệu lực, là đi
 
 <a id="uc-m07-011"></a>
 
-### UC-M07-011 — Bật hoặc tắt popup toàn bộ Chat
+### UC-M07-011 — Cài đặt thông báo Chat
 
 **UC chính:** [UC-M07-022](#uc-m07-022).
 
@@ -1281,13 +1299,28 @@ Include source là caller, target là hành vi chèn; return trở lại đúng 
 
 ### Association actor–UC
 
-| Actor | UC / ngữ cảnh | Vai trò tương tác | Điều kiện | Nguồn |
-|---|---|---|---|---|
-| ACT-002 | UC-M07-020, UC-M07-021, UC-M07-022, UC-M07-023, UC-M07-001, UC-M07-002, UC-M07-003, UC-M07-004, UC-M07-005, UC-M07-006, UC-M07-009, UC-M07-010, UC-M07-011 | Người thao tác/người nhận, khởi tạo hoặc nhận kết quả | Chỉ dữ liệu của mình, quyền nhóm/nội dung, đúng người nhận đề xuất; BANNED không xem chuông/trang | FR-M07-05.05, FR-M07-05.09, FR-M07-02.15 |
-| ACT-003 | Kế thừa ACT-002 | Như User trong M07 | Không có quyền thêm đọc dữ liệu người khác | FR-M07-05.05, FR-M07-09.05 |
-| ACT-002, ACT-003 | UC-M07-007, UC-M07-008 | Ngữ cảnh qua caller, không kích hoạt riêng bộ cập nhật/đếm | Một/tất cả thông báo đúng chủ; tin chưa đọc theo M16 | FR-M07-06.01, FR-M07-06.03, FR-M07-07.02 |
-| ACT-005 | UC-M07-021, AUT-M07-004, AUT-M07-005 | Dịch vụ hỗ trợ giao email; association core là tóm tắt năng lực kênh email | Whitelist email; không hỗ trợ xem/mark-read/follow | FR-M07-04.01, FR-M07-04.02, BR-M07-11, BR-M07-26 |
-| ACT-001 | Nhánh từ chối của UC001/002/003/004/005/007/009/010/011 và core023 | Người gửi yêu cầu chưa có phiên | Không vẽ association tới các mục tiêu thành công; từ chối và yêu cầu đăng nhập theo FR | FR-M07-01.03, FR-M07-05.06, FR-M07-06.06, FR-M07-07.04, FR-M07-08.05, FR-M07-09.06 |
+
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
+| --- | --- | --- | --- | --- |
+| ACT-002 | UC-M07-001 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-01.01, FR-M07-01.02, FR-M07-01.03, FR-M07-01.04, FR-M07-01.10, FR-M07-01.11, FR-M07-01.12, BR-M07-15, BR-M07-25 |
+| ACT-002 | UC-M07-002 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-01.03, FR-M07-01.08, FR-M07-01.09, FR-M07-01.10, BR-M07-25 |
+| ACT-002 | UC-M07-003 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-03.04, FR-M07-05, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24 |
+| ACT-002 | UC-M07-004 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-05.05, FR-M07-05.13, FR-M07-06.01, FR-M07-06.02, FR-M07-06.04, BR-M07-14, BR-M07-27 |
+| ACT-002 | UC-M07-005 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-06.03, FR-M07-06.05, FR-M07-06.06, BR-M07-14 |
+| ACT-002 | UC-M07-006 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Đề xuất đúng người nhận/còn hiệu lực, vai trò do M10 kiểm lại. | FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32, BR-M07-20 |
+| ACT-002 | UC-M07-009 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-08, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, BR-M07-07 |
+| ACT-002 | UC-M07-010 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Cuộc trò chuyện phải là thành viên hiện tại; mute không đổi số chưa đọc. | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.06, FR-M07-09.07, BR-M07-08 |
+| ACT-002 | UC-M07-011 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-09.03, FR-M07-09.04, FR-M07-09.06, FR-M07-09.07, BR-M07-08 |
+| ACT-002 | UC-M07-020 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-01, BR-M07-15, BR-M07-23, BR-M07-25 |
+| ACT-002 | UC-M07-021 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-02, FR-M07-03, FR-M07-04, FR-M07-05, FR-M07-06, BR-M07-01, BR-M07-03, BR-M07-09, BR-M07-20 |
+| ACT-002 | UC-M07-022 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-08, FR-M07-09, BR-M07-07, BR-M07-08 |
+| ACT-002 | UC-M07-023 | primary | Chỉ dữ liệu/cài đặt của chính tài khoản có quyền truy cập; BANNED không xem chuông/trang. Core không cấp quyền tới thông báo/đề xuất người khác. | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, BR-M07-02 |
+| ACT-005 | UC-M07-021 | supporting | Chỉ giao email whitelist theo AUT-M07-004/005, không tham gia xem/read/follow; lỗi/retry theo BR-M07-26. | FR-M07-04.01, FR-M07-04.02, BR-M07-11, BR-M07-26 |
+
+Bảng marker chỉ kê các cạnh trực tiếp thực sự có trên SVG hiện hành; actor chuyên biệt kế thừa tương tác từ actor cha nhưng vẫn chịu guard riêng. Không nhân toàn bộ primary/supporting của catalog thành association. Subfunction nhận ngữ cảnh từ caller không có cạnh khởi chạy riêng; actor chỉ bị từ chối giữ ở nhánh. Core Summary chỉ biểu diễn năng lực, không cấp toàn bộ quyền sub.
+
+
 
 ### Các cặp đã xét không có quan hệ UC–UC
 
@@ -1333,7 +1366,7 @@ Mỗi mã hiệu lực có một dòng, chỉ tới tiêu chí nguồn trong đ�
 | FR-M07-07 | #uc-m07-023, #uc-m07-008 | Đủ | Nhóm được phân bổ vào mục tiêu và AUT; chi tiết có dòng riêng. |
 | FR-M07-08 | #uc-m07-022, #uc-m07-009 | Đủ | Nhóm được phân bổ vào mục tiêu và AUT; chi tiết có dòng riêng. |
 | FR-M07-09 | #uc-m07-022, #uc-m07-010, #uc-m07-011 | Đủ | Nhóm được phân bổ vào mục tiêu và AUT; chi tiết có dòng riêng. |
-| FR-M07-01.01 | #uc-m07-001-fr-m07-01-01, #uc-m07-020 | Đủ | UC-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
+| FR-M07-01.01 | #uc-m07-001-fr-m07-01-01, #uc-m07-020 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M07-01. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M07-01.02 | #uc-m07-001-fr-m07-01-02, #uc-m07-020 | Đủ | UC-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | FR-M07-01.03 | #uc-m07-001-fr-m07-01-03, #uc-m07-020 | Đủ | UC-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | FR-M07-01.04 | #uc-m07-001-fr-m07-01-04, #uc-m07-020 | Đủ | UC-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
@@ -1364,7 +1397,7 @@ Mỗi mã hiệu lực có một dòng, chỉ tới tiêu chí nguồn trong đ�
 | FR-M07-02.22 | #aut-m07-006-fr-m07-02-22, #uc-m07-021 | Đủ | AUT-M07-006: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | FR-M07-02.23 | #aut-m07-006-fr-m07-02-23, #uc-m07-021 | Đủ | AUT-M07-006: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | FR-M07-02.24 | #aut-m07-001-fr-m07-02-24, #uc-m07-021 | Đủ | AUT-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
-| FR-M07-02.25 | #aut-m07-001-fr-m07-02-25, #uc-m07-021 | Đủ | AUT-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
+| FR-M07-02.25 | #aut-m07-001-fr-m07-02-25, #uc-m07-021 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M07-05. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M07-02.26 | #aut-m07-001-fr-m07-02-26, #uc-m07-021 | Đủ | AUT-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | FR-M07-02.27 | #aut-m07-001-fr-m07-02-27, #uc-m07-021 | Đủ | AUT-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | FR-M07-02.28 | #uc-m07-006-fr-m07-02-28, #uc-m07-021 | Đủ | UC-M07-006: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
@@ -1435,13 +1468,13 @@ Mỗi mã hiệu lực có một dòng, chỉ tới tiêu chí nguồn trong đ�
 | BR-M07-12 | #uc-m07-003-br-m07-12, #uc-m07-021 | Đủ | UC-M07-003: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | BR-M07-13 | #rule-m07-002-br-m07-13, #uc-m07-021 | Đủ | RULE-M07-002: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | BR-M07-14 | #uc-m07-007-br-m07-14, #uc-m07-021 | Đủ | UC-M07-007: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
-| BR-M07-15 | #uc-m07-001-br-m07-15, #uc-m07-020 | Đủ | UC-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
+| BR-M07-15 | #uc-m07-001-br-m07-15, #uc-m07-020 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M07-01. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | BR-M07-18 | #rule-m07-001-br-m07-18, #uc-m07-021 | Đủ | RULE-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | BR-M07-20 | #uc-m07-006-br-m07-20, #uc-m07-021 | Đủ | UC-M07-006: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | BR-M07-21 | #rule-m07-001-br-m07-21, #uc-m07-021 | Đủ | RULE-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | BR-M07-22 | #rule-m07-002-br-m07-22, #uc-m07-021 | Đủ | RULE-M07-002: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | BR-M07-23 | #aut-m07-006-br-m07-23, #uc-m07-021 | Đủ | AUT-M07-006: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
-| BR-M07-24 | #rule-m07-001-br-m07-24, #uc-m07-021 | Đủ | RULE-M07-001: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
+| BR-M07-24 | #rule-m07-001-br-m07-24, #uc-m07-021 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M07-05. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | BR-M07-25 | #uc-m07-002-br-m07-25, #uc-m07-020 | Đủ | UC-M07-002: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | BR-M07-26 | #aut-m07-005-br-m07-26, #uc-m07-021 | Đủ | AUT-M07-005: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
 | BR-M07-27 | #uc-m07-004-br-m07-27, #uc-m07-021 | Đủ | UC-M07-004: tiêu chí cùng luồng/quy tắc; core thể hiện bối cảnh nghiệp vụ. |
@@ -1487,6 +1520,15 @@ Mỗi mã hiệu lực có một dòng, chỉ tới tiêu chí nguồn trong đ�
 
 M07 không gọi AI. Việc AI ẩn bình luận/từ chối bài/cảnh cáo do M08/M13 xử lý; M07 chỉ dùng sự kiện owner phát. Thay đổi FR liên quan phải rà UC/AUT/RULE và truy vết chịu ảnh hưởng, không chỉnh FR cho khớp mô hình.
 
+
+### Nơi sở hữu quan hệ, hợp đồng liên module và impact v2.3
+
+| Owner / dependency | Hợp đồng caller/callee hoặc kết luận UML | Nguồn và nơi khai báo chính | View/backlink và trạng thái đồng bộ | Căn cứ |
+| --- | --- | --- | --- | --- |
+| M10 / M07 | [UC-M07-006](#uc-m07-006) chuyển lựa chọn về [UC-M10-005](US-M10.md#uc-m10-005); edge extend006→003 do M07 khai báo chính, không chuyển endpoint về core M10. | M07 v1.5 owner hiển thị/lựa chọn; M10 v1.4 owner hiệu lực/role/điều kiện ở lúc chấp nhận; quyền gửi cũ không tự kiểm lại. | [US-M10](US-M10.md) UC005/009/AUT002 và D-M07-021, D-M10-020; NOTE-M10-01 là khoảng trống trạng thái sau chấp nhận bị từ chối. Hợp đồng dùng chung được đối chiếu, chưa thêm cạnh UML liên module; đề xuất backlink owner, không tuyên bố owner đã đồng bộ. | FR-M07-02.15, FR-M07-02.31, FR-M10-03.10, FR-M10-03.11, BR-M10-27 |
+| M16 / M07 | UC008 đếm cuộc dựa mốc đọc/quyền thấy của M16; AUT008 popup không đổi mốc. | FR-M16 v1.0 owner tin được thấy/thành viên/rời nhóm; FR-M07 v1.5 owner badge/popup/mute. | [US-M16](US-M16.md), D-M07-023, UC010/011; mark-all chuông không lan sang Chat. Đây là dependency trạng thái, không cạnh UC–UC đã chốt. | FR-M16-07.10, FR-M07-07.02, FR-M07-09.07 |
+| M01 / M07 | AUT001 lọc self và thông báo bảo mật; thiếu causer ở NOTE-M07-05. | M01 v1.10 owner sự kiện bảo mật; M07 v1.5 owner phân phối/lọc. | [US-M01](US-M01.md); AUT001/004/005: proposal làm rõ hợp đồng, blocking, chưa sửa owner/register. | FR-M01-04.05, FR-M01-08.05, FR-M01-09.12, FR-M07-02.25, BR-M07-24 |
+
 ## 6. Sơ đồ use case
 
 Boundary là iShare; package M07 chỉ nhóm. Vàng: core, xanh: sub. ACT-003 kế thừa ACT-002; ACT-005 chỉ hỗ trợ kênh email của core021, không tham gia luồng read. Guest là nhánh từ chối trong đặc tả, không vẽ association thành công. Mỗi view chỉ bàn giao một SVG; mã PlantUML/PNG kiểm hình nằm ở workspace agent.
@@ -1507,7 +1549,7 @@ Không có quan hệ UC–UC giữa các node của view này. Core Summary và 
 
 Không có quan hệ UC–UC giữa các node của view này. Core Summary và các sub độc lập được phân rã theo bảng mục 2; không vẽ cạnh để thay mapping. Lý do từng cặp nằm ở mục 4.
 
-### D-M07-021 — Tiếp nhận và xử lý thông báo cá nhân
+### D-M07-021 — Xử lý thông báo
 
 **Subject:** iShare. **Focus:** UC-M07-021. **Members:** UC-M07-021, UC-M07-003, UC-M07-004, UC-M07-005, UC-M07-006, UC-M07-007.
 
@@ -1519,7 +1561,7 @@ Không có quan hệ UC–UC giữa các node của view này. Core Summary và 
 | UC-M07-005 | include | UC-M07-007 | #uc-m07-005-main-2 | FR-M07-06.03, FR-M07-06.05, FR-M07-06.06 |
 | UC-M07-006 | extend | UC-M07-003 | EP-PROPOSAL | FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, BR-M07-20 |
 
-### D-M07-022 — Điều chỉnh cách nhận thông báo cá nhân
+### D-M07-022 — Cài đặt thông báo
 
 **Subject:** iShare. **Focus:** UC-M07-022. **Members:** UC-M07-022, UC-M07-009, UC-M07-010, UC-M07-011.
 
@@ -1546,11 +1588,11 @@ Chưa tổng hợp trong phạm vi lượt này. Khi có US-overview, dùng UC-M
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| C-M07 | core | - | UC-M07-020, UC-M07-021, UC-M07-022, UC-M07-023 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M07/C-M07.svg |
-| D-M07-020 | detail | UC-M07-020 | UC-M07-020, UC-M07-001, UC-M07-002 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M07/D-M07-020.svg |
-| D-M07-021 | detail | UC-M07-021 | UC-M07-021, UC-M07-003, UC-M07-004, UC-M07-005, UC-M07-006, UC-M07-007 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M07/D-M07-021.svg |
-| D-M07-022 | detail | UC-M07-022 | UC-M07-022, UC-M07-009, UC-M07-010, UC-M07-011 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M07/D-M07-022.svg |
-| D-M07-023 | detail | UC-M07-023 | UC-M07-023, UC-M07-008 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M07/D-M07-023.svg |
+| C-M07 | core | - | UC-M07-020, UC-M07-021, UC-M07-022, UC-M07-023 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M07/C-M07.svg |
+| D-M07-020 | detail | UC-M07-020 | UC-M07-020, UC-M07-001, UC-M07-002 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M07/D-M07-020.svg |
+| D-M07-021 | detail | UC-M07-021 | UC-M07-021, UC-M07-003, UC-M07-004, UC-M07-005, UC-M07-006, UC-M07-007 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M07/D-M07-021.svg |
+| D-M07-022 | detail | UC-M07-022 | UC-M07-022, UC-M07-009, UC-M07-010, UC-M07-011 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M07/D-M07-022.svg |
+| D-M07-023 | detail | UC-M07-023 | UC-M07-023, UC-M07-008 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M07/D-M07-023.svg |
 
 <a id="qa-results"></a>
 
@@ -1575,14 +1617,141 @@ Semantic review pass nghĩa là mô hình đã được rà để phản ánh ng
 
 ### Điểm cần làm rõ và giới hạn nguồn
 
-| ID | Nguồn | Điểm cần chú ý | Xử lý trong mô hình / ảnh hưởng | Trạng thái |
-|---|---|---|---|---|
-| NOTE-M07-01 | FR-M07-01.12, FR-M07-01.13, BR-M07-15; phụ lục B.1 Q-06 | FR/BR hiện hành chặn bắt đầu follow BANNED và giữ quan hệ BANNED/DEACTIVATED; Q-06 trước đó nói đề xuất chặn tài khoản không ACTIVE. | Không tự thêm lệnh cấm bắt đầu follow DEACTIVATED vào UC001. Cần đối chiếu chuỗi quyết định nếu muốn chốt rõ trường hợp này; không suy từ việc M02 ẩn tài khoản trong danh sách. | Giới hạn nguồn cần review, chưa sửa FR/register |
-| NOTE-M07-02 | FR-M07-02.04, FR-M07-03.01, FR-M07-03.02, BR-M07-05, BR-M07-09 | Upvote gộp cập nhật cùng thông báo, nhưng phần đẩy chốt trigger lúc thông báo được tạo, chưa nói đẩy lại khi cập nhật. | AUT002 bảo đảm cập nhật unread/thứ tự; AUT003 bảo đảm đẩy khi tạo. Không khẳng định có/không đẩy mọi cập nhật gộp; cần chốt nếu thiết kế realtime yêu cầu. | Giới hạn nguồn cần review |
-| NOTE-M07-03 | FR-M07-02.31, BR-M07-20; FR-M07-02.29 đã bỏ; phụ lục Q-07 | Câu cũ không hết hạn đã bị thay bởi hạn 7 × 24 giờ. | UC006/AUT007 dùng hiệu lực M10 hiện hành; không khôi phục quy tắc cũ hoặc nhãn hết hạn cho nguyên nhân thay thế khác. | Đã xử lý theo FR/BR v1.5 |
-| NOTE-M07-04 | FR-M07-05.02, FR-M07-06.03, FR-M07-03.02 | Nguồn nêu tải đủ/mark-all/nhiều thiết bị, chưa quy định giao thức phân trang, đồng bộ read thời gian thực hay biên concurrent events. | Giữ hành vi theo người nhận và nguồn đã lưu; không phát minh API/cursor/giao thức/rollback. | Để giai đoạn thiết kế; không tự thêm tính năng |
-| NOTE-M07-05 | FR-M07-02.25, BR-M07-24; FR-M01-04.05, FR-M01-08.05, FR-M01-09.12 | Lọc tự thông báo phụ thuộc người gây sự kiện; các sự kiện bảo mật lại yêu cầu thông báo cho chính chủ tài khoản. Hợp đồng sự kiện chưa nêu cách xác định causer cho nhóm bảo mật. | Giữ yêu cầu thông báo bảo mật và quy tắc lọc self theo nguồn; không tự thêm ngoại lệ hoặc gán causer khiến lọc mất sự kiện bảo mật. Cần owner M01/M07 đối chiếu hợp đồng causer trước triển khai. | Điểm cần làm rõ, chưa tự quyết hay sửa nguồn |
-| TBD | Phụ lục B.2 FR-M07 v1.5 | Không có TBD từ OPEN chạm M07. | Không tạo OPEN hoặc coi NOTE mới là mục đã được stakeholder xác nhận. | Theo nguồn |
+| ID | Nguồn | Điểm cần chú ý | Xử lý trong mô hình / ảnh hưởng | Trạng thái | UC/đường bị ảnh hưởng | Mức chặn và lý do | Người quyết định | Register / trạng thái | Bằng chứng đóng và phần làm lại |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| NOTE-M07-01 | FR-M07-01.12, FR-M07-01.13, BR-M07-15; phụ lục B.1 Q-06 | FR/BR hiện hành chặn bắt đầu follow BANNED và giữ quan hệ BANNED/DEACTIVATED; Q-06 trước đó nói đề xuất chặn tài khoản không ACTIVE. | Không tự thêm lệnh cấm bắt đầu follow DEACTIVATED vào UC001. Cần đối chiếu chuỗi quyết định nếu muốn chốt rõ trường hợp này; không suy từ việc M02 ẩn tài khoản trong danh sách. | Giới hạn nguồn cần review, chưa sửa FR/register | UC-M07-001 main-1; target DEACTIVATED khi bắt đầu follow | blocking: chưa xác định cho phép hay từ chối ở trạng thái này; không chốt phần thiếu quyền | Chưa xác định người quyết định chính sách M01/M07 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Đối chiếu quyết định gốc và chốt quyền bắt đầu follow DEACTIVATED; cập nhật FR-M07/FR-M01 liên quan, UC001 và QA. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M07-02 | FR-M07-02.04, FR-M07-03.01, FR-M07-03.02, BR-M07-05, BR-M07-09 | Upvote gộp cập nhật cùng thông báo, nhưng phần đẩy chốt trigger lúc thông báo được tạo, chưa nói đẩy lại khi cập nhật. | AUT002 bảo đảm cập nhật unread/thứ tự; AUT003 bảo đảm đẩy khi tạo. Không khẳng định có/không đẩy mọi cập nhật gộp; cần chốt nếu thiết kế realtime yêu cầu. | Giới hạn nguồn cần review | AUT-M07-002→003; bản gộp upvote được cập nhật sau tạo | nonblocking: nguồn chỉ chốt đẩy khi tạo; chưa có yêu cầu đẩy lại bản gộp cập nhật, không dùng khoảng trống để mở rộng contract hiện hành | Chưa xác định người quyết định phân phối M07 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt có/không đẩy khi gộp cập nhật và hợp đồng trigger; sửa FR-M07 và AUT002/003, kiểm ca unread/order nhiều thiết bị. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M07-03 | FR-M07-02.31, BR-M07-20; FR-M07-02.29 đã bỏ; phụ lục Q-07 | Câu cũ không hết hạn đã bị thay bởi hạn 7 × 24 giờ. | UC006/AUT007 dùng hiệu lực M10 hiện hành; không khôi phục quy tắc cũ hoặc nhãn hết hạn cho nguyên nhân thay thế khác. | Đã xử lý theo FR/BR v1.5 | UC-M07-006 A2/A3, AUT-M07-007; đề xuất hết hạn/bị thay | nonblocking: quy tắc 7×24h đã rõ trong FR-M07 v1.5 và FR-M10 v1.4 | Theo phê duyệt baseline M07/M10; chưa có phê duyệt US | [Register quyết định nguồn](../../../.agents/.claude/system_analysis/output/registers/decisions.md); resolved theo nguồn, chưa phê duyệt US | Giữ chứng cứ FR-M07-02.31/BR-M07-20 và FR-M10 v1.4; không mở lại câu cũ. Đây là chứng cứ lịch sử; không tạo xác nhận mới. |
+| NOTE-M07-04 | FR-M07-05.02, FR-M07-06.03, FR-M07-03.02 | Nguồn nêu tải đủ/mark-all/nhiều thiết bị, chưa quy định giao thức phân trang, đồng bộ read thời gian thực hay biên concurrent events. | Giữ hành vi theo người nhận và nguồn đã lưu; không phát minh API/cursor/giao thức/rollback. | Để giai đoạn thiết kế; không tự thêm tính năng | UC-M07-003 tải thêm; UC005/007 mark-all; AUT003 nhiều thiết bị | nonblocking: giao thức/biên đồng thời thuộc thiết kế; kết quả theo người nhận không đổi | Chưa xác định đầu mối thiết kế Notification | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Thiết kế và kiểm thử tải đủ/read nhiều thiết bị theo FR; nếu cần ngữ nghĩa mark-all tại mốc thì xin quyết định FR trước. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M07-05 | FR-M07-02.25, BR-M07-24; FR-M01-04.05, FR-M01-08.05, FR-M01-09.12 | Lọc tự thông báo phụ thuộc người gây sự kiện; các sự kiện bảo mật lại yêu cầu thông báo cho chính chủ tài khoản. Hợp đồng sự kiện chưa nêu cách xác định causer cho nhóm bảo mật. | Giữ yêu cầu thông báo bảo mật và quy tắc lọc self theo nguồn; không tự thêm ngoại lệ hoặc gán causer khiến lọc mất sự kiện bảo mật. Cần owner M01/M07 đối chiếu hợp đồng causer trước triển khai. | Điểm cần làm rõ, chưa tự quyết hay sửa nguồn | AUT-M07-001/RULE-M07-002 lọc self; AUT004/005 sự kiện bảo mật M01 | blocking: gán causer có thể lọc mất thông báo bảo mật bắt buộc; không chốt hợp đồng này | Chưa xác định người có quyền chốt hợp đồng M01/M07 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt causer/lọc self cho từng sự kiện bảo mật, ghi register và đồng bộ FR-M01/M07; rà cả email và app, không tự thêm ngoại lệ. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| TBD | Phụ lục B.2 FR-M07 v1.5 | Không có TBD từ OPEN chạm M07. | Không tạo OPEN hoặc coi NOTE mới là mục đã được stakeholder xác nhận. | Theo nguồn | Phạm vi OPEN theo FR-M07 v1.5 phụ lục B.2 | nonblocking: đây là kết luận không có TBD chạm M07, không phải gap sản phẩm mới | Không áp dụng quyết định mới | [Register quyết định nguồn](../../../.agents/.claude/system_analysis/output/registers/decisions.md); resolved theo nguồn, chưa phê duyệt US | Không có bằng chứng đóng mới cần bổ sung; giữ kết luận phạm vi nguồn, không tự tạo OPEN. Đây là chứng cứ lịch sử; không tạo xác nhận mới. |
 
 Không có chuyển đổi ID vì US-M07 được tạo mới. Không chỉnh FR/register hay các tài liệu US khác. Trạng thái bàn giao **Chờ duyệt**; hoàn thành phân tích/QA không tương đương stakeholder phê duyệt. Chỉ đổi **Đã duyệt** sau xác nhận kết quả cuối.
 
+
+
+
+### Phân biệt bằng chứng lịch sử và lượt cập nhật v2.3
+
+Các bảng kiểm cấu trúc/render/hình và câu “đã kiểm” có trước mục này là **bằng chứng lịch sử v2.2 / lượt chuẩn hóa tên**, không phải lệnh vừa chạy. Quyền thực hiện lịch sử: Người dùng đã cho phép tự thực hiện các bước cần thiết, không hỏi đồng ý trong lượt M04; quyền thực hiện liên tục áp dụng cho chuỗi module hiện tại. Không coi đó là phê duyệt US-M07 hay xác nhận kết quả từng bước.
+
+Trong lượt cập nhật các module được giao, giữ nguyên 25 view trong phạm vi M06–M10 (từng module theo bảng diagrams), chưa chạy lại renderer hoặc quan sát hình mới. Đã parse XML SVG hiện hữu, đối chiếu node/cạnh UC và association trực tiếp với bảng; endpoint, nhãn UC và ký pháp không sửa nên không phát sinh yêu cầu render mới. `diagram_check=pass` chỉ kế thừa hình đã render và audit parity hiện tại, không hàm ý BA/phê duyệt hoặc render lại.
+
+| Lớp kiểm v2.3 | Kết quả thực tế | Giới hạn |
+| --- | --- | --- |
+| Schema/nguồn | Baseline owner/normative Đã chốt; giữ source_baseline/ID/anchor; nâng marker associations và artifact US-relative. | Checker --final được chạy sau walkthrough; semantic_review=pending vì các blocking trong ledger, không ép pass. |
+| SVG/XML/parity | 5 SVG XML hợp lệ; 14 cặp association trực tiếp đã nhập marker; quan hệ UC giữ endpoint. | Không render mới; kiểm hình lịch sử không chứng minh ngữ nghĩa nhánh thiếu nguồn. |
+| Walkthrough | 12 đặc tả có luồng chính và mỗi nhánh đã lập before/return/END/postcondition/source. | Gap cụ thể giới hạn kết luận; không coi bao phủ mã hay criteria chép từ FR là closure. |
+
+### Walkthrough v2.3 theo từng đặc tả và đường đi
+
+Bảng dưới ghi trạng thái trước, guard và điểm trở lại thực tế. `END cần chốt` là điểm dừng phân tích của nhánh thiếu nguồn, không phải hành vi sản phẩm đã được phê duyệt. Đường trở lại chỉ dùng success khi guard cho phép hoàn tất; không áp success của cha cho no-op/từ chối. Cột gap giới hạn phần có thể nghiệm thu. Các core Summary được đối chiếu ở bảng độ gắn kết; các đường thực thi nằm ở đặc tả con dưới đây.
+
+#### UC-M07-023 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người dùng xem biểu tượng Tin nhắn trong ứng dụng hoặc bấm biểu tượng. Trước: Ngữ cảnh tài khoản/người xem; Guest bị từ chối biểu tượng trong nhánh. M16 cung cấp dữ liệu đã đọc/quyền thấy. | [1](#uc-m07-023-main-1) → [2](#uc-m07-023-main-2) → [3](#uc-m07-023-main-3) → [4](#uc-m07-023-main-4) → END: Biểu tượng riêng với số cuộc chưa đọc đúng quyền; bấm dẫn tới hộp thư M16; không ảnh hưởng trạng thái chuông. | Biểu tượng riêng với số cuộc chưa đọc đúng quyền; bấm dẫn tới hộp thư M16; không ảnh hưởng trạng thái chuông. | FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, BR-M07-02; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m07-023-alt-1) | Tại bước 1: Guest; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không có biểu tượng cho Guest | Không hiện biểu tượng Tin nhắn. Kết thúc: không có biểu tượng cho Guest. | FR-M07-07.04; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m07-023-alt-2) | Tại bước 3: Chat đang tắt; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A2 → 4 | Vẫn hiện biểu tượng và số chưa đọc; các thao tác bị chặn trong Chat thuộc M16. Sau khi trở lại và hoàn tất: Biểu tượng riêng với số cuộc chưa đọc đúng quyền; bấm dẫn tới hộp thư M16; không ảnh hưởng trạng thái chuông. | FR-M07-07.02, FR-M16-03.01; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M07-001 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Bấm Theo dõi trên hồ sơ hoặc Topic. Trước: Đối tượng được xác định; không giả định đã đăng nhập hay target hợp lệ trước kiểm tra. | [1](#uc-m07-001-main-1) → [2](#uc-m07-001-main-2) → [3](#uc-m07-001-main-3) → [4](#uc-m07-001-main-4) → END: Quan hệ có thời điểm bắt đầu; nếu là người dùng thì sự kiện người theo dõi mới chỉ một lần mỗi cặp. | Quan hệ có thời điểm bắt đầu; nếu là người dùng thì sự kiện người theo dõi mới chỉ một lần mỗi cặp. | FR-M07-01.01, FR-M07-01.02, FR-M07-01.03, FR-M07-01.04, FR-M07-01.10, FR-M07-01.11, FR-M07-01.12, BR-M07-15, BR-M07-25; Giữ mở: NOTE-M07-01 |
+| [A1](#uc-m07-001-alt-1) | Tại bước 1: Guest bấm Theo dõi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không tạo quan hệ | Từ chối và yêu cầu đăng nhập. Kết thúc: không tạo quan hệ. | FR-M07-01.03|
+| [A2](#uc-m07-001-alt-2) | Tại bước 1: Tag, Group, bài viết, chính mình hoặc target BANNED; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A2 → END: không tạo quan hệ | Từ chối loại đối tượng/hành động bị cấm. Kết thúc: không tạo quan hệ. | FR-M07-01.02, FR-M07-01.11, FR-M07-01.12|
+| [A3](#uc-m07-001-alt-3) | Tại bước 3: Theo dõi lại cặp người dùng đã từng nhận thông báo follow; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A3 → 4 | Giữ việc tạo quan hệ lần này nhưng không tạo lại sự kiện follow. Sau khi trở lại và hoàn tất: Quan hệ có thời điểm bắt đầu; nếu là người dùng thì sự kiện người theo dõi mới chỉ một lần mỗi cặp. | FR-M07-01.10, BR-M07-25|
+
+#### UC-M07-002 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Bấm Bỏ theo dõi một người dùng hoặc Topic đang theo dõi. Trước: Có quan hệ đang theo dõi; Guest vẫn phải được từ chối nếu gửi yêu cầu. | [1](#uc-m07-002-main-1) → [2](#uc-m07-002-main-2) → [3](#uc-m07-002-main-3) → END: Quan hệ bị xóa, số người theo dõi đối tượng giảm 1; không ai nhận thông báo. | Quan hệ bị xóa, số người theo dõi đối tượng giảm 1; không ai nhận thông báo. | FR-M07-01.03, FR-M07-01.08, FR-M07-01.09, FR-M07-01.10, BR-M07-25; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m07-002-alt-1) | Tại bước 1: Guest bấm Bỏ theo dõi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không xóa quan hệ | Từ chối và yêu cầu đăng nhập. Kết thúc: không xóa quan hệ. | FR-M07-01.03; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M07-003 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Bấm chuông hoặc mở trang Thông báo. Trước: Ngữ cảnh người yêu cầu được xác định; không giấu trường hợp Guest/BANNED trong tiền điều kiện. | [1](#uc-m07-003-main-1) → [2](#uc-m07-003-main-2) → [3](#uc-m07-003-main-3) → [4](#uc-m07-003-main-4) → END: Chỉ thông báo của mình, đúng thứ tự/số lượng/trạng thái; nguồn đã lưu bảo đảm thấy lại dù đẩy từng lỗi. | Chỉ thông báo của mình, đúng thứ tự/số lượng/trạng thái; nguồn đã lưu bảo đảm thấy lại dù đẩy từng lỗi. | FR-M07-03.04, FR-M07-05, BR-M07-09, BR-M07-12, BR-M07-13, BR-M07-22, BR-M07-24; Giữ mở: NOTE-M07-04 |
+| [A1](#uc-m07-003-alt-1) | Tại bước 1: Guest mở trang; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không xem thông báo | Từ chối và yêu cầu đăng nhập. Kết thúc: không xem thông báo. | FR-M07-05.06|
+| [A2](#uc-m07-003-alt-2) | Tại bước 1: Tài khoản đang BANNED; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A2 → END: không xem khi BANNED | Không cho xem chuông/trang; các bản ghi vẫn được tạo theo [AUT-M07-001](#aut-m07-001). Kết thúc: không xem khi BANNED. | FR-M07-05.09, FR-M07-02.26|
+| [A3](#uc-m07-003-alt-3) | Tại bước 3: Người gây sự kiện DEACTIVATED/DELETED; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A3 → 4 | Hiện đúng nhãn Tài khoản tạm thời vô hiệu hoá / [Người dùng đã xóa]. Sau khi trở lại và hoàn tất: Chỉ thông báo của mình, đúng thứ tự/số lượng/trạng thái; nguồn đã lưu bảo đảm thấy lại dù đẩy từng lỗi. | FR-M07-05.12, BR-M07-24|
+
+#### UC-M07-004 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người dùng bấm một thông báo của mình. Trước: Thông báo thuộc người yêu cầu; phiên/quyền được kiểm trước thay đổi, không giả định đích còn tồn tại. | [1](#uc-m07-004-main-1) → [2](#uc-m07-004-main-2) → [3](#uc-m07-004-main-3) → [4](#uc-m07-004-main-4) → END: Thông báo đã đọc; dẫn tới nội dung hợp lệ hoặc báo Nội dung không tồn tại; bản ghi luôn giữ. | Thông báo đã đọc; dẫn tới nội dung hợp lệ hoặc báo Nội dung không tồn tại; bản ghi luôn giữ. | FR-M07-05.05, FR-M07-05.13, FR-M07-06.01, FR-M07-06.02, FR-M07-06.04, BR-M07-14, BR-M07-27; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m07-004-alt-1) | Tại bước 1: Guest hoặc tài khoản không được xem thông báo (BANNED); giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không truy cập thông báo | Từ chối theo quyền; Guest được yêu cầu đăng nhập. Kết thúc: không truy cập thông báo. | FR-M07-05.06, FR-M07-05.09, FR-M07-06.06; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m07-004-alt-2) | Tại bước 3: Đích đã xóa/ẩn hoặc người nhận mất quyền, không thuộc ngoại lệ chủ nội dung M03/M04; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A2 → END: đã đọc, đích không khả dụng | Hiện Nội dung không tồn tại; giữ bản ghi và trạng thái đã đọc. Kết thúc: đã đọc, đích không khả dụng. | FR-M07-05.13, BR-M07-27; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M07-005 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Bấm Đánh dấu tất cả đã đọc. Trước: Có ngữ cảnh người yêu cầu; không cần có thông báo chưa đọc để nêu hành vi giữ nguyên. | [1](#uc-m07-005-main-1) → [2](#uc-m07-005-main-2) → [3](#uc-m07-005-main-3) → END: Mọi thông báo chưa đọc của mình được chuyển đã đọc; tin nhắn giữ nguyên. | Mọi thông báo chưa đọc của mình được chuyển đã đọc; tin nhắn giữ nguyên. | FR-M07-06.03, FR-M07-06.05, FR-M07-06.06, BR-M07-14; Giữ mở: NOTE-M07-04 |
+| [A1](#uc-m07-005-alt-1) | Tại bước 1: Guest gửi thao tác; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không đánh dấu | Từ chối, không thay đổi trạng thái. Kết thúc: không đánh dấu. | FR-M07-06.06|
+
+#### UC-M07-006 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người được đề xuất chọn Chấp nhận hoặc Từ chối ngay trên thông báo đề xuất đang xem. Trước: Đề xuất được nhận diện cùng người nhận; kiểm hiệu lực trong luồng, không giấu hết hạn/thay thế/đã chọn. | [1](#uc-m07-006-main-1) → [2](#uc-m07-006-main-2) → [3](#uc-m07-006-main-3) → [4](#uc-m07-006-main-4) → END: Chấp nhận chuyển lựa chọn cho M10 để đổi vai trò ngay; từ chối giữ vai trò; thông báo hiện lựa chọn và khóa chọn lại. | Chấp nhận chuyển lựa chọn cho M10 để đổi vai trò ngay; từ chối giữ vai trò; thông báo hiện lựa chọn và khóa chọn lại. | FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, FR-M07-02.28, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32, BR-M07-20; Giữ mở: NOTE-M07-03 |
+| [A1](#uc-m07-006-alt-1) | Tại bước 1: Đã trả lời; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: giữ kết quả cũ | Hiện lựa chọn đã chọn, không nhận lựa chọn mới. Kết thúc: giữ kết quả cũ. | FR-M07-02.28|
+| [A2](#uc-m07-006-alt-2) | Tại bước 1: Quá hạn 7 × 24 giờ, chưa trả lời; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A2 → END: không đổi vai trò | Hiện Đã hết hạn theo trạng thái M10, không cho Chấp nhận/Từ chối. Kết thúc: không đổi vai trò. | FR-M07-02.31, BR-M07-20|
+| [A3](#uc-m07-006-alt-3) | Tại bước 1: Đã có đề xuất mới cùng loại cho cùng người; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A3 → END: đề xuất cũ không được trả lời | Đề xuất cũ không còn nút chọn có hiệu lực; thông báo mới giữ ID bản ghi riêng. Kết thúc: đề xuất cũ không được trả lời. | FR-M07-02.30, FR-M07-02.32|
+
+| [A4](#uc-m07-006-alt-4) | Đúng người nhận và đề xuất còn hiệu lực nhưng ACTIVE/role không đạt ở M10 khi Chấp nhận. | UC006-main-2 → A4 → END, không trở về success của UC006-main-3. | Vai trò không đổi; không tự đánh dấu Chấp nhận/Đã từ chối/Hết hiệu lực; trạng thái/khả năng thử lại chưa chốt. | FR-M10-03.10, FR-M10-03.11, BR-M10-27; blocking phụ thuộc [NOTE-M10-01](US-M10.md) / ledger owner, chưa đồng bộ quyết định. |
+
+#### UC-M07-007 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | [UC-M07-004](#uc-m07-004) hoặc [UC-M07-005](#uc-m07-005) gọi với phạm vi một/tất cả. Trước: Có phạm vi và người yêu cầu từ caller; vẫn kiểm chỉ tác động dữ liệu của chính người đó. | [1](#uc-m07-007-main-1) → [2](#uc-m07-007-main-2) → [3](#uc-m07-007-main-3) → END: Thông báo trong phạm vi chưa đọc thành đã đọc; vốn đã đọc giữ nguyên; không thay đổi tin Chat. | Thông báo trong phạm vi chưa đọc thành đã đọc; vốn đã đọc giữ nguyên; không thay đổi tin Chat. | FR-M07-05.05, FR-M07-06.01, FR-M07-06.03, FR-M07-06.04, FR-M07-06.05, FR-M07-06.06, BR-M07-14, BR-M07-27; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m07-007-alt-1) | Tại bước 1: Guest hoặc yêu cầu không thuộc phạm vi của mình; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không đổi trạng thái | Từ chối, không cập nhật bản ghi ngoài quyền. Kết thúc: không đổi trạng thái. | FR-M07-05.05, FR-M07-06.06; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M07-008 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Core023 hoặc xử lý cập nhật chỉ báo nhận ngữ cảnh đọc từ M16. Trước: Có tài khoản người xem và dữ liệu/mốc đã đọc M16, không lấy mốc chuông làm mốc tin nhắn. | [1](#uc-m07-008-main-1) → [2](#uc-m07-008-main-2) → [3](#uc-m07-008-main-3) → [4](#uc-m07-008-main-4) → END: Số đếm cuộc, gồm các cuộc mute, chỉ dựa tin được thấy; thành viên cũ chỉ tính tin trước lúc rời. | Số đếm cuộc, gồm các cuộc mute, chỉ dựa tin được thấy; thành viên cũ chỉ tính tin trước lúc rời. | FR-M07-07.02, FR-M07-09.07, BR-M07-02, BR-M07-08, FR-M16-07.10; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+
+#### UC-M07-009 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người dùng đổi công tắc Tắt thông báo cho bài này. Trước: Có bài/người thao tác; công tắc có trên mọi bài cho người đã đăng nhập, không giới hạn chỉ bài từng tương tác. | [1](#uc-m07-009-main-1) → [2](#uc-m07-009-main-2) → [3](#uc-m07-009-main-3) → END: Cài đặt bài của mình được ghi/bỏ; bật lại nhận từ lúc đó, người khác không đổi. | Cài đặt bài của mình được ghi/bỏ; bật lại nhận từ lúc đó, người khác không đổi. | FR-M07-08, FR-M07-02.07, FR-M07-02.08, FR-M07-02.09, BR-M07-07; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m07-009-alt-1) | Tại bước 1: Guest dùng công tắc; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không đổi cài đặt | Từ chối và yêu cầu đăng nhập. Kết thúc: không đổi cài đặt. | FR-M07-08.05; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M07-010 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Thành viên đổi tắt/bật thông báo một cuộc 1-1 hoặc nhóm chat. Trước: Cuộc được nhận diện; đăng nhập/thành viên là điều kiện kiểm trong luồng. | [1](#uc-m07-010-main-1) → [2](#uc-m07-010-main-2) → [3](#uc-m07-010-main-3) → END: Ghi/bỏ mute riêng; popup tuân cả cài đặt cuộc và toàn bộ Chat; số chưa đọc không đổi vì mute. | Ghi/bỏ mute riêng; popup tuân cả cài đặt cuộc và toàn bộ Chat; số chưa đọc không đổi vì mute. | FR-M07-09.01, FR-M07-09.02, FR-M07-09.05, FR-M07-09.06, FR-M07-09.07, BR-M07-08; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m07-010-alt-1) | Tại bước 1: Guest; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không đổi cài đặt | Từ chối và yêu cầu đăng nhập. Kết thúc: không đổi cài đặt. | FR-M07-09.06; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m07-010-alt-2) | Tại bước 1: Không là thành viên cuộc trò chuyện; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A2 → END: không đổi cài đặt | Từ chối tắt thông báo cuộc đó. Kết thúc: không đổi cài đặt. | FR-M07-09.05; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m07-010-alt-3) | Tại bước 3: Tắt toàn bộ Chat đang bật; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A3 → END: tắt toàn bộ vẫn chi phối | Không hiện popup riêng để vượt tắt toàn bộ; giao diện điều khiển chi tiết thuộc HMI. Kết thúc: tắt toàn bộ vẫn chi phối. | FR-M07-09.03, BR-M07-08; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M07-011 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người dùng đổi Tắt thông báo cho toàn bộ Chat. Trước: Ngữ cảnh cá nhân; Guest được xử lý từ chối. | [1](#uc-m07-011-main-1) → [2](#uc-m07-011-main-2) → [3](#uc-m07-011-main-3) → END: Khi tắt toàn bộ, không cuộc nào có popup; bỏ tắt toàn bộ thì mỗi cuộc tuân cài đặt riêng đã có. | Khi tắt toàn bộ, không cuộc nào có popup; bỏ tắt toàn bộ thì mỗi cuộc tuân cài đặt riêng đã có. | FR-M07-09.03, FR-M07-09.04, FR-M07-09.06, FR-M07-09.07, BR-M07-08; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m07-011-alt-1) | Tại bước 1: Guest; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không đổi cài đặt | Từ chối và yêu cầu đăng nhập. Kết thúc: không đổi cài đặt. | FR-M07-09.06; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+
+### Phạm vi kết luận coverage v2.3
+
+Các dòng Một phần trong trace chỉ ra điều kiện biên/quyền/kết quả còn thiếu quyết định ở ledger; phần còn lại của cùng yêu cầu vẫn giữ nguồn và đích. Các gap về cơ chế giao dịch/đồng thời/giao thức không tự giảm mọi dòng về Một phần: hành vi danh định đã quyết vẫn được đối chiếu, còn bảo đảm thất bại hoặc thiết kế chưa có bằng chứng được giữ giới hạn riêng. Không dùng số mã có anchor hay bản sao tiêu chí FR để tuyên bố tất cả yêu cầu đã được xác nhận nghiệp vụ.
+
+
+### Kết quả checker thực chạy sau review v2.3
+
+Chạy `python -X utf8 -B .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M07.md --final` sau walkthrough: **exit 1, errors=2, warnings=1**. Một lỗi báo 4 yêu cầu còn Một phần; một lỗi báo semantic_review chưa pass; cảnh báo nhắc review thủ công. Kiểm draft cùng baseline **errors=0** (hai cảnh báo tương ứng coverage/review). Đây là gate chưa đạt do các quyết định nguồn còn mở, không phải lỗi schema, ID, marker hoặc SVG. Giữ Chờ duyệt và approved_steps=-.
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.

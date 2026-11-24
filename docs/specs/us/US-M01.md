@@ -2,7 +2,7 @@
 
 [Vietnamese Doc]
 
-Bản phân tích theo skill use-case-analysis 2.2, hoàn tất các bước 1–7 cho M01, **Chờ duyệt**. Đầu ra gồm 6 UC chính, 19 UC con, bảng phân rã, đặc tả, truy vết và một sơ đồ chi tiết cho từng UC chính. UC chính là đầu vào tổng hợp hệ thống; tài liệu này chỉ phân tích M01.
+Bản phân tích theo skill use-case-analysis 2.3, hoàn tất các bước 1–7 cho M01, **Chờ duyệt**. Đầu ra gồm 6 UC chính, 19 UC con, bảng phân rã, đặc tả, truy vết và một sơ đồ chi tiết cho từng UC chính. UC chính là đầu vào tổng hợp hệ thống; tài liệu này chỉ phân tích M01.
 
 ## Metadata và tiến độ
 
@@ -10,20 +10,23 @@ Bản phân tích theo skill use-case-analysis 2.2, hoàn tất các bước 1�
 | key | value |
 |---|---|
 | document_id | US-M01 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M01 |
 | scope | ALL |
 | status | Chờ duyệt |
 | current_step | 7 |
 | completed_steps | 1, 2, 3, 4, 5, 6, 7 |
-| approved_steps | 1 |
+| approved_steps | - |
 | source_baseline | FR-M01 1.10; FR-M02 1.6; FR-M03 1.10; FR-M04 1.4; FR-M05 1.7; FR-M06 1.5; FR-M07 1.5; FR-M08 1.7; FR-M09 1.2; FR-M10 1.4; FR-M11 1.3; FR-M12 1.1; FR-M13 1.3; FR-M14 1.1; FR-M15 1.1; FR-M16 1.0 |
 | author | Codex — hỗ trợ phân tích nghiệp vụ |
-| date | 2026-10-29 |
-| approval_evidence | Người dùng: “thực hiện tiếp các bước đi” — xác nhận tiếp tục sau bước 1 và cho phép thực hiện các bước còn lại trong lượt này; chưa phê duyệt kết quả cuối. |
+| date | 2026-11-24 |
+| approval_evidence | Yêu cầu cập nhật hiện hành cho phép thực hiện liên tục bước 1–7 theo skill 2.3; đây là quyền làm, chưa phê duyệt kết quả hoặc bất kỳ approved_steps của revision này. |
 | semantic_review | pass |
 | diagram_check | pass |
+
+**Lịch sử tiến độ revision 2.2 — không phải phê duyệt revision 2.3.** Tiến độ hiện hành ở metadata và mục Review revision 2.3 cuối tài liệu.
 
 | Bước | Kết quả | Xác nhận |
 |---|---|---|
@@ -45,23 +48,23 @@ Bản phân tích theo skill use-case-analysis 2.2, hoàn tất các bước 1�
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M01.md | 1.10 | owner |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
-| docs/specs/fr/FR-M16.md | 1.0 | related |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
+| docs/specs/fr/FR-M16.md | 1.0 | normative |
 
-FR-M01 1.10 đã chốt ngày 2026-10-24. Danh mục nguồn dùng phiên bản hiện hành tại thời điểm phân tích. Phương pháp: [skill 2.2](../../../.agent-instructions/skills/use-case-analysis/SKILL.md); phương pháp không cung cấp thêm yêu cầu sản phẩm. Bản trong index Git chỉ dùng bảo toàn ID, không kế thừa phê duyệt.
+FR-M01 1.10 đã chốt ngày 2026-10-24. Danh mục nguồn dùng phiên bản hiện hành tại thời điểm phân tích. Phương pháp: [skill 2.3](../../../.agent-instructions/skills/use-case-analysis/SKILL.md); phương pháp không cung cấp thêm yêu cầu sản phẩm. Bản trong index Git chỉ dùng bảo toàn ID, không kế thừa phê duyệt.
 
 ### Actor
 
@@ -106,10 +109,10 @@ ACT-003 gộp Mod/Admin ở các quyền M01 giống nhau, không có generaliza
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
 | UC-M01-020 | Đăng ký tài khoản | core | User goal | ACT-001 | ACT-004, ACT-005 | M01 | #uc-m01-020 | FR-M01-01, FR-M01-02, FR-M01-03, FR-M01-04, BR-M01-02, BR-M01-03, BR-M01-08 |
-| UC-M01-021 | Quản lý phiên truy cập | core | Summary | ACT-001, ACT-002, ACT-003 | ACT-004, ACT-005 | M01 | #uc-m01-021 | FR-M01-04, FR-M01-05, FR-M01-06, FR-M01-07 |
+| UC-M01-021 | Quản lý phiên đăng nhập | core | Summary | ACT-001, ACT-002, ACT-003 | ACT-004, ACT-005 | M01 | #uc-m01-021 | FR-M01-04, FR-M01-05, FR-M01-06, FR-M01-07 |
 | UC-M01-022 | Quản lý mật khẩu | core | Summary | ACT-001, ACT-002, ACT-003 | ACT-005 | M01 | #uc-m01-022 | FR-M01-08, FR-M01-09, BR-M01-13, BR-M01-14, BR-M01-15 |
-| UC-M01-023 | Quản lý vòng đời tài khoản | core | Summary | ACT-001, ACT-002, ACT-003 | ACT-005 | M01 | #uc-m01-023 | FR-M01-10, FR-M01-11, FR-M01-12, FR-M01-13, BR-M01-20, BR-M01-21 |
-| UC-M01-024 | Thực hiện quyền riêng tư tài khoản | core | Summary | ACT-001, ACT-002, ACT-003 | - | M01 | #uc-m01-024 | FR-M01-15, FR-M01-16, BR-M01-44, BR-M01-45 |
+| UC-M01-023 | Quản lý trạng thái tài khoản | core | Summary | ACT-001, ACT-002, ACT-003 | ACT-005 | M01 | #uc-m01-023 | FR-M01-10, FR-M01-11, FR-M01-12, FR-M01-13, BR-M01-20, BR-M01-21 |
+| UC-M01-024 | Xem và chấp nhận chính sách | core | Summary | ACT-001, ACT-002, ACT-003 | - | M01 | #uc-m01-024 | FR-M01-15, FR-M01-16, BR-M01-44, BR-M01-45 |
 | UC-M01-025 | Nhắc tên người dùng | core | User goal | ACT-002, ACT-003 | - | M01 | #uc-m01-025 | FR-M01-14, BR-M01-28, BR-M01-29, BR-M01-30 |
 | UC-M01-001 | Đăng ký bằng email | sub | User goal | ACT-001 | ACT-005 | M01 | #uc-m01-001 | FR-M01-01, BR-M01-01, BR-M01-02, BR-M01-03, BR-M01-04, BR-M01-35 |
 | UC-M01-002 | Xác minh email | sub | User goal | ACT-001 | ACT-005 | M01 | #uc-m01-002 | FR-M01-02.01, FR-M01-02.02, FR-M01-02.03, FR-M01-02.06, BR-M01-10, BR-M01-38 |
@@ -121,14 +124,14 @@ ACT-003 gộp Mod/Admin ở các quyền M01 giống nhau, không có generaliza
 | UC-M01-008 | Lấy lại mật khẩu qua email | sub | User goal | ACT-001 | ACT-005 | M01 | #uc-m01-008 | FR-M01-09, BR-M01-12, BR-M01-13, BR-M01-39 |
 | UC-M01-009 | Vô hiệu hóa tài khoản | sub | User goal | ACT-002, ACT-003 | - | M01 | #uc-m01-009 | FR-M01-10, BR-M01-20, BR-M01-21, BR-M01-45 |
 | UC-M01-010 | Kích hoạt lại tài khoản | sub | User goal | ACT-001 | ACT-005 | M01 | #uc-m01-010 | FR-M01-11, BR-M01-22, BR-M01-25 |
-| UC-M01-011 | Xem bài ẩn và danh tính tài khoản vô hiệu hóa | sub | User goal | ACT-003 | - | M01 | #uc-m01-011 | FR-M01-13.05, BR-M01-41 |
-| UC-M01-012 | Chèn lượt nhắc tên | sub | Subfunction | ACT-002, ACT-003 | - | M01 | #uc-m01-012 | FR-M01-14, BR-M01-26, BR-M01-27, BR-M01-28, BR-M01-29, BR-M01-40 |
-| UC-M01-013 | Xem Privacy Policy/ToS | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M01 | #uc-m01-013 | FR-M01-15, BR-M01-42, BR-M01-43, BR-M01-46 |
+| UC-M01-011 | Xem bài viết của tài khoản vô hiệu hóa | sub | User goal | ACT-003 | - | M01 | #uc-m01-011 | FR-M01-13.05, BR-M01-41 |
+| UC-M01-012 | Chèn nhắc tên người dùng | sub | Subfunction | ACT-002, ACT-003 | - | M01 | #uc-m01-012 | FR-M01-14, BR-M01-26, BR-M01-27, BR-M01-28, BR-M01-29, BR-M01-40 |
+| UC-M01-013 | Xem chính sách và điều khoản sử dụng | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M01 | #uc-m01-013 | FR-M01-15, BR-M01-42, BR-M01-43, BR-M01-46 |
 | UC-M01-014 | Đồng ý lại chính sách | sub | User goal | ACT-002, ACT-003 | - | M01 | #uc-m01-014 | FR-M01-16, BR-M01-44, BR-M01-45 |
 | UC-M01-015 | Đăng nhập bằng Google | sub | User goal | ACT-001 | ACT-004, ACT-005 | M01 | #uc-m01-015 | FR-M01-04.04, FR-M01-04.06, FR-M01-04.08, FR-M01-04.11, BR-M01-09, BR-M01-18 |
 | UC-M01-016 | Gửi lại email xác minh | sub | User goal | ACT-001 | ACT-005 | M01 | #uc-m01-016 | FR-M01-02.04, FR-M01-02.05, FR-M01-02.07, BR-M01-11, BR-M01-38 |
-| UC-M01-017 | Liên kết Google | sub | Subfunction | ACT-001 | ACT-004, ACT-005 | M01 | #uc-m01-017 | FR-M01-04.04, FR-M01-04.05, FR-M01-04.09, FR-M01-04.11, BR-M01-09, BR-M01-33 |
-| UC-M01-018 | Áp dụng cổng đăng nhập | sub | Subfunction | ACT-001 | - | M01 | #uc-m01-018 | FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
+| UC-M01-017 | Liên kết tài khoản Google | sub | Subfunction | ACT-001 | ACT-004, ACT-005 | M01 | #uc-m01-017 | FR-M01-04.04, FR-M01-04.05, FR-M01-04.09, FR-M01-04.11, BR-M01-09, BR-M01-33 |
+| UC-M01-018 | Kiểm tra điều kiện đăng nhập | sub | Subfunction | ACT-001 | - | M01 | #uc-m01-018 | FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
 | UC-M01-019 | Đặt mật khẩu qua liên kết | sub | Subfunction | ACT-001 | ACT-005 | M01 | #uc-m01-019 | FR-M01-09.02, FR-M01-09.03, FR-M01-09.04, FR-M01-09.05, FR-M01-09.06, FR-M01-09.08, FR-M01-09.09, FR-M01-09.10, FR-M01-09.11, FR-M01-09.12, FR-M01-09.16, BR-M01-12, BR-M01-13, BR-M01-35, BR-M01-38, BR-M01-39 |
 
 ### Bảng phân rã UC chính → UC con
@@ -160,6 +163,11 @@ ACT-003 gộp Mod/Admin ở các quyền M01 giống nhau, không có generaliza
 <!-- uc:module-models -->
 | module | path | baseline |
 |---|---|---|
+
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
 
 
 Mode module: bảng tổng hợp mô hình module khác để trống; không phát sinh US-overview trong lượt này.
@@ -242,7 +250,7 @@ Mode module: bảng tổng hợp mô hình module khác để trống; không ph
 
 <a id="uc-m01-021"></a>
 
-### UC-M01-021 — Quản lý phiên truy cập
+### UC-M01-021 — Quản lý phiên đăng nhập
 
 **Actor chính:** ACT-001, ACT-002, ACT-003. **Hỗ trợ:** ACT-004, ACT-005. **Giá trị:** Truy cập tài khoản đúng trạng thái trên từng thiết bị.
 
@@ -270,7 +278,7 @@ Mode module: bảng tổng hợp mô hình module khác để trống; không ph
 
 <a id="uc-m01-023"></a>
 
-### UC-M01-023 — Quản lý vòng đời tài khoản
+### UC-M01-023 — Quản lý trạng thái tài khoản
 
 **Actor chính:** ACT-001, ACT-002, ACT-003. **Hỗ trợ:** ACT-005. **Giá trị:** Chủ tài khoản ngừng sử dụng, khôi phục đúng hạn và được xóa dữ liệu đúng quy tắc.
 
@@ -284,7 +292,7 @@ Mode module: bảng tổng hợp mô hình module khác để trống; không ph
 
 <a id="uc-m01-024"></a>
 
-### UC-M01-024 — Thực hiện quyền riêng tư tài khoản
+### UC-M01-024 — Xem và chấp nhận chính sách
 
 **Actor chính:** ACT-001, ACT-002, ACT-003. **Hỗ trợ:** -. **Giá trị:** Xem chính sách, ghi nhận đồng ý đúng phiên bản hoặc rút lại đồng ý.
 
@@ -1092,7 +1100,7 @@ Các điều kiện dưới đây bổ sung chi tiết cho hợp đồng và cá
 
 <a id="uc-m01-011"></a>
 
-### UC-M01-011 — Xem bài ẩn và danh tính tài khoản vô hiệu hóa
+### UC-M01-011 — Xem bài viết của tài khoản vô hiệu hóa
 
 **UC chính:** UC-M01-023.
 
@@ -1153,7 +1161,7 @@ Các điều kiện dưới đây bổ sung chi tiết cho hợp đồng và cá
 
 <a id="uc-m01-012"></a>
 
-### UC-M01-012 — Chèn lượt nhắc tên
+### UC-M01-012 — Chèn nhắc tên người dùng
 
 **UC chính:** UC-M01-025.
 
@@ -1238,7 +1246,7 @@ Các điều kiện dưới đây bổ sung chi tiết cho hợp đồng và cá
 
 <a id="uc-m01-013"></a>
 
-### UC-M01-013 — Xem Privacy Policy/ToS
+### UC-M01-013 — Xem chính sách và điều khoản sử dụng
 
 **UC chính:** UC-M01-024.
 
@@ -1517,7 +1525,7 @@ Các điều kiện dưới đây bổ sung chi tiết cho hợp đồng và cá
 
 <a id="uc-m01-017"></a>
 
-### UC-M01-017 — Liên kết Google
+### UC-M01-017 — Liên kết tài khoản Google
 
 **UC chính:** UC-M01-021.
 
@@ -1580,7 +1588,7 @@ Các điều kiện dưới đây bổ sung chi tiết cho hợp đồng và cá
 
 <a id="uc-m01-018"></a>
 
-### UC-M01-018 — Áp dụng cổng đăng nhập
+### UC-M01-018 — Kiểm tra điều kiện đăng nhập
 
 **UC chính:** UC-M01-021.
 
@@ -1605,13 +1613,13 @@ Các điều kiện dưới đây bổ sung chi tiết cho hợp đồng và cá
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 1 | Kiểm tra quyền trong bảo trì: chỉ ADMIN được đăng nhập. Xét trạng thái trước mức xác minh: DELETED hoặc DEACTIVATED bị từ chối. | 2 | FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
+| 1 | Kiểm tra quyền trong bảo trì: chỉ ADMIN được đăng nhập. Xét trạng thái trước mức xác minh: DELETED hoặc DEACTIVATED bị từ chối. | 2 nếu BANNED; 3 nếu ACTIVE; A1 nếu bị từ chối | FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
 
 <a id="uc-m01-018-main-2"></a>
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 2 | BANNED: cấp phiên hạn chế chỉ màn hình bị khóa, lý do, OK và khiếu nại/thời gian còn lại nếu còn hạn. | 3 | FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
+| 2 | BANNED: cấp phiên hạn chế chỉ màn hình bị khóa, lý do, OK và khiếu nại/thời gian còn lại nếu còn hạn. | END: trả màn hình BANNED hạn chế về UC gọi; không đi bước ACTIVE | FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
 
 <a id="uc-m01-018-main-3"></a>
 
@@ -2004,7 +2012,8 @@ Các BR sau giữ nguyên nội dung baseline; là ràng buộc của các đặ
 
 ### Association actor–UC
 
-| Actor | UC | Vai trò tương tác | Điều kiện/ngữ cảnh | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 |---|---|---|---|---|
 | ACT-001 | UC-M01-020 | Khởi tạo/chủ thể mục tiêu; subfunction kế thừa ngữ cảnh | Guest chưa có tài khoản phù hợp; được phép tạo mới; phương thức cụ thể chịu quy tắc riêng. | FR-M01-01, FR-M01-02, FR-M01-03, FR-M01-04, BR-M01-02, BR-M01-03, BR-M01-08 |
 | ACT-004 | UC-M01-020 | Hỗ trợ trao đổi với hệ thống | Guest chưa có tài khoản phù hợp; được phép tạo mới; phương thức cụ thể chịu quy tắc riêng. | FR-M01-01, FR-M01-02, FR-M01-03, FR-M01-04, BR-M01-02, BR-M01-03, BR-M01-08 |
@@ -2049,6 +2058,9 @@ Các BR sau giữ nguyên nội dung baseline; là ràng buộc của các đặ
 | ACT-001 | UC-M01-018 | Khởi tạo/chủ thể mục tiêu; subfunction kế thừa ngữ cảnh | Danh tính tài khoản đã được xác thực; trạng thái chưa được giả định là ACTIVE; actor kế thừa người khởi tạo đăng nhập. | FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
 | ACT-001 | UC-M01-019 | Khởi tạo/chủ thể mục tiêu; subfunction kế thừa ngữ cảnh | Có magic link đặt lại; không yêu cầu phiên đăng nhập trước đó; tài khoản email ACTIVE hoặc BANNED. | FR-M01-09.02, FR-M01-09.03, FR-M01-09.04, FR-M01-09.05, FR-M01-09.06, FR-M01-09.08, FR-M01-09.09, FR-M01-09.10, FR-M01-09.11, FR-M01-09.12, FR-M01-09.16, BR-M01-12, BR-M01-13, BR-M01-35, BR-M01-38, BR-M01-39 |
 | ACT-005 | UC-M01-019 | Hỗ trợ trao đổi với hệ thống | Có magic link đặt lại; không yêu cầu phiên đăng nhập trước đó; tài khoản email ACTIVE hoặc BANNED. | FR-M01-09.02, FR-M01-09.03, FR-M01-09.04, FR-M01-09.05, FR-M01-09.06, FR-M01-09.08, FR-M01-09.09, FR-M01-09.10, FR-M01-09.11, FR-M01-09.12, FR-M01-09.16, BR-M01-12, BR-M01-13, BR-M01-35, BR-M01-38, BR-M01-39 |
+
+Bảng được chuyển từ inventory association hiện hữu, tách mỗi cặp actor–UC; không lấy tích actor catalog × UC. Vai trò của helper là tham gia qua UC gọi, không phải thao tác UI độc lập. Các cạnh ACT-003 kế thừa ACT-002 (M02–M05) và ACT-007 kế thừa ACT-003 (M05) có thể rút gọn trên hình; điều kiện quyền ở từng dòng vẫn bắt buộc. M01 không có actor generalization. Những actor chỉ gửi yêu cầu bị từ chối không có quyền thành công.
+
 
 ### Các cặp không có quan hệ UML
 
@@ -2346,57 +2358,59 @@ Sơ đồ dùng boundary **iShare**, package **M01** và node core ở từng vi
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| D-M01-CORE | core | - | UC-M01-020, UC-M01-021, UC-M01-022, UC-M01-023, UC-M01-024, UC-M01-025 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M01/D-M01-CORE.svg |
-| D-M01-020 | detail | UC-M01-020 | UC-M01-020, UC-M01-001, UC-M01-002, UC-M01-003, UC-M01-004, UC-M01-016, UC-M01-013 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M01/D-M01-020.svg |
-| D-M01-021 | detail | UC-M01-021 | UC-M01-021, UC-M01-005, UC-M01-015, UC-M01-006, UC-M01-017, UC-M01-018, UC-M01-014 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M01/D-M01-021.svg |
-| D-M01-022 | detail | UC-M01-022 | UC-M01-022, UC-M01-007, UC-M01-008, UC-M01-019 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M01/D-M01-022.svg |
-| D-M01-023 | detail | UC-M01-023 | UC-M01-023, UC-M01-009, UC-M01-010, UC-M01-011, UC-M01-014 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M01/D-M01-023.svg |
-| D-M01-024 | detail | UC-M01-024 | UC-M01-024, UC-M01-013, UC-M01-014, UC-M01-009, UC-M01-020, UC-M01-006 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M01/D-M01-024.svg |
-| D-M01-025 | detail | UC-M01-025 | UC-M01-025, UC-M01-012 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M01/D-M01-025.svg |
+| D-M01-CORE | core | - | UC-M01-020, UC-M01-021, UC-M01-022, UC-M01-023, UC-M01-024, UC-M01-025 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M01/D-M01-CORE.svg |
+| D-M01-020 | detail | UC-M01-020 | UC-M01-020, UC-M01-001, UC-M01-002, UC-M01-003, UC-M01-004, UC-M01-016, UC-M01-013 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M01/D-M01-020.svg |
+| D-M01-021 | detail | UC-M01-021 | UC-M01-021, UC-M01-005, UC-M01-015, UC-M01-006, UC-M01-017, UC-M01-018, UC-M01-014 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M01/D-M01-021.svg |
+| D-M01-022 | detail | UC-M01-022 | UC-M01-022, UC-M01-007, UC-M01-008, UC-M01-019 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M01/D-M01-022.svg |
+| D-M01-023 | detail | UC-M01-023 | UC-M01-023, UC-M01-009, UC-M01-010, UC-M01-011, UC-M01-014 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M01/D-M01-023.svg |
+| D-M01-024 | detail | UC-M01-024 | UC-M01-024, UC-M01-013, UC-M01-014, UC-M01-009, UC-M01-020, UC-M01-006 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M01/D-M01-024.svg |
+| D-M01-025 | detail | UC-M01-025 | UC-M01-025, UC-M01-012 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M01/D-M01-025.svg |
 
 ### D-M01-CORE — Tổng quan UC chính M01
 
 ![D-M01-CORE](diagrams/M01/D-M01-CORE.svg)
 
-[PlantUML](diagrams/M01/D-M01-CORE.puml) · [SVG](diagrams/M01/D-M01-CORE.svg) · [PNG](diagrams/M01/D-M01-CORE.png)
+[SVG](diagrams/M01/D-M01-CORE.svg)
 
 ### D-M01-020 — Đăng ký tài khoản
 
 ![D-M01-020](diagrams/M01/D-M01-020.svg)
 
-[PlantUML](diagrams/M01/D-M01-020.puml) · [SVG](diagrams/M01/D-M01-020.svg) · [PNG](diagrams/M01/D-M01-020.png)
+[SVG](diagrams/M01/D-M01-020.svg)
 
-### D-M01-021 — Quản lý phiên truy cập
+### D-M01-021 — Quản lý phiên đăng nhập
 
 ![D-M01-021](diagrams/M01/D-M01-021.svg)
 
-[PlantUML](diagrams/M01/D-M01-021.puml) · [SVG](diagrams/M01/D-M01-021.svg) · [PNG](diagrams/M01/D-M01-021.png)
+[SVG](diagrams/M01/D-M01-021.svg)
 
 ### D-M01-022 — Quản lý mật khẩu
 
 ![D-M01-022](diagrams/M01/D-M01-022.svg)
 
-[PlantUML](diagrams/M01/D-M01-022.puml) · [SVG](diagrams/M01/D-M01-022.svg) · [PNG](diagrams/M01/D-M01-022.png)
+[SVG](diagrams/M01/D-M01-022.svg)
 
-### D-M01-023 — Quản lý vòng đời tài khoản
+### D-M01-023 — Quản lý trạng thái tài khoản
 
 ![D-M01-023](diagrams/M01/D-M01-023.svg)
 
-[PlantUML](diagrams/M01/D-M01-023.puml) · [SVG](diagrams/M01/D-M01-023.svg) · [PNG](diagrams/M01/D-M01-023.png)
+[SVG](diagrams/M01/D-M01-023.svg)
 
-### D-M01-024 — Thực hiện quyền riêng tư tài khoản
+### D-M01-024 — Xem và chấp nhận chính sách
 
 ![D-M01-024](diagrams/M01/D-M01-024.svg)
 
-[PlantUML](diagrams/M01/D-M01-024.puml) · [SVG](diagrams/M01/D-M01-024.svg) · [PNG](diagrams/M01/D-M01-024.png)
+[SVG](diagrams/M01/D-M01-024.svg)
 
 ### D-M01-025 — Nhắc tên người dùng
 
 ![D-M01-025](diagrams/M01/D-M01-025.svg)
 
-[PlantUML](diagrams/M01/D-M01-025.puml) · [SVG](diagrams/M01/D-M01-025.svg) · [PNG](diagrams/M01/D-M01-025.png)
+[SVG](diagrams/M01/D-M01-025.svg)
 
 ## 7. Kiểm tra và hồ sơ trình duyệt
+
+**Bằng chứng lịch sử revision 2.2.** Các lệnh/render và kết quả bên dưới được giữ như lịch sử; kết quả kiểm chứng revision 2.3 nằm ở mục cuối.
 
 - Phạm vi review: M01, không tuyên bố hoàn tất các module còn lại hay tổng quan hệ thống.
 - Đối chiếu 6 core/19 sub, 20 mapping (UC009 dùng chung), 13 quan hệ, 4 extension point, 5 AUT, 5 RULE.
@@ -2419,9 +2433,9 @@ Sơ đồ dùng boundary **iShare**, package **M01** và node core ở từng vi
 Renderer lấy từ [PlantUML release v1.2026.8](https://github.com/plantuml/plantuml/releases/tag/v1.2026.8). SHA-256 JAR: `5e1ecfa8ecd32c90b03bbf3b1eb6f020943f98ab0fcf4032be31a0002ee2c462`. Render thực hiện trên máy, không gửi mô hình dự án lên máy chủ render bên ngoài. File JAR chỉ là cache công cụ trong workspace agent, không phải deliverable.
 
 ```text
-java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -checkonly "docs/specs/us/diagrams/M01/*.puml"
-java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -tsvg "docs/specs/us/diagrams/M01/*.puml"
-java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -tpng "docs/specs/us/diagrams/M01/*.puml"
+java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -checkonly "diagrams/M01/*.puml"
+java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -tsvg "diagrams/M01/*.puml"
+java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -tpng "diagrams/M01/*.puml"
 ```
 
 **Giới hạn:** review do người thực hiện phân tích ghi nhận, chưa phải thẩm định độc lập hay phê duyệt stakeholder. Công cụ cấu trúc không chứng minh đúng nghiệp vụ. TBD-M01-01 vẫn hoãn theo FR; chưa có nội dung chính sách hoàn chỉnh để kiểm tra câu chữ.
@@ -2431,10 +2445,10 @@ java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -tpng "docs/specs/us/diagrams/M
 | ID trước | Phạm vi hiện tại | Điều chỉnh có chủ đích |
 |---|---|---|
 | UC-M01-020 | Đăng ký tài khoản | Giữ ý nghĩa nghiệp vụ; đổi tên/level Summary → User goal theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
-| UC-M01-021 | Quản lý phiên truy cập | Giữ ý nghĩa nghiệp vụ; đổi tên/level Summary → Summary theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
+| UC-M01-021 | Quản lý phiên đăng nhập | Giữ ý nghĩa nghiệp vụ; đổi tên/level Summary → Summary theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
 | UC-M01-022 | Quản lý mật khẩu | Giữ ý nghĩa nghiệp vụ; đổi tên/level Summary → Summary theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
-| UC-M01-023 | Quản lý vòng đời tài khoản | Giữ mục tiêu và ID; đặc tả lại theo baseline. |
-| UC-M01-024 | Thực hiện quyền riêng tư tài khoản | Thu hẹp quyền riêng tư; nhắc tên chuyển core025, giữ sub012. |
+| UC-M01-023 | Quản lý trạng thái tài khoản | Giữ mục tiêu và ID; đặc tả lại theo baseline. |
+| UC-M01-024 | Xem và chấp nhận chính sách | Thu hẹp quyền riêng tư; nhắc tên chuyển core025, giữ sub012. |
 | UC-M01-001 | Đăng ký bằng email | Giữ ý nghĩa nghiệp vụ; đổi tên/level User goal → User goal theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
 | UC-M01-002 | Xác minh email | Giữ mục tiêu và ID; đặc tả lại theo baseline. |
 | UC-M01-003 | Thiết lập tài khoản | Giữ ý nghĩa nghiệp vụ; đổi tên/level Subfunction → User goal theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
@@ -2445,11 +2459,152 @@ java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -tpng "docs/specs/us/diagrams/M
 | UC-M01-008 | Lấy lại mật khẩu qua email | Giữ mục tiêu và ID; đặc tả lại theo baseline. |
 | UC-M01-009 | Vô hiệu hóa tài khoản | Giữ mục tiêu và ID; đặc tả lại theo baseline. |
 | UC-M01-010 | Kích hoạt lại tài khoản | Giữ mục tiêu và ID; đặc tả lại theo baseline. |
-| UC-M01-011 | Xem bài ẩn và danh tính tài khoản vô hiệu hóa | Giữ ý nghĩa nghiệp vụ; đổi tên/level User goal → User goal theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
-| UC-M01-012 | Chèn lượt nhắc tên | Giữ ý nghĩa nghiệp vụ; đổi tên/level Subfunction → Subfunction theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
-| UC-M01-013 | Xem Privacy Policy/ToS | Giữ ý nghĩa nghiệp vụ; đổi tên/level User goal → User goal theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
+| UC-M01-011 | Xem bài viết của tài khoản vô hiệu hóa | Giữ ý nghĩa nghiệp vụ; đổi tên/level User goal → User goal theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
+| UC-M01-012 | Chèn nhắc tên người dùng | Giữ ý nghĩa nghiệp vụ; đổi tên/level Subfunction → Subfunction theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
+| UC-M01-013 | Xem chính sách và điều khoản sử dụng | Giữ ý nghĩa nghiệp vụ; đổi tên/level User goal → User goal theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
 | UC-M01-014 | Đồng ý lại chính sách | Giữ ý nghĩa nghiệp vụ; đổi tên/level Subfunction → User goal theo hợp đồng. CRUD/nhóm không tự tạo kế thừa. |
 
 ### Trạng thái duyệt
 
 **Chờ duyệt.** Người dùng đã yêu cầu tiếp tục các bước; chưa có xác nhận duyệt kết quả cuối. Khi FR đổi, đối chiếu lại điều kiện nghiệm thu, quan hệ và view chịu tác động trước khi cập nhật baseline.
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+## Review revision 2.3 — 2026-11-24
+
+Quyền hiện hành: cập nhật bộ US, làm liên tục bảy bước; không phê duyệt kết quả. Baseline FR, ID và tên hiện hành được giữ. [UC-NAMING](UC-NAMING.md) ngày 2026-11-24 đang **Chờ duyệt cách diễn đạt**; được đối chiếu như lựa chọn diễn đạt hiện có, không coi là quy chuẩn đã duyệt.
+
+### Lịch sử tiến độ và bằng chứng cũ
+
+Các bảng tiến độ/render/checker ở trên là **lịch sử revision 2.2**; không phải các lệnh vừa chạy cho revision 2.3. approved_steps lịch sử = `1`; bằng chứng nguyên văn lịch sử: Người dùng: “thực hiện tiếp các bước đi” — xác nhận tiếp tục sau bước 1 và cho phép thực hiện các bước còn lại trong lượt này; chưa phê duyệt kết quả cuối.
+
+Revision 2.3: bước 1 đối chiếu owner/normative và boundary; bước 2 rà goal/level/core–sub; bước 3 walkthrough từng đặc tả; bước 4 rà core–sub/sub–sub và association; bước 5 đối chiếu trace/điều kiện chuẩn tắc; bước 6 giữ SVG hiện hành, kiểm XML/node/cạnh; bước 7 ghi kết quả và gap bên dưới. Không chạy renderer mới trong revision này; giữ bằng chứng render lịch sử cho SVG không đổi.
+
+### Độ gắn kết, mức mục tiêu và phương án
+
+| Core/sub hoặc cặp UC | Goal/trigger/kết quả/phạm vi | Quyết định và giới hạn | Nguồn |
+|---|---|---|---|
+| UC-M01-020 / UC-M01-001, UC-M01-004 | User goal trừu tượng: một tài khoản hoàn tất; trigger chọn phương thức, success SETUP_COMPLETED. Hai sub chuyên biệt email/Google giữ cùng kết quả, khác định danh và xác minh. | Giữ generalization có hợp đồng; UC002/003/016 phục vụ xác minh/thiết lập, không thêm cha Summary. | FR-M01-01, FR-M01-02, FR-M01-03, FR-M01-04 |
+| UC-M01-021 / UC-M01-005, UC-M01-015, UC-M01-006, UC-M01-017, UC-M01-018 | Summary: quản lý truy cập theo phiên, nhiều trigger đăng nhập/đăng xuất; các sub có kết quả cấp/kết thúc phiên hoặc liên kết/cổng quyền. | Giữ các mục tiêu độc lập; không extend Đăng xuất từ Đăng nhập. | FR-M01-04, FR-M01-05, FR-M01-06, FR-M01-07 |
+| UC-M01-022 / UC-M01-007, UC-M01-008, UC-M01-019 | Summary: bảo vệ/khôi phục truy cập. Đổi khi biết mật khẩu khác quên mật khẩu không phiên; UC019 là phần xử lý link. | Giữ 2 mục tiêu và helper, include có return; không gộp các cam kết phiên khác nhau. | FR-M01-08, FR-M01-09 |
+| UC-M01-023 / UC-M01-009, UC-M01-010, UC-M01-011 | Summary vòng đời; chủ ACTIVE vô hiệu hóa, Guest DEACTIVATED kích hoạt lại, Mod/Admin tra cứu có quyền riêng. | Giữ phân rã; không kế thừa CRUD; AUT xóa theo hạn không là thao tác người dùng. | FR-M01-10, FR-M01-11, FR-M01-12, FR-M01-13 |
+| UC-M01-024 / UC-M01-013, UC-M01-014, UC-M01-009 | Summary: đọc, chấp nhận lại và rút lại; đọc không tự ghi đồng ý. UC009 dùng chung core023 với điều kiện ACTIVE còn nguyên. | Giữ một ID cho UC009; không cấp quyền vô hiệu hóa từ việc xuất hiện ở core024. | FR-M01-15, FR-M01-16, BR-M01-45 |
+| UC-M01-025 / UC-M01-012 — mapping 1:1 | Core User goal cho nội dung đang soạn chứa nhắc tên; sub Subfunction tìm/chọn/chèn khối; bước core còn giữ/xóa khối và danh tính thay đổi, thông báo chỉ sau công khai. | Giữ quy ước hai tầng, không bịa sub mới; giá trị core bao gồm lifecycle khối, không gắn nhãn Summary cho core này. | FR-M01-14.08, FR-M01-14.09, FR-M01-14.10, FR-M01-14.17 |
+
+Phương án giữ hai tầng và bảng mapping bảo toàn ID/trace, tốn thêm brief; gộp core/sub 1:1 làm gọn tài liệu nhưng mất hợp đồng đầu ra hai tầng và cần quyết định đổi scope. Tách thêm oval chỉ theo thao tác làm mô hình khó bảo trì mà không thêm mục tiêu có nguồn, nên không chọn. Các phương án này là phương pháp trình bày, không thêm chức năng sản phẩm.
+
+### Walkthrough theo từng đặc tả và từng nhánh
+
+Mỗi dòng dưới kiểm một đường đã có anchor, cùng điều kiện chuẩn tắc/BR của đặc tả; không thay toàn bộ bảng bằng một pass chung. Các guard có thể phủ định một kiểm tra trong luồng; tiền điều kiện không được dùng để loại nhánh từ chối. Hậu điều kiện tại return là trạng thái trung gian, END chỉ khẳng định kết quả riêng của đường đó. Dòng main diễn tả đường thành công, các trường hợp bị gap giới hạn được tách riêng và ưu tiên hơn kết luận chung.
+
+| Đường đi/anchor | Trigger, trạng thái/quyền trước | Bước rẽ và return/END | Postcondition thực tế | Nguồn / kết quả review / gap |
+|---|---|---|---|---|
+| [UC-M01-020 / main](#uc-m01-020-main-1) | Guest bắt đầu đăng ký bằng email hoặc Google. Trước: Guest chưa có tài khoản phù hợp; được phép tạo mới; phương thức cụ thể chịu quy tắc riêng. | 1 → 2 → 3; END: ACTIVE, USER, SETUP_COMPLETED; thông tin bắt buộc hợp lệ; lưu thời điểm và phiên bản đồng ý. | ACTIVE, USER, SETUP_COMPLETED; thông tin bắt buộc hợp lệ; lưu thời điểm và phiên bản đồng ý. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-01, FR-M01-02, FR-M01-03, FR-M01-04, BR-M01-02, BR-M01-03, BR-M01-08 |
+| [UC-M01-020 / A1](#uc-m01-020-alt-1) | Guest chưa có tài khoản phù hợp; được phép tạo mới; phương thức cụ thể chịu quy tắc riêng. Guard kiểm trong luồng (không giả định đã đạt): Không đồng ý chính sách hoặc tạm dừng tạo mới | Rẽ bước 1 → END: không đăng ký mới | Không tạo tài khoản; không áp dụng hạn chế tạo mới cho bước 2/3 của tài khoản đã có. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-01, FR-M01-02, FR-M01-03, FR-M01-04, BR-M01-02, BR-M01-03, BR-M01-08 |
+| [UC-M01-020 / A2](#uc-m01-020-alt-2) | Guest chưa có tài khoản phù hợp; được phép tạo mới; phương thức cụ thể chịu quy tắc riêng. Guard kiểm trong luồng (không giả định đã đạt): Thông tin thiết lập không hợp lệ hoặc chưa hoàn tất | Rẽ bước 2 → 2 | Tại điểm quay lại: Giữ EMAIL_VERIFIED; yêu cầu hoàn tất thiết lập khi quay lại. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-01, FR-M01-02, FR-M01-03, FR-M01-04, BR-M01-02, BR-M01-03, BR-M01-08 |
+| [UC-M01-025 / main](#uc-m01-025-main-1) | Người đã đăng nhập soạn bài viết hoặc bình luận có nhắc người khác. Trước: Được phép soạn nội dung trong M03/M04; không phải tài khoản BANNED bị hạn chế; không giả định nội dung đã công khai. | 1 → 2; END: Nội dung đang soạn chứa lượt nhắc gắn tài khoản; nhãn tuân theo danh tính hiện hành. | Nội dung đang soạn chứa lượt nhắc gắn tài khoản; nhãn tuân theo danh tính hiện hành. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-14, BR-M01-28, BR-M01-29, BR-M01-30 |
+| [UC-M01-025 / A1](#uc-m01-025-alt-1) | Được phép soạn nội dung trong M03/M04; không phải tài khoản BANNED bị hạn chế; không giả định nội dung đã công khai. Guard kiểm trong luồng (không giả định đã đạt): Người được nhắc đổi tên, DEACTIVATED hoặc DELETED | Rẽ bước 2 → END: hiển thị đúng trạng thái | Hiển thị tên hiện hành hoặc tên thay thế theo RULE-M01-001; không sửa nhãn thủ công. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-14, BR-M01-28, BR-M01-29, BR-M01-30 |
+| [UC-M01-001 / main](#uc-m01-001-main-1) | Guest gửi đăng ký email. Trước: Guest; tạo mới được cho phép; email chưa thuộc tài khoản. | 1 → 2 → 3 → 4; END: Hoàn tất hợp đồng UC-M01-020; tài khoản ACTIVE/USER/SETUP_COMPLETED. | Hoàn tất hợp đồng UC-M01-020; tài khoản ACTIVE/USER/SETUP_COMPLETED. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-01, BR-M01-01, BR-M01-02, BR-M01-03, BR-M01-04, BR-M01-35 |
+| [UC-M01-001 / A1](#uc-m01-001-alt-1) | Guest; tạo mới được cho phép; email chưa thuộc tài khoản. Guard kiểm trong luồng (không giả định đã đạt): Không đồng ý, email trùng, mật khẩu/nhập lại không hợp lệ hoặc đang tạm dừng đăng ký | Rẽ bước 1 → END: chưa tạo tài khoản | Từ chối tạo; mật khẩu 8–64 ký tự, nhận khoảng trắng/chữ có dấu và không tự cắt. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-01, BR-M01-01, BR-M01-02, BR-M01-03, BR-M01-04, BR-M01-35 |
+| [UC-M01-001 / A2](#uc-m01-001-alt-2) | Guest; tạo mới được cho phép; email chưa thuộc tài khoản. Guard kiểm trong luồng (không giả định đã đạt): Người dùng chưa mở link hợp lệ | Rẽ bước 3 → 3 | Tại điểm quay lại: Giữ NONE, không cho vượt bước; cho xin lại email theo UC-M01-016. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-01, BR-M01-01, BR-M01-02, BR-M01-03, BR-M01-04, BR-M01-35 |
+| [UC-M01-002 / main](#uc-m01-002-main-1) | Chủ tài khoản mở link xác minh đã nhận. Trước: Tài khoản email đã tạo, còn cần xác minh; link thuộc tài khoản đó. | 1 → 2 → 3; END: Email được xác minh; hướng tới bước thiết lập tài khoản. | Email được xác minh; hướng tới bước thiết lập tài khoản. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-02.01, FR-M01-02.02, FR-M01-02.03, FR-M01-02.06, BR-M01-10, BR-M01-38 |
+| [UC-M01-002 / A1](#uc-m01-002-alt-1) | Tài khoản email đã tạo, còn cần xác minh; link thuộc tài khoản đó. Guard kiểm trong luồng (không giả định đã đạt): Link quá 1 giờ hoặc đã dùng/đã bị thay thế | Rẽ bước 2 → 1 | Tại điểm quay lại: Từ chối xác minh bằng link; có thể quay về yêu cầu gửi lại. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-02.01, FR-M01-02.02, FR-M01-02.03, FR-M01-02.06, BR-M01-10, BR-M01-38 |
+| [UC-M01-003 / main](#uc-m01-003-main-1) | Tài khoản đã xác minh đến bước 3. Trước: Đã đăng nhập và đạt EMAIL_VERIFIED; bước 3 chưa hoàn tất. | 1 → 2 → 3; END: Lưu thông tin hợp lệ, đạt SETUP_COMPLETED. | Lưu thông tin hợp lệ, đạt SETUP_COMPLETED. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-03, BR-M01-05, BR-M01-06, BR-M01-08 |
+| [UC-M01-003 / A1](#uc-m01-003-alt-1) | Đã đăng nhập và đạt EMAIL_VERIFIED; bước 3 chưa hoàn tất. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập hoặc mức NONE | Rẽ bước 1 → END: chưa thiết lập | Từ chối bước 3; NONE đưa về bước 2. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-03, BR-M01-05, BR-M01-06, BR-M01-08 |
+| [UC-M01-003 / A2](#uc-m01-003-alt-2) | Đã đăng nhập và đạt EMAIL_VERIFIED; bước 3 chưa hoàn tất. Guard kiểm trong luồng (không giả định đã đạt): Thiếu/trùng/sai username, sai display_name hoặc thông tin tùy chọn vi phạm quy tắc M02 | Rẽ bước 2 → 1 | Tại điểm quay lại: Từ chối giá trị sai; người dùng sửa hoặc bỏ thông tin tùy chọn. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-03, BR-M01-05, BR-M01-06, BR-M01-08 |
+| [UC-M01-004 / main](#uc-m01-004-main-1) | Guest dùng Google với email chưa có trong iShare. Trước: Danh tính Google được cung cấp; email chưa thuộc tài khoản; đồng ý chính sách; tạo mới được cho phép. | 1 → 2 → 3; END: Tài khoản Google ACTIVE/USER/SETUP_COMPLETED theo hợp đồng UC-M01-020. | Tài khoản Google ACTIVE/USER/SETUP_COMPLETED theo hợp đồng UC-M01-020. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-04.01, FR-M01-04.02, FR-M01-04.03, FR-M01-04.07, FR-M01-04.10, FR-M01-04.12, FR-M01-04.13, BR-M01-08 |
+| [UC-M01-004 / A1](#uc-m01-004-alt-1) | Danh tính Google được cung cấp; email chưa thuộc tài khoản; đồng ý chính sách; tạo mới được cho phép. Guard kiểm trong luồng (không giả định đã đạt): Email đã thuộc tài khoản | Rẽ bước 1 → END: chuyển hành trình đăng nhập | Áp dụng hành trình đăng nhập Google UC-M01-015; không tạo tài khoản thứ hai. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-04.01, FR-M01-04.02, FR-M01-04.03, FR-M01-04.07, FR-M01-04.10, FR-M01-04.12, FR-M01-04.13, BR-M01-08 |
+| [UC-M01-004 / A2](#uc-m01-004-alt-2) | Danh tính Google được cung cấp; email chưa thuộc tài khoản; đồng ý chính sách; tạo mới được cho phép. Guard kiểm trong luồng (không giả định đã đạt): Không đồng ý hoặc đang tạm dừng đăng ký | Rẽ bước 1 → END: không tạo | Từ chối tạo tài khoản mới. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-04.01, FR-M01-04.02, FR-M01-04.03, FR-M01-04.07, FR-M01-04.10, FR-M01-04.12, FR-M01-04.13, BR-M01-08 |
+| [UC-M01-005 / main](#uc-m01-005-main-1) | Guest gửi email và mật khẩu. Trước: Chưa có phiên phù hợp trên thiết bị; không coi ACTIVE/SETUP_COMPLETED là tiền điều kiện vì phải kiểm tra trong luồng. | 1 → 2 → 3; END: Truy cập đúng đích theo cổng: bước 2, bước 3, hệ thống hoặc màn hình bị khóa. | Truy cập đúng đích theo cổng: bước 2, bước 3, hệ thống hoặc màn hình bị khóa. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-05, BR-M01-18, BR-M01-37 |
+| [UC-M01-005 / A1](#uc-m01-005-alt-1) | Chưa có phiên phù hợp trên thiết bị; không coi ACTIVE/SETUP_COMPLETED là tiền điều kiện vì phải kiểm tra trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Sai email/mật khẩu hoặc tài khoản Google | Rẽ bước 1 → END: từ chối | Từ chối đăng nhập, không cấp quyền truy cập. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-05, BR-M01-18, BR-M01-37 |
+| [UC-M01-005 / A2](#uc-m01-005-alt-2) | Chưa có phiên phù hợp trên thiết bị; không coi ACTIVE/SETUP_COMPLETED là tiền điều kiện vì phải kiểm tra trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Cổng trả về từ chối | Rẽ bước 2 → END: từ chối | Dừng, không tự kích hoạt DEACTIVATED. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-05, BR-M01-18, BR-M01-37 |
+| [UC-M01-006 / main](#uc-m01-006-main-1) | Người dùng chọn đăng xuất; bấm OK ở màn hình bị khóa; hoặc từ chối chính sách và chọn đăng xuất. Trước: Có phiên thiết bị hiện tại; cho phép đường thoát ở màn hình BANNED/chính sách. | 1 → 2; END: Phiên truy cập và phiên làm mới trên thiết bị hiện tại không còn dùng được; thiết bị khác giữ nguyên. | Phiên truy cập và phiên làm mới trên thiết bị hiện tại không còn dùng được; thiết bị khác giữ nguyên. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-07, FR-M01-05.18, FR-M01-16.03, BR-M01-17 |
+| [UC-M01-007 / main](#uc-m01-007-main-1) | Người dùng gửi mật khẩu cũ, mới và nhập lại. Trước: Có phiên; tài khoản email ACTIVE; tài khoản Google không được cung cấp chức năng. | 1 → 2 → 3; END: Mật khẩu mới được thay; phiên khác giữ nguyên; gửi thông báo in-app và email qua M07. | Mật khẩu mới được thay; phiên khác giữ nguyên; gửi thông báo in-app và email qua M07. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-08, BR-M01-14, BR-M01-15, BR-M01-31, BR-M01-35 |
+| [UC-M01-007 / A1](#uc-m01-007-alt-1) | Có phiên; tài khoản email ACTIVE; tài khoản Google không được cung cấp chức năng. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập, không ACTIVE hoặc tài khoản Google | Rẽ bước 1 → END: không đổi | Từ chối/không cung cấp chức năng cho Google. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-08, BR-M01-14, BR-M01-15, BR-M01-31, BR-M01-35 |
+| [UC-M01-007 / A2](#uc-m01-007-alt-2) | Có phiên; tài khoản email ACTIVE; tài khoản Google không được cung cấp chức năng. Guard kiểm trong luồng (không giả định đã đạt): Mật khẩu cũ sai, nhập lại không khớp, mật khẩu mới sai độ dài hoặc trùng hiện tại | Rẽ bước 2 → END: không đổi | Từ chối đổi. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-08, BR-M01-14, BR-M01-15, BR-M01-31, BR-M01-35 |
+| [UC-M01-008 / main](#uc-m01-008-main-1) | Guest gửi email ở chức năng quên mật khẩu. Trước: Không yêu cầu phiên; xử lý theo loại/trạng thái tài khoản. | 1 → 2 → 3 → 4; END: Sau link hợp lệ và UC-M01-019, mật khẩu được đặt lại; mọi phiên cũ kết thúc, thiết bị hiện tại có phiên mới. | Sau link hợp lệ và UC-M01-019, mật khẩu được đặt lại; mọi phiên cũ kết thúc, thiết bị hiện tại có phiên mới. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-09, BR-M01-12, BR-M01-13, BR-M01-39 |
+| [UC-M01-008 / A1](#uc-m01-008-alt-1) | Không yêu cầu phiên; xử lý theo loại/trạng thái tài khoản. Guard kiểm trong luồng (không giả định đã đạt): Email không thuộc tài khoản | Rẽ bước 1 → END: không gửi link | Không gửi link, vẫn hiển thị thông điệp chung. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-09, BR-M01-12, BR-M01-13, BR-M01-39 |
+| [UC-M01-008 / A2](#uc-m01-008-alt-2) | Không yêu cầu phiên; xử lý theo loại/trạng thái tài khoản. Guard kiểm trong luồng (không giả định đã đạt): Tài khoản Google | Rẽ bước 1 → END: dùng Google | Hiển thị yêu cầu dùng Google; không gửi link. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-09, BR-M01-12, BR-M01-13, BR-M01-39 |
+| [UC-M01-008 / A3](#uc-m01-008-alt-3) | Không yêu cầu phiên; xử lý theo loại/trạng thái tài khoản. Guard kiểm trong luồng (không giả định đã đạt): DEACTIVATED | Rẽ bước 1 → END: hướng kích hoạt lại | Không gửi link; hướng tới trang kích hoạt lại. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-09, BR-M01-12, BR-M01-13, BR-M01-39 |
+| [UC-M01-008 / A4](#uc-m01-008-alt-4) | Không yêu cầu phiên; xử lý theo loại/trạng thái tài khoản. Guard kiểm trong luồng (không giả định đã đạt): Không mở link hợp lệ | Rẽ bước 3 → END: chưa đặt lại | Chưa hoàn tất việc lấy lại; lỗi kiểm tra link theo UC-M01-019. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-09, BR-M01-12, BR-M01-13, BR-M01-39 |
+| [UC-M01-009 / main](#uc-m01-009-main-1) | Chủ tài khoản yêu cầu vô hiệu hóa, kể cả khi từ chối chính sách mới. Trước: Đã đăng nhập; tài khoản của chính người yêu cầu đang ACTIVE. | 1 → 2 → 3; END: DEACTIVATED; các phiên kết thúc; nội dung hiển thị theo RULE-M01-001; bắt đầu thời hạn 14 × 24 giờ. | DEACTIVATED; các phiên kết thúc; nội dung hiển thị theo RULE-M01-001; bắt đầu thời hạn 14 × 24 giờ. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-10, BR-M01-20, BR-M01-21, BR-M01-45 |
+| [UC-M01-009 / A1](#uc-m01-009-alt-1) | Đã đăng nhập; tài khoản của chính người yêu cầu đang ACTIVE. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập, không ACTIVE hoặc yêu cầu đối với người khác | Rẽ bước 2 → END: không chuyển trạng thái | Từ chối; Mod/Admin cũng không có quyền vô hiệu hóa người khác. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-10, BR-M01-20, BR-M01-21, BR-M01-45 |
+| [UC-M01-010 / main](#uc-m01-010-main-1) | Chủ tài khoản nhập email ở trang kích hoạt. Trước: Không yêu cầu phiên; chỉ DEACTIVATED còn trong 14 × 24 giờ được phục hồi. | 1 → 2 → 3; END: ACTIVE; bài/bình luận hiện lại với tên/avatar; đăng nhập thiết bị bằng phiên mới. | ACTIVE; bài/bình luận hiện lại với tên/avatar; đăng nhập thiết bị bằng phiên mới. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-11, BR-M01-22, BR-M01-25 |
+| [UC-M01-010 / A1](#uc-m01-010-alt-1) | Không yêu cầu phiên; chỉ DEACTIVATED còn trong 14 × 24 giờ được phục hồi. Guard kiểm trong luồng (không giả định đã đạt): Email không thuộc DEACTIVATED | Rẽ bước 1 → END: không gửi | Không gửi mã. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-11, BR-M01-22, BR-M01-25 |
+| [UC-M01-010 / A2](#uc-m01-010-alt-2) | Không yêu cầu phiên; chỉ DEACTIVATED còn trong 14 × 24 giờ được phục hồi. Guard kiểm trong luồng (không giả định đã đạt): Sai mã | Rẽ bước 2 → END: không kích hoạt | Từ chối; lần sai thứ 5 làm mã mất hiệu lực. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-11, BR-M01-22, BR-M01-25 |
+| [UC-M01-010 / A3](#uc-m01-010-alt-3) | Không yêu cầu phiên; chỉ DEACTIVATED còn trong 14 × 24 giờ được phục hồi. Guard kiểm trong luồng (không giả định đã đạt): Mã quá 15 phút hoặc hết thời hạn vô hiệu hóa | Rẽ bước 2 → END: không kích hoạt | Từ chối; DELETED không chuyển trạng thái. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-11, BR-M01-22, BR-M01-25 |
+| [UC-M01-010 / A4](#uc-m01-010-alt-4) | Không yêu cầu phiên; chỉ DEACTIVATED còn trong 14 × 24 giờ được phục hồi. Guard kiểm trong luồng (không giả định đã đạt): Yêu cầu gửi lại mã khi chưa đủ 60 giây | Rẽ bước 1 → END: chưa gửi lại | Từ chối gửi lại; khi đủ điều kiện được yêu cầu mã. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-11, BR-M01-22, BR-M01-25 |
+| [UC-M01-011 / main](#uc-m01-011-main-1) | Mod/Admin xem nội dung của tài khoản DEACTIVATED. Trước: Người xem có vai trò MOD/ADMIN; tác giả DEACTIVATED; không mở rộng quyền sang người xem khác. | 1 → 2; END: Xem được bài ẩn và danh tính thật còn được lưu. | Xem được bài ẩn và danh tính thật còn được lưu. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-13.05, BR-M01-41 |
+| [UC-M01-011 / A1](#uc-m01-011-alt-1) | Người xem có vai trò MOD/ADMIN; tác giả DEACTIVATED; không mở rộng quyền sang người xem khác. Guard kiểm trong luồng (không giả định đã đạt): Tác giả đã DELETED | Rẽ bước 2 → END: không cung cấp danh tính | Không còn dữ liệu cá nhân để xem; nhật ký được tra theo username theo AUT-M01-002, không khôi phục danh tính. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-13.05, BR-M01-41 |
+| [UC-M01-011 / A2](#uc-m01-011-alt-2) | Người xem có vai trò MOD/ADMIN; tác giả DEACTIVATED; không mở rộng quyền sang người xem khác. Guard kiểm trong luồng (không giả định đã đạt): Người xem không phải Mod/Admin | Rẽ bước 2 → END: không cấp quyền đặc biệt | Áp dụng hiển thị thay thế RULE-M01-001. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-13.05, BR-M01-41 |
+| [UC-M01-012 / main](#uc-m01-012-main-1) | Người soạn gõ @ kèm ít nhất một ký tự và ngừng gõ 300 mili giây. Trước: Đã đăng nhập và đang soạn bài/bình luận; actor kế thừa ngữ cảnh UC-M01-025, không có thao tác độc lập ngoài trình soạn. | 1 → 2 → 3; END: Khối nhắc tên gắn tài khoản, hiển thị display_name hiện tại và không có @. | Khối nhắc tên gắn tài khoản, hiển thị display_name hiện tại và không có @. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-14, BR-M01-26, BR-M01-27, BR-M01-28, BR-M01-29, BR-M01-40 |
+| [UC-M01-012 / A1](#uc-m01-012-alt-1) | Đã đăng nhập và đang soạn bài/bình luận; actor kế thừa ngữ cảnh UC-M01-025, không có thao tác độc lập ngoài trình soạn. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập | Rẽ bước 1 → END: không chèn | Không hiển thị gợi ý. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-14, BR-M01-26, BR-M01-27, BR-M01-28, BR-M01-29, BR-M01-40 |
+| [UC-M01-012 / A2](#uc-m01-012-alt-2) | Đã đăng nhập và đang soạn bài/bình luận; actor kế thừa ngữ cảnh UC-M01-025, không có thao tác độc lập ngoài trình soạn. Guard kiểm trong luồng (không giả định đã đạt): Tài khoản DEACTIVATED, DELETED, BANNED hoặc chưa xong bước 3 | Rẽ bước 2 → 2 | Tại điểm quay lại: Loại khỏi gợi ý. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-14, BR-M01-26, BR-M01-27, BR-M01-28, BR-M01-29, BR-M01-40 |
+| [UC-M01-012 / A3](#uc-m01-012-alt-3) | Đã đăng nhập và đang soạn bài/bình luận; actor kế thừa ngữ cảnh UC-M01-025, không có thao tác độc lập ngoài trình soạn. Guard kiểm trong luồng (không giả định đã đạt): Xóa lùi vào lượt nhắc | Rẽ bước 3 → END: bỏ lượt nhắc | Xóa cả khối; không sửa từng ký tự nhãn. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-14, BR-M01-26, BR-M01-27, BR-M01-28, BR-M01-29, BR-M01-40 |
+| [UC-M01-013 / main](#uc-m01-013-main-1) | Mở trang công khai hoặc liên kết trong luồng đăng ký. Trước: Không yêu cầu đăng nhập; không yêu cầu đồng ý trước khi xem. | 1 → 2 → 3; END: Hiển thị nội dung đúng phiên bản, đủ các mục/bốn nhóm dữ liệu theo BR-M01-42/43. | Hiển thị nội dung đúng phiên bản, đủ các mục/bốn nhóm dữ liệu theo BR-M01-42/43. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-15, BR-M01-42, BR-M01-43, BR-M01-46 |
+| [UC-M01-014 / main](#uc-m01-014-main-1) | Mở ứng dụng khi phiên bản hiện hành mới hơn phiên bản đã đồng ý, kể cả phiên đang có. Trước: Có tài khoản/phiên thuộc ngữ cảnh yêu cầu đồng ý lại; không áp đặt đã đồng ý bản mới làm tiền điều kiện. | 1 → 2 → 3; END: Lưu thời điểm và phiên bản đồng ý; cho tiếp tục trong quyền hiện có. | Lưu thời điểm và phiên bản đồng ý; cho tiếp tục trong quyền hiện có. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-16, BR-M01-44, BR-M01-45 |
+| [UC-M01-014 / A1](#uc-m01-014-alt-1) | Có tài khoản/phiên thuộc ngữ cảnh yêu cầu đồng ý lại; không áp đặt đã đồng ý bản mới làm tiền điều kiện. Guard kiểm trong luồng (không giả định đã đạt): Phiên bản không đổi và đã đồng ý | Rẽ bước 1 → END: dùng tiếp theo quyền | Không hỏi lại. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-16, BR-M01-44, BR-M01-45 |
+| [UC-M01-014 / A2](#uc-m01-014-alt-2) | Có tài khoản/phiên thuộc ngữ cảnh yêu cầu đồng ý lại; không áp đặt đã đồng ý bản mới làm tiền điều kiện. Guard kiểm trong luồng (không giả định đã đạt): Từ chối và chọn đăng xuất | Rẽ bước 2 → END: đăng xuất | UC-M01-006 kết thúc phiên; hỏi lại khi mở sau nếu chưa đồng ý. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-16, BR-M01-44, BR-M01-45 |
+| [UC-M01-014 / A3](#uc-m01-014-alt-3) | Có tài khoản/phiên thuộc ngữ cảnh yêu cầu đồng ý lại; không áp đặt đã đồng ý bản mới làm tiền điều kiện. Guard kiểm trong luồng (không giả định đã đạt): Từ chối và chọn vô hiệu hóa | Rẽ bước 2 → END: vô hiệu hóa nếu đủ điều kiện | UC-M01-009 xử lý điều kiện ACTIVE; không tự miễn điều kiện vô hiệu hóa. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-16, BR-M01-44, BR-M01-45 |
+| [UC-M01-015 / main](#uc-m01-015-main-1) | Guest chọn đăng nhập Google và email thuộc tài khoản đã có. Trước: Nhận được danh tính Google; trạng thái và xác minh được kiểm tra trong luồng. | 1 → 2 → 3 → 4; END: Phiên mới cho thiết bị và truy cập đúng kết quả cổng; liên kết/xác minh nếu đủ điều kiện. | Phiên mới cho thiết bị và truy cập đúng kết quả cổng; liên kết/xác minh nếu đủ điều kiện. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-04.04, FR-M01-04.06, FR-M01-04.08, FR-M01-04.11, BR-M01-09, BR-M01-18 |
+| [UC-M01-015 / A1](#uc-m01-015-alt-1) | Nhận được danh tính Google; trạng thái và xác minh được kiểm tra trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Email chưa thuộc tài khoản | Rẽ bước 1 → END: chuyển đăng ký | Chuyển hành trình tạo mới UC-M01-004 và điều kiện đồng ý/tạm dừng tạo mới. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-04.04, FR-M01-04.06, FR-M01-04.08, FR-M01-04.11, BR-M01-09, BR-M01-18 |
+| [UC-M01-015 / A2](#uc-m01-015-alt-2) | Nhận được danh tính Google; trạng thái và xác minh được kiểm tra trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Cổng từ chối | Rẽ bước 3 → END: từ chối | Không cho truy cập; không tự kích hoạt DEACTIVATED. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-04.04, FR-M01-04.06, FR-M01-04.08, FR-M01-04.11, BR-M01-09, BR-M01-18 |
+| [UC-M01-016 / main](#uc-m01-016-main-1) | Chủ tài khoản tự yêu cầu gửi lại ở EP-VERIFY-LINK. Trước: Tài khoản còn cần xác minh; đủ ít nhất 60 giây kể từ lần gửi trước. | 1 → 2 → 3; END: Gửi link mới qua M07; link xác minh trước mất hiệu lực; quay lại chờ mở link. | Gửi link mới qua M07; link xác minh trước mất hiệu lực; quay lại chờ mở link. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-02.04, FR-M01-02.05, FR-M01-02.07, BR-M01-11, BR-M01-38 |
+| [UC-M01-016 / A1](#uc-m01-016-alt-1) | Tài khoản còn cần xác minh; đủ ít nhất 60 giây kể từ lần gửi trước. Guard kiểm trong luồng (không giả định đã đạt): Chưa đủ 60 giây | Rẽ bước 1 → END: chưa gửi | Từ chối gửi lại. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-02.04, FR-M01-02.05, FR-M01-02.07, BR-M01-11, BR-M01-38 |
+| [UC-M01-017 / main](#uc-m01-017-main-1) | Tại EP-GOOGLE-LINK của UC-M01-015 khi email Google trùng email tài khoản email. Trước: Danh tính Google đã nhận; email khớp tài khoản email, đã xác minh hoặc chưa; actor là người khởi tạo đăng nhập, không có màn hình xác nhận riêng. | 1 → 2 → 3; END: Google được liên kết; NONE thành EMAIL_VERIFIED; gửi in-app và email; tiếp tục cổng đăng nhập. | Google được liên kết; NONE thành EMAIL_VERIFIED; gửi in-app và email; tiếp tục cổng đăng nhập. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-04.04, FR-M01-04.05, FR-M01-04.09, FR-M01-04.11, BR-M01-09, BR-M01-33 |
+| [UC-M01-017 / A1](#uc-m01-017-alt-1) | Danh tính Google đã nhận; email khớp tài khoản email, đã xác minh hoặc chưa; actor là người khởi tạo đăng nhập, không có màn hình xác nhận riêng. Guard kiểm trong luồng (không giả định đã đạt): Đang tạm dừng đăng ký mới | Rẽ bước 1 → 2 | Tại điểm quay lại: Vẫn cho liên kết vào tài khoản có sẵn; không tạo mới. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-04.04, FR-M01-04.05, FR-M01-04.09, FR-M01-04.11, BR-M01-09, BR-M01-33 |
+| [UC-M01-018 / main](#uc-m01-018-main-1) | Được UC-M01-005 hoặc UC-M01-015 gọi sau xác thực. Trước: Danh tính tài khoản đã được xác thực; trạng thái chưa được giả định là ACTIVE; actor kế thừa người khởi tạo đăng nhập. | 1 → 3 nếu ACTIVE → END kết quả theo mức xác minh; 1 → 2 nếu BANNED → END màn hình hạn chế; A1 từ chối không vào bước 2/3 | Cho truy cập đúng trạng thái/mức xác minh hoặc trả kết quả từ chối. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
+| [UC-M01-018 / A1](#uc-m01-018-alt-1) | Danh tính tài khoản đã được xác thực; trạng thái chưa được giả định là ACTIVE; actor kế thừa người khởi tạo đăng nhập. Guard kiểm trong luồng (không giả định đã đạt): Không ADMIN khi bảo trì, hoặc DELETED/DEACTIVATED | Rẽ bước 1 → END: từ chối | Từ chối đăng nhập; giữ nguyên trạng thái. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
+| [UC-M01-018 / A2](#uc-m01-018-alt-2) | Danh tính tài khoản đã được xác thực; trạng thái chưa được giả định là ACTIVE; actor kế thừa người khởi tạo đăng nhập. Guard kiểm trong luồng (không giả định đã đạt): Hết hạn khiếu nại | Rẽ bước 2 → END: màn hình bị khóa | Ẩn nút/thời gian khiếu nại; chỉ OK để đăng xuất. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-05.01, FR-M01-05.03, FR-M01-05.04, FR-M01-05.05, FR-M01-05.06, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, FR-M01-05.19, BR-M01-18, BR-M01-19, BR-M01-37 |
+| [UC-M01-019 / main](#uc-m01-019-main-1) | Chủ tài khoản mở link và gửi mật khẩu mới trong UC-M01-008. Trước: Có magic link đặt lại; không yêu cầu phiên đăng nhập trước đó; tài khoản email ACTIVE hoặc BANNED. | 1 → 2 → 3; END: Mật khẩu mới được lưu, link không dùng lại, mọi phiên cũ kết thúc, thiết bị hiện tại có phiên mới, gửi thông báo in-app/email. | Mật khẩu mới được lưu, link không dùng lại, mọi phiên cũ kết thúc, thiết bị hiện tại có phiên mới, gửi thông báo in-app/email. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M01-09.02, FR-M01-09.03, FR-M01-09.04, FR-M01-09.05, FR-M01-09.06, FR-M01-09.08, FR-M01-09.09, FR-M01-09.10, FR-M01-09.11, FR-M01-09.12, FR-M01-09.16, BR-M01-12, BR-M01-13, BR-M01-35, BR-M01-38, BR-M01-39 |
+| [UC-M01-019 / A1](#uc-m01-019-alt-1) | Có magic link đặt lại; không yêu cầu phiên đăng nhập trước đó; tài khoản email ACTIVE hoặc BANNED. Guard kiểm trong luồng (không giả định đã đạt): Link hết hạn/đã dùng/đã thay thế, nhập lại không khớp, mật khẩu sai độ dài hoặc trùng hiện tại | Rẽ bước 1 → END: chưa thay mật khẩu | Từ chối đặt lại. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-09.02, FR-M01-09.03, FR-M01-09.04, FR-M01-09.05, FR-M01-09.06, FR-M01-09.08, FR-M01-09.09, FR-M01-09.10, FR-M01-09.11, FR-M01-09.12, FR-M01-09.16, BR-M01-12, BR-M01-13, BR-M01-35, BR-M01-38, BR-M01-39 |
+
+### Vòng đời điểm cần làm rõ
+
+| ID | Nguồn/baseline | Vấn đề | UC/đường bị ảnh hưởng | Blocking/nonblocking và lý do | Người xác nhận | Register | Trạng thái/quyết định | Bằng chứng đóng/baseline cần cập nhật |
+|---|---|---|---|---|---|---|---|---|
+| NOTE-M01-01 | FR-M01 1.10; chi tiết/chứng cứ ở mục 5 | FR nhóm04 và DEC-010 cũ chỉ nhắc email đã xác minh; FR-M01-04.04/.09 và BR-M01-09 cho cả NONE. | FR nhóm04 và DEC-010 cũ chỉ nhắc email đã xác minh; FR-M01-04.04/.09 và BR-M01-09 cho cả NONE.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M01 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | Đã đối chiếu FR Phụ lục B, Q-06 = QA-297/DEC-147: vẫn liên kết và lên EMAIL_VERIFIED. Áp dụng nội dung chi tiết hiện hành; không sửa FR. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M01-02 | FR-M01 1.10; chi tiết/chứng cứ ở mục 5 | Giới hạn BANNED có ngoại lệ đặt lại mật khẩu. | Giới hạn BANNED có ngoại lệ đặt lại mật khẩu.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M01 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | FR-M01-09.16, BR-M01-39 cho reset để vào màn hình bị khóa; không coi reset là mở khóa. Đăng xuất/OK vẫn cho phép. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| TBD-M01-01 | FR-M01 1.10; chi tiết/chứng cứ ở mục 5 | Email liên hệ chính sách và cách yêu cầu bản sao dữ liệu chưa chốt. | UC-M01-013, RULE-M01-003; nội dung chính sách/đường yêu cầu dữ liệu | nonblocking: MS1 đã hoãn nội dung liên hệ/tải; không ảnh hưởng mô hình quyền đọc/đồng ý đang có | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | [OPEN-008](../../../.agents/.claude/system_analysis/output/registers/open-issues.md) (đã dẫn trong nguồn); đối chiếu FR-M01 Phụ lục B.2 | pending-confirmation / giữ giới hạn baseline | Chấp thuận địa chỉ/quy trình và cập nhật FR-M01; sau đó kiểm lại UC013/chính sách. Chưa có bằng chứng đóng. |
+| NOTE-M01-03 | FR-M01 1.10; chi tiết/chứng cứ ở mục 5 | Thứ tự xử lý Google link và các cổng | Thứ tự xử lý Google link và các cổng; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M01 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | FR mô tả link trước điều hướng; UC017 không cấp quyền dùng ứng dụng. Cổng018 luôn còn hiệu lực, không phát minh thêm prompt/xác nhận. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M01-04 | FR-M01 1.10; chi tiết/chứng cứ ở mục 5 | Không bổ sung xử lý lỗi kỹ thuật giao email/OAuth chưa được mô tả trong M01. | UC-M01-001, UC-M01-004, UC-M01-007, UC-M01-008, UC-M01-010, UC-M01-015, UC-M01-016, UC-M01-017, UC-M01-019; lỗi nhà cung cấp | nonblocking: không hứa retry/rollback ngoài baseline; đường kỹ thuật thiếu chưa được chốt trong scope này | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | đề xuất ghi [QA tại register](../../../.agents/.claude/system_analysis/output/registers/qa-log.md) khi cần quyết định nghiệp vụ | pending-confirmation / giữ giới hạn baseline | Chốt failure guarantee liên dịch vụ nếu tác động tài khoản/phiên, cập nhật owner FR-M01/M07; bằng chứng còn chờ. |
+
+Register có sẵn chỉ được nhắc khi nguồn đã dẫn; các dòng “đề xuất ghi QA” chưa được đăng vào register và không phải mã QA có thật. Không sửa FR/register trong lượt này. Khi có quyết định, cập nhật nguồn owner trước rồi rà lại luồng/trace/relation/view chịu tác động.
+
+### Ownership và tác động liên module
+
+Các cạnh UC–UC hiện khai báo trong bảng relation đều thuộc M01; không có cạnh liên module mới được thêm ở revision này. Nơi khai báo chính là US-M01 mục 4, baseline là bảng sources; các view detail có cả hai endpoint phải giữ cạnh theo đúng hướng. Giao tiếp dữ liệu/sự kiện ở mục 5 không tự tạo include/extend hoặc actor module. Mỗi FR normative vẫn phải Đã chốt.
+
+| Owner module / đặc tả chuẩn | Baseline bên cung cấp/nhận | UC cục bộ chịu tác động | Hợp đồng hai phía | Trạng thái đồng bộ / view chịu tác động |
+|---|---|---|---|---|
+| [M02 / owner](US-M02.md) | FR-M02 1.6 (normative) | UC-M01-003 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M03 / owner](US-M03.md) | FR-M03 1.10 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M04 / owner](US-M04.md) | FR-M04 1.4 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M05 / owner](US-M05.md) | FR-M05 1.7 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M06 / owner](US-M06.md) | FR-M06 1.5 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M07 / owner](US-M07.md) | FR-M07 1.5 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M08 / owner](US-M08.md) | FR-M08 1.7 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M09 / owner](US-M09.md) | FR-M09 1.2 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M10 / owner](US-M10.md) | FR-M10 1.4 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M11 / owner](US-M11.md) | FR-M11 1.3 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M12 / owner](US-M12.md) | FR-M12 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M13 / owner](US-M13.md) | FR-M13 1.3 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M14 / owner](US-M14.md) | FR-M14 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M15 / owner](US-M15.md) | FR-M15 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M16 / owner](US-M16.md) | FR-M16 1.0 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M01 cùng overview; chưa tuyên bố owner đã cập nhật. |
+
+Liên kết tổng quan: [US-overview](US-overview.md); tổng quan giữ UC chính/owner, phần không chọn vẫn truy về tài liệu module. Không khẳng định overview đã đồng bộ từ việc sửa module này.
+
+### Kiểm chứng revision hiện hành
+
+| Hạng mục | Phương pháp/lệnh | Kết quả revision 2.3 | Giới hạn |
+|---|---|---|---|
+| Điều kiện chuẩn tắc | Đọc toàn bộ tệp baseline bằng audit cục bộ, đối chiếu nội dung điều kiện FR chi tiết/BR owner đã được chép trong US | 219/219 điều kiện có nội dung chuẩn hóa khớp; source digest được lưu trước cập nhật | Khớp văn bản không chứng minh hợp đồng/luồng bao phủ ngữ nghĩa; walkthrough ở trên là lớp review riêng. |
+| Walkthrough | Đối chiếu hợp đồng/nguồn và từng anchor main/alt | 21 đường main + 38 nhánh đã có hồ sơ QA; không phát hiện blocker nghiệp vụ mới trong đường có nguồn | Không phải stakeholder duyệt; lỗi hạ tầng ngoài nguồn giữ giới hạn riêng. |
+| SVG hiện hữu | XML parse, nhãn ID/tên và tập node; đối chiếu mọi cạnh UC có hai endpoint trong từng view với bảng relations | 7/7 SVG hợp lệ; 0 lệch node/nhãn/cạnh UC | Không chạy renderer mới; giữ bằng chứng render lịch sử cho file không đổi, chưa kiểm hình trực quan mới tại revision này. Association/quyền còn phải đọc bảng và kế thừa actor. |
+| Checker | `python -B -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M01.md --final` | Exit 0, errors=0, warnings=1 (manual checks remain) | Chỉ chứng minh cấu trúc; không phải phê duyệt. |
+
+Báo cáo máy của phạm vi M01–M05: `.agents/.gpt/system_analysis/.work/us-v23-m01-m05/source-and-svg-audit.json` và `migration-report.json` (workspace, không phải artifact sơ đồ bàn giao). FR/skill/quy chuẩn tên không thay đổi bởi revision này.

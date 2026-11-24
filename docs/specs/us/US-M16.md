@@ -1,6 +1,6 @@
 # Phân tích use case — M16 Chat & Messaging
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3.
 
 Đầu ra: **4 UC chính, 20 UC con**, 26 mapping, 20 đặc tả chi tiết và 4 brief Summary; 25 include, 3 AUT, 8 RULE, truy vết 177 mã hiệu lực. Bàn giao 5 SVG: tổng quan module và một detail riêng mỗi core.
 
@@ -10,8 +10,9 @@
 | key | value |
 | --- | --- |
 | document_id | US-M16 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M16 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,10 +21,12 @@
 | approved_steps | - |
 | source_baseline | FR-M16 v1.0; FR-M01 v1.10; FR-M02 v1.6; FR-M07 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M13 v1.3 |
 | author | Codex |
-| date | 2026-11-02 |
-| approval_evidence | Người dùng cho phép tự thực hiện các bước cần thiết ở lượt M04 trong chuỗi module. Quyền làm liên tục không thay phê duyệt US-M16 hoặc kết quả từng bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | - |
+| semantic_review | pending |
 | diagram_check | pass |
+
+**Lịch sử trước migration 2.3:** các dòng dưới giữ nguyên bằng chứng đã ghi, không phải approved_steps của revision mới.
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
 | --- | --- | --- | --- | --- |
@@ -34,6 +37,21 @@
 | 5 | 177 trace/160 tiêu chí nguồn; 8 FR liên quan | Chưa duyệt | FR-M16 v1.0; FR-M01 v1.10; FR-M02 v1.6; FR-M07 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M13 v1.3 | Baseline đổi |
 | 6 | Đã render/kiểm hình 5 view; đủ node/26 cạnh và nhãn điều kiện, mỗi view một SVG | Chưa duyệt | PlantUML cục bộ | Mô hình/QA đổi |
 | 7 | Đã review nguồn/ngữ nghĩa/UML/truy vết/hình/link và giới hạn nguồn, hồ sơ Chờ duyệt | Chưa duyệt | Skill v2.2 | Phản hồi/nguồn đổi |
+
+
+### Revision 2.3 — 2026-11-24
+
+Người dùng yêu cầu cập nhật toàn bộ US theo skill 2.3 và cho phép làm liên tục bảy bước. Quyền thực hiện không phê duyệt kết quả; revision này giữ `approved_steps=-`, trạng thái **Chờ duyệt**. Bản trước ghi skill 2.2, approved_steps=-. Bằng chứng quyền thực hiện trước: Người dùng cho phép tự thực hiện các bước cần thiết ở lượt M04 trong chuỗi module. Quyền làm liên tục không thay phê duyệt US-M16 hoặc kết quả từng bước.
+
+| Bước | Công việc revision hiện tại | Trạng thái cổng |
+|---|---|---|
+| 1 | Đối chiếu baseline owner/normative, boundary và kiểm kê FR/BR đang dùng. | Đã review; chưa duyệt |
+| 2 | Rà goal/trigger/kết quả/phạm vi của core/sub tại bảng chất lượng 2.3. | Đã review; giữ các vấn đề ghi rõ |
+| 3 | Walkthrough main và từng alternative theo QA revision; không suy kết quả tại nhánh thiếu nguồn. | Đã review; các đường blocking chưa chốt |
+| 4 | Đối chiếu relation và association thực tế với SVG, không tạo cạnh từ decomposition. | Đã review mô hình hiện có |
+| 5 | Giữ trace chi tiết, phân vai nguồn và bổ sung vòng đời từng gap. | Đã review trong scope; không sửa FR/register |
+| 6 | Kiểm XML/node/association/quan hệ SVG hiện có; giữ artifact US-relative và render lịch sử riêng. | Root đã parse/render mới và so XML visual tree; xem UC-V23-REVIEW.md, không nhận đã xem mọi ảnh |
+| 7 | Chạy checker --final sau review, ghi lỗi/cảnh báo thật; semantic_review còn pending do đường blocking. | Review đã làm; chưa đạt cổng cuối |
 
 ## 1. Phạm vi, nguồn và tổng hợp
 
@@ -52,16 +70,19 @@
 | path | version | role |
 | --- | --- | --- |
 | docs/specs/fr/FR-M16.md | 1.0 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Ví dụ và US cũ không cung cấp tính năng; không sửa FR/register/US khác.
+
+
+**Quy chuẩn tên:** [UC-NAMING](UC-NAMING.md), ngày 2026-11-24, trạng thái **Chờ duyệt cách diễn đạt**; đây là đề xuất tên đang dùng, không tự trở thành quy chuẩn đã duyệt. Nguồn `owner` sở hữu hành vi; `normative` ràng buộc giao tiếp/quyền, đều phải Đã chốt đúng baseline.
 
 ### 1.1 Actor
 
@@ -119,30 +140,30 @@ Giữ ACT-001/002/007/008, bổ sung ACT-012/013/014 sau kiểm actor hiện có
 
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| UC-M16-030 | Bắt đầu và truy cập cuộc trò chuyện | core | Summary | ACT-002, ACT-012, ACT-014 | - | M16 | #uc-m16-030 | FR-M16-01, FR-M16-03, FR-M16-04, FR-M16-07, FR-M16-15 |
-| UC-M16-031 | Trao đổi và quản lý tin nhắn | core | Summary | ACT-012 | - | M16 | #uc-m16-031 | FR-M16-05, FR-M16-06, FR-M16-07, FR-M16-15 |
-| UC-M16-032 | Hình thành và mở rộng nhóm chat | core | Summary | ACT-002, ACT-012, ACT-013 | - | M16 | #uc-m16-032 | FR-M16-02, FR-M16-08, FR-M16-10, FR-M16-16, FR-M16-15 |
-| UC-M16-033 | Quản lý vòng đời nhóm chat | core | Summary | ACT-012, ACT-013 | - | M16 | #uc-m16-033 | FR-M16-09, FR-M16-11, FR-M16-12, FR-M16-13, FR-M16-14, FR-M16-17, FR-M16-15 |
-| UC-M16-001 | Bắt đầu hoặc mở lại trò chuyện 1-1 | sub | User goal | ACT-002 | - | M16 | #uc-m16-001 | FR-M16-01, BR-M16-01, BR-M16-02, BR-M16-24, BR-M16-25 |
+| UC-M16-030 | Bắt đầu và xem cuộc trò chuyện | core | Summary | ACT-002, ACT-012, ACT-014 | - | M16 | #uc-m16-030 | FR-M16-01, FR-M16-03, FR-M16-04, FR-M16-07, FR-M16-15 |
+| UC-M16-031 | Gửi và quản lý tin nhắn | core | Summary | ACT-012 | - | M16 | #uc-m16-031 | FR-M16-05, FR-M16-06, FR-M16-07, FR-M16-15 |
+| UC-M16-032 | Tạo nhóm chat và thêm thành viên | core | Summary | ACT-002, ACT-012, ACT-013 | - | M16 | #uc-m16-032 | FR-M16-02, FR-M16-08, FR-M16-10, FR-M16-16, FR-M16-15 |
+| UC-M16-033 | Quản lý nhóm chat | core | Summary | ACT-012, ACT-013 | - | M16 | #uc-m16-033 | FR-M16-09, FR-M16-11, FR-M16-12, FR-M16-13, FR-M16-14, FR-M16-17, FR-M16-15 |
+| UC-M16-001 | Mở trò chuyện riêng | sub | User goal | ACT-002 | - | M16 | #uc-m16-001 | FR-M16-01, BR-M16-01, BR-M16-02, BR-M16-24, BR-M16-25 |
 | UC-M16-002 | Xem hộp thư Chat | sub | User goal | ACT-002 | - | M16 | #uc-m16-002 | FR-M16-03, BR-M16-31, BR-M16-27 |
-| UC-M16-003 | Xem cuộc trò chuyện và lịch sử | sub | User goal | ACT-012, ACT-014 | - | M16 | #uc-m16-003 | FR-M16-04, BR-M16-17, BR-M16-26, BR-M16-27 |
+| UC-M16-003 | Xem lịch sử trò chuyện | sub | User goal | ACT-012, ACT-014 | - | M16 | #uc-m16-003 | FR-M16-04, BR-M16-17, BR-M16-26, BR-M16-27 |
 | UC-M16-004 | Gửi tin nhắn văn bản | sub | User goal | ACT-012 | - | M16 | #uc-m16-004 | FR-M16-05, FR-M16-01.02, BR-M16-08, BR-M16-09, BR-M16-21, BR-M16-25 |
-| UC-M16-005 | Thu hồi tin nhắn của mình | sub | User goal | ACT-012 | - | M16 | #uc-m16-005 | FR-M16-06, BR-M16-11, BR-M16-12, BR-M16-18 |
-| UC-M16-006 | Ghi mốc đã đọc của thành viên | sub | Subfunction | ACT-012 | - | M16 | #uc-m16-006 | FR-M16-07, BR-M16-13, BR-M16-14 |
-| UC-M16-007 | Suy ra trạng thái và người đã xem | sub | Subfunction | ACT-012 | - | M16 | #uc-m16-007 | FR-M16-07.06, FR-M16-07.07, FR-M16-07.08, FR-M16-07.09, FR-M16-06.09, BR-M16-15, BR-M16-16 |
+| UC-M16-005 | Thu hồi tin nhắn | sub | User goal | ACT-012 | - | M16 | #uc-m16-005 | FR-M16-06, BR-M16-11, BR-M16-12, BR-M16-18 |
+| UC-M16-006 | Ghi nhận tin nhắn đã đọc | sub | Subfunction | ACT-012 | - | M16 | #uc-m16-006 | FR-M16-07, BR-M16-13, BR-M16-14 |
+| UC-M16-007 | Hiển thị trạng thái xem tin nhắn | sub | Subfunction | ACT-012 | - | M16 | #uc-m16-007 | FR-M16-07.06, FR-M16-07.07, FR-M16-07.08, FR-M16-07.09, FR-M16-06.09, BR-M16-15, BR-M16-16 |
 | UC-M16-008 | Tạo nhóm chat | sub | User goal | ACT-002 | - | M16 | #uc-m16-008 | FR-M16-02, BR-M16-01, BR-M16-03, BR-M16-04, BR-M16-06, BR-M16-25, BR-M16-32 |
-| UC-M16-009 | Thêm hoặc đề nghị thêm thành viên | sub | User goal | ACT-012, ACT-013 | - | M16 | #uc-m16-009 | FR-M16-08, BR-M16-03, BR-M16-06, BR-M16-25, BR-M16-28 |
-| UC-M16-010 | Lấy link mời nhóm chat | sub | User goal | ACT-012 | - | M16 | #uc-m16-010 | FR-M16-08.10, FR-M16-08.11, FR-M16-08.12, FR-M16-08.13, BR-M16-29 |
-| UC-M16-011 | Xin gia nhập qua link mời | sub | User goal | ACT-002 | - | M16 | #uc-m16-011 | FR-M16-16, BR-M16-06, BR-M16-28, BR-M16-29 |
-| UC-M16-012 | Duyệt người chờ vào nhóm chat | sub | User goal | ACT-013 | - | M16 | #uc-m16-012 | FR-M16-10, BR-M16-03, BR-M16-05, BR-M16-06 |
+| UC-M16-009 | Thêm thành viên vào nhóm chat | sub | User goal | ACT-012, ACT-013 | - | M16 | #uc-m16-009 | FR-M16-08, BR-M16-03, BR-M16-06, BR-M16-25, BR-M16-28 |
+| UC-M16-010 | Lấy liên kết mời nhóm chat | sub | User goal | ACT-012 | - | M16 | #uc-m16-010 | FR-M16-08.10, FR-M16-08.11, FR-M16-08.12, FR-M16-08.13, BR-M16-29 |
+| UC-M16-011 | Xin tham gia nhóm chat qua liên kết | sub | User goal | ACT-002 | - | M16 | #uc-m16-011 | FR-M16-16, BR-M16-06, BR-M16-28, BR-M16-29 |
+| UC-M16-012 | Duyệt yêu cầu tham gia nhóm chat | sub | User goal | ACT-013 | - | M16 | #uc-m16-012 | FR-M16-10, BR-M16-03, BR-M16-05, BR-M16-06 |
 | UC-M16-013 | Bật hoặc tắt duyệt thành viên mới | sub | User goal | ACT-013 | - | M16 | #uc-m16-013 | FR-M16-09, BR-M16-06, BR-M16-33 |
-| UC-M16-014 | Xóa Member khỏi nhóm chat | sub | User goal | ACT-013 | - | M16 | #uc-m16-014 | FR-M16-11, FR-M16-14.03, BR-M16-05, BR-M16-27 |
+| UC-M16-014 | Xóa thành viên khỏi nhóm chat | sub | User goal | ACT-013 | - | M16 | #uc-m16-014 | FR-M16-11, FR-M16-14.03, BR-M16-05, BR-M16-27 |
 | UC-M16-015 | Đổi tên nhóm chat | sub | User goal | ACT-012 | - | M16 | #uc-m16-015 | FR-M16-12, BR-M16-05, BR-M16-32 |
-| UC-M16-016 | Chuyển quyền Admin nhóm chat | sub | User goal | ACT-013 | - | M16 | #uc-m16-016 | FR-M16-13, BR-M16-04, BR-M16-05, BR-M16-07, BR-M16-30 |
+| UC-M16-016 | Chuyển quyền quản trị nhóm chat | sub | User goal | ACT-013 | - | M16 | #uc-m16-016 | FR-M16-13, BR-M16-04, BR-M16-05, BR-M16-07, BR-M16-30 |
 | UC-M16-017 | Rời nhóm chat | sub | User goal | ACT-012, ACT-013 | - | M16 | #uc-m16-017 | FR-M16-14, BR-M16-03, BR-M16-07, BR-M16-27, BR-M16-28 |
-| UC-M16-018 | Kiểm tra quyền thực hiện thao tác Chat | sub | Subfunction | ACT-002, ACT-012, ACT-013, ACT-014 | - | M16 | #uc-m16-018 | FR-M16-03.02, FR-M16-03.03, FR-M16-04.08, FR-M16-05.06, FR-M16-15, BR-M16-02, BR-M16-05, BR-M16-22, BR-M16-23 |
-| UC-M16-019 | Kết nạp một Member vào nhóm chat | sub | Subfunction | ACT-002, ACT-012, ACT-013 | - | M16 | #uc-m16-019 | FR-M16-02.02, FR-M16-08.01, FR-M16-08.02, FR-M16-08.05, FR-M16-08.07, FR-M16-08.09, FR-M16-10.01, FR-M16-10.03, FR-M16-10.07, FR-M16-16.03, BR-M16-03, BR-M16-25, BR-M16-27 |
-| UC-M16-020 | Giải quyết hàng chờ khi tắt duyệt | sub | Subfunction | ACT-013, ACT-002 | - | M16 | #uc-m16-020 | FR-M16-09.03, FR-M16-09.04, FR-M16-17.02, BR-M16-33 |
+| UC-M16-018 | Kiểm tra quyền thao tác Chat | sub | Subfunction | ACT-002, ACT-012, ACT-013, ACT-014 | - | M16 | #uc-m16-018 | FR-M16-03.02, FR-M16-03.03, FR-M16-04.08, FR-M16-05.06, FR-M16-15, BR-M16-02, BR-M16-05, BR-M16-22, BR-M16-23 |
+| UC-M16-019 | Kết nạp thành viên vào nhóm chat | sub | Subfunction | ACT-002, ACT-012, ACT-013 | - | M16 | #uc-m16-019 | FR-M16-02.02, FR-M16-08.01, FR-M16-08.02, FR-M16-08.05, FR-M16-08.07, FR-M16-08.09, FR-M16-10.01, FR-M16-10.03, FR-M16-10.07, FR-M16-16.03, BR-M16-03, BR-M16-25, BR-M16-27 |
+| UC-M16-020 | Xử lý yêu cầu chờ khi tắt duyệt | sub | Subfunction | ACT-013, ACT-002 | - | M16 | #uc-m16-020 | FR-M16-09.03, FR-M16-09.04, FR-M16-17.02, BR-M16-33 |
 
 Core đều Summary đặt nhiều mục tiêu có trigger riêng vào bối cảnh giá trị. Sub User goal là công việc cụ thể; UC006/007/018/019/020 là Subfunction dùng chung/đáng đặc tả riêng. Tier độc lập level, không quota. Một sub dùng nhiều core giữ cùng ID.
 
@@ -203,12 +224,30 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 | D 08 | Tự động | AUT001/002/003 | Trigger/trước/sau/data rõ. | Clock/actor AI hoặc kế nhiệm M11. |
 | D 09 | Thiếu nguồn | NOTE mục 7.2 | Không tự chốt hành vi biên. | Pending trùng/receipt của cựu/reconnect/tie-break tự đặt. |
 
+
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+Không áp dụng cho mode module; tập core được tổng hợp tại [US-overview](US-overview.md).
+
+### Kiểm chất lượng goal/phân rã revision 2.3
+
+| Core | Actor/trigger/kết quả và đóng góp của sub | Quyết định và trade-off | Nguồn |
+|---|---|---|---|
+| UC-M16-030 (Summary) | Actor ACT-002, ACT-012, ACT-014; Summary truy cập cuộc của chính mình: sub001 mở riêng, sub002 tìm trong hộp thư, sub003 đọc lịch sử, sub018 kiểm quyền. Trigger/kết quả khác; không tự gửi tin khi mở. | Giữ 6 sub theo mapping: UC-M16-001, UC-M16-002, UC-M16-003, UC-M16-006, UC-M16-007, UC-M16-018. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M16-01, FR-M16-03, FR-M16-04, FR-M16-07, FR-M16-15 |
+| UC-M16-031 (Summary) | Actor ACT-012; Summary trao đổi và quản lý nội dung tin: sub004 gửi và sub005 thu hồi có ownership/thời hạn riêng, sub006/007 giữ mốc/receipt. Không gộp đọc và gửi vì mốc đọc cùng thay đổi. | Giữ 5 sub theo mapping: UC-M16-004, UC-M16-005, UC-M16-006, UC-M16-007, UC-M16-018. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M16-05, FR-M16-06, FR-M16-07, FR-M16-15 |
+| UC-M16-032 (Summary) | Actor ACT-002, ACT-012, ACT-013; Summary hình thành/mở rộng nhóm: tạo, thêm, link, xin, duyệt có trigger và quyền khác; sub019 kết nạp dùng chung, sub020 chỉ xử lý chờ khi tắt duyệt. Không coi link là quyền đọc lịch sử. | Giữ 7 sub theo mapping: UC-M16-008, UC-M16-009, UC-M16-010, UC-M16-011, UC-M16-012, UC-M16-018, UC-M16-019. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M16-02, FR-M16-08, FR-M16-10, FR-M16-16, FR-M16-15 |
+| UC-M16-033 (Summary) | Actor ACT-012, ACT-013; Summary quản lý vòng đời/tên/quản trị nhóm; sub013–017 là công việc độc lập, sub018/020 dùng lại. Chat Admin khác Admin hệ thống và Owner nhóm nội dung; không tự kế nhiệm kiểu M11. | Giữ 8 sub theo mapping: UC-M16-013, UC-M16-014, UC-M16-015, UC-M16-016, UC-M16-017, UC-M16-018, UC-M16-019, UC-M16-020. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M16-09, FR-M16-11, FR-M16-12, FR-M16-13, FR-M16-14, FR-M16-17, FR-M16-15 |
+
+Không có mapping 1:1 core–sub trong revision này. Đối chiếu level ở catalog/spec/brief/rationale; tier không quyết định level. Các sub có cùng caller vẫn được phân biệt bằng trigger/kết quả; mapping không tự tạo UML. Giữ ID và nhãn hiện có; không tạo mục tiêu mới để đủ hai tầng.
+
 ## 3. Đặc tả
 
 ### 3.1 UC chính
 
 <a id="uc-m16-030"></a>
-#### UC-M16-030 — Bắt đầu và truy cập cuộc trò chuyện
+#### UC-M16-030 — Bắt đầu và xem cuộc trò chuyện
 
 **Level:** Summary. **Primary:** ACT-002, ACT-012, ACT-014. **Subject:** iShare.
 
@@ -217,7 +256,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **UC con:** [UC-M16-001](#uc-m16-001), [UC-M16-002](#uc-m16-002), [UC-M16-003](#uc-m16-003), [UC-M16-006](#uc-m16-006), [UC-M16-007](#uc-m16-007), [UC-M16-018](#uc-m16-018). **Nguồn:** FR-M16-01, FR-M16-03, FR-M16-04, FR-M16-07, FR-M16-15. Các sub không bắt buộc chạy cùng một lần; mapping không tự tạo quan hệ.
 
 <a id="uc-m16-031"></a>
-#### UC-M16-031 — Trao đổi và quản lý tin nhắn
+#### UC-M16-031 — Gửi và quản lý tin nhắn
 
 **Level:** Summary. **Primary:** ACT-012. **Subject:** iShare.
 
@@ -226,7 +265,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **UC con:** [UC-M16-004](#uc-m16-004), [UC-M16-005](#uc-m16-005), [UC-M16-006](#uc-m16-006), [UC-M16-007](#uc-m16-007), [UC-M16-018](#uc-m16-018). **Nguồn:** FR-M16-05, FR-M16-06, FR-M16-07, FR-M16-15. Các sub không bắt buộc chạy cùng một lần; mapping không tự tạo quan hệ.
 
 <a id="uc-m16-032"></a>
-#### UC-M16-032 — Hình thành và mở rộng nhóm chat
+#### UC-M16-032 — Tạo nhóm chat và thêm thành viên
 
 **Level:** Summary. **Primary:** ACT-002, ACT-012, ACT-013. **Subject:** iShare.
 
@@ -235,7 +274,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **UC con:** [UC-M16-008](#uc-m16-008), [UC-M16-009](#uc-m16-009), [UC-M16-010](#uc-m16-010), [UC-M16-011](#uc-m16-011), [UC-M16-012](#uc-m16-012), [UC-M16-018](#uc-m16-018), [UC-M16-019](#uc-m16-019). **Nguồn:** FR-M16-02, FR-M16-08, FR-M16-10, FR-M16-16, FR-M16-15. Các sub không bắt buộc chạy cùng một lần; mapping không tự tạo quan hệ.
 
 <a id="uc-m16-033"></a>
-#### UC-M16-033 — Quản lý vòng đời nhóm chat
+#### UC-M16-033 — Quản lý nhóm chat
 
 **Level:** Summary. **Primary:** ACT-012, ACT-013. **Subject:** iShare.
 
@@ -246,7 +285,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 ### 3.2 UC con
 
 <a id="uc-m16-001"></a>
-#### UC-M16-001 — Bắt đầu hoặc mở lại trò chuyện 1-1
+#### UC-M16-001 — Mở trò chuyện riêng
 
 **Thuộc core:** UC-M16-030. **Nguồn:** FR-M16-01, BR-M16-01, BR-M16-02, BR-M16-24, BR-M16-25.
 
@@ -330,7 +369,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-003"></a>
-#### UC-M16-003 — Xem cuộc trò chuyện và lịch sử
+#### UC-M16-003 — Xem lịch sử trò chuyện
 
 **Thuộc core:** UC-M16-030. **Nguồn:** FR-M16-04, BR-M16-17, BR-M16-26, BR-M16-27.
 
@@ -417,7 +456,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-005"></a>
-#### UC-M16-005 — Thu hồi tin nhắn của mình
+#### UC-M16-005 — Thu hồi tin nhắn
 
 **Thuộc core:** UC-M16-031. **Nguồn:** FR-M16-06, BR-M16-11, BR-M16-12, BR-M16-18.
 
@@ -458,7 +497,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-006"></a>
-#### UC-M16-006 — Ghi mốc đã đọc của thành viên
+#### UC-M16-006 — Ghi nhận tin nhắn đã đọc
 
 **Thuộc core:** UC-M16-030, UC-M16-031. **Nguồn:** FR-M16-07, BR-M16-13, BR-M16-14.
 
@@ -499,7 +538,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-007"></a>
-#### UC-M16-007 — Suy ra trạng thái và người đã xem
+#### UC-M16-007 — Hiển thị trạng thái xem tin nhắn
 
 **Thuộc core:** UC-M16-030, UC-M16-031. **Nguồn:** FR-M16-07.06, FR-M16-07.07, FR-M16-07.08, FR-M16-07.09, FR-M16-06.09, BR-M16-15, BR-M16-16.
 
@@ -581,7 +620,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-009"></a>
-#### UC-M16-009 — Thêm hoặc đề nghị thêm thành viên
+#### UC-M16-009 — Thêm thành viên vào nhóm chat
 
 **Thuộc core:** UC-M16-032. **Nguồn:** FR-M16-08, BR-M16-03, BR-M16-06, BR-M16-25, BR-M16-28.
 
@@ -623,7 +662,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-010"></a>
-#### UC-M16-010 — Lấy link mời nhóm chat
+#### UC-M16-010 — Lấy liên kết mời nhóm chat
 
 **Thuộc core:** UC-M16-032. **Nguồn:** FR-M16-08.10, FR-M16-08.11, FR-M16-08.12, FR-M16-08.13, BR-M16-29.
 
@@ -662,7 +701,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-011"></a>
-#### UC-M16-011 — Xin gia nhập qua link mời
+#### UC-M16-011 — Xin tham gia nhóm chat qua liên kết
 
 **Thuộc core:** UC-M16-032. **Nguồn:** FR-M16-16, BR-M16-06, BR-M16-28, BR-M16-29.
 
@@ -704,7 +743,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-012"></a>
-#### UC-M16-012 — Duyệt người chờ vào nhóm chat
+#### UC-M16-012 — Duyệt yêu cầu tham gia nhóm chat
 
 **Thuộc core:** UC-M16-032. **Nguồn:** FR-M16-10, BR-M16-03, BR-M16-05, BR-M16-06.
 
@@ -787,7 +826,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-014"></a>
-#### UC-M16-014 — Xóa Member khỏi nhóm chat
+#### UC-M16-014 — Xóa thành viên khỏi nhóm chat
 
 **Thuộc core:** UC-M16-033. **Nguồn:** FR-M16-11, FR-M16-14.03, BR-M16-05, BR-M16-27.
 
@@ -866,7 +905,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-016"></a>
-#### UC-M16-016 — Chuyển quyền Admin nhóm chat
+#### UC-M16-016 — Chuyển quyền quản trị nhóm chat
 
 **Thuộc core:** UC-M16-033. **Nguồn:** FR-M16-13, BR-M16-04, BR-M16-05, BR-M16-07, BR-M16-30.
 
@@ -947,7 +986,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-018"></a>
-#### UC-M16-018 — Kiểm tra quyền thực hiện thao tác Chat
+#### UC-M16-018 — Kiểm tra quyền thao tác Chat
 
 **Thuộc core:** UC-M16-030, UC-M16-031, UC-M16-032, UC-M16-033. **Nguồn:** FR-M16-03.02, FR-M16-03.03, FR-M16-04.08, FR-M16-05.06, FR-M16-15, BR-M16-02, BR-M16-05, BR-M16-22, BR-M16-23.
 
@@ -988,7 +1027,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-019"></a>
-#### UC-M16-019 — Kết nạp một Member vào nhóm chat
+#### UC-M16-019 — Kết nạp thành viên vào nhóm chat
 
 **Thuộc core:** UC-M16-032, UC-M16-033. **Nguồn:** FR-M16-02.02, FR-M16-08.01, FR-M16-08.02, FR-M16-08.05, FR-M16-08.07, FR-M16-08.09, FR-M16-10.01, FR-M16-10.03, FR-M16-10.07, FR-M16-16.03, BR-M16-03, BR-M16-25, BR-M16-27.
 
@@ -1028,7 +1067,7 @@ Chưa có US-overview.md tại baseline; tổng hợp ngoài scope. Khi làm sau
 **Quy tắc:** [RULE-M16-001](#rule-m16-001), [RULE-M16-002](#rule-m16-002), [RULE-M16-003](#rule-m16-003), [RULE-M16-004](#rule-m16-004), [RULE-M16-005](#rule-m16-005), [RULE-M16-006](#rule-m16-006), [RULE-M16-007](#rule-m16-007), [RULE-M16-008](#rule-m16-008) theo ngữ cảnh. Giữ NOTE mục 7.2, không coi thiếu nguồn là quyền tự thêm hành vi.
 
 <a id="uc-m16-020"></a>
-#### UC-M16-020 — Giải quyết hàng chờ khi tắt duyệt
+#### UC-M16-020 — Xử lý yêu cầu chờ khi tắt duyệt
 
 **Thuộc core:** UC-M16-033. **Nguồn:** FR-M16-09.03, FR-M16-09.04, FR-M16-17.02, BR-M16-33.
 
@@ -2047,7 +2086,8 @@ Các include có điểm chèn/return của source, không nối vì tiền đi�
 
 ### 4.3 Association actor–UC
 
-| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 | --- | --- | --- | --- | --- |
 | ACT-002 | UC-M16-030 | Khởi phát/nhận kết quả mục tiêu phù hợp vai trò. | Theo quyền tài khoản/cờ và tư cách/vai trò trong chính cuộc; Admin nhóm chat khác Admin hệ thống. | FR-M16-01, FR-M16-03, FR-M16-04, FR-M16-07, FR-M16-15 |
 | ACT-012 | UC-M16-030 | Khởi phát/nhận kết quả mục tiêu phù hợp vai trò. | Theo quyền tài khoản/cờ và tư cách/vai trò trong chính cuộc; Admin nhóm chat khác Admin hệ thống. | FR-M16-01, FR-M16-03, FR-M16-04, FR-M16-07, FR-M16-15 |
@@ -2204,8 +2244,8 @@ Mỗi UC/bước/nhánh/AUT/RULE/quan hệ có nguồn. Từng mã M16 có một
 | FR-M16-03.01 | #uc-m16-002-main-1, #uc-m16-002-main-3, #owner-fr-m16-03-01 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
 | FR-M16-03.02 | #uc-m16-002-alt-1, #uc-m16-018-main-1, #uc-m16-018-alt-1, #owner-fr-m16-03-02 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
 | FR-M16-03.03 | #uc-m16-002-main-2, #uc-m16-002-alt-1, #uc-m16-018-main-1, #uc-m16-018-alt-1, #owner-fr-m16-03-03 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
-| FR-M16-03.04 | #uc-m16-002-main-3, #uc-m16-002-main-4, #owner-fr-m16-03-04 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
-| FR-M16-03.05 | #uc-m16-002-main-4, #owner-fr-m16-03-05 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
+| FR-M16-03.04 | #uc-m16-002-main-3, #uc-m16-002-main-4, #owner-fr-m16-03-04 | Một phần | NOTE-M16-02/03/05: giữ phần có nguồn; nhóm chưa có tin chưa có last-message order/preview, và mốc/receipt của cựu thành viên trong cutoff chưa được hợp đồng hiện tại kết luận đầy đủ. |
+| FR-M16-03.05 | #uc-m16-002-main-4, #owner-fr-m16-03-05 | Một phần | NOTE-M16-02/03/05: giữ phần có nguồn; nhóm chưa có tin chưa có last-message order/preview, và mốc/receipt của cựu thành viên trong cutoff chưa được hợp đồng hiện tại kết luận đầy đủ. |
 | FR-M16-03.06 | #uc-m16-002-main-3, #uc-m16-002-main-5, #owner-fr-m16-03-06 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
 | FR-M16-03.07 | #uc-m16-002-main-3, #uc-m16-002-alt-2, #owner-fr-m16-03-07 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
 | FR-M16-03.08 | #uc-m16-002-main-1, #uc-m16-002-main-4, #owner-fr-m16-03-08 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
@@ -2253,7 +2293,7 @@ Mỗi UC/bước/nhánh/AUT/RULE/quan hệ có nguồn. Từng mã M16 có một
 | FR-M16-07.07 | #uc-m16-006-main-4, #uc-m16-007-main-2, #owner-fr-m16-07-07 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
 | FR-M16-07.08 | #uc-m16-006-main-4, #uc-m16-007-main-3, #owner-fr-m16-07-08 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
 | FR-M16-07.09 | #uc-m16-006-main-4, #uc-m16-007-main-4, #owner-fr-m16-07-09 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
-| FR-M16-07.10 | #uc-m16-006-main-5, #owner-fr-m16-07-10 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
+| FR-M16-07.10 | #uc-m16-006-main-5, #owner-fr-m16-07-10 | Một phần | NOTE-M16-02/03/05: giữ phần có nguồn; nhóm chưa có tin chưa có last-message order/preview, và mốc/receipt của cựu thành viên trong cutoff chưa được hợp đồng hiện tại kết luận đầy đủ. |
 | FR-M16-07.11 | #uc-m16-006-main-1, #uc-m16-006-main-2, #owner-fr-m16-07-11 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
 | FR-M16-08.01 | #uc-m16-009-main-1, #uc-m16-009-main-4, #owner-fr-m16-08-01 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
 | FR-M16-08.02 | #uc-m16-009-main-4, #owner-fr-m16-08-02 | Đủ | Hành vi/điều kiện/nhánh được đặc tả tại đích; tiêu chí nguyên văn đối chiếu từng mã, không thay luồng bằng nhãn. |
@@ -2326,7 +2366,7 @@ Mỗi UC/bước/nhánh/AUT/RULE/quan hệ có nguồn. Từng mã M16 có một
 | BR-M16-12 | #rule-m16-004, #rule-m16-005, #owner-br-m16-12 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
 | BR-M16-13 | #rule-m16-005, #owner-br-m16-13 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
 | BR-M16-14 | #rule-m16-005, #owner-br-m16-14 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
-| BR-M16-15 | #rule-m16-005, #owner-br-m16-15 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
+| BR-M16-15 | #rule-m16-005, #owner-br-m16-15 | Một phần | NOTE-M16-02/03/05: giữ phần có nguồn; nhóm chưa có tin chưa có last-message order/preview, và mốc/receipt của cựu thành viên trong cutoff chưa được hợp đồng hiện tại kết luận đầy đủ. |
 | BR-M16-16 | #rule-m16-005, #owner-br-m16-16 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
 | BR-M16-17 | #rule-m16-003, #owner-br-m16-17 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
 | BR-M16-18 | #rule-m16-004, #owner-br-m16-18 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
@@ -2342,7 +2382,7 @@ Mỗi UC/bước/nhánh/AUT/RULE/quan hệ có nguồn. Từng mã M16 có một
 | BR-M16-28 | #rule-m16-006, #owner-br-m16-28 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
 | BR-M16-29 | #rule-m16-006, #owner-br-m16-29 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
 | BR-M16-30 | #rule-m16-007, #owner-br-m16-30 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
-| BR-M16-31 | #rule-m16-003, #owner-br-m16-31 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
+| BR-M16-31 | #rule-m16-003, #owner-br-m16-31 | Một phần | NOTE-M16-02/03/05: giữ phần có nguồn; nhóm chưa có tin chưa có last-message order/preview, và mốc/receipt của cựu thành viên trong cutoff chưa được hợp đồng hiện tại kết luận đầy đủ. |
 | BR-M16-32 | #rule-m16-006, #owner-br-m16-32 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
 | BR-M16-33 | #rule-m16-008, #owner-br-m16-33 | Đủ | Quy tắc có hợp đồng/bước/nhánh hoặc tác vụ thực hiện và ví dụ biên, không chỉ gắn nhãn đã bao phủ. |
 
@@ -2381,7 +2421,7 @@ Chỉ core; current/former/Admin nhóm chat là vai trò có guard, không cấp
 
 ### 6.2 Chi tiết riêng từng core
 
-#### 6.2.1 UC-M16-030 — Bắt đầu và truy cập cuộc trò chuyện
+#### 6.2.1 UC-M16-030 — Bắt đầu và xem cuộc trò chuyện
 
 **Focus:** UC-M16-030. **Node:** UC-M16-030, UC-M16-001, UC-M16-002, UC-M16-003, UC-M16-006, UC-M16-007, UC-M16-018. **Cạnh UC–UC:** 6.
 
@@ -2398,7 +2438,7 @@ Chỉ core; current/former/Admin nhóm chat là vai trò có guard, không cấp
 
 Core Summary giữ node và mapping, không ép cạnh trực tiếp core–sub. Các cạnh sub–sub được giữ đủ, actor/gate đúng điều kiện; cặp không cạnh xem mục 4.4.
 
-#### 6.2.2 UC-M16-031 — Trao đổi và quản lý tin nhắn
+#### 6.2.2 UC-M16-031 — Gửi và quản lý tin nhắn
 
 **Focus:** UC-M16-031. **Node:** UC-M16-031, UC-M16-004, UC-M16-005, UC-M16-006, UC-M16-007, UC-M16-018. **Cạnh UC–UC:** 4.
 
@@ -2413,7 +2453,7 @@ Core Summary giữ node và mapping, không ép cạnh trực tiếp core–sub.
 
 Core Summary giữ node và mapping, không ép cạnh trực tiếp core–sub. Các cạnh sub–sub được giữ đủ, actor/gate đúng điều kiện; cặp không cạnh xem mục 4.4.
 
-#### 6.2.3 UC-M16-032 — Hình thành và mở rộng nhóm chat
+#### 6.2.3 UC-M16-032 — Tạo nhóm chat và thêm thành viên
 
 **Focus:** UC-M16-032. **Node:** UC-M16-032, UC-M16-008, UC-M16-009, UC-M16-010, UC-M16-011, UC-M16-012, UC-M16-018, UC-M16-019. **Cạnh UC–UC:** 9.
 
@@ -2433,7 +2473,7 @@ Core Summary giữ node và mapping, không ép cạnh trực tiếp core–sub.
 
 Core Summary giữ node và mapping, không ép cạnh trực tiếp core–sub. Các cạnh sub–sub được giữ đủ, actor/gate đúng điều kiện; cặp không cạnh xem mục 4.4.
 
-#### 6.2.4 UC-M16-033 — Quản lý vòng đời nhóm chat
+#### 6.2.4 UC-M16-033 — Quản lý nhóm chat
 
 **Focus:** UC-M16-033. **Node:** UC-M16-033, UC-M16-013, UC-M16-014, UC-M16-015, UC-M16-016, UC-M16-017, UC-M16-018, UC-M16-019, UC-M16-020. **Cạnh UC–UC:** 7.
 
@@ -2461,13 +2501,13 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau lấy nguyên bố
 
 | id | view | focus | members | format | renderer | result | artifact |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| C-M16 | core | - | UC-M16-030, UC-M16-031, UC-M16-032, UC-M16-033 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M16/C-M16.svg |
-| D-M16-030 | detail | UC-M16-030 | UC-M16-030, UC-M16-001, UC-M16-002, UC-M16-003, UC-M16-006, UC-M16-007, UC-M16-018 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M16/D-M16-030.svg |
-| D-M16-031 | detail | UC-M16-031 | UC-M16-031, UC-M16-004, UC-M16-005, UC-M16-006, UC-M16-007, UC-M16-018 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M16/D-M16-031.svg |
-| D-M16-032 | detail | UC-M16-032 | UC-M16-032, UC-M16-008, UC-M16-009, UC-M16-010, UC-M16-011, UC-M16-012, UC-M16-018, UC-M16-019 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M16/D-M16-032.svg |
-| D-M16-033 | detail | UC-M16-033 | UC-M16-033, UC-M16-013, UC-M16-014, UC-M16-015, UC-M16-016, UC-M16-017, UC-M16-018, UC-M16-019, UC-M16-020 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M16/D-M16-033.svg |
+| C-M16 | core | - | UC-M16-030, UC-M16-031, UC-M16-032, UC-M16-033 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M16/C-M16.svg |
+| D-M16-030 | detail | UC-M16-030 | UC-M16-030, UC-M16-001, UC-M16-002, UC-M16-003, UC-M16-006, UC-M16-007, UC-M16-018 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M16/D-M16-030.svg |
+| D-M16-031 | detail | UC-M16-031 | UC-M16-031, UC-M16-004, UC-M16-005, UC-M16-006, UC-M16-007, UC-M16-018 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M16/D-M16-031.svg |
+| D-M16-032 | detail | UC-M16-032 | UC-M16-032, UC-M16-008, UC-M16-009, UC-M16-010, UC-M16-011, UC-M16-012, UC-M16-018, UC-M16-019 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M16/D-M16-032.svg |
+| D-M16-033 | detail | UC-M16-033 | UC-M16-033, UC-M16-013, UC-M16-014, UC-M16-015, UC-M16-016, UC-M16-017, UC-M16-018, UC-M16-019, UC-M16-020 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M16/D-M16-033.svg |
 
-### 7.1 Bằng chứng kiểm tra
+### 7.1 Bằng chứng kiểm tra lịch sử 2.2 (không phải lần kiểm 2.3)
 
 | Hạng mục | Lệnh/phương pháp | Kết quả thực tế | Giới hạn/bằng chứng |
 | --- | --- | --- | --- |
@@ -2496,3 +2536,115 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau lấy nguyên bố
 
 Chưa có US-M16 trước lượt này; không đổi ID đã duyệt. Giữ actor cũ, thêm ACT-012/013/014 độc lập GroupM 11. Hoàn tất bước 7 chỉ Chờ duyệt; không ghi approved_steps hoặc Đã duyệt nếu chưa có chấp nhận thật.
 
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+
+### 7.4 Walkthrough từng đường đi — revision 2.3
+
+Bảng dưới ghi riêng main và mỗi nhánh của từng hợp đồng, dùng trạng thái/guard thực tế. “Đối chiếu” chỉ áp phần nguồn đã định; các NOTE nêu rõ phần chưa thể kết luận. Một END ghi cần làm rõ không phải failure guarantee đã chốt.
+
+| UC/đường đi | Trạng thái/quyền trước | Điểm rẽ và return/END | Postcondition thực tế/giới hạn | Nguồn/kết quả |
+|---|---|---|---|---|
+| UC-M16-001/[main](#uc-m16-001-main-1) | Trigger: Người dùng chọn nhắn tin cho người khác, có thể từ nút hồ sơ M02. Trước: Nhận người gọi/người nhận; phiên/trạng thái/cờ kiểm trong luồng, không yêu cầu theo dõi hoặc cùng Group. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Mở cuộc duy nhất của cặp, đúng hai thành viên; cuộc cũ giữ toàn bộ lịch sử, cuộc mới chưa cần người nhận chấp nhận. | FR-M16-01.02, FR-M16-03.07, BR-M16-31; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-001/[A 1](#uc-m16-001-alt-1) | Nhận người gọi/người nhận; phiên/trạng thái/cờ kiểm trong luồng, không yêu cầu theo dõi hoặc cùng Group. Guard: Guest hoặc không qua cổng tài khoản/cờ | Rẽ [Bước2](#uc-m16-001-main-2); END: không bắt đầu 1-1. | UC018 từ chối; không tạo hoặc mở cuộc. | FR-M16-01.03, FR-M16-03.03, FR-M16-15.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-001/[A 2](#uc-m16-001-alt-2) | Nhận người gọi/người nhận; phiên/trạng thái/cờ kiểm trong luồng, không yêu cầu theo dõi hoặc cùng Group. Guard: Người nhận là chính người gọi | Rẽ [Bước3](#uc-m16-001-main-3); END: không có cuộc mới. | Từ chối, không tạo cuộc tự nhắn. | FR-M16-01.06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-001/[A 3](#uc-m16-001-alt-3) | Nhận người gọi/người nhận; phiên/trạng thái/cờ kiểm trong luồng, không yêu cầu theo dõi hoặc cùng Group. Guard: Chưa có cuộc và người nhận BANNED/DEACTIVATED/DELETED | Rẽ [Bước3](#uc-m16-001-main-3); END: không tạo 1-1. | Từ chối bắt đầu mới; không lấy quyền gửi vào cuộc cũ làm quyền tạo cuộc mới. | FR-M16-01.07, BR-M16-25; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-001/[A 4](#uc-m16-001-alt-4) | Nhận người gọi/người nhận; phiên/trạng thái/cờ kiểm trong luồng, không yêu cầu theo dõi hoặc cùng Group. Guard: Đã có cuộc với người nhận đang ban/vô hiệu hóa/đã xóa | Rẽ [Bước3](#uc-m16-001-main-3); [Trở về bước](#uc-m16-001-main-4) | Mở cuộc cũ theo UC003; việc gửi sau đó do UC004: ban/vô hiệu hóa được, DELETED không. | FR-M16-01.05, FR-M16-05.13, FR-M16-05.14, BR-M16-25; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-002/[main](#uc-m16-002-main-1) | Trigger: Người dùng mở hộp thư hoặc cuộn xuống tải tiếp. Trước: Có yêu cầu của người xem; quyền kiểm trong luồng. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Trả tối đa 20 cuộc/lần, cả nhóm là cựu thành viên, mới trước theo tin được thấy; không liệt kê cuộc người khác hoặc 1-1 rỗng. | FR-M16-03.06, FR-M16-07.10, BR-M16-31; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-002/[A 1](#uc-m16-002-alt-1) | Có yêu cầu của người xem; quyền kiểm trong luồng. Guard: Guest/BANNED hoặc Chat tắt với người không phải Admin hệ thống | Rẽ [Bước2](#uc-m16-002-main-2); END: không trả hộp thư. | Từ chối theo UC018; lối vào/số chưa đọc M07 vẫn theo cờ, không xóa dữ liệu. | FR-M16-03.02, FR-M16-03.03, FR-M16-15.01, FR-M16-15.07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-002/[A 2](#uc-m16-002-alt-2) | Có yêu cầu của người xem; quyền kiểm trong luồng. Guard: Không có cuộc hợp lệ hoặc chỉ có 1-1 rỗng | Rẽ [Bước3](#uc-m16-002-main-3); END: không có dòng để trả. | Trả tập rỗng; nguồn chưa chốt nội dung trạng thái rỗng/CTA (NOTE-M16-01). | FR-M16-03.07, BR-M16-31; pending-confirmation: NOTE-M16-01 |
+| UC-M16-003/[main](#uc-m16-003-main-1) | Trigger: Mở cuộc hợp lệ hoặc cuộn lên tới tin cũ nhất đang tải. Trước: Có ID cuộc/người xem và trạng thái tư cách; quyền/trạng thái/cờ kiểm trong luồng. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Thành viên hiện tại xem toàn bộ từ tin đầu, kể cả mới vào/vào lại; cựu chỉ lịch sử trước lúc rời; mỗi lần 20 tin, tin mới và vị trí đọc đúng nguồn. | FR-M16-04.05, FR-M16-04.06, FR-M16-04.09, FR-M07-07.06, BR-M16-16; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-003/[A 1](#uc-m16-003-alt-1) | Có ID cuộc/người xem và trạng thái tư cách; quyền/trạng thái/cờ kiểm trong luồng. Guard: Không là thành viên/cựu của cuộc, kể cả Mod/Admin hệ thống | Rẽ [Bước2](#uc-m16-003-main-2); END: không hiện lịch sử. | Từ chối. Vai trò hệ thống không cấp quyền đọc chat của người khác. | FR-M16-04.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-003/[A 2](#uc-m16-003-alt-2) | Có ID cuộc/người xem và trạng thái tư cách; quyền/trạng thái/cờ kiểm trong luồng. Guard: Cựu thành viên nhóm | Rẽ [Bước3](#uc-m16-003-main-3); [Trở về bước](#uc-m16-003-main-5) | Chỉ đọc tin gửi trước cutoff rời/bị xóa, không thấy tin sau; không gửi/đổi tên/thêm người/thu hồi theo phạm vi chỉ đọc. Mốc/receipt cho cựu chưa được nguồn mô tả đủ, NOTE-M16-03. | FR-M16-04.10, BR-M16-27; pending-confirmation: NOTE-M16-03 |
+| UC-M16-003/[A 3](#uc-m16-003-alt-3) | Có ID cuộc/người xem và trạng thái tư cách; quyền/trạng thái/cờ kiểm trong luồng. Guard: Cuộc chưa có tin hoặc đã tải tới tin đầu | Rẽ [Bước3](#uc-m16-003-main-3); END: đã trả hết phần lịch sử hợp lệ. | Hiện tập hợp lệ rỗng hoặc dừng tải cũ; không dựng tin/mốc giả. | FR-M16-04.03, BR-M16-17; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-003/[A 4](#uc-m16-003-alt-4) | Có ID cuộc/người xem và trạng thái tư cách; quyền/trạng thái/cờ kiểm trong luồng. Guard: Tin mới tới khi cửa sổ ẩn hoặc đang cuộn lên | Rẽ [Bước5](#uc-m16-003-main-5); END: lịch sử và vị trí đọc được giữ. | Không tự kéo xuống/ghi đã đọc cho tin mới; đợi cửa sổ hiển thị lại/đến cuối theo UC006 và AUT003. | FR-M16-04.06, FR-M16-07.03, FR-M16-07.04, BR-M16-14; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-004/[main](#uc-m16-004-main-1) | Trigger: Thành viên gửi nội dung trong cuộc. Trước: Có người gửi/cuộc/nội dung; quyền và giới hạn kiểm trong luồng. | 1 → 2 → 3 → 4 → 5 → 6; END: kết quả thành công theo hợp đồng. | Tin được ghi với người gửi/thời điểm hệ thống nhận, mốc người gửi cập nhật, giao thời gian thực và sự kiện M07; dữ liệu giữ vĩnh viễn. | FR-M16-05.02, FR-M16-05.03, BR-M16-16, BR-M16-21, BR-M07-02, BR-M07-08; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-004/[A 1](#uc-m16-004-alt-1) | Có người gửi/cuộc/nội dung; quyền và giới hạn kiểm trong luồng. Guard: Không là thành viên hiện tại, kể cả cựu/Guest/Mod/Admin ngoài cuộc | Rẽ [Bước2](#uc-m16-004-main-2); END: không nhận tin gửi. | Từ chối gửi theo UC018. | FR-M16-05.06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-004/[A 2](#uc-m16-004-alt-2) | Có người gửi/cuộc/nội dung; quyền và giới hạn kiểm trong luồng. Guard: Ảnh/tệp hoặc tin trống/chỉ trắng hoặc hơn 1.000 từ | Rẽ [Bước3](#uc-m16-004-main-3); END: không ghi tin không hợp lệ. | Từ chối nội dung không hợp lệ, không quét AI thay kiểm tra. | FR-M16-05.04, FR-M16-05.11, FR-M16-05.12; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-004/[A 3](#uc-m16-004-alt-3) | Có người gửi/cuộc/nội dung; quyền và giới hạn kiểm trong luồng. Guard: Đã gửi 30 tin trong cửa sổ trượt của cùng cuộc | Rẽ [Bước3](#uc-m16-004-main-3); END: bị giới hạn gửi. | Từ chối tin kế tiếp, báo đã gửi quá nhanh; câu chữ do thiết kế. Cuộc khác có cửa sổ riêng, không đặt rate-limit toàn tài khoản. | FR-M16-05.05, BR-M16-09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-004/[A 4](#uc-m16-004-alt-4) | Có người gửi/cuộc/nội dung; quyền và giới hạn kiểm trong luồng. Guard: Người nhận 1-1 đã DELETED | Rẽ [Bước3](#uc-m16-004-main-3); END: không có tin mới. | Từ chối gửi; lịch sử cuộc cũ vẫn được xem theo quyền. | FR-M16-05.13, BR-M16-25; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-005/[main](#uc-m16-005-main-1) | Trigger: Người gửi chọn thu hồi tin của mình. Trước: Nhận tin/người gọi; tư cách, quyền sở hữu, thời hạn kiểm trong luồng. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Tin gắn cờ, gốc giữ nhưng không ai đọc được ở MS1; placeholder đúng vị trí được cập nhật ngay, tin cuối vẫn mang trạng thái. | FR-M16-06.08, FR-M16-06.09, BR-M16-12; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-005/[A 1](#uc-m16-005-alt-1) | Nhận tin/người gọi; tư cách, quyền sở hữu, thời hạn kiểm trong luồng. Guard: Không phải người gửi hoặc tin đã thu hồi | Rẽ [Bước3](#uc-m16-005-main-3); END: không có thu hồi mới. | Từ chối, không xóa nội dung gốc/đổi dữ liệu lần nữa. | FR-M16-06.04, FR-M16-06.06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-005/[A 2](#uc-m16-005-alt-2) | Nhận tin/người gọi; tư cách, quyền sở hữu, thời hạn kiểm trong luồng. Guard: Đã quá 5 phút | Rẽ [Bước3](#uc-m16-005-main-3); END: hết quyền thu hồi theo hạn. | Từ chối. Đúng 5 phút còn được; cờ tắt không dừng đồng hồ hoặc gia hạn khi bật lại. | FR-M16-06.03, FR-M16-15.08, BR-M16-11, BR-M16-23; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-006/[main](#uc-m16-006-main-1) | Trigger: Mở cuộc; gửi tin; tin mới tới khi đang xem cuối; cửa sổ hiện lại/đọc xuống cuối theo AUT003. Trước: Đã xác định thành viên hiện tại và tin ứng viên được phép đọc; không dùng mốc giả cho cuộc rỗng. Trường hợp cựu xem NOTE-M16-03. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Mốc là tin mới hơn giữa mốc cũ/tin vừa đọc, sender lên tin vừa gửi, receipt và dữ liệu M07 cập nhật đúng quyền. | FR-M16-07.10, FR-M07-07.02; đối chiếu đường thành công có dữ liệu/quyền hợp lệ; giới hạn NOTE-M16-03 |
+| UC-M16-006/[A 1](#uc-m16-006-alt-1) | Đã xác định thành viên hiện tại và tin ứng viên được phép đọc; không dùng mốc giả cho cuộc rỗng. Trường hợp cựu xem NOTE-M16-03. Guard: Cửa sổ ẩn hoặc đang cuộn lên đọc cũ khi nhận tin mới | Rẽ [Bước2](#uc-m16-006-main-2); END: chưa đánh dấu tin mới đã đọc. | Hoãn ghi; hiện lại/đến cuối là sự kiện AUT003 xét tiếp, không tự cuộn xuống. | FR-M16-07.03, FR-M16-07.04, BR-M16-14; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-006/[A 2](#uc-m16-006-alt-2) | Đã xác định thành viên hiện tại và tin ứng viên được phép đọc; không dùng mốc giả cho cuộc rỗng. Trường hợp cựu xem NOTE-M16-03. Guard: Ứng viên không mới hơn mốc đã có | Rẽ [Bước3](#uc-m16-006-main-3); [Trở về bước](#uc-m16-006-main-4) | Giữ mốc mới hơn, không làm xuất hiện chưa đọc lại vì mốc lùi. | FR-M16-07.05, BR-M16-13; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-007/[main](#uc-m16-007-main-1) | Trigger: UC006 cần dữ liệu receipt; mở view/có tin hoặc thu hồi mới nhất cần trình bày lại theo AUT002. Trước: Có tin mới nhất/mốc từng thành viên và người xem hiện tại hợp lệ. Phạm vi cựu thành viên xem NOTE-M16-03. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Đã gửi nếu chưa ai khác sender đọc tới; Đã xem nếu đã có; avatar loại sender và người đang xem, cũ hơn không trạng thái. | FR-M16-07.09, BR-M16-16; đối chiếu đường thành công có dữ liệu/quyền hợp lệ; giới hạn NOTE-M16-03 |
+| UC-M16-007/[A 1](#uc-m16-007-alt-1) | Có tin mới nhất/mốc từng thành viên và người xem hiện tại hợp lệ. Phạm vi cựu thành viên xem NOTE-M16-03. Guard: Không có tin trong cuộc | Rẽ [Bước1](#uc-m16-007-main-1); END: không receipt khi chưa có tin. | Không tạo tin/state/mốc giả để trình bày receipt. | BR-M16-15, FR-M16-03.07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-007/[A 2](#uc-m16-007-alt-2) | Có tin mới nhất/mốc từng thành viên và người xem hiện tại hợp lệ. Phạm vi cựu thành viên xem NOTE-M16-03. Guard: Người đang xem là người duy nhất khác sender đã đọc | Rẽ [Bước3](#uc-m16-007-main-3); [Trở về bước](#uc-m16-007-main-4) | Trạng thái vẫn Đã xem dù avatar người xem bị loại và có thể không còn avatar để hiện; không lưu Đã gửi chỉ vì danh sách rỗng. | FR-M16-07.06, BR-M16-15; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-008/[main](#uc-m16-008-main-1) | Trigger: Người dùng chọn tạo nhóm, đặt tên và chọn người khác. Trước: Có yêu cầu tạo/tập người được chọn; kiểm quyền và dữ liệu trong luồng, không đòi theo dõi/cùng Group. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Nhóm có người tạo làm Admin nhóm chat, người chọn hợp lệ làm Member, duyệt mặc định Tắt; từ 3 đến 100 người lúc tạo. | FR-M16-08.13, BR-M16-27, BR-M16-29; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-008/[A 1](#uc-m16-008-alt-1) | Có yêu cầu tạo/tập người được chọn; kiểm quyền và dữ liệu trong luồng, không đòi theo dõi/cùng Group. Guard: Guest hoặc không qua UC018 | Rẽ [Bước2](#uc-m16-008-main-2); END: không tạo nhóm theo yêu cầu. | Từ chối tạo nhóm. | FR-M16-02.06, FR-M16-15.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-008/[A 2](#uc-m16-008-alt-2) | Có yêu cầu tạo/tập người được chọn; kiểm quyền và dữ liệu trong luồng, không đòi theo dõi/cùng Group. Guard: Tên trống/quá 100 ký tự sau trim hoặc tổng dưới 3/trên 100 | Rẽ [Bước3](#uc-m16-008-main-3); END: dữ liệu tạo không hợp lệ. | Từ chối tạo nhóm không hợp lệ; không lấy quy tắc nhóm còn dưới 3 sau khi rời để bỏ giới hạn lúc tạo. | FR-M16-02.04, FR-M16-02.05, FR-M16-02.07, BR-M16-03; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-008/[A 3](#uc-m16-008-alt-3) | Có yêu cầu tạo/tập người được chọn; kiểm quyền và dữ liệu trong luồng, không đòi theo dõi/cùng Group. Guard: Người được chọn bị ban/vô hiệu hóa/đã xóa | Rẽ [Bước3](#uc-m16-008-main-3); END: yêu cầu cần tập thành viên hợp lệ. | Từ chối đưa người đó vào; nguồn chưa chốt tính giao dịch/tạo một phần khi nhiều người chọn, NOTE-M16-01. | FR-M16-02.09, BR-M16-25; pending-confirmation: NOTE-M16-01 |
+| UC-M16-009/[main](#uc-m16-009-main-1) | Trigger: Thành viên nhóm chat chọn thêm một người. Trước: Có nhóm/người gọi/người được thêm; không đòi theo dõi/cùng Group. Quyền/trạng thái kiểm trong luồng. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Admin nhóm chat luôn thêm ngay; Member thêm ngay khi duyệt tắt, còn duyệt bật tạo đề nghị Chờ duyệt; vào lại theo cùng luồng. | FR-M16-08.08, FR-M16-08.13, BR-M16-27, BR-M16-28; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-009/[A 1](#uc-m16-009-alt-1) | Có nhóm/người gọi/người được thêm; không đòi theo dõi/cùng Group. Quyền/trạng thái kiểm trong luồng. Guard: Ngoài nhóm, kể cả cựu/Guest/Mod/Admin hệ thống | Rẽ [Bước2](#uc-m16-009-main-2); END: không thêm hoặc đề nghị. | Từ chối; Admin hệ thống không đồng nghĩa Admin nhóm chat. | FR-M16-08.06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-009/[A 2](#uc-m16-009-alt-2) | Có nhóm/người gọi/người được thêm; không đòi theo dõi/cùng Group. Quyền/trạng thái kiểm trong luồng. Guard: Đã là thành viên hoặc tài khoản đích ban/vô hiệu hóa/đã xóa | Rẽ [Bước3](#uc-m16-009-main-3); END: không có thành viên mới. | Không thêm lần nữa hoặc từ chối tài khoản không hợp lệ. | FR-M16-08.07, FR-M16-08.09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-009/[A 3](#uc-m16-009-alt-3) | Có nhóm/người gọi/người được thêm; không đòi theo dõi/cùng Group. Quyền/trạng thái kiểm trong luồng. Guard: Nhánh vào ngay nhưng nhóm đã đủ 100 | Rẽ [Bước4](#uc-m16-009-main-4); END: không vượt 100 thành viên. | UC019 từ chối admission. Với đề nghị chờ khi nhóm đủ 100, nguồn chưa nói đủ rõ việc có được tạo đề nghị, NOTE-M16-04; không tự mở rộng hạn mức. | FR-M16-08.05, FR-M16-10.07, BR-M16-03; pending-confirmation: NOTE-M16-04 |
+| UC-M16-010/[main](#uc-m16-010-main-1) | Trigger: Thành viên chọn lấy link mời nhóm chat. Trước: Có nhóm/người gọi; quyền kiểm trong luồng. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Trả đúng một link chung không hết hạn; không thu hồi/tạo lại và không tạo thông báo được mời. | FR-M16-08.13, BR-M16-29; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-010/[A 1](#uc-m16-010-alt-1) | Có nhóm/người gọi; quyền kiểm trong luồng. Guard: Người gọi không là thành viên hiện tại | Rẽ [Bước2](#uc-m16-010-main-2); END: không cấp link qua thao tác này. | Từ chối lấy link, kể cả cựu hoặc staff ngoài nhóm. | FR-M16-08.12; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-011/[main](#uc-m16-011-main-1) | Trigger: Người dùng mở link và chọn Xin gia nhập. Trước: Có link được mở; không mặc định người mở đã đăng nhập/được vào. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Trước khi vào chỉ tên/nút; sau xin, Member ngay khi duyệt tắt hoặc yêu cầu Chờ duyệt khi bật; cựu vào lại theo luồng thường. | FR-M16-16.07, FR-M16-16.08, BR-M16-27, BR-M16-29; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-011/[A 1](#uc-m16-011-alt-1) | Có link được mở; không mặc định người mở đã đăng nhập/được vào. Guard: Guest mở link | Rẽ [Bước2](#uc-m16-011-main-2); END: cần đăng nhập. | Yêu cầu đăng nhập trước khi xin; không hiển thị tin hoặc tự include đăng nhập. Sau có phiên có thể tiếp tục luồng bình thường, không tự hứa redirect chưa chốt. | FR-M16-16.02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-011/[A 2](#uc-m16-011-alt-2) | Có link được mở; không mặc định người mở đã đăng nhập/được vào. Guard: Nhóm đã đủ 100 hoặc có yêu cầu gia nhập Chờ duyệt | Rẽ [Bước3](#uc-m16-011-main-3); END: chưa gia nhập. | Từ chối xin mới; điều kiện đủ 100 áp cả trước khi tạo yêu cầu chờ theo FR-M16-16.05, không chỉ lúc xét. | FR-M16-16.05, FR-M16-16.06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-011/[A 3](#uc-m16-011-alt-3) | Có link được mở; không mặc định người mở đã đăng nhập/được vào. Guard: Tài khoản thay đổi trạng thái hoặc đã là thành viên do một đường khác | Rẽ [Bước4](#uc-m16-011-main-4); END: không suy thêm quyền từ link. | Admission không thêm trùng/người không hợp lệ. Xử lý yêu cầu chờ trùng giữa các đường và UI mở link khi đã là thành viên giữ NOTE-M16-04. | BR-M16-25, FR-M16-08.07, FR-M16-16.06; pending-confirmation: NOTE-M16-04 |
+| UC-M16-012/[main](#uc-m16-012-main-1) | Trigger: Admin nhóm chat mở hàng chờ và chọn Chấp nhận/Từ chối. Trước: Có nhóm/người gọi; quyền và trạng thái pending kiểm trong luồng. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Chấp nhận đưa vào Member và trạng thái Đã chấp nhận; từ chối đánh Đã từ chối/không thêm; số chờ không chiếm 100. | FR-M16-08.13, BR-M16-27, BR-M16-28, BR-M16-29; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-012/[A 1](#uc-m16-012-alt-1) | Có nhóm/người gọi; quyền và trạng thái pending kiểm trong luồng. Guard: Member/người ngoài/cựu hoặc staff không có vai trò Admin nhóm chat | Rẽ [Bước2](#uc-m16-012-main-2); END: không duyệt. | Từ chối chấp nhận/từ chối hàng chờ. | FR-M16-10.04; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-012/[A 2](#uc-m16-012-alt-2) | Có nhóm/người gọi; quyền và trạng thái pending kiểm trong luồng. Guard: Bản ghi không còn Chờ duyệt | Rẽ [Bước3](#uc-m16-012-main-3); END: không đổi bản ghi lần nữa. | Từ chối cả hai loại quyết định, không ra quyết định lần hai. | FR-M16-10.06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-012/[A 3](#uc-m16-012-alt-3) | Có nhóm/người gọi; quyền và trạng thái pending kiểm trong luồng. Guard: Nhóm đủ 100 khi chấp nhận | Rẽ [Bước4](#uc-m16-012-main-4); END: không admission. | Từ chối thao tác, không kết nạp vượt hạn. Nguồn không nói chuyển pending thành Đã từ chối trong trường hợp duyệt tay này; khác bulk tắt duyệt. | FR-M16-10.03, FR-M16-10.07, BR-M16-03; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-013/[main](#uc-m16-013-main-1) | Trigger: Admin nhóm chat đổi công tắc duyệt. Trước: Có yêu cầu nhóm; quyền kiểm trong luồng. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Cài đặt áp cho thêm/xin sau đó; nếu tắt thì FIFOchấp nhận tới 100, còn lại Đã từ chối. | FR-M16-09.01, BR-M16-01, BR-M16-33; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-013/[A 1](#uc-m16-013-alt-1) | Có yêu cầu nhóm; quyền kiểm trong luồng. Guard: Member hoặc ngoài nhóm yêu cầu đổi | Rẽ [Bước2](#uc-m16-013-main-2); END: không đổi công tắc. | Từ chối. | FR-M16-09.02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-013/[A 2](#uc-m16-013-alt-2) | Có yêu cầu nhóm; quyền kiểm trong luồng. Guard: Không có người chờ hoặc không đủ chỗ cho tất cả | Rẽ [Bước4](#uc-m16-013-main-4); [Trở về bước](#uc-m16-013-main-5) | Không chờ thì không thêm ai; thiếu chỗ dùng kết quả UC020, không vượt 100/không giữ những người dư ở Chờ duyệt trong bulk. | FR-M16-09.03, FR-M16-09.04, BR-M16-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-014/[main](#uc-m16-014-main-1) | Trigger: Admin nhóm chat chọn xóa một Member. Trước: Có người gọi/nhóm/Member đích; quyền kiểm trong luồng. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Đích Bị xóa, cutoffthời điểm xóa; còn nhóm trong hộp thư/chỉ lịch sử trước cutoff; nhóm dưới 3 vẫn hoạt động. | FR-M16-11.03, BR-M16-28, FR-M07-09.08; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-014/[A 1](#uc-m16-014-alt-1) | Có người gọi/nhóm/Member đích; quyền kiểm trong luồng. Guard: Member hoặc ngoài nhóm/cựu/staffkhông có quyền Admin nhóm chat | Rẽ [Bước2](#uc-m16-014-main-2); END: không xóa thành viên. | Từ chối xóa; người có quyền hệ thống không tự quản trị chat này. | FR-M16-11.02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-015/[main](#uc-m16-015-main-1) | Trigger: Thành viên nhóm yêu cầu đổi tên. Trước: Có yêu cầu nhóm/tên mới, quyền kiểm trong luồng. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Tên đã trim dài 1–100 ký tự, có thể trùng nhóm khác, áp cho nhóm với mọi thành viên. | FR-M16-12.01, BR-M16-29, BR-M16-32; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-015/[A 1](#uc-m16-015-alt-1) | Có yêu cầu nhóm/tên mới, quyền kiểm trong luồng. Guard: Ngoài nhóm/cựu/Guest/Mod/Admin hệ thống không có membership | Rẽ [Bước2](#uc-m16-015-main-2); END: tên không được thay theo yêu cầu. | Từ chối đổi tên. | FR-M16-12.02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-015/[A 2](#uc-m16-015-alt-2) | Có yêu cầu nhóm/tên mới, quyền kiểm trong luồng. Guard: Tên sau trim trống hoặc hơn 100 ký tự | Rẽ [Bước3](#uc-m16-015-main-3); END: tên mới không hợp lệ. | Từ chối; đúng 100 ký tự còn hợp lệ. | FR-M16-12.03, BR-M16-32; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-016/[main](#uc-m16-016-main-1) | Trigger: Admin nhóm chat chọn chuyển quyền cho một Member. Trước: Nhận nhóm/người gọi/Member đích; kiểm quyền trong luồng. Không tự thêm điều kiện đích ACTIVE nếu nguồn chưa quy định. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Đích Admin nhóm chat, người chuyển Member; không tự chuyển hoặc bổ nhiệm thêm Admin thứ hai. | FR-M16-13.03, FR-M16-14.02, BR-M16-07, BR-M16-30; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-016/[A 1](#uc-m16-016-alt-1) | Nhận nhóm/người gọi/Member đích; kiểm quyền trong luồng. Không tự thêm điều kiện đích ACTIVE nếu nguồn chưa quy định. Guard: Member hoặc người ngoài nhóm yêu cầu chuyển | Rẽ [Bước2](#uc-m16-016-main-2); END: không chuyển quyền. | Từ chối; Admin hệ thống không có quyền quản trị cuộc ngoài membership/vai trò nhóm. | FR-M16-13.02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-016/[A2](#uc-m16-016-alt-2) | Nhận nhóm/người gọi/Member đích; kiểm quyền trong luồng. Không tự thêm điều kiện đích ACTIVE nếu nguồn chưa quy định. Guard: Đích không là Member của nhóm | Rẽ [Bước 2](#uc-m16-016-main-2); END: không chuyển cho đích không hợp lệ. | Từ chối chuyển cho người ngoài hoặc đích không đúng vai trò Member. Không tự thêm điều kiện mọi Member đích phải ACTIVE; giao nhau với AUT001 khi chuyển cho Member không thể khôi phục giữ NOTE-M16-06. | FR-M16-13.01, BR-M16-25, BR-M16-30; pending-confirmation: NOTE-M16-06 |
+| UC-M16-017/[main](#uc-m16-017-main-1) | Trigger: Thành viên chọn rời nhóm. Trước: Có nhóm/người gọi; kiểm quyền/cờ/tư cách trong luồng. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Trạng thái Đã rời khác Bị xóa, giữ cutoff/hộp thư; Admin còn người khác phải chuyển trước, Admin cuối rời được, nhóm không có người gửi khi rỗng. | FR-M16-14.04, FR-M16-14.05, BR-M16-28, FR-M07-09.08; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-017/[A 1](#uc-m16-017-alt-1) | Có nhóm/người gọi; kiểm quyền/cờ/tư cách trong luồng. Guard: Admin còn thành viên khác và chưa chuyển quyền | Rẽ [Bước3](#uc-m16-017-main-3); END: chưa rời. | Từ chối rời, không tự include UC016; người dùng có thể thực hiện mục tiêu chuyển quyền rồi rời ở lần sau. | FR-M16-14.02, BR-M16-07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-017/[A 2](#uc-m16-017-alt-2) | Có nhóm/người gọi; kiểm quyền/cờ/tư cách trong luồng. Guard: Admin là thành viên cuối | Rẽ [Bước3](#uc-m16-017-main-3); [Trở về bước](#uc-m16-017-main-4) | Cho rời không cần chuyển quyền; không tự xóa lịch sử/nhóm hoặc chuyển Admin cho một người không có mặt. | FR-M16-14.04, BR-M16-07, BR-M16-18; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-018/[main](#uc-m16-018-main-1) | Trigger: Một UC theo yêu cầu người dùng gọi kiểm trước đọc/ghi dữ liệu. Trước: Caller truyền người gọi, thao tác và cuộc/nhóm nếu có; đây là kiểm thực tế trong luồng, không bắt đăng nhập lại. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Chỉ trả được phép khi thỏa cổng tài khoản/cờ và phạm vi thao tác; Guest/BANNED hoặc thiếu quyền từ chối, Admin hệ thống chỉ bypass cờ. | BR-M16-20, BR-M16-23, BR-M16-30; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-018/[A 1](#uc-m16-018-alt-1) | Caller truyền người gọi, thao tác và cuộc/nhóm nếu có; đây là kiểm thực tế trong luồng, không bắt đăng nhập lại. Guard: Chưa đăng nhập/BANNED hoặc phiên tài khoản không còn hợp lệ | Rẽ [Bước1](#uc-m16-018-main-1); END: không được thao tác Chat. | Từ chối theo điều kiện nguồn; nhắc login ở link. Không tự include mục tiêu Đăng nhập hoặc cho BANNED vào chat chỉ vì tài khoản có thể đăng nhập. | FR-M16-03.02, FR-M16-03.03, FR-M16-16.02, BR-M01-18; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-018/[A 2](#uc-m16-018-alt-2) | Caller truyền người gọi, thao tác và cuộc/nhóm nếu có; đây là kiểm thực tế trong luồng, không bắt đăng nhập lại. Guard: Chat tắt với người không ADMIN hệ thống | Rẽ [Bước2](#uc-m16-018-main-2); END: bị chặn bởi cờ. | Báo đúng câu bận; giữ biểu tượng/số chưa đọc/nút hồ sơ, không sửa dữ liệu/hứa làm bù. Hạn 5 phút vẫn trôi, AUT001 vẫn chạy. | FR-M16-15.01, FR-M16-15.02, FR-M16-15.03, FR-M16-15.05, FR-M16-15.07, FR-M16-15.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-018/[A 3](#uc-m16-018-alt-3) | Caller truyền người gọi, thao tác và cuộc/nhóm nếu có; đây là kiểm thực tế trong luồng, không bắt đăng nhập lại. Guard: Không có membership/vai trò đúng thao tác | Rẽ [Bước3](#uc-m16-018-main-3); END: không có quyền cuộc/nhóm. | Từ chối cả Mod/Admin ngoài cuộc. Cựu chỉ có nhánh đọc lịch sử trước cutoff, không kế thừa quyền current member. | FR-M16-04.08, FR-M16-04.10, BR-M16-05, BR-M16-27; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-019/[main](#uc-m16-019-main-1) | Trigger: UC008 tạo nhóm, UC009 thêm ngay, UC011 join ngay, UC012 chấp nhận hoặc UC020 nhả hàng chờ gọi. Trước: Caller đã xác định đúng căn cứ admission; nếu đang duyệt có bản ghi Chờ duyệt. Không đi qua cổng cờ của người dùng khi AUT001 xử lý nghiệp vụ tự động. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Người vào thành Member hiện tại, không nhân bản tư cách, không vượt 100; cựu vào lại đọc toàn lịch sử; caller cập nhật pending khi tương ứng. | FR-M16-08.13, FR-M16-10.01, FR-M07-09.08, BR-M07-08; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-019/[A 1](#uc-m16-019-alt-1) | Caller đã xác định đúng căn cứ admission; nếu đang duyệt có bản ghi Chờ duyệt. Không đi qua cổng cờ của người dùng khi AUT001 xử lý nghiệp vụ tự động. Guard: Đã là thành viên hoặc người đích không hợp lệ | Rẽ [Bước1](#uc-m16-019-main-1); END: không admission mới. | Không thêm trùng/người bị cấm. Pending chồng/cấp quyền gián tiếp và trạng thái người chờ đổi xử lý theo NOTE-M16-04, không tự chọn skip/đổi trạng thái. | FR-M16-08.07, FR-M16-08.09, BR-M16-25; pending-confirmation: NOTE-M16-04 |
+| UC-M16-019/[A 2](#uc-m16-019-alt-2) | Caller đã xác định đúng căn cứ admission; nếu đang duyệt có bản ghi Chờ duyệt. Không đi qua cổng cờ của người dùng khi AUT001 xử lý nghiệp vụ tự động. Guard: Đã đủ 100 | Rẽ [Bước2](#uc-m16-019-main-2); END: không vượt 100. | Từ chối admission; caller phân biệt duyệt tay bị từ chối thao tác với bulk tắt duyệt đổi những người không đủ chỗ sang Đã từ chối. | FR-M16-10.03, FR-M16-09.04, BR-M16-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-020/[main](#uc-m16-020-main-1) | Trigger: UC013 tắt công tắc hoặc AUT001 tự tắt do Admin không thể khôi phục. Trước: Công tắc được tắt, có danh sách pending/hạn mức; caller là thao tác Admin hợp lệ hoặc trigger nghiệp vụ tự động, không actor Hệ thống. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Người chờ sớm vào trước tới 100, các bản ghi không đủ chỗ Đã từ chối; không để tồn pending chỉ vì hết chỗ. | BR-M16-28, BR-M16-29, BR-M16-30, BR-M16-33; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M16-020/[A 1](#uc-m16-020-alt-1) | Công tắc được tắt, có danh sách pending/hạn mức; caller là thao tác Admin hợp lệ hoặc trigger nghiệp vụ tự động, không actor Hệ thống. Guard: Hàng chờ rỗng | Rẽ [Bước1](#uc-m16-020-main-1); END: công tắc Tắt, không người chờ. | Không admission hoặc tạo yêu cầu giả. | BR-M16-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-020/[A 2](#uc-m16-020-alt-2) | Công tắc được tắt, có danh sách pending/hạn mức; caller là thao tác Admin hợp lệ hoặc trigger nghiệp vụ tự động, không actor Hệ thống. Guard: Nhóm 98 thành viên,5 người chờ hợp lệ | Rẽ [Bước2](#uc-m16-020-main-2); [Trở về bước](#uc-m16-020-main-4) | Hai người sớm nhất vào, ba người còn lại Đã từ chối; không giữ họ Chờ duyệt/không thêm cả 5 người để vượt 100. | BR-M16-33; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M16-020/[A 3](#uc-m16-020-alt-3) | Công tắc được tắt, có danh sách pending/hạn mức; caller là thao tác Admin hợp lệ hoặc trigger nghiệp vụ tự động, không actor Hệ thống. Guard: Thời điểm chờ bằng nhau, pending trùng/người đã vào hoặc tài khoản không còn hợp lệ | Rẽ [Bước2](#uc-m16-020-main-2); END: giữ giới hạn nguồn cho trường hợp biên hàng chờ. | Không tự ưu tiên theo ID/loại yêu cầu, bỏ qua người rồi lấy người sau hoặc chọn trạng thái thay thế. Ghi NOTE-M16-04 về chính sách chưa chốt; không vi phạm 100. | BR-M16-25, BR-M16-33, FR-M16-08.07, FR-M16-08.09; pending-confirmation: NOTE-M16-04 |
+
+### 7.5 Vòng đời gap/nguồn cần xác nhận — revision 2.3
+
+Bảng 7.2 giữ nội dung phát hiện trước; bảng này bổ sung phạm vi, mức chặn và điều kiện đóng. Các đường đã xác định tiếp tục dùng; phần blocking không được nhận semantic pass. Người có quyền quyết định chưa được chỉ định trong nguồn thì ghi **chưa xác định**, không mặc định Admin sản phẩm có quyền phê duyệt yêu cầu.
+
+| ID/nguồn baseline | UC/đường đi bị ảnh hưởng | Mức chặn và lý do | Người xác nhận | Register | Trạng thái | Điều kiện đóng/bằng chứng |
+|---|---|---|---|---|---|---|
+| NOTE-M16-01; FR-M16 baseline tại metadata; FR-M16-01.05, FR-M16-05.02, FR-M16-06.08, FR-M16-07.05, BR-M16-23, BR-M16-24 | UC-M16-001/004/008; AUT giao tin khi lỗi/đồng thời | blocking: tạo nhóm nhiều đích không hợp lệ chưa chốt kết quả một phần; cơ chế reconnect/transaction đơn thuần không phải luật mới | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M16-02; FR-M16 baseline tại metadata; FR-M16-03.04, FR-M16-03.05, FR-M16-03.07, BR-M16-31 | UC-M16-002/main4; nhóm mới chưa có tin và thứ tự hòa | blocking: chưa có trích nội dung/thời điểm/thứ tự cho dòng nhóm chưa tin | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M16-03; FR-M16 baseline tại metadata; FR-M16-04.10, FR-M16-07.01, FR-M16-07.06, FR-M16-07.10, BR-M16-15, BR-M16-27 | UC-M16-003/A2; UC-M16-006/007, receipt/mốc cho cựu | blocking: chưa chốt mốc/receipt trong giới hạn cutoff, không dùng tin sau rời | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M16-04; FR-M16 baseline tại metadata; FR-M16-08.03, FR-M16-08.05, FR-M16-08.07, FR-M16-08.09, FR-M16-10.03, FR-M16-16.05, FR-M16-16.06, BR-M16-33 | UC-M16-009/A3,011/A3,019/A1,020/A3; pending/admission giao nhau | blocking: chưa chốt trạng thái pending hoặc thứ tự khi trùng/thay trạng thái/hòa FIFO | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M16-05; FR-M16 baseline tại metadata; FR-M16-06.09, FR-M16-07.06, BR-M16-15, FR-M07-07.02, FR-M07-09.08 | UC-M16-006/007; DEACTIVATED/DELETED receipt và cựu vào lại | blocking: cách công bố người đã xem/reset mốc chưa xác định; không khôi phục danh tính đã xóa | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M16-06; FR-M16 baseline tại metadata; FR-M16-13.01, FR-M16-14.04, FR-M16-17.02, BR-M16-25, BR-M16-30 | UC-M16-016/A2,017/A2 và AUT-M16-001; chuyển quyền/lifecycle giao nhau | blocking: chưa xác định kết quả chuyển quyền cho Member không thể khôi phục và nhóm không thành viên có link | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| TBD-M16-01 / OPEN-003; FR-M16 Phụ lục B | Không tạo UC/report chat/quét AI/hệ thống chặn hoặc màn hình đọc nội dung đã thu hồi. | nonblocking: hoãn có chủ đích, ngoài hành vi MS1 đang đặc tả | Chưa xác định đối với quyết định mới | OPEN-003 | open / hoãn theo nguồn | Giữ hoãn. TBD-M16-02 đã đóng bởi DEC-248: thu hồi là xóa mềm, gốc giữ nhưng không ai xem ở MS1; không mở lại OPEN-011.; quyết định thay đổi/đóng mới cần bằng chứng stakeholder, không suy từ migration. |
+
+### Kiểm sơ đồ và cổng cuối của revision 2.3
+
+Các SVG bàn giao không đổi ở lượt này. XML/node/cạnh được audit từ file thật; `result=pass` có bằng chứng render lịch sử ở 7.1 và đối chiếu mới của root tại [UC-V23-REVIEW](UC-V23-REVIEW.md); chính agent module không chạy lại renderer. `diagram_check=pass` dựa trên tích hợp root: parse/render lại đủ 81 view exit 0, cây XML hiển thị của SVG gốc và bản render lại giống nhau; root xem 4 PNG mẫu, không tuyên bố xem ảnh thủ công cả 81. Xem [bằng chứng chung](UC-V23-REVIEW.md). Metadata `semantic_review=pending` do các đường blocking nêu trên, không phủ nhận phần đã có căn cứ. Kết quả checker revision được ghi sau khi thực thi, không sao chép số pass của bản cũ.
+
+### Kết quả kiểm thực thi revision 2.3
+
+| Lớp kiểm | Thực thi/kết quả | Giới hạn |
+|---|---|---|
+| Schema/trace | `python -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M16.md --final`: exit 1, errors=2, warnings=1. Hai lỗi: `Final review needs recorded semantic review`; `Final review needs diagram/render evidence`. | Đây là cổng chưa đạt có chủ ý vì phần blocking và render revision chưa xong; không gọi errors=0 hoặc nhận kết quả lịch sử thay lượt này. Cảnh báo còn review thủ công không tự đóng gap. |
+| XML và mô hình SVG | Audit file thực tế: 5 XML root SVG; members đúng catalog/decomposition; 27 association actor–UC trong bảng bằng đúng tập cạnh trực tiếp trên SVG; các relation UC–UC khớp endpoint/hướng/loại. Không sửa SVG. | Root đã parse/render lại 81 view exit 0, đối chiếu visual XML tree của 81 SVG gốc đều giống bản render mới; xem 4 PNG mẫu. Bằng chứng chung [UC-V23-REVIEW](UC-V23-REVIEW.md), không tuyên bố mọi ảnh đã được xem bằng mắt. |
+| Đối chiếu tiêu chí nguồn | 160 FR chi tiết/BR hiệu lực có nguyên văn tiêu chí được bảo toàn trong US, khớp nguồn owner sau bỏ anchor/khoảng trắng; mọi mã chi tiết tham chiếu tồn tại trong nguồn owner/normative Đã chốt đúng phiên bản.  | So khớp tiêu chí/mã hỗ trợ review, không chứng minh tự động mọi flow tương đương nguồn. Không đổi FR/register. |
+| Walkthrough | 20 main và 50 alternative ghi trạng thái/guard/return/END/postcondition/nguồn ở 7.4; bảng 7.5 chỉ rõ các đường chưa đủ kết luận. | `semantic_review=pending`; Chờ duyệt và không có approved_steps cho revision mới. |
+
+**Cập nhật kiểm chứng tích hợp:** `diagram_check=pass` theo [hồ sơ chung](UC-V23-REVIEW.md): root parse/render 81 SVG exit 0, các cây XML hiển thị giữ nguyên, 4 PNG mẫu đã xem. Chỉ một SVG/view được bàn giao; không sửa SVG ở lượt follow-up này. Semantic review vẫn pending cho các phần blocking thực sự còn lại.

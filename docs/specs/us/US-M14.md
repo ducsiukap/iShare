@@ -1,6 +1,6 @@
 # Phân tích use case — M14 Feed & Discovery
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2; tiếng Việt, giữ thuật ngữ cần thiết.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3; tiếng Việt, giữ thuật ngữ cần thiết.
 
 Đầu ra gồm **4 UC chính, 5 UC con**, 13 mapping, 8 đặc tả chi tiết và một brief Summary; 2 AUT, 6 RULE, 104 dòng truy vết. Năm view bắt buộc gồm tổng quan module và một sơ đồ chi tiết cho mỗi UC chính, mỗi view chỉ bàn giao một SVG.
 
@@ -10,8 +10,9 @@
 | key | value |
 | --- | --- |
 | document_id | US-M14 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M14 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,10 +21,12 @@
 | approved_steps | - |
 | source_baseline | FR-M14 v1.1; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M07 v1.5; FR-M08 v1.7; FR-M10 v1.4; FR-M11 v1.3; FR-M12 v1.1 |
 | author | Codex |
-| date | 2026-11-02 |
-| approval_evidence | Người dùng cho phép tự thực hiện các bước cần thiết ở lượt M04, áp dụng chuỗi module hiện tại. Quyền làm liên tục không phải chấp thuận US-M14 hoặc duyệt kết quả từng bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | - |
+| semantic_review | pending |
 | diagram_check | pass |
+
+**Lịch sử trước migration 2.3:** các dòng dưới giữ nguyên bằng chứng đã ghi, không phải approved_steps của revision mới.
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
 | --- | --- | --- | --- | --- |
@@ -34,6 +37,21 @@
 | 5 | 104 dòng truy vết và96 tiêu chí chi tiết/BR;11 FR giao tiếp | Chưa duyệt | FR-M14 v1.1; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M07 v1.5; FR-M08 v1.7; FR-M10 v1.4; FR-M11 v1.3; FR-M12 v1.1 | Baseline giao tiếp đổi |
 | 6 | Đã render/kiểm hình 5 view; đúng node/cạnh, một SVG mỗi view | Chưa duyệt | PlantUML cục bộ | Mô hình/QA đổi |
 | 7 | Đã review nguồn/ngữ nghĩa, kiểm cấu trúc, render/hình, audit và link; hồ sơ Chờ duyệt | Chưa duyệt | Skill v2.2 | Phản hồi/nguồn đổi |
+
+
+### Revision 2.3 — 2026-11-24
+
+Người dùng yêu cầu cập nhật toàn bộ US theo skill 2.3 và cho phép làm liên tục bảy bước. Quyền thực hiện không phê duyệt kết quả; revision này giữ `approved_steps=-`, trạng thái **Chờ duyệt**. Bản trước ghi skill 2.2, approved_steps=-. Bằng chứng quyền thực hiện trước: Người dùng cho phép tự thực hiện các bước cần thiết ở lượt M04, áp dụng chuỗi module hiện tại. Quyền làm liên tục không phải chấp thuận US-M14 hoặc duyệt kết quả từng bước.
+
+| Bước | Công việc revision hiện tại | Trạng thái cổng |
+|---|---|---|
+| 1 | Đối chiếu baseline owner/normative, boundary và kiểm kê FR/BR đang dùng. | Đã review; chưa duyệt |
+| 2 | Rà goal/trigger/kết quả/phạm vi của core/sub tại bảng chất lượng 2.3. | Đã review; giữ các vấn đề ghi rõ |
+| 3 | Walkthrough main và từng alternative theo QA revision; không suy kết quả tại nhánh thiếu nguồn. | Đã review; các đường blocking chưa chốt |
+| 4 | Đối chiếu relation và association thực tế với SVG, không tạo cạnh từ decomposition. | Đã review mô hình hiện có |
+| 5 | Giữ trace chi tiết, phân vai nguồn và bổ sung vòng đời từng gap. | Đã review trong scope; không sửa FR/register |
+| 6 | Kiểm XML/node/association/quan hệ SVG hiện có; giữ artifact US-relative và render lịch sử riêng. | Root đã parse/render mới và so XML visual tree; xem UC-V23-REVIEW.md, không nhận đã xem mọi ảnh |
+| 7 | Chạy checker --final sau review, ghi lỗi/cảnh báo thật; semantic_review còn pending do đường blocking. | Review đã làm; chưa đạt cổng cuối |
 
 ## 1. Phạm vi, nguồn và tổng hợp yêu cầu
 
@@ -51,19 +69,22 @@
 | path | version | role |
 | --- | --- | --- |
 | docs/specs/fr/FR-M14.md | 1.1 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Ví dụ và US trước không thay nguồn tính năng. Giữ ACT-001/ACT-002/ACT-008/ACT-007; yêu cầu sản phẩm theo FR hiện hành.
+
+
+**Quy chuẩn tên:** [UC-NAMING](UC-NAMING.md), ngày 2026-11-24, trạng thái **Chờ duyệt cách diễn đạt**; đây là đề xuất tên đang dùng, không tự trở thành quy chuẩn đã duyệt. Nguồn `owner` sở hữu hành vi; `normative` ràng buộc giao tiếp/quyền, đều phải Đã chốt đúng baseline.
 
 ### 1.1 Actor và điều kiện quyền
 
@@ -105,15 +126,15 @@ ACT-007 → ACT-008 → ACT-002 là khả năng thay thế vai trò User; quyề
 <!-- uc:catalog -->
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| UC-M14-020 | Khám phá nội dung thịnh hành | core | Summary | ACT-001, ACT-002 | - | M14 | #uc-m14-020 | FR-M14-01, FR-M14-02, FR-M14-03, BR-M14-01, BR-M14-03, BR-M14-19, BR-M14-24 |
-| UC-M14-021 | Xem bài từ người dùng và Topic đang theo dõi | core | User goal | ACT-002 | - | M14 | #uc-m14-021 | FR-M14-04, FR-M14-07, FR-M14-08, BR-M14-08, BR-M14-20 |
-| UC-M14-022 | Xem bài từ các nhóm đã tham gia | core | User goal | ACT-002 | - | M14 | #uc-m14-022 | FR-M14-05, FR-M14-07, FR-M14-08, BR-M14-07, BR-M14-21 |
-| UC-M14-023 | Xem bài mới toàn site | core | User goal | ACT-001, ACT-002 | - | M14 | #uc-m14-023 | FR-M14-06, FR-M14-07, FR-M14-08, BR-M14-06, BR-M14-09 |
+| UC-M14-020 | Xem nội dung thịnh hành | core | Summary | ACT-001, ACT-002 | - | M14 | #uc-m14-020 | FR-M14-01, FR-M14-02, FR-M14-03, BR-M14-01, BR-M14-03, BR-M14-19, BR-M14-24 |
+| UC-M14-021 | Xem bài từ nguồn đang theo dõi | core | User goal | ACT-002 | - | M14 | #uc-m14-021 | FR-M14-04, FR-M14-07, FR-M14-08, BR-M14-08, BR-M14-20 |
+| UC-M14-022 | Xem bài trong nhóm đã tham gia | core | User goal | ACT-002 | - | M14 | #uc-m14-022 | FR-M14-05, FR-M14-07, FR-M14-08, BR-M14-07, BR-M14-21 |
+| UC-M14-023 | Xem bài viết mới nhất | core | User goal | ACT-001, ACT-002 | - | M14 | #uc-m14-023 | FR-M14-06, FR-M14-07, FR-M14-08, BR-M14-06, BR-M14-09 |
 | UC-M14-001 | Xem bài viết thịnh hành | sub | User goal | ACT-001, ACT-002 | - | M14 | #uc-m14-001 | FR-M14-02, FR-M14-07, BR-M14-05, BR-M14-13, BR-M14-19 |
 | UC-M14-002 | Xem Topic và Tag thịnh hành | sub | User goal | ACT-001, ACT-002 | - | M14 | #uc-m14-002 | FR-M14-02.06, FR-M14-02.10, BR-M14-24, BR-M05-29, BR-M05-31 |
-| UC-M14-003 | Chọn bài đúng phạm vi và quyền hiển thị | sub | Subfunction | ACT-001, ACT-002 | - | M14 | #uc-m14-003 | FR-M14-01.05, FR-M14-01.06, FR-M14-02.05, FR-M14-04, FR-M14-05, FR-M14-06, BR-M14-04, BR-M14-05, BR-M14-06, BR-M14-07, BR-M14-08, BR-M14-15, BR-M14-23 |
-| UC-M14-004 | Tải danh sách theo con trỏ | sub | Subfunction | ACT-001, ACT-002 | - | M14 | #uc-m14-004 | FR-M14-07, FR-M14-02.10, BR-M14-16, BR-M14-19, BR-M14-24 |
-| UC-M14-005 | Chèn toàn bộ bài mới từ banner | sub | User goal | ACT-001, ACT-002 | - | M14 | #uc-m14-005 | FR-M14-08, BR-M14-17, BR-M14-18 |
+| UC-M14-003 | Lọc bài viết được hiển thị | sub | Subfunction | ACT-001, ACT-002 | - | M14 | #uc-m14-003 | FR-M14-01.05, FR-M14-01.06, FR-M14-02.05, FR-M14-04, FR-M14-05, FR-M14-06, BR-M14-04, BR-M14-05, BR-M14-06, BR-M14-07, BR-M14-08, BR-M14-15, BR-M14-23 |
+| UC-M14-004 | Tải danh sách nội dung | sub | Subfunction | ACT-001, ACT-002 | - | M14 | #uc-m14-004 | FR-M14-07, FR-M14-02.10, BR-M14-16, BR-M14-19, BR-M14-24 |
+| UC-M14-005 | Cập nhật bài viết mới từ banner | sub | User goal | ACT-001, ACT-002 | - | M14 | #uc-m14-005 | FR-M14-08, BR-M14-17, BR-M14-18 |
 
 Core020 là Summary đặt các mục khám phá vào bối cảnh; core021/022/023 là User goal có kết quả đọc mỗi lần mở tab. Sub001/002/005 là User goal, sub003/004 là Subfunction dùng chung; tier độc lập level. UC003 phục vụ actor qua caller, không tạo nút lọc mới.
 
@@ -160,13 +181,31 @@ Chưa có US-overview.md tại baseline; tổng hợp hệ thống ngoài phạm
 | D08 | Tương tác bài và lối ra | Giao tiếp owner mục 5 | M14 liệt kê/điều hướng, không CRUD/tìm kiếm. | Nhân bản UC module khác. |
 | D09 | Kết quả cố định và quyền mới | RULE004 + UC003 | Giữ thứ hạng không giữ quyền đã mất. | Đổi batch giữa lượt hoặc trả bài mất quyền để đủ20. |
 
+
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+Không áp dụng cho mode module; tập core được tổng hợp tại [US-overview](US-overview.md).
+
+### Kiểm chất lượng goal/phân rã revision 2.3
+
+| Core | Actor/trigger/kết quả và đóng góp của sub | Quyết định và trade-off | Nguồn |
+|---|---|---|---|
+| UC-M14-020 (Summary) | Actor ACT-001, ACT-002; Summary khám phá Post/Topic/Tag Trending; sub001 và sub002 khác đối tượng, nguồn xếp hạng và quy tắc điểm; không phải hai màn hình cho cùng dữ liệu. | Giữ 4 sub theo mapping: UC-M14-001, UC-M14-002, UC-M14-003, UC-M14-004. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M14-01, FR-M14-02, FR-M14-03, BR-M14-01, BR-M14-03, BR-M14-19, BR-M14-24 |
+| UC-M14-021 (User goal) | Actor ACT-002; User goal đọc nguồn đang theo dõi theo OR người/Topic; sub003 lọc quyền/phạm vi, sub004 phân trang, sub005 nhận toàn bộ bài mới. Không nâng một thao tác tải thành mục tiêu Following thứ hai. | Giữ 3 sub theo mapping: UC-M14-003, UC-M14-004, UC-M14-005. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M14-04, FR-M14-07, FR-M14-08, BR-M14-08, BR-M14-20 |
+| UC-M14-022 (User goal) | Actor ACT-002; User goal đọc từ nhóm hiện tham gia; các sub003/004/005 dùng lại nhưng điều kiện thành viên/Private khác Following. Không gộp hai mục tiêu chỉ vì dùng cùng thao tác tải. | Giữ 3 sub theo mapping: UC-M14-003, UC-M14-004, UC-M14-005. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M14-05, FR-M14-07, FR-M14-08, BR-M14-07, BR-M14-21 |
+| UC-M14-023 (User goal) | Actor ACT-001, ACT-002; User goal đọc bài ngoài nhóm mới nhất; sub003/004/005 cụ thể hóa chọn tập, trang và bài mới. Trending có batch/điểm khác nên không chuyên biệt hóa Newest bằng giao diện. | Giữ 3 sub theo mapping: UC-M14-003, UC-M14-004, UC-M14-005. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M14-06, FR-M14-07, FR-M14-08, BR-M14-06, BR-M14-09 |
+
+Không có mapping 1:1 core–sub trong revision này. Đối chiếu level ở catalog/spec/brief/rationale; tier không quyết định level. Các sub có cùng caller vẫn được phân biệt bằng trigger/kết quả; mapping không tự tạo UML. Giữ ID và nhãn hiện có; không tạo mục tiêu mới để đủ hai tầng.
+
 ## 3. Đặc tả
 
 ### 3.1 UC chính
 
 
 <a id="uc-m14-020"></a>
-### UC-M14-020 — Khám phá nội dung thịnh hành
+### UC-M14-020 — Xem nội dung thịnh hành
 
 **Level:** Summary. **Primary:** ACT-001, ACT-002. **Subject:** iShare. **Giá trị:** Giúp người xem khám phá bài viết, Topic và Tag đang được quan tâm theo danh sách chung.
 
@@ -179,7 +218,7 @@ Chưa có US-overview.md tại baseline; tổng hợp hệ thống ngoài phạm
 **UC con:** [UC-M14-001](#uc-m14-001), [UC-M14-002](#uc-m14-002), [UC-M14-003](#uc-m14-003), [UC-M14-004](#uc-m14-004). **Nguồn:** FR-M14-01, FR-M14-02, FR-M14-03, BR-M14-01, BR-M14-03, BR-M14-19, BR-M14-24.
 
 <a id="uc-m14-021"></a>
-### UC-M14-021 — Xem bài từ người dùng và Topic đang theo dõi
+### UC-M14-021 — Xem bài từ nguồn đang theo dõi
 
 **UC con:** [UC-M14-003](#uc-m14-003), [UC-M14-004](#uc-m14-004), [UC-M14-005](#uc-m14-005). **Nguồn:** FR-M14-04, FR-M14-07, FR-M14-08, BR-M14-08, BR-M14-20.
 
@@ -254,7 +293,7 @@ Chưa có US-overview.md tại baseline; tổng hợp hệ thống ngoài phạm
 Áp [RULE001](#rule-m14-001), [RULE002](#rule-m14-002), [RULE003](#rule-m14-003), [RULE004](#rule-m14-004), [RULE005](#rule-m14-005), [RULE006](#rule-m14-006) theo ngữ cảnh; chỉ Trending Post dùng công thức Post, Topic/Tag theo M05. Trigger/nhánh không tự tạo cạnh UML. Các NOTE mục 7.2 là giới hạn nguồn, không giả định hoặc tự thêm retry/lỗi.
 
 <a id="uc-m14-022"></a>
-### UC-M14-022 — Xem bài từ các nhóm đã tham gia
+### UC-M14-022 — Xem bài trong nhóm đã tham gia
 
 **UC con:** [UC-M14-003](#uc-m14-003), [UC-M14-004](#uc-m14-004), [UC-M14-005](#uc-m14-005). **Nguồn:** FR-M14-05, FR-M14-07, FR-M14-08, BR-M14-07, BR-M14-21.
 
@@ -329,7 +368,7 @@ Chưa có US-overview.md tại baseline; tổng hợp hệ thống ngoài phạm
 Áp [RULE001](#rule-m14-001), [RULE002](#rule-m14-002), [RULE003](#rule-m14-003), [RULE004](#rule-m14-004), [RULE005](#rule-m14-005), [RULE006](#rule-m14-006) theo ngữ cảnh; chỉ Trending Post dùng công thức Post, Topic/Tag theo M05. Trigger/nhánh không tự tạo cạnh UML. Các NOTE mục 7.2 là giới hạn nguồn, không giả định hoặc tự thêm retry/lỗi.
 
 <a id="uc-m14-023"></a>
-### UC-M14-023 — Xem bài mới toàn site
+### UC-M14-023 — Xem bài viết mới nhất
 
 **UC con:** [UC-M14-003](#uc-m14-003), [UC-M14-004](#uc-m14-004), [UC-M14-005](#uc-m14-005). **Nguồn:** FR-M14-06, FR-M14-07, FR-M14-08, BR-M14-06, BR-M14-09.
 
@@ -531,7 +570,7 @@ Chưa có US-overview.md tại baseline; tổng hợp hệ thống ngoài phạm
 Áp [RULE001](#rule-m14-001), [RULE002](#rule-m14-002), [RULE003](#rule-m14-003), [RULE004](#rule-m14-004), [RULE005](#rule-m14-005), [RULE006](#rule-m14-006) theo ngữ cảnh; chỉ Trending Post dùng công thức Post, Topic/Tag theo M05. Trigger/nhánh không tự tạo cạnh UML. Các NOTE mục 7.2 là giới hạn nguồn, không giả định hoặc tự thêm retry/lỗi.
 
 <a id="uc-m14-003"></a>
-### UC-M14-003 — Chọn bài đúng phạm vi và quyền hiển thị
+### UC-M14-003 — Lọc bài viết được hiển thị
 
 **UC chính liên quan:** UC-M14-020, UC-M14-021, UC-M14-022, UC-M14-023. **Nguồn:** FR-M14-01.05, FR-M14-01.06, FR-M14-02.05, FR-M14-04, FR-M14-05, FR-M14-06, BR-M14-04, BR-M14-05, BR-M14-06, BR-M14-07, BR-M14-08, BR-M14-15, BR-M14-23.
 
@@ -566,7 +605,7 @@ Chưa có US-overview.md tại baseline; tổng hợp hệ thống ngoài phạm
 <a id="uc-m14-003-main-3"></a>
 | Bước | Ai | Hành động/phản hồi | Tiếp tục | Nguồn |
 | --- | --- | --- | --- | --- |
-| 3 | iShare | Áp phạm vi RULE002 tại lần tải: Trending Post chỉ ngoài nhóm/nhóm Public; Newest chỉ ngoài nhóm; Following OR người/Topic nhưng loại Private với mọi người; Group chỉ nhóm hiện đang tham gia kể cả Private. | [Bước 4](#uc-m14-003-main-4) | BR-M14-05, BR-M14-06, BR-M14-07, BR-M14-08, FR-M14-04.13, FR-M14-05.03 |
+| 3 | iShare | Áp phạm vi RULE002 tại lần tải: Trending Post chỉ ngoài nhóm/nhóm Public; Newest chỉ ngoài nhóm; Following OR người/Topic nhưng loại Private với mọi người; Group chỉ nhóm hiện đang tham gia kể cả Private. Riêng Trending Post, kiểm tuổi thực tại lần phục vụ và loại bài >28 ngày; đúng 28 ngày vẫn giữ theo BR-M14-11. Giữ nguyên điểm/thứ tự của batch đang dùng, không tính lại hoặc chuyển batch vì phép lọc này. | [Bước 4](#uc-m14-003-main-4) | BR-M14-05, BR-M14-06, BR-M14-07, BR-M14-08, FR-M14-04.13, FR-M14-05.03, FR-M14-03.05, FR-M14-03.12, BR-M14-11, BR-M14-19 |
 
 <a id="uc-m14-003-main-4"></a>
 | Bước | Ai | Hành động/phản hồi | Tiếp tục | Nguồn |
@@ -611,7 +650,7 @@ Chưa có US-overview.md tại baseline; tổng hợp hệ thống ngoài phạm
 Áp [RULE001](#rule-m14-001), [RULE002](#rule-m14-002), [RULE003](#rule-m14-003), [RULE004](#rule-m14-004), [RULE005](#rule-m14-005), [RULE006](#rule-m14-006) theo ngữ cảnh; chỉ Trending Post dùng công thức Post, Topic/Tag theo M05. Trigger/nhánh không tự tạo cạnh UML. Các NOTE mục 7.2 là giới hạn nguồn, không giả định hoặc tự thêm retry/lỗi.
 
 <a id="uc-m14-004"></a>
-### UC-M14-004 — Tải danh sách theo con trỏ
+### UC-M14-004 — Tải danh sách nội dung
 
 **UC chính liên quan:** UC-M14-020, UC-M14-021, UC-M14-022, UC-M14-023. **Nguồn:** FR-M14-07, FR-M14-02.10, BR-M14-16, BR-M14-19, BR-M14-24.
 
@@ -681,7 +720,7 @@ Chưa có US-overview.md tại baseline; tổng hợp hệ thống ngoài phạm
 Áp [RULE001](#rule-m14-001), [RULE002](#rule-m14-002), [RULE003](#rule-m14-003), [RULE004](#rule-m14-004), [RULE005](#rule-m14-005), [RULE006](#rule-m14-006) theo ngữ cảnh; chỉ Trending Post dùng công thức Post, Topic/Tag theo M05. Trigger/nhánh không tự tạo cạnh UML. Các NOTE mục 7.2 là giới hạn nguồn, không giả định hoặc tự thêm retry/lỗi.
 
 <a id="uc-m14-005"></a>
-### UC-M14-005 — Chèn toàn bộ bài mới từ banner
+### UC-M14-005 — Cập nhật bài viết mới từ banner
 
 **UC chính liên quan:** UC-M14-021, UC-M14-022, UC-M14-023. **Nguồn:** FR-M14-08, BR-M14-17, BR-M14-18.
 
@@ -1352,7 +1391,8 @@ Không generalization UC vì nhánh/phân rã đủ biểu diễn, chưa có h�
 
 ### 4.3 Association actor–UC
 
-| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 | --- | --- | --- | --- | --- |
 | ACT-001 | UC-M14-020 | Tham gia chọn/đọc, mở hoặc cuộn/bấm banner phù hợp ngữ cảnh | Theo điều kiện tab/owner; không tự cấp quyền tương tác | FR-M14-01, FR-M14-02, FR-M14-03, BR-M14-01, BR-M14-03, BR-M14-19, BR-M14-24 |
 | ACT-002 | UC-M14-020 | Tham gia chọn/đọc, mở hoặc cuộn/bấm banner phù hợp ngữ cảnh | Theo điều kiện tab/owner; không tự cấp quyền tương tác | FR-M14-01, FR-M14-02, FR-M14-03, BR-M14-01, BR-M14-03, BR-M14-19, BR-M14-24 |
@@ -1436,7 +1476,7 @@ Mọi UC/AUT/RULE/quan hệ/bước có nguồn ở trên. Bảng sau ghi từng
 | FR-M14-03.02 | #aut-m14-001, #rule-m14-003, #owner-fr-m14-03-02 | Đủ | Tác vụ tính đầy đủ tập bài, công thức/tuổi/28 ngày, số hiện hành, chu kỳ/deadline/tie-break/cờ. |
 | FR-M14-03.03 | #aut-m14-001, #rule-m14-003, #owner-fr-m14-03-03 | Đủ | Tác vụ tính đầy đủ tập bài, công thức/tuổi/28 ngày, số hiện hành, chu kỳ/deadline/tie-break/cờ. |
 | FR-M14-03.04 | #aut-m14-001, #rule-m14-003, #owner-fr-m14-03-04 | Đủ | Tác vụ tính đầy đủ tập bài, công thức/tuổi/28 ngày, số hiện hành, chu kỳ/deadline/tie-break/cờ. |
-| FR-M14-03.05 | #aut-m14-001, #rule-m14-003, #owner-fr-m14-03-05 | Đủ | Tác vụ tính đầy đủ tập bài, công thức/tuổi/28 ngày, số hiện hành, chu kỳ/deadline/tie-break/cờ. |
+| FR-M14-03.05 | #aut-m14-001, #rule-m14-003, #owner-fr-m14-03-05, #uc-m14-003-main-3 | Đủ | Tác vụ tính đầy đủ tập bài, công thức/tuổi/28 ngày, số hiện hành, chu kỳ/deadline/tie-break/cờ. Khi phục vụ cùng lượt xem, UC003 vẫn lọc >28 ngày mà giữ điểm/thứ tự batch; NOTE-M14-06 đã đối chiếu. |
 | FR-M14-03.06 | #aut-m14-001, #rule-m14-003, #owner-fr-m14-03-06 | Đủ | Tác vụ tính đầy đủ tập bài, công thức/tuổi/28 ngày, số hiện hành, chu kỳ/deadline/tie-break/cờ. |
 | FR-M14-03.07 | #aut-m14-001, #rule-m14-003, #owner-fr-m14-03-07 | Đủ | Tác vụ tính đầy đủ tập bài, công thức/tuổi/28 ngày, số hiện hành, chu kỳ/deadline/tie-break/cờ. |
 | FR-M14-03.08 | #aut-m14-001, #rule-m14-003, #owner-fr-m14-03-08 | Đủ | Tác vụ tính đầy đủ tập bài, công thức/tuổi/28 ngày, số hiện hành, chu kỳ/deadline/tie-break/cờ. |
@@ -1546,7 +1586,7 @@ Chỉ bốn core, không sub/AUT. Guest có nhánh chọn Following/Group nhưng
 
 ### 6.2 Sơ đồ chi tiết từng UC chính
 
-#### 6.2.1 UC-M14-020 — Khám phá nội dung thịnh hành
+#### 6.2.1 UC-M14-020 — Xem nội dung thịnh hành
 
 **Focus:** UC-M14-020. **Node:** UC-M14-020, UC-M14-001, UC-M14-002, UC-M14-003, UC-M14-004. **Cạnh UC–UC:** 3.
 
@@ -1560,7 +1600,7 @@ Chỉ bốn core, không sub/AUT. Guest có nhánh chọn Following/Group nhưng
 
 Core Summary giữ bối cảnh; không cạnh trực tiếp tới các lựa chọn. UC001/002 gọi UC004; UC004 gọi UC003 chỉ khi danh sách bài. Không nối UC002→UC003 vì danh mục không phải bài.
 
-#### 6.2.2 UC-M14-021 — Xem bài từ người dùng và Topic đang theo dõi
+#### 6.2.2 UC-M14-021 — Xem bài từ nguồn đang theo dõi
 
 **Focus:** UC-M14-021. **Node:** UC-M14-021, UC-M14-003, UC-M14-004, UC-M14-005. **Cạnh UC–UC:** 3.
 
@@ -1574,7 +1614,7 @@ Core Summary giữ bối cảnh; không cạnh trực tiếp tới các lựa ch
 
 Giữ cả core→UC004 và các cạnh sub–sub. UC005 có trigger bấm banner sau khi mở tab, không tự nối core→UC005. UC004 và UC005 cùng dùng UC003 nhưng tập tải và giới hạn khác nhau.
 
-#### 6.2.3 UC-M14-022 — Xem bài từ các nhóm đã tham gia
+#### 6.2.3 UC-M14-022 — Xem bài trong nhóm đã tham gia
 
 **Focus:** UC-M14-022. **Node:** UC-M14-022, UC-M14-003, UC-M14-004, UC-M14-005. **Cạnh UC–UC:** 3.
 
@@ -1588,7 +1628,7 @@ Giữ cả core→UC004 và các cạnh sub–sub. UC005 có trigger bấm banne
 
 Giữ cả core→UC004 và các cạnh sub–sub. UC005 có trigger bấm banner sau khi mở tab, không tự nối core→UC005. UC004 và UC005 cùng dùng UC003 nhưng tập tải và giới hạn khác nhau.
 
-#### 6.2.4 UC-M14-023 — Xem bài mới toàn site
+#### 6.2.4 UC-M14-023 — Xem bài viết mới nhất
 
 **Focus:** UC-M14-023. **Node:** UC-M14-023, UC-M14-003, UC-M14-004, UC-M14-005. **Cạnh UC–UC:** 3.
 
@@ -1611,13 +1651,13 @@ Chưa có US-overview.md tại baseline; chỉ hoàn thiện M14. Khi tổng h�
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| C-M14 | core | - | UC-M14-020, UC-M14-021, UC-M14-022, UC-M14-023 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M14/C-M14.svg |
-| D-M14-020 | detail | UC-M14-020 | UC-M14-020, UC-M14-001, UC-M14-002, UC-M14-003, UC-M14-004 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M14/D-M14-020.svg |
-| D-M14-021 | detail | UC-M14-021 | UC-M14-021, UC-M14-003, UC-M14-004, UC-M14-005 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M14/D-M14-021.svg |
-| D-M14-022 | detail | UC-M14-022 | UC-M14-022, UC-M14-003, UC-M14-004, UC-M14-005 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M14/D-M14-022.svg |
-| D-M14-023 | detail | UC-M14-023 | UC-M14-023, UC-M14-003, UC-M14-004, UC-M14-005 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M14/D-M14-023.svg |
+| C-M14 | core | - | UC-M14-020, UC-M14-021, UC-M14-022, UC-M14-023 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M14/C-M14.svg |
+| D-M14-020 | detail | UC-M14-020 | UC-M14-020, UC-M14-001, UC-M14-002, UC-M14-003, UC-M14-004 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M14/D-M14-020.svg |
+| D-M14-021 | detail | UC-M14-021 | UC-M14-021, UC-M14-003, UC-M14-004, UC-M14-005 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M14/D-M14-021.svg |
+| D-M14-022 | detail | UC-M14-022 | UC-M14-022, UC-M14-003, UC-M14-004, UC-M14-005 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M14/D-M14-022.svg |
+| D-M14-023 | detail | UC-M14-023 | UC-M14-023, UC-M14-003, UC-M14-004, UC-M14-005 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M14/D-M14-023.svg |
 
-### 7.1 Bằng chứng kiểm tra
+### 7.1 Bằng chứng kiểm tra lịch sử 2.2 (không phải lần kiểm 2.3)
 
 | Hạng mục | Lệnh/phương pháp | Kết quả thực tế | Giới hạn/bằng chứng |
 | --- | --- | --- | --- |
@@ -1636,7 +1676,7 @@ Chưa có US-overview.md tại baseline; chỉ hoàn thiện M14. Khi tổng h�
 | NOTE-M14-03 | FR-M14-04.06, FR-M14-05.04, FR-M14-08.03, FR-M14-08.05, FR-M14-08.07, BR-M14-17, BR-M14-18 | Chưa rõ mốc so khi tab ban đầu rỗng, bài có cùng thời điểm đăng, bài cũ mới được khôi phục/thay đổi quan hệ, tập mới mất quyền trước lúc bấm hoặc có bài mới tiếp tục tới trong khi chèn. | Không biến thay đổi quan hệ thành một bài vừa đăng, không tự chọn cutoff/request count/thu hồi banner hoặc tự gỡ bài cũ trên màn hình; ngoại lệ Public→Private đã rõ vẫn giữ đọc cũ. | Đặc tả bảo toàn chỉ bài mới hơn và đúng tab, tất cả bài mới khi bấm/giữ chỗ đọc; quy tắc biên/tập rỗng/cập nhật banner và bài đã tải cần nguồn quyết định. |
 | NOTE-M14-04 | FR-M14-01.05, FR-M14-01.06, FR-M14-04.10, BR-M14-15, FR-M01-13.05, BR-M01-41, BR-M11-17, BR-M12-27 | Quyền staff xem bài DEACTIVATED/danh tính ẩn danh tại owner chưa nêu rõ áp dụng trên feed chung; nhãn BANNED khi chỉ được hiện Ẩn danh cũng chưa có cách trình bày riêng. | Không tự đưa bài bị ẩn vào feed chung hoặc tiết lộ tác giả nhờ điều kiện theo dõi/nhãn; không phủ nhận quyền xem hợp pháp ở owner. | Áp hợp đồng feed M14 và giới hạn danh tính ở mỗi ngữ cảnh; cần review phạm vi hiển thị staff/nhãn giao nhau, không tự thiết kế hoặc coi mọi feed staff có bypass. |
 | NOTE-M14-05 | FR-M14-03.03, FR-M14-03.15, FR-M14-08.01, FR-M14-08.06, BR-M14-16, BR-M14-18 | Chưa chốt lỗi tính/polling/tải/chèn, hai lần bấm cùng lúc, dữ liệu/tư cách đổi trong lúc lấy trang; không có cam kết giao dịch hoặc cơ chế retry. | Không dùng thiếu chi tiết để bỏ deadline15–30 phút/30 phút/60 giây, quyền hiện hành hay không lặp/mất; không khẳng định atomic/rollback/single-flight/version-lock chưa có nguồn. | Giữ ràng buộc nghiệp vụ; chuyển bảo đảm khi thất bại/đồng thời về phân tích/kỹ thuật, không tự chọn hạ tầng. |
-| NOTE-M14-06 | FR-M14-03.05, FR-M14-03.12, FR-M14-02.11, BR-M14-11, BR-M14-19 | Tuổi tính tại batch và kết quả giữ cả lượt có thể giao nhau khi bài vượt28 ngày trong lượt xem kéo dài; FR chưa mô tả ưu tiên loại ngay theo tuổi thực hay giữ điều kiện tuổi tại batch. | Không tự làm live-decay/recompute hoặc đổi batch giữa lượt; bài mất quyền vẫn phải bỏ ngay ở lần tải như nguồn đã nêu. | AUT001 loại >28 tại lần tính; ví dụ source biên28 được giữ. Cách xử lý bài vượt tuổi trong lượt kéo dài cần review, không tự bổ sung TTL kết quả. |
+| NOTE-M14-06 (đã đối chiếu) | FR-M14-03.01, FR-M14-03.04, FR-M14-03.05, FR-M14-03.12, FR-M14-02.11, BR-M14-11, BR-M14-19; DEC-260 | Giữ kết quả/điểm/thứ tự của lượt xem không buộc trả bài đã mất điều kiện; BR19 đã nêu rõ ngoại lệ loại bài không còn được hiển thị. | Trending khi phục vụ trang vẫn loại ứng viên tuổi thực >28 ngày, giữ nguyên thứ tự/điểm batch của các bài còn lại. Đúng 28 ngày giữ theo FR/BR11; không tính lại điểm hoặc đổi batch. | resolved theo hợp thành FR hiện hành; không phải thiếu chính sách chung cho lượt xem kéo dài. |
 | TBD-M14-02 / OPEN-006 | FR-M14 Phụ lục B; DEC-134; OPEN-006 | SSR/SEO và xem trước chia sẻ của lần tải đầu Guest hoãn có chủ đích ở MS1, mức Thấp. | Không đưa yêu cầu SSR/SEO vào UC hoặc tự xây hiện thực tối ưu. | Giữ hoãn; không coi là lỗ hổng cần tự triển khai. TBD-M14-01 đã đóng bởi DEC-259, bookmark trọng số1 đã được đưa vào AUT001/RULE003. |
 
 ### 7.3 ID cũ → mới
@@ -1647,3 +1687,88 @@ Chưa có US-overview.md tại baseline; chỉ hoàn thiện M14. Khi tổng h�
 Chưa có US-M14 trước lượt này, không đổi ID đã duyệt; giữ actor chung. Quyền làm liên tục không thay phê duyệt: hoàn tất bước 7 chỉ chuyển Chờ duyệt; chỉ ghi Đã duyệt/approved_steps sau chấp nhận thật của người dùng.
 
 
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+
+### 7.4 Walkthrough từng đường đi — revision 2.3
+
+Bảng dưới ghi riêng main và mỗi nhánh của từng hợp đồng, dùng trạng thái/guard thực tế. “Đối chiếu” chỉ áp phần nguồn đã định; các NOTE nêu rõ phần chưa thể kết luận. Một END ghi cần làm rõ không phải failure guarantee đã chốt.
+
+| UC/đường đi | Trạng thái/quyền trước | Điểm rẽ và return/END | Postcondition thực tế/giới hạn | Nguồn/kết quả |
+|---|---|---|---|---|
+| UC-M14-021/[main](#uc-m14-021-main-1) | Trigger: Người xem chọn tab Following. Trước: Tab vẫn hiện với mọi người; phiên đăng nhập được kiểm trong luồng, không coi Guest là không thể kích hoạt. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Trả tối đa 20 bài đầu theo thời điểm đăng giảm dần, mỗi bài một lần; hoặc trạng thái rỗng dẫn tới tìm kiếm. | FR-M14-04.03, FR-M14-04.05, FR-M14-04.11, FR-M14-07.02, FR-M14-08.01, FR-M14-08.03; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M14-021/[A1](#uc-m14-021-alt-1) | Tab vẫn hiện với mọi người; phiên đăng nhập được kiểm trong luồng, không coi Guest là không thể kích hoạt. Guard: Guest chưa đăng nhập | Rẽ [Bước 2](#uc-m14-021-main-2); END: chưa được xem Following. | Yêu cầu đăng nhập; không hiển thị bài Following; không tự chạy Đăng nhập như một include. | FR-M14-04.04, BR-M14-02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-021/[A2](#uc-m14-021-alt-2) | Tab vẫn hiện với mọi người; phiên đăng nhập được kiểm trong luồng, không coi Guest là không thể kích hoạt. Guard: Không theo dõi người dùng hoặc Topic nào | Rẽ [Bước 4](#uc-m14-021-main-4); END: trạng thái rỗng có lối tìm nguồn theo dõi. | Hiển thị trạng thái rỗng kèm nút dẫn sang trang tìm kiếm M06; bấm nút là chuyển sang nghiệp vụ M06. | FR-M14-04.05, BR-M14-20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-021/[A3](#uc-m14-021-alt-3) | Tab vẫn hiện với mọi người; phiên đăng nhập được kiểm trong luồng, không coi Guest là không thể kích hoạt. Guard: Có theo dõi nhưng không có bài thuộc phạm vi đang xem | Rẽ [Bước 4](#uc-m14-021-main-4); END: trạng thái rỗng có lối tìm kiếm. | Hiển thị cùng trạng thái rỗng kèm nút dẫn sang trang tìm kiếm. | FR-M14-04.11, BR-M14-20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-021/[A4](#uc-m14-021-alt-4) | Tab vẫn hiện với mọi người; phiên đăng nhập được kiểm trong luồng, không coi Guest là không thể kích hoạt. Guard: Bỏ theo dõi người dùng/Topic sau một lần tải | Rẽ [Bước 3](#uc-m14-021-main-3); [Trở về bước của UC](#uc-m14-021-main-4) | Từ lần tải kế tiếp UC003 không giữ bài chỉ còn thỏa nhờ đối tượng đã bỏ; bài vẫn thỏa một đối tượng khác còn theo dõi chỉ hiện một lần. | FR-M14-04.02, FR-M14-04.06, BR-M14-08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-021/[A5](#uc-m14-021-alt-5) | Tab vẫn hiện với mọi người; phiên đăng nhập được kiểm trong luồng, không coi Guest là không thể kích hoạt. Guard: Cờ Group tắt | Rẽ [Bước 3](#uc-m14-021-main-3); [Trở về bước của UC](#uc-m14-021-main-4) | Vẫn trả bài nhóm Public hợp lệ như lối vào; M11 quyết định mở/tương tác theo RULE005, có ngoại lệ Admin của owner. | FR-M14-04.12, BR-M14-22, FR-M11-17.03, FR-M11-17.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-022/[main](#uc-m14-022-main-1) | Trigger: Người xem chọn tab Group. Trước: Tab hiện cả với Guest; thành viên là điều kiện chọn nguồn từng nhóm tại lần tải, không bắt phải tham gia ít nhất một nhóm trước UC. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Trả tối đa 20 bài đầu của các nhóm hiện tham gia, mới trước; hoặc trạng thái rỗng có Khám phá Group. | FR-M14-05.02, FR-M14-05.06, FR-M14-05.07, FR-M14-08.01, FR-M14-08.03, FR-M14-07.02; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M14-022/[A1](#uc-m14-022-alt-1) | Tab hiện cả với Guest; thành viên là điều kiện chọn nguồn từng nhóm tại lần tải, không bắt phải tham gia ít nhất một nhóm trước UC. Guard: Guest chưa đăng nhập | Rẽ [Bước 2](#uc-m14-022-main-2); END: chưa được xem Group. | Yêu cầu đăng nhập; không trả bài nhóm từ tab Group. | FR-M14-05.05, BR-M14-02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-022/[A2](#uc-m14-022-alt-2) | Tab hiện cả với Guest; thành viên là điều kiện chọn nguồn từng nhóm tại lần tải, không bắt phải tham gia ít nhất một nhóm trước UC. Guard: Chưa tham gia nhóm nào | Rẽ [Bước 4](#uc-m14-022-main-4); END: có lối khám phá nhóm. | Hiện trạng thái rỗng và nút Khám phá Group dẫn sang trang danh sách nhóm M11. | FR-M14-05.06, BR-M14-21, FR-M11-03.01, FR-M11-03.03; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-022/[A3](#uc-m14-022-alt-3) | Tab hiện cả với Guest; thành viên là điều kiện chọn nguồn từng nhóm tại lần tải, không bắt phải tham gia ít nhất một nhóm trước UC. Guard: Đã tham gia nhóm nhưng tab không có bài đủ điều kiện | Rẽ [Bước 4](#uc-m14-022-main-4); END: có lối khám phá nhóm. | Hiện trạng thái rỗng kèm Khám phá Group. | FR-M14-05.07, BR-M14-21; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-022/[A4](#uc-m14-022-alt-4) | Tab hiện cả với Guest; thành viên là điều kiện chọn nguồn từng nhóm tại lần tải, không bắt phải tham gia ít nhất một nhóm trước UC. Guard: Người xem đã rời một nhóm | Rẽ [Bước 3](#uc-m14-022-main-3); [Trở về bước của UC](#uc-m14-022-main-4) | Từ lần tải kế tiếp loại bài nhóm đó, kể cả nhóm Public; bài đã tải sẵn chưa có quy tắc tự xóa UI (NOTE-M14-03). | FR-M14-05.03, FR-M14-05.04, BR-M14-07; pending-confirmation: NOTE-M14-03 |
+| UC-M14-022/[A5](#uc-m14-022-alt-5) | Tab hiện cả với Guest; thành viên là điều kiện chọn nguồn từng nhóm tại lần tải, không bắt phải tham gia ít nhất một nhóm trước UC. Guard: Cờ Group tắt | Rẽ [Bước 3](#uc-m14-022-main-3); [Trở về bước của UC](#uc-m14-022-main-4) | Tab vẫn hiện và vẫn liệt kê bài nhóm hợp lệ như lối vào; quyền mở/tương tác theo RULE005/M11, không xóa dữ liệu feed hoặc giấu tab. | FR-M14-05.08, BR-M14-22, FR-M11-17.03, FR-M11-17.07, FR-M11-17.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-023/[main](#uc-m14-023-main-1) | Trigger: Guest hoặc người dùng đã đăng nhập chọn tab Newest. Trước: Không cần đăng nhập; feed luôn truy cập được theo cổng tài khoản M01 và không có cờ riêng. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Hiện tối đa 20 bài ngoài nhóm mới nhất đủ điều kiện, hỗ trợ đọc tiếp và báo bài mới. | FR-M14-06.02, FR-M14-07.02, FR-M14-08.01, FR-M14-08.03, FR-M14-08.04; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M14-023/[A1](#uc-m14-023-alt-1) | Không cần đăng nhập; feed luôn truy cập được theo cổng tài khoản M01 và không có cờ riêng. Guard: Ứng viên thuộc nhóm Public hoặc Private | Rẽ [Bước 3](#uc-m14-023-main-3); [Trở về bước của UC](#uc-m14-023-main-4) | UC003 loại khỏi Newest, kể cả khi người xem là thành viên nhóm. | FR-M14-06.03, BR-M14-06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-023/[A2](#uc-m14-023-alt-2) | Không cần đăng nhập; feed luôn truy cập được theo cổng tài khoản M01 và không có cờ riêng. Guard: Không có bài đủ điều kiện | Rẽ [Bước 3](#uc-m14-023-main-3); END: không có bài để hiển thị; NOTE-M14-01. | Trả tập rỗng; nguồn chưa chốt nội dung trạng thái rỗng riêng Newest, không tự thêm CTA như Following/Group. | FR-M14-06.01, BR-M14-04, BR-M14-06; pending-confirmation: NOTE-M14-01 |
+| UC-M14-001/[main](#uc-m14-001-main-1) | Trigger: Trang chủ mở mặc định Trending Post hoặc người xem chọn mục Trending Post. Trước: Không cần đăng nhập; kiểm kết quả lần tính trong luồng, không giả định đã có lần tính đầu tiên. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Trang đầu từ kết quả lúc mở tab được hiển thị, các lần tải thêm dùng cùng kết quả và kiểm quyền tại lúc tải. | FR-M14-02.11, FR-M14-02.12, FR-M14-07.05, BR-M14-19; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M14-001/[A1](#uc-m14-001-alt-1) | Không cần đăng nhập; kiểm kết quả lần tính trong luồng, không giả định đã có lần tính đầu tiên. Guard: Chưa có lần tính khả dụng | Rẽ [Bước 2](#uc-m14-001-main-2); END: đường phục vụ kết quả ban đầu chưa được nguồn quy định. | Không tự tính điểm theo yêu cầu xem hoặc dựng thứ hạng giả; ghi giới hạn dữ liệu ban đầu NOTE-M14-01. | FR-M14-02.03, FR-M14-03.03, FR-M14-03.04; pending-confirmation: NOTE-M14-01 |
+| UC-M14-001/[A2](#uc-m14-001-alt-2) | Không cần đăng nhập; kiểm kết quả lần tính trong luồng, không giả định đã có lần tính đầu tiên. Guard: Bài trong kết quả cũ không còn đủ điều kiện ở lần tải này | Rẽ [Bước 3](#uc-m14-001-main-3); [Trở về bước của UC](#uc-m14-001-main-4) | UC003 bỏ bài: đã xóa/ẩn, tác giả DEACTIVATED/DELETED, nhóm Private hoặc điều kiện owner khác; không làm lại thứ hạng toàn bộ theo batch mới. | FR-M14-02.05, FR-M14-02.09, BR-M14-04, BR-M14-05, BR-M14-19, FR-M03-07.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-001/[A3](#uc-m14-001-alt-3) | Không cần đăng nhập; kiểm kết quả lần tính trong luồng, không giả định đã có lần tính đầu tiên. Guard: Cờ Group tắt | Rẽ [Bước 3](#uc-m14-001-main-3); [Trở về bước của UC](#uc-m14-001-main-4) | Bài nhóm Public vẫn được liệt kê; mở bài/tương tác do M11 theo RULE005. | FR-M14-02.08, BR-M14-22; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-001/[A4](#uc-m14-001-alt-4) | Không cần đăng nhập; kiểm kết quả lần tính trong luồng, không giả định đã có lần tính đầu tiên. Guard: Có lần tính mới khi người xem chưa rời tab | Rẽ [Bước 4](#uc-m14-001-main-4); [Trở về bước của UC](#uc-m14-001-main-4) | Giữ kết quả đã chọn cho cả tải thêm; chỉ mở lại tab hoặc reload mới nhận kết quả mới. | FR-M14-02.11, FR-M14-02.12, FR-M14-07.05, BR-M14-19; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-002/[main](#uc-m14-002-main-1) | Trigger: Người xem chọn Trending Topic hoặc Trending Tag. Trước: Không cần đăng nhập; lựa chọn là một trong hai loại danh sách do M05 sở hữu. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Hiển thị tối đa 20 mục mỗi lần, tiếp tục khi cuộn, giữ thứ tự M05 và không đưa mục điểm0. | FR-M14-02.07, FR-M14-02.11, FR-M14-02.12, BR-M14-19, BR-M14-24; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M14-002/[A1](#uc-m14-002-alt-1) | Không cần đăng nhập; lựa chọn là một trong hai loại danh sách do M05 sở hữu. Guard: Người xem chọn Trending Tag | Rẽ [Bước 1](#uc-m14-002-main-1); [Trở về bước của UC](#uc-m14-002-main-3) | Lấy danh sách Tag điểm >0, chỉ Tag hoạt động theo M05, giữ thứ tự M05; tiếp tục bước 3 với loại Tag. | FR-M14-02.06, FR-M14-02.10, BR-M14-24, FR-M05-05.07, BR-M05-26, BR-M05-31; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-002/[A2](#uc-m14-002-alt-2) | Không cần đăng nhập; lựa chọn là một trong hai loại danh sách do M05 sở hữu. Guard: Danh sách không có mục điểm >0 | Rẽ [Bước 2](#uc-m14-002-main-2); END: danh sách không có mục hợp lệ. | Trả danh sách rỗng; không thêm mục điểm0 để đủ20. Kiểu trình bày rỗng chưa chốt NOTE-M14-01. | FR-M14-02.10, BR-M14-24; pending-confirmation: NOTE-M14-01 |
+| UC-M14-002/[A3](#uc-m14-002-alt-3) | Không cần đăng nhập; lựa chọn là một trong hai loại danh sách do M05 sở hữu. Guard: Người xem cuộn tới cuối mục đã tải | Rẽ [Bước 3](#uc-m14-002-main-3); [Trở về bước của UC](#uc-m14-002-main-4) | Gọi lại UC004 để lấy tối đa20 mục kế tiếp theo thứ tự M05; hết mục thì dừng. | FR-M14-02.10, BR-M14-24; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-002/[A4](#uc-m14-002-alt-4) | Không cần đăng nhập; lựa chọn là một trong hai loại danh sách do M05 sở hữu. Guard: Một Tag bị vô hiệu hóa sau khi đã có kết quả | Rẽ [Bước 4](#uc-m14-002-main-4); END: không tự đưa Tag đã vô hiệu hóa trở lại. | M05 không cung cấp Tag bị vô hiệu hóa; không phục hồi Tag chỉ vì giữ kết quả cũ. Cách kết hợp snapshot và thay đổi danh mục cần NOTE-M14-02. | BR-M05-26, FR-M14-02.11, BR-M14-24; pending-confirmation: NOTE-M14-02 |
+| UC-M14-003/[main](#uc-m14-003-main-1) | Trigger: UC004 cần lấy một trang bài, hoặc UC005 cần kiểm tập bài mới trước khi chèn. Trước: Nhận người xem/phiên hiện hành, tab, tập ứng viên có thứ tự, mục đích tải; các owner cung cấp trạng thái bài/tài khoản/nhóm/quan hệ. | 1 → 2 → 3 → 4 → 5 → 6; END: kết quả thành công theo hợp đồng. | Tập giữ lại đúng tab và quyền hiện hành, không trùng bài, giữ thứ tự đầu vào; chỉ trả danh tính được phép. | BR-M14-22, FR-M11-17.07, FR-M12-08.10; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M14-003/[A1](#uc-m14-003-alt-1) | Nhận người xem/phiên hiện hành, tab, tập ứng viên có thứ tự, mục đích tải; các owner cung cấp trạng thái bài/tài khoản/nhóm/quan hệ. Guard: Guest tải Following/Group | Rẽ [Bước 1](#uc-m14-003-main-1); END: từ chối nội dung tab riêng. | Không trả tập bài; caller yêu cầu đăng nhập. | FR-M14-04.04, FR-M14-05.05, BR-M14-02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-003/[A2](#uc-m14-003-alt-2) | Nhận người xem/phiên hiện hành, tab, tập ứng viên có thứ tự, mục đích tải; các owner cung cấp trạng thái bài/tài khoản/nhóm/quan hệ. Guard: Bỏ theo dõi hoặc rời nhóm kể từ lần tải trước | Rẽ [Bước 3](#uc-m14-003-main-3); [Trở về bước của UC](#uc-m14-003-main-4) | Dùng quan hệ hiện tại: bài chỉ nhờ đối tượng đã bỏ không còn vào Following; bài nhóm đã rời không vào Group kể cả Public. | FR-M14-04.06, FR-M14-05.04, BR-M14-07, BR-M14-08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-003/[A3](#uc-m14-003-alt-3) | Nhận người xem/phiên hiện hành, tab, tập ứng viên có thứ tự, mục đích tải; các owner cung cấp trạng thái bài/tài khoản/nhóm/quan hệ. Guard: Nhóm từ Public chuyển Private | Rẽ [Bước 3](#uc-m14-003-main-3); [Trở về bước của UC](#uc-m14-003-main-4) | Không trả bài ở Trending/Following kể cả cho thành viên theo phạm vi feed chính; Group còn cho thành viên hiện tại. Ngoại lệ bài đã tải sẵn của người ngoài nhóm: vẫn đọc, không tương tác; không suy ngoại lệ thành quyền tải lại. | FR-M14-02.09, FR-M14-04.13, BR-M14-05, BR-M14-08, BR-M14-23, BR-M11-14, BR-M11-15; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-003/[A4](#uc-m14-003-alt-4) | Nhận người xem/phiên hiện hành, tab, tập ứng viên có thứ tự, mục đích tải; các owner cung cấp trạng thái bài/tài khoản/nhóm/quan hệ. Guard: Không còn bài thỏa phạm vi/quyền | Rẽ [Bước 3](#uc-m14-003-main-3); END: tập hợp lệ rỗng. | Trả tập rỗng; caller quyết định dừng tải hoặc trạng thái rỗng đã có nguồn. Không bù bài Private/bài khác tab. | BR-M14-04, BR-M14-05, BR-M14-06, BR-M14-07, BR-M14-08, BR-M14-16; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-004/[main](#uc-m14-004-main-1) | Trigger: Một UC mở danh sách yêu cầu trang đầu hoặc người xem cuộn tới cuối danh sách đã tải. Trước: Caller cung cấp loại danh sách, phạm vi/thứ tự và vị trí tải tiếp nếu là lần sau; Post Trending còn có kết quả của lượt xem. Quyền vẫn kiểm trước khi trả. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Trả tối đa20 bài/mục phù hợp từ sau vị trí tải tiếp, giữ ngữ cảnh và dừng khi hết. | FR-M14-07.03, BR-M14-16, FR-M14-08.07, BR-M14-18; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M14-004/[A1](#uc-m14-004-alt-1) | Caller cung cấp loại danh sách, phạm vi/thứ tự và vị trí tải tiếp nếu là lần sau; Post Trending còn có kết quả của lượt xem. Quyền vẫn kiểm trước khi trả. Guard: Loại danh sách là Trending Topic hoặc Trending Tag | Rẽ [Bước 2](#uc-m14-004-main-2); [Trở về bước của UC](#uc-m14-004-main-3) | Dùng danh sách điểm >0/thứ tự M05 do UC002 nhận; giữ ngữ cảnh lượt xem, không tự lọc bài hay tính điểm Topic/Tag. | FR-M14-02.06, FR-M14-02.10, FR-M14-02.11, BR-M14-24; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-004/[A2](#uc-m14-004-alt-2) | Caller cung cấp loại danh sách, phạm vi/thứ tự và vị trí tải tiếp nếu là lần sau; Post Trending còn có kết quả của lượt xem. Quyền vẫn kiểm trước khi trả. Guard: UC003 từ chối quyền đăng nhập | Rẽ [Bước 2](#uc-m14-004-main-2); END: không có trang dữ liệu riêng. | Không trả nội dung; caller xử lý yêu cầu đăng nhập. | FR-M14-04.04, FR-M14-05.05; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-004/[A3](#uc-m14-004-alt-3) | Caller cung cấp loại danh sách, phạm vi/thứ tự và vị trí tải tiếp nếu là lần sau; Post Trending còn có kết quả của lượt xem. Quyền vẫn kiểm trước khi trả. Guard: Không còn bài/mục hợp lệ phía sau vị trí tải tiếp | Rẽ [Bước 3](#uc-m14-004-main-3); END: đã hết danh sách hợp lệ. | Dừng tải thêm; không đưa bài không đủ điều kiện vào để lấp20. | FR-M14-07.03, FR-M14-02.05, BR-M14-16, BR-M14-24; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-004/[A4](#uc-m14-004-alt-4) | Caller cung cấp loại danh sách, phạm vi/thứ tự và vị trí tải tiếp nếu là lần sau; Post Trending còn có kết quả của lượt xem. Quyền vẫn kiểm trước khi trả. Guard: Có batch Trending mới hoặc bài mới đăng sau lần đầu | Rẽ [Bước 2](#uc-m14-004-main-2); [Trở về bước của UC](#uc-m14-004-main-3) | Trending giữ batch cũ của lượt xem; các tab thời gian giữ tải tiếp sau vị trí đã có, không chèn bài mới vào trang sau làm lặp/mất. Bài mới báo qua AUT002/UC005, riêng Trending chỉ nhận batch mới khi mở lại/reload. | FR-M14-07.04, FR-M14-07.05, FR-M14-02.12, BR-M14-16, BR-M14-19; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-005/[main](#uc-m14-005-main-1) | Trigger: Người xem bấm banner có bài mới ở Newest, Following hoặc Group. Trước: Đang xem tab được phép; AUT002 đã phát hiện có bài mới và hiện banner. Trending không có banner; quyền/quan hệ vẫn kiểm tại lúc tải. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Tất cả bài mới hơn bài mới nhất đang hiện và còn thuộc tab được chèn lên đầu, không trùng, giữ vị trí đọc; không giới hạn tổng ở20. | FR-M14-08.04, BR-M14-18, FR-M14-08.01; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M14-005/[A1](#uc-m14-005-alt-1) | Đang xem tab được phép; AUT002 đã phát hiện có bài mới và hiện banner. Trending không có banner; quyền/quan hệ vẫn kiểm tại lúc tải. Guard: Quyền/quan hệ thay đổi trước khi chèn | Rẽ [Bước 2](#uc-m14-005-main-2); [Trở về bước của UC](#uc-m14-005-main-3) | UC003 loại bài không còn thuộc tab/đã mất quyền, không chèn chỉ vì banner cũ từng báo. Không tự xóa bài cũ khỏi màn hình nếu nguồn chưa quy định; NOTE-M14-03. | FR-M14-01.05, FR-M14-04.06, FR-M14-05.04, FR-M14-08.05, BR-M14-04, BR-M14-17; pending-confirmation: NOTE-M14-03 |
+| UC-M14-005/[A2](#uc-m14-005-alt-2) | Đang xem tab được phép; AUT002 đã phát hiện có bài mới và hiện banner. Trending không có banner; quyền/quan hệ vẫn kiểm tại lúc tải. Guard: Guest gửi yêu cầu banner của Following/Group | Rẽ [Bước 2](#uc-m14-005-main-2); END: chưa được xem tab riêng. | Không trả bài; yêu cầu đăng nhập theo tab, không biến banner thành đường bỏ qua quyền. | FR-M14-04.04, FR-M14-05.05, BR-M14-02; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M14-005/[A3](#uc-m14-005-alt-3) | Đang xem tab được phép; AUT002 đã phát hiện có bài mới và hiện banner. Trending không có banner; quyền/quan hệ vẫn kiểm tại lúc tải. Guard: Bài mới đã bị xóa/ẩn hoặc tập mới không còn hợp lệ | Rẽ [Bước 2](#uc-m14-005-main-2); END: không thêm bài không hợp lệ. | Không chèn bài sai quyền. Cách cập nhật/ẩn banner khi tập rỗng chưa chốt; ghi NOTE-M14-03, không tự trả thông báo mới. | FR-M14-01.05, FR-M14-08.05, BR-M14-04, BR-M14-17; pending-confirmation: NOTE-M14-03 |
+
+### 7.5 Vòng đời gap/nguồn cần xác nhận — revision 2.3
+
+Bảng 7.2 giữ nội dung phát hiện trước; bảng này bổ sung phạm vi, mức chặn và điều kiện đóng. Các đường đã xác định tiếp tục dùng; phần blocking không được nhận semantic pass. Người có quyền quyết định chưa được chỉ định trong nguồn thì ghi **chưa xác định**, không mặc định Admin sản phẩm có quyền phê duyệt yêu cầu.
+
+| ID/nguồn baseline | UC/đường đi bị ảnh hưởng | Mức chặn và lý do | Người xác nhận | Register | Trạng thái | Điều kiện đóng/bằng chứng |
+|---|---|---|---|---|---|---|
+| NOTE-M14-01; FR-M14 baseline tại metadata; FR-M14-02.03, FR-M14-02.06, FR-M14-06.01, FR-M14-07.02, BR-M14-14 | UC-M14-001/A1, UC-M14-002/A2, UC-M14-023/A2; lỗi UC004 | blocking: chưa có kết quả phục vụ trước lần tính đầu/lỗi tải; rỗng Following/Group đã xác định | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M14-02; FR-M14 baseline tại metadata; FR-M14-02.11, FR-M14-07.04, BR-M14-13, BR-M14-16, BR-M14-19, BR-M14-24, BR-M05-26, BR-M05-30, BR-M05-31 | UC-M14-001/002/004; tie hoàn toàn hoặc danh mục M05 đổi giữa lượt | blocking: thiếu thứ tự vị trí/tính ổn định giao tiếp để bảo đảm không lặp/mất | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M14-03; FR-M14 baseline tại metadata; FR-M14-04.06, FR-M14-05.04, FR-M14-08.03, FR-M14-08.05, FR-M14-08.07, BR-M14-17, BR-M14-18 | UC-M14-005/A1,A3 và AUT-M14-002; mốc tab rỗng/banner đổi quyền | blocking: chưa xác định tập mới/cập nhật banner ở tổ hợp này | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M14-04; FR-M14 baseline tại metadata; FR-M14-01.05, FR-M14-01.06, FR-M14-04.10, BR-M14-15, FR-M01-13.05, BR-M01-41, BR-M11-17, BR-M12-27 | UC-M14-003/main2,main5; staff/Ẩn danh/BANNED | blocking: chưa đủ căn cứ giao tiếp cho quyền staff tại feed chung; không tự bypass hoặc công bố danh tính | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M14-05; FR-M14 baseline tại metadata; FR-M14-03.03, FR-M14-03.15, FR-M14-08.01, FR-M14-08.06, BR-M14-16, BR-M14-18 | UC-M14-004/005 và AUT-M14-001/002 khi lỗi/đồng thời | nonblocking: deadline và kết quả bình thường đã rõ; không chọn cơ chế polling/retry/transaction trong US | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M14-06; FR-M14 baseline tại metadata; FR-M14-03.05, FR-M14-03.12, FR-M14-02.11, BR-M14-11, BR-M14-19 | UC-M14-003/main3; UC-M14-001/004 tải trong cùng lượt | nonblocking: giữ snapshot/order và loại bài >28 ngày được hai quy tắc quy định đồng thời | Không cần quyết định mới về giữ kết quả và lọc; diễn đạt US chờ duyệt | DEC-260 đã tồn tại; không tạo register mới | resolved qua đối chiếu nguồn | FR-M14-03.05/BR11 với FR-M14-02.11/BR19: giữ điểm/thứ tự batch, loại bài mất điều kiện lúc phục vụ; không đổi biên đúng 28 ngày. |
+| TBD-M14-02 / OPEN-006; FR-M14 Phụ lục B; DEC-134; OPEN-006 | Không đưa yêu cầu SSR/SEO vào UC hoặc tự xây hiện thực tối ưu. | nonblocking: hoãn có chủ đích, ngoài hành vi MS1 đang đặc tả | Chưa xác định đối với quyết định mới | OPEN-006 | open / hoãn theo nguồn | Giữ hoãn; không coi là lỗ hổng cần tự triển khai. TBD-M14-01 đã đóng bởi DEC-259, bookmark trọng số1 đã được đưa vào AUT001/RULE003.; quyết định thay đổi/đóng mới cần bằng chứng stakeholder, không suy từ migration. |
+
+### Kiểm sơ đồ và cổng cuối của revision 2.3
+
+Các SVG bàn giao không đổi ở lượt này. XML/node/cạnh được audit từ file thật; `result=pass` có bằng chứng render lịch sử ở 7.1 và đối chiếu mới của root tại [UC-V23-REVIEW](UC-V23-REVIEW.md); chính agent module không chạy lại renderer. `diagram_check=pass` dựa trên tích hợp root: parse/render lại đủ 81 view exit 0, cây XML hiển thị của SVG gốc và bản render lại giống nhau; root xem 4 PNG mẫu, không tuyên bố xem ảnh thủ công cả 81. Xem [bằng chứng chung](UC-V23-REVIEW.md). Metadata `semantic_review=pending` do các đường blocking nêu trên, không phủ nhận phần đã có căn cứ. Kết quả checker revision được ghi sau khi thực thi, không sao chép số pass của bản cũ.
+
+### Kết quả kiểm thực thi revision 2.3
+
+| Lớp kiểm | Thực thi/kết quả | Giới hạn |
+|---|---|---|
+| Schema/trace | `python -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M14.md --final`: exit 1, errors=2, warnings=1. Hai lỗi: `Final review needs recorded semantic review`; `Final review needs diagram/render evidence`. | Đây là cổng chưa đạt có chủ ý vì phần blocking và render revision chưa xong; không gọi errors=0 hoặc nhận kết quả lịch sử thay lượt này. Cảnh báo còn review thủ công không tự đóng gap. |
+| XML và mô hình SVG | Audit file thực tế: 5 XML root SVG; members đúng catalog/decomposition; 16 association actor–UC trong bảng bằng đúng tập cạnh trực tiếp trên SVG; các relation UC–UC khớp endpoint/hướng/loại. Không sửa SVG. | Root đã parse/render lại 81 view exit 0, đối chiếu visual XML tree của 81 SVG gốc đều giống bản render mới; xem 4 PNG mẫu. Bằng chứng chung [UC-V23-REVIEW](UC-V23-REVIEW.md), không tuyên bố mọi ảnh đã được xem bằng mắt. |
+| Đối chiếu tiêu chí nguồn | 96 FR chi tiết/BR hiệu lực có nguyên văn tiêu chí được bảo toàn trong US, khớp nguồn owner sau bỏ anchor/khoảng trắng; mọi mã chi tiết tham chiếu tồn tại trong nguồn owner/normative Đã chốt đúng phiên bản. FR-M14-04.08 đã bỏ từ 0.1, không nằm mẫu số; thay bằng FR-M14-04.13. | So khớp tiêu chí/mã hỗ trợ review, không chứng minh tự động mọi flow tương đương nguồn. Không đổi FR/register. |
+| Walkthrough | 8 main và 31 alternative ghi trạng thái/guard/return/END/postcondition/nguồn ở 7.4; bảng 7.5 chỉ rõ các đường chưa đủ kết luận. | `semantic_review=pending`; Chờ duyệt và không có approved_steps cho revision mới. |
+
+| QA bổ sung đường lọc hiện có | Trạng thái/quyền trước | Đường đi/return | Postcondition | Nguồn/kết quả |
+|---|---|---|---|---|
+| [UC-M14-003/main3 — tuổi Trending](#uc-m14-003-main-3) | Cùng lượt Trending, ứng viên thuộc kết quả batch cũ; tại lần tải đã >28 ngày | UC001/UC004 chèn UC003 → main3 loại ứng viên → main4–6 trả tập còn hợp lệ | Không trả bài >28; đúng28 còn được giữ theo FR. Điểm/thứ tự batch của bài còn lại không đổi, không recompute/chuyển batch. | FR-M14-03.05, FR-M14-03.12, BR-M14-11, BR-M14-19; NOTE-M14-06 resolved bằng hợp thành quy tắc. |
+
+**Cập nhật kiểm chứng tích hợp:** `diagram_check=pass` theo [hồ sơ chung](UC-V23-REVIEW.md): root parse/render 81 SVG exit 0, các cây XML hiển thị giữ nguyên, 4 PNG mẫu đã xem. Chỉ một SVG/view được bàn giao; không sửa SVG ở lượt follow-up này. Semantic review vẫn pending cho các phần blocking thực sự còn lại.

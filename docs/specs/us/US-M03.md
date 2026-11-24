@@ -2,7 +2,9 @@
 
 [Vietnamese Doc]
 
-Phân tích toàn bộ FR-M03 1.10 theo skill use-case-analysis 2.2. Đầu ra: **4 UC chính, 17 UC con**, đặc tả, phân rã, quan hệ và truy vết; **5 sơ đồ, mỗi sơ đồ một SVG**. Trạng thái kết quả: **Chờ duyệt**.
+Phân tích toàn bộ FR-M03 1.10 theo skill use-case-analysis 2.3. Đầu ra: **4 UC chính, 17 UC con**, đặc tả, phân rã, quan hệ và truy vết; **5 sơ đồ, mỗi sơ đồ một SVG**. Trạng thái kết quả: **Chờ duyệt**.
+
+**Giới hạn revision 2.3:** đã review phần độc lập; bước 7 chưa hoàn tất do NOTE-M03-02 (poll 0 lượt chọn). Trạng thái Chờ duyệt; không báo hoàn tất toàn module.
 
 ## Metadata và tiến độ
 
@@ -10,20 +12,23 @@ Phân tích toàn bộ FR-M03 1.10 theo skill use-case-analysis 2.2. Đầu ra: 
 | key | value |
 |---|---|
 | document_id | US-M03 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M03 |
 | scope | ALL |
 | status | Chờ duyệt |
 | current_step | 7 |
-| completed_steps | 1, 2, 3, 4, 5, 6, 7 |
+| completed_steps | 1, 2, 3, 4, 5, 6 |
 | approved_steps | - |
 | source_baseline | FR-M03 1.10; FR-M01 1.10; FR-M02 1.6; FR-M04 1.4; FR-M05 1.7; FR-M06 1.5; FR-M07 1.5; FR-M08 1.7; FR-M09 1.2; FR-M10 1.4; FR-M11 1.3; FR-M12 1.1; FR-M13 1.3; FR-M14 1.1; FR-M15 1.1 |
 | author | Codex — hỗ trợ phân tích nghiệp vụ |
-| date | 2026-10-30 |
-| approval_evidence | Người dùng yêu cầu sử dụng skill để đọc FR-M03 và xây dựng đầu ra phân tích M03. Theo ngữ cảnh đã yêu cầu tiếp tục các bước, thực hiện liên tục để hoàn thiện đầu ra; chưa có phê duyệt riêng từng bước hoặc kết quả cuối của bản này. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | Yêu cầu cập nhật hiện hành cho phép thực hiện liên tục bước 1–7 theo skill 2.3; đây là quyền làm, chưa phê duyệt kết quả hoặc bất kỳ approved_steps của revision này. |
+| semantic_review | pending |
 | diagram_check | pass |
+
+**Lịch sử tiến độ revision 2.2 — không phải phê duyệt revision 2.3.** Tiến độ hiện hành ở metadata và mục Review revision 2.3 cuối tài liệu.
 
 | Bước | Kết quả | Xác nhận |
 |---|---|---|
@@ -51,22 +56,22 @@ Không kế thừa approved_steps hoặc bằng chứng pass từ US-M03 cũ. Ch
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M03.md | 1.10 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
 
-FR-M03 đã chốt ngày 2026-10-24, mốc DEC-271/QA-477/ISS-415/OPEN-012. Đọc đầy đủ yêu cầu M03 và các giao tiếp/mã liên quan ở module cung cấp/nhận; không tuyên bố đặc tả các module đó. [Skill 2.2](../../../.agent-instructions/skills/use-case-analysis/SKILL.md) là nguồn phương pháp, không cung cấp tính năng.
+FR-M03 đã chốt ngày 2026-10-24, mốc DEC-271/QA-477/ISS-415/OPEN-012. Đọc đầy đủ yêu cầu M03 và các giao tiếp/mã liên quan ở module cung cấp/nhận; không tuyên bố đặc tả các module đó. [Skill 2.3](../../../.agent-instructions/skills/use-case-analysis/SKILL.md) là nguồn phương pháp, không cung cấp tính năng.
 
 ### Actor và quyền
 
@@ -109,27 +114,27 @@ Mẫu số **219 mã = 17 nhóm + 151 FR chi tiết + 51 BR**. Không có mã hi
 <!-- uc:catalog -->
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
-| UC-M03-020 | Soạn thảo và xuất bản bài viết | core | Summary | ACT-002, ACT-003 | ACT-006 | M03 | #uc-m03-020 | FR-M03-01, FR-M03-02, FR-M03-03, FR-M03-04, FR-M03-05, FR-M03-06 |
-| UC-M03-021 | Đọc bài và tương tác bình chọn (Poll) | core | Summary | ACT-001, ACT-002, ACT-003 | - | M03 | #uc-m03-021 | FR-M03-07, FR-M03-08, FR-M03-09, FR-M03-10 |
-| UC-M03-022 | Chỉnh sửa và theo dõi lịch sử bài viết | core | Summary | ACT-001, ACT-002, ACT-003 | ACT-006 | M03 | #uc-m03-022 | FR-M03-02.02, FR-M03-11, FR-M03-12, BR-M03-26, BR-M03-27 |
-| UC-M03-023 | Quản lý trạng thái và vòng đời bài viết | core | Summary | ACT-002, ACT-003 | ACT-006 | M03 | #uc-m03-023 | FR-M03-13, FR-M03-14, FR-M03-15, FR-M03-16, FR-M03-17, FR-M03-07.08 |
+| UC-M03-020 | Soạn và đăng bài viết | core | Summary | ACT-002, ACT-003 | ACT-006 | M03 | #uc-m03-020 | FR-M03-01, FR-M03-02, FR-M03-03, FR-M03-04, FR-M03-05, FR-M03-06 |
+| UC-M03-021 | Đọc bài viết và bình chọn | core | Summary | ACT-001, ACT-002, ACT-003 | - | M03 | #uc-m03-021 | FR-M03-07, FR-M03-08, FR-M03-09, FR-M03-10 |
+| UC-M03-022 | Sửa bài viết và xem lịch sử | core | Summary | ACT-001, ACT-002, ACT-003 | ACT-006 | M03 | #uc-m03-022 | FR-M03-02.02, FR-M03-11, FR-M03-12, BR-M03-26, BR-M03-27 |
+| UC-M03-023 | Quản lý trạng thái bài viết | core | Summary | ACT-002, ACT-003 | ACT-006 | M03 | #uc-m03-023 | FR-M03-13, FR-M03-14, FR-M03-15, FR-M03-16, FR-M03-17, FR-M03-07.08 |
 | UC-M03-001 | Soạn và lưu nháp bài viết | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-001 | FR-M03-01, BR-M03-01, BR-M03-02, BR-M03-03, BR-M03-05, BR-M03-41, BR-M03-42 |
 | UC-M03-002 | Đính kèm tệp vào bài viết | sub | Subfunction | ACT-002, ACT-003 | - | M03 | #uc-m03-002 | FR-M03-02, BR-M03-04, BR-M03-07, BR-M03-08 |
-| UC-M03-003 | Tạo và cấu hình poll khi soạn bài | sub | Subfunction | ACT-002, ACT-003 | - | M03 | #uc-m03-003 | FR-M03-03, BR-M03-09, BR-M03-10, BR-M03-11, BR-M03-12 |
+| UC-M03-003 | Tạo bình chọn cho bài viết | sub | Subfunction | ACT-002, ACT-003 | - | M03 | #uc-m03-003 | FR-M03-03, BR-M03-09, BR-M03-10, BR-M03-11, BR-M03-12 |
 | UC-M03-004 | Gửi bài viết để đăng | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-004 | FR-M03-04, BR-M03-19, BR-M03-22, BR-M03-24, BR-M03-25, BR-M03-40, BR-M03-51 |
-| UC-M03-005 | Áp dụng chính sách kiểm duyệt khi công bố | sub | Subfunction | ACT-002, ACT-003 | ACT-006 | M03 | #uc-m03-005 | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
+| UC-M03-005 | Xử lý kiểm duyệt bài viết | sub | Subfunction | ACT-002, ACT-003 | ACT-006 | M03 | #uc-m03-005 | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
 | UC-M03-006 | Duyệt bài viết chờ đăng | sub | User goal | ACT-003 | - | M03 | #uc-m03-006 | FR-M03-06, BR-M03-23, BR-M03-25 |
 | UC-M03-007 | Xem bài viết | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M03 | #uc-m03-007 | FR-M03-07, BR-M03-18, BR-M03-39, BR-M03-49 |
-| UC-M03-008 | Bình chọn trong poll | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-008 | FR-M03-08, BR-M03-11, BR-M03-13, BR-M03-16, BR-M03-45 |
-| UC-M03-009 | Quản lý bình chọn poll | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-009 | FR-M03-09, BR-M03-14, BR-M03-44 |
+| UC-M03-008 | Tham gia bình chọn | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-008 | FR-M03-08, BR-M03-11, BR-M03-13, BR-M03-16, BR-M03-45 |
+| UC-M03-009 | Quản lý bình chọn của bài viết | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-009 | FR-M03-09, BR-M03-14, BR-M03-44 |
 | UC-M03-011 | Sửa bài viết đã gửi | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-011 | FR-M03-11, BR-M03-26, BR-M03-27, BR-M03-28, BR-M03-47 |
-| UC-M03-012 | Xem lịch sử sửa bài viết | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M03 | #uc-m03-012 | FR-M03-12, BR-M03-27, BR-M03-28 |
-| UC-M03-013 | Tự ẩn bài viết | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-013 | FR-M03-13.01, FR-M03-13.03, FR-M03-13.04, BR-M03-29 |
-| UC-M03-017 | Hiện lại bài tự ẩn | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-017 | FR-M03-13.02, FR-M03-13.03, FR-M03-13.05, FR-M03-13.06, BR-M03-26, BR-M03-29, BR-M03-33 |
+| UC-M03-012 | Xem lịch sử chỉnh sửa bài viết | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M03 | #uc-m03-012 | FR-M03-12, BR-M03-27, BR-M03-28 |
+| UC-M03-013 | Ẩn bài viết của mình | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-013 | FR-M03-13.01, FR-M03-13.03, FR-M03-13.04, BR-M03-29 |
+| UC-M03-017 | Hiện lại bài viết đã ẩn | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-017 | FR-M03-13.02, FR-M03-13.03, FR-M03-13.05, FR-M03-13.06, BR-M03-26, BR-M03-29, BR-M03-33 |
 | UC-M03-014 | Khóa và mở khóa bài viết | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-014 | FR-M03-14, BR-M03-30, BR-M03-31, BR-M03-32 |
 | UC-M03-015 | Xóa bài viết | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-015 | FR-M03-15, BR-M03-34, BR-M03-35 |
 | UC-M03-016 | Khôi phục bài viết đã xóa | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-016 | FR-M03-16, BR-M03-35, BR-M03-36, BR-M03-37 |
-| UC-M03-018 | Xem lại bài trong ngữ cảnh kiểm duyệt | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-018 | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
+| UC-M03-018 | Xem bài viết trong hồ sơ xử lý | sub | User goal | ACT-002, ACT-003 | - | M03 | #uc-m03-018 | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
 
 ### Phân rã chính → con
 
@@ -163,6 +168,11 @@ Cả bốn core ở Summary; sub có level User goal hoặc Subfunction theo tí
 | module | path | baseline |
 |---|---|---|
 
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+
 
 Mode module: US-overview không được tổng hợp trong scope này; các core giữ ID/tên làm đầu vào tổng quan hệ thống sau này.
 
@@ -185,7 +195,7 @@ Mode module: US-overview không được tổng hợp trong scope này; các cor
 
 <a id="uc-m03-020"></a>
 
-### UC-M03-020 — Soạn thảo và xuất bản bài viết
+### UC-M03-020 — Soạn và đăng bài viết
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -209,7 +219,7 @@ Không bắt buộc mọi UC con chạy nối tiếp hoặc có actor phụ gọ
 
 <a id="uc-m03-021"></a>
 
-### UC-M03-021 — Đọc bài và tương tác bình chọn (Poll)
+### UC-M03-021 — Đọc bài viết và bình chọn
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -233,7 +243,7 @@ Không bắt buộc mọi UC con chạy nối tiếp hoặc có actor phụ gọ
 
 <a id="uc-m03-022"></a>
 
-### UC-M03-022 — Chỉnh sửa và theo dõi lịch sử bài viết
+### UC-M03-022 — Sửa bài viết và xem lịch sử
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -257,7 +267,7 @@ Không bắt buộc mọi UC con chạy nối tiếp hoặc có actor phụ gọ
 
 <a id="uc-m03-023"></a>
 
-### UC-M03-023 — Quản lý trạng thái và vòng đời bài viết
+### UC-M03-023 — Quản lý trạng thái bài viết
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -457,7 +467,7 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 <a id="uc-m03-003"></a>
 
-### UC-M03-003 — Tạo và cấu hình poll khi soạn bài
+### UC-M03-003 — Tạo bình chọn cho bài viết
 
 **UC chính:** UC-M03-020.
 
@@ -629,7 +639,7 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 <a id="uc-m03-005"></a>
 
-### UC-M03-005 — Áp dụng chính sách kiểm duyệt khi công bố
+### UC-M03-005 — Xử lý kiểm duyệt bài viết
 
 **UC chính:** UC-M03-020, UC-M03-022, UC-M03-023.
 
@@ -660,13 +670,13 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 2 | Với lưu sửa Tự ẩn: không quét lúc lưu, để đến hiện lại; sửa Bị từ chối chưa công bố thì đợi gửi lại. Với Admin gửi/gửi lại bài ngoài nhóm: chuyển Đã đăng ngay, không quét và không vào hàng chờ. Admin sửa/hiện lại không bị quét lại; gửi bài nhóm vẫn chuyển cổng M11. Hiện lại bài chưa sửa lúc ẩn không kích hoạt quét lại chỉ vì hiện lại. | 3 | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
+| 2 | Với lưu sửa Tự ẩn: không quét lúc lưu, để đến hiện lại; sửa Bị từ chối chưa công bố thì đợi gửi lại. Với Admin gửi/gửi lại bài ngoài nhóm: chuyển Đã đăng ngay, không quét và không vào hàng chờ. Admin sửa/hiện lại không bị quét lại; gửi bài nhóm vẫn chuyển cổng M11. Hiện lại bài chưa sửa lúc ẩn không kích hoạt quét lại chỉ vì hiện lại. | 5 nếu trì hoãn/miễn/không cần quét; cổng M11 rồi 5 nếu bài nhóm; 3 nếu gửi ngoài nhóm khác Admin; 4 nếu quét lại khác Admin | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
 
 <a id="uc-m03-005-main-3"></a>
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 3 | Với gửi không thuộc nhóm của người khác Admin: nếu một trong hai cờ tắt thì Đã đăng; nếu cả hai bật thì Chờ duyệt và kích hoạt AUT001 quét mới. Bài nhóm dùng cổng M11; Owner có điểm trung bình/lỗi vào hàng chờ Mod hệ thống theo giao tiếp. | 4 | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
+| 3 | Với gửi không thuộc nhóm của người khác Admin: nếu một trong hai cờ tắt thì Đã đăng; nếu cả hai bật thì Chờ duyệt và kích hoạt AUT001 quét mới. Bài nhóm dùng cổng M11; Owner có điểm trung bình/lỗi vào hàng chờ Mod hệ thống theo giao tiếp. | 5; không chạy nhánh quét lại ở bước 4 | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
 
 <a id="uc-m03-005-main-4"></a>
 
@@ -867,7 +877,7 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 <a id="uc-m03-008"></a>
 
-### UC-M03-008 — Bình chọn trong poll
+### UC-M03-008 — Tham gia bình chọn
 
 **UC chính:** UC-M03-021.
 
@@ -947,7 +957,7 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 <a id="uc-m03-009"></a>
 
-### UC-M03-009 — Quản lý bình chọn poll
+### UC-M03-009 — Quản lý bình chọn của bài viết
 
 **UC chính:** UC-M03-021.
 
@@ -1118,7 +1128,7 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 <a id="uc-m03-012"></a>
 
-### UC-M03-012 — Xem lịch sử sửa bài viết
+### UC-M03-012 — Xem lịch sử chỉnh sửa bài viết
 
 **UC chính:** UC-M03-022.
 
@@ -1182,7 +1192,7 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 <a id="uc-m03-013"></a>
 
-### UC-M03-013 — Tự ẩn bài viết
+### UC-M03-013 — Ẩn bài viết của mình
 
 **UC chính:** UC-M03-023.
 
@@ -1244,7 +1254,7 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 <a id="uc-m03-017"></a>
 
-### UC-M03-017 — Hiện lại bài tự ẩn
+### UC-M03-017 — Hiện lại bài viết đã ẩn
 
 **UC chính:** UC-M03-023.
 
@@ -1514,7 +1524,7 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 <a id="uc-m03-018"></a>
 
-### UC-M03-018 — Xem lại bài trong ngữ cảnh kiểm duyệt
+### UC-M03-018 — Xem bài viết trong hồ sơ xử lý
 
 **UC chính:** UC-M03-023.
 
@@ -1539,13 +1549,13 @@ Các điều kiện chuẩn tắc sau áp dụng cùng hợp đồng, luồng v�
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 1 | Người mở vào từ thông báo kết quả xử lý, báo cáo/lịch sử báo cáo hoặc khiếu nại; iShare xác định bài và ngữ cảnh liên quan. | 2 | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
+| 1 | Người mở vào từ thông báo kết quả xử lý, báo cáo/lịch sử báo cáo hoặc khiếu nại; iShare xác định bài và ngữ cảnh liên quan. | 2 cho đường tác giả; 3 cho đường Mod/Admin trong hồ sơ vụ việc | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
 
 <a id="uc-m03-018-main-2"></a>
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 2 | Với tác giả: xác minh là bài của chính họ, đường thông báo kết quả xử lý hoặc khiếu nại của mình; cho xem chỉ đọc kể cả Đã xóa hẳn. | 3 | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
+| 2 | Với tác giả: xác minh là bài của chính họ, đường thông báo kết quả xử lý hoặc khiếu nại của mình; cho xem chỉ đọc kể cả Đã xóa hẳn. | 4; không yêu cầu quyền Mod/Admin của bước 3 | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
 
 <a id="uc-m03-018-main-3"></a>
 
@@ -1844,31 +1854,60 @@ Include từ UC gọi đến UC005; extend từ UC002/003/008/012 sang base001/0
 
 ### Association actor–UC
 
-| Actor | UC | Vai trò tương tác | Điều kiện/ngữ cảnh | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 |---|---|---|---|---|
-| ACT-002, ACT-003 | UC-M03-020 | Actor chính theo mục tiêu/quyền | Điều kiện theo từng UC con; quyền Admin và bài nhóm xử lý riêng. | FR-M03-01, FR-M03-02, FR-M03-03, FR-M03-04, FR-M03-05, FR-M03-06 |
-| ACT-001, ACT-002, ACT-003 | UC-M03-021 | Actor chính theo mục tiêu/quyền | Guest chỉ đọc; mọi thao tác khác yêu cầu phiên và quyền phù hợp. | FR-M03-07, FR-M03-08, FR-M03-09, FR-M03-10 |
-| ACT-001, ACT-002, ACT-003 | UC-M03-022 | Actor chính theo mục tiêu/quyền | Điều kiện sửa khác với điều kiện đọc; Guest chỉ xem lịch sử nếu xem được bài. | FR-M03-02.02, FR-M03-11, FR-M03-12, BR-M03-26, BR-M03-27 |
-| ACT-002, ACT-003 | UC-M03-023 | Actor chính theo mục tiêu/quyền | Phân biệt trạng thái đăng, kiểm duyệt và khóa; quyền sở hữu/quyền Mod không thay thế nhau. | FR-M03-13, FR-M03-14, FR-M03-15, FR-M03-16, FR-M03-17, FR-M03-07.08 |
-| ACT-002, ACT-003 | UC-M03-001 | Actor chính theo mục tiêu/quyền | Có phiên và tác giả; kiểm tra mức cảnh cáo trong luồng, không giả định mọi người có phiên đều được tạo nháp. | FR-M03-01, BR-M03-01, BR-M03-02, BR-M03-03, BR-M03-05, BR-M03-41, BR-M03-42 |
-| ACT-002, ACT-003 | UC-M03-002 | Actor kế thừa ngữ cảnh UC gọi | Có phiên, đúng tác giả; bài được soạn/sửa theo UC gọi. | FR-M03-02, BR-M03-04, BR-M03-07, BR-M03-08 |
-| ACT-002, ACT-003 | UC-M03-003 | Actor kế thừa ngữ cảnh UC gọi | Có phiên, đúng tác giả, bài chưa gửi; phân biệt thêm poll với quản lý poll sau gửi. | FR-M03-03, BR-M03-09, BR-M03-10, BR-M03-11, BR-M03-12 |
-| ACT-002, ACT-003 | UC-M03-004 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra sở hữu, trạng thái và mức cảnh cáo trong luồng. | FR-M03-04, BR-M03-19, BR-M03-22, BR-M03-24, BR-M03-25, BR-M03-40, BR-M03-51 |
-| ACT-002, ACT-003 | UC-M03-005 | Actor kế thừa ngữ cảnh UC gọi | Hành vi gọi đã hợp lệ; có sự kiện gửi/sửa/hiện lại, trạng thái bài, cờ AI/Moderation, vai trò và thông tin nhóm. | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
+| ACT-002 | UC-M03-020 | Actor chính theo mục tiêu/quyền | Điều kiện theo từng UC con; quyền Admin và bài nhóm xử lý riêng. | FR-M03-01, FR-M03-02, FR-M03-03, FR-M03-04, FR-M03-05, FR-M03-06 |
+| ACT-003 | UC-M03-020 | Actor chính theo mục tiêu/quyền | Điều kiện theo từng UC con; quyền Admin và bài nhóm xử lý riêng. | FR-M03-01, FR-M03-02, FR-M03-03, FR-M03-04, FR-M03-05, FR-M03-06 |
+| ACT-001 | UC-M03-021 | Actor chính theo mục tiêu/quyền | Guest chỉ đọc; mọi thao tác khác yêu cầu phiên và quyền phù hợp. | FR-M03-07, FR-M03-08, FR-M03-09, FR-M03-10 |
+| ACT-002 | UC-M03-021 | Actor chính theo mục tiêu/quyền | Guest chỉ đọc; mọi thao tác khác yêu cầu phiên và quyền phù hợp. | FR-M03-07, FR-M03-08, FR-M03-09, FR-M03-10 |
+| ACT-003 | UC-M03-021 | Actor chính theo mục tiêu/quyền | Guest chỉ đọc; mọi thao tác khác yêu cầu phiên và quyền phù hợp. | FR-M03-07, FR-M03-08, FR-M03-09, FR-M03-10 |
+| ACT-001 | UC-M03-022 | Actor chính theo mục tiêu/quyền | Điều kiện sửa khác với điều kiện đọc; Guest chỉ xem lịch sử nếu xem được bài. | FR-M03-02.02, FR-M03-11, FR-M03-12, BR-M03-26, BR-M03-27 |
+| ACT-002 | UC-M03-022 | Actor chính theo mục tiêu/quyền | Điều kiện sửa khác với điều kiện đọc; Guest chỉ xem lịch sử nếu xem được bài. | FR-M03-02.02, FR-M03-11, FR-M03-12, BR-M03-26, BR-M03-27 |
+| ACT-003 | UC-M03-022 | Actor chính theo mục tiêu/quyền | Điều kiện sửa khác với điều kiện đọc; Guest chỉ xem lịch sử nếu xem được bài. | FR-M03-02.02, FR-M03-11, FR-M03-12, BR-M03-26, BR-M03-27 |
+| ACT-002 | UC-M03-023 | Actor chính theo mục tiêu/quyền | Phân biệt trạng thái đăng, kiểm duyệt và khóa; quyền sở hữu/quyền Mod không thay thế nhau. | FR-M03-13, FR-M03-14, FR-M03-15, FR-M03-16, FR-M03-17, FR-M03-07.08 |
+| ACT-003 | UC-M03-023 | Actor chính theo mục tiêu/quyền | Phân biệt trạng thái đăng, kiểm duyệt và khóa; quyền sở hữu/quyền Mod không thay thế nhau. | FR-M03-13, FR-M03-14, FR-M03-15, FR-M03-16, FR-M03-17, FR-M03-07.08 |
+| ACT-002 | UC-M03-001 | Actor chính theo mục tiêu/quyền | Có phiên và tác giả; kiểm tra mức cảnh cáo trong luồng, không giả định mọi người có phiên đều được tạo nháp. | FR-M03-01, BR-M03-01, BR-M03-02, BR-M03-03, BR-M03-05, BR-M03-41, BR-M03-42 |
+| ACT-003 | UC-M03-001 | Actor chính theo mục tiêu/quyền | Có phiên và tác giả; kiểm tra mức cảnh cáo trong luồng, không giả định mọi người có phiên đều được tạo nháp. | FR-M03-01, BR-M03-01, BR-M03-02, BR-M03-03, BR-M03-05, BR-M03-41, BR-M03-42 |
+| ACT-002 | UC-M03-002 | Actor kế thừa ngữ cảnh UC gọi | Có phiên, đúng tác giả; bài được soạn/sửa theo UC gọi. | FR-M03-02, BR-M03-04, BR-M03-07, BR-M03-08 |
+| ACT-003 | UC-M03-002 | Actor kế thừa ngữ cảnh UC gọi | Có phiên, đúng tác giả; bài được soạn/sửa theo UC gọi. | FR-M03-02, BR-M03-04, BR-M03-07, BR-M03-08 |
+| ACT-002 | UC-M03-003 | Actor kế thừa ngữ cảnh UC gọi | Có phiên, đúng tác giả, bài chưa gửi; phân biệt thêm poll với quản lý poll sau gửi. | FR-M03-03, BR-M03-09, BR-M03-10, BR-M03-11, BR-M03-12 |
+| ACT-003 | UC-M03-003 | Actor kế thừa ngữ cảnh UC gọi | Có phiên, đúng tác giả, bài chưa gửi; phân biệt thêm poll với quản lý poll sau gửi. | FR-M03-03, BR-M03-09, BR-M03-10, BR-M03-11, BR-M03-12 |
+| ACT-002 | UC-M03-004 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra sở hữu, trạng thái và mức cảnh cáo trong luồng. | FR-M03-04, BR-M03-19, BR-M03-22, BR-M03-24, BR-M03-25, BR-M03-40, BR-M03-51 |
+| ACT-003 | UC-M03-004 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra sở hữu, trạng thái và mức cảnh cáo trong luồng. | FR-M03-04, BR-M03-19, BR-M03-22, BR-M03-24, BR-M03-25, BR-M03-40, BR-M03-51 |
+| ACT-002 | UC-M03-005 | Actor kế thừa ngữ cảnh UC gọi | Hành vi gọi đã hợp lệ; có sự kiện gửi/sửa/hiện lại, trạng thái bài, cờ AI/Moderation, vai trò và thông tin nhóm. | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
+| ACT-003 | UC-M03-005 | Actor kế thừa ngữ cảnh UC gọi | Hành vi gọi đã hợp lệ; có sự kiện gửi/sửa/hiện lại, trạng thái bài, cờ AI/Moderation, vai trò và thông tin nhóm. | FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
 | ACT-003 | UC-M03-006 | Actor chính theo mục tiêu/quyền | Có phiên Mod/Admin; kiểm tra bài còn Chờ duyệt trong luồng; không phải tất cả bài Chờ duyệt đang quét đều trong hàng chờ. | FR-M03-06, BR-M03-23, BR-M03-25 |
-| ACT-001, ACT-002, ACT-003 | UC-M03-007 | Actor chính theo mục tiêu/quyền | Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. | FR-M03-07, BR-M03-18, BR-M03-39, BR-M03-49 |
-| ACT-002, ACT-003 | UC-M03-008 | Actor chính theo mục tiêu/quyền | Có quyền xem bài; kiểm tra phiên, poll đang mở và mức khóa trong luồng; tác giả được tự vote. | FR-M03-08, BR-M03-11, BR-M03-13, BR-M03-16, BR-M03-45 |
-| ACT-002, ACT-003 | UC-M03-009 | Actor chính theo mục tiêu/quyền | Có phiên, đúng tác giả; poll còn mở được kiểm tra trong luồng; cấu hình/lựa chọn cũ sau gửi không được sửa. | FR-M03-09, BR-M03-14, BR-M03-44 |
-| ACT-002, ACT-003 | UC-M03-011 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và trạng thái trong luồng. Nháp theo UC001; mức khóa không cấm tác giả sửa. | FR-M03-11, BR-M03-26, BR-M03-27, BR-M03-28, BR-M03-47 |
-| ACT-001, ACT-002, ACT-003 | UC-M03-012 | Actor chính theo mục tiêu/quyền | Bài có phiên bản lịch sử; quyền xem được kiểm tra lại, không chỉ dựa vào việc đã mở URL trước đó. | FR-M03-12, BR-M03-27, BR-M03-28 |
-| ACT-002, ACT-003 | UC-M03-013 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và Đã đăng trong luồng. | FR-M03-13.01, FR-M03-13.03, FR-M03-13.04, BR-M03-29 |
-| ACT-002, ACT-003 | UC-M03-017 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ, Tự ẩn và kiểm duyệt trong luồng. | FR-M03-13.02, FR-M03-13.03, FR-M03-13.05, FR-M03-13.06, BR-M03-26, BR-M03-29, BR-M03-33 |
-| ACT-002, ACT-003 | UC-M03-014 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra vai trò, chủ và người khóa trong luồng. | FR-M03-14, BR-M03-30, BR-M03-31, BR-M03-32 |
-| ACT-002, ACT-003 | UC-M03-015 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và chưa Đã xóa trong luồng. | FR-M03-15, BR-M03-34, BR-M03-35 |
-| ACT-002, ACT-003 | UC-M03-016 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ, trạng thái Đã xóa, thời hạn và kiểm duyệt trong luồng. | FR-M03-16, BR-M03-35, BR-M03-36, BR-M03-37 |
-| ACT-002, ACT-003 | UC-M03-018 | Actor chính theo mục tiêu/quyền | Có phiên và ngữ cảnh vụ việc hợp lệ; kiểm tra quyền đối với người mở/bài, không chỉ dựa vào biết ID bài. | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
+| ACT-001 | UC-M03-007 | Actor chính theo mục tiêu/quyền | Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. | FR-M03-07, BR-M03-18, BR-M03-39, BR-M03-49 |
+| ACT-002 | UC-M03-007 | Actor chính theo mục tiêu/quyền | Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. | FR-M03-07, BR-M03-18, BR-M03-39, BR-M03-49 |
+| ACT-003 | UC-M03-007 | Actor chính theo mục tiêu/quyền | Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. | FR-M03-07, BR-M03-18, BR-M03-39, BR-M03-49 |
+| ACT-002 | UC-M03-008 | Actor chính theo mục tiêu/quyền | Có quyền xem bài; kiểm tra phiên, poll đang mở và mức khóa trong luồng; tác giả được tự vote. | FR-M03-08, BR-M03-11, BR-M03-13, BR-M03-16, BR-M03-45 |
+| ACT-003 | UC-M03-008 | Actor chính theo mục tiêu/quyền | Có quyền xem bài; kiểm tra phiên, poll đang mở và mức khóa trong luồng; tác giả được tự vote. | FR-M03-08, BR-M03-11, BR-M03-13, BR-M03-16, BR-M03-45 |
+| ACT-002 | UC-M03-009 | Actor chính theo mục tiêu/quyền | Có phiên, đúng tác giả; poll còn mở được kiểm tra trong luồng; cấu hình/lựa chọn cũ sau gửi không được sửa. | FR-M03-09, BR-M03-14, BR-M03-44 |
+| ACT-003 | UC-M03-009 | Actor chính theo mục tiêu/quyền | Có phiên, đúng tác giả; poll còn mở được kiểm tra trong luồng; cấu hình/lựa chọn cũ sau gửi không được sửa. | FR-M03-09, BR-M03-14, BR-M03-44 |
+| ACT-002 | UC-M03-011 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và trạng thái trong luồng. Nháp theo UC001; mức khóa không cấm tác giả sửa. | FR-M03-11, BR-M03-26, BR-M03-27, BR-M03-28, BR-M03-47 |
+| ACT-003 | UC-M03-011 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và trạng thái trong luồng. Nháp theo UC001; mức khóa không cấm tác giả sửa. | FR-M03-11, BR-M03-26, BR-M03-27, BR-M03-28, BR-M03-47 |
+| ACT-001 | UC-M03-012 | Actor chính theo mục tiêu/quyền | Bài có phiên bản lịch sử; quyền xem được kiểm tra lại, không chỉ dựa vào việc đã mở URL trước đó. | FR-M03-12, BR-M03-27, BR-M03-28 |
+| ACT-002 | UC-M03-012 | Actor chính theo mục tiêu/quyền | Bài có phiên bản lịch sử; quyền xem được kiểm tra lại, không chỉ dựa vào việc đã mở URL trước đó. | FR-M03-12, BR-M03-27, BR-M03-28 |
+| ACT-003 | UC-M03-012 | Actor chính theo mục tiêu/quyền | Bài có phiên bản lịch sử; quyền xem được kiểm tra lại, không chỉ dựa vào việc đã mở URL trước đó. | FR-M03-12, BR-M03-27, BR-M03-28 |
+| ACT-002 | UC-M03-013 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và Đã đăng trong luồng. | FR-M03-13.01, FR-M03-13.03, FR-M03-13.04, BR-M03-29 |
+| ACT-003 | UC-M03-013 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và Đã đăng trong luồng. | FR-M03-13.01, FR-M03-13.03, FR-M03-13.04, BR-M03-29 |
+| ACT-002 | UC-M03-017 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ, Tự ẩn và kiểm duyệt trong luồng. | FR-M03-13.02, FR-M03-13.03, FR-M03-13.05, FR-M03-13.06, BR-M03-26, BR-M03-29, BR-M03-33 |
+| ACT-003 | UC-M03-017 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ, Tự ẩn và kiểm duyệt trong luồng. | FR-M03-13.02, FR-M03-13.03, FR-M03-13.05, FR-M03-13.06, BR-M03-26, BR-M03-29, BR-M03-33 |
+| ACT-002 | UC-M03-014 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra vai trò, chủ và người khóa trong luồng. | FR-M03-14, BR-M03-30, BR-M03-31, BR-M03-32 |
+| ACT-003 | UC-M03-014 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra vai trò, chủ và người khóa trong luồng. | FR-M03-14, BR-M03-30, BR-M03-31, BR-M03-32 |
+| ACT-002 | UC-M03-015 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và chưa Đã xóa trong luồng. | FR-M03-15, BR-M03-34, BR-M03-35 |
+| ACT-003 | UC-M03-015 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ và chưa Đã xóa trong luồng. | FR-M03-15, BR-M03-34, BR-M03-35 |
+| ACT-002 | UC-M03-016 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ, trạng thái Đã xóa, thời hạn và kiểm duyệt trong luồng. | FR-M03-16, BR-M03-35, BR-M03-36, BR-M03-37 |
+| ACT-003 | UC-M03-016 | Actor chính theo mục tiêu/quyền | Có phiên; kiểm tra chủ, trạng thái Đã xóa, thời hạn và kiểm duyệt trong luồng. | FR-M03-16, BR-M03-35, BR-M03-36, BR-M03-37 |
+| ACT-002 | UC-M03-018 | Actor chính theo mục tiêu/quyền | Có phiên và ngữ cảnh vụ việc hợp lệ; kiểm tra quyền đối với người mở/bài, không chỉ dựa vào biết ID bài. | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
+| ACT-003 | UC-M03-018 | Actor chính theo mục tiêu/quyền | Có phiên và ngữ cảnh vụ việc hợp lệ; kiểm tra quyền đối với người mở/bài, không chỉ dựa vào biết ID bài. | FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
 | ACT-006 | UC-M03-005 | Hỗ trợ điểm quét qua M13 nội bộ | Chỉ khi nhánh chính sách thực sự gọi AI; không nhận tài liệu đính kèm. | FR-M13-01.01, FR-M13-02.01, FR-M13-02.02 |
-| ACT-001 | Các UC tương tác khác UC007/012 | Yêu cầu bị từ chối | Guest không có quyền ghi/tương tác chỉ vì đọc được bài. | FR-M03-07.06 |
+
+Bảng được chuyển từ inventory association hiện hữu, tách mỗi cặp actor–UC; không lấy tích actor catalog × UC. Vai trò của helper là tham gia qua UC gọi, không phải thao tác UI độc lập. Các cạnh ACT-003 kế thừa ACT-002 (M02–M05) và ACT-007 kế thừa ACT-003 (M05) có thể rút gọn trên hình; điều kiện quyền ở từng dòng vẫn bắt buộc. M01 không có actor generalization. Những actor chỉ gửi yêu cầu bị từ chối không có quyền thành công.
+
+Quy tắc từ chối giữ ở luồng, không tạo endpoint giả: ACT-001 — Các UC tương tác khác UC007/012 — Yêu cầu bị từ chối — Guest không có quyền ghi/tương tác chỉ vì đọc được bài. — FR-M03-07.06
+
 
 ### Các cặp không có quan hệ UML
 
@@ -2001,7 +2040,7 @@ Một dòng cho từng mã còn hiệu lực. FR chi tiết dẫn tới điều 
 | FR-M03-08.07 | #rule-m03-003-fr-m03-08-07 | Đủ | Điều kiện của RULE-M03-003; đọc cùng hợp đồng/luồng/nhánh. |
 | FR-M03-08.08 | #rule-m03-003-fr-m03-08-08 | Đủ | Điều kiện của RULE-M03-003; đọc cùng hợp đồng/luồng/nhánh. |
 | FR-M03-08.09 | #rule-m03-003-fr-m03-08-09 | Đủ | Điều kiện của RULE-M03-003; đọc cùng hợp đồng/luồng/nhánh. |
-| FR-M03-08.10 | #rule-m03-003-fr-m03-08-10 | Đủ | Điều kiện của RULE-M03-003; đọc cùng hợp đồng/luồng/nhánh. |
+| FR-M03-08.10 | #rule-m03-003-fr-m03-08-10 | Một phần | Đặc tả giữ nội dung nguồn; chưa chốt postcondition đường bị chặn theo NOTE-M03-02 ở QA revision 2.3. |
 | FR-M03-08.11 | #uc-m03-008-fr-m03-08-11 | Đủ | Điều kiện của UC-M03-008; đọc cùng hợp đồng/luồng/nhánh. |
 | FR-M03-08.12 | #rule-m03-003-fr-m03-08-12 | Đủ | Điều kiện của RULE-M03-003; đọc cùng hợp đồng/luồng/nhánh. |
 | FR-M03-08.13 | #uc-m03-008-fr-m03-08-13 | Đủ | Điều kiện của UC-M03-008; đọc cùng hợp đồng/luồng/nhánh. |
@@ -2074,7 +2113,7 @@ Một dòng cho từng mã còn hiệu lực. FR chi tiết dẫn tới điều 
 | BR-M03-12 | #br-m03-12, #uc-m03-003, #uc-m03-009 | Đủ | Ràng buộc chuẩn tắc tại các hợp đồng được dẫn. |
 | BR-M03-13 | #br-m03-13, #uc-m03-008, #aut-m03-002, #aut-m03-004 | Đủ | Ràng buộc chuẩn tắc tại các hợp đồng được dẫn. |
 | BR-M03-14 | #br-m03-14, #uc-m03-009, #aut-m03-002 | Đủ | Ràng buộc chuẩn tắc tại các hợp đồng được dẫn. |
-| BR-M03-15 | #br-m03-15, #rule-m03-003 | Đủ | Ràng buộc chuẩn tắc tại các hợp đồng được dẫn. |
+| BR-M03-15 | #br-m03-15, #rule-m03-003 | Một phần | Đặc tả giữ nội dung nguồn; chưa chốt postcondition đường bị chặn theo NOTE-M03-02 ở QA revision 2.3. |
 | BR-M03-16 | #br-m03-16, #uc-m03-008 | Đủ | Ràng buộc chuẩn tắc tại các hợp đồng được dẫn. |
 | BR-M03-17 | #br-m03-17, #rule-m03-001 | Đủ | Ràng buộc chuẩn tắc tại các hợp đồng được dẫn. |
 | BR-M03-18 | #br-m03-18, #uc-m03-007, #rule-m03-001 | Đủ | Ràng buộc chuẩn tắc tại các hợp đồng được dẫn. |
@@ -2169,11 +2208,11 @@ Mỗi sơ đồ chỉ bàn giao một SVG. Actor ngoài iShare, UC trong M03; co
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| D-M03-CORE | core | - | UC-M03-020, UC-M03-021, UC-M03-022, UC-M03-023 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M03/D-M03-CORE.svg |
-| D-M03-020 | detail | UC-M03-020 | UC-M03-020, UC-M03-001, UC-M03-002, UC-M03-003, UC-M03-004, UC-M03-005, UC-M03-006 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M03/D-M03-020.svg |
-| D-M03-021 | detail | UC-M03-021 | UC-M03-021, UC-M03-007, UC-M03-008, UC-M03-009, UC-M03-012 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M03/D-M03-021.svg |
-| D-M03-022 | detail | UC-M03-022 | UC-M03-022, UC-M03-011, UC-M03-012, UC-M03-002, UC-M03-005, UC-M03-007 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M03/D-M03-022.svg |
-| D-M03-023 | detail | UC-M03-023 | UC-M03-023, UC-M03-013, UC-M03-017, UC-M03-014, UC-M03-015, UC-M03-016, UC-M03-018, UC-M03-005 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M03/D-M03-023.svg |
+| D-M03-CORE | core | - | UC-M03-020, UC-M03-021, UC-M03-022, UC-M03-023 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M03/D-M03-CORE.svg |
+| D-M03-020 | detail | UC-M03-020 | UC-M03-020, UC-M03-001, UC-M03-002, UC-M03-003, UC-M03-004, UC-M03-005, UC-M03-006 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M03/D-M03-020.svg |
+| D-M03-021 | detail | UC-M03-021 | UC-M03-021, UC-M03-007, UC-M03-008, UC-M03-009, UC-M03-012 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M03/D-M03-021.svg |
+| D-M03-022 | detail | UC-M03-022 | UC-M03-022, UC-M03-011, UC-M03-012, UC-M03-002, UC-M03-005, UC-M03-007 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M03/D-M03-022.svg |
+| D-M03-023 | detail | UC-M03-023 | UC-M03-023, UC-M03-013, UC-M03-017, UC-M03-014, UC-M03-015, UC-M03-016, UC-M03-018, UC-M03-005 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M03/D-M03-023.svg |
 
 ### D-M03-CORE — Tổng quan UC chính M03
 
@@ -2181,31 +2220,33 @@ Mỗi sơ đồ chỉ bàn giao một SVG. Actor ngoài iShare, UC trong M03; co
 
 [Xem SVG](diagrams/M03/D-M03-CORE.svg)
 
-### D-M03-020 — Soạn thảo và xuất bản bài viết
+### D-M03-020 — Soạn và đăng bài viết
 
 ![D-M03-020](diagrams/M03/D-M03-020.svg)
 
 [Xem SVG](diagrams/M03/D-M03-020.svg)
 
-### D-M03-021 — Đọc bài và tương tác bình chọn (Poll)
+### D-M03-021 — Đọc bài viết và bình chọn
 
 ![D-M03-021](diagrams/M03/D-M03-021.svg)
 
 [Xem SVG](diagrams/M03/D-M03-021.svg)
 
-### D-M03-022 — Chỉnh sửa và theo dõi lịch sử bài viết
+### D-M03-022 — Sửa bài viết và xem lịch sử
 
 ![D-M03-022](diagrams/M03/D-M03-022.svg)
 
 [Xem SVG](diagrams/M03/D-M03-022.svg)
 
-### D-M03-023 — Quản lý trạng thái và vòng đời bài viết
+### D-M03-023 — Quản lý trạng thái bài viết
 
 ![D-M03-023](diagrams/M03/D-M03-023.svg)
 
 [Xem SVG](diagrams/M03/D-M03-023.svg)
 
 ## 7. Kiểm tra và phê duyệt
+
+**Bằng chứng lịch sử revision 2.2.** Các lệnh/render và kết quả bên dưới được giữ như lịch sử; kết quả kiểm chứng revision 2.3 nằm ở mục cuối.
 
 **Kết quả kiểm tra ngày 2026-10-30:**
 
@@ -2243,3 +2284,141 @@ Mã nguồn và ảnh raster chỉ phục vụ kiểm tra tại workspace agent;
 | Định dạng | Chỉ SVG trong thư mục bàn giao; file nguồn/raster phục vụ kiểm tra ở workspace tạm, không có link tải file trung gian. |
 
 **Chờ duyệt.** Phân tích/kiểm tra không thay xác nhận người dùng. Chỉ chuyển Đã duyệt sau khi có phê duyệt kết quả cuối; thay đổi FR cần rà lại mapping, luồng, quan hệ và view bị ảnh hưởng.
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+## Review revision 2.3 — 2026-11-24
+
+Quyền hiện hành: cập nhật bộ US, làm liên tục bảy bước; không phê duyệt kết quả. Baseline FR, ID và tên hiện hành được giữ. [UC-NAMING](UC-NAMING.md) ngày 2026-11-24 đang **Chờ duyệt cách diễn đạt**; được đối chiếu như lựa chọn diễn đạt hiện có, không coi là quy chuẩn đã duyệt.
+
+### Lịch sử tiến độ và bằng chứng cũ
+
+Các bảng tiến độ/render/checker ở trên là **lịch sử revision 2.2**; không phải các lệnh vừa chạy cho revision 2.3. approved_steps lịch sử = `-`; bằng chứng nguyên văn lịch sử: Người dùng yêu cầu sử dụng skill để đọc FR-M03 và xây dựng đầu ra phân tích M03. Theo ngữ cảnh đã yêu cầu tiếp tục các bước, thực hiện liên tục để hoàn thiện đầu ra; chưa có phê duyệt riêng từng bước hoặc kết quả cuối của bản này.
+
+Revision 2.3: bước 1 đối chiếu owner/normative và boundary; bước 2 rà goal/level/core–sub; bước 3 walkthrough từng đặc tả; bước 4 rà core–sub/sub–sub và association; bước 5 đối chiếu trace/điều kiện chuẩn tắc; bước 6 giữ SVG hiện hành, kiểm XML/node/cạnh; bước 7 ghi kết quả và gap bên dưới. Không chạy renderer mới trong revision này; giữ bằng chứng render lịch sử cho SVG không đổi.
+
+### Độ gắn kết, mức mục tiêu và phương án
+
+| Core/sub hoặc cặp UC | Goal/trigger/kết quả/phạm vi | Quyết định và giới hạn | Nguồn |
+|---|---|---|---|
+| UC-M03-020 / UC-M03-001, UC-M03-002, UC-M03-003, UC-M03-004, UC-M03-005, UC-M03-006 | Summary soạn đến công bố; nháp/gửi/duyệt có trigger và kết quả riêng. Tệp/poll/chính sách là Subfunction, không thay mục tiêu tác giả/Mod. | Giữ phân rã; duyệt sau quét không là include từ gửi; AUT giữ từng kết quả ngưỡng. | FR-M03-01, FR-M03-02, FR-M03-03, FR-M03-04, FR-M03-05, FR-M03-06 |
+| UC-M03-021 / UC-M03-007, UC-M03-008, UC-M03-009 | Summary đọc và poll; Guest chỉ đọc, người có phiên vote, tác giả quản lý poll. Trigger/kết quả đọc, phiếu, cấu hình khác nhau. | Giữ User goal riêng; kết quả zero-vote chưa chốt theo NOTE-M03-02, không tự cam kết 0%. | FR-M03-07, FR-M03-08, FR-M03-09, BR-M03-15 |
+| UC-M03-022 / UC-M03-011, UC-M03-012, UC-M03-002, UC-M03-005 | Summary sửa/xem phiên bản; sửa tạo lịch sử khác đọc lịch sử. Tệp/chính sách dùng chung với core020/023. | Giữ một ID helper; không gộp ghi lịch sử bắt buộc với mục tiêu xem lịch sử của Guest. | FR-M03-11, FR-M03-12, FR-M03-02.02 |
+| UC-M03-023 / UC-M03-013, UC-M03-017, UC-M03-014, UC-M03-015, UC-M03-016, UC-M03-018, UC-M03-005 | Summary vòng đời; ẩn/hiện/khóa/xóa/khôi phục/xem hồ sơ có trigger, quyền và kết quả khác nhau. | Giữ phân rã, không kéo dài một instance để tạo extend; xem lại không khôi phục hoặc browse bài riêng tư. | FR-M03-13, FR-M03-14, FR-M03-15, FR-M03-16, FR-M03-17, FR-M03-07.08 |
+
+Phương án giữ hai tầng và bảng mapping bảo toàn ID/trace, tốn thêm brief; gộp core/sub 1:1 làm gọn tài liệu nhưng mất hợp đồng đầu ra hai tầng và cần quyết định đổi scope. Tách thêm oval chỉ theo thao tác làm mô hình khó bảo trì mà không thêm mục tiêu có nguồn, nên không chọn. Các phương án này là phương pháp trình bày, không thêm chức năng sản phẩm.
+
+### Walkthrough theo từng đặc tả và từng nhánh
+
+Mỗi dòng dưới kiểm một đường đã có anchor, cùng điều kiện chuẩn tắc/BR của đặc tả; không thay toàn bộ bảng bằng một pass chung. Các guard có thể phủ định một kiểm tra trong luồng; tiền điều kiện không được dùng để loại nhánh từ chối. Hậu điều kiện tại return là trạng thái trung gian, END chỉ khẳng định kết quả riêng của đường đó. Dòng main diễn tả đường thành công, các trường hợp bị gap giới hạn được tách riêng và ưu tiên hơn kết luận chung.
+
+| Đường đi/anchor | Trigger, trạng thái/quyền trước | Bước rẽ và return/END | Postcondition thực tế | Nguồn / kết quả review / gap |
+|---|---|---|---|---|
+| [UC-M03-001 / main](#uc-m03-001-main-1) | Người có phiên tạo bài mới hoặc lưu bản nháp. Trước: Có phiên và tác giả; kiểm tra mức cảnh cáo trong luồng, không giả định mọi người có phiên đều được tạo nháp. | 1 → 2 → 3 → 4; END: Lưu Nháp, tác giả/thời điểm tạo/cập nhật, kiểm duyệt Bình thường và Không khóa khi mới tạo. | Lưu Nháp, tác giả/thời điểm tạo/cập nhật, kiểm duyệt Bình thường và Không khóa khi mới tạo. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-01, BR-M03-01, BR-M03-02, BR-M03-03, BR-M03-05, BR-M03-41, BR-M03-42 |
+| [UC-M03-001 / A1](#uc-m03-001-alt-1) | Có phiên và tác giả; kiểm tra mức cảnh cáo trong luồng, không giả định mọi người có phiên đều được tạo nháp. Guard kiểm trong luồng (không giả định đã đạt): Nháp trống cả tiêu đề/nội dung/poll/tệp hoặc Lớp/Khối sai | Rẽ bước 3 → END: chưa lưu | Từ chối lưu nháp không hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-01.06, FR-M03-01.13 |
+| [UC-M03-001 / A2](#uc-m03-001-alt-2) | Có phiên và tác giả; kiểm tra mức cảnh cáo trong luồng, không giả định mọi người có phiên đều được tạo nháp. Guard kiểm trong luồng (không giả định đã đạt): Vượt 150 ký tự tiêu đề hoặc 6.000 từ nội dung | Rẽ bước 3 → 1 | Tại điểm quay lại: Cảnh báo kèm số hiện tại/giới hạn, từ chối lưu và giữ nguyên bản soạn. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-01.14, FR-M03-01.15, FR-M03-01.16, FR-M03-01.17 |
+| [UC-M03-001 / A3](#uc-m03-001-alt-3) | Có phiên và tác giả; kiểm tra mức cảnh cáo trong luồng, không giả định mọi người có phiên đều được tạo nháp. Guard kiểm trong luồng (không giả định đã đạt): Tạo nháp mới khi MEDIUM/HEAVY | Rẽ bước 3 → END: chưa lưu | Từ chối; không suy rộng hạn chế này sang mọi sửa bài đã đăng. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-01.10, BR-M03-38 |
+| [UC-M03-002 / main](#uc-m03-002-main-1) | Tác giả chọn thêm/bỏ tệp tại EP-DRAFT-ATTACH hoặc EP-EDIT-ATTACH. Trước: Có phiên, đúng tác giả; bài được soạn/sửa theo UC gọi. | 1 → 2 → 3; END: Tệp hợp lệ ở phần dưới bài, số ảnh/tài liệu đúng giới hạn riêng. | Tệp hợp lệ ở phần dưới bài, số ảnh/tài liệu đúng giới hạn riêng. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-02, BR-M03-04, BR-M03-07, BR-M03-08 |
+| [UC-M03-002 / A1](#uc-m03-002-alt-1) | Có phiên, đúng tác giả; bài được soạn/sửa theo UC gọi. Guard kiểm trong luồng (không giả định đã đạt): Sai loại, quá dung lượng hoặc quá số lượng | Rẽ bước 2 → END: tệp bị từ chối | Từ chối tệp thêm; không coi ảnh/tài liệu dùng chung một hạn mức. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-02.04, FR-M03-02.05, FR-M03-02.06, FR-M03-02.07, FR-M03-02.08, FR-M03-02.09, FR-M03-02.10 |
+| [UC-M03-002 / A2](#uc-m03-002-alt-2) | Có phiên, đúng tác giả; bài được soạn/sửa theo UC gọi. Guard kiểm trong luồng (không giả định đã đạt): Người thao tác khác tác giả | Rẽ bước 2 → END: từ chối | Từ chối thêm/bỏ tệp, kể cả Mod/Admin sửa bài người khác. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-02.11 |
+| [UC-M03-003 / main](#uc-m03-003-main-1) | Tác giả chọn thêm hoặc sửa cấu hình poll tại EP-DRAFT-POLL. Trước: Có phiên, đúng tác giả, bài chưa gửi; phân biệt thêm poll với quản lý poll sau gửi. | 1 → 2 → 3; END: Tối đa một poll, 2–10 lựa chọn, hạn không trước hiện tại; mặc định chọn nhiều và ẩn kết quả trước vote. | Tối đa một poll, 2–10 lựa chọn, hạn không trước hiện tại; mặc định chọn nhiều và ẩn kết quả trước vote. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-03, BR-M03-09, BR-M03-10, BR-M03-11, BR-M03-12 |
+| [UC-M03-003 / A1](#uc-m03-003-alt-1) | Có phiên, đúng tác giả, bài chưa gửi; phân biệt thêm poll với quản lý poll sau gửi. Guard kiểm trong luồng (không giả định đã đạt): Sai số lựa chọn, thêm poll thứ hai, thiếu hạn hoặc hạn trước hiện tại | Rẽ bước 3 → END: chưa có poll mới hợp lệ | Từ chối tạo/cấu hình sai. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-03.03, FR-M03-03.04, FR-M03-03.07, FR-M03-03.09 |
+| [UC-M03-003 / A2](#uc-m03-003-alt-2) | Có phiên, đúng tác giả, bài chưa gửi; phân biệt thêm poll với quản lý poll sau gửi. Guard kiểm trong luồng (không giả định đã đạt): Bài đã gửi | Rẽ bước 2 → END: cấu hình bị khóa | Từ chối thêm/bỏ poll, sửa/xóa lựa chọn cũ hoặc đổi cấu hình. Thêm lựa chọn/đổi hạn poll đang mở theo UC009. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-03.11, BR-M03-44 |
+| [UC-M03-003 / A3](#uc-m03-003-alt-3) | Có phiên, đúng tác giả, bài chưa gửi; phân biệt thêm poll với quản lý poll sau gửi. Guard kiểm trong luồng (không giả định đã đạt): Người thực hiện khác tác giả | Rẽ bước 3 → END: từ chối | Từ chối. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-03.08 |
+| [UC-M03-004 / main](#uc-m03-004-main-1) | Tác giả gửi/gửi lại bài. Trước: Có phiên; kiểm tra sở hữu, trạng thái và mức cảnh cáo trong luồng. | 1 → 2 → 3 → 4; END: Yêu cầu hợp lệ được xử lý thành Đã đăng, Chờ duyệt hoặc Bị từ chối theo cổng; tác giả nhận lý do/nhóm vi phạm khi có. | Yêu cầu hợp lệ được xử lý thành Đã đăng, Chờ duyệt hoặc Bị từ chối theo cổng; tác giả nhận lý do/nhóm vi phạm khi có. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-04, BR-M03-19, BR-M03-22, BR-M03-24, BR-M03-25, BR-M03-40, BR-M03-51 |
+| [UC-M03-004 / A1](#uc-m03-004-alt-1) | Có phiên; kiểm tra sở hữu, trạng thái và mức cảnh cáo trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Không phải tác giả, trạng thái khác Nháp/Bị từ chối hoặc MEDIUM/HEAVY | Rẽ bước 2 → END: chưa gửi | Từ chối gửi. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-04.06, FR-M03-04.07, FR-M03-04.10 |
+| [UC-M03-004 / A2](#uc-m03-004-alt-2) | Có phiên; kiểm tra sở hữu, trạng thái và mức cảnh cáo trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Thiếu tiêu đề hoặc không nội dung và không poll, kể cả có tệp | Rẽ bước 2 → END: chưa gửi | Từ chối gửi. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-04.08, FR-M03-04.09 |
+| [UC-M03-004 / A3](#uc-m03-004-alt-3) | Có phiên; kiểm tra sở hữu, trạng thái và mức cảnh cáo trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Vượt độ dài | Rẽ bước 2 → 1 | Tại điểm quay lại: Từ chối, giữ nguyên nội dung đang soạn. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-01.14, FR-M03-01.15, FR-M03-01.17 |
+| [UC-M03-005 / main](#uc-m03-005-main-1) | Được UC004, UC011 hoặc UC017 gọi. Trước: Hành vi gọi đã hợp lệ; có sự kiện gửi/sửa/hiện lại, trạng thái bài, cờ AI/Moderation, vai trò và thông tin nhóm. | 1 → 2 xác định sự kiện; miễn/trì hoãn/cổng M11 → 5; gửi ngoài nhóm khác Admin → 3 → 5; quét lại khác Admin → 4 → 5; END trả caller, không chạy chéo hai loại quét | Chính sách áp dụng đúng; quét khi cần, không quét Admin/AI tắt, không quét tại lúc lưu Tự ẩn; kết quả quét xử lý bởi AUT001. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-04.01, FR-M03-04.03, FR-M03-04.05, FR-M03-04.11, FR-M03-05, BR-M03-26, BR-M03-51 |
+| [UC-M03-005 / A1](#uc-m03-005-alt-1) | Hành vi gọi đã hợp lệ; có sự kiện gửi/sửa/hiện lại, trạng thái bài, cờ AI/Moderation, vai trò và thông tin nhóm. Guard kiểm trong luồng (không giả định đã đạt): Quét bài vừa gửi lỗi sau một lần thử lại | Rẽ bước 3 → END: chờ người duyệt | AUT001 giữ Chờ duyệt và chuyển đúng hàng chờ; không tự đăng. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-05.04, BR-M03-21, BR-M03-25 |
+| [UC-M03-005 / A2](#uc-m03-005-alt-2) | Hành vi gọi đã hợp lệ; có sự kiện gửi/sửa/hiện lại, trạng thái bài, cờ AI/Moderation, vai trò và thông tin nhóm. Guard kiểm trong luồng (không giả định đã đạt): Quét lại bài đang hiển thị lỗi | Rẽ bước 4 → END: giữ nguyên | AUT001 giữ nguyên trạng thái và tiếp tục hiển thị, không dùng fallback Chờ duyệt của bài mới. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-05.11, BR-M03-26 |
+| [UC-M03-006 / main](#uc-m03-006-main-1) | Mod/Admin chọn xử lý bài trong hàng chờ. Trước: Có phiên Mod/Admin; kiểm tra bài còn Chờ duyệt trong luồng; không phải tất cả bài Chờ duyệt đang quét đều trong hàng chờ. | 1 → 2 → 3; END: Chấp nhận → Đã đăng; từ chối → Bị từ chối và lưu lý do bắt buộc, hiển thị cho tác giả. | Chấp nhận → Đã đăng; từ chối → Bị từ chối và lưu lý do bắt buộc, hiển thị cho tác giả. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-06, BR-M03-23, BR-M03-25 |
+| [UC-M03-006 / A1](#uc-m03-006-alt-1) | Có phiên Mod/Admin; kiểm tra bài còn Chờ duyệt trong luồng; không phải tất cả bài Chờ duyệt đang quét đều trong hàng chờ. Guard kiểm trong luồng (không giả định đã đạt): Người duyệt không phải Mod/Admin hoặc bài không còn Chờ duyệt | Rẽ bước 2 → END: không duyệt | Từ chối thao tác. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-06.06, FR-M03-06.07 |
+| [UC-M03-006 / A2](#uc-m03-006-alt-2) | Có phiên Mod/Admin; kiểm tra bài còn Chờ duyệt trong luồng; không phải tất cả bài Chờ duyệt đang quét đều trong hàng chờ. Guard kiểm trong luồng (không giả định đã đạt): Từ chối mà chưa nhập lý do | Rẽ bước 3 → 3 | Tại điểm quay lại: Từ chối quyết định, cần nhập lý do. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-06.04 |
+| [UC-M03-007 / main](#uc-m03-007-main-1) | Người xem mở đường dẫn bài. Trước: Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. | 1 → 2 → 3 → 4; END: Bài được phép xem hiện tiêu đề/nội dung/tác giả/Lớp/Khối/tệp/poll và kết quả poll đúng điều kiện. | Bài được phép xem hiện tiêu đề/nội dung/tác giả/Lớp/Khối/tệp/poll và kết quả poll đúng điều kiện. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-07, BR-M03-18, BR-M03-39, BR-M03-49 |
+| [UC-M03-007 / A1](#uc-m03-007-alt-1) | Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. Guard kiểm trong luồng (không giả định đã đạt): Người khác tác giả không đủ điều kiện công khai/Private hoặc bài bị module khác ẩn | Rẽ bước 1 → END: không có quyền đọc | Không hiển thị, trừ các đường kiểm duyệt có căn cứ; xem lại đặc biệt thuộc UC018. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-07.01, FR-M03-07.02 |
+| [UC-M03-007 / A2](#uc-m03-007-alt-2) | Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. Guard kiểm trong luồng (không giả định đã đạt): Bài Đã xóa hẳn mở qua URL bài thông thường | Rẽ bước 1 → END: bài không tồn tại | Báo bài không tồn tại, kể cả chính tác giả. Không thay thế đường xem lại có ngữ cảnh UC018. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-07.05 |
+| [UC-M03-007 / A3](#uc-m03-007-alt-3) | Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. Guard kiểm trong luồng (không giả định đã đạt): Mod/Admin muốn xem Nháp/Bị từ chối người khác hoặc Tự ẩn ngoài vụ liên quan | Rẽ bước 1 → END: từ chối | Từ chối; quyền Mod không là quyền duyệt mọi bài riêng tư. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-07.07 |
+| [UC-M03-007 / A4](#uc-m03-007-alt-4) | Không yêu cầu phiên để đọc công khai; không giả định mọi bài tồn tại/hiển thị. Guard kiểm trong luồng (không giả định đã đạt): Tác giả xem bài của mình chưa xóa hẳn | Rẽ bước 1 → 2 | Tại điểm quay lại: Cho xem ở các trạng thái theo FR; các thao tác tiếp theo vẫn chịu quyền/trạng thái riêng. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-07.03 |
+| [UC-M03-008 / main](#uc-m03-008-main-1) | Người dùng chọn/đổi/bỏ lựa chọn trong poll của bài được xem. Trước: Có quyền xem bài; kiểm tra phiên, poll đang mở và mức khóa trong luồng; tác giả được tự vote. | 1 → 2 → 3; END: Ghi một phiếu đúng chế độ hoặc thay/xóa phiếu hiện tại; kết quả theo RULE003. | Ghi một phiếu đúng chế độ hoặc thay/xóa phiếu hiện tại; kết quả theo RULE003. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-08, BR-M03-11, BR-M03-13, BR-M03-16, BR-M03-45 |
+| [UC-M03-008 / A1](#uc-m03-008-alt-1) | Có quyền xem bài; kiểm tra phiên, poll đang mở và mức khóa trong luồng; tác giả được tự vote. Guard kiểm trong luồng (không giả định đã đạt): Guest thực hiện tương tác | Rẽ bước 1 → END: chưa ghi phiếu | Từ chối thao tác; không có include đăng nhập lại cho mọi lần vote. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-07.06 |
+| [UC-M03-008 / A2](#uc-m03-008-alt-2) | Có quyền xem bài; kiểm tra phiên, poll đang mở và mức khóa trong luồng; tác giả được tự vote. Guard kiểm trong luồng (không giả định đã đạt): Poll đóng hoặc bài Khóa toàn bộ | Rẽ bước 1 → END: không đổi phiếu | Từ chối vote mới/đổi/bỏ phiếu, dù tác giả là người vote. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-08.06, FR-M03-08.13 |
+| [UC-M03-008 / A3](#uc-m03-008-alt-3) | Có quyền xem bài; kiểm tra phiên, poll đang mở và mức khóa trong luồng; tác giả được tự vote. Guard kiểm trong luồng (không giả định đã đạt): Lựa chọn không đúng chế độ một/nhiều | Rẽ bước 2 → 1 | Tại điểm quay lại: Không nhận phiếu không đúng ràng buộc. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-08.02, FR-M03-08.03 |
+| [UC-M03-009 / main](#uc-m03-009-main-1) | Tác giả chọn một thao tác quản lý poll. Trước: Có phiên, đúng tác giả; poll còn mở được kiểm tra trong luồng; cấu hình/lựa chọn cũ sau gửi không được sửa. | 1 → 2 → 3; END: Hạn mới hợp lệ hoặc poll đóng ngay hoặc lựa chọn mới được thêm mà tổng ≤10. | Hạn mới hợp lệ hoặc poll đóng ngay hoặc lựa chọn mới được thêm mà tổng ≤10. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-09, BR-M03-14, BR-M03-44 |
+| [UC-M03-009 / A1](#uc-m03-009-alt-1) | Có phiên, đúng tác giả; poll còn mở được kiểm tra trong luồng; cấu hình/lựa chọn cũ sau gửi không được sửa. Guard kiểm trong luồng (không giả định đã đạt): Poll đã đóng | Rẽ bước 2 → END: poll vẫn đóng | Từ chối đổi hạn, mở lại hoặc thêm lựa chọn. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-09.03, FR-M03-09.08 |
+| [UC-M03-009 / A2](#uc-m03-009-alt-2) | Có phiên, đúng tác giả; poll còn mở được kiểm tra trong luồng; cấu hình/lựa chọn cũ sau gửi không được sửa. Guard kiểm trong luồng (không giả định đã đạt): Không phải tác giả, hạn trước hiện tại hoặc vượt 10 lựa chọn | Rẽ bước 2 → END: không cập nhật | Từ chối thao tác tương ứng. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-09.04, FR-M03-09.05, FR-M03-09.07 |
+| [UC-M03-009 / A3](#uc-m03-009-alt-3) | Có phiên, đúng tác giả; poll còn mở được kiểm tra trong luồng; cấu hình/lựa chọn cũ sau gửi không được sửa. Guard kiểm trong luồng (không giả định đã đạt): Muốn sửa/xóa lựa chọn cũ, đổi cấu hình hoặc thêm/bỏ poll sau gửi | Rẽ bước 1 → END: không cập nhật | Từ chối; UC009 không miễn quy tắc khóa cấu hình. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-03.11, BR-M03-44 |
+| [UC-M03-011 / main](#uc-m03-011-main-1) | Tác giả chọn sửa/lưu bài đã gửi. Trước: Có phiên; kiểm tra chủ và trạng thái trong luồng. Nháp theo UC001; mức khóa không cấm tác giả sửa. | 1 → 2 → 3 → 4 → 5; END: Lưu bản sửa hợp lệ, phiên bản trước/người sửa/thời điểm; hiển thị nhãn lịch sử; chính sách kiểm duyệt được áp dụng. | Lưu bản sửa hợp lệ, phiên bản trước/người sửa/thời điểm; hiển thị nhãn lịch sử; chính sách kiểm duyệt được áp dụng. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-11, BR-M03-26, BR-M03-27, BR-M03-28, BR-M03-47 |
+| [UC-M03-011 / A1](#uc-m03-011-alt-1) | Có phiên; kiểm tra chủ và trạng thái trong luồng. Nháp theo UC001; mức khóa không cấm tác giả sửa. Guard kiểm trong luồng (không giả định đã đạt): Không phải chủ hoặc Chờ duyệt/Đã xóa/Bị Mod ẩn | Rẽ bước 1 → END: không sửa | Từ chối sửa. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-11.04, FR-M03-11.07 |
+| [UC-M03-011 / A2](#uc-m03-011-alt-2) | Có phiên; kiểm tra chủ và trạng thái trong luồng. Nháp theo UC001; mức khóa không cấm tác giả sửa. Guard kiểm trong luồng (không giả định đã đạt): Vượt giới hạn | Rẽ bước 3 → 2 | Tại điểm quay lại: Từ chối lưu, giữ bản đang soạn và cảnh báo hiện tại/giới hạn. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. BR-M03-43 |
+| [UC-M03-011 / A3](#uc-m03-011-alt-3) | Có phiên; kiểm tra chủ và trạng thái trong luồng. Nháp theo UC001; mức khóa không cấm tác giả sửa. Guard kiểm trong luồng (không giả định đã đạt): Bài Nháp | Rẽ bước 1 → END: chuyển hành trình nháp | Dùng UC001; không tự tạo lịch sử bài đã gửi cho thao tác lưu nháp. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-11.01 |
+| [UC-M03-012 / main](#uc-m03-012-main-1) | Người xem chọn Xem lịch sử ở EP-READ-HISTORY. Trước: Bài có phiên bản lịch sử; quyền xem được kiểm tra lại, không chỉ dựa vào việc đã mở URL trước đó. | 1 → 2 → 3; END: Các phiên bản hiện cùng người sửa/thời điểm; Guest được xem nếu được xem bài. | Các phiên bản hiện cùng người sửa/thời điểm; Guest được xem nếu được xem bài. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-12, BR-M03-27, BR-M03-28 |
+| [UC-M03-012 / A1](#uc-m03-012-alt-1) | Bài có phiên bản lịch sử; quyền xem được kiểm tra lại, không chỉ dựa vào việc đã mở URL trước đó. Guard kiểm trong luồng (không giả định đã đạt): Người xem không xem được bài | Rẽ bước 2 → END: từ chối lịch sử | Không hiển thị lịch sử. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-12.04 |
+| [UC-M03-013 / main](#uc-m03-013-main-1) | Tác giả chọn tự ẩn. Trước: Có phiên; kiểm tra chủ và Đã đăng trong luồng. | 1 → 2 → 3; END: Trạng thái đăng Tự ẩn; trạng thái kiểm duyệt/mức khóa không tự bị xóa. | Trạng thái đăng Tự ẩn; trạng thái kiểm duyệt/mức khóa không tự bị xóa. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-13.01, FR-M03-13.03, FR-M03-13.04, BR-M03-29 |
+| [UC-M03-013 / A1](#uc-m03-013-alt-1) | Có phiên; kiểm tra chủ và Đã đăng trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Không phải tác giả hoặc bài không Đã đăng | Rẽ bước 2 → END: không chuyển | Từ chối tự ẩn. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-13.03, FR-M03-13.04 |
+| [UC-M03-017 / main](#uc-m03-017-main-1) | Tác giả yêu cầu hiện lại bài Tự ẩn. Trước: Có phiên; kiểm tra chủ, Tự ẩn và kiểm duyệt trong luồng. | 1 → 2 → 3; END: Đã đăng; nếu đã sửa lúc ẩn thì kiểm duyệt đúng chính sách; không đảm bảo công khai nếu còn ràng buộc khác. | Đã đăng; nếu đã sửa lúc ẩn thì kiểm duyệt đúng chính sách; không đảm bảo công khai nếu còn ràng buộc khác. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-13.02, FR-M03-13.03, FR-M03-13.05, FR-M03-13.06, BR-M03-26, BR-M03-29, BR-M03-33 |
+| [UC-M03-017 / A1](#uc-m03-017-alt-1) | Có phiên; kiểm tra chủ, Tự ẩn và kiểm duyệt trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Không phải tác giả, không Tự ẩn hoặc Bị Mod ẩn | Rẽ bước 1 → END: không hiện lại | Từ chối; Bị Mod ẩn phải theo khiếu nại M09, không dùng hiện lại để mở công khai. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-13.02, FR-M03-13.03, FR-M03-13.05 |
+| [UC-M03-014 / main](#uc-m03-014-main-1) | Người đủ quyền chọn khóa, mở khóa hoặc hạ mức khóa. Trước: Có phiên; kiểm tra vai trò, chủ và người khóa trong luồng. | 1 → 2 → 3; END: Ghi mức khóa/người khóa đúng; các tương tác bị chặn/giữ theo RULE004. | Ghi mức khóa/người khóa đúng; các tương tác bị chặn/giữ theo RULE004. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-14, BR-M03-30, BR-M03-31, BR-M03-32 |
+| [UC-M03-014 / A1](#uc-m03-014-alt-1) | Có phiên; kiểm tra vai trò, chủ và người khóa trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Người khóa là Mod mà tác giả muốn mở/hạ/đổi mức | Rẽ bước 2 → END: giữ khóa | Từ chối. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-14.09 |
+| [UC-M03-014 / A2](#uc-m03-014-alt-2) | Có phiên; kiểm tra vai trò, chủ và người khóa trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Người không phải Mod/Admin đặt Khóa toàn bộ hoặc không phải chủ/Mod/Admin thao tác khóa bình luận | Rẽ bước 2 → END: giữ khóa | Từ chối. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-14.10, FR-M03-14.11 |
+| [UC-M03-015 / main](#uc-m03-015-main-1) | Tác giả chọn xóa bài. Trước: Có phiên; kiểm tra chủ và chưa Đã xóa trong luồng. | 1 → 2 → 3; END: Đã xóa, lưu mốc xóa và trạng thái trước; không công khai, hiện ở tab Đã xóa của tác giả trong hạn. | Đã xóa, lưu mốc xóa và trạng thái trước; không công khai, hiện ở tab Đã xóa của tác giả trong hạn. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-15, BR-M03-34, BR-M03-35 |
+| [UC-M03-015 / A1](#uc-m03-015-alt-1) | Có phiên; kiểm tra chủ và chưa Đã xóa trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Không phải tác giả hoặc bài đã Đã xóa | Rẽ bước 2 → END: không xóa | Từ chối xóa mềm. Mod xử lý bài người khác ở M08, không giả làm tác giả trong UC này. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-15.04, FR-M03-15.05 |
+| [UC-M03-016 / main](#uc-m03-016-main-1) | Tác giả chọn khôi phục từ tab Đã xóa. Trước: Có phiên; kiểm tra chủ, trạng thái Đã xóa, thời hạn và kiểm duyệt trong luồng. | 1 → 2 → 3; END: Trở về trạng thái trước xóa, riêng Chờ duyệt trở về Nháp; không tự gửi/quét lại hoặc bỏ khóa. | Trở về trạng thái trước xóa, riêng Chờ duyệt trở về Nháp; không tự gửi/quét lại hoặc bỏ khóa. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-16, BR-M03-35, BR-M03-36, BR-M03-37 |
+| [UC-M03-016 / A1](#uc-m03-016-alt-1) | Có phiên; kiểm tra chủ, trạng thái Đã xóa, thời hạn và kiểm duyệt trong luồng. Guard kiểm trong luồng (không giả định đã đạt): Không phải tác giả, quá hạn hoặc Bị Mod ẩn | Rẽ bước 2 → END: không khôi phục | Từ chối khôi phục; không làm mất cờ xóa hẳn hay tự gỡ kiểm duyệt. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-16.03, FR-M03-16.04, FR-M03-16.05 |
+| [UC-M03-018 / main](#uc-m03-018-main-1) | Tác giả mở thông báo kết quả xử lý/khiếu nại của mình; hoặc Mod/Admin mở báo cáo/lịch sử/khiếu nại liên quan chính bài. Trước: Có phiên và ngữ cảnh vụ việc hợp lệ; kiểm tra quyền đối với người mở/bài, không chỉ dựa vào biết ID bài. | 1 → 2 → 4 với đường tác giả; 1 → 3 → 4 với đường Mod/Admin hồ sơ vụ việc; END kết quả riêng theo đường, không yêu cầu tác giả thường có quyền Mod | Tác giả thấy bài mình chỉ đọc kể cả xóa hẳn, không thấy người báo cáo; Mod/Admin xem đúng bài trong vụ liên quan. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M03-07.08, FR-M03-07.09, FR-M03-07.10, FR-M03-07.11, FR-M03-17.04, BR-M03-37, BR-M03-49 |
+| [UC-M03-018 / A1](#uc-m03-018-alt-1) | Có phiên và ngữ cảnh vụ việc hợp lệ; kiểm tra quyền đối với người mở/bài, không chỉ dựa vào biết ID bài. Guard kiểm trong luồng (không giả định đã đạt): Người mở khác tác giả trên đường xem lại dành cho tác giả | Rẽ bước 2 → END: từ chối | Từ chối, kể cả biết đường dẫn/ID bài. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-07.10 |
+| [UC-M03-018 / A2](#uc-m03-018-alt-2) | Có phiên và ngữ cảnh vụ việc hợp lệ; kiểm tra quyền đối với người mở/bài, không chỉ dựa vào biết ID bài. Guard kiểm trong luồng (không giả định đã đạt): Mod/Admin mở Tự ẩn/Đã xóa/xóa hẳn ngoài vụ liên quan | Rẽ bước 3 → END: từ chối | Từ chối; không có danh mục tìm/browse bài đã xóa. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M03-07.11, FR-M03-17.04 |
+| UC-M03-007 main-3 / zero-vote; UC-M03-008 rút phiếu cuối | Poll được phép xem kết quả; tổng lượt chọn = 0 | Đến RULE-M03-003 → chưa chốt tỷ lệ hiển thị → NOTE-M03-02 | Không khẳng định 0% hay tính 0/0; quyền xem kết quả đã chốt, giá trị số chưa chốt. | BLOCKED phần tỷ lệ, BR-M03-15; không lấy checker làm kết luận. |
+
+### Vòng đời điểm cần làm rõ
+
+| ID | Nguồn/baseline | Vấn đề | UC/đường bị ảnh hưởng | Blocking/nonblocking và lý do | Người xác nhận | Register | Trạng thái/quyết định | Bằng chứng đóng/baseline cần cập nhật |
+|---|---|---|---|---|---|---|---|---|
+| TBD-M03-01 | FR-M03 1.10; chi tiết/chứng cứ ở mục 5 | Đếm lượt xem chưa làm ở MS1 (OPEN-005/DEC-145). | UC-M03-007; thống kê lượt xem ngoài MS1 | nonblocking: FR quyết định hoãn, không thêm bộ đếm vào đọc bài | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | [OPEN-005](../../../.agents/.claude/system_analysis/output/registers/open-issues.md) / [DEC-145](../../../.agents/.claude/system_analysis/output/registers/decisions.md) theo FR-M03 | pending-confirmation / giữ giới hạn baseline | Chỉ mở lại khi có quyết định scope được chấp thuận và FR mới; chưa có bằng chứng thay đổi quyết định hoãn. |
+| TBD-M03-02 | FR-M03 1.10; chi tiết/chứng cứ ở mục 5 | SSR/SEO và xem trước link chưa tối ưu ở MS1 (OPEN-006). | UC-M03-007; SEO/preview link ngoài MS1 | nonblocking: không thuộc hợp đồng nghiệp vụ MS1 đang đặc tả | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | [OPEN-006](../../../.agents/.claude/system_analysis/output/registers/open-issues.md) theo FR-M03 | pending-confirmation / giữ giới hạn baseline | Quyết định scope/FR mới trước khi thêm; bằng chứng còn chờ. |
+| NOTE-M03-01 | FR-M03 1.10; chi tiết/chứng cứ ở mục 5 | Ngưỡng 0.5/0.9 là giá trị tạm của baseline. | AUT-M03-001, UC-M03-005; ngưỡng quét | nonblocking: giữ nguyên 0.5/0.9 có hiệu lực trong baseline, không tự hiệu chỉnh | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | đề xuất ghi [QA tại register](../../../.agents/.claude/system_analysis/output/registers/qa-log.md) nếu thay ngưỡng | pending-confirmation / giữ giới hạn baseline | Quyết định đổi ngưỡng được chấp thuận và cập nhật FR-M03/M13; hiện chưa có. |
+| NOTE-M03-02 | FR-M03 1.10; chi tiết/chứng cứ ở mục 5 | Cách hiển thị phần trăm khi poll chưa có lượt chọn chưa được quy định riêng. | UC-M03-007 bước 3, UC-M03-008 sau rút phiếu cuối; RULE-M03-003; kết quả poll tổng lượt chọn=0 | blocking: BR-M03-15 chỉ cho công thức chia tổng lượt chọn; chưa xác định phần trăm khi mẫu số 0. Chặn kết luận kết quả số của đường này, không chặn đọc/vote có tổng >0 | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | đề xuất ghi [QA tại register](../../../.agents/.claude/system_analysis/output/registers/qa-log.md) về BR-M03-15 tại register; chưa cấp mã | open — chưa chốt phần phụ thuộc | Stakeholder chốt 0%/ẩn tỷ lệ/cách khác; cập nhật FR-M03, RULE003 và QA zero-vote. Chưa có bằng chứng chấp thuận. |
+| NOTE-M03-03 | FR-M03 1.10; chi tiết/chứng cứ ở mục 5 | Xem lại xóa hẳn không phải khôi phục hoặc browse bài bị xóa. | Xem lại xóa hẳn không phải khôi phục hoặc browse bài bị xóa.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M03 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | Giữ ngữ cảnh hẹp UC018 và dữ liệu người báo cáo được bảo vệ. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M03-04 | FR-M03 1.10; chi tiết/chứng cứ ở mục 5 | Đã xóa hẳn không phải lệnh xóa tệp/nội dung vật lý. | Đã xóa hẳn không phải lệnh xóa tệp/nội dung vật lý.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M03 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | Giữ toàn bộ dữ liệu theo FR-M03-17.02; M02 bỏ Bookmark và M12 trừ điểm là hậu quả riêng. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M03-05 | FR-M03 1.10; chi tiết/chứng cứ ở mục 5 | FR chưa quy định mọi lỗi kho tệp/lưu phiên bản và cơ chế transaction. | UC-M03-002/011; lỗi kho tệp/lưu lịch sử | nonblocking: US không cam kết rollback/retry kỹ thuật ngoài nguồn; không tuyên bố đã đặc tả mọi lỗi hạ tầng | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | đề xuất ghi [QA tại register](../../../.agents/.claude/system_analysis/output/registers/qa-log.md) nếu failure guarantee nghiệp vụ cần bổ sung | pending-confirmation / giữ giới hạn baseline | Chốt bảo đảm thất bại và owner FR-M03 nếu ảnh hưởng trạng thái/lịch sử; chưa có bằng chứng đóng. |
+
+Register có sẵn chỉ được nhắc khi nguồn đã dẫn; các dòng “đề xuất ghi QA” chưa được đăng vào register và không phải mã QA có thật. Không sửa FR/register trong lượt này. Khi có quyết định, cập nhật nguồn owner trước rồi rà lại luồng/trace/relation/view chịu tác động.
+
+### Ownership và tác động liên module
+
+**Proposal chưa nhập vào quan hệ owner:** [US-overview, mục 6](US-overview.md#uc-m03-021-read-point) đang trình `UC-M13-023 extend UC-M03-021` cho tóm tắt khi đọc bài. Nơi định nghĩa EP/đề xuất hiện tại là mục 6 của overview; M03 là owner candidate của base, M13 là owner của extension. Căn cứ hai phía: FR-M03-07 và FR-M13-06; baseline theo bảng nguồn hiện hành. Cần xác minh điểm chèn cụ thể ở hành vi đọc và giữ đúng hợp đồng tóm tắt/quyền/công tắc trước khi quyết định đưa vào bảng relation owner. Đây là **proposal/Chờ duyệt**, chưa phải cạnh đã đồng bộ tại US-M03 hoặc US-M13. View chịu tác động nếu được chấp thuận: overview hệ thống, detail UC-M03-021 và detail UC-M13-023; phải rà endpoint/EP/return và thông báo owner M13. Revision này không thêm catalog/cạnh liên module để làm hình trông đồng bộ.
+
+Các cạnh UC–UC hiện khai báo trong bảng relation đều thuộc M03; không có cạnh liên module mới được thêm ở revision này. Nơi khai báo chính là US-M03 mục 4, baseline là bảng sources; các view detail có cả hai endpoint phải giữ cạnh theo đúng hướng. Giao tiếp dữ liệu/sự kiện ở mục 5 không tự tạo include/extend hoặc actor module. Mỗi FR normative vẫn phải Đã chốt.
+
+| Owner module / đặc tả chuẩn | Baseline bên cung cấp/nhận | UC cục bộ chịu tác động | Hợp đồng hai phía | Trạng thái đồng bộ / view chịu tác động |
+|---|---|---|---|---|
+| [M01 / owner](US-M01.md) | FR-M01 1.10 (normative) | UC-M03-007 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M02 / owner](US-M02.md) | FR-M02 1.6 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M04 / owner](US-M04.md) | FR-M04 1.4 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M05 / owner](US-M05.md) | FR-M05 1.7 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M06 / owner](US-M06.md) | FR-M06 1.5 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M07 / owner](US-M07.md) | FR-M07 1.5 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M08 / owner](US-M08.md) | FR-M08 1.7 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M09 / owner](US-M09.md) | FR-M09 1.2 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M10 / owner](US-M10.md) | FR-M10 1.4 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M11 / owner](US-M11.md) | FR-M11 1.3 (normative) | UC-M03-005 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M12 / owner](US-M12.md) | FR-M12 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M13 / owner](US-M13.md) | FR-M13 1.3 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M14 / owner](US-M14.md) | FR-M14 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M15 / owner](US-M15.md) | FR-M15 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M03 cùng overview; chưa tuyên bố owner đã cập nhật. |
+
+Liên kết tổng quan: [US-overview](US-overview.md); tổng quan giữ UC chính/owner, phần không chọn vẫn truy về tài liệu module. Không khẳng định overview đã đồng bộ từ việc sửa module này.
+
+### Kiểm chứng revision hiện hành
+
+| Hạng mục | Phương pháp/lệnh | Kết quả revision 2.3 | Giới hạn |
+|---|---|---|---|
+| Điều kiện chuẩn tắc | Đọc toàn bộ tệp baseline bằng audit cục bộ, đối chiếu nội dung điều kiện FR chi tiết/BR owner đã được chép trong US | 202/202 điều kiện có nội dung chuẩn hóa khớp; source digest được lưu trước cập nhật | Khớp văn bản không chứng minh hợp đồng/luồng bao phủ ngữ nghĩa; walkthrough ở trên là lớp review riêng. |
+| Walkthrough | Đối chiếu hợp đồng/nguồn và từng anchor main/alt | 17 đường main + 37 nhánh đã có hồ sơ QA; đường phụ thuộc gap còn blocked | Không phải stakeholder duyệt; lỗi hạ tầng ngoài nguồn giữ giới hạn riêng. |
+| SVG hiện hữu | XML parse, nhãn ID/tên và tập node; đối chiếu mọi cạnh UC có hai endpoint trong từng view với bảng relations | 5/5 SVG hợp lệ; 0 lệch node/nhãn/cạnh UC | Không chạy renderer mới; giữ bằng chứng render lịch sử cho file không đổi, chưa kiểm hình trực quan mới tại revision này. Association/quyền còn phải đọc bảng và kế thừa actor. |
+| Checker | `python -B -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M03.md` | Exit 0, errors=0, warnings=2 (BR-M03-15/FR-M03-08.10 còn Một phần và manual checks remain) | Chạy draft vì semantic_review=pending; không chạy --final để nhận hoàn tất khi blocker còn mở. |
+
+Báo cáo máy của phạm vi M01–M05: `.agents/.gpt/system_analysis/.work/us-v23-m01-m05/source-and-svg-audit.json` và `migration-report.json` (workspace, không phải artifact sơ đồ bàn giao). FR/skill/quy chuẩn tên không thay đổi bởi revision này.

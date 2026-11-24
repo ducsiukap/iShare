@@ -1,6 +1,6 @@
 # Phân tích use case — M15 Analytics & Stats
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2; tiếng Việt, giữ thuật ngữ cần thiết.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3; tiếng Việt, giữ thuật ngữ cần thiết.
 
 Đầu ra: **3 UC chính, 7 UC con do M15 sở hữu**, tái sử dụng **UC-M13-010**; 12 mapping, 10 đặc tả chi tiết M15, 7 RULE, 93 mã hiệu lực. Bàn giao 4 SVG: tổng quan module và một detail cho mỗi core.
 
@@ -10,8 +10,9 @@
 | key | value |
 | --- | --- |
 | document_id | US-M15 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M15 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,10 +21,12 @@
 | approved_steps | - |
 | source_baseline | FR-M15 v1.1; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M13 v1.3 |
 | author | Codex |
-| date | 2026-11-02 |
-| approval_evidence | Người dùng cho phép tự thực hiện các bước cần thiết ở lượt M04 trong chuỗi module. Thực hiện liên tục không phải phê duyệt US-M15 hoặc duyệt kết quả từng bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | - |
+| semantic_review | pending |
 | diagram_check | pass |
+
+**Lịch sử trước migration 2.3:** các dòng dưới giữ nguyên bằng chứng đã ghi, không phải approved_steps của revision mới.
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
 | --- | --- | --- | --- | --- |
@@ -34,6 +37,21 @@
 | 5 | 93 dòng truy vết,90 tiêu chí chi tiết/BR; 10 FR liên quan | Chưa duyệt | FR-M15 v1.1; FR-M01 v1.10; FR-M02 v1.6; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M13 v1.3 | Baseline đổi |
 | 6 | Đã render/kiểm hình 4 view; đúng node/12 cạnh; mỗi view một SVG | Chưa duyệt | PlantUML cục bộ | Mô hình/QA đổi |
 | 7 | Đã review nguồn/ngữ nghĩa/truy vết/UML/hình/link và giới hạn nguồn; hồ sơ Chờ duyệt | Chưa duyệt | Skill v2.2 | Phản hồi/nguồn đổi |
+
+
+### Revision 2.3 — 2026-11-24
+
+Người dùng yêu cầu cập nhật toàn bộ US theo skill 2.3 và cho phép làm liên tục bảy bước. Quyền thực hiện không phê duyệt kết quả; revision này giữ `approved_steps=-`, trạng thái **Chờ duyệt**. Bản trước ghi skill 2.2, approved_steps=-. Bằng chứng quyền thực hiện trước: Người dùng cho phép tự thực hiện các bước cần thiết ở lượt M04 trong chuỗi module. Thực hiện liên tục không phải phê duyệt US-M15 hoặc duyệt kết quả từng bước.
+
+| Bước | Công việc revision hiện tại | Trạng thái cổng |
+|---|---|---|
+| 1 | Đối chiếu baseline owner/normative, boundary và kiểm kê FR/BR đang dùng. | Đã review; chưa duyệt |
+| 2 | Rà goal/trigger/kết quả/phạm vi của core/sub tại bảng chất lượng 2.3. | Đã review; giữ các vấn đề ghi rõ |
+| 3 | Walkthrough main và từng alternative theo QA revision; không suy kết quả tại nhánh thiếu nguồn. | Đã review; các đường blocking chưa chốt |
+| 4 | Đối chiếu relation và association thực tế với SVG, không tạo cạnh từ decomposition. | Đã review mô hình hiện có |
+| 5 | Giữ trace chi tiết, phân vai nguồn và bổ sung vòng đời từng gap. | Đã review trong scope; không sửa FR/register |
+| 6 | Kiểm XML/node/association/quan hệ SVG hiện có; giữ artifact US-relative và render lịch sử riêng. | Root đã parse/render mới và so XML visual tree; xem UC-V23-REVIEW.md, không nhận đã xem mọi ảnh |
+| 7 | Chạy checker --final sau review, ghi lỗi/cảnh báo thật; semantic_review còn pending do đường blocking. | Review đã làm; chưa đạt cổng cuối |
 
 ## 1. Phạm vi, nguồn và tổng hợp yêu cầu
 
@@ -51,18 +69,21 @@
 | path | version | role |
 | --- | --- | --- |
 | docs/specs/fr/FR-M15.md | 1.1 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M02.md | 1.6 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M02.md | 1.6 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Ví dụ phương pháp không cung cấp tính năng; không sửa FR/register/US khác.
+
+
+**Quy chuẩn tên:** [UC-NAMING](UC-NAMING.md), ngày 2026-11-24, trạng thái **Chờ duyệt cách diễn đạt**; đây là đề xuất tên đang dùng, không tự trở thành quy chuẩn đã duyệt. Nguồn `owner` sở hữu hành vi; `normative` ràng buộc giao tiếp/quyền, đều phải Đã chốt đúng baseline.
 
 ### 1.1 Actor và quyền
 
@@ -109,14 +130,14 @@ Giữ ID actor chung. Chỉ ACT-007 có association mục tiêu xem. Guest/User/
 | UC-M15-020 | Xem thống kê người dùng | core | User goal | ACT-007 | - | M15 | #uc-m15-020 | FR-M15-01, BR-M15-07, BR-M15-20 |
 | UC-M15-021 | Xem thống kê nội dung | core | User goal | ACT-007 | - | M15 | #uc-m15-021 | FR-M15-02, BR-M15-08, BR-M15-09, BR-M15-17, BR-M15-21 |
 | UC-M15-022 | Xem thống kê kiểm duyệt | core | User goal | ACT-007 | - | M15 | #uc-m15-022 | FR-M15-03, BR-M15-10, BR-M15-11, BR-M15-12, BR-M15-13, BR-M15-14, BR-M15-22 |
-| UC-M15-001 | Xác định khoảng và độ hạt thống kê | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-001 | BR-M15-03, BR-M15-04, BR-M15-18, BR-M15-19 |
-| UC-M15-002 | Lập chuỗi đếm theo thời gian | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-002 | BR-M15-04, BR-M15-05, BR-M15-19, BR-M15-20, BR-M15-21, BR-M15-22 |
-| UC-M15-003 | Tổng hợp phân bố tài khoản | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-003 | FR-M15-01.01, FR-M15-01.03, FR-M15-01.04, FR-M15-01.05, FR-M15-01.15, FR-M15-01.17, BR-M15-07, BR-M15-18, BR-M15-20 |
-| UC-M15-004 | Tổng hợp phân bố bài viết | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-004 | FR-M15-02.01, FR-M15-02.02, FR-M15-02.04, FR-M15-02.05, FR-M15-02.19, FR-M15-02.20, FR-M15-02.21, FR-M15-02.22, FR-M15-02.27, BR-M15-08, BR-M15-17, BR-M15-21 |
-| UC-M15-005 | Tổng hợp báo cáo theo trạng thái và lý do | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-005 | FR-M15-03.01, FR-M15-03.02, FR-M15-03.03, BR-M15-11, BR-M15-12, BR-M15-18, BR-M15-22 |
-| UC-M15-006 | Tổng hợp lịch sử cảnh cáo, ban và gỡ ban | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-006 | FR-M15-03.04, FR-M15-03.05, FR-M15-03.06, BR-M15-13, BR-M15-14, BR-M15-22 |
-| UC-M15-007 | Tổng hợp khiếu nại theo loại và kết quả | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-007 | FR-M15-03.07, FR-M15-03.08, BR-M15-10, BR-M15-18, BR-M15-22 |
-| UC-M13-010 | Tính tỷ lệ Topic gợi ý được giữ lại | sub | Subfunction | ACT-007 | - | M13 | #uc-m13-010 | FR-M13-10, BR-M13-23, BR-M13-24, BR-M13-29, FR-M15-02.07, FR-M15-02.08, FR-M15-02.09, BR-M15-09 |
+| UC-M15-001 | Xác định khoảng thống kê và đơn vị thời gian | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-001 | BR-M15-03, BR-M15-04, BR-M15-18, BR-M15-19 |
+| UC-M15-002 | Thống kê số lượng theo thời gian | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-002 | BR-M15-04, BR-M15-05, BR-M15-19, BR-M15-20, BR-M15-21, BR-M15-22 |
+| UC-M15-003 | Thống kê phân bố tài khoản | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-003 | FR-M15-01.01, FR-M15-01.03, FR-M15-01.04, FR-M15-01.05, FR-M15-01.15, FR-M15-01.17, BR-M15-07, BR-M15-18, BR-M15-20 |
+| UC-M15-004 | Thống kê phân bố bài viết | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-004 | FR-M15-02.01, FR-M15-02.02, FR-M15-02.04, FR-M15-02.05, FR-M15-02.19, FR-M15-02.20, FR-M15-02.21, FR-M15-02.22, FR-M15-02.27, BR-M15-08, BR-M15-17, BR-M15-21 |
+| UC-M15-005 | Thống kê báo cáo theo trạng thái và lý do | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-005 | FR-M15-03.01, FR-M15-03.02, FR-M15-03.03, BR-M15-11, BR-M15-12, BR-M15-18, BR-M15-22 |
+| UC-M15-006 | Thống kê cảnh cáo và khóa tài khoản | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-006 | FR-M15-03.04, FR-M15-03.05, FR-M15-03.06, BR-M15-13, BR-M15-14, BR-M15-22 |
+| UC-M15-007 | Thống kê khiếu nại theo loại và kết quả | sub | Subfunction | ACT-007 | - | M15 | #uc-m15-007 | FR-M15-03.07, FR-M15-03.08, BR-M15-10, BR-M15-18, BR-M15-22 |
+| UC-M13-010 | Tính tỷ lệ giữ lại Topic gợi ý | sub | Subfunction | ACT-007 | - | M13 | #uc-m13-010 | FR-M13-10, BR-M13-23, BR-M13-24, BR-M13-29, FR-M15-02.07, FR-M15-02.08, FR-M15-02.09, BR-M15-09 |
 
 Ba core là User goal có kết quả mỗi lần Admin mở/đổi trang; bảy sub M15 là Subfunction gắn kết/dùng chung, không mỗi nhãn biểu đồ một oval. UC-M13-010 là sub tham chiếu owner M13 đã có, không đổi ID/tên hoặc tạo phép tính trùng.
 
@@ -160,6 +181,23 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau, lấy nguyên ba 
 | D 06 | Quyền/rỗng/giới hạn | Bước/nhánh/RULE | Đủ hành vi không cần mỗi guard một oval. | Include Đăng nhập/extend mọi nhóm 0. |
 | D 07 | Tính khi mở/đổi | Luồng UC, không AUT | Không tác vụ nền độc lập trong M15. | Batch/cron/ghi log hoạt động mới. |
 | D 08 | Đếm dữ liệu riêng/ẩn/xóa | Aggregate theo nguồn | Số tổng không cấp quyền browse. | Drill-down hoặc feedfilter loại bài khỏi tổng. |
+
+
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+Không áp dụng cho mode module; tập core được tổng hợp tại [US-overview](US-overview.md).
+
+### Kiểm chất lượng goal/phân rã revision 2.3
+
+| Core | Actor/trigger/kết quả và đóng góp của sub | Quyết định và trade-off | Nguồn |
+|---|---|---|---|
+| UC-M15-020 (User goal) | Actor ACT-007; User goal nắm cohort tài khoản và xu hướng đăng ký; sub003 phân bố theo giá trị hiện tại, sub002 chuỗi timestamp tạo, sub001 khoảng lịch. Không dùng một cohort cho mọi chỉ số. | Giữ 3 sub theo mapping: UC-M15-001, UC-M15-002, UC-M15-003. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M15-01, BR-M15-07, BR-M15-20 |
+| UC-M15-021 (User goal) | Actor ACT-007; User goal nắm cơ cấu/xu hướng nội dung và metric Topic; sub004 phân bố theo tạo, sub002 chuỗi theo đăng, sub001 khoảng, sub M13-010 có một owner M13. Không nhân bản thuật toán hoặc gọi AI để xem dữ liệu. | Giữ 4 sub theo mapping: UC-M15-001, UC-M15-002, UC-M15-004, UC-M13-010. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M15-02, BR-M15-08, BR-M15-09, BR-M15-17, BR-M15-21 |
+| UC-M15-022 (User goal) | Actor ACT-007; User goal nắm kiểm duyệt theo từng báo cáo, lịch sử xử lý và khiếu nại; sub005/006/007 khác đơn vị đếm/timestamp, sub001/002 dùng chung. Không dùng số vụ thay số báo cáo hoặc số ban hiện hành thay lịch sử. | Giữ 5 sub theo mapping: UC-M15-001, UC-M15-002, UC-M15-005, UC-M15-006, UC-M15-007. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M15-03, BR-M15-10, BR-M15-11, BR-M15-12, BR-M15-13, BR-M15-14, BR-M15-22 |
+
+Không có mapping 1:1 core–sub trong revision này. Đối chiếu level ở catalog/spec/brief/rationale; tier không quyết định level. Các sub có cùng caller vẫn được phân biệt bằng trigger/kết quả; mapping không tự tạo UML. Giữ ID và nhãn hiện có; không tạo mục tiêu mới để đủ hai tầng.
 
 ## 3. Đặc tả
 
@@ -300,7 +338,7 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau, lấy nguyên ba 
 ### 3.2 UC con do M15 sở hữu
 
 <a id="uc-m15-001"></a>
-#### UC-M15-001 — Xác định khoảng và độ hạt thống kê
+#### UC-M15-001 — Xác định khoảng thống kê và đơn vị thời gian
 
 **Thuộc core:** UC-M15-020, UC-M15-021, UC-M15-022. **Nguồn:** BR-M15-03, BR-M15-04, BR-M15-18, BR-M15-19.
 
@@ -341,7 +379,7 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau, lấy nguyên ba 
 **Quy tắc:** áp [RULE-M15-001](#rule-m15-001), [RULE-M15-002](#rule-m15-002), [RULE-M15-003](#rule-m15-003), [RULE-M15-004](#rule-m15-004), [RULE-M15-005](#rule-m15-005), [RULE-M15-006](#rule-m15-006), [RULE-M15-007](#rule-m15-007) theo ngữ cảnh. Không lấy dữ liệu công khai làm tập thống kê hoặc tự bổ sung hành vi thiếu nguồn; các NOTE mục 7. 2 là giới hạn cần review.
 
 <a id="uc-m15-002"></a>
-#### UC-M15-002 — Lập chuỗi đếm theo thời gian
+#### UC-M15-002 — Thống kê số lượng theo thời gian
 
 **Thuộc core:** UC-M15-020, UC-M15-021, UC-M15-022. **Nguồn:** BR-M15-04, BR-M15-05, BR-M15-19, BR-M15-20, BR-M15-21, BR-M15-22.
 
@@ -381,7 +419,7 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau, lấy nguyên ba 
 **Quy tắc:** áp [RULE-M15-001](#rule-m15-001), [RULE-M15-002](#rule-m15-002), [RULE-M15-003](#rule-m15-003), [RULE-M15-004](#rule-m15-004), [RULE-M15-005](#rule-m15-005), [RULE-M15-006](#rule-m15-006), [RULE-M15-007](#rule-m15-007) theo ngữ cảnh. Không lấy dữ liệu công khai làm tập thống kê hoặc tự bổ sung hành vi thiếu nguồn; các NOTE mục 7. 2 là giới hạn cần review.
 
 <a id="uc-m15-003"></a>
-#### UC-M15-003 — Tổng hợp phân bố tài khoản
+#### UC-M15-003 — Thống kê phân bố tài khoản
 
 **Thuộc core:** UC-M15-020. **Nguồn:** FR-M15-01.01, FR-M15-01.03, FR-M15-01.04, FR-M15-01.05, FR-M15-01.15, FR-M15-01.17, BR-M15-07, BR-M15-18, BR-M15-20.
 
@@ -424,7 +462,7 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau, lấy nguyên ba 
 **Quy tắc:** áp [RULE-M15-001](#rule-m15-001), [RULE-M15-002](#rule-m15-002), [RULE-M15-003](#rule-m15-003), [RULE-M15-004](#rule-m15-004), [RULE-M15-005](#rule-m15-005), [RULE-M15-006](#rule-m15-006), [RULE-M15-007](#rule-m15-007) theo ngữ cảnh. Không lấy dữ liệu công khai làm tập thống kê hoặc tự bổ sung hành vi thiếu nguồn; các NOTE mục 7. 2 là giới hạn cần review.
 
 <a id="uc-m15-004"></a>
-#### UC-M15-004 — Tổng hợp phân bố bài viết
+#### UC-M15-004 — Thống kê phân bố bài viết
 
 **Thuộc core:** UC-M15-021. **Nguồn:** FR-M15-02.01, FR-M15-02.02, FR-M15-02.04, FR-M15-02.05, FR-M15-02.19, FR-M15-02.20, FR-M15-02.21, FR-M15-02.22, FR-M15-02.27, BR-M15-08, BR-M15-17, BR-M15-21.
 
@@ -466,7 +504,7 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau, lấy nguyên ba 
 **Quy tắc:** áp [RULE-M15-001](#rule-m15-001), [RULE-M15-002](#rule-m15-002), [RULE-M15-003](#rule-m15-003), [RULE-M15-004](#rule-m15-004), [RULE-M15-005](#rule-m15-005), [RULE-M15-006](#rule-m15-006), [RULE-M15-007](#rule-m15-007) theo ngữ cảnh. Không lấy dữ liệu công khai làm tập thống kê hoặc tự bổ sung hành vi thiếu nguồn; các NOTE mục 7. 2 là giới hạn cần review.
 
 <a id="uc-m15-005"></a>
-#### UC-M15-005 — Tổng hợp báo cáo theo trạng thái và lý do
+#### UC-M15-005 — Thống kê báo cáo theo trạng thái và lý do
 
 **Thuộc core:** UC-M15-022. **Nguồn:** FR-M15-03.01, FR-M15-03.02, FR-M15-03.03, BR-M15-11, BR-M15-12, BR-M15-18, BR-M15-22.
 
@@ -506,7 +544,7 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau, lấy nguyên ba 
 **Quy tắc:** áp [RULE-M15-001](#rule-m15-001), [RULE-M15-002](#rule-m15-002), [RULE-M15-003](#rule-m15-003), [RULE-M15-004](#rule-m15-004), [RULE-M15-005](#rule-m15-005), [RULE-M15-006](#rule-m15-006), [RULE-M15-007](#rule-m15-007) theo ngữ cảnh. Không lấy dữ liệu công khai làm tập thống kê hoặc tự bổ sung hành vi thiếu nguồn; các NOTE mục 7. 2 là giới hạn cần review.
 
 <a id="uc-m15-006"></a>
-#### UC-M15-006 — Tổng hợp lịch sử cảnh cáo, ban và gỡ ban
+#### UC-M15-006 — Thống kê cảnh cáo và khóa tài khoản
 
 **Thuộc core:** UC-M15-022. **Nguồn:** FR-M15-03.04, FR-M15-03.05, FR-M15-03.06, BR-M15-13, BR-M15-14, BR-M15-22.
 
@@ -550,7 +588,7 @@ Chưa có US-overview.md tại baseline. Khi tổng hợp sau, lấy nguyên ba 
 **Quy tắc:** áp [RULE-M15-001](#rule-m15-001), [RULE-M15-002](#rule-m15-002), [RULE-M15-003](#rule-m15-003), [RULE-M15-004](#rule-m15-004), [RULE-M15-005](#rule-m15-005), [RULE-M15-006](#rule-m15-006), [RULE-M15-007](#rule-m15-007) theo ngữ cảnh. Không lấy dữ liệu công khai làm tập thống kê hoặc tự bổ sung hành vi thiếu nguồn; các NOTE mục 7. 2 là giới hạn cần review.
 
 <a id="uc-m15-007"></a>
-#### UC-M15-007 — Tổng hợp khiếu nại theo loại và kết quả
+#### UC-M15-007 — Thống kê khiếu nại theo loại và kết quả
 
 **Thuộc core:** UC-M15-022. **Nguồn:** FR-M15-03.07, FR-M15-03.08, BR-M15-10, BR-M15-18, BR-M15-22.
 
@@ -1174,7 +1212,8 @@ Không generalization UC: ba trang gọi những phép tính khác nhau trên c�
 
 ### 4.3 Association actor–UC
 
-| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 | --- | --- | --- | --- | --- |
 | ACT-007 | UC-M15-020 | Mở trang/chọn khoảng và nhận số liệu | Đã qua kiểm phiên/vai trò ADMIN; không phụ thuộc cờ tính năng. | FR-M15-01, BR-M15-07, BR-M15-20 |
 | ACT-007 | UC-M15-021 | Mở trang/chọn khoảng và nhận số liệu | Đã qua kiểm phiên/vai trò ADMIN; không phụ thuộc cờ tính năng. | FR-M15-02, BR-M15-08, BR-M15-09, BR-M15-17, BR-M15-21 |
@@ -1244,7 +1283,7 @@ Từng UC/bước/nhánh/RULE/quan hệ có nguồn ở trên. Bảng sau ghi m�
 | FR-M15-02.04 | #uc-m15-004-main-4, #owner-fr-m15-02-04 | Đủ | Mỗi Topic trong danh mục hiện tại. |
 | FR-M15-02.05 | #uc-m15-004-alt-1, #owner-fr-m15-02-05 | Đủ | Gộp sang đích, chống đếm hai lần bài có cả nguồn/đích. |
 | FR-M15-02.06 | #uc-m15-021-main-4, #uc-m15-002-main-1, #uc-m15-002-main-2, #owner-fr-m15-02-06 | Đủ | Mọi bình luận gốc/trả lời theo lúc đăng, về sau xóa/ẩn vẫn tính. |
-| FR-M15-02.07 | #uc-m15-021-main-5, #uc-m13-010, #rule-m15-007, #owner-fr-m15-02-07 | Đủ | Tái sử dụng owner UC-M13-010, M15 hiển thị. |
+| FR-M15-02.07 | #uc-m15-021-main-5, #uc-m13-010, #rule-m15-007, #owner-fr-m15-02-07 | Một phần | NOTE-M15-04 phụ thuộc NOTE-M13-04: phần mẫu số dương/không phản hồi đã rõ, cách trả/hiện tỷ lệ khi tập phản hồi không rỗng và mẫu số 0 cần xác nhận body–appendix của owner M13. |
 | FR-M15-02.08 | #uc-m15-021-alt-3, #rule-m15-007, #owner-fr-m15-02-08 | Đủ | Không phản hồi →không có dữ liệu, không tỷ lệ 0. |
 | FR-M15-02.09 | #uc-m15-021-alt-4, #rule-m15-007, #owner-fr-m15-02-09 | Đủ | Tắt tổng/Topic vẫn tính dữ liệu phản hồi đã ghi. |
 | FR-M15-02.10 | #rule-m15-001, #owner-fr-m15-02-10 | Đủ | Quy tắc quyền/khoảng/hiển thị và tính lại được thực hiện tại luồng/quy tắc được dẫn. |
@@ -1295,7 +1334,7 @@ Từng UC/bước/nhánh/RULE/quan hệ có nguồn ở trên. Bảng sau ghi m�
 | BR-M15-06 | #rule-m15-001, #owner-br-m15-06 | Đủ | Quy tắc có luồng/hành vi thực hiện và tiêu chí nguyên văn, không chỉ nhãn miễn bao phủ. |
 | BR-M15-07 | #uc-m15-020, #uc-m15-003, #rule-m15-003, #owner-br-m15-07 | Đủ | Quy tắc có luồng/hành vi thực hiện và tiêu chí nguyên văn, không chỉ nhãn miễn bao phủ. |
 | BR-M15-08 | #uc-m15-021, #uc-m15-004, #rule-m15-004, #owner-br-m15-08 | Đủ | Quy tắc có luồng/hành vi thực hiện và tiêu chí nguyên văn, không chỉ nhãn miễn bao phủ. |
-| BR-M15-09 | #uc-m15-021-main-5, #uc-m15-021-alt-3, #rule-m15-007, #uc-m13-010, #owner-br-m15-09 | Đủ | Quy tắc có luồng/hành vi thực hiện và tiêu chí nguyên văn, không chỉ nhãn miễn bao phủ. |
+| BR-M15-09 | #uc-m15-021-main-5, #uc-m15-021-alt-3, #rule-m15-007, #uc-m13-010, #owner-br-m15-09 | Một phần | NOTE-M15-04 phụ thuộc NOTE-M13-04: phần mẫu số dương/không phản hồi đã rõ, cách trả/hiện tỷ lệ khi tập phản hồi không rỗng và mẫu số 0 cần xác nhận body–appendix của owner M13. |
 | BR-M15-10 | #uc-m15-022, #uc-m15-007, #rule-m15-006, #owner-br-m15-10 | Đủ | Quy tắc có luồng/hành vi thực hiện và tiêu chí nguyên văn, không chỉ nhãn miễn bao phủ. |
 | BR-M15-11 | #uc-m15-005-main-1, #uc-m15-005-main-2, #rule-m15-005, #owner-br-m15-11 | Đủ | Quy tắc có luồng/hành vi thực hiện và tiêu chí nguyên văn, không chỉ nhãn miễn bao phủ. |
 | BR-M15-12 | #uc-m15-005-main-3, #rule-m15-005, #owner-br-m15-12 | Đủ | Quy tắc có luồng/hành vi thực hiện và tiêu chí nguyên văn, không chỉ nhãn miễn bao phủ. |
@@ -1401,12 +1440,12 @@ Chưa có US-overview.md tại baseline. Lượt này chỉ M15; khi tổng hợ
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| C-M15 | core | - | UC-M15-020, UC-M15-021, UC-M15-022 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M15/C-M15.svg |
-| D-M15-020 | detail | UC-M15-020 | UC-M15-020, UC-M15-001, UC-M15-002, UC-M15-003 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M15/D-M15-020.svg |
-| D-M15-021 | detail | UC-M15-021 | UC-M15-021, UC-M15-001, UC-M15-002, UC-M15-004, UC-M13-010 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M15/D-M15-021.svg |
-| D-M15-022 | detail | UC-M15-022 | UC-M15-022, UC-M15-001, UC-M15-002, UC-M15-005, UC-M15-006, UC-M15-007 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M15/D-M15-022.svg |
+| C-M15 | core | - | UC-M15-020, UC-M15-021, UC-M15-022 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M15/C-M15.svg |
+| D-M15-020 | detail | UC-M15-020 | UC-M15-020, UC-M15-001, UC-M15-002, UC-M15-003 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M15/D-M15-020.svg |
+| D-M15-021 | detail | UC-M15-021 | UC-M15-021, UC-M15-001, UC-M15-002, UC-M15-004, UC-M13-010 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M15/D-M15-021.svg |
+| D-M15-022 | detail | UC-M15-022 | UC-M15-022, UC-M15-001, UC-M15-002, UC-M15-005, UC-M15-006, UC-M15-007 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M15/D-M15-022.svg |
 
-### 7.1 Bằng chứng kiểm tra
+### 7.1 Bằng chứng kiểm tra lịch sử 2.2 (không phải lần kiểm 2.3)
 
 | Hạng mục | Lệnh/phương pháp | Kết quả thực tế | Giới hạn/bằng chứng |
 | --- | --- | --- | --- |
@@ -1423,7 +1462,7 @@ Chưa có US-overview.md tại baseline. Lượt này chỉ M15; khi tổng hợ
 | NOTE-M15-01 | BR-M15-01, BR-M15-05, FR-M15-01.09, FR-M15-02.13, FR-M15-03.13 | Chưa chốt câu báo/đích chuyển khi từ chối, lỗi nguồn hoặc tính một phần, quyền bị thu hồi/dữ liệu đổi giữa nhiều phép đếm của cùng lượt xem. | Không dựng thông báo, fallback số cũ/0 cho lỗi, retry/polling hoặc cam kết snapshot giao dịch chưa có nguồn. | Giữ ADMIN-only, tính trực tiếp và đầy đủ theo nguồn; chuyển bảo đảm lỗi/nhất quán về phân tích/kỹ thuật, không tự triển khai. |
 | NOTE-M15-02 | BR-M15-03, BR-M15-19; ví dụ hệ thống chạy từ 01/03 | Chưa quy định chính xác mốc đầu lưới tháng Toàn thời gian khi triển khai hoặc khi toàn hệ thống chưa có dữ liệu; nguồn chỉ minh họa theo thời điểm hệ thống bắt đầu chạy. | Không tự đặt ngày bản ghi đầu tiên, ngày triển khai hay cột tháng giả. Số đếm của nhóm rỗng vẫn 0; thời gian không bị lọc hẹp để tránh biểu đồ rỗng. | Giữ độ hạt giờ/ngày/tháng và mọi dữ liệu Toàn thời gian; mốc biểu đồ khởi đầu/rỗng cần được chốt. |
 | NOTE-M15-03 | FR-M15-03.03, FR-M15-03.04, FR-M15-03.06, BR-M15-12, BR-M15-22; mục Dữ liệu nghiệp vụ của FR-M08, BR-M08-39, BR-M08-49, BR-M08-51 | M15 đòi mức đạt ngay sau từng cảnh cáo; bảng dữ liệu M08 chưa nêu riêng thuộc tính mức lịch sử. M15 cần thời điểm gỡ thủ công kể cả ban sau đó bị lật và cách ánh xạ nhãn nhóm AI vào lý do theo loại. | Không suy mức lịch sử từ mức hiện tại/STT suốt đời; không suy gỡ từ trạng thái cuối; không bỏ báo cáo AI hoặc tự ghép nhãn Khác. M08 đã có nhật ký nghiệp vụ, không cần hạ tầng theo dõi hoạt động mới của M15. | Yêu cầu giao tiếp đã mô tả ở UC005/006; cần đối chiếu dữ liệu owner/kỹ thuật giữ được thông tin, không tự sửa FR/register/schema trong lượt này. |
-| NOTE-M15-04 | BR-M15-09, BR-M13-29; NOTE-M13-04 tại US-M13 | Có phản hồi trong khoảng nhưng tổng số Topic đã gợi ý bằng 0 chưa được quy định. | Không gán 0%/100%, chia 0 hoặc tự loại các phản hồi trống; khác trường hợp hoàn toàn không có phản hồi đã rõ no-data. | Giữ giới hạn đã ghi của UC-M13-010, không đổi thuật toán owner. |
+| NOTE-M15-04 | BR-M15-09, BR-M13-29; NOTE-M13-04 tại US-M13 | Có phản hồi nhưng mẫu số 0: thân FR-M13-10.03/BR-M13-29 và BR-M15-09 chỉ nêu không có phản hồi; Phụ lục A FR-M13-10.03 đã nói tổng 0 không có giá trị, cần xác nhận phạm vi áp dụng cho tập phản hồi không rỗng. | Không gán 0%/100%, chia 0 hoặc tự loại các phản hồi trống; khác trường hợp hoàn toàn không có phản hồi đã rõ no-data. | Giữ giới hạn đã ghi của UC-M13-010, không đổi thuật toán owner. |
 | TBD-M15-01 / OPEN-004 | FR-M15 Phụ lục B | Xuất CSV cho ba trang hoãn có chủ đích, mức Thấp. | Không sinh UC/nút xuất tệp hoặc ngầm coi hoàn tất tính năng xuất. | Giữ hoãn MS1; không tự mở rộng. |
 | TBD-M15-02 / OPEN-005 | FR-M15 Phụ lục B | DAU/WAU/MAU và hạ tầng ghi sự kiện hoạt động hoãn có chủ đích, mức Thấp. | Không tạo log hoạt động/user tracking hoặc chỉ số người dùng hoạt động. | Giữ hoãn, số liệu chỉ đọc dữ liệu nghiệp vụ có sẵn. |
 
@@ -1435,3 +1474,87 @@ Chưa có US-overview.md tại baseline. Lượt này chỉ M15; khi tổng hợ
 Chưa có US-M15 trước lượt này, không đổi ID đã duyệt. Tái dùng UC-M13-010 giữ nguyên owner/ID; không migration. Hoàn tất bước 7 chỉ Chờ duyệt, chỉ ghi Đã duyệt/approved_steps sau khi người dùng chấp nhận thật.
 
 
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+
+### 7.4 Walkthrough từng đường đi — revision 2.3
+
+Bảng dưới ghi riêng main và mỗi nhánh của từng hợp đồng, dùng trạng thái/guard thực tế. “Đối chiếu” chỉ áp phần nguồn đã định; các NOTE nêu rõ phần chưa thể kết luận. Một END ghi cần làm rõ không phải failure guarantee đã chốt.
+
+| UC/đường đi | Trạng thái/quyền trước | Điểm rẽ và return/END | Postcondition thực tế/giới hạn | Nguồn/kết quả |
+|---|---|---|---|---|
+| UC-M15-020/[main](#uc-m15-020-main-1) | Trigger: Mở trang thống kê người dùng hoặc đổi khoảng thời gian trên trang. Trước: iShare nhận được yêu cầu mở/đổi khoảng; phiên và vai trò kiểm trong luồng, không giả định mọi người gọi đều là Admin. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Các phân bố và chuỗi đăng ký mới đúng khoảng/nhóm, nhóm không có dữ liệu là 0; lần mở mới mặc định Toàn thời gian. | FR-M15-01.06, FR-M15-01.09, FR-M15-01.11, FR-M15-01.13, FR-M15-01.14, BR-M15-05, BR-M15-06; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-020/[A 1](#uc-m15-020-alt-1) | iShare nhận được yêu cầu mở/đổi khoảng; phiên và vai trò kiểm trong luồng, không giả định mọi người gọi đều là Admin. Guard: Người chưa đăng nhập hoặc vai trò không phải ADMIN | Rẽ [Bước1](#uc-m15-020-main-1); END: không được xem thống kê. | Từ chối trang/số liệu; Mod cũng không được xem số liệu xử lý của chính mình. Nguồn chưa chốt câu báo lỗi/đích chuyển trang. | FR-M15-01.12, BR-M15-01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-020/[A 2](#uc-m15-020-alt-2) | iShare nhận được yêu cầu mở/đổi khoảng; phiên và vai trò kiểm trong luồng, không giả định mọi người gọi đều là Admin. Guard: Admin đổi sang Hôm nay,7 ngày hoặc 30 ngày | Rẽ [Bước2](#uc-m15-020-main-2); [Trở về bước](#uc-m15-020-main-3) | UC001 cấp khoảng lịch/độ hạt tương ứng, thực hiện lại toàn bộ UC003/UC002 cho trang; không chỉ thay nhãn hoặc một biểu đồ. | FR-M15-01.07, FR-M15-01.08, FR-M15-01.18, FR-M15-01.19; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-020/[A 3](#uc-m15-020-alt-3) | iShare nhận được yêu cầu mở/đổi khoảng; phiên và vai trò kiểm trong luồng, không giả định mọi người gọi đều là Admin. Guard: Trong khoảng không có tài khoản thuộc một nhóm hoặc không có đăng ký mới | Rẽ [Bước3](#uc-m15-020-main-3); [Trở về bước](#uc-m15-020-main-5) | Nhóm/cột đếm có giá trị 0; không dùng thông báo không dữ liệu của tỷ lệ Topic thay cho số đếm. | FR-M15-01.11, BR-M15-19; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-021/[main](#uc-m15-021-main-1) | Trigger: Mở trang thống kê nội dung hoặc đổi khoảng thời gian. Trước: Nhận yêu cầu; kiểm quyền trong luồng. Không yêu cầu AI tổng/Topic hay cờ module nguồn phải bật. | 1 → 2 → 3 → 4 → 5 → 6; END: kết quả thành công theo hợp đồng. | Sáu trạng thái đăng, ba trạng thái kiểm duyệt, Topic hiện tại, hai xu hướng và tỷ lệ M13/no-data được trình bày đúng hợp đồng. | FR-M15-02.10, FR-M15-02.13, FR-M15-02.15, FR-M15-02.17, FR-M15-02.18, BR-M15-05, BR-M15-09, BR-M15-16; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-021/[A 1](#uc-m15-021-alt-1) | Nhận yêu cầu; kiểm quyền trong luồng. Không yêu cầu AI tổng/Topic hay cờ module nguồn phải bật. Guard: Người chưa đăng nhập hoặc vai trò không phải ADMIN | Rẽ [Bước1](#uc-m15-021-main-1); END: không được xem thống kê. | Từ chối trang/số liệu; Mod cũng không được xem số liệu xử lý của chính mình. Nguồn chưa chốt câu báo lỗi/đích chuyển trang. | FR-M15-02.16, BR-M15-01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-021/[A 2](#uc-m15-021-alt-2) | Nhận yêu cầu; kiểm quyền trong luồng. Không yêu cầu AI tổng/Topic hay cờ module nguồn phải bật. Guard: Admin đổi khoảng thời gian | Rẽ [Bước2](#uc-m15-021-main-2); [Trở về bước](#uc-m15-021-main-3) | Tính lại mọi chỉ số gồm tỷ lệ M13, mỗi chỉ số theo timestamp riêng; không dùng số tính sẵn hoặc chỉ đổi một khung biểu đồ. | FR-M15-02.11, FR-M15-02.13, FR-M15-02.24; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-021/[A 3](#uc-m15-021-alt-3) | Nhận yêu cầu; kiểm quyền trong luồng. Không yêu cầu AI tổng/Topic hay cờ module nguồn phải bật. Guard: Không có phản hồi gợi ý Topic trong khoảng | Rẽ [Bước5](#uc-m15-021-main-5); [Trở về bước](#uc-m15-021-main-6) | M13 trả no-data; M15 hiện không có dữ liệu tại tỷ lệ, các số đếm/biểu đồ khác vẫn theo dữ liệu của chúng. | FR-M15-02.08, BR-M15-09, FR-M13-10.03; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-021/[A 4](#uc-m15-021-alt-4) | Nhận yêu cầu; kiểm quyền trong luồng. Không yêu cầu AI tổng/Topic hay cờ module nguồn phải bật. Guard: AI tổng hoặc Topic suggestion tắt | Rẽ [Bước5](#uc-m15-021-main-5); [Trở về bước](#uc-m15-021-main-6) | Vẫn dùng UC-M13-010 tính phản hồi đã ghi, gồm tài khoản đã xóa; không thay tỷ lệ bằng thông báo AI bận. | FR-M15-02.09, BR-M15-09, BR-M13-23; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-021/[A 5](#uc-m15-021-alt-5) | Nhận yêu cầu; kiểm quyền trong luồng. Không yêu cầu AI tổng/Topic hay cờ module nguồn phải bật. Guard: Có phản hồi nhưng tổng Topic gợi ý bằng 0 | Rẽ [Bước5](#uc-m15-021-main-5); END: giữ giới hạn nguồn cho chỉ số tỷ lệ. | Không tự gán 0%/100%, chia 0 hoặc bỏ các phản hồi; tình huống chưa chốt ở NOTE-M15-04/NOTE-M13-04. | BR-M15-09, BR-M13-29; pending-confirmation: NOTE-M15-04, NOTE-M13-04 |
+| UC-M15-022/[main](#uc-m15-022-main-1) | Trigger: Mở trang thống kê kiểm duyệt hoặc đổi khoảng thời gian. Trước: Nhận yêu cầu mở/đổi khoảng; quyền ADMIN được kiểm trước số liệu, Mod không có ngoại lệ xem chính mình. | 1 → 2 → 3 → 4 → 5 → 6; END: kết quả thành công theo hợp đồng. | Các phân bố báo cáo/khiếu nại và chuỗi cảnh cáo/ban/gỡ đúng khoảng và loại, tính từ dữ liệu đang có, số đếm rỗng 0. | FR-M15-03.10, FR-M15-03.13, FR-M15-03.15, FR-M15-03.17, FR-M15-03.18, BR-M15-05; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-022/[A 1](#uc-m15-022-alt-1) | Nhận yêu cầu mở/đổi khoảng; quyền ADMIN được kiểm trước số liệu, Mod không có ngoại lệ xem chính mình. Guard: Người chưa đăng nhập hoặc vai trò không phải ADMIN | Rẽ [Bước1](#uc-m15-022-main-1); END: không được xem thống kê. | Từ chối trang/số liệu; Mod cũng không được xem số liệu xử lý của chính mình. Nguồn chưa chốt câu báo lỗi/đích chuyển trang. | FR-M15-03.16, BR-M15-01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-022/[A 2](#uc-m15-022-alt-2) | Nhận yêu cầu mở/đổi khoảng; quyền ADMIN được kiểm trước số liệu, Mod không có ngoại lệ xem chính mình. Guard: Người gọi là Mod xin chỉ xem thống kê kiểm duyệt của bản thân | Rẽ [Bước1](#uc-m15-022-main-1); END: không được xem thống kê. | Từ chối như các vai trò không Admin, không thêm bộ lọc theo người xử lý hoặc leaderboard cá nhân. | FR-M15-03.09, FR-M15-03.10, BR-M15-01, BR-M15-16; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-022/[A 3](#uc-m15-022-alt-3) | Nhận yêu cầu mở/đổi khoảng; quyền ADMIN được kiểm trước số liệu, Mod không có ngoại lệ xem chính mình. Guard: Admin đổi khoảng | Rẽ [Bước2](#uc-m15-022-main-2); [Trở về bước](#uc-m15-022-main-3) | Chạy lại UC005/UC006/UC007 với khoảng mới, UC006 gọi lại UC002; mọi chỉ số theo timestamp thích hợp. | FR-M15-03.11, FR-M15-03.13, FR-M15-03.20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-022/[A 4](#uc-m15-022-alt-4) | Nhận yêu cầu mở/đổi khoảng; quyền ADMIN được kiểm trước số liệu, Mod không có ngoại lệ xem chính mình. Guard: Không có dữ liệu của một nhóm/loại/chuỗi trong khoảng | Rẽ [Bước3](#uc-m15-022-main-3); [Trở về bước](#uc-m15-022-main-6) | Hiển thị 0 ở nhóm/cột đó, không loại bỏ hoặc tạo sự kiện giả. | FR-M15-03.15, BR-M15-19; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-001/[main](#uc-m15-001-main-1) | Trigger: Một core đã kiểm quyền yêu cầu ngữ cảnh cho mở trang hoặc đổi bộ lọc. Trước: Caller đã kiểm ADMIN; truyền loại yêu cầu và lựa chọn thời gian khi đổi. Không cần dữ liệu dương để xác định khoảng. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Khoảng Hôm nay/7 ngày/30 ngày/Toàn thời gian cùng mốc lúc xem, múi giờ UTC+7 và độ hạt giờ/ngày/tháng đúng nguồn. | BR-M15-18, BR-M15-20, BR-M15-21, BR-M15-22; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-001/[A 1](#uc-m15-001-alt-1) | Caller đã kiểm ADMIN; truyền loại yêu cầu và lựa chọn thời gian khi đổi. Không cần dữ liệu dương để xác định khoảng. Guard: Admin muốn khoảng tự chọn như 01/10–15/10 | Rẽ [Bước1](#uc-m15-001-main-1); END: phạm vi chỉ bốn lựa chọn đã chốt. | Không cung cấp lựa chọn tùy ý; tiếp tục bằng một trong bốn lựa chọn hợp lệ, không tự thêm UX/thông báo lỗi cho request không hợp lệ. | BR-M15-03; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-001/[A 2](#uc-m15-001-alt-2) | Caller đã kiểm ADMIN; truyền loại yêu cầu và lựa chọn thời gian khi đổi. Không cần dữ liệu dương để xác định khoảng. Guard: Chọn 7 ngày hoặc 30 ngày | Rẽ [Bước2](#uc-m15-001-main-2); [Trở về bước](#uc-m15-001-main-3) | Lùi 6 hoặc 29 ngày lịch từ ngày đang xem rồi lấy 00:00 giờ Việt Nam, không trừ 7×24/30×24 giờ từ lúc xem. | BR-M15-04; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-001/[A 3](#uc-m15-001-alt-3) | Caller đã kiểm ADMIN; truyền loại yêu cầu và lựa chọn thời gian khi đổi. Không cần dữ liệu dương để xác định khoảng. Guard: Chọn Toàn thời gian | Rẽ [Bước2](#uc-m15-001-main-2); [Trở về bước](#uc-m15-001-main-3) | Không đặt cận dưới lọc đối tượng; biểu đồ theo tháng. Nguồn chỉ minh họa mốc hệ thống bắt đầu chạy, phần khởi đầu/rỗng giữ NOTE-M15-02. | BR-M15-03, BR-M15-19; pending-confirmation: NOTE-M15-02 |
+| UC-M15-002/[main](#uc-m15-002-main-1) | Trigger: Core 020 cần xu hướng đăng ký, core 021 cần bài/bình luận mới hoặc UC006 cần chuỗi cảnh cáo/ban/gỡ. Trước: Caller có quyền ADMIN/ngữ cảnh UC001 và xác định loại chuỗi, tập dữ liệu/thời điểm nghiệp vụ. Không lấy số tổng hiển thị công khai làm lịch sử thống kê. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Các sự kiện đúng khoảng được đếm một lần vào cột UTC+7 tương ứng, tách chuỗi theo loại/mức, cột không sự kiện 0. | BR-M15-05, FR-M15-01.11, FR-M15-02.15, FR-M15-03.15; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-002/[A 1](#uc-m15-002-alt-1) | Caller có quyền ADMIN/ngữ cảnh UC001 và xác định loại chuỗi, tập dữ liệu/thời điểm nghiệp vụ. Không lấy số tổng hiển thị công khai làm lịch sử thống kê. Guard: Cột trong khoảng không có sự kiện | Rẽ [Bước2](#uc-m15-002-main-2); [Trở về bước](#uc-m15-002-main-4) | Giữ cột và giá trị 0, không nội suy hoặc tạo sự kiện giả. | FR-M15-01.11, FR-M15-02.15, FR-M15-03.15, BR-M15-19; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-002/[A 2](#uc-m15-002-alt-2) | Caller có quyền ADMIN/ngữ cảnh UC001 và xác định loại chuỗi, tập dữ liệu/thời điểm nghiệp vụ. Không lấy số tổng hiển thị công khai làm lịch sử thống kê. Guard: Không có dữ liệu hoặc chưa biết tháng bắt đầu biểu đồ Toàn thời gian | Rẽ [Bước1](#uc-m15-002-main-1); END: phần biểu đồ khởi đầu cần nguồn bổ sung. | Số đếm nhóm rỗng vẫn 0; hình dạng/số cột Toàn thời gian rỗng chưa chốt NOTE-M15-02, không tự đặt tháng bắt đầu theo lần đăng nhập hoặc bản ghi đầu tiên. | BR-M15-03, BR-M15-19; pending-confirmation: NOTE-M15-02 |
+| UC-M15-003/[main](#uc-m15-003-main-1) | Trigger: Core 020 cần các phân bố người dùng sau khi có khoảng thời gian. Trước: Ngữ cảnh ADMIN/UC001; M01/M02/M08/M10 cung cấp dữ liệu nghiệp vụ hiện có. | 1 → 2 → 3 → 4 → 5 → 6; END: kết quả thành công theo hợp đồng. | Sáu nhóm trạng thái không trùng; ba phân bố vai trò/Lớp-Khối/mức chỉ đếm đã hoàn tất bước 3 và không DELETED; nhóm rỗng 0. | FR-M15-01.11, FR-M15-01.15, BR-M15-20; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-003/[A 1](#uc-m15-003-alt-1) | Ngữ cảnh ADMIN/UC001; M01/M02/M08/M10 cung cấp dữ liệu nghiệp vụ hiện có. Guard: Tài khoản tạo trong khoảng nhưng về sau DELETED/chưa xong đăng ký | Rẽ [Bước2](#uc-m15-003-main-2); [Trở về bước](#uc-m15-003-main-3) | Vẫn đếm trong ô trạng thái đúng nhóm và xu hướng đăng ký; không vào vai trò/Lớp-Khối/mức nếu không đạt eligibility. | FR-M15-01.02, FR-M15-01.15, BR-M15-20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-003/[A 2](#uc-m15-003-alt-2) | Ngữ cảnh ADMIN/UC001; M01/M02/M08/M10 cung cấp dữ liệu nghiệp vụ hiện có. Guard: Tài khoản đổi role/trạng thái/Lớp-Khối/mức sau khi được tạo | Rẽ [Bước3](#uc-m15-003-main-3); [Trở về bước](#uc-m15-003-main-4) | Dùng giá trị tại lúc xem; thay role do ban/lật ban không làm quay lại role cũ để đếm, không biến cohort thành snapshot cuối kỳ. | FR-M15-01.17, BR-M15-18, BR-M10-09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-003/[A 3](#uc-m15-003-alt-3) | Ngữ cảnh ADMIN/UC001; M01/M02/M08/M10 cung cấp dữ liệu nghiệp vụ hiện có. Guard: Tài khoản hợp lệ không khai Lớp/Khối | Rẽ [Bước4](#uc-m15-003-main-4); [Trở về bước](#uc-m15-003-main-5) | Đếm vào Chưa khai, không bỏ tài khoản hoặc suy từ bài viết. | FR-M15-01.04, BR-M15-20, BR-M02-09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-004/[main](#uc-m15-004-main-1) | Trigger: Core 021 cần phân bố bài sau khi xác lập khoảng. Trước: Có quyền ADMIN/ngữ cảnh UC001; trạng thái/thời điểm tạo bài, danh mục/liên kết Topic hiện tại từ M03/M05/M11. | 1 → 2 → 3 → 4 → 5; END: kết quả thành công theo hợp đồng. | Ba phân bố dùng cohort tạo trong khoảng, loại Nháp, giữ bài ẩn/xóa/nhóm/ẩn danh, Topic gộp đúng/không trùng trong mỗi Topic. | FR-M15-02.13, FR-M15-02.27, BR-M15-05, BR-M03-49, BR-M11-33; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-004/[A 1](#uc-m15-004-alt-1) | Có quyền ADMIN/ngữ cảnh UC001; trạng thái/thời điểm tạo bài, danh mục/liên kết Topic hiện tại từ M03/M05/M11. Guard: Topic nguồn đã gộp vào Topic đích | Rẽ [Bước4](#uc-m15-004-main-4); [Trở về bước](#uc-m15-004-main-5) | Dùng quan hệ sau gộp của M05: nguồn không còn dòng, bài có cả hai chỉ đóng góp một lần vào đích. Ví dụ 40+5 bài, giao 2 →43 bài ở đích, không 45. | FR-M15-02.05, BR-M15-17, FR-M05-07.01, FR-M05-07.02, BR-M05-09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-004/[A 2](#uc-m15-004-alt-2) | Có quyền ADMIN/ngữ cảnh UC001; trạng thái/thời điểm tạo bài, danh mục/liên kết Topic hiện tại từ M03/M05/M11. Guard: Bài có trạng thái Đã xóa hẳn hoặc tác giả/nhóm bị ẩn | Rẽ [Bước2](#uc-m15-004-main-2); [Trở về bước](#uc-m15-004-main-3) | Bản ghi/liên kết còn theo owner, vẫn đếm trạng thái/Topic nếu trong cohort; không làm bài hiện lại hoặc mở quyền đọc bài. | FR-M15-02.27, BR-M15-21, FR-M03-17.02, BR-M11-27; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-004/[A 3](#uc-m15-004-alt-3) | Có quyền ADMIN/ngữ cảnh UC001; trạng thái/thời điểm tạo bài, danh mục/liên kết Topic hiện tại từ M03/M05/M11. Guard: Không có bài thuộc một nhóm hoặc Topic hiện tại | Rẽ [Bước1](#uc-m15-004-main-1); [Trở về bước](#uc-m15-004-main-5) | Trả 0 cho nhóm/Topic ấy, không đưa Nháp vào để lấp số. | FR-M15-02.15, FR-M15-02.19; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-005/[main](#uc-m15-005-main-1) | Trigger: Core 022 cần phân bố báo cáo trong khoảng. Trước: ADMIN/ngữ cảnh UC001; M08 có từng báo cáo, thời điểm tạo, loại/lý do/trạng thái và kết luận của vụ liên quan. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Số ở Mở/Đã xử lý–Có xử lý/Đã xử lý–Bác bỏ và các nhóm lý do tách theo loại; AI/request ban không bị mất hoặc nhân đôi. | FR-M15-03.10, FR-M15-03.15, BR-M15-16; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-005/[A 1](#uc-m15-005-alt-1) | ADMIN/ngữ cảnh UC001; M08 có từng báo cáo, thời điểm tạo, loại/lý do/trạng thái và kết luận của vụ liên quan. Guard: Một vụ có nhiều người báo cáo | Rẽ [Bước1](#uc-m15-005-main-1); [Trở về bước](#uc-m15-005-main-2) | Đếm đủ từng báo cáo, kể cả cùng lý do; 5 báo cáo trong vụ Bác bỏ góp 5 vào Bác bỏ, không 1. | FR-M15-03.01, BR-M15-22; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-005/[A 2](#uc-m15-005-alt-2) | ADMIN/ngữ cảnh UC001; M08 có từng báo cáo, thời điểm tạo, loại/lý do/trạng thái và kết luận của vụ liên quan. Guard: Lý do/nhóm vi phạm của mục AI chưa có ánh xạ nhãn thống kê được nguồn chốt | Rẽ [Bước3](#uc-m15-005-main-3); END: phần phân loại nhãn cần làm rõ giao tiếp owner. | Vẫn giữ mục trong số báo cáo theo trạng thái; không tự gộp Khác hoặc bỏ mục. Giao tiếp lý do AI cần NOTE-M15-03. | FR-M15-03.02, FR-M15-03.03, BR-M15-12, BR-M08-49, BR-M08-51; pending-confirmation: NOTE-M15-03 |
+| UC-M15-006/[main](#uc-m15-006-main-1) | Trigger: Core 022 cần chuỗi cảnh cáo/ban/gỡ theo thời gian. Trước: ADMIN/ngữ cảnh UC001; M08 cung cấp cảnh cáo với mức đạt ngay sau lần ra, ban với loại/thời điểm bắt đầu và các lần gỡ thủ công. Dữ liệu mức lịch sử cần đối chiếu NOTE-M15-03. | 1 → 2 → 3 → 4 → 5 → 6; END: kết quả thành công theo hợp đồng. | Cảnh cáo theo LIGHT/MEDIUM/HEAVY ngay sau lần ra; mọi ban tách tạm thời/vĩnh viễn; gỡ chỉ sự kiện Mod/Admin, chuỗi theo UC002. | FR-M15-03.15, BR-M15-13, BR-M15-22; đối chiếu đường thành công có dữ liệu/quyền hợp lệ; giới hạn NOTE-M15-03 |
+| UC-M15-006/[A 1](#uc-m15-006-alt-1) | ADMIN/ngữ cảnh UC001; M08 cung cấp cảnh cáo với mức đạt ngay sau lần ra, ban với loại/thời điểm bắt đầu và các lần gỡ thủ công. Dữ liệu mức lịch sử cần đối chiếu NOTE-M15-03. Guard: Cảnh cáo đã bị bỏ hoặc bị lật, hoặc mức người đó hiện giảm | Rẽ [Bước2](#uc-m15-006-main-2); [Trở về bước](#uc-m15-006-main-3) | Vẫn đếm một cảnh cáo đã ra tại thời điểm gốc/mức ngay sau lần ra; không đếm sự kiện giảm mức thành cảnh cáo mới. | FR-M15-03.04, BR-M15-13, BR-M15-22, BR-M09-17; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-006/[A 2](#uc-m15-006-alt-2) | ADMIN/ngữ cảnh UC001; M08 cung cấp cảnh cáo với mức đạt ngay sau lần ra, ban với loại/thời điểm bắt đầu và các lần gỡ thủ công. Dữ liệu mức lịch sử cần đối chiếu NOTE-M15-03. Guard: Ban về sau bị lật bởi khiếu nại | Rẽ [Bước3](#uc-m15-006-main-3); [Trở về bước](#uc-m15-006-main-4) | M15 vẫn đếm lần ban lịch sử; M08/M09 có thể loại ban ấy khỏi số lần để leo thang, đó là chỉ số khác. | FR-M15-03.05, BR-M15-22, FR-M09-08.03; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-006/[A 3](#uc-m15-006-alt-3) | ADMIN/ngữ cảnh UC001; M08 cung cấp cảnh cáo với mức đạt ngay sau lần ra, ban với loại/thời điểm bắt đầu và các lần gỡ thủ công. Dữ liệu mức lịch sử cần đối chiếu NOTE-M15-03. Guard: Ban tự hết hạn hoặc bị lật mà không có thao tác gỡ thủ công | Rẽ [Bước4](#uc-m15-006-main-4); [Trở về bước](#uc-m15-006-main-5) | Không góp vào gỡ ban; không tạo bản ghi gỡ thống kê giả. | FR-M15-03.06, BR-M15-22, FR-M08-14.08, FR-M09-08.01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-006/[A 4](#uc-m15-006-alt-4) | ADMIN/ngữ cảnh UC001; M08 cung cấp cảnh cáo với mức đạt ngay sau lần ra, ban với loại/thời điểm bắt đầu và các lần gỡ thủ công. Dữ liệu mức lịch sử cần đối chiếu NOTE-M15-03. Guard: Không có mức đạt ngay sau cảnh cáo hoặc thiếu thời điểm gỡ trong dữ liệu nguồn | Rẽ [Bước2](#uc-m15-006-main-2); END: dữ liệu lịch sử cần đủ theo hợp đồng. | Không lấy mức hiện tại/thời điểm cập nhật thay thế. NOTE-M15-03 ghi yêu cầu giao tiếp; không bịa kết quả hoặc ghi sự kiện mới trong M15. | FR-M15-03.04, FR-M15-03.06, BR-M15-06, BR-M15-22; pending-confirmation: NOTE-M15-03 |
+| UC-M15-007/[main](#uc-m15-007-main-1) | Trigger: Core 022 cần các phân bố khiếu nại. Trước: ADMIN/ngữ cảnh UC001; M09 cung cấp thời điểm gửi, loại và kết quả hiện tại từng khiếu nại. | 1 → 2 → 3 → 4; END: kết quả thành công theo hợp đồng. | Mỗi khiếu nại thuộc một loại ban/cảnh cáo/bài viết và một nhóm Chờ xét/Chấp nhận/Từ chối; số đếm nhóm rỗng 0. | FR-M15-03.15, FR-M15-03.06, BR-M15-22; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M15-007/[A 1](#uc-m15-007-alt-1) | ADMIN/ngữ cảnh UC001; M09 cung cấp thời điểm gửi, loại và kết quả hiện tại từng khiếu nại. Guard: Khiếu nại gộp gồm cả bài và cảnh cáo AI | Rẽ [Bước2](#uc-m15-007-main-2); [Trở về bước](#uc-m15-007-main-3) | Chỉ một bản ghi ở loại bài viết; không tăng thêm nhóm cảnh cáo. | FR-M15-03.07, BR-M09-06, BR-M09-24; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M15-007/[A 2](#uc-m15-007-alt-2) | ADMIN/ngữ cảnh UC001; M09 cung cấp thời điểm gửi, loại và kết quả hiện tại từng khiếu nại. Guard: Khiếu nại gửi trong khoảng, được kết luận sau đó trước lượt xem hiện tại | Rẽ [Bước3](#uc-m15-007-main-3); [Trở về bước](#uc-m15-007-main-4) | Xếp Chấp nhận/Từ chối hiện tại dù thời điểm kết luận ở ngoài khoảng; đây là cohort theo lúc gửi, không snapshot kết quả cuối kỳ. | FR-M15-03.20, BR-M15-18; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+
+### 7.5 Vòng đời gap/nguồn cần xác nhận — revision 2.3
+
+Bảng 7.2 giữ nội dung phát hiện trước; bảng này bổ sung phạm vi, mức chặn và điều kiện đóng. Các đường đã xác định tiếp tục dùng; phần blocking không được nhận semantic pass. Người có quyền quyết định chưa được chỉ định trong nguồn thì ghi **chưa xác định**, không mặc định Admin sản phẩm có quyền phê duyệt yêu cầu.
+
+| ID/nguồn baseline | UC/đường đi bị ảnh hưởng | Mức chặn và lý do | Người xác nhận | Register | Trạng thái | Điều kiện đóng/bằng chứng |
+|---|---|---|---|---|---|---|
+| NOTE-M15-01; FR-M15 baseline tại metadata; BR-M15-01, BR-M15-05, FR-M15-01.09, FR-M15-02.13, FR-M15-03.13 | Core UC-M15-020/021/022; lỗi nguồn/thu hồi ADMIN giữa lượt | blocking: chưa có failure guarantee cho số liệu từng phần/thu hồi quyền; câu chữ thông báo riêng không chặn | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M15-02; FR-M15 baseline tại metadata; BR-M15-03, BR-M15-19; ví dụ hệ thống chạy từ 01/03 | UC-M15-001/A3, UC-M15-002/A2; lưới tháng Toàn thời gian rỗng | blocking: chưa biết số cột/mốc đầu; không được tự chọn ngày dữ liệu đầu tiên | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M15-03; FR-M15 baseline tại metadata; FR-M15-03.03, FR-M15-03.04, FR-M15-03.06, BR-M15-12, BR-M15-22; mục Dữ liệu nghiệp vụ của FR-M08, BR-M08-39, BR-M08-49, BR-M08-51 | UC-M15-005/A2 và UC-M15-006/A4; nguồn lịch sử M08 | blocking: thiếu xác nhận dữ liệu mức ngay sau cảnh cáo/thời điểm gỡ/ánh xạ lý do AI; số đếm không được bịa | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M15-04; FR-M15 baseline tại metadata; BR-M15-09, BR-M13-29; NOTE-M13-04 tại US-M13 | UC-M15-021/A5; UC-M13-010/A3 owner M13 | blocking: giữ nguyên kết quả mẫu số 0 chưa chốt tại M13, cần xác nhận phạm vi no-value trong Phụ lục A owner M13 | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| TBD-M15-01 / OPEN-004; FR-M15 Phụ lục B | Không sinh UC/nút xuất tệp hoặc ngầm coi hoàn tất tính năng xuất. | nonblocking: hoãn có chủ đích, ngoài hành vi MS1 đang đặc tả | Chưa xác định đối với quyết định mới | OPEN-004 | open / hoãn theo nguồn | Giữ hoãn MS1; không tự mở rộng.; quyết định thay đổi/đóng mới cần bằng chứng stakeholder, không suy từ migration. |
+| TBD-M15-02 / OPEN-005; FR-M15 Phụ lục B | Không tạo log hoạt động/user tracking hoặc chỉ số người dùng hoạt động. | nonblocking: hoãn có chủ đích, ngoài hành vi MS1 đang đặc tả | Chưa xác định đối với quyết định mới | OPEN-005 | open / hoãn theo nguồn | Giữ hoãn, số liệu chỉ đọc dữ liệu nghiệp vụ có sẵn.; quyết định thay đổi/đóng mới cần bằng chứng stakeholder, không suy từ migration. |
+
+**Owner UC dùng chung:** UC-M13-010 giữ owner M13, một ID và [hợp đồng tại US-M13](US-M13.md#uc-m13-010). M15 chỉ chèn ở UC-M15-021/main5; NOTE-M15-04 phụ thuộc NOTE-M13-04, không tự đóng hoặc định nghĩa kết quả mẫu số 0 khác owner.
+
+### Kiểm sơ đồ và cổng cuối của revision 2.3
+
+Các SVG bàn giao không đổi ở lượt này. XML/node/cạnh được audit từ file thật; `result=pass` có bằng chứng render lịch sử ở 7.1 và đối chiếu mới của root tại [UC-V23-REVIEW](UC-V23-REVIEW.md); chính agent module không chạy lại renderer. `diagram_check=pass` dựa trên tích hợp root: parse/render lại đủ 81 view exit 0, cây XML hiển thị của SVG gốc và bản render lại giống nhau; root xem 4 PNG mẫu, không tuyên bố xem ảnh thủ công cả 81. Xem [bằng chứng chung](UC-V23-REVIEW.md). Metadata `semantic_review=pending` do các đường blocking nêu trên, không phủ nhận phần đã có căn cứ. Kết quả checker revision được ghi sau khi thực thi, không sao chép số pass của bản cũ.
+
+### Kết quả kiểm thực thi revision 2.3
+
+| Lớp kiểm | Thực thi/kết quả | Giới hạn |
+|---|---|---|
+| Schema/trace | `python -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M15.md --final`: exit 1, errors=2, warnings=2. Hai lỗi: `Final review needs recorded semantic review`; `Final review needs diagram/render evidence`. | Đây là cổng chưa đạt có chủ ý vì phần blocking và render revision chưa xong; không gọi errors=0 hoặc nhận kết quả lịch sử thay lượt này. Cảnh báo owner UC-M13-010 ngoài module được giữ đúng. |
+| XML và mô hình SVG | Audit file thực tế: 4 XML root SVG; members đúng catalog/decomposition; 4 association actor–UC trong bảng bằng đúng tập cạnh trực tiếp trên SVG; các relation UC–UC khớp endpoint/hướng/loại. Không sửa SVG. | Root đã parse/render lại 81 view exit 0, đối chiếu visual XML tree của 81 SVG gốc đều giống bản render mới; xem 4 PNG mẫu. Bằng chứng chung [UC-V23-REVIEW](UC-V23-REVIEW.md), không tuyên bố mọi ảnh đã được xem bằng mắt. |
+| Đối chiếu tiêu chí nguồn | 90 FR chi tiết/BR hiệu lực có nguyên văn tiêu chí được bảo toàn trong US, khớp nguồn owner sau bỏ anchor/khoảng trắng; mọi mã chi tiết tham chiếu tồn tại trong nguồn owner/normative Đã chốt đúng phiên bản.  | So khớp tiêu chí/mã hỗ trợ review, không chứng minh tự động mọi flow tương đương nguồn. Không đổi FR/register. |
+| Walkthrough | 10 main và 31 alternative ghi trạng thái/guard/return/END/postcondition/nguồn ở 7.4; bảng 7.5 chỉ rõ các đường chưa đủ kết luận. | `semantic_review=pending`; Chờ duyệt và không có approved_steps cho revision mới. |
+
+**Cập nhật kiểm chứng tích hợp:** `diagram_check=pass` theo [hồ sơ chung](UC-V23-REVIEW.md): root parse/render 81 SVG exit 0, các cây XML hiển thị giữ nguyên, 4 PNG mẫu đã xem. Chỉ một SVG/view được bàn giao; không sửa SVG ở lượt follow-up này. Semantic review vẫn pending cho các phần blocking thực sự còn lại.

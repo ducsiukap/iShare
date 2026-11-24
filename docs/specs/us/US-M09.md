@@ -1,6 +1,6 @@
 # Phân tích use case — M09 Appeal
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2; viết tiếng Việt, giữ thuật ngữ cần thiết.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3; viết tiếng Việt, giữ thuật ngữ cần thiết.
 
 Đầu ra hai tầng gồm **3 UC chính, 12 UC con**, đặc tả, quan hệ, truy vết và 4 SVG (tổng quan module, một detail cho mỗi core). Core022 là UC abstract có hợp đồng chung, được bốn ca thi hành theo loại xử lý chuyên biệt hóa; không phải nút cho người dùng tự lật chế tài. Tài liệu chỉ phân tích M09.
 
@@ -10,8 +10,9 @@
 | key | value |
 |---|---|
 | document_id | US-M09 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M09 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,9 +21,9 @@
 | approved_steps | - |
 | source_baseline | FR-M09 v1.2; FR-M01 v1.10; FR-M03 v1.10; FR-M04 v1.4; FR-M07 v1.5; FR-M08 v1.7; FR-M10 v1.4; FR-M11 v1.3; FR-M12 v1.1; FR-M13 v1.3; FR-M15 v1.1; FR-M16 v1.0 |
 | author | Codex |
-| date | 2026-10-31 |
-| approval_evidence | Người dùng đã cho phép tự thực hiện các bước cần thiết, không hỏi đồng ý ở lượt M04; tiếp tục áp dụng cho chuỗi module hiện tại. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M09 hoặc kết quả từng bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | Lượt cập nhật v2.3: người dùng cho phép cập nhật trực tiếp và thực hiện liên tục bảy bước trong phạm vi bộ US. Quyền làm không phải phê duyệt kết quả; approved_steps=-, giữ Chờ duyệt. |
+| semantic_review | pending |
 | diagram_check | pass |
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
@@ -51,17 +52,17 @@
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M09.md | 1.2 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M13.md | 1.3 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
-| docs/specs/fr/FR-M16.md | 1.0 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M13.md | 1.3 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
+| docs/specs/fr/FR-M16.md | 1.0 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Không dùng ví dụ phương pháp hoặc US module trước thay nguồn chức năng. Đối chiếu [US-M08](US-M08.md) để giữ ID actor/ranh giới, không coi hồ sơ Chờ duyệt là FR đã chốt.
 
@@ -98,19 +99,19 @@ Admin kế thừa năng lực tương tác của Mod, nhưng bộ kiểm UC007 c
 |---|---|---|---|---|---|---|---|---|
 | UC-M09-020 | Gửi và theo dõi khiếu nại | core | Summary | ACT-002, ACT-008 | - | M09 | #uc-m09-020 | FR-M09-01, FR-M09-02, BR-M09-01, BR-M09-04, BR-M09-21, BR-M09-27 |
 | UC-M09-021 | Giải quyết khiếu nại | core | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-021 | FR-M09-03, FR-M09-04, FR-M09-06, FR-M09-07, BR-M09-11, BR-M09-12, BR-M09-27 |
-| UC-M09-022 | Thi hành đảo ngược xử lý | core | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-022 | FR-M09-08, BR-M09-16, BR-M09-17, BR-M09-18, BR-M09-24, BR-M09-25, BR-M09-26, BR-M09-29 |
+| UC-M09-022 | Đảo ngược quyết định xử lý | core | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-022 | FR-M09-08, BR-M09-16, BR-M09-17, BR-M09-18, BR-M09-24, BR-M09-25, BR-M09-26, BR-M09-29 |
 | UC-M09-001 | Gửi khiếu nại | sub | User goal | ACT-002, ACT-008 | - | M09 | #uc-m09-001 | FR-M09-01, BR-M09-03, BR-M09-06, BR-M09-07, BR-M09-08, BR-M09-24 |
-| UC-M09-002 | Xem khiếu nại và nội dung của mình | sub | User goal | ACT-002, ACT-008 | - | M09 | #uc-m09-002 | FR-M09-02, BR-M09-21, BR-M09-22, BR-M09-27 |
-| UC-M09-003 | Xác định điều kiện và hạn khiếu nại | sub | Subfunction | ACT-002, ACT-008 | - | M09 | #uc-m09-003 | FR-M09-01.07, FR-M09-01.08, FR-M09-01.09, FR-M09-01.13, FR-M09-01.14, FR-M09-01.15, FR-M09-01.18, FR-M09-01.21, FR-M09-01.23, BR-M09-04, BR-M09-05, BR-M09-06, BR-M09-25 |
-| UC-M09-004 | Tra cứu hàng chờ và chi tiết khiếu nại | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-004 | FR-M09-03, FR-M09-06, BR-M09-09, BR-M09-10, BR-M09-12, BR-M09-15 |
+| UC-M09-002 | Xem khiếu nại của mình | sub | User goal | ACT-002, ACT-008 | - | M09 | #uc-m09-002 | FR-M09-02, BR-M09-21, BR-M09-22, BR-M09-27 |
+| UC-M09-003 | Kiểm tra điều kiện gửi khiếu nại | sub | Subfunction | ACT-002, ACT-008 | - | M09 | #uc-m09-003 | FR-M09-01.07, FR-M09-01.08, FR-M09-01.09, FR-M09-01.13, FR-M09-01.14, FR-M09-01.15, FR-M09-01.18, FR-M09-01.21, FR-M09-01.23, BR-M09-04, BR-M09-05, BR-M09-06, BR-M09-25 |
+| UC-M09-004 | Xem hàng chờ và chi tiết khiếu nại | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-004 | FR-M09-03, FR-M09-06, BR-M09-09, BR-M09-10, BR-M09-12, BR-M09-15 |
 | UC-M09-005 | Nhận xử lý khiếu nại | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-005 | FR-M09-04, BR-M09-11, BR-M09-12 |
 | UC-M09-006 | Kết luận khiếu nại | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-006 | FR-M09-07, BR-M09-06, BR-M09-11, BR-M09-12, BR-M09-19, BR-M09-20, BR-M09-27 |
-| UC-M09-007 | Kiểm tra thẩm quyền và quyền giữ khiếu nại | sub | Subfunction | ACT-008, ACT-007 | - | M09 | #uc-m09-007 | FR-M09-03.04, FR-M09-03.05, FR-M09-03.08, FR-M09-04.03, FR-M09-04.08, FR-M09-07.07, FR-M09-07.10, FR-M09-07.12, BR-M09-11, BR-M09-12, BR-M09-13, BR-M09-14 |
-| UC-M09-008 | Kiểm tra quyền lật một lần cho chế tài | sub | Subfunction | ACT-008, ACT-007 | - | M09 | #uc-m09-008 | FR-M09-08.10, FR-M09-08.16, FR-M09-08.17, BR-M09-06, BR-M09-29 |
-| UC-M09-009 | Lật ban theo khiếu nại được chấp nhận | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-009 | FR-M09-08.01, FR-M09-08.02, FR-M09-08.03, FR-M09-08.11, BR-M09-16, BR-M09-25 |
-| UC-M09-010 | Lật cảnh cáo theo khiếu nại được chấp nhận | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-010 | FR-M09-08.04, FR-M09-08.05, FR-M09-08.06, FR-M09-08.07, FR-M09-08.13, FR-M09-08.15, BR-M09-17, BR-M09-26 |
-| UC-M09-011 | Khôi phục bài bị gỡ theo khiếu nại | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-011 | FR-M09-08.08, FR-M09-08.09, FR-M09-08.10, FR-M09-08.16, BR-M09-18, BR-M09-29, FR-M12-02.12 |
-| UC-M09-012 | Giải quyết bài bị AI tự từ chối theo khiếu nại | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-012 | FR-M09-08.12, FR-M09-08.13, FR-M09-08.14, FR-M09-08.18, BR-M09-24, FR-M11-13.14 |
+| UC-M09-007 | Kiểm tra quyền xử lý khiếu nại | sub | Subfunction | ACT-008, ACT-007 | - | M09 | #uc-m09-007 | FR-M09-03.04, FR-M09-03.05, FR-M09-03.08, FR-M09-04.03, FR-M09-04.08, FR-M09-07.07, FR-M09-07.10, FR-M09-07.12, BR-M09-11, BR-M09-12, BR-M09-13, BR-M09-14 |
+| UC-M09-008 | Kiểm tra quyền đảo ngược xử lý | sub | Subfunction | ACT-008, ACT-007 | - | M09 | #uc-m09-008 | FR-M09-08.10, FR-M09-08.16, FR-M09-08.17, BR-M09-06, BR-M09-29 |
+| UC-M09-009 | Hủy quyết định khóa tài khoản | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-009 | FR-M09-08.01, FR-M09-08.02, FR-M09-08.03, FR-M09-08.11, BR-M09-16, BR-M09-25 |
+| UC-M09-010 | Hủy quyết định cảnh cáo | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-010 | FR-M09-08.04, FR-M09-08.05, FR-M09-08.06, FR-M09-08.07, FR-M09-08.13, FR-M09-08.15, BR-M09-17, BR-M09-26 |
+| UC-M09-011 | Khôi phục bài viết bị gỡ | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-011 | FR-M09-08.08, FR-M09-08.09, FR-M09-08.10, FR-M09-08.16, BR-M09-18, BR-M09-29, FR-M12-02.12 |
+| UC-M09-012 | Xử lý bài viết bị AI từ chối | sub | User goal | ACT-008, ACT-007 | - | M09 | #uc-m09-012 | FR-M09-08.12, FR-M09-08.13, FR-M09-08.14, FR-M09-08.18, BR-M09-24, FR-M11-13.14 |
 
 `tier` độc lập `level`; chỉ ba UC core dùng cho tổng quan hệ thống. Core020 là Summary. Core021 có luồng giải quyết; core022 là User goal abstract, có giá trị khôi phục theo quyết định staff, bốn chuyên biệt hiện thực phần thiếu theo loại. Không bắt buộc abstract chỉ vì là core; quyết định abstract ở đây dựa vào hợp đồng/triển khai riêng từng loại, không do hai tầng.
 
@@ -134,6 +135,10 @@ Admin kế thừa năng lực tương tác của Mod, nhưng bộ kiểm UC007 c
 
 12 mapping, không sub mồ côi. UC009/010 được dùng lại khi lật chế tài chính hoặc đi kèm, không tạo ID theo cha. Mapping không tự tạo UML: UC008 thuộc core022 nhưng không là chuyên biệt của core022 vì chỉ kiểm điều kiện, không hiện thực mục tiêu đảo ngược.
 
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
 ### 2.3 Tổng hợp hệ thống và quyết định mô hình
 
 <!-- uc:module-models -->
@@ -153,6 +158,17 @@ US-overview chưa có tại thời điểm phân tích; không tạo/cập nhậ
 | D-M09-06 | Kiểm một lần | UC008 được UC009/010 include | Khác việc gửi một lần; xử lý liên kết có nhiều đường chấp nhận phải tránh hiệu quả lặp | Không tự lật chế tài đã Từ chối riêng khi chấp nhận bài |
 | D-M09-07 | AI/giữ/notification | 3 AUT và 4 RULE | Tự động vẫn có trigger/trước-sau/truy vết | Không actor AI/clock/module hoặc AI kết luận |
 | D-M09-08 | Điểm thiếu rõ | NOTE mục 7, không sửa FR | Giữ điều kiện nguồn đã chốt, chỉ rõ nhánh chưa đủ dữ liệu | Không tự quyết rollback, cảnh cáo đã Đã bỏ hoặc mở lịch sử rộng cho BANNED |
+
+
+### Đối chiếu độ gắn kết v2.3 — goal/trigger/kết quả/phạm vi
+
+UC-NAMING ngày 2026-11-24 đang **Chờ duyệt cách diễn đạt**; giữ tên/ID hiện hành vì chưa phát hiện bằng chứng đổi phạm vi. Mục này là quyết định phân tích chờ duyệt, không nâng quy chuẩn tên thành đã chốt.
+
+| Cặp/phạm vi | Khác biệt hợp đồng và ranh giới | Quyết định và đánh đổi | Nguồn |
+| --- | --- | --- | --- |
+| 020 ↔ 001/002/003 | Summary hành trình người khiếu nại; gửi tạo hồ sơ một lần, xem chỉ đọc hồ sơ đã có,003 kiểm ownership/hạn/lần xử lý. | Giữ ba hợp đồng; gộp gửi+xem làm mất trigger độc lập và quyền BANNED cần làm rõ. Tách từng đường email/thông báo thành UC lặp mục tiêu. | FR-M09-01, FR-M09-02, BR-M09-06 |
+| 021 ↔ 004/005/006/007 | Staff xét một hồ sơ: nhận/đọc/kết luận; đọc độc lập không đòi giữ,007 dùng role lúc bị xử lý và ngoại lệ Admin. | Giữ User goal và các caller; inline kiểm quyền dễ nhập cấm tự xử lý M08. Không tạo escalation vì đã là bộ lọc nguồn. | FR-M09-03, FR-M09-04, FR-M09-06, FR-M09-07, BR-M09-12 |
+| 022 ↔ 008/009/010/011/012 | Chỉ quyết định Chấp nhận mở thi hành;022 abstract bảo toàn đúng lần, giữ hồ sơ, một lần/no-op;009–012 hiện thực theo loại,008 chỉ kiểm không thay thế cha. | Giữ abstract/generalization vì hợp đồng thật, không vì hai tầng. Thay bằng bốn include sẽ chạy sai cả bốn; đổi endpoint006→các core khác che xử lý đi kèm. Nhánh006-A3 Từ chối không gọi022, điểm include bắt buộc khi đi tới nhánh Chấp nhận. Không mapping1:1. | FR-M09-07.01, FR-M09-07.02, FR-M09-08, BR-M09-29 |
 
 ## 3. Đặc tả
 
@@ -228,7 +244,7 @@ Summary đặt các mục tiêu trong bối cảnh, không mặc định ngườ
 Nguồn: FR-M09-03, FR-M09-04, FR-M09-06, FR-M09-07, BR-M09-11, BR-M09-12, BR-M09-27. Áp RULE/AUT đúng phạm vi/guard; vai trò, ownership và quyền giữ không được suy từ association core. Các NOTE là phần chưa chốt cần review, không phải chức năng hoặc chính sách mới.
 <a id="uc-m09-022"></a>
 
-### UC-M09-022 — Thi hành đảo ngược xử lý
+### UC-M09-022 — Đảo ngược quyết định xử lý
 
 **Actor chính:** ACT-008, ACT-007. **Hỗ trợ:** -. **Mức:** User goal, abstract. **Giá trị:** Thực hiện đúng hệ quả của quyết định Chấp nhận, giữ lịch sử và tránh lật cùng chế tài hai lần. **Kết quả:** Hệ quả theo đúng loại được áp, hoặc không thay đổi thêm khi xử lý đã Bị lật; không vượt quyền phục hồi nội dung/role.
 
@@ -342,7 +358,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-002"></a>
 
-### UC-M09-002 — Xem khiếu nại và nội dung của mình
+### UC-M09-002 — Xem khiếu nại của mình
 
 **UC chính:** [UC-M09-020](#uc-m09-020).
 
@@ -399,7 +415,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-003"></a>
 
-### UC-M09-003 — Xác định điều kiện và hạn khiếu nại
+### UC-M09-003 — Kiểm tra điều kiện gửi khiếu nại
 
 **UC chính:** [UC-M09-020](#uc-m09-020).
 
@@ -465,7 +481,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-004"></a>
 
-### UC-M09-004 — Tra cứu hàng chờ và chi tiết khiếu nại
+### UC-M09-004 — Xem hàng chờ và chi tiết khiếu nại
 
 **UC chính:** [UC-M09-021](#uc-m09-021).
 
@@ -653,7 +669,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-007"></a>
 
-### UC-M09-007 — Kiểm tra thẩm quyền và quyền giữ khiếu nại
+### UC-M09-007 — Kiểm tra quyền xử lý khiếu nại
 
 **UC chính:** [UC-M09-021](#uc-m09-021).
 
@@ -718,7 +734,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-008"></a>
 
-### UC-M09-008 — Kiểm tra quyền lật một lần cho chế tài
+### UC-M09-008 — Kiểm tra quyền đảo ngược xử lý
 
 **UC chính:** [UC-M09-022](#uc-m09-022).
 
@@ -773,7 +789,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-009"></a>
 
-### UC-M09-009 — Lật ban theo khiếu nại được chấp nhận
+### UC-M09-009 — Hủy quyết định khóa tài khoản
 
 **UC chính:** [UC-M09-022](#uc-m09-022).
 
@@ -832,7 +848,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-010"></a>
 
-### UC-M09-010 — Lật cảnh cáo theo khiếu nại được chấp nhận
+### UC-M09-010 — Hủy quyết định cảnh cáo
 
 **UC chính:** [UC-M09-022](#uc-m09-022).
 
@@ -894,7 +910,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-011"></a>
 
-### UC-M09-011 — Khôi phục bài bị gỡ theo khiếu nại
+### UC-M09-011 — Khôi phục bài viết bị gỡ
 
 **UC chính:** [UC-M09-022](#uc-m09-022).
 
@@ -953,7 +969,7 @@ Các tiêu chí hiệu lực dưới đây giữ nội dung baseline và là đi
 
 <a id="uc-m09-012"></a>
 
-### UC-M09-012 — Giải quyết bài bị AI tự từ chối theo khiếu nại
+### UC-M09-012 — Xử lý bài viết bị AI từ chối
 
 **UC chính:** [UC-M09-022](#uc-m09-022).
 
@@ -1255,14 +1271,22 @@ Cha abstract có phần thi hành loại chưa được hiện thực nên khôn
 
 ### Association actor–UC
 
-| Actor | UC/ngữ cảnh | Tương tác | Điều kiện | Nguồn |
-|---|---|---|---|---|
-| ACT-002 | UC-M09-020, UC-M09-001, UC-M09-002 | Người khiếu nại gửi/xem của mình | Đúng chủ/còn hạn/loại; BANNED chỉ ban hiện hành theo M01 | FR-M09-01.09, FR-M09-01.18, FR-M09-02.05 |
-| ACT-008 | UC-M09-021, UC-M09-004, UC-M09-005, UC-M09-006 | Xem/nhận/xét trong phạm vi Mod | Không tự xét/không người là Mod lúc bị xử lý; vẫn cần giữ khi kết luận | BR-M09-11, BR-M09-12 |
-| ACT-007 | Kế thừa năng lực staff, ngoại lệ scope Admin tại UC007 | Xét mọi hồ sơ kể cả xử lý do chính Admin ra | Phải đúng trạng thái/người giữ, lý do bắt buộc; không tự có hồ sơ để gửi theo nguồn | FR-M09-07.10, BR-M09-12 |
-| ACT-008, ACT-007 | UC-M09-022 và các chuyên biệt UC-M09-009/010/011/012 | Thi hành kết quả quyết định Chấp nhận; association kế thừa từ hợp đồng | Không có nút lật tự do, không nguồn AI ra quyết định thay staff | FR-M09-07.09, FR-M09-08 |
-| Theo caller | UC-M09-003, UC-M09-007, UC-M09-008 | Subfunction, không kích hoạt riêng | Không suy User được giữ/xét/lật chỉ vì là người liên quan | FR-M09-01.13, FR-M09-04.04, FR-M09-07.06, BR-M09-29 |
-| ACT-001 | Nhánh email qua đăng nhập/từ chối gửi trực tiếp | Người chưa có phiên | Không association gửi thành công khi chưa đăng nhập | FR-M09-01.05, FR-M09-01.08 |
+
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
+| --- | --- | --- | --- | --- |
+| ACT-002 | UC-M09-001 | primary | Chỉ xử lý/hồ sơ của mình, còn hạn và chưa từng khiếu nại/Bị lật; BANNED chỉ ban hiện hành. Lối xem lại BANNED còn NOTE-M09-01; Admin không có xử lý để tự khiếu nại. | FR-M09-01, BR-M09-03, BR-M09-06, BR-M09-07, BR-M09-08, BR-M09-24 |
+| ACT-002 | UC-M09-002 | primary | Chỉ xử lý/hồ sơ của mình, còn hạn và chưa từng khiếu nại/Bị lật; BANNED chỉ ban hiện hành. Lối xem lại BANNED còn NOTE-M09-01; Admin không có xử lý để tự khiếu nại. | FR-M09-02, BR-M09-21, BR-M09-22, BR-M09-27 |
+| ACT-002 | UC-M09-020 | primary | Chỉ xử lý/hồ sơ của mình, còn hạn và chưa từng khiếu nại/Bị lật; BANNED chỉ ban hiện hành. Lối xem lại BANNED còn NOTE-M09-01; Admin không có xử lý để tự khiếu nại. | FR-M09-01, FR-M09-02, BR-M09-01, BR-M09-04, BR-M09-21, BR-M09-27 |
+| ACT-008 | UC-M09-004 | primary | Mod loại xử lý do mình ra và người là Mod lúc bị xử lý; Admin được tự xét. Nhận cần Chờ xét chưa giữ, kết luận còn giữ. Core022 chỉ ngữ cảnh Chấp nhận hợp lệ, không lật tự do. | FR-M09-03, FR-M09-06, BR-M09-09, BR-M09-10, BR-M09-12, BR-M09-15 |
+| ACT-008 | UC-M09-005 | primary | Mod loại xử lý do mình ra và người là Mod lúc bị xử lý; Admin được tự xét. Nhận cần Chờ xét chưa giữ, kết luận còn giữ. Core022 chỉ ngữ cảnh Chấp nhận hợp lệ, không lật tự do. | FR-M09-04, BR-M09-11, BR-M09-12 |
+| ACT-008 | UC-M09-006 | primary | Mod loại xử lý do mình ra và người là Mod lúc bị xử lý; Admin được tự xét. Nhận cần Chờ xét chưa giữ, kết luận còn giữ. Core022 chỉ ngữ cảnh Chấp nhận hợp lệ, không lật tự do. | FR-M09-07, BR-M09-06, BR-M09-11, BR-M09-12, BR-M09-19, BR-M09-20, BR-M09-27 |
+| ACT-008 | UC-M09-021 | primary | Mod loại xử lý do mình ra và người là Mod lúc bị xử lý; Admin được tự xét. Nhận cần Chờ xét chưa giữ, kết luận còn giữ. Core022 chỉ ngữ cảnh Chấp nhận hợp lệ, không lật tự do. | FR-M09-03, FR-M09-04, FR-M09-06, FR-M09-07, BR-M09-11, BR-M09-12, BR-M09-27 |
+| ACT-008 | UC-M09-022 | primary | Mod loại xử lý do mình ra và người là Mod lúc bị xử lý; Admin được tự xét. Nhận cần Chờ xét chưa giữ, kết luận còn giữ. Core022 chỉ ngữ cảnh Chấp nhận hợp lệ, không lật tự do. | FR-M09-08, BR-M09-16, BR-M09-17, BR-M09-18, BR-M09-24, BR-M09-25, BR-M09-26, BR-M09-29 |
+
+Bảng marker chỉ kê các cạnh trực tiếp thực sự có trên SVG hiện hành; actor chuyên biệt kế thừa tương tác từ actor cha nhưng vẫn chịu guard riêng. Không nhân toàn bộ primary/supporting của catalog thành association. Subfunction nhận ngữ cảnh từ caller không có cạnh khởi chạy riêng; actor chỉ bị từ chối giữ ở nhánh. Core Summary chỉ biểu diễn năng lực, không cấp toàn bộ quyền sub.
+
+
 
 Trong hình, chỉ nối actor trực tiếp vào các mục tiêu của focus; core022 abstract biểu diễn năng lực thi hành theo quyết định, các chuyên biệt kế thừa tương tác/context, không cần lặp mọi association. Cờ AI tắt không đổi hành vi M09, không thêm actor dịch vụ AI chỉ vì xem log.
 
@@ -1325,7 +1349,7 @@ Không có quan hệ UC chuyển Admin vì chức năng đó đã bỏ. Đăng n
 | FR-M09-01.21 | #uc-m09-003-fr-m09-01-21, #uc-m09-020 | Đủ | [Tiêu chí tại UC-M09-003](#uc-m09-003-fr-m09-01-21); bối cảnh [UC-M09-020](#uc-m09-020). |
 | FR-M09-01.22 | #rule-m09-004-fr-m09-01-22, #uc-m09-020, #uc-m09-021, #uc-m09-022 | Đủ | [Tiêu chí tại RULE-M09-004](#rule-m09-004-fr-m09-01-22); bối cảnh [UC-M09-020](#uc-m09-020), [UC-M09-021](#uc-m09-021), [UC-M09-022](#uc-m09-022). |
 | FR-M09-01.23 | #uc-m09-003-fr-m09-01-23, #uc-m09-020 | Đủ | [Tiêu chí tại UC-M09-003](#uc-m09-003-fr-m09-01-23); bối cảnh [UC-M09-020](#uc-m09-020). |
-| FR-M09-02.01 | #uc-m09-002-fr-m09-02-01, #uc-m09-020 | Đủ | [Tiêu chí tại UC-M09-002](#uc-m09-002-fr-m09-02-01); bối cảnh [UC-M09-020](#uc-m09-020). |
+| FR-M09-02.01 | #uc-m09-002-fr-m09-02-01, #uc-m09-020 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M09-01. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M09-02.02 | #uc-m09-002-fr-m09-02-02, #uc-m09-020 | Đủ | [Tiêu chí tại UC-M09-002](#uc-m09-002-fr-m09-02-02); bối cảnh [UC-M09-020](#uc-m09-020). |
 | FR-M09-02.03 | #uc-m09-002-fr-m09-02-03, #uc-m09-020 | Đủ | [Tiêu chí tại UC-M09-002](#uc-m09-002-fr-m09-02-03); bối cảnh [UC-M09-020](#uc-m09-020). |
 | FR-M09-02.04 | #uc-m09-002-fr-m09-02-04, #uc-m09-020 | Đủ | [Tiêu chí tại UC-M09-002](#uc-m09-002-fr-m09-02-04); bối cảnh [UC-M09-020](#uc-m09-020). |
@@ -1370,11 +1394,11 @@ Không có quan hệ UC chuyển Admin vì chức năng đó đã bỏ. Đăng n
 | FR-M09-08.01 | #uc-m09-009-fr-m09-08-01, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-009](#uc-m09-009-fr-m09-08-01); bối cảnh [UC-M09-022](#uc-m09-022). |
 | FR-M09-08.02 | #uc-m09-009-fr-m09-08-02, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-009](#uc-m09-009-fr-m09-08-02); bối cảnh [UC-M09-022](#uc-m09-022). |
 | FR-M09-08.03 | #uc-m09-009-fr-m09-08-03, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-009](#uc-m09-009-fr-m09-08-03); bối cảnh [UC-M09-022](#uc-m09-022). |
-| FR-M09-08.04 | #uc-m09-010-fr-m09-08-04, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-010](#uc-m09-010-fr-m09-08-04); bối cảnh [UC-M09-022](#uc-m09-022). |
-| FR-M09-08.05 | #uc-m09-010-fr-m09-08-05, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-010](#uc-m09-010-fr-m09-08-05); bối cảnh [UC-M09-022](#uc-m09-022). |
+| FR-M09-08.04 | #uc-m09-010-fr-m09-08-04, #uc-m09-022 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M09-02. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
+| FR-M09-08.05 | #uc-m09-010-fr-m09-08-05, #uc-m09-022 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M09-02. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M09-08.06 | #uc-m09-010-fr-m09-08-06, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-010](#uc-m09-010-fr-m09-08-06); bối cảnh [UC-M09-022](#uc-m09-022). |
 | FR-M09-08.07 | #uc-m09-010-fr-m09-08-07, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-010](#uc-m09-010-fr-m09-08-07); bối cảnh [UC-M09-022](#uc-m09-022). |
-| FR-M09-08.08 | #uc-m09-011-fr-m09-08-08, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-011](#uc-m09-011-fr-m09-08-08); bối cảnh [UC-M09-022](#uc-m09-022). |
+| FR-M09-08.08 | #uc-m09-011-fr-m09-08-08, #uc-m09-022 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M09-04. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | FR-M09-08.09 | #uc-m09-011-fr-m09-08-09, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-011](#uc-m09-011-fr-m09-08-09); bối cảnh [UC-M09-022](#uc-m09-022). |
 | FR-M09-08.10 | #uc-m09-011-fr-m09-08-10, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-011](#uc-m09-011-fr-m09-08-10); bối cảnh [UC-M09-022](#uc-m09-022). |
 | FR-M09-08.11 | #uc-m09-009-fr-m09-08-11, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-009](#uc-m09-009-fr-m09-08-11); bối cảnh [UC-M09-022](#uc-m09-022). |
@@ -1384,7 +1408,7 @@ Không có quan hệ UC chuyển Admin vì chức năng đó đã bỏ. Đăng n
 | FR-M09-08.15 | #uc-m09-010-fr-m09-08-15, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-010](#uc-m09-010-fr-m09-08-15); bối cảnh [UC-M09-022](#uc-m09-022). |
 | FR-M09-08.16 | #uc-m09-008-fr-m09-08-16, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-008](#uc-m09-008-fr-m09-08-16); bối cảnh [UC-M09-022](#uc-m09-022). |
 | FR-M09-08.17 | #uc-m09-008-fr-m09-08-17, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-008](#uc-m09-008-fr-m09-08-17); bối cảnh [UC-M09-022](#uc-m09-022). |
-| FR-M09-08.18 | #uc-m09-012-fr-m09-08-18, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-012](#uc-m09-012-fr-m09-08-18); bối cảnh [UC-M09-022](#uc-m09-022). |
+| FR-M09-08.18 | #uc-m09-012-fr-m09-08-18, #uc-m09-022 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M09-04. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | BR-M09-01 | #rule-m09-001-br-m09-01, #uc-m09-020 | Đủ | [Tiêu chí tại RULE-M09-001](#rule-m09-001-br-m09-01); bối cảnh [UC-M09-020](#uc-m09-020). |
 | BR-M09-02 | #rule-m09-001-br-m09-02, #uc-m09-020 | Đủ | [Tiêu chí tại RULE-M09-001](#rule-m09-001-br-m09-02); bối cảnh [UC-M09-020](#uc-m09-020). |
 | BR-M09-03 | #uc-m09-001-br-m09-03, #uc-m09-020 | Đủ | [Tiêu chí tại UC-M09-001](#uc-m09-001-br-m09-03); bối cảnh [UC-M09-020](#uc-m09-020). |
@@ -1401,14 +1425,14 @@ Không có quan hệ UC chuyển Admin vì chức năng đó đã bỏ. Đăng n
 | BR-M09-14 | #uc-m09-007-br-m09-14, #uc-m09-021 | Đủ | [Tiêu chí tại UC-M09-007](#uc-m09-007-br-m09-14); bối cảnh [UC-M09-021](#uc-m09-021). |
 | BR-M09-15 | #uc-m09-004-br-m09-15, #uc-m09-021 | Đủ | [Tiêu chí tại UC-M09-004](#uc-m09-004-br-m09-15); bối cảnh [UC-M09-021](#uc-m09-021). |
 | BR-M09-16 | #uc-m09-009-br-m09-16, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-009](#uc-m09-009-br-m09-16); bối cảnh [UC-M09-022](#uc-m09-022). |
-| BR-M09-17 | #uc-m09-010-br-m09-17, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-010](#uc-m09-010-br-m09-17); bối cảnh [UC-M09-022](#uc-m09-022). |
-| BR-M09-18 | #uc-m09-011-br-m09-18, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-011](#uc-m09-011-br-m09-18); bối cảnh [UC-M09-022](#uc-m09-022). |
+| BR-M09-17 | #uc-m09-010-br-m09-17, #uc-m09-022 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M09-02. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
+| BR-M09-18 | #uc-m09-011-br-m09-18, #uc-m09-022 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M09-04. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | BR-M09-19 | #uc-m09-006-br-m09-19, #uc-m09-021 | Đủ | [Tiêu chí tại UC-M09-006](#uc-m09-006-br-m09-19); bối cảnh [UC-M09-021](#uc-m09-021). |
 | BR-M09-20 | #aut-m09-003-br-m09-20, #uc-m09-021 | Đủ | [Tiêu chí tại AUT-M09-003](#aut-m09-003-br-m09-20); bối cảnh [UC-M09-021](#uc-m09-021). |
 | BR-M09-21 | #uc-m09-002-br-m09-21, #uc-m09-020 | Đủ | [Tiêu chí tại UC-M09-002](#uc-m09-002-br-m09-21); bối cảnh [UC-M09-020](#uc-m09-020). |
 | BR-M09-22 | #rule-m09-004-br-m09-22, #uc-m09-020, #uc-m09-021, #uc-m09-022 | Đủ | [Tiêu chí tại RULE-M09-004](#rule-m09-004-br-m09-22); bối cảnh [UC-M09-020](#uc-m09-020), [UC-M09-021](#uc-m09-021), [UC-M09-022](#uc-m09-022). |
 | BR-M09-23 | #rule-m09-004-br-m09-23, #uc-m09-020, #uc-m09-021, #uc-m09-022 | Đủ | [Tiêu chí tại RULE-M09-004](#rule-m09-004-br-m09-23); bối cảnh [UC-M09-020](#uc-m09-020), [UC-M09-021](#uc-m09-021), [UC-M09-022](#uc-m09-022). |
-| BR-M09-24 | #uc-m09-012-br-m09-24, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-012](#uc-m09-012-br-m09-24); bối cảnh [UC-M09-022](#uc-m09-022). |
+| BR-M09-24 | #uc-m09-012-br-m09-24, #uc-m09-022 | Một phần | Phần danh định đã có đích; chưa chốt nhánh/biên được nêu tại NOTE-M09-04. Không nhận toàn bộ điều kiện nguồn đã được nghiệm thu. |
 | BR-M09-25 | #rule-m09-003-br-m09-25, #uc-m09-021, #uc-m09-022 | Đủ | [Tiêu chí tại RULE-M09-003](#rule-m09-003-br-m09-25); bối cảnh [UC-M09-021](#uc-m09-021), [UC-M09-022](#uc-m09-022). |
 | BR-M09-26 | #uc-m09-010-br-m09-26, #uc-m09-022 | Đủ | [Tiêu chí tại UC-M09-010](#uc-m09-010-br-m09-26); bối cảnh [UC-M09-022](#uc-m09-022). |
 | BR-M09-27 | #rule-m09-004-br-m09-27, #uc-m09-020, #uc-m09-021, #uc-m09-022 | Đủ | [Tiêu chí tại RULE-M09-004](#rule-m09-004-br-m09-27); bối cảnh [UC-M09-020](#uc-m09-020), [UC-M09-021](#uc-m09-021), [UC-M09-022](#uc-m09-022). |
@@ -1442,6 +1466,15 @@ Không có quan hệ UC chuyển Admin vì chức năng đó đã bỏ. Đăng n
 | M16 | Dùng hạn/kết quả ban vĩnh viễn cho điều kiện không khôi phục Admin nhóm chat; BANNED không Chat | UC003/006, AUT003 | FR-M16-03.03, FR-M16-17.02 | Chỉ cung cấp dữ liệu; không nhầm Admin nhóm chat với ACT-007 hoặc tự đổi nhóm chat từ M09 |
 
 Các tài liệu liên quan chỉ được đọc theo giao tiếp; không nhận đã đặc tả sâu toàn bộ module đó. Thay baseline phải rà lại hợp đồng, mapping, relation, tiêu chí và sơ đồ chịu tác động; không sửa nguồn để mô hình có vẻ đủ.
+
+
+### Nơi sở hữu quan hệ, hợp đồng liên module và impact v2.3
+
+| Owner / dependency | Hợp đồng caller/callee hoặc kết luận UML | Nguồn và nơi khai báo chính | View/backlink và trạng thái đồng bộ | Căn cứ |
+| --- | --- | --- | --- | --- |
+| M09 owner nội module | [UC-M09-006](#uc-m09-006)→[UC-M09-022](#uc-m09-022) include tại main-4 chỉ đường Chấp nhận, return006-main-5; A3 Từ chối bỏ qua. | FR-M09 v1.2; relation khai báo chính tại [bảng M09](#uc-m09-006-main-4). 022 abstract giữ common_contract;009–012 chuyên biệt bảo toàn đúng lần/giữ record/no-op, không chạy cả bốn. | D-M09-021/D-M09-022; [US-overview](US-overview.md) chỉ lấy core021/022, không đổi endpoint hoặc đưa009–012 lên hệ thống. Nếu rubric yêu cầu include trong mọi instance, cần xác minh rubric; không đổi hành vi/edge để né đường Từ chối. | FR-M09-07.01, FR-M09-07.02, FR-M09-08, BR-M09-29 |
+| M01 / M09 | UC001-A1 qua đăng nhập; UC002 BANNED chỉ đúng hồ sơ ban còn NOTE-M09-01. | FR-M01 v1.10 owner màn khóa/phiên; FR-M09 v1.2 owner hồ sơ/quyền đọc. | [US-M01](US-M01.md), D-M09-020; proposal chốt lối xem, chưa cập nhật owner. Đường điều hướng không tự include đăng nhập mọi lần. | FR-M01-05.05, FR-M09-01.05, FR-M09-02.01 |
+| M08/M03/M11/M12/M13 / M09 | UC004 dùng nhật ký/nội dung; UC009–012 áp hệ quả vào dữ liệu owner và điểm. | FR-M08 v1.7, FR-M03 v1.10, FR-M11 v1.3, FR-M12 v1.1, FR-M13 v1.3 normative; FR-M09 v1.2 owner quyết định đảo ngược. | [US-M08](US-M08.md), [US-M03](US-M03.md), [US-M11](US-M11.md), [US-M12](US-M12.md), [US-M13](US-M13.md); D-M09-021/022. NOTE-M09-02/03/04 là proposal hợp đồng cần đồng bộ; không nhận là relation owner đã duyệt hay thêm include liên module. | FR-M09-06.03, FR-M09-06.05, FR-M09-08.09, FR-M09-08.13, FR-M09-08.18 |
 
 ## 6. Sơ đồ use case
 
@@ -1483,7 +1516,7 @@ View tổng quan chỉ có core; không thêm mũi tên từ phân rã.
 
 Core022 màu xám giữ đúng đích include của UC006 trong nhánh Chấp nhận; nó là hợp đồng abstract. Các chuyên biệt và quan hệ gọi ban/warning đi kèm nằm ở D-M09-022, không nhân bản ID/hợp đồng.
 
-### D-M09-022 — Thi hành đảo ngược xử lý
+### D-M09-022 — Đảo ngược quyết định xử lý
 
 **Subject:** iShare. **Focus:** UC-M09-022. **Members:** UC-M09-022, UC-M09-008, UC-M09-009, UC-M09-010, UC-M09-011, UC-M09-012.
 
@@ -1512,10 +1545,10 @@ Chưa tổng hợp trong lượt M09. Khi tạo US-overview, lấy nguyên UC-M0
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| C-M09 | core | - | UC-M09-020, UC-M09-021, UC-M09-022 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M09/C-M09.svg |
-| D-M09-020 | detail | UC-M09-020 | UC-M09-020, UC-M09-001, UC-M09-002, UC-M09-003 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M09/D-M09-020.svg |
-| D-M09-021 | detail | UC-M09-021 | UC-M09-021, UC-M09-004, UC-M09-005, UC-M09-006, UC-M09-007, UC-M09-022 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M09/D-M09-021.svg |
-| D-M09-022 | detail | UC-M09-022 | UC-M09-022, UC-M09-008, UC-M09-009, UC-M09-010, UC-M09-011, UC-M09-012 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | docs/specs/us/diagrams/M09/D-M09-022.svg |
+| C-M09 | core | - | UC-M09-020, UC-M09-021, UC-M09-022 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M09/C-M09.svg |
+| D-M09-020 | detail | UC-M09-020 | UC-M09-020, UC-M09-001, UC-M09-002, UC-M09-003 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M09/D-M09-020.svg |
+| D-M09-021 | detail | UC-M09-021 | UC-M09-021, UC-M09-004, UC-M09-005, UC-M09-006, UC-M09-007, UC-M09-022 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M09/D-M09-021.svg |
+| D-M09-022 | detail | UC-M09-022 | UC-M09-022, UC-M09-008, UC-M09-009, UC-M09-010, UC-M09-011, UC-M09-012 | plantuml | PlantUML 1.2026.8 / Java 23.0.2 | pass | diagrams/M09/D-M09-022.svg |
 
 <a id="qa-results"></a>
 
@@ -1541,15 +1574,164 @@ Semantic review pass ghi nhận đã đối chiếu mô hình với FR/BR và c�
 
 ### Điểm cần làm rõ và giới hạn nguồn
 
-| ID | Nguồn | Điểm cần chú ý | Xử lý/ảnh hưởng | Trạng thái |
-|---|---|---|---|---|
-| NOTE-M09-01 | FR-M09-02.01, FR-M09-02.02, BR-M09-07; FR-M01-05.05 | User xem hồ sơ của mình, nhưng BANNED chỉ thấy màn khóa và chỉ khiếu nại ban hiện hành; lối xem lại hồ sơ đã gửi trong lúc còn BANNED chưa mô tả rõ. | Không tự tạo portal/lịch sử rộng cho BANNED. Cần chốt lối vào/phạm vi chỉ đọc cho chính hồ sơ ban phù hợp M01. | Giới hạn nguồn cần review |
-| NOTE-M09-02 | FR-M08-11.03, FR-M08-11.04, BR-M08-54; FR-M09-08.04, FR-M09-08.05, BR-M09-25, BR-M09-29 | Warning đã Đã bỏ do override AI trước khi hồ sơ chờ được Chấp nhận: M08 đã giảm số lần, còn M09 chỉ nói giảm khi lật, no-op chỉ nêu Bị lật. | Không tự chốt giảm thêm hay bỏ qua yêu cầu lật; UC010 nêu nhánh chưa đủ quy tắc trước áp thay đổi. Khác nhánh số lần hiện 0 do decay, M09 đã có sàn 0 rõ. | Cần chốt phối hợp dữ liệu M08/M09 |
-| NOTE-M09-03 | FR-M09-07.01, FR-M09-08, BR-M09-16, BR-M09-18 | Nguồn chốt kết luận và hệ quả, không chốt lỗi/transaction giữa lưu kết luận, lật record, hoàn điểm, trạng thái bài/account và phát thông báo. | Giữ hành vi yêu cầu, không phát minh rollback/retry/outbox hay kết luận thất bại/thành công riêng. Thiết kế cần chứng minh nhất quán và lật một lần. | Để phân tích hợp đồng lỗi/thiết kế, chưa tự chọn cơ chế |
-| NOTE-M09-04 | FR-M09-08.08, FR-M09-08.14, FR-M09-08.18, BR-M09-24, BR-M09-29; BR-M11-28 | Đã có ngoại lệ gửi lại và chế tài đi kèm, nhưng bài có lần gỡ khác còn hiệu lực hoặc nhóm đã khóa/ẩn/thay điều kiện khi xét chưa được M09 nêu riêng. | Mỗi lần xử lý giữ liên kết riêng; không tự ghi đè lần xử lý khác hoặc vượt cổng/quyền M03/M11. Cần owner đối chiếu nếu gặp các nhánh trạng thái chồng này. | Giới hạn nguồn cần review |
-| NOTE-M09-05 | Phần mục đích; FR-M09-03.05, FR-M09-07.10, BR-M09-12 | Câu khái quát không ai xét xử lý của mình không bao phủ ngoại lệ Admin trong quy định chi tiết. | Đã dùng ngoại lệ Admin tự xét của FR/BR hiện hành; Mod vẫn bị cấm. Không sửa FR hoặc nhập quy tắc M08 sang M09. | Đã đối chiếu theo v1.2 |
-| TBD-M09-01 | Phụ lục B.2, DEC-201 | Đã đóng: comment Bị ẩn vẫn ẩn khi warning/ban liên quan bị lật. | Giữ nguyên quyết định, không mở lại như TBD chưa chốt. | Đã chốt trong nguồn |
-| K-01 | Phụ lục B.3, DEC-198 | Không snapshot nội dung lúc xử lý trong MS1; nội dung có thể đã sửa. | Không bổ sung tính năng; role lịch sử người khiếu nại vẫn là dữ kiện đã được nguồn yêu cầu, khác snapshot nội dung. | Hoãn snapshot, giữ giới hạn |
+| ID | Nguồn | Điểm cần chú ý | Xử lý/ảnh hưởng | Trạng thái | UC/đường bị ảnh hưởng | Mức chặn và lý do | Người quyết định | Register / trạng thái | Bằng chứng đóng và phần làm lại |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| NOTE-M09-01 | FR-M09-02.01, FR-M09-02.02, BR-M09-07; FR-M01-05.05 | User xem hồ sơ của mình, nhưng BANNED chỉ thấy màn khóa và chỉ khiếu nại ban hiện hành; lối xem lại hồ sơ đã gửi trong lúc còn BANNED chưa mô tả rõ. | Không tự tạo portal/lịch sử rộng cho BANNED. Cần chốt lối vào/phạm vi chỉ đọc cho chính hồ sơ ban phù hợp M01. | Giới hạn nguồn cần review | UC-M09-002 main-1→2; BANNED xem lại hồ sơ ban đang hiệu lực | blocking: thiếu lối vào/phạm vi đọc tương thích màn khóa M01; không xác nhận nhánh này | Chưa xác định người quyết định quyền M01/M09 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt phạm vi/đường xem hồ sơ ban của BANNED; sửa FR-M01/M09, UC002 và quyền/QA; không tự tạo portal. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M09-02 | FR-M08-11.03, FR-M08-11.04, BR-M08-54; FR-M09-08.04, FR-M09-08.05, BR-M09-25, BR-M09-29 | Warning đã Đã bỏ do override AI trước khi hồ sơ chờ được Chấp nhận: M08 đã giảm số lần, còn M09 chỉ nói giảm khi lật, no-op chỉ nêu Bị lật. | Không tự chốt giảm thêm hay bỏ qua yêu cầu lật; UC010 nêu nhánh chưa đủ quy tắc trước áp thay đổi. Khác nhánh số lần hiện 0 do decay, M09 đã có sàn 0 rõ. | Cần chốt phối hợp dữ liệu M08/M09 | UC-M09-010 A3; UC022/011/012 gọi lật warning đã Đã bỏ ở M08 | blocking: nguồn chưa quyết định tác dụng lần 2/record; không chốt nhánh này | Chưa xác định người quyết định dữ liệu M08/M09 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt chuyển Đã bỏ→Bị lật và số lần tác dụng, ghi register; đồng bộ FR-M08/M09, UC010/008/022 và caller. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M09-03 | FR-M09-07.01, FR-M09-08, BR-M09-16, BR-M09-18 | Nguồn chốt kết luận và hệ quả, không chốt lỗi/transaction giữa lưu kết luận, lật record, hoàn điểm, trạng thái bài/account và phát thông báo. | Giữ hành vi yêu cầu, không phát minh rollback/retry/outbox hay kết luận thất bại/thành công riêng. Thiết kế cần chứng minh nhất quán và lật một lần. | Để phân tích hợp đồng lỗi/thiết kế, chưa tự chọn cơ chế | UC-M09-006 main-3→4→5; UC022/009/010/011/012; lỗi giữa lưu kết luận và thi hành/thông báo | blocking cho bảo đảm thất bại liên module; đường thành công vẫn có nguồn, không tự cam kết nguyên tử | Chưa xác định người quyết định hợp đồng lỗi M09 và owner dữ liệu | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chốt kết quả được quan sát khi thi hành lỗi và bằng chứng thiết kế bảo đảm lật 1 lần; cập nhật FR nếu thêm nghĩa nghiệp vụ, rà UC006/022/AUT003 và owner nhận. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M09-04 | FR-M09-08.08, FR-M09-08.14, FR-M09-08.18, BR-M09-24, BR-M09-29; BR-M11-28 | Đã có ngoại lệ gửi lại và chế tài đi kèm, nhưng bài có lần gỡ khác còn hiệu lực hoặc nhóm đã khóa/ẩn/thay điều kiện khi xét chưa được M09 nêu riêng. | Mỗi lần xử lý giữ liên kết riêng; không tự ghi đè lần xử lý khác hoặc vượt cổng/quyền M03/M11. Cần owner đối chiếu nếu gặp các nhánh trạng thái chồng này. | Giới hạn nguồn cần review | UC-M09-011 main-1/5; UC012 A2; xử lý khác còn hiệu lực/nhóm khóa hoặc ẩn | blocking: chưa xác định kết quả hợp nhất nhiều lớp trạng thái; không nghiệm thu nhánh chồng | Chưa xác định người quyết định trạng thái M03/M09/M11 | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Đối chiếu từng trạng thái nhóm/bài và lần xử lý còn hiệu lực, chốt hợp đồng owner; sửa FR tương ứng và UC011/012, kiểm quyền/điểm/tác vụ sau đăng. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
+| NOTE-M09-05 | Phần mục đích; FR-M09-03.05, FR-M09-07.10, BR-M09-12 | Câu khái quát không ai xét xử lý của mình không bao phủ ngoại lệ Admin trong quy định chi tiết. | Đã dùng ngoại lệ Admin tự xét của FR/BR hiện hành; Mod vẫn bị cấm. Không sửa FR hoặc nhập quy tắc M08 sang M09. | Đã đối chiếu theo v1.2 | UC-M09-007 main-2/A2; Admin tự xét, Mod không tự xét | nonblocking: FR/BR v1.2 quy định ngoại lệ cụ thể, không thiếu quyết định mới | Theo phê duyệt FR-M09 v1.2 | [Register quyết định nguồn](../../../.agents/.claude/system_analysis/output/registers/decisions.md); resolved theo nguồn, chưa phê duyệt US | Giữ chứng cứ FR-M09-03.05/07.10/BR-M09-12; không mang cấm tự xử lý M08 sang M09. Đây là chứng cứ lịch sử; không tạo xác nhận mới. |
+| TBD-M09-01 | Phụ lục B.2, DEC-201 | Đã đóng: comment Bị ẩn vẫn ẩn khi warning/ban liên quan bị lật. | Giữ nguyên quyết định, không mở lại như TBD chưa chốt. | Đã chốt trong nguồn | UC-M09-009/010; comment liên quan vẫn ẩn | nonblocking: DEC-201 đã đóng | Theo quyết định nguồn DEC-201 | [Register quyết định nguồn](../../../.agents/.claude/system_analysis/output/registers/decisions.md); resolved theo nguồn, chưa phê duyệt US | Giữ chứng cứ DEC-201/FR-M09-08.15, không mở lại như TBD. Đây là chứng cứ lịch sử; không tạo xác nhận mới. |
+| K-01 | Phụ lục B.3, DEC-198 | Không snapshot nội dung lúc xử lý trong MS1; nội dung có thể đã sửa. | Không bổ sung tính năng; role lịch sử người khiếu nại vẫn là dữ kiện đã được nguồn yêu cầu, khác snapshot nội dung. | Hoãn snapshot, giữ giới hạn | UC-M09-004 main-4; nội dung có thể đã sửa; snapshot ngoài MS1 | nonblocking: DEC-198 chủ đích hoãn snapshot, không hoãn role lịch sử | Chưa xác định người có quyền mở lại snapshot | [Đề xuất ghi issue-queue](../../../.agents/.claude/system_analysis/output/registers/issue-queue.md), chưa có mã register được cấp; pending-confirmation | Chỉ bổ sung snapshot sau quyết định được duyệt và FR mới; giữ dữ kiện role lịch sử đã được yêu cầu. Chưa có bằng chứng chấp thuận/FR mới; closure pending. |
 
 Các NOTE mới là giới hạn review, chưa là decision/register được stakeholder chấp nhận. Không chỉnh FR/register, US khác hoặc cấu hình trong lượt này. US-M09 mới nên không cần đổi ID cũ. Hoàn thành phân tích/QA chuyển **Chờ duyệt**; chỉ đổi **Đã duyệt** khi người dùng xác nhận kết quả cuối.
 
+
+
+
+### Phân biệt bằng chứng lịch sử và lượt cập nhật v2.3
+
+Các bảng kiểm cấu trúc/render/hình và câu “đã kiểm” có trước mục này là **bằng chứng lịch sử v2.2 / lượt chuẩn hóa tên**, không phải lệnh vừa chạy. Quyền thực hiện lịch sử: Người dùng đã cho phép tự thực hiện các bước cần thiết, không hỏi đồng ý ở lượt M04; tiếp tục áp dụng cho chuỗi module hiện tại. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M09 hoặc kết quả từng bước.
+
+Trong lượt cập nhật các module được giao, giữ nguyên 25 view trong phạm vi M06–M10 (từng module theo bảng diagrams), chưa chạy lại renderer hoặc quan sát hình mới. Đã parse XML SVG hiện hữu, đối chiếu node/cạnh UC và association trực tiếp với bảng; endpoint, nhãn UC và ký pháp không sửa nên không phát sinh yêu cầu render mới. `diagram_check=pass` chỉ kế thừa hình đã render và audit parity hiện tại, không hàm ý BA/phê duyệt hoặc render lại.
+
+| Lớp kiểm v2.3 | Kết quả thực tế | Giới hạn |
+| --- | --- | --- |
+| Schema/nguồn | Baseline owner/normative Đã chốt; giữ source_baseline/ID/anchor; nâng marker associations và artifact US-relative. | Checker --final được chạy sau walkthrough; semantic_review=pending vì các blocking trong ledger, không ép pass. |
+| SVG/XML/parity | 4 SVG XML hợp lệ; 8 cặp association trực tiếp đã nhập marker; quan hệ UC giữ endpoint. | Không render mới; kiểm hình lịch sử không chứng minh ngữ nghĩa nhánh thiếu nguồn. |
+| Walkthrough | 14 đặc tả có luồng chính và mỗi nhánh đã lập before/return/END/postcondition/source. | Gap cụ thể giới hạn kết luận; không coi bao phủ mã hay criteria chép từ FR là closure. |
+
+### Walkthrough v2.3 theo từng đặc tả và đường đi
+
+Bảng dưới ghi trạng thái trước, guard và điểm trở lại thực tế. `END cần chốt` là điểm dừng phân tích của nhánh thiếu nguồn, không phải hành vi sản phẩm đã được phê duyệt. Đường trở lại chỉ dùng success khi guard cho phép hoàn tất; không áp success của cha cho no-op/từ chối. Cột gap giới hạn phần có thể nghiệm thu. Các core Summary được đối chiếu ở bảng độ gắn kết; các đường thực thi nằm ở đặc tả con dưới đây.
+
+#### UC-M09-021 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Staff chọn xét một khiếu nại Chờ xét trong phạm vi được thấy. Trước: Có khiếu nại; quyền xem/nhận/giữ và trạng thái được kiểm, không giả luôn còn giữ. | [1](#uc-m09-021-main-1) → [2](#uc-m09-021-main-2) → [3](#uc-m09-021-main-3) → [4](#uc-m09-021-main-4) → [5](#uc-m09-021-main-5) → END: Khiếu nại Đã kết luận Chấp nhận/Từ chối có người/lý do/mốc; hệ quả và thông báo đúng. | Khiếu nại Đã kết luận Chấp nhận/Từ chối có người/lý do/mốc; hệ quả và thông báo đúng. | FR-M09-03, FR-M09-04, FR-M09-06, FR-M09-07, BR-M09-11, BR-M09-12, BR-M09-27; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m09-021-alt-1) | Tại bước 2: Người khác giữ, đã kết luận hoặc ngoài phạm vi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A1 → END: chưa nhận xử lý | [UC-M09-005](#uc-m09-005) từ chối nhận. Kết thúc: chưa nhận xử lý. | FR-M09-04.02, FR-M09-04.03, FR-M09-04.05, FR-M09-04.08; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m09-021-alt-2) | Tại bước 2: Đã tự giữ khiếu nại; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → 3 | Không tái nhận, tiếp tục điều tra. Sau khi trở lại và hoàn tất: Khiếu nại Đã kết luận Chấp nhận/Từ chối có người/lý do/mốc; hệ quả và thông báo đúng. | FR-M09-04.01, BR-M09-11; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m09-021-alt-3) | Tại bước 4: Khiếu nại đã tự nhả sau 30 phút, đã kết luận, thiếu lý do hoặc sai role/phạm vi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 4 → A3 → END: chưa có kết luận mới | [UC-M09-006](#uc-m09-006) từ chối theo điều kiện tương ứng. Kết thúc: chưa có kết luận mới. | FR-M09-04.06, FR-M09-07.06, FR-M09-07.08, FR-M09-07.09, FR-M09-07.11; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M09-022 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | [UC-M09-006](#uc-m09-006) đã có quyết định Chấp nhận hợp lệ hoặc ca chuyên biệt xử lý chế tài đi kèm được nguồn cho phép. Trước: Chấp nhận bởi người còn thẩm quyền/giữ tại điểm kết luận; có lần xử lý và ngữ cảnh chính/đi kèm. Không phải thao tác người khiếu nại tự gọi. | [1](#uc-m09-022-main-1) → [2](#uc-m09-022-main-2) → [3](#uc-m09-022-main-3) → END: trả hệ quả đúng caller theo loại/ngữ cảnh | Hệ quả theo đúng loại được áp, hoặc không thay đổi thêm khi xử lý đã Bị lật; không vượt quyền phục hồi nội dung/role. | FR-M09-08, BR-M09-16, BR-M09-17, BR-M09-18, BR-M09-24, BR-M09-25, BR-M09-26, BR-M09-29; Giữ mở: NOTE-M09-02 |
+
+#### UC-M09-001 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Chọn Khiếu nại từ thông báo, màn hình BANNED hoặc link email ban. Trước: Có lối vào/target; không giả đã đăng nhập/còn hạn/target khiếu nại được trước kiểm. | [1](#uc-m09-001-main-1) → [2](#uc-m09-001-main-2) → [3](#uc-m09-001-main-3) → [4](#uc-m09-001-main-4) → [5](#uc-m09-001-main-5) → END: Lưu người gửi, loại, lần xử lý, giải thích, ảnh, thời điểm gửi, Chờ xét; hồ sơ vào hàng chờ riêng. | Lưu người gửi, loại, lần xử lý, giải thích, ảnh, thời điểm gửi, Chờ xét; hồ sơ vào hàng chờ riêng. | FR-M09-01, BR-M09-03, BR-M09-06, BR-M09-07, BR-M09-08, BR-M09-24; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m09-001-alt-1) | Tại bước 1: Email ban được mở khi chưa đăng nhập; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → 2 sau đăng nhập thành công | Chuyển qua M01 rồi quay về trang cho đúng ban; không coi đã đăng nhập thành công nếu chưa có kết quả M01. Sau khi trở lại và hoàn tất: Lưu người gửi, loại, lần xử lý, giải thích, ảnh, thời điểm gửi, Chờ xét; hồ sơ vào hàng chờ riêng. | FR-M09-01.05, BR-M09-08; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m09-001-alt-2) | Tại bước 2: Guest trực tiếp gửi, không sở hữu, BANNED gửi xử lý khác ban hiện hành, hết hạn/trùng/đã Bị lật/loại cấm; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → END: không gửi | [UC-M09-003](#uc-m09-003) từ chối; không lưu hồ sơ mới. Kết thúc: không gửi. | FR-M09-01.08, FR-M09-01.09, FR-M09-01.13, FR-M09-01.14, FR-M09-01.15, FR-M09-01.18, FR-M09-01.23; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m09-001-alt-3) | Tại bước 3: Giải thích trống hoặc ảnh sai số lượng/dung lượng/định dạng; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A3 → 3 | Từ chối gửi khi giải thích trống, từ chối ảnh vi phạm theo FR; người gửi có thể sửa đầu vào trước khi gửi. Sau khi trở lại và hoàn tất: Lưu người gửi, loại, lần xử lý, giải thích, ảnh, thời điểm gửi, Chờ xét; hồ sơ vào hàng chờ riêng. | FR-M09-01.10, FR-M09-01.11, FR-M09-01.12; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A4](#uc-m09-001-alt-4) | Tại bước 4: Định gửi riêng cảnh cáo AI gắn cùng lần từ chối bài; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 4 → A4 → END: không có khiếu nại riêng | Từ chối riêng; phải phản đối qua khiếu nại bài/gộp đủ điều kiện. Kết thúc: không có khiếu nại riêng. | FR-M09-01.20, FR-M09-01.21; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M09-002 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người gửi mở hồ sơ của mình hoặc thông báo kết luận. Trước: Có phiên và hồ sơ được nhận diện; không giả sở hữu hoặc cấp trang lịch sử tổng quát cho BANNED. | [1](#uc-m09-002-main-1) → [2](#uc-m09-002-main-2) → [3](#uc-m09-002-main-3) → [4](#uc-m09-002-main-4) → END: Hiện xử lý, giải thích, bằng chứng đã gửi, trạng thái và kết luận/lý do nếu có; nội dung của mình chỉ đọc. | Hiện xử lý, giải thích, bằng chứng đã gửi, trạng thái và kết luận/lý do nếu có; nội dung của mình chỉ đọc. | FR-M09-02, BR-M09-21, BR-M09-22, BR-M09-27; Giữ mở: NOTE-M09-01 |
+| [A1](#uc-m09-002-alt-1) | Tại bước 1: Mở khiếu nại của người khác; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không xem hồ sơ khác | Từ chối; quyền staff điều tra dùng [UC-M09-004](#uc-m09-004) riêng, không dùng chức năng của người gửi để vượt ownership. Kết thúc: không xem hồ sơ khác. | FR-M09-02.05, FR-M09-06.06|
+
+#### UC-M09-003 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | [UC-M09-001](#uc-m09-001) cần kiểm target/người gửi, hoặc M01 cần biết ban còn hạn để hiện nút. Trước: Có danh tính, xử lý/loại/mốc/quan hệ đi kèm, vai trò khi bị xử lý và lịch sử khiếu nại theo nguồn. | [1](#uc-m09-003-main-1) → [2](#uc-m09-003-main-2) → [3](#uc-m09-003-main-3) → [4](#uc-m09-003-main-4) → [5](#uc-m09-003-main-5) → END: Chấp nhận kiểm tra chỉ khi target thuộc phạm vi, còn hạn, đúng chủ và chưa từng khiếu nại/Bị lật; phân loại/gộp đúng. | Chấp nhận kiểm tra chỉ khi target thuộc phạm vi, còn hạn, đúng chủ và chưa từng khiếu nại/Bị lật; phân loại/gộp đúng. | FR-M09-01.07, FR-M09-01.08, FR-M09-01.09, FR-M09-01.13, FR-M09-01.14, FR-M09-01.15, FR-M09-01.18, FR-M09-01.21, FR-M09-01.23, BR-M09-04, BR-M09-05, BR-M09-06, BR-M09-25; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m09-003-alt-1) | Tại bước 1: Không thuộc phạm vi, không sở hữu hoặc chưa có phiên; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không đủ điều kiện | Từ chối kiểm tra đạt, không cấp quyền gửi. Kết thúc: không đủ điều kiện. | FR-M09-01.08, FR-M09-01.09, FR-M09-01.15, FR-M09-01.21; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m09-003-alt-2) | Tại bước 3: Hết hạn, đã có khiếu nại hoặc đã Bị lật; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A2 → END: không gửi mới | Từ chối gửi mới; không xóa khiếu nại đã có. Kết thúc: không gửi mới. | FR-M09-01.13, FR-M09-01.14, FR-M09-01.23; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m09-003-alt-3) | Tại bước 4: BANNED phản đối cảnh cáo/bài/ban khác ban hiện hành; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 4 → A3 → END: ngoài quyền BANNED | Từ chối trong lúc đang bị ban. Kết thúc: ngoài quyền BANNED. | FR-M09-01.18, BR-M09-07; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M09-004 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Mở hàng chờ/lọc theo loại hoặc mở một khiếu nại cụ thể. Trước: Có người/mode xem; kiểm quyền theo [UC-M09-007](#uc-m09-007), không giả mọi staff xem được mọi hồ sơ. | [1](#uc-m09-004-main-1) → [2](#uc-m09-004-main-2) → [3](#uc-m09-004-main-3) → [4](#uc-m09-004-main-4) → [5](#uc-m09-004-main-5) → END: Hàng chờ đúng thứ tự/lọc/phạm vi; chi tiết đủ căn cứ xử lý và nhật ký AI khi có. | Hàng chờ đúng thứ tự/lọc/phạm vi; chi tiết đủ căn cứ xử lý và nhật ký AI khi có. | FR-M09-03, FR-M09-06, BR-M09-09, BR-M09-10, BR-M09-12, BR-M09-15; Giữ mở: K-01 |
+| [A1](#uc-m09-004-alt-1) | Tại bước 1: Không staff, Mod xem xử lý do mình ra hoặc khiếu nại người là Mod lúc bị xử lý; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không lộ ngoài phạm vi | Từ chối chi tiết/loại khỏi hàng chờ theo [UC-M09-007](#uc-m09-007). Kết thúc: không lộ ngoài phạm vi. | FR-M09-03.07, FR-M09-06.06, FR-M09-06.07, FR-M09-06.08; Cần quyết định nguồn: K-01 |
+| [A2](#uc-m09-004-alt-2) | Tại bước 2: Không còn Mod khác người ra xử lý; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → 3 khi có hồ sơ đủ quyền | Chỉ Admin thấy theo bộ lọc; không bước chuyển/đánh dấu/thông báo escalation. Sau khi trở lại và hoàn tất: Hàng chờ đúng thứ tự/lọc/phạm vi; chi tiết đủ căn cứ xử lý và nhật ký AI khi có. | FR-M09-03.09, BR-M09-13; Cần quyết định nguồn: K-01 |
+
+#### UC-M09-005 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Chọn Nhận xử lý trên hồ sơ Chờ xét chưa ai giữ. Trước: Có target/người xét; role/scope/trạng thái/giữ được kiểm, không coi link hồ sơ là quyền. | [1](#uc-m09-005-main-1) → [2](#uc-m09-005-main-2) → [3](#uc-m09-005-main-3) → END: Hồ sơ có đúng một người giữ, chờ xét; người khác không xét được khi đang giữ. | Hồ sơ có đúng một người giữ, chờ xét; người khác không xét được khi đang giữ. | FR-M09-04, BR-M09-11, BR-M09-12; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m09-005-alt-1) | Tại bước 1: Người khác giữ, hồ sơ kết luận hoặc không đúng role/phạm vi; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không nhận | Từ chối nhận, không chiếm quyền giữ. Kết thúc: không nhận. | FR-M09-04.02, FR-M09-04.03, FR-M09-04.04, FR-M09-04.05, FR-M09-04.08; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M09-006 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Người giữ chọn một kết luận và nhập lý do. Trước: Có hồ sơ/ngữ cảnh điều tra; kiểm giữ/phạm vi hiện hành, không giả vẫn chưa kết luận. | [1](#uc-m09-006-main-1) → [2](#uc-m09-006-main-2) → [3](#uc-m09-006-main-3) → [4](#uc-m09-006-main-4) → [5](#uc-m09-006-main-5) → [6](#uc-m09-006-main-6) → END: Lưu kết luận/lý do/người/mốc, chỉ Chấp nhận thi hành lật; thông báo cho người khiếu nại đúng kênh. | Lưu kết luận/lý do/người/mốc, chỉ Chấp nhận thi hành lật; thông báo cho người khiếu nại đúng kênh. | FR-M09-07, BR-M09-06, BR-M09-11, BR-M09-12, BR-M09-19, BR-M09-20, BR-M09-27; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m09-006-alt-1) | Tại bước 1: Không còn giữ, đã kết luận, sai role/phạm vi hoặc caller AI; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không có kết luận mới | Từ chối kết luận theo [UC-M09-007](#uc-m09-007); Admin tự xét vẫn được phép nếu đang giữ. Kết thúc: không có kết luận mới. | FR-M09-07.06, FR-M09-07.07, FR-M09-07.08, FR-M09-07.09, FR-M09-07.10, FR-M09-07.12; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m09-006-alt-2) | Tại bước 2: Lý do trống; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → 2 | Từ chối kết luận. Sau khi trở lại và hoàn tất: Lưu kết luận/lý do/người/mốc, chỉ Chấp nhận thi hành lật; thông báo cho người khiếu nại đúng kênh. | FR-M09-07.11; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A3](#uc-m09-006-alt-3) | Tại bước 4: Từ chối; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 4 → A3 → 5 | Không thực hiện [UC-M09-022](#uc-m09-022), không đổi xử lý bị khiếu nại. Sau khi trở lại và hoàn tất: Lưu kết luận/lý do/người/mốc, chỉ Chấp nhận thi hành lật; thông báo cho người khiếu nại đúng kênh. | FR-M09-07.03, BR-M09-19; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A4](#uc-m09-006-alt-4) | Tại bước 4: Xử lý đã Bị lật trước khi hồ sơ chờ này được Chấp nhận; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 4 → A4 → 5 | Vẫn được kết luận Chấp nhận, các ca lật không thay đổi thêm theo [UC-M09-008](#uc-m09-008). Sau khi trở lại và hoàn tất: Lưu kết luận/lý do/người/mốc, chỉ Chấp nhận thi hành lật; thông báo cho người khiếu nại đúng kênh. | FR-M09-08.17, BR-M09-29; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M09-007 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | [UC-M09-004](#uc-m09-004), [UC-M09-005](#uc-m09-005), [UC-M09-006](#uc-m09-006) gọi với thao tác, người xét, hồ sơ và lịch sử role. Trước: Có người ra xử lý, role người khiếu nại lúc bị xử lý, trạng thái và người giữ; không dùng role hiện tại của người gửi thay role lịch sử. | [1](#uc-m09-007-main-1) → [2](#uc-m09-007-main-2) → [3](#uc-m09-007-main-3) → [4](#uc-m09-007-main-4) → [5](#uc-m09-007-main-5) → END: Chỉ staff trong đúng phạm vi được đi tiếp; Admin có quyền tự xét, Mod không được tự xét hay xét người là Mod lúc bị xử lý. | Chỉ staff trong đúng phạm vi được đi tiếp; Admin có quyền tự xét, Mod không được tự xét hay xét người là Mod lúc bị xử lý. | FR-M09-03.04, FR-M09-03.05, FR-M09-03.08, FR-M09-04.03, FR-M09-04.08, FR-M09-07.07, FR-M09-07.10, FR-M09-07.12, BR-M09-11, BR-M09-12, BR-M09-13, BR-M09-14; Giữ mở: NOTE-M09-05 |
+| [A1](#uc-m09-007-alt-1) | Tại bước 1: Không staff hệ thống/caller AI; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không có quyền staff | Từ chối. Kết thúc: không có quyền staff. | FR-M09-03.07, FR-M09-04.04, FR-M09-07.09|
+| [A2](#uc-m09-007-alt-2) | Tại bước 2: Mod là người ra xử lý hoặc người khiếu nại là Mod tại lúc bị xử lý; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → END: ngoài phạm vi Mod | Từ chối/loại khỏi phạm vi; Admin không bị áp ngoại lệ cấm tự xét này. Kết thúc: ngoài phạm vi Mod. | FR-M09-03.04, FR-M09-03.08, FR-M09-06.07, FR-M09-06.08|
+| [A3](#uc-m09-007-alt-3) | Tại bước 4: Người khác giữ hoặc đã kết luận/mất giữ; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 4 → A3 → END: không đủ quyền giữ/trạng thái | Từ chối nhận/kết luận tương ứng. Kết thúc: không đủ quyền giữ/trạng thái. | FR-M09-04.02, FR-M09-04.05, FR-M09-07.06, FR-M09-07.08|
+
+#### UC-M09-008 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | [UC-M09-009](#uc-m09-009) hoặc [UC-M09-010](#uc-m09-010) cần thi hành cho một ban/cảnh cáo chính hoặc đi kèm. Trước: Có quyết định Chấp nhận hợp lệ, record chế tài và quan hệ với lần xử lý được khiếu nại; không tự kiểm thay quyền kết luận. | [1](#uc-m09-008-main-1) → [2](#uc-m09-008-main-2) → [3](#uc-m09-008-main-3) → [4](#uc-m09-008-main-4) → END: Cho phép lật lần đầu, hoặc trả no-op cho Bị lật/đi kèm đã Từ chối riêng, không tác động thêm. | Cho phép lật lần đầu, hoặc trả no-op cho Bị lật/đi kèm đã Từ chối riêng, không tác động thêm. | FR-M09-08.10, FR-M09-08.16, FR-M09-08.17, BR-M09-06, BR-M09-29; Luồng danh định có căn cứ; không tự chốt ca ngoài guard đã ghi. |
+| [A1](#uc-m09-008-alt-1) | Tại bước 2: Đã Bị lật bởi đường được chấp nhận trước; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A1 → END: không thay đổi thêm | Kết thúc ca lật với no-op; không đổi số lần hay account. Kết thúc: không thay đổi thêm. | FR-M09-08.17, BR-M09-29; Đối chiếu guard/kết quả với nguồn ở cột này. |
+| [A2](#uc-m09-008-alt-2) | Tại bước 3: Chế tài đi kèm có khiếu nại riêng đã Từ chối; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A2 → END: không lật chế tài đi kèm này | Giữ nguyên chế tài đó khi chấp nhận khiếu nại bài; các hệ quả bài khác vẫn theo [UC-M09-011](#uc-m09-011). Kết thúc: không lật chế tài đi kèm này. | FR-M09-08.16, BR-M09-29; Đối chiếu guard/kết quả với nguồn ở cột này. |
+
+#### UC-M09-009 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Thi hành [UC-M09-022](#uc-m09-022) cho ban chính, hoặc [UC-M09-011](#uc-m09-011) xử lý ban đi kèm lần gỡ bài. Trước: Kế thừa contract [UC-M09-022](#uc-m09-022); target là đúng ban chính/đi kèm đủ điều kiện, có trạng thái hiện hành. | [1](#uc-m09-009-main-1) → [2](#uc-m09-009-main-2) → [3](#uc-m09-009-main-3) → [4](#uc-m09-009-main-4) → END: Ban Bị lật, giữ record, loại khỏi số lần ban; nếu đang hiệu lực thì account ACTIVE ngay, không trả Mod. | Ban Bị lật, giữ record, loại khỏi số lần ban; nếu đang hiệu lực thì account ACTIVE ngay, không trả Mod. | FR-M09-08.01, FR-M09-08.02, FR-M09-08.03, FR-M09-08.11, BR-M09-16, BR-M09-25; Giữ mở: TBD-M09-01 |
+| [A1](#uc-m09-009-alt-1) | Tại bước 1: Ban đã Bị lật hoặc đi kèm đã Từ chối riêng; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: giữ trạng thái và dữ liệu hiện có | [UC-M09-008](#uc-m09-008) trả no-op/không áp từ đường này; không đổi thêm. Kết thúc: giữ trạng thái và dữ liệu hiện có. | FR-M09-08.16, FR-M09-08.17; Cần quyết định nguồn: TBD-M09-01 |
+| [A2](#uc-m09-009-alt-2) | Tại bước 2: Ban hết hạn/đã gỡ trước khi kết luận hồ sơ gửi trong hạn; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → 3 | Vẫn đánh dấu Bị lật, loại lịch sử ban; không bỏ qua vì đã kết thúc. Sau khi trở lại và hoàn tất: Ban Bị lật, giữ record, loại khỏi số lần ban; nếu đang hiệu lực thì account ACTIVE ngay, không trả Mod. | FR-M09-08.01, BR-M09-25; Cần quyết định nguồn: TBD-M09-01 |
+
+#### UC-M09-010 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Thi hành [UC-M09-022](#uc-m09-022) cho warning chính, hoặc [UC-M09-011](#uc-m09-011), [UC-M09-012](#uc-m09-012) xử lý warning đi kèm. Trước: Kế thừa contract [UC-M09-022](#uc-m09-022); có record warning, số lần/mức/hạn hiện tại và ngữ cảnh liên kết. | [1](#uc-m09-010-main-1) → [2](#uc-m09-010-main-2) → [3](#uc-m09-010-main-3) → [4](#uc-m09-010-main-4) → END: Warning Bị lật giữ record; n'=max(0,n−1), mức tính lại theo M08 và áp hạn chế ngay; hạn hiện tại không đổi. | Warning Bị lật giữ record; n'=max(0,n−1), mức tính lại theo M08 và áp hạn chế ngay; hạn hiện tại không đổi. | FR-M09-08.04, FR-M09-08.05, FR-M09-08.06, FR-M09-08.07, FR-M09-08.13, FR-M09-08.15, BR-M09-17, BR-M09-26; Giữ mở: NOTE-M09-02 |
+| [A1](#uc-m09-010-alt-1) | Tại bước 1: Đã Bị lật hoặc chế tài đi kèm đã Từ chối riêng; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → END: không lật lặp | Không giảm số lần/đổi trạng thái thêm. Kết thúc: không lật lặp. | FR-M09-08.16, FR-M09-08.17|
+| [A2](#uc-m09-010-alt-2) | Tại bước 2: Số lần hiện tại đã 0 do giảm mức; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A2 → 3 | Vẫn giữ nguyên sàn 0, đánh dấu Bị lật nếu đủ điều kiện, giữ hạn hiện tại. Sau khi trở lại và hoàn tất: Warning Bị lật giữ record; n'=max(0,n−1), mức tính lại theo M08 và áp hạn chế ngay; hạn hiện tại không đổi. | FR-M09-08.05, BR-M09-25|
+| [A3](#uc-m09-010-alt-3) | Tại bước 2: Record warning đã Đã bỏ do override AI ở M08 trước khi xét; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A3 → END: cần chốt phối hợp dữ liệu trước triển khai nhánh này | Giữ NOTE-M09-02: chưa có quy tắc rõ tránh giảm thêm một lần đã được bỏ; không tự chốt no-op hay giảm lặp. Kết thúc: cần chốt phối hợp dữ liệu trước triển khai nhánh này. | FR-M08-11.03, FR-M08-11.04, FR-M09-08.05; Nhánh chưa chốt: NOTE-M09-02 |
+
+#### UC-M09-011 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Thi hành [UC-M09-022](#uc-m09-022) cho một lần gỡ bài đã được Chấp nhận. Trước: Kế thừa contract [UC-M09-022](#uc-m09-022); có bài/lần gỡ và các warning/ban ra cùng lần, trạng thái khiếu nại riêng của chúng. | [1](#uc-m09-011-main-1) → [2](#uc-m09-011-main-2) → [3](#uc-m09-011-main-3) → [4](#uc-m09-011-main-4) → [5](#uc-m09-011-main-5) → END: Bài về kiểm duyệt Bình thường, hoàn số điểm đã trừ vì đúng lần gỡ; chế tài đi kèm áp theo quyền lật một lần. | Bài về kiểm duyệt Bình thường, hoàn số điểm đã trừ vì đúng lần gỡ; chế tài đi kèm áp theo quyền lật một lần. | FR-M09-08.08, FR-M09-08.09, FR-M09-08.10, FR-M09-08.16, BR-M09-18, BR-M09-29, FR-M12-02.12; Giữ mở: NOTE-M09-04 |
+| [A1](#uc-m09-011-alt-1) | Tại bước 3: Warning đi kèm đã Bị lật hoặc có Từ chối riêng; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 3 → A1 → 4 | Bỏ qua tác động warning theo [UC-M09-008](#uc-m09-008), vẫn xử lý phần bài/điểm và xét ban theo nguồn. Sau khi trở lại và hoàn tất: Bài về kiểm duyệt Bình thường, hoàn số điểm đã trừ vì đúng lần gỡ; chế tài đi kèm áp theo quyền lật một lần. | FR-M09-08.16, FR-M09-08.17, BR-M09-29|
+| [A2](#uc-m09-011-alt-2) | Tại bước 4: Ban đi kèm đã Bị lật hoặc có Từ chối riêng; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 4 → A2 → 5 | Bỏ qua tác động ban đó, không đảo kết quả riêng đã Từ chối. Sau khi trở lại và hoàn tất: Bài về kiểm duyệt Bình thường, hoàn số điểm đã trừ vì đúng lần gỡ; chế tài đi kèm áp theo quyền lật một lần. | FR-M09-08.16, FR-M09-08.17|
+
+#### UC-M09-012 — walkthrough
+
+| Đường đi | Trạng thái/quyền trước và trigger | Điểm rẽ → return/END | Postcondition kiểm tra | Nguồn; kết luận/gap |
+| --- | --- | --- | --- | --- |
+| Chính | Thi hành [UC-M09-022](#uc-m09-022) cho một lần AI tự từ chối bài; có hoặc không warning đi kèm. Trước: Kế thừa contract [UC-M09-022](#uc-m09-022); biết bài thuộc nhóm, đã gửi lại trước kết luận hay chưa, warning cùng lần và cổng nhóm M11. | [1](#uc-m09-012-main-1) → [2](#uc-m09-012-main-2) → [3](#uc-m09-012-main-3) → END: Chưa gửi lại: không thuộc nhóm Đã đăng ngay, nhóm qua cổng như điểm sạch, không quét kiểm duyệt lại. Đã gửi lại: trạng thái hiện tại giữ; warning cùng lần được lật đủ điều kiện. | Chưa gửi lại: không thuộc nhóm Đã đăng ngay, nhóm qua cổng như điểm sạch, không quét kiểm duyệt lại. Đã gửi lại: trạng thái hiện tại giữ; warning cùng lần được lật đủ điều kiện. | FR-M09-08.12, FR-M09-08.13, FR-M09-08.14, FR-M09-08.18, BR-M09-24, FR-M11-13.14; Giữ mở: NOTE-M09-04 |
+| [A1](#uc-m09-012-alt-1) | Tại bước 1: Tác giả đã sửa và gửi lại trước kết luận; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A1 → 2 | Không đổi trạng thái bài hiện tại; chỉ nhánh warning đi kèm nếu có được áp. Sau khi trở lại và hoàn tất: Chưa gửi lại: không thuộc nhóm Đã đăng ngay, nhóm qua cổng như điểm sạch, không quét kiểm duyệt lại. Đã gửi lại: trạng thái hiện tại giữ; warning cùng lần được lật đủ điều kiện. | FR-M09-08.14, BR-M09-24|
+| [A2](#uc-m09-012-alt-2) | Tại bước 1: Bài nhóm thuộc cổng duyệt; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 1 → A2 → 2 | Giao đúng cổng M11, không quét lại hoặc bỏ qua duyệt nhóm; trường hợp nhóm mất khả năng hoạt động cần hợp đồng owner theo NOTE-M09-04. Sau khi trở lại và hoàn tất: Chưa gửi lại: không thuộc nhóm Đã đăng ngay, nhóm qua cổng như điểm sạch, không quét kiểm duyệt lại. Đã gửi lại: trạng thái hiện tại giữ; warning cùng lần được lật đủ điều kiện. | FR-M09-08.18, FR-M11-13.14; Nhánh chưa chốt: NOTE-M09-04 |
+| [A3](#uc-m09-012-alt-3) | Tại bước 2: Warning đã Bị lật; giữ quyền/ngữ cảnh caller đã mô tả trong hợp đồng. | 2 → A3 → 3 | [UC-M09-008](#uc-m09-008) trả no-op, không giảm số lần thêm. Sau khi trở lại và hoàn tất: Chưa gửi lại: không thuộc nhóm Đã đăng ngay, nhóm qua cổng như điểm sạch, không quét kiểm duyệt lại. Đã gửi lại: trạng thái hiện tại giữ; warning cùng lần được lật đủ điều kiện. | FR-M09-08.17, BR-M09-29|
+
+
+### Phạm vi kết luận coverage v2.3
+
+Các dòng Một phần trong trace chỉ ra điều kiện biên/quyền/kết quả còn thiếu quyết định ở ledger; phần còn lại của cùng yêu cầu vẫn giữ nguồn và đích. Các gap về cơ chế giao dịch/đồng thời/giao thức không tự giảm mọi dòng về Một phần: hành vi danh định đã quyết vẫn được đối chiếu, còn bảo đảm thất bại hoặc thiết kế chưa có bằng chứng được giữ giới hạn riêng. Không dùng số mã có anchor hay bản sao tiêu chí FR để tuyên bố tất cả yêu cầu đã được xác nhận nghiệp vụ.
+
+
+### Kết quả checker thực chạy sau review v2.3
+
+Chạy `python -X utf8 -B .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M09.md --final` sau walkthrough: **exit 1, errors=2, warnings=1**. Một lỗi báo 8 yêu cầu còn Một phần; một lỗi báo semantic_review chưa pass; cảnh báo nhắc review thủ công. Kiểm draft cùng baseline **errors=0** (hai cảnh báo tương ứng coverage/review). Đây là gate chưa đạt do các quyết định nguồn còn mở, không phải lỗi schema, ID, marker hoặc SVG. Giữ Chờ duyệt và approved_steps=-.
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.

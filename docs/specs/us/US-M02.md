@@ -2,7 +2,7 @@
 
 [Vietnamese Doc]
 
-Phân tích toàn bộ FR-M02 1.6 theo skill use-case-analysis 2.2: **3 UC chính, 8 UC con**, phân rã, đặc tả, quan hệ UML và truy vết. Mỗi UC chính có một sơ đồ chi tiết riêng; mỗi sơ đồ bàn giao chỉ một SVG. Trạng thái kết quả: **Chờ duyệt**.
+Phân tích toàn bộ FR-M02 1.6 theo skill use-case-analysis 2.3: **3 UC chính, 8 UC con**, phân rã, đặc tả, quan hệ UML và truy vết. Mỗi UC chính có một sơ đồ chi tiết riêng; mỗi sơ đồ bàn giao chỉ một SVG. Trạng thái kết quả: **Chờ duyệt**.
 
 ## Metadata và tiến độ
 
@@ -10,8 +10,9 @@ Phân tích toàn bộ FR-M02 1.6 theo skill use-case-analysis 2.2: **3 UC chín
 | key | value |
 |---|---|
 | document_id | US-M02 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M02 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,10 +21,12 @@ Phân tích toàn bộ FR-M02 1.6 theo skill use-case-analysis 2.2: **3 UC chín
 | approved_steps | - |
 | source_baseline | FR-M02 1.6; FR-M01 1.10; FR-M03 1.10; FR-M04 1.4; FR-M05 1.7; FR-M07 1.5; FR-M08 1.7; FR-M11 1.3; FR-M12 1.1; FR-M14 1.1; FR-M15 1.1; FR-M16 1.0 |
 | author | Codex — hỗ trợ phân tích nghiệp vụ |
-| date | 2026-10-30 |
-| approval_evidence | Người dùng yêu cầu tiếp tục dùng skill và xây dựng đầu ra use case analysis cho M02; thực hiện liên tục các bước để hoàn thiện đầu ra theo ngữ cảnh đã thống nhất. Chưa có phê duyệt riêng từng bước hoặc kết quả cuối cho bản này. |
+| date | 2026-11-24 |
+| approval_evidence | Yêu cầu cập nhật hiện hành cho phép thực hiện liên tục bước 1–7 theo skill 2.3; đây là quyền làm, chưa phê duyệt kết quả hoặc bất kỳ approved_steps của revision này. |
 | semantic_review | pass |
 | diagram_check | pass |
+
+**Lịch sử tiến độ revision 2.2 — không phải phê duyệt revision 2.3.** Tiến độ hiện hành ở metadata và mục Review revision 2.3 cuối tài liệu.
 
 | Bước | Kết quả trong lần phân tích này | Xác nhận |
 |---|---|---|
@@ -51,19 +54,19 @@ Tiến độ/phê duyệt trong bản US-M02 cũ không được tự kế thừ
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M02.md | 1.6 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M07.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M12.md | 1.1 | related |
-| docs/specs/fr/FR-M14.md | 1.1 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
-| docs/specs/fr/FR-M16.md | 1.0 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M07.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M12.md | 1.1 | normative |
+| docs/specs/fr/FR-M14.md | 1.1 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
+| docs/specs/fr/FR-M16.md | 1.0 | normative |
 
-FR-M02 đã chốt ngày 2026-10-24, mốc DEC-271/QA-477/ISS-415/OPEN-012. Đọc đầy đủ yêu cầu M02 và đối chiếu các giao tiếp liên module cùng mã được dẫn; không tuyên bố phân tích toàn bộ các module liên quan. [Skill 2.2](../../../.agent-instructions/skills/use-case-analysis/SKILL.md) là nguồn phương pháp, không bổ sung tính năng.
+FR-M02 đã chốt ngày 2026-10-24, mốc DEC-271/QA-477/ISS-415/OPEN-012. Đọc đầy đủ yêu cầu M02 và đối chiếu các giao tiếp liên module cùng mã được dẫn; không tuyên bố phân tích toàn bộ các module liên quan. [Skill 2.3](../../../.agent-instructions/skills/use-case-analysis/SKILL.md) là nguồn phương pháp, không bổ sung tính năng.
 
 ### Actor
 
@@ -95,17 +98,17 @@ Mẫu số truy vết: **116 mã = 7 nhóm + 72 FR chi tiết + 37 BR**, không 
 <!-- uc:catalog -->
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
-| UC-M02-010 | Xem và tra cứu hồ sơ cá nhân | core | Summary | ACT-001, ACT-002, ACT-003 | - | M02 | #uc-m02-010 | FR-M02-01, FR-M02-02, BR-M02-01, BR-M02-14, BR-M02-28 |
-| UC-M02-020 | Quản lý thông tin và hình ảnh đại diện | core | Summary | ACT-002, ACT-003 | - | M02 | #uc-m02-020 | FR-M02-03, FR-M02-04, BR-M02-18, BR-M02-36 |
-| UC-M02-030 | Quản lý danh sách bài viết đã lưu (Bookmark) | core | Summary | ACT-002, ACT-003 | - | M02 | #uc-m02-030 | FR-M02-05, FR-M02-06, FR-M02-07, BR-M02-21, BR-M02-23, BR-M02-30 |
+| UC-M02-010 | Xem hồ sơ cá nhân | core | Summary | ACT-001, ACT-002, ACT-003 | - | M02 | #uc-m02-010 | FR-M02-01, FR-M02-02, BR-M02-01, BR-M02-14, BR-M02-28 |
+| UC-M02-020 | Cập nhật hồ sơ cá nhân | core | Summary | ACT-002, ACT-003 | - | M02 | #uc-m02-020 | FR-M02-03, FR-M02-04, BR-M02-18, BR-M02-36 |
+| UC-M02-030 | Quản lý bài viết đã lưu | core | Summary | ACT-002, ACT-003 | - | M02 | #uc-m02-030 | FR-M02-05, FR-M02-06, FR-M02-07, BR-M02-21, BR-M02-23, BR-M02-30 |
 | UC-M02-001 | Xem trang hồ sơ người dùng | sub | User goal | ACT-001, ACT-002, ACT-003 | - | M02 | #uc-m02-001 | FR-M02-01, BR-M02-01, BR-M02-02, BR-M02-03, BR-M02-15, BR-M02-16, BR-M02-26, BR-M02-34, BR-M02-37 |
 | UC-M02-002 | Xem danh sách người theo dõi và đang theo dõi | sub | User goal | ACT-002, ACT-003 | - | M02 | #uc-m02-002 | FR-M02-02, BR-M02-14, BR-M02-27, BR-M02-31 |
 | UC-M02-003 | Sửa thông tin hồ sơ | sub | User goal | ACT-002, ACT-003 | - | M02 | #uc-m02-003 | FR-M02-03, BR-M02-04, BR-M02-09, BR-M02-18, BR-M02-33, BR-M02-36, FR-M01-03.15, FR-M01-03.16 |
-| UC-M02-004 | Đổi avatar | sub | User goal | ACT-002, ACT-003 | - | M02 | #uc-m02-004 | FR-M02-04, BR-M02-06, BR-M02-07, BR-M02-08, BR-M02-18, BR-M02-36 |
-| UC-M02-005 | Lưu bài viết (Bookmark) | sub | User goal | ACT-002, ACT-003 | - | M02 | #uc-m02-005 | FR-M02-05, BR-M02-21, BR-M02-22, BR-M02-24, BR-M02-25 |
+| UC-M02-004 | Đổi ảnh đại diện | sub | User goal | ACT-002, ACT-003 | - | M02 | #uc-m02-004 | FR-M02-04, BR-M02-06, BR-M02-07, BR-M02-08, BR-M02-18, BR-M02-36 |
+| UC-M02-005 | Lưu bài viết | sub | User goal | ACT-002, ACT-003 | - | M02 | #uc-m02-005 | FR-M02-05, BR-M02-21, BR-M02-22, BR-M02-24, BR-M02-25 |
 | UC-M02-006 | Bỏ lưu bài viết | sub | User goal | ACT-002, ACT-003 | - | M02 | #uc-m02-006 | FR-M02-06, FR-M02-05.02, FR-M02-07.05, BR-M02-24, BR-M02-25, BR-M02-29 |
 | UC-M02-007 | Xem danh sách bài viết đã lưu | sub | User goal | ACT-002, ACT-003 | - | M02 | #uc-m02-007 | FR-M02-07, BR-M02-23, BR-M02-29, BR-M02-30, BR-M02-31 |
-| UC-M02-008 | Xác định nội dung bài viết hiển thị | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M02 | #uc-m02-008 | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
+| UC-M02-008 | Lọc bài viết theo quyền xem | sub | Subfunction | ACT-001, ACT-002, ACT-003 | - | M02 | #uc-m02-008 | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
 
 ### Phân rã chính → con
 
@@ -128,6 +131,11 @@ UC008 có một định nghĩa, thuộc hai core010/030. `tier` độc lập v�
 | module | path | baseline |
 |---|---|---|
 
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+
 
 Mode module: không tổng hợp US-overview trong scope này. Ba core giữ nguyên ID/tên để dùng khi tổng hợp hệ thống sau này.
 
@@ -149,7 +157,7 @@ Mode module: không tổng hợp US-overview trong scope này. Ba core giữ ngu
 
 <a id="uc-m02-010"></a>
 
-### UC-M02-010 — Xem và tra cứu hồ sơ cá nhân
+### UC-M02-010 — Xem hồ sơ cá nhân
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -172,7 +180,7 @@ Không giả định tất cả các UC con thực hiện nối tiếp trong m�
 
 <a id="uc-m02-020"></a>
 
-### UC-M02-020 — Quản lý thông tin và hình ảnh đại diện
+### UC-M02-020 — Cập nhật hồ sơ cá nhân
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -195,7 +203,7 @@ Không giả định tất cả các UC con thực hiện nối tiếp trong m�
 
 <a id="uc-m02-030"></a>
 
-### UC-M02-030 — Quản lý danh sách bài viết đã lưu (Bookmark)
+### UC-M02-030 — Quản lý bài viết đã lưu
 
 | Thuộc tính | Nội dung |
 |---|---|
@@ -525,7 +533,7 @@ Các điều kiện giữ nguyên yêu cầu chuẩn tắc từ FR, áp dụng c
 
 <a id="uc-m02-004"></a>
 
-### UC-M02-004 — Đổi avatar
+### UC-M02-004 — Đổi ảnh đại diện
 
 **UC chính:** UC-M02-020.
 
@@ -603,7 +611,7 @@ Các điều kiện giữ nguyên yêu cầu chuẩn tắc từ FR, áp dụng c
 
 <a id="uc-m02-005"></a>
 
-### UC-M02-005 — Lưu bài viết (Bookmark)
+### UC-M02-005 — Lưu bài viết
 
 **UC chính:** UC-M02-030.
 
@@ -823,7 +831,7 @@ Các điều kiện giữ nguyên yêu cầu chuẩn tắc từ FR, áp dụng c
 
 <a id="uc-m02-008"></a>
 
-### UC-M02-008 — Xác định nội dung bài viết hiển thị
+### UC-M02-008 — Lọc bài viết theo quyền xem
 
 **UC chính:** UC-M02-010, UC-M02-030.
 
@@ -848,13 +856,13 @@ Các điều kiện giữ nguyên yêu cầu chuẩn tắc từ FR, áp dụng c
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 1 | iShare tiếp nhận ngữ cảnh Bài viết hoặc Bookmark cùng người xem; lấy trạng thái bài/quyền từ M03, thành viên/ẩn danh từ M11 và trạng thái tài khoản từ M01. | 2 | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
+| 1 | iShare tiếp nhận ngữ cảnh Bài viết hoặc Bookmark cùng người xem; lấy trạng thái bài/quyền từ M03, thành viên/ẩn danh từ M11 và trạng thái tài khoản từ M01. | 2 nếu tab Bài viết; 3 nếu Bookmark | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
 
 <a id="uc-m02-008-main-2"></a>
 
 | Bước | Tương tác actor–iShare | Tiếp tục | Nguồn |
 |---|---|---|---|
-| 2 | Với tab Bài viết: người xem khác chủ chỉ thấy bài đã đăng, không bị ẩn, không đăng ẩn danh; bài Private chỉ khi là thành viên. Chủ hồ sơ thấy thêm nháp/chờ duyệt/bị từ chối/tự ẩn/bài ẩn danh của mình, bài ẩn danh có dấu; xếp theo thời điểm tạo, mới nhất trước. | 3 | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
+| 2 | Với tab Bài viết: người xem khác chủ chỉ thấy bài đã đăng, không bị ẩn, không đăng ẩn danh; bài Private chỉ khi là thành viên. Chủ hồ sơ thấy thêm nháp/chờ duyệt/bị từ chối/tự ẩn/bài ẩn danh của mình, bài ẩn danh có dấu; xếp theo thời điểm tạo, mới nhất trước. | 4; không chạy phần Bookmark ở bước 3 | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
 
 <a id="uc-m02-008-main-3"></a>
 
@@ -1069,20 +1077,40 @@ Include đi từ UC gọi sang UC008; extend đi từ UC002/006 về base001/007
 
 ### Association actor–UC
 
-| Actor | UC | Vai trò | Điều kiện/quyền | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 |---|---|---|---|---|
-| ACT-001, ACT-002, ACT-003 | UC-M02-010 | Actor chính theo ngữ cảnh mục tiêu | Hồ sơ có thể được yêu cầu bởi Guest hoặc người có phiên; xét trạng thái tài khoản ở UC con. | FR-M02-01, FR-M02-02, BR-M02-01, BR-M02-14, BR-M02-28 |
-| ACT-002, ACT-003 | UC-M02-020 | Actor chính theo ngữ cảnh mục tiêu | Các hành trình yêu cầu phiên của chủ hồ sơ ACTIVE; kiểm tra và từ chối theo từng UC con. | FR-M02-03, FR-M02-04, BR-M02-18, BR-M02-36 |
-| ACT-002, ACT-003 | UC-M02-030 | Actor chính theo ngữ cảnh mục tiêu | Yêu cầu đăng nhập; chỉ chủ danh sách được xem danh sách riêng tư. | FR-M02-05, FR-M02-06, FR-M02-07, BR-M02-21, BR-M02-23, BR-M02-30 |
-| ACT-001, ACT-002, ACT-003 | UC-M02-001 | Actor chính theo ngữ cảnh mục tiêu | Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. | FR-M02-01, BR-M02-01, BR-M02-02, BR-M02-03, BR-M02-15, BR-M02-16, BR-M02-26, BR-M02-34, BR-M02-37 |
-| ACT-002, ACT-003 | UC-M02-002 | Actor chính theo ngữ cảnh mục tiêu | Tài khoản của hồ sơ phải tồn tại; yêu cầu có thể được gửi bởi Guest để xử lý nhánh yêu cầu đăng nhập, không tự thực hiện đăng nhập trong UC. | FR-M02-02, BR-M02-14, BR-M02-27, BR-M02-31 |
-| ACT-002, ACT-003 | UC-M02-003 | Actor chính theo ngữ cảnh mục tiêu | Có phiên của người thao tác; quyền sở hữu/ACTIVE được kiểm tra, không giả định yêu cầu người khác luôn hợp lệ. | FR-M02-03, BR-M02-04, BR-M02-09, BR-M02-18, BR-M02-33, BR-M02-36, FR-M01-03.15, FR-M01-03.16 |
-| ACT-002, ACT-003 | UC-M02-004 | Actor chính theo ngữ cảnh mục tiêu | Có phiên người thao tác; kiểm tra sở hữu/ACTIVE trong luồng; không yêu cầu người dùng đổi bio/Lớp/Khối cùng lần. | FR-M02-04, BR-M02-06, BR-M02-07, BR-M02-08, BR-M02-18, BR-M02-36 |
-| ACT-002, ACT-003 | UC-M02-005 | Actor chính theo ngữ cảnh mục tiêu | Bài trong ngữ cảnh truy cập của người dùng theo M03/M11; kiểm tra đăng nhập và đã lưu trong luồng. Khóa toàn bộ không ngăn lưu. | FR-M02-05, BR-M02-21, BR-M02-22, BR-M02-24, BR-M02-25 |
-| ACT-002, ACT-003 | UC-M02-006 | Actor chính theo ngữ cảnh mục tiêu | Có bookmark của chính người yêu cầu; yêu cầu Guest được xử lý nhánh đăng nhập. Không bắt buộc nội dung bài đang xem được. | FR-M02-06, FR-M02-05.02, FR-M02-07.05, BR-M02-24, BR-M02-25, BR-M02-29 |
-| ACT-002, ACT-003 | UC-M02-007 | Actor chính theo ngữ cảnh mục tiêu | Có tài khoản và ngữ cảnh yêu cầu danh sách; kiểm tra quyền chủ danh sách trong luồng, không cho xem bookmark người khác. | FR-M02-07, BR-M02-23, BR-M02-29, BR-M02-30, BR-M02-31 |
-| ACT-001, ACT-002, ACT-003 | UC-M02-008 | Kế thừa actor của UC gọi; không có thao tác UI riêng | Nhận ngữ cảnh tab, danh tính người xem, chủ hồ sơ/danh sách và tập bài/quan hệ bookmark; actor kế thừa UC gọi, không có nút riêng cho UC này. | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
-| ACT-001 | UC-M02-002, UC-M02-005, UC-M02-006 | Gửi yêu cầu nhưng bị yêu cầu đăng nhập | Guest không nhận kết quả thành công của các thao tác này. | FR-M02-02.05, FR-M02-05.02 |
+| ACT-001 | UC-M02-010 | Actor chính theo ngữ cảnh mục tiêu | Hồ sơ có thể được yêu cầu bởi Guest hoặc người có phiên; xét trạng thái tài khoản ở UC con. | FR-M02-01, FR-M02-02, BR-M02-01, BR-M02-14, BR-M02-28 |
+| ACT-002 | UC-M02-010 | Actor chính theo ngữ cảnh mục tiêu | Hồ sơ có thể được yêu cầu bởi Guest hoặc người có phiên; xét trạng thái tài khoản ở UC con. | FR-M02-01, FR-M02-02, BR-M02-01, BR-M02-14, BR-M02-28 |
+| ACT-003 | UC-M02-010 | Actor chính theo ngữ cảnh mục tiêu | Hồ sơ có thể được yêu cầu bởi Guest hoặc người có phiên; xét trạng thái tài khoản ở UC con. | FR-M02-01, FR-M02-02, BR-M02-01, BR-M02-14, BR-M02-28 |
+| ACT-002 | UC-M02-020 | Actor chính theo ngữ cảnh mục tiêu | Các hành trình yêu cầu phiên của chủ hồ sơ ACTIVE; kiểm tra và từ chối theo từng UC con. | FR-M02-03, FR-M02-04, BR-M02-18, BR-M02-36 |
+| ACT-003 | UC-M02-020 | Actor chính theo ngữ cảnh mục tiêu | Các hành trình yêu cầu phiên của chủ hồ sơ ACTIVE; kiểm tra và từ chối theo từng UC con. | FR-M02-03, FR-M02-04, BR-M02-18, BR-M02-36 |
+| ACT-002 | UC-M02-030 | Actor chính theo ngữ cảnh mục tiêu | Yêu cầu đăng nhập; chỉ chủ danh sách được xem danh sách riêng tư. | FR-M02-05, FR-M02-06, FR-M02-07, BR-M02-21, BR-M02-23, BR-M02-30 |
+| ACT-003 | UC-M02-030 | Actor chính theo ngữ cảnh mục tiêu | Yêu cầu đăng nhập; chỉ chủ danh sách được xem danh sách riêng tư. | FR-M02-05, FR-M02-06, FR-M02-07, BR-M02-21, BR-M02-23, BR-M02-30 |
+| ACT-001 | UC-M02-001 | Actor chính theo ngữ cảnh mục tiêu | Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. | FR-M02-01, BR-M02-01, BR-M02-02, BR-M02-03, BR-M02-15, BR-M02-16, BR-M02-26, BR-M02-34, BR-M02-37 |
+| ACT-002 | UC-M02-001 | Actor chính theo ngữ cảnh mục tiêu | Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. | FR-M02-01, BR-M02-01, BR-M02-02, BR-M02-03, BR-M02-15, BR-M02-16, BR-M02-26, BR-M02-34, BR-M02-37 |
+| ACT-003 | UC-M02-001 | Actor chính theo ngữ cảnh mục tiêu | Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. | FR-M02-01, BR-M02-01, BR-M02-02, BR-M02-03, BR-M02-15, BR-M02-16, BR-M02-26, BR-M02-34, BR-M02-37 |
+| ACT-002 | UC-M02-002 | Actor chính theo ngữ cảnh mục tiêu | Tài khoản của hồ sơ phải tồn tại; yêu cầu có thể được gửi bởi Guest để xử lý nhánh yêu cầu đăng nhập, không tự thực hiện đăng nhập trong UC. | FR-M02-02, BR-M02-14, BR-M02-27, BR-M02-31 |
+| ACT-003 | UC-M02-002 | Actor chính theo ngữ cảnh mục tiêu | Tài khoản của hồ sơ phải tồn tại; yêu cầu có thể được gửi bởi Guest để xử lý nhánh yêu cầu đăng nhập, không tự thực hiện đăng nhập trong UC. | FR-M02-02, BR-M02-14, BR-M02-27, BR-M02-31 |
+| ACT-002 | UC-M02-003 | Actor chính theo ngữ cảnh mục tiêu | Có phiên của người thao tác; quyền sở hữu/ACTIVE được kiểm tra, không giả định yêu cầu người khác luôn hợp lệ. | FR-M02-03, BR-M02-04, BR-M02-09, BR-M02-18, BR-M02-33, BR-M02-36, FR-M01-03.15, FR-M01-03.16 |
+| ACT-003 | UC-M02-003 | Actor chính theo ngữ cảnh mục tiêu | Có phiên của người thao tác; quyền sở hữu/ACTIVE được kiểm tra, không giả định yêu cầu người khác luôn hợp lệ. | FR-M02-03, BR-M02-04, BR-M02-09, BR-M02-18, BR-M02-33, BR-M02-36, FR-M01-03.15, FR-M01-03.16 |
+| ACT-002 | UC-M02-004 | Actor chính theo ngữ cảnh mục tiêu | Có phiên người thao tác; kiểm tra sở hữu/ACTIVE trong luồng; không yêu cầu người dùng đổi bio/Lớp/Khối cùng lần. | FR-M02-04, BR-M02-06, BR-M02-07, BR-M02-08, BR-M02-18, BR-M02-36 |
+| ACT-003 | UC-M02-004 | Actor chính theo ngữ cảnh mục tiêu | Có phiên người thao tác; kiểm tra sở hữu/ACTIVE trong luồng; không yêu cầu người dùng đổi bio/Lớp/Khối cùng lần. | FR-M02-04, BR-M02-06, BR-M02-07, BR-M02-08, BR-M02-18, BR-M02-36 |
+| ACT-002 | UC-M02-005 | Actor chính theo ngữ cảnh mục tiêu | Bài trong ngữ cảnh truy cập của người dùng theo M03/M11; kiểm tra đăng nhập và đã lưu trong luồng. Khóa toàn bộ không ngăn lưu. | FR-M02-05, BR-M02-21, BR-M02-22, BR-M02-24, BR-M02-25 |
+| ACT-003 | UC-M02-005 | Actor chính theo ngữ cảnh mục tiêu | Bài trong ngữ cảnh truy cập của người dùng theo M03/M11; kiểm tra đăng nhập và đã lưu trong luồng. Khóa toàn bộ không ngăn lưu. | FR-M02-05, BR-M02-21, BR-M02-22, BR-M02-24, BR-M02-25 |
+| ACT-002 | UC-M02-006 | Actor chính theo ngữ cảnh mục tiêu | Có bookmark của chính người yêu cầu; yêu cầu Guest được xử lý nhánh đăng nhập. Không bắt buộc nội dung bài đang xem được. | FR-M02-06, FR-M02-05.02, FR-M02-07.05, BR-M02-24, BR-M02-25, BR-M02-29 |
+| ACT-003 | UC-M02-006 | Actor chính theo ngữ cảnh mục tiêu | Có bookmark của chính người yêu cầu; yêu cầu Guest được xử lý nhánh đăng nhập. Không bắt buộc nội dung bài đang xem được. | FR-M02-06, FR-M02-05.02, FR-M02-07.05, BR-M02-24, BR-M02-25, BR-M02-29 |
+| ACT-002 | UC-M02-007 | Actor chính theo ngữ cảnh mục tiêu | Có tài khoản và ngữ cảnh yêu cầu danh sách; kiểm tra quyền chủ danh sách trong luồng, không cho xem bookmark người khác. | FR-M02-07, BR-M02-23, BR-M02-29, BR-M02-30, BR-M02-31 |
+| ACT-003 | UC-M02-007 | Actor chính theo ngữ cảnh mục tiêu | Có tài khoản và ngữ cảnh yêu cầu danh sách; kiểm tra quyền chủ danh sách trong luồng, không cho xem bookmark người khác. | FR-M02-07, BR-M02-23, BR-M02-29, BR-M02-30, BR-M02-31 |
+| ACT-001 | UC-M02-008 | Kế thừa actor của UC gọi; không có thao tác UI riêng | Nhận ngữ cảnh tab, danh tính người xem, chủ hồ sơ/danh sách và tập bài/quan hệ bookmark; actor kế thừa UC gọi, không có nút riêng cho UC này. | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
+| ACT-002 | UC-M02-008 | Kế thừa actor của UC gọi; không có thao tác UI riêng | Nhận ngữ cảnh tab, danh tính người xem, chủ hồ sơ/danh sách và tập bài/quan hệ bookmark; actor kế thừa UC gọi, không có nút riêng cho UC này. | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
+| ACT-003 | UC-M02-008 | Kế thừa actor của UC gọi; không có thao tác UI riêng | Nhận ngữ cảnh tab, danh tính người xem, chủ hồ sơ/danh sách và tập bài/quan hệ bookmark; actor kế thừa UC gọi, không có nút riêng cho UC này. | FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
+| ACT-001 | UC-M02-002 | Gửi yêu cầu nhưng bị yêu cầu đăng nhập | Guest không nhận kết quả thành công của các thao tác này. | FR-M02-02.05, FR-M02-05.02 |
+| ACT-001 | UC-M02-005 | Gửi yêu cầu nhưng bị yêu cầu đăng nhập | Guest không nhận kết quả thành công của các thao tác này. | FR-M02-02.05, FR-M02-05.02 |
+| ACT-001 | UC-M02-006 | Gửi yêu cầu nhưng bị yêu cầu đăng nhập | Guest không nhận kết quả thành công của các thao tác này. | FR-M02-02.05, FR-M02-05.02 |
+
+Bảng được chuyển từ inventory association hiện hữu, tách mỗi cặp actor–UC; không lấy tích actor catalog × UC. Vai trò của helper là tham gia qua UC gọi, không phải thao tác UI độc lập. Các cạnh ACT-003 kế thừa ACT-002 (M02–M05) và ACT-007 kế thừa ACT-003 (M05) có thể rút gọn trên hình; điều kiện quyền ở từng dòng vẫn bắt buộc. M01 không có actor generalization. Những actor chỉ gửi yêu cầu bị từ chối không có quyền thành công.
+
 
 ### Kết luận các cặp không có quan hệ UML
 
@@ -1269,10 +1297,10 @@ Mỗi view chỉ có **một SVG** trong bộ bàn giao. Actor nằm ngoài iSha
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| D-M02-CORE | core | - | UC-M02-010, UC-M02-020, UC-M02-030 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M02/D-M02-CORE.svg |
-| D-M02-010 | detail | UC-M02-010 | UC-M02-010, UC-M02-001, UC-M02-002, UC-M02-008 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M02/D-M02-010.svg |
-| D-M02-020 | detail | UC-M02-020 | UC-M02-020, UC-M02-003, UC-M02-004 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M02/D-M02-020.svg |
-| D-M02-030 | detail | UC-M02-030 | UC-M02-030, UC-M02-005, UC-M02-006, UC-M02-007, UC-M02-008 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | docs/specs/us/diagrams/M02/D-M02-030.svg |
+| D-M02-CORE | core | - | UC-M02-010, UC-M02-020, UC-M02-030 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M02/D-M02-CORE.svg |
+| D-M02-010 | detail | UC-M02-010 | UC-M02-010, UC-M02-001, UC-M02-002, UC-M02-008 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M02/D-M02-010.svg |
+| D-M02-020 | detail | UC-M02-020 | UC-M02-020, UC-M02-003, UC-M02-004 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M02/D-M02-020.svg |
+| D-M02-030 | detail | UC-M02-030 | UC-M02-030, UC-M02-005, UC-M02-006, UC-M02-007, UC-M02-008 | plantuml | PlantUML 1.2026.8 / Graphviz 2.44.1 | pass | diagrams/M02/D-M02-030.svg |
 
 ### D-M02-CORE — Tổng quan UC chính M02
 
@@ -1280,25 +1308,27 @@ Mỗi view chỉ có **một SVG** trong bộ bàn giao. Actor nằm ngoài iSha
 
 [Xem SVG](diagrams/M02/D-M02-CORE.svg)
 
-### D-M02-010 — Xem và tra cứu hồ sơ cá nhân
+### D-M02-010 — Xem hồ sơ cá nhân
 
 ![D-M02-010](diagrams/M02/D-M02-010.svg)
 
 [Xem SVG](diagrams/M02/D-M02-010.svg)
 
-### D-M02-020 — Quản lý thông tin và hình ảnh đại diện
+### D-M02-020 — Cập nhật hồ sơ cá nhân
 
 ![D-M02-020](diagrams/M02/D-M02-020.svg)
 
 [Xem SVG](diagrams/M02/D-M02-020.svg)
 
-### D-M02-030 — Quản lý danh sách bài viết đã lưu (Bookmark)
+### D-M02-030 — Quản lý bài viết đã lưu
 
 ![D-M02-030](diagrams/M02/D-M02-030.svg)
 
 [Xem SVG](diagrams/M02/D-M02-030.svg)
 
 ## 7. Kiểm tra và phê duyệt
+
+**Bằng chứng lịch sử revision 2.2.** Các lệnh/render và kết quả bên dưới được giữ như lịch sử; kết quả kiểm chứng revision 2.3 nằm ở mục cuối.
 
 **Kiểm tra ngày 2026-10-30:**
 
@@ -1334,3 +1364,109 @@ java -jar <plantuml-1.2026.8.jar> -charset UTF-8 -tsvg "<workspace-M02>/*.puml"
 | Định dạng | Chỉ SVG cho từng view; không xuất kèm PlantUML/PNG, không nhúng liên kết file trung gian. |
 
 **Trạng thái: Chờ duyệt.** Đủ đầu ra phân tích không đồng nghĩa người dùng đã phê duyệt; chỉ chuyển Đã duyệt khi có xác nhận kết quả cuối. Chưa tổng hợp toàn hệ thống hoặc sửa tài liệu module khác.
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+## Review revision 2.3 — 2026-11-24
+
+Quyền hiện hành: cập nhật bộ US, làm liên tục bảy bước; không phê duyệt kết quả. Baseline FR, ID và tên hiện hành được giữ. [UC-NAMING](UC-NAMING.md) ngày 2026-11-24 đang **Chờ duyệt cách diễn đạt**; được đối chiếu như lựa chọn diễn đạt hiện có, không coi là quy chuẩn đã duyệt.
+
+### Lịch sử tiến độ và bằng chứng cũ
+
+Các bảng tiến độ/render/checker ở trên là **lịch sử revision 2.2**; không phải các lệnh vừa chạy cho revision 2.3. approved_steps lịch sử = `-`; bằng chứng nguyên văn lịch sử: Người dùng yêu cầu tiếp tục dùng skill và xây dựng đầu ra use case analysis cho M02; thực hiện liên tục các bước để hoàn thiện đầu ra theo ngữ cảnh đã thống nhất. Chưa có phê duyệt riêng từng bước hoặc kết quả cuối cho bản này.
+
+Revision 2.3: bước 1 đối chiếu owner/normative và boundary; bước 2 rà goal/level/core–sub; bước 3 walkthrough từng đặc tả; bước 4 rà core–sub/sub–sub và association; bước 5 đối chiếu trace/điều kiện chuẩn tắc; bước 6 giữ SVG hiện hành, kiểm XML/node/cạnh; bước 7 ghi kết quả và gap bên dưới. Không chạy renderer mới trong revision này; giữ bằng chứng render lịch sử cho SVG không đổi.
+
+### Độ gắn kết, mức mục tiêu và phương án
+
+| Core/sub hoặc cặp UC | Goal/trigger/kết quả/phạm vi | Quyết định và giới hạn | Nguồn |
+|---|---|---|---|
+| UC-M02-010 / UC-M02-001, UC-M02-002, UC-M02-008 | Summary tra cứu hồ sơ/mạng lưới; trigger mở hồ sơ hoặc chi tiết theo dõi. Sub001 trả hồ sơ, sub002 trả mạng lưới cần phiên, sub008 chỉ quyết định tập bài. | Giữ mục tiêu xem riêng; core gắn Guest không cấp quyền mở danh sách theo dõi. | FR-M02-01, FR-M02-02 |
+| UC-M02-020 / UC-M02-003, UC-M02-004 | Summary thông tin/ảnh của chính chủ; hai trigger và kết quả sửa nội dung/đặt ảnh riêng. | Giữ 2 User goal; thay avatar không bắt buộc khi lưu bio/tên, không sinh gen CRUD. | FR-M02-03, FR-M02-04 |
+| UC-M02-030 / UC-M02-005, UC-M02-006, UC-M02-007, UC-M02-008 | Summary lưu/bỏ lưu/đọc lại; các sub có kết quả tạo/xóa quan hệ hoặc đọc danh sách. UC008 dùng chung với core010. | Giữ một helper Subfunction, hai ngữ cảnh chọn nhánh khác nhau; không suy bookmark tạo quyền xem hay thông báo. | FR-M02-05, FR-M02-06, FR-M02-07 |
+
+Phương án giữ hai tầng và bảng mapping bảo toàn ID/trace, tốn thêm brief; gộp core/sub 1:1 làm gọn tài liệu nhưng mất hợp đồng đầu ra hai tầng và cần quyết định đổi scope. Tách thêm oval chỉ theo thao tác làm mô hình khó bảo trì mà không thêm mục tiêu có nguồn, nên không chọn. Các phương án này là phương pháp trình bày, không thêm chức năng sản phẩm.
+
+### Walkthrough theo từng đặc tả và từng nhánh
+
+Mỗi dòng dưới kiểm một đường đã có anchor, cùng điều kiện chuẩn tắc/BR của đặc tả; không thay toàn bộ bảng bằng một pass chung. Các guard có thể phủ định một kiểm tra trong luồng; tiền điều kiện không được dùng để loại nhánh từ chối. Hậu điều kiện tại return là trạng thái trung gian, END chỉ khẳng định kết quả riêng của đường đó. Dòng main diễn tả đường thành công, các trường hợp bị gap giới hạn được tách riêng và ưu tiên hơn kết luận chung.
+
+| Đường đi/anchor | Trigger, trạng thái/quyền trước | Bước rẽ và return/END | Postcondition thực tế | Nguồn / kết quả review / gap |
+|---|---|---|---|---|
+| [UC-M02-001 / main](#uc-m02-001-main-1) | Người xem mở /u/{username}. Trước: Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. | 1 → 2 → 3 → 4 → 5; END: Hiển thị hồ sơ đúng trạng thái, các trường được phép và danh sách Bài viết; riêng chủ hồ sơ có các lối vào Bookmark/Đã xóa/sửa hồ sơ. | Hiển thị hồ sơ đúng trạng thái, các trường được phép và danh sách Bài viết; riêng chủ hồ sơ có các lối vào Bookmark/Đã xóa/sửa hồ sơ. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M02-01, BR-M02-01, BR-M02-02, BR-M02-03, BR-M02-15, BR-M02-16, BR-M02-26, BR-M02-34, BR-M02-37 |
+| [UC-M02-001 / A1](#uc-m02-001-alt-1) | Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. Guard kiểm trong luồng (không giả định đã đạt): Không có tài khoản mang username hiện hành được yêu cầu | Rẽ bước 1 → END: không hiển thị hồ sơ không tồn tại | Hiển thị người dùng không tồn tại. Username cũ không được giữ như alias; nếu đã được tài khoản khác sử dụng thì phân giải theo chủ mới. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-01.20, FR-M02-01.21, FR-M02-01.22 |
+| [UC-M02-001 / A2](#uc-m02-001-alt-2) | Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. Guard kiểm trong luồng (không giả định đã đạt): Tài khoản đích DEACTIVATED hoặc DELETED | Rẽ bước 2 → END: hồ sơ không tồn tại | Thay nội dung bằng người dùng không tồn tại; không mở các danh sách của hồ sơ này. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-01.11, FR-M02-02.04 |
+| [UC-M02-001 / A3](#uc-m02-001-alt-3) | Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. Guard kiểm trong luồng (không giả định đã đạt): Người xem là chủ hồ sơ | Rẽ bước 5 → END: hồ sơ của mình; hành trình tiếp theo theo lựa chọn | Hiện nút sửa và các tab Bài viết/Bookmark/Đã xóa. Mở Bookmark là UC-M02-007; mở Đã xóa hiển thị bài theo FR-M03-15.03. Khôi phục thuộc M03, không thực hiện tại UC này. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-01.05, FR-M02-01.08 |
+| [UC-M02-001 / A4](#uc-m02-001-alt-4) | Không bắt buộc đăng nhập. Không giả định username tồn tại hay tài khoản đích ACTIVE: luồng phải xử lý các trường hợp này. Guard kiểm trong luồng (không giả định đã đạt): Người xem không phải chủ hồ sơ | Rẽ bước 5 → END: hồ sơ người khác đúng quyền | Chỉ có tab Bài viết, không có nút sửa. Có phiên thì hiện nút Nhắn tin dẫn M16; Guest và chính chủ không thấy nút. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-01.06, FR-M02-01.16, FR-M02-01.26, FR-M02-01.27 |
+| [UC-M02-002 / main](#uc-m02-002-main-1) | Người xem chọn số người theo dõi hoặc đang theo dõi trên hồ sơ. Trước: Tài khoản của hồ sơ phải tồn tại; yêu cầu có thể được gửi bởi Guest để xử lý nhánh yêu cầu đăng nhập, không tự thực hiện đăng nhập trong UC. | 1 → 2 → 3 → 4; END: Danh sách đúng hướng quan hệ, đúng lọc trạng thái và mới nhất trước; không có tùy chọn chủ hồ sơ ẩn danh sách. | Danh sách đúng hướng quan hệ, đúng lọc trạng thái và mới nhất trước; không có tùy chọn chủ hồ sơ ẩn danh sách. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M02-02, BR-M02-14, BR-M02-27, BR-M02-31 |
+| [UC-M02-002 / A1](#uc-m02-002-alt-1) | Tài khoản của hồ sơ phải tồn tại; yêu cầu có thể được gửi bởi Guest để xử lý nhánh yêu cầu đăng nhập, không tự thực hiện đăng nhập trong UC. Guard kiểm trong luồng (không giả định đã đạt): Người yêu cầu là Guest | Rẽ bước 1 → END: chưa mở danh sách | Yêu cầu đăng nhập để mở danh sách, vẫn được xem hai số trên hồ sơ; không suy ra include UC đăng nhập. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-02.05, BR-M02-14 |
+| [UC-M02-002 / A2](#uc-m02-002-alt-2) | Tài khoản của hồ sơ phải tồn tại; yêu cầu có thể được gửi bởi Guest để xử lý nhánh yêu cầu đăng nhập, không tự thực hiện đăng nhập trong UC. Guard kiểm trong luồng (không giả định đã đạt): Tài khoản đích DEACTIVATED hoặc DELETED | Rẽ bước 1 → END: không mở danh sách | Không hiển thị danh sách. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-02.04 |
+| [UC-M02-002 / A3](#uc-m02-002-alt-3) | Tài khoản của hồ sơ phải tồn tại; yêu cầu có thể được gửi bởi Guest để xử lý nhánh yêu cầu đăng nhập, không tự thực hiện đăng nhập trong UC. Guard kiểm trong luồng (không giả định đã đạt): Tài khoản trong danh sách DEACTIVATED hoặc BANNED, sau đó ACTIVE | Rẽ bước 3 → 4 | Tại điểm quay lại: Ẩn/không đếm trong thời gian bị loại; hiển thị và đếm lại khi ACTIVE nếu quan hệ còn tồn tại. Việc xóa quan hệ khi DELETED thuộc M01. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-02.07, FR-M02-02.08, FR-M01-12.08 |
+| [UC-M02-003 / main](#uc-m02-003-main-1) | Chủ hồ sơ bấm nút sửa hồ sơ và gửi thay đổi. Trước: Có phiên của người thao tác; quyền sở hữu/ACTIVE được kiểm tra, không giả định yêu cầu người khác luôn hợp lệ. | 1 → 2 → 3 → 4 → 5; END: Lưu thông tin hợp lệ, bio được chuẩn hóa đúng quy tắc; tên áp dụng M01, username cũ giải phóng khi đổi. | Lưu thông tin hợp lệ, bio được chuẩn hóa đúng quy tắc; tên áp dụng M01, username cũ giải phóng khi đổi. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M02-03, BR-M02-04, BR-M02-09, BR-M02-18, BR-M02-33, BR-M02-36, FR-M01-03.15, FR-M01-03.16 |
+| [UC-M02-003 / A1](#uc-m02-003-alt-1) | Có phiên của người thao tác; quyền sở hữu/ACTIVE được kiểm tra, không giả định yêu cầu người khác luôn hợp lệ. Guard kiểm trong luồng (không giả định đã đạt): Người thực hiện khác chủ hồ sơ, kể cả Mod/Admin | Rẽ bước 2 → END: không sửa | Từ chối sửa; không có chức năng gỡ bio người khác trong M02. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-03.10, BR-M02-36 |
+| [UC-M02-003 / A2](#uc-m02-003-alt-2) | Có phiên của người thao tác; quyền sở hữu/ACTIVE được kiểm tra, không giả định yêu cầu người khác luôn hợp lệ. Guard kiểm trong luồng (không giả định đã đạt): Tài khoản chủ hồ sơ không ACTIVE | Rẽ bước 2 → END: không sửa | Từ chối sửa thông tin. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-03.09, BR-M02-18 |
+| [UC-M02-003 / A3](#uc-m02-003-alt-3) | Có phiên của người thao tác; quyền sở hữu/ACTIVE được kiểm tra, không giả định yêu cầu người khác luôn hợp lệ. Guard kiểm trong luồng (không giả định đã đạt): Bio sau trim >155 ký tự hoặc Lớp/Khối khác 10/11/12 và không phải trống | Rẽ bước 4 → 3 | Tại điểm quay lại: Từ chối giá trị vi phạm; người dùng có thể sửa hoặc bỏ trống trường tùy chọn. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-03.04, FR-M02-03.06, FR-M02-03.07 |
+| [UC-M02-003 / A4](#uc-m02-003-alt-4) | Có phiên của người thao tác; quyền sở hữu/ACTIVE được kiểm tra, không giả định yêu cầu người khác luôn hợp lệ. Guard kiểm trong luồng (không giả định đã đạt): Username/display_name sai quy tắc M01 | Rẽ bước 4 → 3 | Tại điểm quay lại: Từ chối giá trị sai; cho gửi lại giá trị hợp lệ trong cùng hành trình; không thêm hạn chế số lần đổi. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M01-03.05, FR-M01-03.06, FR-M01-03.12, FR-M01-03.13, FR-M01-03.14, BR-M01-36 |
+| [UC-M02-004 / main](#uc-m02-004-main-1) | Chủ hồ sơ tải lên ảnh mới làm avatar. Trước: Có phiên người thao tác; kiểm tra sở hữu/ACTIVE trong luồng; không yêu cầu người dùng đổi bio/Lớp/Khối cùng lần. | 1 → 2 → 3 → 4; END: Ảnh mới hợp lệ được đặt làm avatar, ảnh gốc được lưu, avatar cũ bị xóa theo AUT-M02-001. | Ảnh mới hợp lệ được đặt làm avatar, ảnh gốc được lưu, avatar cũ bị xóa theo AUT-M02-001. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M02-04, BR-M02-06, BR-M02-07, BR-M02-08, BR-M02-18, BR-M02-36 |
+| [UC-M02-004 / A1](#uc-m02-004-alt-1) | Có phiên người thao tác; kiểm tra sở hữu/ACTIVE trong luồng; không yêu cầu người dùng đổi bio/Lớp/Khối cùng lần. Guard kiểm trong luồng (không giả định đã đạt): Không ACTIVE hoặc người thao tác khác chủ, kể cả Mod/Admin | Rẽ bước 2 → END: không đổi | Từ chối đổi avatar. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-04.06, FR-M02-04.07 |
+| [UC-M02-004 / A2](#uc-m02-004-alt-2) | Có phiên người thao tác; kiểm tra sở hữu/ACTIVE trong luồng; không yêu cầu người dùng đổi bio/Lớp/Khối cùng lần. Guard kiểm trong luồng (không giả định đã đạt): Loại khác JPEG/PNG/WebP hoặc dung lượng >5 MB | Rẽ bước 2 → END: ảnh bị từ chối | Từ chối ảnh, không đặt ảnh đó làm avatar. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-04.03, FR-M02-04.04 |
+| [UC-M02-005 / main](#uc-m02-005-main-1) | Người dùng chọn lưu bài. Trước: Bài trong ngữ cảnh truy cập của người dùng theo M03/M11; kiểm tra đăng nhập và đã lưu trong luồng. Khóa toàn bộ không ngăn lưu. | 1 → 2 → 3; END: Có đúng một bookmark của người dùng cho bài, kèm thời điểm lưu; không đăng ký theo dõi hay thông báo bài. | Có đúng một bookmark của người dùng cho bài, kèm thời điểm lưu; không đăng ký theo dõi hay thông báo bài. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M02-05, BR-M02-21, BR-M02-22, BR-M02-24, BR-M02-25 |
+| [UC-M02-005 / A1](#uc-m02-005-alt-1) | Bài trong ngữ cảnh truy cập của người dùng theo M03/M11; kiểm tra đăng nhập và đã lưu trong luồng. Khóa toàn bộ không ngăn lưu. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập | Rẽ bước 1 → END: chưa lưu | Yêu cầu đăng nhập, chưa thêm bookmark. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-05.02, BR-M02-24 |
+| [UC-M02-005 / A2](#uc-m02-005-alt-2) | Bài trong ngữ cảnh truy cập của người dùng theo M03/M11; kiểm tra đăng nhập và đã lưu trong luồng. Khóa toàn bộ không ngăn lưu. Guard kiểm trong luồng (không giả định đã đạt): Bài đã nằm trong danh sách | Rẽ bước 1 → END: không thêm trùng | Không thêm lần nữa; giữ một bookmark đang có, không suy ra làm mới thời điểm lưu. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-05.03, BR-M02-22 |
+| [UC-M02-006 / main](#uc-m02-006-main-1) | Chọn bỏ lưu bài đang lưu; hoặc chọn bỏ lưu dòng Nội dung không tồn tại trong UC-M02-007. Trước: Có bookmark của chính người yêu cầu; yêu cầu Guest được xử lý nhánh đăng nhập. Không bắt buộc nội dung bài đang xem được. | 1 → 2 → 3; END: Bookmark của người yêu cầu với bài được xóa; bài không còn trong danh sách cá nhân; không xóa nội dung bài. | Bookmark của người yêu cầu với bài được xóa; bài không còn trong danh sách cá nhân; không xóa nội dung bài. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M02-06, FR-M02-05.02, FR-M02-07.05, BR-M02-24, BR-M02-25, BR-M02-29 |
+| [UC-M02-006 / A1](#uc-m02-006-alt-1) | Có bookmark của chính người yêu cầu; yêu cầu Guest được xử lý nhánh đăng nhập. Không bắt buộc nội dung bài đang xem được. Guard kiểm trong luồng (không giả định đã đạt): Chưa đăng nhập | Rẽ bước 2 → END: chưa bỏ lưu | Yêu cầu đăng nhập trước khi bỏ lưu. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-05.02, BR-M02-24 |
+| [UC-M02-006 / A2](#uc-m02-006-alt-2) | Có bookmark của chính người yêu cầu; yêu cầu Guest được xử lý nhánh đăng nhập. Không bắt buộc nội dung bài đang xem được. Guard kiểm trong luồng (không giả định đã đạt): Bài tạm không xem được | Rẽ bước 1 → 2 | Tại điểm quay lại: Cho bỏ lưu qua dòng Nội dung không tồn tại, không yêu cầu mở được bài. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-07.05, BR-M02-29 |
+| [UC-M02-007 / main](#uc-m02-007-main-1) | Chủ hồ sơ mở tab Bookmark. Trước: Có tài khoản và ngữ cảnh yêu cầu danh sách; kiểm tra quyền chủ danh sách trong luồng, không cho xem bookmark người khác. | 1 → 2 → 3 → 4; END: Hiển thị danh sách theo thời điểm lưu, mới nhất trước; bài chưa xem được có dòng thay thế đúng vị trí, không nêu lý do. | Hiển thị danh sách theo thời điểm lưu, mới nhất trước; bài chưa xem được có dòng thay thế đúng vị trí, không nêu lý do. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M02-07, BR-M02-23, BR-M02-29, BR-M02-30, BR-M02-31 |
+| [UC-M02-007 / A1](#uc-m02-007-alt-1) | Có tài khoản và ngữ cảnh yêu cầu danh sách; kiểm tra quyền chủ danh sách trong luồng, không cho xem bookmark người khác. Guard kiểm trong luồng (không giả định đã đạt): Người yêu cầu khác chủ danh sách hoặc không có phiên xác định chủ | Rẽ bước 2 → END: không hiển thị | Từ chối hiển thị danh sách riêng tư; không tự đăng nhập thay người dùng. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-07.02, BR-M02-23 |
+| [UC-M02-007 / A2](#uc-m02-007-alt-2) | Có tài khoản và ngữ cảnh yêu cầu danh sách; kiểm tra quyền chủ danh sách trong luồng, không cho xem bookmark người khác. Guard kiểm trong luồng (không giả định đã đạt): Một bài tạm không xem được | Rẽ bước 3 → 4 | Tại điểm quay lại: Giữ bookmark/thời điểm/vị trí; hiện Nội dung không tồn tại, không nêu lý do. Khi bài xem được trở lại thì hiện lại tại vị trí tương ứng. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-07.03, FR-M02-07.04, BR-M02-29 |
+| [UC-M02-007 / A3](#uc-m02-007-alt-3) | Có tài khoản và ngữ cảnh yêu cầu danh sách; kiểm tra quyền chủ danh sách trong luồng, không cho xem bookmark người khác. Guard kiểm trong luồng (không giả định đã đạt): Bài bị xóa hẳn hoặc tác giả chuyển DELETED | Rẽ bước 3 → 4 | Tại điểm quay lại: AUT-M02-003 xóa bookmark theo sự kiện; danh sách không giữ dòng thay thế cho đối tượng đã bị xóa hẳn. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-07.06, BR-M02-30 |
+| [UC-M02-008 / main](#uc-m02-008-main-1) | Được UC-M02-001 bước 4 hoặc UC-M02-007 bước 3 gọi trong khi dựng danh sách. Trước: Nhận ngữ cảnh tab, danh tính người xem, chủ hồ sơ/danh sách và tập bài/quan hệ bookmark; actor kế thừa UC gọi, không có nút riêng cho UC này. | 1 → 2 → 4 nếu tab Bài viết; 1 → 3 → 4 nếu Bookmark; END trả caller tương ứng | Tab Bài viết chứa tập bài được phép; Bookmark giữ thứ tự/vị trí và thay nội dung không xem được bằng thông điệp không nêu lý do. | Đối chiếu đường thành công với hợp đồng/nguồn; chỉ áp dụng nhánh ngữ cảnh đúng. FR-M02-01.07, FR-M02-01.17, FR-M02-01.19, FR-M02-07.03, FR-M02-07.04, FR-M02-07.07, BR-M02-28, BR-M02-29, BR-M02-31 |
+| [UC-M02-008 / A1](#uc-m02-008-alt-1) | Nhận ngữ cảnh tab, danh tính người xem, chủ hồ sơ/danh sách và tập bài/quan hệ bookmark; actor kế thừa UC gọi, không có nút riêng cho UC này. Guard kiểm trong luồng (không giả định đã đạt): Bài không đủ điều kiện của tab Bài viết theo ngữ cảnh | Rẽ bước 2 → 4 | Tại điểm quay lại: Không đưa bài đó vào tab Bài viết; không dùng placeholder của Bookmark cho tab này. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-01.07, FR-M02-01.17 |
+| [UC-M02-008 / A2](#uc-m02-008-alt-2) | Nhận ngữ cảnh tab, danh tính người xem, chủ hồ sơ/danh sách và tập bài/quan hệ bookmark; actor kế thừa UC gọi, không có nút riêng cho UC này. Guard kiểm trong luồng (không giả định đã đạt): Bài không xem được với người lưu | Rẽ bước 3 → 4 | Tại điểm quay lại: Giữ dòng thay thế và quyền bỏ lưu; không nêu lý do; không xóa bookmark chỉ vì tạm không xem được. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-07.03, FR-M02-07.04 |
+| [UC-M02-008 / A3](#uc-m02-008-alt-3) | Nhận ngữ cảnh tab, danh tính người xem, chủ hồ sơ/danh sách và tập bài/quan hệ bookmark; actor kế thừa UC gọi, không có nút riêng cho UC này. Guard kiểm trong luồng (không giả định đã đạt): Cờ Group tắt | Rẽ bước 1 → 2 hoặc 3 theo ngữ cảnh | Tại điểm quay lại: Không tự loại bài nhóm khỏi tab Bài viết/Bookmark chỉ vì cờ tắt; các quy tắc chọn bài vẫn áp dụng. Khi mở bài, thông báo hệ thống đang bận do M11 xử lý. Chưa được suy hậu điều kiện thành công cho tới khi phần còn lại hoàn tất hợp lệ. | Đối chiếu guard và kết quả của đường này; không suy rollback/retry/đặc quyền ngoài nguồn. FR-M02-01.07, FR-M02-07.03 |
+
+### Vòng đời điểm cần làm rõ
+
+| ID | Nguồn/baseline | Vấn đề | UC/đường bị ảnh hưởng | Blocking/nonblocking và lý do | Người xác nhận | Register | Trạng thái/quyết định | Bằng chứng đóng/baseline cần cập nhật |
+|---|---|---|---|---|---|---|---|---|
+| NOTE-M02-01 | FR-M02 1.6; chi tiết/chứng cứ ở mục 5 | FR-M02 Phụ lục B.2 không có TBD nghiệp vụ còn mở. | FR-M02 Phụ lục B.2 không có TBD nghiệp vụ còn mở.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M02 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | Không tạo TBD mới hoặc lấy OPEN thuộc module khác làm tính năng M02. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M02-02 | FR-M02 1.6; chi tiết/chứng cứ ở mục 5 | Hình thức avatar mặc định chưa chốt ở giai đoạn phân tích. | UC-M02-001/004; hiển thị avatar mặc định | nonblocking: ảnh chung/chữ cái đầu là quyết định thiết kế; hành vi có avatar mặc định đã chốt | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | đề xuất ghi [QA tại register](../../../.agents/.claude/system_analysis/output/registers/qa-log.md) khi thiết kế avatar | pending-confirmation / giữ giới hạn baseline | Thiết kế được chấp thuận; chỉ quay về FR nếu thay đổi hành vi; bằng chứng còn chờ. |
+| NOTE-M02-03 | FR-M02 1.6; chi tiết/chứng cứ ở mục 5 | Cờ Chat/Group tắt có thể gây nhầm thành ẩn nút hoặc xóa nội dung khỏi danh sách. | Cờ Chat/Group tắt có thể gây nhầm thành ẩn nút hoặc xóa nội dung khỏi danh sách.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M02 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | Giữ theo FR-M02 5.11, FR-M16-15.07: nút/danh sách vẫn hiện theo quyền; lỗi đang bận khi mở do module sở hữu xử lý. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+| NOTE-M02-04 | FR-M02 1.6; chi tiết/chứng cứ ở mục 5 | FR không quy định retry/rollback ảnh, UX khi lỗi mạng hoặc xử lý bỏ lưu bookmark vốn không còn tồn tại. | UC-M02-004; lỗi ảnh. UC-M02-006; bookmark đã mất trước thao tác | nonblocking: chỉ đặc tả trường hợp bookmark còn tồn tại; không cam kết kết quả yêu cầu lặp/race hoặc rollback ảnh | Chưa xác định đầu mối có thẩm quyền; cần stakeholder chỉ định | đề xuất ghi [QA tại register](../../../.agents/.claude/system_analysis/output/registers/qa-log.md) về failure guarantee nếu thiết kế yêu cầu | pending-confirmation / giữ giới hạn baseline | Chốt xử lý bookmark không tồn tại và lỗi lưu ảnh có ảnh hưởng dữ liệu; cập nhật FR-M02 rồi rà lại postcondition; chưa đóng. |
+| NOTE-M02-05 | FR-M02 1.6; chi tiết/chứng cứ ở mục 5 | Không có quyền Mod/Admin gỡ avatar/bio vi phạm trong MS1. | Không có quyền Mod/Admin gỡ avatar/bio vi phạm trong MS1.; áp dụng các UC/BR được dẫn tại mục 5 | nonblocking: ghi nhận kết luận đã có nguồn, không còn quyết định sản phẩm cần tự bổ sung | Không cần quyết định mới; owner yêu cầu là module M02 | FR owner và chứng cứ được dẫn ở mục 5; không tạo mã register mới | resolved theo nguồn hiện hành (không phải stakeholder duyệt US) | Đã chốt không làm theo FR-M02 B.3/DEC-177; không phải gap để tự bổ sung. Bằng chứng: baseline FR được dẫn; reopen nếu baseline đổi. |
+
+Register có sẵn chỉ được nhắc khi nguồn đã dẫn; các dòng “đề xuất ghi QA” chưa được đăng vào register và không phải mã QA có thật. Không sửa FR/register trong lượt này. Khi có quyết định, cập nhật nguồn owner trước rồi rà lại luồng/trace/relation/view chịu tác động.
+
+### Ownership và tác động liên module
+
+Các cạnh UC–UC hiện khai báo trong bảng relation đều thuộc M02; không có cạnh liên module mới được thêm ở revision này. Nơi khai báo chính là US-M02 mục 4, baseline là bảng sources; các view detail có cả hai endpoint phải giữ cạnh theo đúng hướng. Giao tiếp dữ liệu/sự kiện ở mục 5 không tự tạo include/extend hoặc actor module. Mỗi FR normative vẫn phải Đã chốt.
+
+| Owner module / đặc tả chuẩn | Baseline bên cung cấp/nhận | UC cục bộ chịu tác động | Hợp đồng hai phía | Trạng thái đồng bộ / view chịu tác động |
+|---|---|---|---|---|
+| [M01 / owner](US-M01.md) | FR-M01 1.10 (normative) | UC-M02-002, UC-M02-003 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M03 / owner](US-M03.md) | FR-M03 1.10 (normative) | UC-M02-001 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M04 / owner](US-M04.md) | FR-M04 1.4 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M05 / owner](US-M05.md) | FR-M05 1.7 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M07 / owner](US-M07.md) | FR-M07 1.5 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M08 / owner](US-M08.md) | FR-M08 1.7 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M11 / owner](US-M11.md) | FR-M11 1.3 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M12 / owner](US-M12.md) | FR-M12 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M14 / owner](US-M14.md) | FR-M14 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M15 / owner](US-M15.md) | FR-M15 1.1 (normative) | Hợp đồng/BR/AUT và giao tiếp ở mục 5 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+| [M16 / owner](US-M16.md) | FR-M16 1.0 (normative) | UC-M02-001 | Sự kiện/quyền/kết quả theo hàng giao tiếp mục 5; giữ owner xử lý, không nhân bản UC và không đổi endpoint | Không sửa owner ngoài scope; nếu đổi giao tiếp, đề xuất rà hai chiều owner ↔ US-M02 cùng overview; chưa tuyên bố owner đã cập nhật. |
+
+Liên kết tổng quan: [US-overview](US-overview.md); tổng quan giữ UC chính/owner, phần không chọn vẫn truy về tài liệu module. Không khẳng định overview đã đồng bộ từ việc sửa module này.
+
+### Kiểm chứng revision hiện hành
+
+| Hạng mục | Phương pháp/lệnh | Kết quả revision 2.3 | Giới hạn |
+|---|---|---|---|
+| Điều kiện chuẩn tắc | Đọc toàn bộ tệp baseline bằng audit cục bộ, đối chiếu nội dung điều kiện FR chi tiết/BR owner đã được chép trong US | 109/109 điều kiện có nội dung chuẩn hóa khớp; source digest được lưu trước cập nhật | Khớp văn bản không chứng minh hợp đồng/luồng bao phủ ngữ nghĩa; walkthrough ở trên là lớp review riêng. |
+| Walkthrough | Đối chiếu hợp đồng/nguồn và từng anchor main/alt | 8 đường main + 23 nhánh đã có hồ sơ QA; không phát hiện blocker nghiệp vụ mới trong đường có nguồn | Không phải stakeholder duyệt; lỗi hạ tầng ngoài nguồn giữ giới hạn riêng. |
+| SVG hiện hữu | XML parse, nhãn ID/tên và tập node; đối chiếu mọi cạnh UC có hai endpoint trong từng view với bảng relations | 4/4 SVG hợp lệ; 0 lệch node/nhãn/cạnh UC | Không chạy renderer mới; giữ bằng chứng render lịch sử cho file không đổi, chưa kiểm hình trực quan mới tại revision này. Association/quyền còn phải đọc bảng và kế thừa actor. |
+| Checker | `python -B -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M02.md --final` | Exit 0, errors=0, warnings=1 (manual checks remain) | Chỉ chứng minh cấu trúc; không phải phê duyệt. |
+
+Báo cáo máy của phạm vi M01–M05: `.agents/.gpt/system_analysis/.work/us-v23-m01-m05/source-and-svg-audit.json` và `migration-report.json` (workspace, không phải artifact sơ đồ bàn giao). FR/skill/quy chuẩn tên không thay đổi bởi revision này.

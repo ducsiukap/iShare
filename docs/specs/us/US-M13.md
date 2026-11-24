@@ -1,6 +1,6 @@
 # Phân tích use case — M13 AI Layer
 
-[Vietnamese Doc] — Theo skill use-case-analysis v2.2; tiếng Việt, giữ thuật ngữ cần thiết.
+[Vietnamese Doc] — Theo skill use-case-analysis v2.3; tiếng Việt, giữ thuật ngữ cần thiết.
 
 Đầu ra gồm **5 UC chính, 10 UC con**, 13 mapping, đặc tả, truy vết và 6 SVG: tổng quan module, một detail riêng cho từng core. Mô hình giữ subject toàn iShare, không đưa các module nội bộ thành actor; dịch vụ AI bên ngoài là actor hỗ trợ. Tác vụ embedding/log/vòng đời cache được đặc tả, không dựng actor Hệ thống.
 
@@ -10,8 +10,9 @@
 | key | value |
 |---|---|
 | document_id | US-M13 |
-| skill_version | 2.2 |
+| skill_version | 2.3 |
 | mode | module |
+| overview_selection | - |
 | modules | M13 |
 | scope | ALL |
 | status | Chờ duyệt |
@@ -20,10 +21,12 @@
 | approved_steps | - |
 | source_baseline | FR-M13 v1.3; FR-M01 v1.10; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M15 v1.1; FR-M16 v1.0 |
 | author | Codex |
-| date | 2026-11-02 |
-| approval_evidence | Người dùng cho phép tự làm các bước cần thiết ở lượt M04, áp dụng chuỗi module hiện tại. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M13 hoặc kết quả từng bước. |
-| semantic_review | pass |
+| date | 2026-11-24 |
+| approval_evidence | - |
+| semantic_review | pending |
 | diagram_check | pass |
+
+**Lịch sử trước migration 2.3:** các dòng dưới giữ nguyên bằng chứng đã ghi, không phải approved_steps của revision mới.
 
 | Bước | Kết quả | Xác nhận | Baseline | Làm lại khi |
 |---|---|---|---|---|
@@ -34,6 +37,21 @@
 | 5 | 124 dòng truy vết, 114 tiêu chí chi tiết/BR; 11 FR liên quan | Chưa duyệt | FR-M13 v1.3; FR-M01 v1.10; FR-M03 v1.10; FR-M04 v1.4; FR-M05 v1.7; FR-M06 v1.5; FR-M08 v1.7; FR-M09 v1.2; FR-M10 v1.4; FR-M11 v1.3; FR-M15 v1.1; FR-M16 v1.0 | Baseline liên quan đổi |
 | 6 | 6 view đã kiểm cú pháp/render/hình; đúng node/8 cạnh, mỗi view một SVG; tổng quan đã chỉnh bố cục dịch vụ AI | Chưa duyệt | PlantUML 1.2026.8 | Mô hình/nguồn đổi |
 | 7 | Đã review nguồn/ngữ nghĩa/truy vết/UML/hình/liên kết, hồ sơ Chờ duyệt và giữ giới hạn nguồn/TBD ngân sách | Chưa duyệt | Skill v2.2 | Phản hồi/baseline đổi |
+
+
+### Revision 2.3 — 2026-11-24
+
+Người dùng yêu cầu cập nhật toàn bộ US theo skill 2.3 và cho phép làm liên tục bảy bước. Quyền thực hiện không phê duyệt kết quả; revision này giữ `approved_steps=-`, trạng thái **Chờ duyệt**. Bản trước ghi skill 2.2, approved_steps=-. Bằng chứng quyền thực hiện trước: Người dùng cho phép tự làm các bước cần thiết ở lượt M04, áp dụng chuỗi module hiện tại. Đây là quyền thực hiện liên tục, không phải phê duyệt US-M13 hoặc kết quả từng bước.
+
+| Bước | Công việc revision hiện tại | Trạng thái cổng |
+|---|---|---|
+| 1 | Đối chiếu baseline owner/normative, boundary và kiểm kê FR/BR đang dùng. | Đã review; chưa duyệt |
+| 2 | Rà goal/trigger/kết quả/phạm vi của core/sub tại bảng chất lượng 2.3. | Đã review; giữ các vấn đề ghi rõ |
+| 3 | Walkthrough main và từng alternative theo QA revision; không suy kết quả tại nhánh thiếu nguồn. | Đã review; các đường blocking chưa chốt |
+| 4 | Đối chiếu relation và association thực tế với SVG, không tạo cạnh từ decomposition. | Đã review mô hình hiện có |
+| 5 | Giữ trace chi tiết, phân vai nguồn và bổ sung vòng đời từng gap. | Đã review trong scope; không sửa FR/register |
+| 6 | Kiểm XML/node/association/quan hệ SVG hiện có; giữ artifact US-relative và render lịch sử riêng. | Root đã parse/render mới và so XML visual tree; xem UC-V23-REVIEW.md, không nhận đã xem mọi ảnh |
+| 7 | Chạy checker --final sau review, ghi lỗi/cảnh báo thật; semantic_review còn pending do đường blocking. | Review đã làm; chưa đạt cổng cuối |
 
 ## 1. Phạm vi, nguồn và tổng hợp yêu cầu
 
@@ -51,19 +69,22 @@
 | path | version | role |
 |---|---|---|
 | docs/specs/fr/FR-M13.md | 1.3 | owner |
-| docs/specs/fr/FR-M01.md | 1.10 | related |
-| docs/specs/fr/FR-M03.md | 1.10 | related |
-| docs/specs/fr/FR-M04.md | 1.4 | related |
-| docs/specs/fr/FR-M05.md | 1.7 | related |
-| docs/specs/fr/FR-M06.md | 1.5 | related |
-| docs/specs/fr/FR-M08.md | 1.7 | related |
-| docs/specs/fr/FR-M09.md | 1.2 | related |
-| docs/specs/fr/FR-M10.md | 1.4 | related |
-| docs/specs/fr/FR-M11.md | 1.3 | related |
-| docs/specs/fr/FR-M15.md | 1.1 | related |
-| docs/specs/fr/FR-M16.md | 1.0 | related |
+| docs/specs/fr/FR-M01.md | 1.10 | normative |
+| docs/specs/fr/FR-M03.md | 1.10 | normative |
+| docs/specs/fr/FR-M04.md | 1.4 | normative |
+| docs/specs/fr/FR-M05.md | 1.7 | normative |
+| docs/specs/fr/FR-M06.md | 1.5 | normative |
+| docs/specs/fr/FR-M08.md | 1.7 | normative |
+| docs/specs/fr/FR-M09.md | 1.2 | normative |
+| docs/specs/fr/FR-M10.md | 1.4 | normative |
+| docs/specs/fr/FR-M11.md | 1.3 | normative |
+| docs/specs/fr/FR-M15.md | 1.1 | normative |
+| docs/specs/fr/FR-M16.md | 1.0 | normative |
 
 Phương pháp: [skill](../../../.agent-instructions/skills/use-case-analysis/SKILL.md), [modeling rules](../../../.agent-instructions/skills/use-case-analysis/references/modeling-rules.md), [diagram rules](../../../.agent-instructions/skills/use-case-analysis/references/diagram-rules.md). Không lấy ví dụ hoặc US trước làm nguồn tính năng. Đối chiếu [US-M05](US-M05.md), [US-M06](US-M06.md), [US-M08](US-M08.md), [US-M09](US-M09.md), [US-M10](US-M10.md), [US-M11](US-M11.md) để giữ actor/owner và tránh tạo lại mục tiêu frontend của module khác; nguồn yêu cầu vẫn FR đã chốt.
+
+
+**Quy chuẩn tên:** [UC-NAMING](UC-NAMING.md), ngày 2026-11-24, trạng thái **Chờ duyệt cách diễn đạt**; đây là đề xuất tên đang dùng, không tự trở thành quy chuẩn đã duyệt. Nguồn `owner` sở hữu hành vi; `normative` ràng buộc giao tiếp/quyền, đều phải Đã chốt đúng baseline.
 
 ### Actor và điều kiện quyền
 
@@ -100,21 +121,21 @@ ACT-007 → ACT-008 → ACT-002 là năng lực vai trò kế thừa; điều ki
 <!-- uc:catalog -->
 | id | name | tier | level | primary | supporting | owner | anchor | sources |
 |---|---|---|---|---|---|---|---|---|
-| UC-M13-020 | Hỗ trợ kiểm duyệt nội dung bằng AI | core | Summary | ACT-002, ACT-008 | ACT-006 | M13 | #uc-m13-020 | FR-M13-01, FR-M13-02, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-15, BR-M13-16, BR-M13-25 |
-| UC-M13-021 | Cung cấp biểu diễn ngữ nghĩa cho tìm kiếm | core | Summary | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-021 | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
-| UC-M13-022 | Cung cấp gợi ý Topic bằng AI | core | Summary | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-022 | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
-| UC-M13-023 | Yêu cầu và xem tóm tắt bài viết | core | User goal | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-023 | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
-| UC-M13-024 | Kiểm tra căn cứ AI và chất lượng gợi ý Topic | core | Summary | ACT-008, ACT-007 | - | M13 | #uc-m13-024 | FR-M13-08, FR-M13-09, FR-M13-10, BR-M13-21, BR-M13-22, BR-M13-23, BR-M13-24, BR-M13-29 |
-| UC-M13-001 | Chấm điểm bài viết và bình luận | sub | Subfunction | ACT-002, ACT-008 | ACT-006 | M13 | #uc-m13-001 | FR-M13-02, BR-M13-11, BR-M13-15, BR-M13-16, BR-M13-25 |
-| UC-M13-002 | Tổng hợp điểm quét và khoảng vi phạm | sub | Subfunction | ACT-002, ACT-008 | - | M13 | #uc-m13-002 | FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, FR-M13-02.07, FR-M13-02.08, FR-M13-02.09, FR-M13-02.10, FR-M13-02.14, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-14, BR-M13-15 |
+| UC-M13-020 | Chấm điểm nội dung bằng AI | core | Summary | ACT-002, ACT-008 | ACT-006 | M13 | #uc-m13-020 | FR-M13-01, FR-M13-02, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-15, BR-M13-16, BR-M13-25 |
+| UC-M13-021 | Tạo embedding cho tìm kiếm | core | Summary | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-021 | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
+| UC-M13-022 | Gợi ý Topic bằng AI | core | Summary | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-022 | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
+| UC-M13-023 | Tóm tắt bài viết | core | User goal | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-023 | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
+| UC-M13-024 | Xem nhật ký AI và tỷ lệ giữ Topic | core | Summary | ACT-008, ACT-007 | - | M13 | #uc-m13-024 | FR-M13-08, FR-M13-09, FR-M13-10, BR-M13-21, BR-M13-22, BR-M13-23, BR-M13-24, BR-M13-29 |
+| UC-M13-001 | Chấm điểm kiểm duyệt nội dung | sub | Subfunction | ACT-002, ACT-008 | ACT-006 | M13 | #uc-m13-001 | FR-M13-02, BR-M13-11, BR-M13-15, BR-M13-16, BR-M13-25 |
+| UC-M13-002 | Tổng hợp điểm và đoạn nội dung vi phạm | sub | Subfunction | ACT-002, ACT-008 | - | M13 | #uc-m13-002 | FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, FR-M13-02.07, FR-M13-02.08, FR-M13-02.09, FR-M13-02.10, FR-M13-02.14, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-14, BR-M13-15 |
 | UC-M13-003 | Tạo hoặc cập nhật embedding bài viết | sub | Subfunction | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-003 | FR-M13-03, BR-M13-17, BR-M13-18, BR-M13-26 |
-| UC-M13-004 | Tạo embedding truy vấn tìm bài | sub | Subfunction | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-004 | FR-M13-04, BR-M13-06, BR-M13-07, BR-M13-10, BR-M13-19, FR-M06-02.03, FR-M06-02.05 |
-| UC-M13-005 | Lấy gợi ý Topic cho bản soạn bài | sub | Subfunction | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-005 | FR-M13-05, BR-M13-19, BR-M13-23, FR-M05-02.01, FR-M05-02.05, FR-M05-02.15 |
-| UC-M13-006 | Cấp tóm tắt đang giữ hoặc tạo mới | sub | Subfunction | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-006 | FR-M13-06, BR-M13-19, BR-M13-20, BR-M13-26, BR-M13-27, BR-M13-28 |
-| UC-M13-007 | Kiểm tra điều kiện sử dụng tóm tắt | sub | Subfunction | ACT-002, ACT-007 | - | M13 | #uc-m13-007 | FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27 |
-| UC-M13-008 | Gọi dịch vụ AI theo chính sách dùng chung | sub | Subfunction | ACT-002, ACT-008, ACT-007 | ACT-006 | M13 | #uc-m13-008 | FR-M13-01, FR-M13-06.06, BR-M13-03, BR-M13-05, BR-M13-06, BR-M13-07, BR-M13-08, BR-M13-09, BR-M13-10, BR-M13-19 |
-| UC-M13-009 | Xem nhật ký AI trong khiếu nại | sub | User goal | ACT-008, ACT-007 | - | M13 | #uc-m13-009 | FR-M13-09, BR-M13-21, BR-M13-22, FR-M09-06.05, BR-M09-12 |
-| UC-M13-010 | Tính tỷ lệ Topic gợi ý được giữ lại | sub | Subfunction | ACT-007 | - | M13 | #uc-m13-010 | FR-M13-10, BR-M13-23, BR-M13-24, BR-M13-29, BR-M15-01, BR-M15-04, BR-M15-05, FR-M15-02.09 |
+| UC-M13-004 | Tạo embedding cho truy vấn | sub | Subfunction | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-004 | FR-M13-04, BR-M13-06, BR-M13-07, BR-M13-10, BR-M13-19, FR-M06-02.03, FR-M06-02.05 |
+| UC-M13-005 | Lấy gợi ý Topic từ AI | sub | Subfunction | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-005 | FR-M13-05, BR-M13-19, BR-M13-23, FR-M05-02.01, FR-M05-02.05, FR-M05-02.15 |
+| UC-M13-006 | Lấy hoặc tạo tóm tắt bài viết | sub | Subfunction | ACT-002, ACT-007 | ACT-006 | M13 | #uc-m13-006 | FR-M13-06, BR-M13-19, BR-M13-20, BR-M13-26, BR-M13-27, BR-M13-28 |
+| UC-M13-007 | Kiểm tra điều kiện tóm tắt | sub | Subfunction | ACT-002, ACT-007 | - | M13 | #uc-m13-007 | FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27 |
+| UC-M13-008 | Gọi dịch vụ AI | sub | Subfunction | ACT-002, ACT-008, ACT-007 | ACT-006 | M13 | #uc-m13-008 | FR-M13-01, FR-M13-06.06, BR-M13-03, BR-M13-05, BR-M13-06, BR-M13-07, BR-M13-08, BR-M13-09, BR-M13-10, BR-M13-19 |
+| UC-M13-009 | Xem nhật ký AI của khiếu nại | sub | User goal | ACT-008, ACT-007 | - | M13 | #uc-m13-009 | FR-M13-09, BR-M13-21, BR-M13-22, FR-M09-06.05, BR-M09-12 |
+| UC-M13-010 | Tính tỷ lệ giữ lại Topic gợi ý | sub | Subfunction | ACT-007 | - | M13 | #uc-m13-010 | FR-M13-10, BR-M13-23, BR-M13-24, BR-M13-29, BR-M15-01, BR-M15-04, BR-M15-05, FR-M15-02.09 |
 
 Tier độc lập level. Core023 là User goal có mục tiêu xem tóm tắt M13 sở hữu; bốn core Summary bao quát giá trị tích hợp có ranh giới rõ. Không tạo lại UC tìm kiếm M06, gợi ý/chọn Topic M05, xét khiếu nại M09 hoặc trang thống kê M15. Sub009 là User goal, các sub khác là Subfunction cần đặc tả. Không UC abstract hoặc generalization UC; không quota buộc dùng đủ loại quan hệ.
 
@@ -159,13 +180,32 @@ Mode module, chỉ M13; không tạo danh mục core khác thay các US module h
 | D-M13-07 | Chất lượng Topic | UC010 đọc feedback M05 cho M15 | Tổng tử/mẫu, thời điểm ghi; không AI call/nhãn huấn luyện. | Không dùng raw AI log thay phản hồi, không trung bình phần trăm mỗi lượt hoặc chỉ số kiểm duyệt. |
 | D-M13-08 | Vòng đời/nguồn thiếu | 4 AUT, 6 RULE và note nguồn | Giữ trigger/trước-sau/dữ liệu, không chọn hạ tầng hoặc bù hành vi chưa chốt. | Không cron/rate-limit AI riêng, mua dịch vụ hoặc chốt TBD ngân sách. |
 
+
+<!-- uc:overview-selection -->
+| id | decision | rationale | sources |
+|---|---|---|---|
+
+Không áp dụng cho mode module; tập core được tổng hợp tại [US-overview](US-overview.md).
+
+### Kiểm chất lượng goal/phân rã revision 2.3
+
+| Core | Actor/trigger/kết quả và đóng góp của sub | Quyết định và trade-off | Nguồn |
+|---|---|---|---|
+| UC-M13-020 (Summary) | Actor ACT-002, ACT-008; Summary hỗ trợ cổng kiểm duyệt bằng một kết quả; sub001 nhận payload/gọi, sub002 tổng hợp bốn điểm, sub008 áp chính sách dịch vụ. Không hai lượt chấm riêng cổng/cảnh cáo. | Giữ 3 sub theo mapping: UC-M13-001, UC-M13-002, UC-M13-008. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M13-01, FR-M13-02, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-15, BR-M13-16, BR-M13-25 |
+| UC-M13-021 (Summary) | Actor ACT-002, ACT-007; Summary cấp biểu diễn tìm kiếm gồm embedding bài theo sự kiện và truy vấn theo yêu cầu; hai trigger/lifetime/log/fallback khác nhau ở sub003/004, cùng tái dùng sub008. | Giữ 3 sub theo mapping: UC-M13-003, UC-M13-004, UC-M13-008. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
+| UC-M13-022 (Summary) | Actor ACT-002, ACT-007; Summary phía dịch vụ phục vụ tác giả qua M05; sub005 lấy gợi ý, sub008 gọi dịch vụ. Giá trị tích hợp không lặp mục tiêu chọn Topic/frontend M05. | Giữ 2 sub theo mapping: UC-M13-005, UC-M13-008. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
+| UC-M13-023 (User goal) | Actor ACT-002, ACT-007; User goal cung cấp tóm tắt được phép đọc; sub007 kiểm điều kiện, sub006 cấp cache hoặc tạo, sub008 chỉ được chèn tại miss. Core có kết quả hiển thị, không phải Summary và không trực tiếp gọi AI mỗi lượt. | Giữ 3 sub theo mapping: UC-M13-006, UC-M13-007, UC-M13-008. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
+| UC-M13-024 (Summary) | Actor ACT-008, ACT-007; Summary tổ chức hai nhu cầu khai thác dữ liệu AI qua M09/M15: sub009 xem căn cứ một khiếu nại và sub010 tính metric theo khoảng. Khác quyền/trigger/kết quả nên không gộp thành một hợp đồng gọi nhau; phạm vi Summary cần stakeholder review vì log và metric không có một phiên chung. | Giữ 2 sub theo mapping: UC-M13-009, UC-M13-010. Giữ phân rã để rõ hợp đồng/tái sử dụng; gộp vào flow giảm số node nhưng che trách nhiệm dùng chung, còn tách tiếp theo nút/cờ gây trùng mục tiêu. | FR-M13-08, FR-M13-09, FR-M13-10, BR-M13-21, BR-M13-22, BR-M13-23, BR-M13-24, BR-M13-29 |
+
+Không có mapping 1:1 core–sub trong revision này. Đối chiếu level ở catalog/spec/brief/rationale; tier không quyết định level. Các sub có cùng caller vẫn được phân biệt bằng trigger/kết quả; mapping không tự tạo UML. Giữ ID và nhãn hiện có; không tạo mục tiêu mới để đủ hai tầng.
+
 ## 3. Đặc tả
 
 ### 3.1 UC chính Summary
 
 <a id="uc-m13-020"></a>
 
-#### UC-M13-020 — Hỗ trợ kiểm duyệt nội dung bằng AI
+#### UC-M13-020 — Chấm điểm nội dung bằng AI
 
 **Actor chính:** ACT-002, ACT-008. **Hỗ trợ:** ACT-006. **Mục tiêu/giá trị:** Đưa nội dung được các module gửi tới qua chấm điểm nhất quán để con người/cổng nội dung có căn cứ xử lý.
 
@@ -179,7 +219,7 @@ Mode module, chỉ M13; không tạo danh mục core khác thay các US module h
 
 <a id="uc-m13-021"></a>
 
-#### UC-M13-021 — Cung cấp biểu diễn ngữ nghĩa cho tìm kiếm
+#### UC-M13-021 — Tạo embedding cho tìm kiếm
 
 **Actor chính:** ACT-002, ACT-007. **Hỗ trợ:** ACT-006. **Mục tiêu/giá trị:** Giữ embedding bài theo nội dung hiện tại và tạo embedding truy vấn để M06 tìm bài theo nghĩa.
 
@@ -193,7 +233,7 @@ Mode module, chỉ M13; không tạo danh mục core khác thay các US module h
 
 <a id="uc-m13-022"></a>
 
-#### UC-M13-022 — Cung cấp gợi ý Topic bằng AI
+#### UC-M13-022 — Gợi ý Topic bằng AI
 
 **Actor chính:** ACT-002, ACT-007. **Hỗ trợ:** ACT-006. **Mục tiêu/giá trị:** Tác giả nhận đầu ra gợi ý Topic qua M05, có thể tự chọn khi AI tắt/lỗi.
 
@@ -207,7 +247,7 @@ Mode module, chỉ M13; không tạo danh mục core khác thay các US module h
 
 <a id="uc-m13-024"></a>
 
-#### UC-M13-024 — Kiểm tra căn cứ AI và chất lượng gợi ý Topic
+#### UC-M13-024 — Xem nhật ký AI và tỷ lệ giữ Topic
 
 **Actor chính:** ACT-008, ACT-007. **Hỗ trợ:** -. **Mục tiêu/giá trị:** Staff dùng căn cứ AI đúng phạm vi khiếu nại; Admin đánh giá mức gợi ý Topic được giữ lại bằng dữ liệu đã ghi.
 
@@ -226,7 +266,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-023"></a>
 <a id="uc-m13-023-contract"></a>
 
-#### UC-M13-023 — Yêu cầu và xem tóm tắt bài viết
+#### UC-M13-023 — Tóm tắt bài viết
 
 **UC con:** [UC-M13-006](#uc-m13-006), [UC-M13-007](#uc-m13-007), [UC-M13-008](#uc-m13-008).
 
@@ -279,7 +319,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-001"></a>
 <a id="uc-m13-001-contract"></a>
 
-#### UC-M13-001 — Chấm điểm bài viết và bình luận
+#### UC-M13-001 — Chấm điểm kiểm duyệt nội dung
 
 **Thuộc core:** [UC-M13-020](#uc-m13-020). Chuyển đúng dữ liệu và một lần chấm phục vụ owner.
 
@@ -339,7 +379,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-002"></a>
 <a id="uc-m13-002-contract"></a>
 
-#### UC-M13-002 — Tổng hợp điểm quét và khoảng vi phạm
+#### UC-M13-002 — Tổng hợp điểm và đoạn nội dung vi phạm
 
 **Thuộc core:** [UC-M13-020](#uc-m13-020). Tổng hợp raw bốn điểm thành kết quả nhất quán.
 
@@ -452,7 +492,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-004"></a>
 <a id="uc-m13-004-contract"></a>
 
-#### UC-M13-004 — Tạo embedding truy vấn tìm bài
+#### UC-M13-004 — Tạo embedding cho truy vấn
 
 **Thuộc core:** [UC-M13-021](#uc-m13-021). Cung cấp vector truy vấn cho M06, không cho Guest.
 
@@ -503,7 +543,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-005"></a>
 <a id="uc-m13-005-contract"></a>
 
-#### UC-M13-005 — Lấy gợi ý Topic cho bản soạn bài
+#### UC-M13-005 — Lấy gợi ý Topic từ AI
 
 **Thuộc core:** [UC-M13-022](#uc-m13-022). Lấy đầu ra Topic cho yêu cầu hợp lệ M05.
 
@@ -555,7 +595,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-006"></a>
 <a id="uc-m13-006-contract"></a>
 
-#### UC-M13-006 — Cấp tóm tắt đang giữ hoặc tạo mới
+#### UC-M13-006 — Lấy hoặc tạo tóm tắt bài viết
 
 **Thuộc core:** [UC-M13-023](#uc-m13-023). Dùng kết quả giữ hoặc tạo tóm tắt theo yêu cầu.
 
@@ -580,14 +620,14 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 |---|---|---|---|---|
 | <a id="uc-m13-006-main-1"></a>1 | iShare | Nhận ngữ cảnh bài và người yêu cầu hợp lệ từ core023. | [Bước 2](#uc-m13-006-main-2) | FR-M13-06, BR-M13-19, BR-M13-20, BR-M13-26, BR-M13-27, BR-M13-28 |
 | <a id="uc-m13-006-main-2"></a>2 | iShare | Kiểm kết quả đang giữ: chưa đủ24 giờ từ lúc tạo, chưa đổi tiêu đề/nội dung và bài còn từ 300 từ; dùng cùng bản cho các người yêu cầu đủ quyền. | [Bước 3](#uc-m13-006-main-3) | FR-M13-06, BR-M13-19, BR-M13-20, BR-M13-26, BR-M13-27, BR-M13-28 |
-| <a id="uc-m13-006-main-3"></a>3 | iShare | Đường chính có kết quả hợp lệ: trả kết quả đó, không gọi AI, không ghi log tóm tắt hoặc tạo bản theo từng người; bài đầy đủ vẫn đọc được. | END: đạt kết quả đường chính của hợp đồng. | FR-M13-06, BR-M13-19, BR-M13-20, BR-M13-26, BR-M13-27, BR-M13-28 |
+| <a id="uc-m13-006-main-3"></a>3 | iShare | Trả kết quả tóm tắt hợp lệ cho caller, không ghi log tóm tắt hoặc tạo bản theo từng người; bài đầy đủ vẫn đọc được. Cache hit dùng bản đang giữ mà không gọi AI; A1 cache miss chỉ tới đây sau khi gọi AI thành công và giữ bản mới theo hạn 24 giờ. | END: đạt kết quả đường chính của hợp đồng. | FR-M13-06, BR-M13-19, BR-M13-20, BR-M13-26, BR-M13-27, BR-M13-28 |
 
 **Luồng thay thế/ngoại lệ:**
 
 | ID nhánh | Bước rẽ | Điều kiện | Xử lý | Quay lại/kết thúc | Nguồn |
 |---|---|---|---|---|---|
 | <a id="uc-m13-006-alt-1"></a>A1 | [Bước 2](#uc-m13-006-main-2) | Chưa có kết quả đang giữ hợp lệ. | Chèn UC008 loại tóm tắt với tiêu đề+nội dung chữ, không attachments/poll;10 giây mỗi lần thử. Thành công giữ kết quả cho bài24 giờ kể từ lúc tạo, trả caller; không tạo tự động trước yêu cầu. | [Tiếp tục](#uc-m13-006-main-3) | FR-M13-06.01, FR-M13-06.02, FR-M13-06.06, FR-M13-06.08, BR-M13-27, BR-M13-28 |
-| <a id="uc-m13-006-alt-2"></a>A2 | [Bước 2](#uc-m13-006-main-2) | Đủ24 giờ hoặc tiêu đề/nội dung đổi/bài dưới300 từ. | AUT004 bỏ kết quả; nếu vẫn đủ điều kiện tạo mới thì đi nhánh A1, dưới300 từ không cấp tóm tắt. | END: bỏ kết quả cũ; yêu cầu hợp lệ xử lý theo A1, không dùng lại bản hết hạn. | FR-M13-06.04, FR-M13-06.05, BR-M13-20, BR-M13-27 |
+| <a id="uc-m13-006-alt-2"></a>A2 | [Bước 2](#uc-m13-006-main-2) | Đủ24 giờ hoặc tiêu đề/nội dung đổi/bài dưới300 từ. | AUT004 bỏ kết quả; nếu vẫn đủ điều kiện tạo mới thì đi nhánh A1, dưới300 từ không cấp tóm tắt. | [A1](#uc-m13-006-alt-1) nếu vẫn đủ điều kiện tạo; END: không cung cấp tóm tắt khi dưới 300 từ, không dùng lại bản hết hạn. | FR-M13-06.04, FR-M13-06.05, BR-M13-20, BR-M13-27 |
 | <a id="uc-m13-006-alt-3"></a>A3 | [Bước 2](#uc-m13-006-main-2) | Lời gọi ở A1 bị tắt hoặc thất bại sau hai lần thử. | Không giữ kết quả nào; trả nhánh bận cho core023, không đưa bài vào hàng tạo bù tóm tắt. | END: không có tóm tắt cho yêu cầu này. | FR-M13-06.07, FR-M13-06.11, BR-M13-06, BR-M13-10, BR-M13-26 |
 
 <a id="uc-m13-006-rules"></a>
@@ -611,7 +651,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-007"></a>
 <a id="uc-m13-007-contract"></a>
 
-#### UC-M13-007 — Kiểm tra điều kiện sử dụng tóm tắt
+#### UC-M13-007 — Kiểm tra điều kiện tóm tắt
 
 **Thuộc core:** [UC-M13-023](#uc-m13-023). Kiểm quyền/từ/công tắc trước cache và gọi mới.
 
@@ -665,7 +705,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-008"></a>
 <a id="uc-m13-008-contract"></a>
 
-#### UC-M13-008 — Gọi dịch vụ AI theo chính sách dùng chung
+#### UC-M13-008 — Gọi dịch vụ AI
 
 **Thuộc core:** [UC-M13-020](#uc-m13-020), [UC-M13-021](#uc-m13-021), [UC-M13-022](#uc-m13-022), [UC-M13-023](#uc-m13-023). Dùng chung chính sách dịch vụ, cờ, timeout/retry.
 
@@ -731,7 +771,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-009"></a>
 <a id="uc-m13-009-contract"></a>
 
-#### UC-M13-009 — Xem nhật ký AI trong khiếu nại
+#### UC-M13-009 — Xem nhật ký AI của khiếu nại
 
 **Thuộc core:** [UC-M13-024](#uc-m13-024). Cung cấp căn cứ log đúng khiếu nại M09.
 
@@ -782,7 +822,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 <a id="uc-m13-010"></a>
 <a id="uc-m13-010-contract"></a>
 
-#### UC-M13-010 — Tính tỷ lệ Topic gợi ý được giữ lại
+#### UC-M13-010 — Tính tỷ lệ giữ lại Topic gợi ý
 
 **Thuộc core:** [UC-M13-024](#uc-m13-024). Đánh giá Topic bằng dữ liệu M05 cho M15, không AI call.
 
@@ -817,7 +857,7 @@ Subfunction nhận ngữ cảnh caller, không phải nút/endpoint công khai �
 |---|---|---|---|---|---|
 | <a id="uc-m13-010-alt-1"></a>A1 | [Bước 1](#uc-m13-010-main-1) | Không phải Admin. | M15/M13 từ chối phạm vi thống kê, không cấp quyền vì người này là Mod được xem log. | END: không xem chỉ số. | FR-M13-10.04, BR-M15-01 |
 | <a id="uc-m13-010-alt-2"></a>A2 | [Bước 3](#uc-m13-010-main-3) | Không có phản hồi trong khoảng. | Báo không có dữ liệu thay vì tỷ lệ0 hoặc một giá trị dựng sẵn. | END: không có tỷ lệ. | FR-M13-10.03, BR-M13-29, FR-M15-02.08 |
-| <a id="uc-m13-010-alt-3"></a>A3 | [Bước 4](#uc-m13-010-main-4) | Có phản hồi nhưng tổng số Topic gợi ý bằng 0. | Không tự chia 0 hoặc coi là0/100%; ghi tình huống chưa được nguồn quy định tại NOTE-M13-04. | END: cần làm rõ mẫu số 0. | FR-M13-10.01, FR-M13-10.03, BR-M13-29 |
+| <a id="uc-m13-010-alt-3"></a>A3 | [Bước 4](#uc-m13-010-main-4) | Có phản hồi nhưng tổng số Topic gợi ý bằng 0. | Không tự chia 0 hoặc coi là0/100%; giữ NOTE-M13-04: Phụ lục A FR-M13-10.03 đã nêu tổng 0 không có giá trị; cần xác nhận phạm vi so với thân FR chỉ nêu không có phản hồi, chưa tự chọn kết quả cho tập phản hồi không rỗng. | END: cần làm rõ mẫu số 0. | FR-M13-10.01, FR-M13-10.03, BR-M13-29 |
 
 <a id="uc-m13-010-rules"></a>
 
@@ -1033,34 +1073,35 @@ Một lời gọi chấm điểm có thể lặp theo từng bình luận nhưng
 
 ### 4.3 Association actor–UC
 
-| Actor ID | UC ID | Vai trò tương tác | Điều kiện quyền | Nguồn |
+<!-- uc:associations -->
+| actor | use_case | role | permission | sources |
 |---|---|---|---|---|
-| ACT-002 | UC-M13-020 | Nội dung qua M03/M08 | Theo quyền và điều kiện của UC/caller | FR-M13-01, FR-M13-02, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-15, BR-M13-16, BR-M13-25 |
-| ACT-008 | UC-M13-020 | Như User; nội dung thuộc diện quét | Theo quyền và điều kiện của UC/caller | FR-M13-01, FR-M13-02, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-15, BR-M13-16, BR-M13-25 |
-| ACT-002 | UC-M13-021 | Đăng/sửa bài, tìm qua owner | Theo quyền và điều kiện của UC/caller | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
-| ACT-007 | UC-M13-021 | Bài/truy vấn vẫn áp dụng | Theo quyền và điều kiện của UC/caller | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
-| ACT-002 | UC-M13-022 | Yêu cầu qua M05 | Theo quyền và điều kiện của UC/caller | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
-| ACT-007 | UC-M13-022 | Yêu cầu qua M05 | Theo quyền và điều kiện của UC/caller | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
-| ACT-002 | UC-M13-023 | Đọc tóm tắt | Theo quyền và điều kiện của UC/caller | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
-| ACT-007 | UC-M13-023 | Đọc tóm tắt | Theo quyền và điều kiện của UC/caller | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
+| ACT-002 | UC-M13-020 | Nội dung qua M03/M08 | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-01, FR-M13-02, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-15, BR-M13-16, BR-M13-25 |
+| ACT-008 | UC-M13-020 | Như User; nội dung thuộc diện quét | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-01, FR-M13-02, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-15, BR-M13-16, BR-M13-25 |
+| ACT-002 | UC-M13-021 | Đăng/sửa bài, tìm qua owner | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
+| ACT-007 | UC-M13-021 | Bài/truy vấn vẫn áp dụng | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
+| ACT-002 | UC-M13-022 | Yêu cầu qua M05 | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
+| ACT-007 | UC-M13-022 | Yêu cầu qua M05 | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
+| ACT-002 | UC-M13-023 | Đọc tóm tắt | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
+| ACT-007 | UC-M13-023 | Đọc tóm tắt | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
 | ACT-001 | UC-M13-023 | Nhắc đăng nhập | Chỉ nhánh yêu cầu đăng nhập; không được tạo/trả cache | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
-| ACT-008 | UC-M13-024 | Căn cứ khiếu nại | Theo quyền và điều kiện của UC/caller | FR-M13-08, FR-M13-09, FR-M13-10, BR-M13-21, BR-M13-22, BR-M13-23, BR-M13-24, BR-M13-29 |
-| ACT-007 | UC-M13-024 | Căn cứ / tỷ lệ Topic | Theo quyền và điều kiện của UC/caller | FR-M13-08, FR-M13-09, FR-M13-10, BR-M13-21, BR-M13-22, BR-M13-23, BR-M13-24, BR-M13-29 |
+| ACT-008 | UC-M13-024 | Căn cứ khiếu nại | Mod/Admin xem log đúng ngữ cảnh M09; chỉ ADMIN xem tỷ lệ tại M15. Quyền log không cấp quyền metric. | FR-M13-08, FR-M13-09, FR-M13-10, BR-M13-21, BR-M13-22, BR-M13-23, BR-M13-24, BR-M13-29 |
+| ACT-007 | UC-M13-024 | Căn cứ / tỷ lệ Topic | Mod/Admin xem log đúng ngữ cảnh M09; chỉ ADMIN xem tỷ lệ tại M15. Quyền log không cấp quyền metric. | FR-M13-08, FR-M13-09, FR-M13-10, BR-M13-21, BR-M13-22, BR-M13-23, BR-M13-24, BR-M13-29 |
 | ACT-006 | UC-M13-020 | Hỗ trợ khi cần gọi | Nhà cung cấp chỉ nhận payload/trả kết quả, không quyết hệ quả owner | FR-M13-01, FR-M13-02, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-15, BR-M13-16, BR-M13-25 |
 | ACT-006 | UC-M13-021 | Hỗ trợ khi cần gọi | Nhà cung cấp chỉ nhận payload/trả kết quả, không quyết hệ quả owner | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
 | ACT-006 | UC-M13-022 | Hỗ trợ khi cần gọi | Nhà cung cấp chỉ nhận payload/trả kết quả, không quyết hệ quả owner | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
 | ACT-006 | UC-M13-023 | Hỗ trợ khi cần gọi | Nhà cung cấp chỉ nhận payload/trả kết quả, không quyết hệ quả owner | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
-| ACT-002 | UC-M13-001 | Nội dung qua M03/M08 | Theo quyền và điều kiện của UC/caller | FR-M13-02, BR-M13-11, BR-M13-15, BR-M13-16, BR-M13-25 |
-| ACT-008 | UC-M13-001 | Như User; không nút quét riêng | Theo quyền và điều kiện của UC/caller | FR-M13-02, BR-M13-11, BR-M13-15, BR-M13-16, BR-M13-25 |
-| ACT-002 | UC-M13-003 | Bài Đã đăng / sửa | Theo quyền và điều kiện của UC/caller | FR-M13-03, BR-M13-17, BR-M13-18, BR-M13-26 |
-| ACT-007 | UC-M13-003 | Bài Admin vẫn có embedding | Theo quyền và điều kiện của UC/caller | FR-M13-03, BR-M13-17, BR-M13-18, BR-M13-26 |
-| ACT-002 | UC-M13-004 | Truy vấn qua M06 | Theo quyền và điều kiện của UC/caller | FR-M13-04, BR-M13-06, BR-M13-07, BR-M13-10, BR-M13-19, FR-M06-02.03, FR-M06-02.05 |
-| ACT-007 | UC-M13-004 | Truy vấn qua M06 | Theo quyền và điều kiện của UC/caller | FR-M13-04, BR-M13-06, BR-M13-07, BR-M13-10, BR-M13-19, FR-M06-02.03, FR-M06-02.05 |
-| ACT-002 | UC-M13-005 | Yêu cầu hợp lệ M05 | Theo quyền và điều kiện của UC/caller | FR-M13-05, BR-M13-19, BR-M13-23, FR-M05-02.01, FR-M05-02.05, FR-M05-02.15 |
-| ACT-007 | UC-M13-005 | Yêu cầu hợp lệ M05 | Theo quyền và điều kiện của UC/caller | FR-M13-05, BR-M13-19, BR-M13-23, FR-M05-02.01, FR-M05-02.05, FR-M05-02.15 |
+| ACT-002 | UC-M13-001 | Nội dung qua M03/M08 | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-02, BR-M13-11, BR-M13-15, BR-M13-16, BR-M13-25 |
+| ACT-008 | UC-M13-001 | Như User; không nút quét riêng | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-02, BR-M13-11, BR-M13-15, BR-M13-16, BR-M13-25 |
+| ACT-002 | UC-M13-003 | Bài Đã đăng / sửa | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-03, BR-M13-17, BR-M13-18, BR-M13-26 |
+| ACT-007 | UC-M13-003 | Bài Admin vẫn có embedding | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-03, BR-M13-17, BR-M13-18, BR-M13-26 |
+| ACT-002 | UC-M13-004 | Truy vấn qua M06 | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-04, BR-M13-06, BR-M13-07, BR-M13-10, BR-M13-19, FR-M06-02.03, FR-M06-02.05 |
+| ACT-007 | UC-M13-004 | Truy vấn qua M06 | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-04, BR-M13-06, BR-M13-07, BR-M13-10, BR-M13-19, FR-M06-02.03, FR-M06-02.05 |
+| ACT-002 | UC-M13-005 | Yêu cầu hợp lệ M05 | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-05, BR-M13-19, BR-M13-23, FR-M05-02.01, FR-M05-02.05, FR-M05-02.15 |
+| ACT-007 | UC-M13-005 | Yêu cầu hợp lệ M05 | Theo caller M03/M05/M06 và điều kiện loại lời gọi; Admin miễn chấm kiểm duyệt, không miễn điều kiện embedding/Topic/tóm tắt. Không thêm UI/API M13 độc lập. | FR-M13-05, BR-M13-19, BR-M13-23, FR-M05-02.01, FR-M05-02.05, FR-M05-02.15 |
 | ACT-006 | UC-M13-008 | Yêu cầu / kết quả | Hỗ trợ lời gọi thật khi đủ công tắc, không tham gia đọc log/tính tỷ lệ | FR-M13-01, FR-M13-06.06, BR-M13-03, BR-M13-05, BR-M13-06, BR-M13-07, BR-M13-08, BR-M13-09, BR-M13-10, BR-M13-19 |
-| ACT-008 | UC-M13-009 | Đúng ngữ cảnh M09 | Theo quyền và điều kiện của UC/caller | FR-M13-09, BR-M13-21, BR-M13-22, FR-M09-06.05, BR-M09-12 |
-| ACT-007 | UC-M13-009 | Đúng ngữ cảnh M09 | Theo quyền và điều kiện của UC/caller | FR-M13-09, BR-M13-21, BR-M13-22, FR-M09-06.05, BR-M09-12 |
+| ACT-008 | UC-M13-009 | Đúng ngữ cảnh M09 | Chỉ Mod/Admin trong khiếu nại bài bị AI tự từ chối và được M09 cho xem; không tra cứu ngoài ngữ cảnh, sửa hoặc xóa log. | FR-M13-09, BR-M13-21, BR-M13-22, FR-M09-06.05, BR-M09-12 |
+| ACT-007 | UC-M13-009 | Đúng ngữ cảnh M09 | Chỉ Mod/Admin trong khiếu nại bài bị AI tự từ chối và được M09 cho xem; không tra cứu ngoài ngữ cảnh, sửa hoặc xóa log. | FR-M13-09, BR-M13-21, BR-M13-22, FR-M09-06.05, BR-M09-12 |
 | ACT-007 | UC-M13-010 | Qua thống kê M15 | Tính dữ liệu đã ghi, không lời gọi AI hoặc trang thống kê M13 mới | FR-M13-10, BR-M13-23, BR-M13-24, BR-M13-29, BR-M15-01, BR-M15-04, BR-M15-05, FR-M15-02.09 |
 
 Association người dùng với Subfunction tích hợp thể hiện tác nhân của tương tác iShare qua owner, không một UI/API M13 công khai mới. Lời gọi tự động từ bài/hàng bù không cần tạo actor giả; AUT/caller cung cấp ngữ cảnh. Staff M09/M15 có phạm vi riêng, không kế thừa quyền đánh giá vào việc xem log tự do; Mod không được tỷ lệ Admin chỉ vì xem log được.
@@ -1081,7 +1122,7 @@ Rà từng core với từng sub và mọi cặp sub–sub. Cặp có cạnh ở
 | UC-M13-021 | UC-M13-003 | UC-M13-004 | Embedding bài và truy vấn có trigger/lifetime/log/fallback khác nhau, không phải bước nối tiếp hoặc chuyên biệt hóa một hợp đồng hoàn chỉnh chung. | Cùng dùng UC008, AUT bài và caller M06 riêng. | FR-M13-03, FR-M13-04, BR-M13-17, BR-M13-18, BR-M13-26 |
 | UC-M13-022 | UC-M13-022 | UC-M13-005 | Core Summary có giá trị/range bao quát, không bắt mọi sub chạy trong cùng một lần; không có hợp đồng hành vi chung đủ để kế thừa. | Node core, brief và mapping. | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
 | UC-M13-022 | UC-M13-022 | UC-M13-008 | Core Summary có giá trị/range bao quát, không bắt mọi sub chạy trong cùng một lần; không có hợp đồng hành vi chung đủ để kế thừa. | Node core, brief và mapping. | FR-M13-05, BR-M13-05, BR-M13-19, BR-M13-23 |
-| UC-M13-023 | UC-M13-023 | UC-M13-008 | Core Summary có giá trị/range bao quát, không bắt mọi sub chạy trong cùng một lần; không có hợp đồng hành vi chung đủ để kế thừa. | Node core, brief và mapping. | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
+| UC-M13-023 | UC-M13-023 | UC-M13-008 | Core User goal nhận kết quả hiển thị qua UC006; UC008 chỉ được UC006 chèn tại cache miss. Core không gọi UC008 trực tiếp, không tạo cạnh chỉ vì thuộc cùng decomposition. | Node core, brief và mapping. | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
 | UC-M13-023 | UC-M13-006 | UC-M13-007 | Core023 đã kiểm UC007 trước cấp tóm tắt; UC008 kiểm cờ cho outbound call nhưng không tự kiểm quyền xem/cache của người yêu cầu. | Core023→UC007→UC006 theo bước, UC006 chỉ gọi UC008 khi miss. | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
 | UC-M13-023 | UC-M13-007 | UC-M13-008 | Core023 đã kiểm UC007 trước cấp tóm tắt; UC008 kiểm cờ cho outbound call nhưng không tự kiểm quyền xem/cache của người yêu cầu. | Core023→UC007→UC006 theo bước, UC006 chỉ gọi UC008 khi miss. | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28 |
 | UC-M13-024 | UC-M13-024 | UC-M13-009 | Core Summary có giá trị/range bao quát, không bắt mọi sub chạy trong cùng một lần; không có hợp đồng hành vi chung đủ để kế thừa. | Node core, brief và mapping. | FR-M13-08, FR-M13-09, FR-M13-10, BR-M13-21, BR-M13-22, BR-M13-23, BR-M13-24, BR-M13-29 |
@@ -1127,7 +1168,7 @@ Mỗi FR chi tiết/BR trỏ tiêu chí nguyên nghĩa bên trong hợp đồng/
 | BR-M13-26 | #aut-m13-002-br-m13-26 | Đủ | Đối chiếu [đặc tả](#aut-m13-002); tác vụ/quy tắc xuyên UC tại mục 3. Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
 | BR-M13-27 | #uc-m13-006-br-m13-27 | Đủ | Đối chiếu [đặc tả](#uc-m13-006) → [UC-M13-023](#uc-m13-023). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
 | BR-M13-28 | #uc-m13-006-br-m13-28 | Đủ | Đối chiếu [đặc tả](#uc-m13-006) → [UC-M13-023](#uc-m13-023). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
-| BR-M13-29 | #uc-m13-010-br-m13-29 | Đủ | Đối chiếu [đặc tả](#uc-m13-010) → [UC-M13-024](#uc-m13-024). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
+| BR-M13-29 | #uc-m13-010-br-m13-29 | Một phần | NOTE-M13-04: công thức/mẫu số dương và không có phản hồi đã rõ; Phụ lục A FR-M13-10.03 nói mẫu số 0 không có giá trị nhưng thân FR chỉ nêu không có phản hồi, cần xác nhận phạm vi với tập phản hồi không rỗng. |
 | FR-M13-01 | #rule-m13-001 | Đủ | Đối chiếu [đặc tả](#rule-m13-001); tác vụ/quy tắc xuyên UC tại mục 3. Các mã con hiệu lực được kiểm riêng. |
 | FR-M13-01.01 | #uc-m13-008-fr-m13-01-01 | Đủ | Đối chiếu [đặc tả](#uc-m13-008) → [UC-M13-020](#uc-m13-020), [UC-M13-021](#uc-m13-021), [UC-M13-022](#uc-m13-022), [UC-M13-023](#uc-m13-023). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
 | FR-M13-01.02 | #uc-m13-008-fr-m13-01-02 | Đủ | Đối chiếu [đặc tả](#uc-m13-008) → [UC-M13-020](#uc-m13-020), [UC-M13-021](#uc-m13-021), [UC-M13-022](#uc-m13-022), [UC-M13-023](#uc-m13-023). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
@@ -1216,7 +1257,7 @@ Mỗi FR chi tiết/BR trỏ tiêu chí nguyên nghĩa bên trong hợp đồng/
 | FR-M13-09.03 | #uc-m13-009-fr-m13-09-03 | Đủ | Đối chiếu [đặc tả](#uc-m13-009) → [UC-M13-024](#uc-m13-024). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
 | FR-M13-09.04 | #uc-m13-009-fr-m13-09-04 | Đủ | Đối chiếu [đặc tả](#uc-m13-009) → [UC-M13-024](#uc-m13-024). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
 | FR-M13-10 | #uc-m13-024 | Đủ | Đối chiếu [đặc tả](#uc-m13-024) → [UC-M13-024](#uc-m13-024). Các mã con hiệu lực được kiểm riêng. |
-| FR-M13-10.01 | #uc-m13-010-fr-m13-10-01 | Đủ | Đối chiếu [đặc tả](#uc-m13-010) → [UC-M13-024](#uc-m13-024). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
+| FR-M13-10.01 | #uc-m13-010-fr-m13-10-01 | Một phần | NOTE-M13-04: công thức/mẫu số dương và không có phản hồi đã rõ; Phụ lục A FR-M13-10.03 nói mẫu số 0 không có giá trị nhưng thân FR chỉ nêu không có phản hồi, cần xác nhận phạm vi với tập phản hồi không rỗng. |
 | FR-M13-10.02 | #uc-m13-010-fr-m13-10-02 | Đủ | Đối chiếu [đặc tả](#uc-m13-010) → [UC-M13-024](#uc-m13-024). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
 | FR-M13-10.03 | #uc-m13-010-fr-m13-10-03 | Đủ | Đối chiếu [đặc tả](#uc-m13-010) → [UC-M13-024](#uc-m13-024). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
 | FR-M13-10.04 | #uc-m13-010-fr-m13-10-04 | Đủ | Đối chiếu [đặc tả](#uc-m13-010) → [UC-M13-024](#uc-m13-024). Tiêu chí khớp nguồn và luồng/quy tắc thực thi. |
@@ -1259,7 +1300,7 @@ Chỉ UC-M13-020, UC-M13-021, UC-M13-022, UC-M13-023, UC-M13-024. Năm năng l�
 
 ### 6.2 Chi tiết riêng từng UC chính
 
-#### UC-M13-020 — Hỗ trợ kiểm duyệt nội dung bằng AI
+#### UC-M13-020 — Chấm điểm nội dung bằng AI
 
 **Focus:** UC-M13-020. **Node:** UC-M13-020, UC-M13-001, UC-M13-002, UC-M13-008. **Cạnh UC–UC:** 2.
 
@@ -1272,7 +1313,7 @@ Chỉ UC-M13-020, UC-M13-021, UC-M13-022, UC-M13-023, UC-M13-024. Năm năng l�
 
 Core Summary giữ node ngữ cảnh; các UC con và hành vi dùng chung đều có mặt. Mapping không tự thành mũi tên core xuống sub hoặc generalization.
 
-#### UC-M13-021 — Cung cấp biểu diễn ngữ nghĩa cho tìm kiếm
+#### UC-M13-021 — Tạo embedding cho tìm kiếm
 
 **Focus:** UC-M13-021. **Node:** UC-M13-021, UC-M13-003, UC-M13-004, UC-M13-008. **Cạnh UC–UC:** 2.
 
@@ -1285,7 +1326,7 @@ Core Summary giữ node ngữ cảnh; các UC con và hành vi dùng chung đề
 
 Core Summary giữ node ngữ cảnh; các UC con và hành vi dùng chung đều có mặt. Mapping không tự thành mũi tên core xuống sub hoặc generalization.
 
-#### UC-M13-022 — Cung cấp gợi ý Topic bằng AI
+#### UC-M13-022 — Gợi ý Topic bằng AI
 
 **Focus:** UC-M13-022. **Node:** UC-M13-022, UC-M13-005, UC-M13-008. **Cạnh UC–UC:** 1.
 
@@ -1297,7 +1338,7 @@ Core Summary giữ node ngữ cảnh; các UC con và hành vi dùng chung đề
 
 Core Summary giữ node ngữ cảnh; các UC con và hành vi dùng chung đều có mặt. Mapping không tự thành mũi tên core xuống sub hoặc generalization.
 
-#### UC-M13-023 — Yêu cầu và xem tóm tắt bài viết
+#### UC-M13-023 — Tóm tắt bài viết
 
 **Focus:** UC-M13-023. **Node:** UC-M13-023, UC-M13-006, UC-M13-007, UC-M13-008. **Cạnh UC–UC:** 3.
 
@@ -1309,7 +1350,7 @@ Core Summary giữ node ngữ cảnh; các UC con và hành vi dùng chung đề
 | UC-M13-023 | include | UC-M13-006 | [Đặc tả](#uc-m13-023-main-3) | Qua điều kiện dùng; [Trở về](#uc-m13-023-main-4) |
 | UC-M13-006 | include | UC-M13-008 | [Đặc tả](#uc-m13-006-alt-1) | Chưa có kết quả đang giữ hợp lệ và vẫn đủ điều kiện tạo; [Trở về](#uc-m13-006-main-3) |
 
-#### UC-M13-024 — Kiểm tra căn cứ AI và chất lượng gợi ý Topic
+#### UC-M13-024 — Xem nhật ký AI và tỷ lệ giữ Topic
 
 **Focus:** UC-M13-024. **Node:** UC-M13-024, UC-M13-009, UC-M13-010. **Cạnh UC–UC:** 0.
 
@@ -1321,21 +1362,21 @@ Core Summary giữ node ngữ cảnh; các UC con và hành vi dùng chung đề
 
 ### 6.3 Tổng quan toàn hệ thống
 
-Chưa có US-overview.md ở baseline. Lượt này chỉ M13; khi tổng hợp, lấy nguyên năm core (ID/tên/level/actor/owner) tại catalog và trỏ về đây. Không đưa10sub lên tổng quan hệ thống hoặc đổi actor nội bộ thành actor ngoài subject.
+Revision 2.3 đã có [US-overview](US-overview.md); ghi nhận “chưa có” ở lần phân tích cũ là lịch sử. Lượt này chỉ M13; khi tổng hợp, lấy nguyên năm core (ID/tên/level/actor/owner) tại catalog và trỏ về đây. Không đưa10sub lên tổng quan hệ thống hoặc đổi actor nội bộ thành actor ngoài subject.
 
 ## 7. Kiểm tra và phê duyệt
 
 <!-- uc:diagrams -->
 | id | view | focus | members | format | renderer | result | artifact |
 |---|---|---|---|---|---|---|---|
-| C-M13 | core | - | UC-M13-020, UC-M13-021, UC-M13-022, UC-M13-023, UC-M13-024 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M13/C-M13.svg |
-| D-M13-020 | detail | UC-M13-020 | UC-M13-020, UC-M13-001, UC-M13-002, UC-M13-008 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M13/D-M13-020.svg |
-| D-M13-021 | detail | UC-M13-021 | UC-M13-021, UC-M13-003, UC-M13-004, UC-M13-008 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M13/D-M13-021.svg |
-| D-M13-022 | detail | UC-M13-022 | UC-M13-022, UC-M13-005, UC-M13-008 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M13/D-M13-022.svg |
-| D-M13-023 | detail | UC-M13-023 | UC-M13-023, UC-M13-006, UC-M13-007, UC-M13-008 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M13/D-M13-023.svg |
-| D-M13-024 | detail | UC-M13-024 | UC-M13-024, UC-M13-009, UC-M13-010 | plantuml | PlantUML 1.2026.8 | pass | docs/specs/us/diagrams/M13/D-M13-024.svg |
+| C-M13 | core | - | UC-M13-020, UC-M13-021, UC-M13-022, UC-M13-023, UC-M13-024 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M13/C-M13.svg |
+| D-M13-020 | detail | UC-M13-020 | UC-M13-020, UC-M13-001, UC-M13-002, UC-M13-008 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M13/D-M13-020.svg |
+| D-M13-021 | detail | UC-M13-021 | UC-M13-021, UC-M13-003, UC-M13-004, UC-M13-008 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M13/D-M13-021.svg |
+| D-M13-022 | detail | UC-M13-022 | UC-M13-022, UC-M13-005, UC-M13-008 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M13/D-M13-022.svg |
+| D-M13-023 | detail | UC-M13-023 | UC-M13-023, UC-M13-006, UC-M13-007, UC-M13-008 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M13/D-M13-023.svg |
+| D-M13-024 | detail | UC-M13-024 | UC-M13-024, UC-M13-009, UC-M13-010 | plantuml | PlantUML 1.2026.8 | pass | diagrams/M13/D-M13-024.svg |
 
-### 7.1 Bằng chứng kiểm tra
+### 7.1 Bằng chứng kiểm tra lịch sử 2.2 (không phải lần kiểm 2.3)
 
 | Hạng mục | Lệnh/phương pháp | Kết quả thực tế | Giới hạn/bằng chứng |
 |---|---|---|---|
@@ -1352,7 +1393,7 @@ Chưa có US-overview.md ở baseline. Lượt này chỉ M13; khi tổng hợp,
 | NOTE-M13-01 | FR-M13-01.04, FR-M13-02.04, BR-M13-08, BR-M13-12 | Chưa quy định xử lý đầu ra AI thiếu điểm, sai kiểu/range, vector/Topic/tóm tắt không đúng hợp đồng, hoặc trạng thái log khi transport thành công nhưng dữ liệu không dùng được. | Không tự thay thiếu bằng0/coi sạch/chọn Topic hoặc thêm một retry thứ ba. | Giữ hợp đồng thành công theo nguồn và giới hạn hai lần thử; cần chốt cách phân loại lỗi/đầu ra bất thường, không tự thiết kế schema hay nội dung AI giả. |
 | NOTE-M13-02 | FR-M13-03.02, FR-M13-03.03, FR-M13-06.02, BR-M13-26, BR-M13-27 | Nội dung đổi trong lúc AI đang tạo embedding/tóm tắt hoặc hai yêu cầu cache miss cùng lúc chưa có quy tắc công bố kết quả; chưa nói cách dùng embedding cũ trong lúc bản hiện tại thiếu. | Ảnh hưởng một kết quả/bài và dữ liệu mới nhất; không được coi đầu ra của nội dung cũ là đã tạo cho nội dung mới. | Giữ một embedding/kết quả đang giữ theo hợp đồng; không tự chọn versioning, khóa, single-flight hoặc dùng vector cũ cho search. Trình quy tắc chuyển tiếp khi thiết kế cần nguồn bổ sung. |
 | NOTE-M13-03 | FR-M13-01.05, FR-M13-01.09, FR-M13-07.07, BR-M13-27 | Đổi công tắc giữa hai lần thử hoặc giữa kiểm điều kiện với cache trả về, phản hồi đến sau timeout, quyền xem đổi khi đang chờ chưa được mô tả hết. | Không đồng nhất một lần thử lại với một lời gọi nghiệp vụ mới, không tự hủy/chấp nhận kết quả muộn/cho truy cập theo quyền cũ. | Giữ cờ mới cho lời gọi sau đổi, mỗi call tối đa hai attempts; request tóm tắt khi tổng Tắt báo bận trước cache. Chính sách giao nhau/cancel/kết quả muộn cần chốt, không tự thêm cơ chế. |
-| NOTE-M13-04 | FR-M13-10.01, FR-M13-10.03, BR-M13-29; FR-M05-02.12 | Nguồn nói không có phản hồi thì không dữ liệu, chưa nói có phản hồi nhưng tổng Topic gợi ý bằng0. | Chưa có phép chia xác định cho mẫu số0 với tập bản ghi không rỗng. | Không tự gán0%/100% hoặc loại phản hồi trống; giữ công thức và chuyển tình huống này về phân tích yêu cầu. |
+| NOTE-M13-04 | FR-M13-10.01, FR-M13-10.03, BR-M13-29; FR-M05-02.12 | Thân FR-M13-10.03/BR-M13-29 chỉ nêu không có phản hồi; Phụ lục A dòng FR-M13-10.03 nói tổng bằng 0 thì tỷ lệ không xác định, không có giá trị để hiển thị. Cần xác nhận diễn giải này áp cho cả tập phản hồi không rỗng có mẫu số 0 hay chỉ trường hợp thân FR nêu. | Chưa có phép chia xác định cho mẫu số0 với tập bản ghi không rỗng. | Không tự gán0%/100% hoặc loại phản hồi trống; giữ công thức và chuyển tình huống này về phân tích yêu cầu. |
 | NOTE-M13-05 | FR-M13-03.05, FR-M13-03.10, BR-M13-26 | Chưa chốt cadence/ưu tiên tạo bù, xử lý mục chờ khi bài không còn Đã đăng hoặc cờ/AI đổi trong lúc tạo. | Không tạo cho Nháp/Chờ/Bị từ chối, nhưng chưa tự quyết xóa/giữ mục queue hoặc thời hạn hoàn tất. | Giữ điều kiện đủ công tắc/AI dùng được và nội dung hiện tại; không tự đặt cron, SLA, số lần bù hay retry vô hạn. Embedding/data của bài xóa mềm vẫn giữ theo source CRUD. |
 | NOTE-M13-06 | FR-M13-08.01, FR-M13-08.03, FR-M13-08.09, FR-M13-09.04; FR-M05-02.01 | Gợi ý có thể diễn ra trên bản soạn, nguồn chưa chỉ rõ liên hệ bài trong log nếu bản soạn chưa có định danh bền; yêu cầu bị cờ chặn không tạo outbound call chưa có loại log riêng. | Không được bỏ yêu cầu log/bịa bài hoặc log quyết định giả; ghi lỗi cho Admin không là quyền tra cứu ngoài M09. | Giữ gắn log với bài/bình luận cho các lời gọi có thật, cần làm rõ định danh bản soạn nếu cần. Không thêm dashboard/email/inbox lỗi hay log thất bại cho việc AI tắt chủ đích khi chưa có nguồn. |
 | TBD-M13-01 | FR-M13 Phụ lục B.2; OPEN-001 | Ngân sách AI cho MS1 hoãn có chủ đích, mức Thấp. | Ảnh hưởng quyết định ngân sách/vận hành dịch vụ thật, không chặn việc lập mô hình từ FR đã chốt. | Giữ TBD theo nguồn, không tự chốt ngân sách/nhà cung cấp/model hoặc khẳng định ước tính cũ là giá hiện hành; không mua/nạp dịch vụ trong tác vụ phân tích. |
@@ -1365,3 +1406,96 @@ Chưa có US-overview.md ở baseline. Lượt này chỉ M13; khi tổng hợp,
 
 Chưa có US-M13 trước lượt này, không đổi ID đã duyệt. Giữ ACT-001/ACT-002/ACT-008/ACT-007/ACT-006 hiện có. Hoàn tất bước 7 chỉ chuyển Chờ duyệt; chỉ ghi Đã duyệt khi người dùng chấp nhận kết quả cuối, quyền làm liên tục không thay bằng chứng phê duyệt.
 
+
+
+## Chuẩn hóa tên use case — 2026-11-24
+
+Tên UC đã được đối chiếu theo hướng dẫn IBM/Visual Paradigm và cập nhật đồng bộ với sơ đồ. Xem [nguyên tắc, nguồn tham khảo và bảng tên cũ → mới](UC-NAMING.md). ID, anchor, actor, phân rã, quan hệ và nội dung luồng nghiệp vụ được giữ nguyên; phạm vi tổng quan vẫn chỉ chọn các core hiện có trong một boundary iShare.
+
+
+### 7.4 Walkthrough từng đường đi — revision 2.3
+
+Bảng dưới ghi riêng main và mỗi nhánh của từng hợp đồng, dùng trạng thái/guard thực tế. “Đối chiếu” chỉ áp phần nguồn đã định; các NOTE nêu rõ phần chưa thể kết luận. Một END ghi cần làm rõ không phải failure guarantee đã chốt.
+
+| UC/đường đi | Trạng thái/quyền trước | Điểm rẽ và return/END | Postcondition thực tế/giới hạn | Nguồn/kết quả |
+|---|---|---|---|---|
+| UC-M13-023/[main](#uc-m13-023-main-1) | Trigger: Người dùng bấm Tóm tắt trên bài có tiêu đề+nội dung chữ từ 300 từ. Trước: Có bài và định danh/ngữ cảnh xem; điều kiện đăng nhập, từ, quyền xem, công tắc được kiểm trong luồng, không giả định đã qua. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Tóm tắt hợp lệ đang giữ hoặc mới tạo được hiển thị với ghi chú về tệp đính kèm; bài đầy đủ vẫn đọc được. | FR-M13-06, FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27, BR-M13-28; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-023/[A1](#uc-m13-023-alt-1) | Có bài và định danh/ngữ cảnh xem; điều kiện đăng nhập, từ, quyền xem, công tắc được kiểm trong luồng, không giả định đã qua. Guard: Guest bấm nút. | Rẽ [Bước 2](#uc-m13-023-main-2); END: chưa sử dụng tóm tắt. | UC007 không tạo/trả tóm tắt và nhắc đăng nhập; không include một lần Đăng nhập vào UC này. | FR-M13-07.03; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-023/[A2](#uc-m13-023-alt-2) | Có bài và định danh/ngữ cảnh xem; điều kiện đăng nhập, từ, quyền xem, công tắc được kiểm trong luồng, không giả định đã qua. Guard: Không đủ từ/không xem được bài. | Rẽ [Bước 2](#uc-m13-023-main-2); END: không cung cấp tóm tắt. | UC007 không cho dùng; nút không hiện khi dưới300 từ. Không tự chọn thông báo lỗi quyền ngoài nguồn. | FR-M13-07.01, FR-M13-07.02, BR-M13-20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-023/[A3](#uc-m13-023-alt-3) | Có bài và định danh/ngữ cảnh xem; điều kiện đăng nhập, từ, quyền xem, công tắc được kiểm trong luồng, không giả định đã qua. Guard: AI tổng Tắt, dù còn kết quả đang giữ. | Rẽ [Bước 2](#uc-m13-023-main-2); END: đọc bài đầy đủ như thường. | Báo hệ thống đang bận ngay, không gọi AI và không trả kết quả giữ thay nhánh tắt; không tự xóa kết quả chỉ vì tắt cờ. | FR-M13-07.06, FR-M13-07.07, FR-M13-07.08, BR-M13-06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-023/[A4](#uc-m13-023-alt-4) | Có bài và định danh/ngữ cảnh xem; điều kiện đăng nhập, từ, quyền xem, công tắc được kiểm trong luồng, không giả định đã qua. Guard: Lời gọi tóm tắt thất bại sau hai lần thử. | Rẽ [Bước 3](#uc-m13-023-main-3); END: chưa có tóm tắt. | Không giữ kết quả, hiện hệ thống đang bận, vui lòng thử lại sau; bài đầy đủ vẫn đọc được. | FR-M13-06.07, FR-M13-07.05, FR-M13-07.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-001/[main](#uc-m13-001-main-1) | Trigger: M03 gửi bài mới/sửa/bài tự ẩn đã sửa được hiện lại, hoặc M08 chuyển bình luận cần quét. Trước: Có nội dung, loại, tác giả và ngữ cảnh do owner cung cấp; M13 không tự đặt ngưỡng tốc độ hoặc quét bù kiểm duyệt. | 1 → 2 → 3 → 4 → 5; END: đạt kết quả đường chính của hợp đồng. | Trả điểm quét/nhóm/khoảng cho từng nội dung hợp lệ; không ra hệ quả hoặc gọi hai lần riêng cổng/cảnh cáo. | FR-M13-02, BR-M13-11, BR-M13-15, BR-M13-16, BR-M13-25; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-001/[A1](#uc-m13-001-alt-1) | Có nội dung, loại, tác giả và ngữ cảnh do owner cung cấp; M13 không tự đặt ngưỡng tốc độ hoặc quét bù kiểm duyệt. Guard: Nội dung của Admin hoặc tin nhắn chat. | Rẽ [Bước 2](#uc-m13-001-main-2); END: không có quét loại này. | Không chấm, không chế tạo điểm 0 hoặc log chấm thành công thay cho việc miễn quét; owner áp ngoại lệ của mình. | FR-M13-02.11, FR-M13-02.12, BR-M13-16, FR-M16-05.09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-001/[A2](#uc-m13-001-alt-2) | Có nội dung, loại, tác giả và ngữ cảnh do owner cung cấp; M13 không tự đặt ngưỡng tốc độ hoặc quét bù kiểm duyệt. Guard: Tổng/Moderation tắt. | Rẽ [Bước 3](#uc-m13-001-main-3); END: trả AI tắt. | UC008 không gọi AI, báo AI tắt để owner dùng luồng chủ đích. | FR-M13-02.13, BR-M13-06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-001/[A3](#uc-m13-001-alt-3) | Có nội dung, loại, tác giả và ngữ cảnh do owner cung cấp; M13 không tự đặt ngưỡng tốc độ hoặc quét bù kiểm duyệt. Guard: Hai lần thử đều lỗi. | Rẽ [Bước 3](#uc-m13-001-main-3); END: thất bại có chủ thể, không thay cờ. | Báo thất bại đúng nội dung cho M03/M08; giữ nguyên trạng thái bình luận theo M08, bài gửi/sửa/nhóm xử lý theo owner. AUT003 ghi thất bại từng bình luận khi có lời gọi. | FR-M13-02.15, FR-M13-08.09, BR-M13-10; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-001/[A4](#uc-m13-001-alt-4) | Có nội dung, loại, tác giả và ngữ cảnh do owner cung cấp; M13 không tự đặt ngưỡng tốc độ hoặc quét bù kiểm duyệt. Guard: Đầu ra thiếu/không hợp lệ cho bốn điểm. | Rẽ [Bước 4](#uc-m13-001-main-4); END: cần làm rõ trường hợp đầu ra không hợp lệ. | Không tự thay điểm thiếu bằng 0 hoặc coi nội dung sạch; xử lý hợp đồng đầu ra chưa được nguồn chốt, ghi NOTE-M13-01. | FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, FR-M13-02.07; pending-confirmation: NOTE-M13-01 |
+| UC-M13-002/[main](#uc-m13-002-main-1) | Trigger: UC001 chèn khi nhận bốn điểm hợp lệ. Trước: Có bốn điểm 0–1 theo đúng nhóm; các đầu ra bất thường giữ ở NOTE-M13-01. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Điểm=max, nhóm theo tie-break cố định, khoảng cao/nghi ngờ/sạch theo cặp dùng chung; trả owner. | FR-M13-02.04, FR-M13-02.05, FR-M13-02.06, FR-M13-02.07, FR-M13-02.08, FR-M13-02.09, FR-M13-02.10, FR-M13-02.14, BR-M13-01, BR-M13-11, BR-M13-12, BR-M13-13, BR-M13-14, BR-M13-15; đối chiếu đường thành công có dữ liệu/quyền hợp lệ; giới hạn NOTE-M13-01 |
+| UC-M13-002/[A1](#uc-m13-002-alt-1) | Có bốn điểm 0–1 theo đúng nhóm; các đầu ra bất thường giữ ở NOTE-M13-01. Guard: Hai hoặc nhiều nhóm hòa. | Rẽ [Bước 2](#uc-m13-002-main-2); [Tiếp tục](#uc-m13-002-main-3) | Áp thứ tự cố định, không chọn ngẫu nhiên hoặc theo mức phạt nặng hơn. | FR-M13-02.06, BR-M13-12; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-002/[A2](#uc-m13-002-alt-2) | Có bốn điểm 0–1 theo đúng nhóm; các đầu ra bất thường giữ ở NOTE-M13-01. Guard: Loại vi phạm là Spam/Quảng cáo, Đạo văn/Bản quyền, Nội dung sai/gây hiểu nhầm. | Rẽ [Bước 4](#uc-m13-002-main-4); END: giữ phạm vi bốn nhóm chấm. | Không có điểm AI phát hiện các loại này, chỉ qua báo cáo M08. | FR-M13-02.10, BR-M13-11; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-003/[main](#uc-m13-003-main-1) | Trigger: AUT001 theo mốc Đã đăng/đổi tiêu đề-nội dung, hoặc AUT002 tạo bù khi đủ điều kiện. Trước: Có bài, trạng thái đăng hiện hành, nội dung và lý do kích hoạt; không là thao tác thủ công của actor. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Một embedding cho bài theo nội dung dùng để tạo, thay bản cũ khi tạo lại; trả M06, tạo bù thành công ra khỏi hàng chờ. | FR-M13-03, BR-M13-17, BR-M13-18, BR-M13-26; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-003/[A1](#uc-m13-003-alt-1) | Có bài, trạng thái đăng hiện hành, nội dung và lý do kích hoạt; không là thao tác thủ công của actor. Guard: Chỉ Tag/Topic/ảnh/tài liệu thay đổi. | Rẽ [Bước 2](#uc-m13-003-main-2); END: không có lời gọi mới. | Không tạo lại embedding do thay đổi này. | FR-M13-03.04, BR-M13-18; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-003/[A2](#uc-m13-003-alt-2) | Có bài, trạng thái đăng hiện hành, nội dung và lý do kích hoạt; không là thao tác thủ công của actor. Guard: Bài chưa Đã đăng (Nháp/Chờ/Bị từ chối) hoặc đối tượng là bình luận. | Rẽ [Bước 2](#uc-m13-003-main-2); END: không tạo cho đối tượng này. | Không tạo embedding; xử lý mục tạo bù có trạng thái đổi chưa được nguồn chốt riêng, xem NOTE-M13-02. | FR-M13-03.05, FR-M13-03.06, BR-M13-17, BR-M13-18; pending-confirmation: NOTE-M13-02 |
+| UC-M13-003/[A3](#uc-m13-003-alt-3) | Có bài, trạng thái đăng hiện hành, nội dung và lý do kích hoạt; không là thao tác thủ công của actor. Guard: AI tổng/Search tắt hoặc cả hai lần thử lỗi. | Rẽ [Bước 3](#uc-m13-003-main-3); END: chờ tạo bù. | Không làm đổi việc hiển thị bài; đưa bài vào hàng chờ tạo bù theo nội dung hiện tại, không coi embedding cũ là bản mới đã tạo. | FR-M13-03.08, FR-M13-03.09, BR-M13-26; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-004/[main](#uc-m13-004-main-1) | Trigger: M06 chuyển truy vấn tìm bài của người đã đăng nhập đã qua giới hạn tìm kiếm của mình. Trước: Có truy vấn và ngữ cảnh danh tính do M06 cung cấp; không có rate-limit M13 riêng. | 1 → 2 → 3; END: đạt kết quả đường chính của hợp đồng. | Trả embedding truy vấn cho M06; không ghi log AI của truy vấn. | FR-M13-04, BR-M13-06, BR-M13-07, BR-M13-10, BR-M13-19, FR-M06-02.03, FR-M06-02.05; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-004/[A1](#uc-m13-004-alt-1) | Có truy vấn và ngữ cảnh danh tính do M06 cung cấp; không có rate-limit M13 riêng. Guard: Guest. | Rẽ [Bước 1](#uc-m13-004-main-1); END: không tạo truy vấn ngữ nghĩa. | Không tạo embedding, M06 dùng cách tìm dành Guest theo owner. | FR-M13-04.04; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-004/[A2](#uc-m13-004-alt-2) | Có truy vấn và ngữ cảnh danh tính do M06 cung cấp; không có rate-limit M13 riêng. Guard: Tổng/Search tắt. | Rẽ [Bước 2](#uc-m13-004-main-2); END: trả AI tắt. | Không gọi AI, báo AI tắt để M06 full-text. | FR-M13-04.02, BR-M13-06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-004/[A3](#uc-m13-004-alt-3) | Có truy vấn và ngữ cảnh danh tính do M06 cung cấp; không có rate-limit M13 riêng. Guard: Hai lần thử lỗi. | Rẽ [Bước 2](#uc-m13-004-main-2); END: lỗi riêng truy vấn. | Báo thất bại cho M06, chỉ truy vấn này full-text; yêu cầu sau vẫn được gọi nếu đủ công tắc. | FR-M13-04.03, BR-M13-07, BR-M13-10, FR-M06-02.05; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-005/[main](#uc-m13-005-main-1) | Trigger: M05 chuyển yêu cầu gợi ý hợp lệ của tác giả. Trước: Yêu cầu đã qua ngưỡng 20 từ/10 lần/60 giây của M05; có tiêu đề/nội dung chữ và liên hệ bản soạn/bài cho log theo nguồn. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Trả các Topic AI gợi ý để M05 đối chiếu danh mục/hiển thị; ghi log lời gọi theo AUT003. | FR-M13-05, BR-M13-19, BR-M13-23, FR-M05-02.01, FR-M05-02.05, FR-M05-02.15; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-005/[A1](#uc-m13-005-alt-1) | Yêu cầu đã qua ngưỡng 20 từ/10 lần/60 giây của M05; có tiêu đề/nội dung chữ và liên hệ bản soạn/bài cho log theo nguồn. Guard: Tổng/Topic suggestion tắt. | Rẽ [Bước 3](#uc-m13-005-main-3); END: không có lời gọi gợi ý. | Không lấy gợi ý, trả AI tắt; M05 cho tự chọn theo luồng của mình. | FR-M13-05.04, BR-M13-06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-005/[A2](#uc-m13-005-alt-2) | Yêu cầu đã qua ngưỡng 20 từ/10 lần/60 giây của M05; có tiêu đề/nội dung chữ và liên hệ bản soạn/bài cho log theo nguồn. Guard: Hai lần thử lỗi. | Rẽ [Bước 3](#uc-m13-005-main-3); END: thất bại gợi ý. | Trả thất bại, M05 báo lỗi không chặn, tác giả tự chọn; không tự đặt Topic mặc định. | FR-M13-05.03, BR-M13-10, FR-M05-02.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-006/[main](#uc-m13-006-main-1) | Trigger: Core023 chèn sau UC007 kiểm điều kiện sử dụng. Trước: Caller đã kiểm đăng nhập/quyền xem/300 từ/AI tổng; có bài và tiêu đề+nội dung chữ. | 1 → 2 → 3; END: đạt kết quả đường chính của hợp đồng. | Cache hợp lệ được dùng lại không gọi AI; tạo mới thành công giữ một kết quả cho bài24 giờ từ lúc tạo, không gia hạn do có người đọc. | FR-M13-06, BR-M13-19, BR-M13-20, BR-M13-26, BR-M13-27, BR-M13-28; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-006/[A1](#uc-m13-006-alt-1) | Caller đã kiểm đăng nhập/quyền xem/300 từ/AI tổng; có bài và tiêu đề+nội dung chữ. Guard: Chưa có kết quả đang giữ hợp lệ. | Rẽ [Bước 2](#uc-m13-006-main-2); [Tiếp tục](#uc-m13-006-main-3) | Chèn UC008 loại tóm tắt với tiêu đề+nội dung chữ, không attachments/poll;10 giây mỗi lần thử. Thành công giữ kết quả cho bài24 giờ kể từ lúc tạo, trả caller; không tạo tự động trước yêu cầu. | FR-M13-06.01, FR-M13-06.02, FR-M13-06.06, FR-M13-06.08, BR-M13-27, BR-M13-28; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-006/[A2](#uc-m13-006-alt-2) | Caller đã kiểm đăng nhập/quyền xem/300 từ/AI tổng; có bài và tiêu đề+nội dung chữ. Guard: Đủ24 giờ hoặc tiêu đề/nội dung đổi/bài dưới300 từ. | Rẽ [Bước 2](#uc-m13-006-main-2); [A1](#uc-m13-006-alt-1) nếu vẫn đủ điều kiện tạo; END: không cung cấp tóm tắt khi dưới 300 từ, không dùng lại bản hết hạn. | AUT004 bỏ kết quả; nếu vẫn đủ điều kiện tạo mới thì đi nhánh A1, dưới300 từ không cấp tóm tắt. | FR-M13-06.04, FR-M13-06.05, BR-M13-20, BR-M13-27; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-006/[A3](#uc-m13-006-alt-3) | Caller đã kiểm đăng nhập/quyền xem/300 từ/AI tổng; có bài và tiêu đề+nội dung chữ. Guard: Lời gọi ở A1 bị tắt hoặc thất bại sau hai lần thử. | Rẽ [Bước 2](#uc-m13-006-main-2); END: không có tóm tắt cho yêu cầu này. | Không giữ kết quả nào; trả nhánh bận cho core023, không đưa bài vào hàng tạo bù tóm tắt. | FR-M13-06.07, FR-M13-06.11, BR-M13-06, BR-M13-10, BR-M13-26; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-007/[main](#uc-m13-007-main-1) | Trigger: Core023 chèn trước cả cache hit và cache miss. Trước: Có danh tính nếu đăng nhập, quyền xem do owner cung cấp, tiêu đề/nội dung chữ và AI tổng. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Người đăng nhập được xem bài, từ 300 từ, tổng Bật được chuyển lấy tóm tắt; không áp rate-limit tóm tắt riêng. | FR-M13-07, BR-M13-06, BR-M13-19, BR-M13-20, BR-M13-27; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-007/[A1](#uc-m13-007-alt-1) | Có danh tính nếu đăng nhập, quyền xem do owner cung cấp, tiêu đề/nội dung chữ và AI tổng. Guard: Guest. | Rẽ [Bước 2](#uc-m13-007-main-2); END: chưa đủ điều kiện. | Không tạo/trả tóm tắt, hiển thị yêu cầu đăng nhập. | FR-M13-07.03, BR-M13-20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-007/[A2](#uc-m13-007-alt-2) | Có danh tính nếu đăng nhập, quyền xem do owner cung cấp, tiêu đề/nội dung chữ và AI tổng. Guard: Không có quyền xem bài. | Rẽ [Bước 2](#uc-m13-007-main-2); END: không được xem tóm tắt. | Không cấp tóm tắt; thông điệp quyền/hiển thị bài theo owner, không tự mở nội dung Private/ẩn/xóa. | FR-M13-07.01, BR-M13-20; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-007/[A3](#uc-m13-007-alt-3) | Có danh tính nếu đăng nhập, quyền xem do owner cung cấp, tiêu đề/nội dung chữ và AI tổng. Guard: Dưới300 từ. | Rẽ [Bước 3](#uc-m13-007-main-3); END: không đủ từ. | Không hiện nút; AUT004 bỏ kết quả đang giữ nếu có. Không tạo tóm tắt ngắn hơn để bù. | FR-M13-07.02, BR-M13-20, BR-M13-27; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-007/[A4](#uc-m13-007-alt-4) | Có danh tính nếu đăng nhập, quyền xem do owner cung cấp, tiêu đề/nội dung chữ và AI tổng. Guard: Tổng Tắt. | Rẽ [Bước 4](#uc-m13-007-main-4); END: tính năng chủ đích tắt. | Nút vẫn hiện khi đủ từ, bấm báo hệ thống đang bận ngay, không gọi AI hoặc trả cache thay nhánh tắt; bài đầy đủ vẫn đọc. | FR-M13-07.06, FR-M13-07.07, FR-M13-07.08, BR-M13-06; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-008/[main](#uc-m13-008-main-1) | Trigger: UC001/003/004/005 hoặc nhánh tạo mới của UC006 chèn. Trước: Có loại/payload/ngữ cảnh gắn nội dung và các điều kiện nghiệp vụ caller kiểm; M05/M06 chịu rate-limit của mình. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Trả đầu ra thật nếu một lần thử thành công; các loại có log được AUT003 ghi một bản cho toàn lời gọi. | FR-M13-01, FR-M13-06.06, BR-M13-03, BR-M13-05, BR-M13-06, BR-M13-07, BR-M13-08, BR-M13-09, BR-M13-10, BR-M13-19; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-008/[A1](#uc-m13-008-alt-1) | Có loại/payload/ngữ cảnh gắn nội dung và các điều kiện nghiệp vụ caller kiểm; M05/M06 chịu rate-limit của mình. Guard: Tổng hoặc riêng tương ứng Tắt. | Rẽ [Bước 2](#uc-m13-008-main-2); END: AI tắt chủ đích. | Không gửi lời gọi, báo AI đang tắt để caller dùng dự phòng. Không coi AI tắt là hai lần thử lỗi hoặc chế tạo đầu ra thô. | FR-M13-01.02, FR-M13-01.03, FR-M13-01.09, BR-M13-06, BR-M13-07; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-008/[A2](#uc-m13-008-alt-2) | Có loại/payload/ngữ cảnh gắn nội dung và các điều kiện nghiệp vụ caller kiểm; M05/M06 chịu rate-limit của mình. Guard: Dịch vụ báo lỗi hoặc hết thời gian chờ chưa có kết quả ở lần đầu. | Rẽ [Bước 3](#uc-m13-008-main-3); [Tiếp tục](#uc-m13-008-main-4) | Đợi2 giây rồi thử lại đúng một lần, cùng timeout theo loại; không chạy song song hai lần thử của cùng lời gọi. Nếu lần hai thành công tiếp bước4; các lời gọi khác vẫn độc lập. | FR-M13-01.04, FR-M13-01.05, BR-M13-08, BR-M13-09; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-008/[A3](#uc-m13-008-alt-3) | Có loại/payload/ngữ cảnh gắn nội dung và các điều kiện nghiệp vụ caller kiểm; M05/M06 chịu rate-limit của mình. Guard: Cả lần đầu và thử lại đều lỗi. | Rẽ [Bước 3](#uc-m13-008-main-3); END: thất bại riêng lời gọi. | Trả thất bại cho caller, giữ nguyên công tắc và xử lý các lời gọi khác bình thường; AUT003 ghi một thất bại nếu thuộc loại có log. | FR-M13-01.06, FR-M13-01.07, BR-M13-07, BR-M13-10; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-008/[A4](#uc-m13-008-alt-4) | Có loại/payload/ngữ cảnh gắn nội dung và các điều kiện nghiệp vụ caller kiểm; M05/M06 chịu rate-limit của mình. Guard: Nhận đầu ra không đúng hợp đồng hoặc phản hồi đến sau timeout. | Rẽ [Bước 3](#uc-m13-008-main-3); END: giữ giới hạn nguồn NOTE-M13-01/03. | Hết timeout là lỗi theo nguồn; cách xử lý late response/đầu ra sai schema chưa chốt không được tự dùng làm kết quả sạch hoặc chèn thêm một lần thử thứ ba. | FR-M13-01.04, FR-M13-01.05, FR-M13-01.06, BR-M13-08, BR-M13-09; pending-confirmation: NOTE-M13-01 |
+| UC-M13-009/[main](#uc-m13-009-main-1) | Trigger: Mod/Admin mở căn cứ AI trong một khiếu nại thuộc loại này tại M09. Trước: Có khiếu nại/bài và định danh; M09 kiểm phạm vi người xét, M13 không coi mọi staff được xem mọi log. | 1 → 2 → 3 → 4; END: đạt kết quả đường chính của hợp đồng. | Hiện log bài liên quan gồm loại/thành công-thất bại/đầu ra thô khi có; nội dung tác giả DELETED vẫn tra qua username. | FR-M13-09, BR-M13-21, BR-M13-22, FR-M09-06.05, BR-M09-12; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-009/[A1](#uc-m13-009-alt-1) | Có khiếu nại/bài và định danh; M09 kiểm phạm vi người xét, M13 không coi mọi staff được xem mọi log. Guard: Guest/User hoặc không đúng ngữ cảnh khiếu nại AI tự từ chối, hay M09 không cho xem. | Rẽ [Bước 2](#uc-m13-009-main-2); END: không được xem log tại đây. | Từ chối xem; không cấp chỗ tra cứu khác kể cả Admin hoặc mục ghi lỗi bình luận cho Admin. | FR-M13-09.02, FR-M13-09.04, FR-M09-06.07, FR-M09-06.08, BR-M09-12; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-009/[A2](#uc-m13-009-alt-2) | Có khiếu nại/bài và định danh; M09 kiểm phạm vi người xét, M13 không coi mọi staff được xem mọi log. Guard: Tác giả đã DELETED. | Rẽ [Bước 3](#uc-m13-009-main-3); [Tiếp tục](#uc-m13-009-main-4) | Vẫn trả log theo liên hệ bài/username, không xóa hoặc mất căn cứ. | FR-M13-09.03, FR-M13-08.08, BR-M13-22; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-010/[main](#uc-m13-010-main-1) | Trigger: M15 mở trang Nội dung hoặc đổi khoảng, sau kiểm quyền Admin. Trước: Có ngữ cảnh Admin và khoảng Hôm nay/7 ngày/30 ngày/Toàn thời gian; M05 cung cấp phản hồi hợp lệ đã ghi. | 1 → 2 → 3 → 4 → 5; END: đạt kết quả đường chính của hợp đồng. | Tổng số Topic gợi ý được giữ÷tổng số Topic gợi ý trong khoảng, gồm phản hồi đã xóa danh tính; không có phản hồi trả không dữ liệu. | FR-M13-10, BR-M13-23, BR-M13-24, BR-M13-29, BR-M15-01, BR-M15-04, BR-M15-05, FR-M15-02.09; đối chiếu đường thành công có dữ liệu/quyền hợp lệ |
+| UC-M13-010/[A1](#uc-m13-010-alt-1) | Có ngữ cảnh Admin và khoảng Hôm nay/7 ngày/30 ngày/Toàn thời gian; M05 cung cấp phản hồi hợp lệ đã ghi. Guard: Không phải Admin. | Rẽ [Bước 1](#uc-m13-010-main-1); END: không xem chỉ số. | M15/M13 từ chối phạm vi thống kê, không cấp quyền vì người này là Mod được xem log. | FR-M13-10.04, BR-M15-01; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-010/[A2](#uc-m13-010-alt-2) | Có ngữ cảnh Admin và khoảng Hôm nay/7 ngày/30 ngày/Toàn thời gian; M05 cung cấp phản hồi hợp lệ đã ghi. Guard: Không có phản hồi trong khoảng. | Rẽ [Bước 3](#uc-m13-010-main-3); END: không có tỷ lệ. | Báo không có dữ liệu thay vì tỷ lệ0 hoặc một giá trị dựng sẵn. | FR-M13-10.03, BR-M13-29, FR-M15-02.08; Đối chiếu guard, điểm hợp luồng và kết quả theo nguồn; không suy rollback/retry ngoài hợp đồng |
+| UC-M13-010/[A3](#uc-m13-010-alt-3) | Có ngữ cảnh Admin và khoảng Hôm nay/7 ngày/30 ngày/Toàn thời gian; M05 cung cấp phản hồi hợp lệ đã ghi. Guard: Có phản hồi nhưng tổng số Topic gợi ý bằng 0. | Rẽ [Bước 4](#uc-m13-010-main-4); END: cần làm rõ mẫu số 0. | Không tự chia 0 hoặc coi là0/100%; giữ NOTE-M13-04: Phụ lục A FR-M13-10.03 đã nêu tổng 0 không có giá trị; cần xác nhận phạm vi so với thân FR chỉ nêu không có phản hồi, chưa tự chọn kết quả cho tập phản hồi không rỗng. | FR-M13-10.01, FR-M13-10.03, BR-M13-29; pending-confirmation: NOTE-M13-04 |
+
+### 7.5 Vòng đời gap/nguồn cần xác nhận — revision 2.3
+
+Bảng 7.2 giữ nội dung phát hiện trước; bảng này bổ sung phạm vi, mức chặn và điều kiện đóng. Các đường đã xác định tiếp tục dùng; phần blocking không được nhận semantic pass. Người có quyền quyết định chưa được chỉ định trong nguồn thì ghi **chưa xác định**, không mặc định Admin sản phẩm có quyền phê duyệt yêu cầu.
+
+| ID/nguồn baseline | UC/đường đi bị ảnh hưởng | Mức chặn và lý do | Người xác nhận | Register | Trạng thái | Điều kiện đóng/bằng chứng |
+|---|---|---|---|---|---|---|
+| NOTE-M13-01; FR-M13 baseline tại metadata; FR-M13-01.04, FR-M13-02.04, BR-M13-08, BR-M13-12 | UC-M13-001/A4, UC-M13-008/A4; đầu ra sai hợp đồng của 003/005/006 | blocking: chưa xác định kết quả nghiệp vụ/phân loại lỗi/log khi đầu ra AI không dùng được | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M13-02; FR-M13 baseline tại metadata; FR-M13-03.02, FR-M13-03.03, FR-M13-06.02, BR-M13-26, BR-M13-27 | UC-M13-003/006; AUT-M13-001/002/004, nội dung đổi/cache miss đồng thời | blocking: chưa xác định kết quả nào được công bố và vector cũ được dùng hay không | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M13-03; FR-M13 baseline tại metadata; FR-M13-01.05, FR-M13-01.09, FR-M13-07.07, BR-M13-27 | UC-M13-007/008 và UC-M13-008/A4; đổi cờ/quyền/late response trong lượt | blocking: chưa chốt kết quả muộn hoặc điều kiện quyền lúc công bố | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M13-04; FR-M13 baseline tại metadata; FR-M13-10.01, FR-M13-10.03, BR-M13-29; FR-M05-02.12 | UC-M13-010/A3 và UC-M15-021/A5 | blocking: cần xác nhận no-value của Phụ lục A FR-M13-10.03 áp cho mọi mẫu số 0 hay chỉ tập không phản hồi của thân FR; không tự suy 0%/100% | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M13-05; FR-M13 baseline tại metadata; FR-M13-03.05, FR-M13-03.10, BR-M13-26 | UC-M13-003/A2, AUT-M13-002; mục chờ không còn Đã đăng | blocking: chưa chốt giữ/xóa mục chờ khi trạng thái bài thay đổi; cadence kỹ thuật riêng không làm chặn | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| NOTE-M13-06; FR-M13 baseline tại metadata; FR-M13-08.01, FR-M13-08.03, FR-M13-08.09, FR-M13-09.04; FR-M05-02.01 | UC-M13-005; AUT-M13-003, gợi ý bản soạn chưa có ID bền | blocking: chưa xác định liên hệ bài bắt buộc của log cho lượt này; không bịa ID bài | Chưa xác định; cần đầu mối yêu cầu của owner và các module giao tiếp | Đề xuất ghi register sau khi stakeholder xác nhận; chưa có mã ISS/OPEN/QA/DEC mới | pending-confirmation | Chờ quyết định có thẩm quyền ghi register, cập nhật FR/baseline nếu cần; sau đó review lại đúng đường/quan hệ/trace và view bị tác động. Chưa có bằng chứng chấp thuận đóng. |
+| TBD-M13-01; FR-M13 Phụ lục B.2; OPEN-001 | Ảnh hưởng quyết định ngân sách/vận hành dịch vụ thật, không chặn việc lập mô hình từ FR đã chốt. | nonblocking: hoãn có chủ đích, ngoài hành vi MS1 đang đặc tả | Chưa xác định đối với quyết định mới | OPEN-001 | open / hoãn theo nguồn | Giữ TBD theo nguồn, không tự chốt ngân sách/nhà cung cấp/model hoặc khẳng định ước tính cũ là giá hiện hành; không mua/nạp dịch vụ trong tác vụ phân tích.; quyết định thay đổi/đóng mới cần bằng chứng stakeholder, không suy từ migration. |
+
+### 7.6 Nơi sở hữu quan hệ liên module cần đồng bộ
+
+| Quan hệ/owner | Nguồn/hợp đồng | Nơi khai báo và tác động | Trạng thái/đóng |
+|---|---|---|---|
+| UC-M13-023 extend UC-M03-021; extension owner M13, base/EP owner M03 | FR-M13-07.01, FR-M13-07.03, FR-M13-07.07; FR-M03-11.01. M13 kiểm đăng nhập/quyền/300 từ/tổng trước cache, trả về đọc bài đầy đủ. | [Đề xuất/impact ở overview](US-overview.md#uc-m03-021-read-point); [base M03](US-M03.md#uc-m03-021); [extension M13](#uc-m13-023). Không đưa core M03 vào catalog M13 chỉ để vẽ cạnh. Cần phối hợp hợp đồng/EP trong owner M03 và khai báo chính ở M13, rồi đồng bộ overview và view chứa đủ endpoint. | proposal / cần đồng bộ owner; không nhận cạnh này là relation M13 đã chốt. Người quyết định chưa xác định. Chờ chốt extension point thuộc bước base, guard/return và phạm vi view; sau chấp thuận sửa đúng owner/view và chạy lại walkthrough/check/render. Không tự chọn EP thay M03. |
+
+### Kiểm sơ đồ và cổng cuối của revision 2.3
+
+Các SVG bàn giao không đổi ở lượt này. XML/node/cạnh được audit từ file thật; `result=pass` có bằng chứng render lịch sử ở 7.1 và đối chiếu mới của root tại [UC-V23-REVIEW](UC-V23-REVIEW.md); chính agent module không chạy lại renderer. `diagram_check=pass` dựa trên tích hợp root: parse/render lại đủ 81 view exit 0, cây XML hiển thị của SVG gốc và bản render lại giống nhau; root xem 4 PNG mẫu, không tuyên bố xem ảnh thủ công cả 81. Xem [bằng chứng chung](UC-V23-REVIEW.md). Metadata `semantic_review=pending` do các đường blocking nêu trên, không phủ nhận phần đã có căn cứ. Kết quả checker revision được ghi sau khi thực thi, không sao chép số pass của bản cũ.
+
+### Kết quả kiểm thực thi revision 2.3
+
+| Lớp kiểm | Thực thi/kết quả | Giới hạn |
+|---|---|---|
+| Schema/trace | `python -X utf8 .agent-instructions/skills/use-case-analysis/tools/check_us.py docs/specs/us/US-M13.md --final`: exit 1, errors=2, warnings=1. Hai lỗi: `Final review needs recorded semantic review`; `Final review needs diagram/render evidence`. | Đây là cổng chưa đạt có chủ ý vì phần blocking và render revision chưa xong; không gọi errors=0 hoặc nhận kết quả lịch sử thay lượt này. Cảnh báo còn review thủ công không tự đóng gap. |
+| XML và mô hình SVG | Audit file thực tế: 6 XML root SVG; members đúng catalog/decomposition; 27 association actor–UC trong bảng bằng đúng tập cạnh trực tiếp trên SVG; các relation UC–UC khớp endpoint/hướng/loại. Không sửa SVG. | Root đã parse/render lại 81 view exit 0, đối chiếu visual XML tree của 81 SVG gốc đều giống bản render mới; xem 4 PNG mẫu. Bằng chứng chung [UC-V23-REVIEW](UC-V23-REVIEW.md), không tuyên bố mọi ảnh đã được xem bằng mắt. |
+| Đối chiếu tiêu chí nguồn | 114 FR chi tiết/BR hiệu lực có nguyên văn tiêu chí được bảo toàn trong US, khớp nguồn owner sau bỏ anchor/khoảng trắng; mọi mã chi tiết tham chiếu tồn tại trong nguồn owner/normative Đã chốt đúng phiên bản.  | So khớp tiêu chí/mã hỗ trợ review, không chứng minh tự động mọi flow tương đương nguồn. Không đổi FR/register. |
+| Walkthrough | 11 main và 34 alternative ghi trạng thái/guard/return/END/postcondition/nguồn ở 7.4; bảng 7.5 chỉ rõ các đường chưa đủ kết luận. | `semantic_review=pending`; Chờ duyệt và không có approved_steps cho revision mới. |
+
+**Cập nhật kiểm chứng tích hợp:** `diagram_check=pass` theo [hồ sơ chung](UC-V23-REVIEW.md): root parse/render 81 SVG exit 0, các cây XML hiển thị giữ nguyên, 4 PNG mẫu đã xem. Chỉ một SVG/view được bàn giao; không sửa SVG ở lượt follow-up này. Semantic review vẫn pending cho các phần blocking thực sự còn lại.
