@@ -1,0 +1,53 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>iShare Design System</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); overflow: hidden; }
+  .cover { position: relative; height: 288px; overflow: hidden; }
+  .band { position: absolute; top: 0; left: 0; width: 960px; height: 112px; }
+  .band svg { display: block; width: 960px; height: 112px; }
+  .brand { fill: var(--primary); }
+  .tint { fill: var(--primary-soft); }
+  .deep { fill: var(--ink); }
+  .light { fill: var(--chart-1); }
+  .signal { fill: var(--warning); }
+  .blk { rx: var(--radius-sm); }
+  .rule { stroke: var(--line-strong); stroke-width: 1; }
+  .words { position: absolute; left: var(--space-6); right: var(--space-6); bottom: var(--space-6); }
+  .name { margin: 0; font-size: 64px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+  .name span { color: var(--primary); }
+  .tag { margin: var(--space-3) 0 0 2px; max-width: 440px; font-size: 14px; line-height: 21px; color: var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="band" aria-hidden="true">
+<svg viewBox="0 0 960 112" width="960" height="112">
+<!--
+  blocks      primary 288×112 (khối lớn nhất, màu nhận diện) · primary-soft 224×80 · teal-300 96×112 · ink 192×64 · warning 32×32 chỉ một ô nhỏ (tín hiệu) — khoảng 40% dải
+  arrangement dải ngang các khối không đều, đáy chạm mép dưới dải, khe space-4 — như lề một trang vở xếp chồng
+  pattern     "borders not shadows", "trang vở ghi" (README: Sổ tay) → bốn đường kẻ ngang mảnh line-strong cách nhau space-6 cắt qua các khối, như dòng kẻ vở
+  scales      cạnh theo bội space-4/space-8; khe space-4; nhịp kẻ space-6 (24); góc radius-sm (2px)
+-->
+<rect class="brand blk" x="0" y="0" width="288" height="112" rx="2"/>
+<rect class="tint blk" x="304" y="32" width="224" height="80" rx="2"/>
+<rect class="light blk" x="544" y="0" width="96" height="112" rx="2"/>
+<rect class="deep blk" x="656" y="48" width="192" height="64" rx="2"/>
+<rect class="signal blk" x="864" y="80" width="32" height="32" rx="2"/>
+<line class="rule" x1="0" x2="960" y1="16.5" y2="16.5"/>
+<line class="rule" x1="0" x2="960" y1="40.5" y2="40.5"/>
+<line class="rule" x1="0" x2="960" y1="64.5" y2="64.5"/>
+<line class="rule" x1="0" x2="960" y1="88.5" y2="88.5"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">i<span>Share</span> Design System</h1>
+<p class="tag">Gọn gàng, đáng tin, có chất học trò — trang vở ghi cho diễn đàn tri thức của học sinh THPT.</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!-- @dsCard group="Nội dung" height=1451 -->
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>PostBody — preview</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+<div id="root" class="is-stage">
+<article class="is-post"><div class="is-meta"><span class="is-avatar is-avatar--sm" aria-hidden="true">PL</span><a class="is-meta__name" href="#">Phạm Ngọc Lan</a><span>@lan_12</span><span>·</span><span>08/11/2026, 08:30</span><span>· (đã chỉnh sửa) <a class="is-link" href="#">Xem lịch sử</a></span></div><h1 class="is-post__title">Giải phương trình bậc hai</h1><div class="is-chips" style="margin-bottom: var(--space-6)"><a class="is-topic" href="#">Toán học</a><span class="is-grade">Lớp 10</span><a class="is-tag" href="#">#daiso</a><a class="is-tag" href="#">#phuongtrinh</a></div><div class="is-prose"><p>Mình đang ôn chương phương trình bậc hai. Cô giao một bài: giải phương trình <span data-tex="x^2 + 2x + 1 = 0">x^2 + 2x + 1 = 0</span> bằng <b>ít nhất hai cách</b>, rồi so sánh cách nào <i>nhanh hơn</i> khi làm trắc nghiệm, cách nào <u>an toàn hơn</u> khi làm tự luận.</p><h2>Cách 1: Dùng công thức nghiệm</h2><p>Với <span data-tex="a = 1,\ b = 2,\ c = 1">a = 1,\ b = 2,\ c = 1</span> thì biệt thức <span data-tex="\Delta = b^2 - 4ac = 0">\Delta = b^2 - 4ac = 0</span>, nên phương trình có <mark>nghiệm kép</mark>:</p><div data-tex="x = \dfrac{-b}{2a} = \dfrac{-2}{2} = -1" data-display="1">x = \dfrac{-b}{2a} = \dfrac{-2}{2} = -1</div><h3>Nhận dạng hằng đẳng thức</h3><p>Vế trái chính là <span data-tex="(x + 1)^2">(x + 1)^2</span>, suy ra <span data-tex="x = -1">x = -1</span> ngay. Cách này <s>luôn dùng được</s> chỉ dùng được khi nhìn ra hằng đẳng thức.</p><h4>Câu hỏi nhờ mọi người góp ý</h4><ol><li>Có mẹo nào nhận ra nhanh dạng bình phương của một tổng không?</li><li>Nếu hệ số b chẵn, dùng <span data-tex="\Delta' = b'^2 - ac">\Delta' = b'^2 - ac</span> có nhanh hơn không?</li></ol><ul class="is-tasks"><li><input type="checkbox" checked disabled aria-label="Đã xong"> Làm lại bài 1–5 trong đề cương</li><li><input type="checkbox" disabled aria-label="Chưa xong"> Hỏi cô về câu có tham số m</li></ul><blockquote><p>Phương trình bậc hai có nghiệm kép khi và chỉ khi Δ = 0. — SGK Toán 10</p></blockquote><p>Bạn <a class="is-mention" href="#">@minhduc_11</a> gợi ý dùng code để kiểm tra nghiệm; vòng lặp dùng <code>n //= 10</code> để bỏ chữ số cuối:</p><pre><code><span class="tok-c"># Đếm số chữ số của số nguyên dương n</span>
+<span class="tok-k">def</span> <span class="tok-f">dem_chu_so</span>(n):
+    dem = <span class="tok-n">0</span>
+    <span class="tok-k">while</span> n &gt; <span class="tok-n">0</span>:
+        n //= <span class="tok-n">10</span>
+        dem += <span class="tok-n">1</span>
+    <span class="tok-k">return</span> dem
+
+<span class="tok-f">print</span>(<span class="tok-s">"Số chữ số:"</span>, dem_chu_so(<span class="tok-n">20261125</span>))</code></pre><div class="is-tablewrap"><table><thead><tr><th>Cách</th><th>Số bước</th><th>Khi nào dùng</th></tr></thead><tbody><tr><td>Công thức nghiệm</td><td>4</td><td>Mọi phương trình</td></tr><tr><td>Hằng đẳng thức</td><td>1</td><td>Khi nhận ra dạng (a ± b)²</td></tr></tbody></table></div><hr><p>Tài liệu tham khảo: <a href="#">Đề cương ôn tập học kỳ 1</a>.</p></div></article>
+</div>
+<script>
+(function () {
+  var s = document.createElement("script");
+  s.src = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js";
+  s.onload = function () {
+    document.querySelectorAll("[data-tex]").forEach(function (el) {
+      try { katex.render(el.getAttribute("data-tex"), el, { displayMode: el.getAttribute("data-display") === "1", throwOnError: false }); } catch (e) {}
+    });
+  };
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

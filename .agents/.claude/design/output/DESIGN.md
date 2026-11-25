@@ -1,17 +1,17 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.4
+phien_ban: 0.5
 trang_thai: Bản nháp
 ngay: 2026-11-25
 tac_gia: Phạm Văn Đức
-steps_completed: [1, 2, 3, 4, 5]
-buoc_hien_tai: 6
-che_do: kham-pha
+steps_completed: [1, 2, 3, 4, 5, 6]
+buoc_hien_tai: 7
+che_do: thuc-thi
 dot_da_duyet: []
 dot_da_day_figma: []
 canvas_kham_pha: https://claude.ai/artifact/K2ZxJDPyzjGKHCw8rZZKrs
 canvas_giao_dien:
-design_system:
+design_system: https://claude.ai/artifact/VhNBYBjrD4Rng8CtynS7pp
 figma_file:
 ---
 # Thiết kế giao diện — iShare (DESIGN.md)
@@ -23,7 +23,7 @@ figma_file:
 
 | Mục | Giá trị |
 |---|---|
-| Bước hiện tại | 5 — Luồng và wireframe |
+| Bước hiện tại | 7 — Thiết kế hi-fi theo đợt |
 | Hướng thẩm mỹ | "Sổ tay" (DD-UI-08) |
 | Số màn hình / artboard | 75 màn hình; 281 artboard sáng + 75 tối = 356 (screen-inventory.md, DD-UI-14, DD-UI-15) |
 | Đợt đã duyệt | — |
@@ -65,21 +65,102 @@ chọn — 4 màn hình" trên canvas khám phá).
 
 ## 3. Tokens tóm tắt (bước 6)
 
-Nguồn sự thật: `tokens/tokens.json`. Mục này chỉ tóm tắt để đọc nhanh.
+Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Claude Design; `tokens.css`, `tokens.dtcg.json` sinh bằng
+`export_tokens.py`). Design system: "iShare Design System" (link ở frontmatter), bản sao trong `canvas/design-system/`.
 
-- Font: <tiêu đề / thân bài / mono>
-- Thang chữ: <…>
-- Màu chính: <tên — vai trò>
-- Mật độ: <…>
-- Bo góc: <…>
-- Bóng: <…>
-- Chuyển động: <thời lượng, đường cong; nhánh prefers-reduced-motion>
-- Bộ icon: <tên, giấy phép, độ dày nét, lưới>
+- Font: **Be Vietnam Pro** 400/600/700 có nghiêng cho giao diện và nội dung; **JetBrains Mono** cho code, tắt ký tự ghép
+  (DD-UI-29). Tệp WOFF2 (OFL) nằm trong design system.
+- Thang chữ: `display` 30/1.3 · `h1` 26/1.3 · `h2` 22/1.45 · `h3` 19/1.5 · trong bài `post-h1` 22, `post-h2` 19, `post-h3`
+  17 đậm · `body` 17/1.7 · `body-comment` 16/1.6 · `ui`, `label` 15/1.5 · `body-sm` 14/1.5 · `caption` 13/1.5 · `code` 15/1.6
+  (DD-UI-33).
+- Màu: lớp gốc `neutral-0…950`, `teal-50…950` (giá trị bước 3); ngữ nghĩa `bg`, `surface`, `surface-raised`,
+  `surface-hover`, `ink`, `ink-muted`, `line`, `line-strong`, `primary` (+ `primary-hover`, `on-primary`, `primary-soft`),
+  `focus`; trạng thái `success`, `warning`, `danger`, `info` + `*-soft`, `danger-hover`, `on-danger`; nội dung bài `mark`,
+  `syntax-*`; biểu đồ `chart-1…3`; `scrim` (DD-UI-32). `contrast.py`: 51 cặp × 2 theme = 102 phép kiểm, 0 trượt.
+- Mật độ: vừa cho màn hình học sinh (`control-h` 40, `row-h` 52, chữ 15); gọn cho khu kiểm duyệt và quản trị
+  (`control-h-sm` 32, `row-h-sm` 38, chữ 14) (DD-UI-30). Thang khoảng cách 4px: `space-0-5` 2 … `space-16` 64.
+- Bố cục: `topbar-h` 64, `nav-w` 200 (khu quản trị `nav-w-wide` 240), `aside-w` 260, `content-max` 820, `drawer-w` 420,
+  `dialog-w` 520.
+- Bo góc: `radius-sm` 2px cho mọi khối; `radius-full` cho ô tìm kiếm, avatar, số đếm, công tắc, thanh kết quả bình chọn.
+- Bóng: khối nội dung không bóng (viền `line`); `shadow-1` cho menu, popover, toast, tooltip; `shadow-2` cho dialog, ngăn
+  trượt; lớp nổi không kèm viền (DD-UI-34).
+- Chuyển động (không có nhóm token, ghi ở đây và đầu `bundle.css`): nhanh 120ms (hover, focus, nút), vừa 200ms (menu,
+  popover, toast, tab), chậm 280ms (dialog, ngăn trượt); vào `cubic-bezier(0.2, 0, 0, 1)`, ra `cubic-bezier(0.4, 0, 1, 1)`;
+  `prefers-reduced-motion: reduce` tắt mọi chuyển động (DD-UI-34).
+- Bộ icon: **Material Symbols Sharp** weight 400 (Google, Apache-2.0, gói `@material-symbols/svg-400@0.48.3`), lưới 24,
+  cỡ `icon` 24 / `icon-sm` 20 / `icon-xs` 16, tô bằng màu chữ; bản `-fill` cho trạng thái đang bật; Upvote nét dày dùng bản
+  weight 600 (DD-UI-11, DD-UI-28). 84 icon trong nhóm tài sản Icons của design system.
 
 ## 4. Component (bước 6)
 
+62 component (DD-UI-31). Mỗi component có `README.md` và `preview.html` (mọi trạng thái, cả hai theme) trong design system;
+class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho phần tử bấm được: mặc định, rê chuột, focus
+(vòng `focus` 2px), đang nhấn, tắt; cột "Trạng thái" chỉ ghi phần riêng.
+
 | Component | Biến thể | Trạng thái | Ghi chú |
 |---|---|---|---|
+| Button | chính, phụ, nhẹ, nguy hiểm; cỡ 40/32 | đang xử lý (`aria-busy`) | tối đa một nút chính mỗi vùng |
+| IconButton | trong suốt, có viền; cỡ 40/32; có Counter | đang bật/đang mở (`aria-pressed`, `aria-expanded`) | luôn có `aria-label` |
+| Link | thường (gạch chân), trầm | — | trong đoạn văn luôn gạch chân |
+| GoogleButton | một dạng | đang chuyển sang Google | logo G của Google giữ nguyên màu (tài sản Google) |
+| TextField | thường, mật khẩu (hiện/ẩn), chỉ đọc + Sao chép; cỡ nhỏ | lỗi, chỉ đọc, bộ đếm ký tự | nhãn luôn hiện, lỗi cạnh ô |
+| TextArea | một dạng | lỗi, bộ đếm, vượt giới hạn | bio ≤155, banner ≤200 ký tự |
+| Select | vừa, nhỏ | lỗi | `<select>` thật |
+| Checkbox | đơn, nhóm | đã chọn | `accent-color: primary` |
+| Radio | nhóm có `legend` | đã chọn | — |
+| Switch | có/không dòng mô tả | bật, tắt hẳn khi đang bật | hiệu lực ngay, không cần Lưu |
+| FileDrop | một dạng | đang kéo tệp vào, lỗi | luôn có nút Chọn tệp (QF-10) |
+| SearchField | thanh trên cùng | có chữ (nút Xóa), mở gợi ý | bo tròn hai đầu, tối đa 560px |
+| TagInput | Tag, Chủ đề (có Gợi ý chủ đề của AI) | đủ số lượng, lỗi thiếu Chủ đề | Gợi ý ẩn khi AI tắt |
+| SegmentedControl | 2–5 lựa chọn | đã chọn | khoảng thời gian Thống kê, sắp xếp bình luận |
+| Combobox | nhóm gợi ý, lịch sử | mục đang trỏ, không có gợi ý, lỗi giới hạn tần suất | mẫu combobox ARIA |
+| DateTimeField | một dạng | lỗi hạn trước hiện tại | hạn kết thúc bình chọn |
+| AvatarUpload | chưa có ảnh, có ảnh | lỗi định dạng/dung lượng | xem trước tròn |
+| Avatar | 28/40/96; chữ cái đầu; ẩn danh, đã xóa | — | — |
+| Tag | liên kết, có nút gỡ, đã vô hiệu hóa | — | có dấu # |
+| TopicChip | liên kết, tĩnh, gợi ý (nét đứt) | — | nền `primary-soft` |
+| GradeLabel | một dạng | — | "Lớp 10/11/12" |
+| Badge | huy hiệu + ngày đạt; Ngôi sao tuần | — | tiết chế (DD-UI-05), không hiện tiến độ |
+| Counter | nhấn mạnh, trầm; chấm chưa đọc | 99+, ẩn khi 0 | `aria-hidden`, số nằm trong nhãn nút |
+| StatusLabel | success, warning, danger, info, trung tính, chỉ chữ | — | luôn có chữ (QF-03) |
+| PostCard | thường, trong nhóm, ẩn danh, có nhãn trạng thái | rê chuột | số liệu chỉ để xem (DD-UI-13) |
+| PostBody | đầu bài + nội dung giàu định dạng | trạng thái bài qua StatusLabel, InlineAlert | BR-M03-03, KaTeX, tô màu cú pháp |
+| ActionBar | một dạng | đã upvote, đã lưu, bài của mình, dưới 300 từ, bình luận đã khóa | DD-UI-10, DD-UI-11 |
+| UpvoteButton | bài viết, bình luận (nhỏ) | đã upvote, tắt với nội dung của mình | nét dày khi chưa bấm |
+| Poll | chọn một, chọn nhiều | chưa bình chọn, đã bình chọn, đã kết thúc | thanh kết quả có chữ % |
+| PollEditor | bài nháp, bài đã đăng | lỗi số lựa chọn, hạn | 3 thao tác riêng ở bài đã đăng |
+| Attachment | ảnh, tài liệu | đang tải lên, lỗi | dung lượng kiểu Việt Nam |
+| Comment | bình luận gốc, trả lời có dòng trích | đã chỉnh sửa, đã bị gỡ | avatar cạnh tên (DD-UI-12) |
+| ListItem | liên kết, tĩnh có nút; vừa/gọn | đang chọn | Chủ đề, lịch sử sửa, danh sách chặn |
+| UserRow | theo ngữ cảnh thao tác; nhãn vai trò | tài khoản bị khóa, đã xóa | — |
+| GroupCard | Public, Private | Tham gia / Gửi yêu cầu / Rút yêu cầu / Đã tham gia, bị khóa | — |
+| LeaderboardRow | có/không Ngôi sao tuần | người đang xem, đã xóa | không cúp, không vàng bạc đồng |
+| NotificationItem | người, hệ thống; có nút Chấp nhận/Từ chối | chưa đọc, hết hạn | giọng tôn trọng khi xử lý |
+| ConversationItem | 1-1, nhóm chat | chưa đọc, đang mở, tắt popup | — |
+| MessageBubble | đến, đi, hệ thống; dải ngày | đã xem, đã thu hồi, có tin mới | `role="log"` |
+| NewMessagePopup | một dạng | — | `role="status"`, không cướp focus |
+| DataTable | gọn (mặc định khu quản trị), vừa | sắp xếp, rê chuột, đang chọn, trống, đang tải | `table` thật, cuộn ngang trong khung |
+| FilterBar | Select, Checkbox, chip bộ lọc | có bộ lọc khác mặc định | — |
+| StatTile | lưới 3 cột | 0, chưa có dữ liệu, đang tải | M15 |
+| TrendChart | 1–3 chuỗi chồng | trống, đang tải | `chart-1…3` + bảng số liệu |
+| Toast | success, info, warning, danger; có nút | — | lỗi không tự ẩn |
+| InlineAlert | 4 tone; có nút | — | chờ duyệt, bị từ chối, cảnh cáo |
+| Banner | info, warning | văn bản dài | banner Admin ≤200 ký tự |
+| EmptyState | có/không nút | — | không minh họa, không mascot |
+| Skeleton | dòng, tiêu đề, avatar | — | đứng yên khi giảm chuyển động |
+| ErrorState | không tìm thấy, không có quyền, lỗi, bảo trì | — | câu theo SC |
+| AppHeader | đã đăng nhập, Guest | — | DD-UI-20 |
+| NavBar | người dùng (200px), khu quản trị (240px) | mục đang xem | DD-UI-21, DD-UI-22 |
+| Tabs | tab chính, mục con, có số | đã chọn | trạng thái vào URL khi FR có |
+| Dialog | thường, rộng, nguy hiểm | — | giữ focus, Esc đóng (QF-06) |
+| Drawer | một dạng | đang tải, lỗi | Tóm tắt, thông tin nhóm chat, vai trò |
+| Menu | thường, có icon, đang bật, nguy hiểm; đầu menu | mục tắt | mục không có quyền thì không hiện |
+| Popover | ngăn thông báo | trống, đang tải | "Xem tất cả" ở chân |
+| Tooltip | một dạng | — | không chứa nội dung tương tác |
+| Pagination | Tải thêm, trang số | đang tải, đã hết | — |
+| StepIndicator | 3 bước đăng ký | đã xong, hiện tại, chưa tới | `aria-current="step"` |
+| EditorToolbar | bài viết (BR-M03-03), bình luận (BR-M04-01) | đang áp dụng, tắt | chỉ định dạng FR cho phép |
+| CommentComposer | bình luận, trả lời có dòng trích, chat | vượt 1.000 từ, bình luận đã khóa | — |
 
 ## 5. Quyết định thiết kế
 
@@ -112,6 +193,14 @@ Nguồn sự thật: `tokens/tokens.json`. Mục này chỉ tóm tắt để đ�
 | DD-UI-25 | Wireframe bước 5 chỉ xám, một font hệ thống trung tính, không màu, không ảnh, không bóng; ngoại lệ AP-10 phạm vi `wf--*` (mục 6.1) | Theo bước 5 của skill (wireframe không mang bản sắc); người dùng duyệt ở bước 5 | steps/05 mục 5 | 5 | 2026-11-25 |
 | DD-UI-26 | Quy tắc đường dẫn: chữ thường tiếng Anh ngắn, không dấu; tiền tố một chữ cái cho đối tượng có trang riêng (`/p/` bài, `/u/` người dùng, `/g/` nhóm); trạng thái cần chia sẻ (tab, bộ lọc, chu kỳ) nằm trong query string; khu kiểm duyệt `/mod/…` (Mod, Admin), khu chỉ Admin `/admin/…`; hộp thoại, ngăn trượt, popup không có đường dẫn riêng. `/u/{username}` giữ đúng FR-M02 | Người dùng đồng ý đề xuất | Q5-02; flows.md mục 1 | 5 | 2026-11-25 |
 | DD-UI-27 | Prototype bấm được làm sau khi xong thiết kế hi-fi (nối artboard hi-fi), không nối wireframe bước 5 | Người dùng chọn | Câu hỏi prototype ở bước 5 | 5 | 2026-11-25 |
+| DD-UI-28 | Bộ icon Material Symbols Sharp (weight 400, Apache-2.0) cho toàn giao diện, lưới 24, cỡ 24/20/16; bản tô đặc cho trạng thái đang bật; Upvote chưa bấm dùng bản weight 600 — ngoại lệ duy nhất về độ dày nét theo DD-UI-11 | Người dùng chọn (bộ B) | Q6-04; artboard `b6--bo-icon--desktop` | 6 | 2026-11-25 |
+| DD-UI-29 | Font code JetBrains Mono (OFL, có bộ chữ tiếng Việt), tắt ký tự ghép để `=>`, `!=` hiện đúng ký tự; font giao diện và nội dung giữ Be Vietnam Pro (DD-UI-08) | Người dùng đồng ý đề xuất | Q6-01; artboard `b6--font-mono--desktop` | 6 | 2026-11-25 |
+| DD-UI-30 | Mật độ: vừa cho màn hình học sinh (nút, ô nhập 40px, dòng 52px, chữ 15px); gọn cho khu kiểm duyệt và quản trị (nút, bộ lọc 32px, dòng bảng 38px, chữ 14px) | Người dùng đồng ý đề xuất | Q6-02; artboard `b6--mat-do--desktop` | 6 | 2026-11-25 |
+| DD-UI-31 | Bộ component lõi 62 cái: danh sách mặc định của skill (bỏ BottomNav vì không có điện thoại) + thêm theo danh mục màn hình và FR: TagInput, SegmentedControl, StatusLabel, ActionBar, PollEditor, UserRow, GroupCard, LeaderboardRow, NotificationItem, ConversationItem, MessageBubble, NewMessagePopup, DataTable, FilterBar, StatTile, TrendChart, StepIndicator, và sau khi rà lại: GoogleButton, AvatarUpload, Combobox, DateTimeField, Popover, ListItem | Người dùng duyệt danh sách 56, giao rà lại; Claude thêm 6 component có nguồn | Q6-05; mục 4 | 6 | 2026-11-25 |
+| DD-UI-32 | Màu thêm ở bước 6 (giữ nguyên 18 giá trị của bước 3): `surface-raised`, `surface-hover`, `primary-hover`; trạng thái `success` (= màu chủ đạo, lệch xanh dương), `warning` nâu hổ phách, `danger` đỏ cam, `info` xanh dương + nền nhạt, `danger-hover`, `on-danger`; `mark` vàng nhạt; `syntax-*`; `chart-1…3` thang một sắc theo độ sáng; `scrim` | Claude đề xuất, người dùng duyệt ở bước 6 | contrast-pairs.csv; FR-M15-03.04 (3 chuỗi); BR-M03-03 (tô sáng, tô màu cú pháp) | 6 | 2026-11-25 |
+| DD-UI-33 | Thang chữ chốt từ thang tạm bước 3 + tiêu đề mục trong bài `post-h1/2/3` (22/19/17 đậm, dùng lại cỡ của thang) | Claude đề xuất, người dùng duyệt ở bước 6 | BR-M03-03 (H1–H3 trong bài) | 6 | 2026-11-25 |
+| DD-UI-34 | Bóng chỉ cho lớp nổi (`shadow-1` menu/popover/toast/tooltip, `shadow-2` dialog/ngăn trượt), không kèm viền; chuyển động 120/200/280ms, không nảy, tắt khi giảm chuyển động | Claude đề xuất, người dùng duyệt ở bước 6 | AP-31, QF-11 | 6 | 2026-11-25 |
+| DD-UI-35 | Khu kiểm duyệt và quản trị dùng cột điều hướng rộng 240px (`nav-w-wide`) vì nhãn mục dài; cột của người dùng giữ 200px (DD-UI-21) | Claude đề xuất, người dùng duyệt ở bước 6 | Wireframe khu quản trị bước 5 | 6 | 2026-11-25 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -160,3 +249,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.2 | 2026-11-24 | Bước 3 được duyệt: hướng "Sổ tay" (mục 2, DD-UI-08…13); thêm dữ liệu mẫu MAU-06…08 |
 | 0.3 | 2026-11-25 | Bước 4 được duyệt: screen-inventory.md (75 màn hình, rà soát lại theo SC); DD-UI-14…19 |
 | 0.4 | 2026-11-25 | Bước 5 được duyệt: flows.md (46 đường dẫn, 8 luồng), 28 wireframe trên canvas trang "Bước 5 — Wireframe"; DD-UI-20…27; ngoại lệ AP-10 cho `wf--*` |
+| 0.5 | 2026-11-25 | Bước 6 được duyệt: tokens (tokens.json, contrast-pairs.csv, tokens.css, tokens.dtcg.json), "iShare Design System" (62 component, 84 icon Material Symbols Sharp, font Be Vietnam Pro + JetBrains Mono); mục 3, 4; DD-UI-28…35; chuyển sang chế độ thực thi |
