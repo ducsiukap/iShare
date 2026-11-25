@@ -1,11 +1,11 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.3
+phien_ban: 0.4
 trang_thai: Bản nháp
-ngay: 2026-11-24
+ngay: 2026-11-25
 tac_gia: Phạm Văn Đức
-steps_completed: [1, 2, 3, 4]
-buoc_hien_tai: 5
+steps_completed: [1, 2, 3, 4, 5]
+buoc_hien_tai: 6
 che_do: kham-pha
 dot_da_duyet: []
 dot_da_day_figma: []
@@ -104,6 +104,14 @@ Nguồn sự thật: `tokens/tokens.json`. Mục này chỉ tóm tắt để đ�
 | DD-UI-17 | Trang Cài đặt tài khoản (mở từ menu avatar) gom: đổi mật khẩu, mức cảnh cáo của mình, từ chức (Mod/Admin), vô hiệu hóa tài khoản | Nguồn không nói nơi đặt; người dùng đồng ý | screen-inventory.md câu hỏi #2 | 4 | 2026-11-25 |
 | DD-UI-18 | Gỡ ban: Mod/Admin xem hồ sơ tài khoản đang bị ban có nút Gỡ ban (SC-M08-011: gỡ trực tiếp trên tài khoản, không qua vụ) | Người dùng đồng ý | screen-inventory.md câu hỏi #3 | 4 | 2026-11-25 |
 | DD-UI-19 | Mẫu email hệ thống (xác minh, đặt lại mật khẩu, mã kích hoạt, ban/gỡ ban, thông báo qua email) chưa nằm trong phạm vi vẽ; định dạng email quyết sau | Người dùng hoãn | screen-inventory.md câu hỏi #5 | 4 | 2026-11-25 |
+| DD-UI-20 | Thanh trên cùng (desktop): chữ "iShare" về `/` · ô tìm kiếm nằm giữa logo và nhóm nút (DD-UI-09) · Viết bài · chuông Thông báo · Tin nhắn có số chưa đọc · avatar → menu Hồ sơ, Cài đặt tài khoản, Khiếu nại của tôi, Khu kiểm duyệt (Mod/Admin), Đăng xuất. Guest thấy Đăng nhập, Đăng ký thay cho chuông, tin nhắn, avatar | Claude đề xuất, người dùng duyệt ở bước 5 | flows.md mục 2 | 5 | 2026-11-25 |
+| DD-UI-21 | Cột trái 200px: Trang chủ · Chủ đề · Nhóm · Bảng xếp hạng (mục đang xem tô nền nhạt); Tin nhắn không lặp ở cột trái. Dòng chân cuối cột trái dẫn tới Privacy Policy/ToS (SC-M01-037) | Claude đề xuất, người dùng duyệt ở bước 5 | flows.md mục 2 | 5 | 2026-11-25 |
+| DD-UI-22 | Khu kiểm duyệt và quản trị: vào từ mục "Khu kiểm duyệt" trong menu avatar; giữ thanh trên cùng, cột trái đổi sang menu quản trị (nhóm Kiểm duyệt cho Mod và Admin, nhóm Quản trị chỉ Admin) và có lối "Về iShare" | Claude đề xuất (nguồn không nói lối vào), người dùng duyệt ở bước 5 | flows.md mục 2, mục 4 #1 | 5 | 2026-11-25 |
+| DD-UI-23 | Vị trí cố định: Thông báo (chuông → ngăn 10 thông báo → "Xem tất cả" `/notifications`); Chat (biểu tượng → `/messages`, popup tin mới góc dưới phải); Báo cáo (cuối thanh thao tác bài, menu "…" của bình luận, hồ sơ, trang nhóm); Khiếu nại (nút trong thông báo xử lý, màn hình tài khoản bị khóa, menu avatar → Khiếu nại của tôi) | Claude đề xuất, người dùng duyệt ở bước 5 | flows.md mục 2; QF-16 | 5 | 2026-11-25 |
+| DD-UI-24 | Thao tác ngắn mở hộp thoại giữa màn hình (nền mờ, đóng bằng Esc hoặc nút Đóng); nội dung xem kèm trang mở ngăn trượt bên phải, không rời trang (Tóm tắt bài, thông tin nhóm chat, vai trò người dùng) | Claude đề xuất, người dùng duyệt ở bước 5 | flows.md mục 2 | 5 | 2026-11-25 |
+| DD-UI-25 | Wireframe bước 5 chỉ xám, một font hệ thống trung tính, không màu, không ảnh, không bóng; ngoại lệ AP-10 phạm vi `wf--*` (mục 6.1) | Theo bước 5 của skill (wireframe không mang bản sắc); người dùng duyệt ở bước 5 | steps/05 mục 5 | 5 | 2026-11-25 |
+| DD-UI-26 | Quy tắc đường dẫn: chữ thường tiếng Anh ngắn, không dấu; tiền tố một chữ cái cho đối tượng có trang riêng (`/p/` bài, `/u/` người dùng, `/g/` nhóm); trạng thái cần chia sẻ (tab, bộ lọc, chu kỳ) nằm trong query string; khu kiểm duyệt `/mod/…` (Mod, Admin), khu chỉ Admin `/admin/…`; hộp thoại, ngăn trượt, popup không có đường dẫn riêng. `/u/{username}` giữ đúng FR-M02 | Người dùng đồng ý đề xuất | Q5-02; flows.md mục 1 | 5 | 2026-11-25 |
+| DD-UI-27 | Prototype bấm được làm sau khi xong thiết kế hi-fi (nối artboard hi-fi), không nối wireframe bước 5 | Người dùng chọn | Câu hỏi prototype ở bước 5 | 5 | 2026-11-25 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -115,6 +123,7 @@ mọi tệp) được hạ xuống INFO. Chỉ thêm dòng khi người dùng đ
 <!-- ui:ap-exceptions -->
 | ap | scope | reason | dd |
 |---|---|---|---|
+| AP-10 | wf--* | Wireframe bước 5 chỉ xám, dùng font hệ thống trung tính, không mang bản sắc (theo bước 5 của skill) | DD-UI-25 |
 
 ### 6.2 Điều cần tránh riêng của dự án (từ bước 2)
 
@@ -150,3 +159,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.1 | 2026-11-24 | Tạo tệp ở bước 1; bước 1 được duyệt (DD-UI-01…04); bước 2 được duyệt (AP-P-01, DD-UI-05…07); bước 3: vẽ 3 hướng + bảng màu + font test trên canvas "iShare — Khám phá", thêm dữ liệu mẫu MAU-01…05; người dùng chọn trộn (khung hướng 1, màu hướng 2, ô tìm kiếm hướng 2, bo góc hướng 3, thanh thao tác hướng 2) — vẽ thử 4 màn hình, dữ liệu MAU-06…08 |
 | 0.2 | 2026-11-24 | Bước 3 được duyệt: hướng "Sổ tay" (mục 2, DD-UI-08…13); thêm dữ liệu mẫu MAU-06…08 |
 | 0.3 | 2026-11-25 | Bước 4 được duyệt: screen-inventory.md (75 màn hình, rà soát lại theo SC); DD-UI-14…19 |
+| 0.4 | 2026-11-25 | Bước 5 được duyệt: flows.md (46 đường dẫn, 8 luồng), 28 wireframe trên canvas trang "Bước 5 — Wireframe"; DD-UI-20…27; ngoại lệ AP-10 cho `wf--*` |
