@@ -404,6 +404,42 @@
       "w": 1440,
       "x": 1520,
       "y": 12250
+    },
+    "b6--bo-icon--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1080,
+      "page": "b6",
+      "title": "Q6-04 · Bộ icon",
+      "w": 1440,
+      "x": 0,
+      "y": 300
+    },
+    "b6--font-mono--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1240,
+      "page": "b6",
+      "title": "Q6-01 · Font cho khối code",
+      "w": 1440,
+      "x": 1540,
+      "y": 300
+    },
+    "b6--mat-do--desktop.dc.html": {
+      "expand": "fill",
+      "h": 840,
+      "page": "b6",
+      "title": "Q6-02 · Mật độ",
+      "w": 1440,
+      "x": 3080,
+      "y": 300
+    },
+    "font-test-chot.dc.html": {
+      "expand": "fill",
+      "h": 7820,
+      "page": "font",
+      "title": "Font đã chốt — Be Vietnam Pro + JetBrains Mono (bước 6)",
+      "w": 1440,
+      "x": 1540,
+      "y": 0
     }
   },
   "createdOnFiles": {
@@ -412,7 +448,7 @@
   },
   "designSystems": [],
   "launch": {
-    "page": "wf",
+    "page": "b6",
     "view": "canvas"
   },
   "notes": {
@@ -550,6 +586,15 @@
       "w": 240,
       "x": 0,
       "y": 11950
+    },
+    "tieu-de-b6": {
+      "kind": "title1",
+      "maxW": 4520,
+      "page": "b6",
+      "text": "Bước 6 — Chọn bộ icon, font code, mật độ",
+      "w": 240,
+      "x": 0,
+      "y": 0
     }
   },
   "order": [
@@ -597,7 +642,11 @@
     "wf--chat--SCR-M16-02--desktop.dc.html",
     "wf--chat--SCR-M16-03--desktop.dc.html",
     "wf--tim-kiem--SCR-M06-01--desktop.dc.html",
-    "wf--tim-kiem--SCR-M06-02--desktop.dc.html"
+    "wf--tim-kiem--SCR-M06-02--desktop.dc.html",
+    "b6--bo-icon--desktop.dc.html",
+    "b6--font-mono--desktop.dc.html",
+    "b6--mat-do--desktop.dc.html",
+    "font-test-chot.dc.html"
   ],
   "pages": [
     {
@@ -619,6 +668,10 @@
     {
       "id": "wf",
       "name": "Bước 5 — Wireframe"
+    },
+    {
+      "id": "b6",
+      "name": "Bước 6 — Lựa chọn"
     }
   ],
   "title": "iShare — Khám phá",
