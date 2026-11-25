@@ -152,6 +152,258 @@
       "w": 1440,
       "x": 0,
       "y": 7260
+    },
+    "wf--bao-cao--SCR-M08-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 770,
+      "page": "wf",
+      "title": "SCR-M08-01 · Báo cáo",
+      "w": 1440,
+      "x": 0,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M08-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 650,
+      "page": "wf",
+      "title": "SCR-M08-02 · Hàng chờ báo cáo",
+      "w": 1440,
+      "x": 1520,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M08-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 940,
+      "page": "wf",
+      "title": "SCR-M08-03 · Chi tiết vụ",
+      "w": 1440,
+      "x": 3040,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M08-04--desktop.dc.html": {
+      "expand": "fill",
+      "h": 650,
+      "page": "wf",
+      "title": "SCR-M08-04 · Lý do biện pháp",
+      "w": 1440,
+      "x": 4560,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M09-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 690,
+      "page": "wf",
+      "title": "SCR-M09-01 · Gửi khiếu nại",
+      "w": 1440,
+      "x": 7600,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M09-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 490,
+      "page": "wf",
+      "title": "SCR-M09-02 · Khiếu nại của tôi",
+      "w": 1440,
+      "x": 12160,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M09-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 650,
+      "page": "wf",
+      "title": "SCR-M09-03 · Hàng chờ khiếu nại",
+      "w": 1440,
+      "x": 9120,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M09-04--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "page": "wf",
+      "title": "SCR-M09-04 · Chi tiết khiếu nại",
+      "w": 1440,
+      "x": 10640,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-SHARED-05--desktop.dc.html": {
+      "expand": "fill",
+      "h": 570,
+      "page": "wf",
+      "title": "SCR-SHARED-05 · Tài khoản bị khóa",
+      "w": 1440,
+      "x": 6080,
+      "y": 6170
+    },
+    "wf--chat--SCR-M16-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 530,
+      "page": "wf",
+      "title": "SCR-M16-01 · Hộp thư Chat",
+      "w": 1440,
+      "x": 0,
+      "y": 10900
+    },
+    "wf--chat--SCR-M16-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 750,
+      "page": "wf",
+      "title": "SCR-M16-02 · Cuộc trò chuyện",
+      "w": 1440,
+      "x": 1520,
+      "y": 10900
+    },
+    "wf--chat--SCR-M16-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 580,
+      "page": "wf",
+      "title": "SCR-M16-03 · Tạo nhóm chat",
+      "w": 1440,
+      "x": 3040,
+      "y": 10900
+    },
+    "wf--dang-ky--SCR-M01-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 830,
+      "page": "wf",
+      "title": "SCR-M01-01 · Đăng ký bước 1",
+      "w": 1440,
+      "x": 0,
+      "y": 300
+    },
+    "wf--dang-ky--SCR-M01-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 560,
+      "page": "wf",
+      "title": "SCR-M01-02 · Chờ xác minh email",
+      "w": 1440,
+      "x": 1520,
+      "y": 300
+    },
+    "wf--dang-ky--SCR-M01-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 970,
+      "page": "wf",
+      "title": "SCR-M01-03 · Thiết lập tài khoản",
+      "w": 1440,
+      "x": 3040,
+      "y": 300
+    },
+    "wf--dang-ky--SCR-M01-04--desktop.dc.html": {
+      "expand": "fill",
+      "h": 810,
+      "page": "wf",
+      "title": "SCR-M01-04 · Đăng nhập",
+      "w": 1440,
+      "x": 4560,
+      "y": 300
+    },
+    "wf--doc-bai--SCR-M03-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1780,
+      "page": "wf",
+      "title": "SCR-M03-02 · Chi tiết bài viết",
+      "w": 1440,
+      "x": 1520,
+      "y": 3790
+    },
+    "wf--doc-bai--SCR-M14-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1170,
+      "page": "wf",
+      "title": "SCR-M14-01 · Trang chủ",
+      "w": 1440,
+      "x": 0,
+      "y": 3790
+    },
+    "wf--nhom--SCR-M11-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 500,
+      "page": "wf",
+      "title": "SCR-M11-01 · Danh sách nhóm",
+      "w": 1440,
+      "x": 0,
+      "y": 7770
+    },
+    "wf--nhom--SCR-M11-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 760,
+      "page": "wf",
+      "title": "SCR-M11-03 · Trang nhóm",
+      "w": 1440,
+      "x": 1520,
+      "y": 7770
+    },
+    "wf--nhom--SCR-M11-04--desktop.dc.html": {
+      "expand": "fill",
+      "h": 550,
+      "page": "wf",
+      "title": "SCR-M11-04 · Gửi yêu cầu tham gia",
+      "w": 1440,
+      "x": 3040,
+      "y": 7770
+    },
+    "wf--nhom--SCR-M11-10--desktop.dc.html": {
+      "expand": "fill",
+      "h": 690,
+      "page": "wf",
+      "title": "SCR-M11-10 · Hàng chờ duyệt bài của nhóm",
+      "w": 1440,
+      "x": 4560,
+      "y": 7770
+    },
+    "wf--soan-bai--SCR-M03-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1320,
+      "page": "wf",
+      "title": "SCR-M03-01 · Viết bài",
+      "w": 1440,
+      "x": 0,
+      "y": 1870
+    },
+    "wf--soan-bai--SCR-M03-05--desktop.dc.html": {
+      "expand": "fill",
+      "h": 890,
+      "page": "wf",
+      "title": "SCR-M03-05 · Hàng chờ duyệt bài",
+      "w": 1440,
+      "x": 1520,
+      "y": 1870
+    },
+    "wf--thong-bao--SCR-M07-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1170,
+      "page": "wf",
+      "title": "SCR-M07-01 · Ngăn thông báo",
+      "w": 1440,
+      "x": 0,
+      "y": 9130
+    },
+    "wf--thong-bao--SCR-M07-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 760,
+      "page": "wf",
+      "title": "SCR-M07-02 · Trang Thông báo",
+      "w": 1440,
+      "x": 1520,
+      "y": 9130
+    },
+    "wf--tim-kiem--SCR-M06-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1170,
+      "page": "wf",
+      "title": "SCR-M06-01 · Gợi ý tìm kiếm",
+      "w": 1440,
+      "x": 0,
+      "y": 12250
+    },
+    "wf--tim-kiem--SCR-M06-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 750,
+      "page": "wf",
+      "title": "SCR-M06-02 · Kết quả tìm kiếm",
+      "w": 1440,
+      "x": 1520,
+      "y": 12250
     }
   },
   "createdOnFiles": {
@@ -160,7 +412,7 @@
   },
   "designSystems": [],
   "launch": {
-    "page": "chon",
+    "page": "wf",
     "view": "canvas"
   },
   "notes": {
@@ -226,6 +478,78 @@
       "w": 240,
       "x": 0,
       "y": 7420
+    },
+    "tieu-de-wf-bao-cao": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.4 Báo cáo → Mod xử lý → khiếu nại",
+      "w": 240,
+      "x": 0,
+      "y": 5870
+    },
+    "tieu-de-wf-chat": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.7 Chat 1-1 và nhóm chat",
+      "w": 240,
+      "x": 0,
+      "y": 10600
+    },
+    "tieu-de-wf-dang-ky": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.1 Đăng ký và xác minh email",
+      "w": 240,
+      "x": 0,
+      "y": 0
+    },
+    "tieu-de-wf-doc-bai": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.3 Đọc bài → bình luận, trả lời → upvote",
+      "w": 240,
+      "x": 0,
+      "y": 3490
+    },
+    "tieu-de-wf-nhom": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.5 Tìm và tham gia nhóm, đăng bài ẩn danh",
+      "w": 240,
+      "x": 0,
+      "y": 7470
+    },
+    "tieu-de-wf-soan-bai": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.2 Soạn bài → gửi → đã đăng / chờ duyệt / bị từ chối",
+      "w": 240,
+      "x": 0,
+      "y": 1570
+    },
+    "tieu-de-wf-thong-bao": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.6 Nhận thông báo → đi tới nội dung",
+      "w": 240,
+      "x": 0,
+      "y": 8830
+    },
+    "tieu-de-wf-tim-kiem": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.8 Tìm kiếm có bộ lọc",
+      "w": 240,
+      "x": 0,
+      "y": 11950
     }
   },
   "order": [
@@ -245,7 +569,35 @@
     "huong-4--ho-so--desktop.dc.html",
     "huong-4--ho-so--desktop--dark.dc.html",
     "huong-4--viet-bai--desktop.dc.html",
-    "huong-4--viet-bai--desktop--dark.dc.html"
+    "huong-4--viet-bai--desktop--dark.dc.html",
+    "wf--dang-ky--SCR-M01-01--desktop.dc.html",
+    "wf--dang-ky--SCR-M01-02--desktop.dc.html",
+    "wf--dang-ky--SCR-M01-03--desktop.dc.html",
+    "wf--dang-ky--SCR-M01-04--desktop.dc.html",
+    "wf--soan-bai--SCR-M03-01--desktop.dc.html",
+    "wf--soan-bai--SCR-M03-05--desktop.dc.html",
+    "wf--doc-bai--SCR-M14-01--desktop.dc.html",
+    "wf--doc-bai--SCR-M03-02--desktop.dc.html",
+    "wf--bao-cao--SCR-M08-01--desktop.dc.html",
+    "wf--bao-cao--SCR-M08-02--desktop.dc.html",
+    "wf--bao-cao--SCR-M08-03--desktop.dc.html",
+    "wf--bao-cao--SCR-M08-04--desktop.dc.html",
+    "wf--bao-cao--SCR-SHARED-05--desktop.dc.html",
+    "wf--bao-cao--SCR-M09-01--desktop.dc.html",
+    "wf--bao-cao--SCR-M09-03--desktop.dc.html",
+    "wf--bao-cao--SCR-M09-04--desktop.dc.html",
+    "wf--bao-cao--SCR-M09-02--desktop.dc.html",
+    "wf--nhom--SCR-M11-01--desktop.dc.html",
+    "wf--nhom--SCR-M11-03--desktop.dc.html",
+    "wf--nhom--SCR-M11-04--desktop.dc.html",
+    "wf--nhom--SCR-M11-10--desktop.dc.html",
+    "wf--thong-bao--SCR-M07-01--desktop.dc.html",
+    "wf--thong-bao--SCR-M07-02--desktop.dc.html",
+    "wf--chat--SCR-M16-01--desktop.dc.html",
+    "wf--chat--SCR-M16-02--desktop.dc.html",
+    "wf--chat--SCR-M16-03--desktop.dc.html",
+    "wf--tim-kiem--SCR-M06-01--desktop.dc.html",
+    "wf--tim-kiem--SCR-M06-02--desktop.dc.html"
   ],
   "pages": [
     {
@@ -263,6 +615,10 @@
     {
       "id": "chon",
       "name": "Hướng đã chọn — 4 màn hình"
+    },
+    {
+      "id": "wf",
+      "name": "Bước 5 — Wireframe"
     }
   ],
   "title": "iShare — Khám phá",
