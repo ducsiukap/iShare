@@ -1,6 +1,6 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.8
+phien_ban: 0.9
 trang_thai: Bản nháp
 ngay: 2026-11-26
 tac_gia: Phạm Văn Đức
@@ -215,6 +215,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | DD-UI-40 | Khối lặp lại thành component của design system: PageLayout (6 biến thể bố cục chung), PageHeader, SectionCard, TableOfContents, DescriptionList; kiểu chữ tiêu đề `is-h1`, `is-h2`, `is-label`; PostBody thêm bản nhỏ `is-prose--sm`; token mới `inbox-w` 340px cho cột hộp thư Chat. Artboard dùng class của design system, `<helmet>` chỉ còn lớp riêng của artboard (khung cắt, lớp phủ, khung mục lục canvas) | Claude đề xuất (QA-dot-A mục 5), người dùng đồng ý: "khối lặp lại chuyển thành component, làm sao dễ quản lý" | QA-dot-A câu hỏi 2 | 7 | 2026-11-26 |
 | DD-UI-41 | Bản Figma "iShare — UI" là bản lưu, canvas là nguồn gốc (không sửa trên Figma). Mỗi artboard đẩy bằng `html_to_figma` từ bản HTML tự chứa (font nhúng); chỉ trong bản Figma: công thức MathML chuyển thành chữ Unicode (dòng) hoặc phân số dựng bằng HTML (khối), nhãn trục biểu đồ đặt lại font Be Vietnam Pro, số dòng của từng đoạn chữ chỉnh khớp với trình duyệt (ô nhập một dòng thì cắt phần thừa như trình duyệt); mỗi page một đợt, mỗi màn hình một hàng có nhãn, frame tên theo artboard | Claude đề xuất cách đẩy; người dùng duyệt chất lượng đợt A và cho đẩy hết: "cứ đẩy hết đi nhé" | Q7-03 | 7 | 2026-11-26 |
 | DD-UI-42 | Khu kiểm duyệt và quản trị dùng khung riêng AdminShell, thay phần "giữ thanh trên cùng, đổi cột trái" của DD-UI-22 và cột menu của DD-UI-35: cột menu nền sẫm `console-bg` cao hết trang, logo vẫn là "iShare", mỗi mục có icon, Mod chỉ thấy nhóm Kiểm duyệt; thanh trên riêng chỉ có vị trí trang (nhóm › trang), "Về iShare", chuông Thông báo, avatar, bỏ ô tìm kiếm, Viết bài, Tin nhắn; nội dung trải hết bề ngang (bỏ giới hạn 820px của SectionCard trong khu này). Thêm 7 token màu `console-*` và 3 màu gốc `teal-850`, `teal-875`, `teal-925` (đạt tương phản, 116/116 cặp); component mới AdminShell, NavBar thêm biến thể `--console`. Màn hình phía người dùng của Mod, Admin giữ AppHeader + NavBar | Người review góp ý trang quản trị "vẫn dùng giao diện như của user thường", muốn mẫu riêng chủ yếu là bảng; Claude đề xuất, người dùng chọn phương án khung riêng cho cả Mod và Admin, giữ chữ logo, duyệt 2 màn mẫu (M10-01, M08-02) | QA-dot-C | 8 | 2026-11-26 |
+| DD-UI-43 | Dòng chân cột menu (NavBar phía người dùng và NavBar `--console` trong AdminShell) ghi "Chính sách và Điều khoản" thay cho "Privacy Policy/ToS", vẫn dẫn tới trang SCR-M01-09 (SC-M01-037). Cột người dùng 200px: chữ xuống hai dòng "Chính sách và / Điều khoản" (giữ cụm bằng khoảng trắng không ngắt); cột quản trị 240px: một dòng. Tên trang "Privacy Policy/ToS" trong spec và tiêu đề trang giữ nguyên | Người dùng hỏi đổi chữ sang tiếng Việt và chọn "Chính sách và Điều khoản" trong 3 phương án | — | 8 | 2026-11-27 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -267,3 +268,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.6 | 2026-11-26 | Bước 7 (chờ duyệt gộp đợt A–E): DD-UI-36…40 (nút chữ ở trang trống/lỗi, ErrorState căn giữa, ô soạn tự giãn, Lớp/Khối dùng Select, đếm số lần nhập mã, 5 component bố cục); token `inbox-w`; MAU-01 theo SC-M03-012 |
 | 0.7 | 2026-11-26 | Bước 7 được duyệt: đợt A–E đã duyệt và đẩy sang Figma "iShare — UI" (5 page, 356 frame); DD-UI-41 (cách đẩy và chỉnh bản Figma); chuyển sang bước 8 |
 | 0.8 | 2026-11-26 | DD-UI-42: khung quản trị riêng AdminShell cho khu kiểm duyệt và quản trị (token `console-*`, 68 component); đăng lại canvas, design system, đẩy lại page đợt C trên Figma |
+| 0.9 | 2026-11-27 | DD-UI-43: dòng chân cột menu đổi thành "Chính sách và Điều khoản"; đăng lại canvas, design system, sửa chữ trên cả 5 page Figma |
