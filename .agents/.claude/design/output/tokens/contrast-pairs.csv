@@ -50,3 +50,10 @@ surface,ink,4.5,Chữ tooltip (nền ink)
 chart-1,surface,3,Cột biểu đồ chuỗi 1
 chart-2,surface,3,Cột biểu đồ chuỗi 2
 chart-3,surface,3,Cột biểu đồ chuỗi 3
+console-ink,console-bg,4.5,Mục menu quản trị
+console-ink,console-hover,4.5,Mục menu quản trị khi rê chuột
+console-ink-muted,console-bg,4.5,"Tên nhóm menu, chân cột menu quản trị"
+console-ink-muted,console-hover,4.5,Icon mục menu quản trị khi rê chuột
+console-accent,console-active,4.5,Mục menu quản trị đang xem
+console-accent,console-bg,4.5,Chữ Share của logo trên cột menu quản trị
+console-accent,console-hover,3,Vòng focus trên mục menu quản trị đang rê chuột

@@ -1,6 +1,6 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.7
+phien_ban: 0.8
 trang_thai: Bản nháp
 ngay: 2026-11-26
 tac_gia: Phạm Văn Đức
@@ -79,6 +79,7 @@ Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Cl
   `syntax-*`; biểu đồ `chart-1…3`; `scrim` (DD-UI-32). `contrast.py`: 51 cặp × 2 theme = 102 phép kiểm, 0 trượt.
 - Mật độ: vừa cho màn hình học sinh (`control-h` 40, `row-h` 52, chữ 15); gọn cho khu kiểm duyệt và quản trị
   (`control-h-sm` 32, `row-h-sm` 38, chữ 14) (DD-UI-30). Thang khoảng cách 4px: `space-0-5` 2 … `space-16` 64.
+- Khung quản trị (DD-UI-42): `console-bg`, `console-hover`, `console-active`, `console-ink`, `console-ink-muted`, `console-accent`, `console-line`.
 - Bố cục: `topbar-h` 64, `nav-w` 200 (khu quản trị `nav-w-wide` 240), `aside-w` 260, `content-max` 820, `drawer-w` 420,
   `dialog-w` 520, `inbox-w` 340 (cột hộp thư Chat, DD-UI-40).
 - Bo góc: `radius-sm` 2px cho mọi khối; `radius-full` cho ô tìm kiếm, avatar, số đếm, công tắc, thanh kết quả bình chọn.
@@ -93,7 +94,7 @@ Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Cl
 
 ## 4. Component (bước 6)
 
-67 component (62 ở DD-UI-31 + 5 component bố cục ở DD-UI-40). Mỗi component có `README.md` và `preview.html` (mọi trạng thái, cả hai theme) trong design system;
+68 component (62 ở DD-UI-31 + 5 component bố cục ở DD-UI-40 + AdminShell ở DD-UI-42). Mỗi component có `README.md` và `preview.html` (mọi trạng thái, cả hai theme) trong design system;
 class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho phần tử bấm được: mặc định, rê chuột, focus
 (vòng `focus` 2px), đang nhấn, tắt; cột "Trạng thái" chỉ ghi phần riêng.
 
@@ -150,8 +151,9 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | Skeleton | dòng, tiêu đề, avatar | — | đứng yên khi giảm chuyển động |
 | ErrorState | không tìm thấy, không có quyền, lỗi, bảo trì | — | câu theo SC; căn giữa như EmptyState, nút chữ đậm (DD-UI-36) |
 | AppHeader | đã đăng nhập, Guest | — | DD-UI-20 |
-| NavBar | người dùng (200px), khu quản trị (240px) | mục đang xem | DD-UI-21, DD-UI-22 |
-| PageLayout | ba cột, hai cột (`--two`), quản trị (`--admin`, `--admin3`), chat (`--chat`), giữa trang (`--center`) | — | khung cột dưới AppHeader; mọi màn hình dùng một biến thể (DD-UI-40) |
+| NavBar | người dùng (200px), khu quản trị `--console` (240px, nền sẫm, trong AdminShell) | mục đang xem | DD-UI-21, DD-UI-42 |
+| PageLayout | ba cột, hai cột (`--two`), quản trị (`--admin`, `--admin3`, nằm trong AdminShell), chat (`--chat`), giữa trang (`--center`) | — | khung cột dưới AppHeader; mọi màn hình dùng một biến thể (DD-UI-40) |
+| AdminShell | Admin (hai nhóm menu), Mod (chỉ nhóm Kiểm duyệt) | mục menu đang xem, rê chuột | khung riêng của khu kiểm duyệt và quản trị: cột menu nền sẫm có logo, thanh trên chỉ có vị trí trang, Về iShare, chuông, avatar; nội dung trải hết bề ngang (DD-UI-42) |
 | PageHeader | đầu trang (`is-h1`), đầu khu vực (`is-h2`), đầu khối nhỏ (`is-label`) | — | tiêu đề trái, hành động phải (DD-UI-40) |
 | SectionCard | thường, gọn (`--compact`, cột phụ) | — | khối giấy trên nền trang (DD-UI-40) |
 | TableOfContents | một dạng | mục đang đọc | "Trong bài này", trang chính sách (DD-UI-40) |
@@ -212,6 +214,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | DD-UI-39 | Trang kích hoạt lại hiện số lần nhập mã còn lại ("Bạn còn N lần thử", đếm từ 5 theo BR-M01-22); sai lần thứ 5 thì hiện trạng thái mã hết hiệu lực | Claude đề xuất, người dùng duyệt | QA-dot-E câu hỏi 2 | 7 | 2026-11-26 |
 | DD-UI-40 | Khối lặp lại thành component của design system: PageLayout (6 biến thể bố cục chung), PageHeader, SectionCard, TableOfContents, DescriptionList; kiểu chữ tiêu đề `is-h1`, `is-h2`, `is-label`; PostBody thêm bản nhỏ `is-prose--sm`; token mới `inbox-w` 340px cho cột hộp thư Chat. Artboard dùng class của design system, `<helmet>` chỉ còn lớp riêng của artboard (khung cắt, lớp phủ, khung mục lục canvas) | Claude đề xuất (QA-dot-A mục 5), người dùng đồng ý: "khối lặp lại chuyển thành component, làm sao dễ quản lý" | QA-dot-A câu hỏi 2 | 7 | 2026-11-26 |
 | DD-UI-41 | Bản Figma "iShare — UI" là bản lưu, canvas là nguồn gốc (không sửa trên Figma). Mỗi artboard đẩy bằng `html_to_figma` từ bản HTML tự chứa (font nhúng); chỉ trong bản Figma: công thức MathML chuyển thành chữ Unicode (dòng) hoặc phân số dựng bằng HTML (khối), nhãn trục biểu đồ đặt lại font Be Vietnam Pro, số dòng của từng đoạn chữ chỉnh khớp với trình duyệt (ô nhập một dòng thì cắt phần thừa như trình duyệt); mỗi page một đợt, mỗi màn hình một hàng có nhãn, frame tên theo artboard | Claude đề xuất cách đẩy; người dùng duyệt chất lượng đợt A và cho đẩy hết: "cứ đẩy hết đi nhé" | Q7-03 | 7 | 2026-11-26 |
+| DD-UI-42 | Khu kiểm duyệt và quản trị dùng khung riêng AdminShell, thay phần "giữ thanh trên cùng, đổi cột trái" của DD-UI-22 và cột menu của DD-UI-35: cột menu nền sẫm `console-bg` cao hết trang, logo vẫn là "iShare", mỗi mục có icon, Mod chỉ thấy nhóm Kiểm duyệt; thanh trên riêng chỉ có vị trí trang (nhóm › trang), "Về iShare", chuông Thông báo, avatar, bỏ ô tìm kiếm, Viết bài, Tin nhắn; nội dung trải hết bề ngang (bỏ giới hạn 820px của SectionCard trong khu này). Thêm 7 token màu `console-*` và 3 màu gốc `teal-850`, `teal-875`, `teal-925` (đạt tương phản, 116/116 cặp); component mới AdminShell, NavBar thêm biến thể `--console`. Màn hình phía người dùng của Mod, Admin giữ AppHeader + NavBar | Người review góp ý trang quản trị "vẫn dùng giao diện như của user thường", muốn mẫu riêng chủ yếu là bảng; Claude đề xuất, người dùng chọn phương án khung riêng cho cả Mod và Admin, giữ chữ logo, duyệt 2 màn mẫu (M10-01, M08-02) | QA-dot-C | 8 | 2026-11-26 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -263,3 +266,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.5 | 2026-11-25 | Bước 6 được duyệt: tokens (tokens.json, contrast-pairs.csv, tokens.css, tokens.dtcg.json), "iShare Design System" (62 component, 84 icon Material Symbols Sharp, font Be Vietnam Pro + JetBrains Mono); mục 3, 4; DD-UI-28…35; chuyển sang chế độ thực thi |
 | 0.6 | 2026-11-26 | Bước 7 (chờ duyệt gộp đợt A–E): DD-UI-36…40 (nút chữ ở trang trống/lỗi, ErrorState căn giữa, ô soạn tự giãn, Lớp/Khối dùng Select, đếm số lần nhập mã, 5 component bố cục); token `inbox-w`; MAU-01 theo SC-M03-012 |
 | 0.7 | 2026-11-26 | Bước 7 được duyệt: đợt A–E đã duyệt và đẩy sang Figma "iShare — UI" (5 page, 356 frame); DD-UI-41 (cách đẩy và chỉnh bản Figma); chuyển sang bước 8 |
+| 0.8 | 2026-11-26 | DD-UI-42: khung quản trị riêng AdminShell cho khu kiểm duyệt và quản trị (token `console-*`, 68 component); đăng lại canvas, design system, đẩy lại page đợt C trên Figma |
