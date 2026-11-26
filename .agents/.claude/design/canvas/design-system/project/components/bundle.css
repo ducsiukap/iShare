@@ -565,8 +565,9 @@ th[aria-sort] .is-sort { color: var(--ink); }
 .is-label { margin: 0; font-size: 15px; line-height: 1.5; font-weight: 600; }
 .is-layout { display: grid; grid-template-columns: var(--nav-w) minmax(0, 1fr) var(--aside-w); gap: var(--space-10); padding: var(--space-8) var(--space-8) var(--space-16); align-items: start; }
 .is-layout--two { grid-template-columns: var(--nav-w) minmax(0, var(--content-max)); }
-.is-layout--admin { grid-template-columns: var(--nav-w-wide) minmax(0, 1fr); }
-.is-layout--admin3 { grid-template-columns: var(--nav-w-wide) minmax(0, 1fr) var(--aside-w); }
+.is-layout--admin { grid-template-columns: minmax(0, 1fr); }
+.is-layout--admin3 { grid-template-columns: minmax(0, 1fr) var(--aside-w); }
+.is-layout--admin .is-card, .is-layout--admin3 .is-card { max-width: none; }
 .is-layout--chat { grid-template-columns: var(--nav-w) var(--inbox-w) minmax(0, 1fr); }
 .is-layout--center { display: flex; justify-content: center; padding: var(--space-16) var(--space-8); }
 .is-layout__main { min-width: 0; display: flex; flex-direction: column; gap: var(--space-6); }
@@ -581,3 +582,27 @@ th[aria-sort] .is-sort { color: var(--ink); }
 .is-dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2) var(--space-3); margin: 0; font-size: 14px; line-height: 1.5; }
 .is-dl dt { color: var(--ink-muted); }
 .is-dl dd { margin: 0; }
+
+
+/* ---------- AdminShell: khung khu kiểm duyệt và quản trị (DD-UI-42) ---------- */
+.is-console { display: grid; grid-template-columns: var(--nav-w-wide) minmax(0, 1fr); min-height: 100%; }
+.is-console__side { display: flex; flex-direction: column; background: var(--console-bg); color: var(--console-ink); border-right: 1px solid var(--console-line); }
+.is-console__brand { display: flex; align-items: center; height: var(--topbar-h); padding: 0 var(--space-6); border-bottom: 1px solid var(--console-line); flex: none; }
+.is-console__brand .is-logo { color: var(--console-ink); }
+.is-console__brand .is-logo span { color: var(--console-accent); }
+.is-console__side :focus-visible, .is-console__side .is-focus { outline-color: var(--console-accent); }
+.is-nav--console { width: auto; padding: var(--space-3) var(--space-3) var(--space-8); }
+.is-nav--console .is-nav__item { color: var(--console-ink); }
+.is-nav--console .is-nav__item .is-ic { color: var(--console-ink-muted); }
+.is-nav--console .is-nav__item:hover, .is-nav--console .is-nav__item.is-hover { background: var(--console-hover); }
+.is-nav--console .is-nav__item[aria-current="page"] { background: var(--console-active); color: var(--console-accent); font-weight: 600; }
+.is-nav--console .is-nav__item[aria-current="page"] .is-ic { color: var(--console-accent); }
+.is-nav--console .is-nav__group { color: var(--console-ink-muted); }
+.is-nav--console .is-nav__foot a { color: var(--console-ink-muted); }
+.is-console__body { display: flex; flex-direction: column; min-width: 0; }
+.is-console__bar { display: flex; align-items: center; gap: var(--space-4); height: var(--topbar-h); padding: 0 var(--space-8); background: var(--surface); border-bottom: 1px solid var(--line); flex: none; }
+.is-console__where { flex: 1; min-width: 0; }
+.is-console__crumb { display: flex; align-items: center; gap: var(--space-2); margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.5; color: var(--ink-muted); }
+.is-console__crumb li { display: flex; align-items: center; gap: var(--space-2); white-space: nowrap; }
+.is-console__crumb [aria-current="page"] { color: var(--ink); font-weight: 600; }
+.is-console__end { display: flex; align-items: center; gap: var(--space-2); flex: none; }

@@ -26,6 +26,7 @@ Hai theme **Sáng** (mặc định) và **Tối**, cùng tên token; component c
 - Nội dung bài: tô sáng `mark` (chữ `ink`); tô màu cú pháp `syntax-keyword`, `syntax-string`, `syntax-number`, `syntax-function`, `syntax-comment` trên nền `bg` của khối code.
 - Biểu đồ: `chart-1`, `chart-2`, `chart-3` là thang một sắc, khác nhau bằng độ sáng (LIGHT → MEDIUM → HEAVY); biểu đồ một chuỗi dùng `chart-2`. Luôn có chú thích chữ và bảng số liệu.
 - Lớp phủ sau dialog: `scrim`.
+- Khu kiểm duyệt và quản trị (AdminShell, DD-UI-42): cột menu nền sẫm `console-bg`; chữ `console-ink`, chữ phụ và icon `console-ink-muted`, rê chuột `console-hover`, mục đang xem `console-active` + chữ `console-accent`, đường kẻ `console-line`. Chỉ dùng trong cột menu của AdminShell.
 
 ## Chữ
 
@@ -39,7 +40,7 @@ Hai theme **Sáng** (mặc định) và **Tối**, cùng tên token; component c
 
 - Thang bội số 4px: `space-1` 4 · `space-2` 8 · `space-3` 12 · `space-4` 16 · `space-5` 20 · `space-6` 24 · `space-8` 32 · `space-10` 40 · `space-12` 48 · `space-16` 64; `space-0-5` 2 cho khe rất nhỏ.
 - **Màn hình của học sinh: mật độ vừa** — nút, ô nhập cao `control-h` 40px, dòng danh sách `row-h` 52px, chữ 15px.
-- **Khu kiểm duyệt và quản trị: mật độ gọn** — bảng `row-h-sm` 38px, chữ 14px, nút và bộ lọc `control-h-sm` 32px.
+- **Khu kiểm duyệt và quản trị: mật độ gọn** — bảng `row-h-sm` 38px, chữ 14px, nút và bộ lọc `control-h-sm` 32px. Khung riêng AdminShell: cột menu sẫm, thanh trên không có ô tìm kiếm, nội dung trải hết bề ngang.
 - Bố cục desktop 1440, không vỡ ở 1280: thanh trên cùng `topbar-h` 64px; cột điều hướng `nav-w` 200px; cột phụ `aside-w` 260px khi trang có nội dung phụ, nếu không thì cột nội dung tối đa `content-max` 820px.
 - Phân nhóm bằng khoảng trắng và đường kẻ, không lồng khung trong khung.
 

@@ -96,9 +96,21 @@
       "$type": "color",
       "$value": "#163b34"
     },
+    "teal-850": {
+      "$type": "color",
+      "$value": "#2d453f"
+    },
+    "teal-875": {
+      "$type": "color",
+      "$value": "#253733"
+    },
     "teal-900": {
       "$type": "color",
       "$value": "#1c2b28"
+    },
+    "teal-925": {
+      "$type": "color",
+      "$value": "#13201d"
     },
     "teal-950": {
       "$type": "color",
@@ -374,6 +386,69 @@
       "$extensions": {
         "ishare.themes": {
           "dark": "{teal-100}"
+        }
+      }
+    },
+    "console-bg": {
+      "$type": "color",
+      "$value": "{color.teal-900}",
+      "$extensions": {
+        "ishare.themes": {
+          "dark": "{teal-925}"
+        }
+      }
+    },
+    "console-hover": {
+      "$type": "color",
+      "$value": "{color.teal-875}",
+      "$extensions": {
+        "ishare.themes": {
+          "dark": "{teal-900}"
+        }
+      }
+    },
+    "console-active": {
+      "$type": "color",
+      "$value": "{color.teal-850}",
+      "$extensions": {
+        "ishare.themes": {
+          "dark": "{teal-875}"
+        }
+      }
+    },
+    "console-ink": {
+      "$type": "color",
+      "$value": "{color.neutral-150}",
+      "$extensions": {
+        "ishare.themes": {
+          "dark": "{neutral-150}"
+        }
+      }
+    },
+    "console-ink-muted": {
+      "$type": "color",
+      "$value": "{color.neutral-400}",
+      "$extensions": {
+        "ishare.themes": {
+          "dark": "{neutral-400}"
+        }
+      }
+    },
+    "console-accent": {
+      "$type": "color",
+      "$value": "{color.teal-200}",
+      "$extensions": {
+        "ishare.themes": {
+          "dark": "{teal-200}"
+        }
+      }
+    },
+    "console-line": {
+      "$type": "color",
+      "$value": "{color.teal-875}",
+      "$extensions": {
+        "ishare.themes": {
+          "dark": "{neutral-800}"
         }
       }
     },

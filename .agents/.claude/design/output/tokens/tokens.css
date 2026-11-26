@@ -26,7 +26,10 @@
   --color-teal-600: #2a6f63;
   --color-teal-700: #22594f;
   --color-teal-800: #163b34;
+  --color-teal-850: #2d453f;
+  --color-teal-875: #253733;
   --color-teal-900: #1c2b28;
+  --color-teal-925: #13201d;
   --color-teal-950: #0c1a17;
   --color-bg: var(--color-neutral-50);
   --color-surface: var(--color-neutral-0);
@@ -60,6 +63,13 @@
   --color-chart-1: var(--color-teal-400);
   --color-chart-2: var(--color-teal-600);
   --color-chart-3: var(--color-teal-800);
+  --color-console-bg: var(--color-teal-900);
+  --color-console-hover: var(--color-teal-875);
+  --color-console-active: var(--color-teal-850);
+  --color-console-ink: var(--color-neutral-150);
+  --color-console-ink-muted: var(--color-neutral-400);
+  --color-console-accent: var(--color-teal-200);
+  --color-console-line: var(--color-teal-875);
   --color-scrim: rgba(16, 21, 20, 0.48);
   /* font families */
   --font-sans: "Be Vietnam Pro", sans-serif;
@@ -176,5 +186,9 @@
   --color-chart-1: var(--color-teal-500);
   --color-chart-2: var(--color-teal-300);
   --color-chart-3: var(--color-teal-100);
+  --color-console-bg: var(--color-teal-925);
+  --color-console-hover: var(--color-teal-900);
+  --color-console-active: var(--color-teal-875);
+  --color-console-line: var(--color-neutral-800);
   --color-scrim: rgba(0, 0, 0, 0.6);
 }

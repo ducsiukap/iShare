@@ -49,6 +49,7 @@ Rà trên ảnh chụp bản sao cục bộ (Chromium, 1440 px, font của desig
 | QA-C-01 | SCR-M08-01 | Nhất quán | Hộp thoại báo cáo cao quá khung nhìn, nút Gửi bị đẩy khỏi màn hình | Đệm trên space-8, ô mô tả 2 dòng | Phải sửa | Đã sửa |
 | QA-C-02 | SCR-M08-03 | Nhất quán | Bảng báo cáo tràn ngang vì cột "Chỉ số báo cáo sai" | Chuyển chỉ số sang cột phụ "Chỉ số báo cáo sai (90 ngày)" | Phải sửa | Đã sửa |
 | QA-C-03 | SCR-M08-04 | Nguồn | Wireframe bước 5 ghi ban 7 ngày; BR-M08-34 quy định ban theo lịch sử: lần đầu 30 ngày, lần hai 90 ngày, sau đó vĩnh viễn | Theo nguồn BR-M08-34 | Phải sửa | Đã theo nguồn |
+| QA-C-04 | SCR-SHARED-06 và mọi màn hình khu kiểm duyệt, quản trị | Nhất quán | Người review: khu quản trị dùng chung thanh trên cùng và khung với trang học sinh nên không phân biệt được | Khung riêng AdminShell: cột menu nền sẫm, thanh trên riêng, nội dung trải rộng cho bảng (DD-UI-42) | Nên sửa | Đã sửa 2026-11-26 — người dùng duyệt 2 màn mẫu |
 
 Thông điệp nguồn có chữ cụ thể được dùng nguyên văn: tên các lý do báo cáo, "Tài khoản đã bị khóa", "Hệ thống đang bận, vui lòng thử lại sau", banner "Bảo trì hệ thống lúc 22:00.". Phần còn lại (lỗi "Vui lòng nhập lý do", trạng thái rỗng của hàng chờ, xác nhận gộp Chủ đề, chú thích công tắc AI) viết theo giọng văn `PRODUCT.md`.
 

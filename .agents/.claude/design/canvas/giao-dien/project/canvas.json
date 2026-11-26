@@ -1219,7 +1219,7 @@
    "x": 0,
    "y": 14508,
    "w": 1440,
-   "h": 1028,
+   "h": 976,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
@@ -1228,7 +1228,7 @@
    "x": 1520,
    "y": 14508,
    "w": 1440,
-   "h": 1028,
+   "h": 976,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
@@ -1271,7 +1271,7 @@
   },
   "SCR-M08-04--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 16036,
+   "y": 15984,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1280,7 +1280,7 @@
   },
   "SCR-M08-04--default--desktop.dc.html": {
    "x": 1520,
-   "y": 16036,
+   "y": 15984,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1289,7 +1289,7 @@
   },
   "SCR-M08-04--validation--desktop.dc.html": {
    "x": 3040,
-   "y": 16036,
+   "y": 15984,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1298,7 +1298,7 @@
   },
   "SCR-M08-05--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 17436,
+   "y": 17384,
    "w": 1440,
    "h": 836,
    "page": "dot-c",
@@ -1307,7 +1307,7 @@
   },
   "SCR-M08-05--default--desktop.dc.html": {
    "x": 1520,
-   "y": 17436,
+   "y": 17384,
    "w": 1440,
    "h": 836,
    "page": "dot-c",
@@ -1316,7 +1316,7 @@
   },
   "SCR-M08-05--warned--desktop.dc.html": {
    "x": 3040,
-   "y": 17436,
+   "y": 17384,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1325,7 +1325,7 @@
   },
   "SCR-M08-05--empty--desktop.dc.html": {
    "x": 4560,
-   "y": 17436,
+   "y": 17384,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1334,25 +1334,25 @@
   },
   "SCR-M08-06--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 18836,
+   "y": 18784,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M08-06--default--desktop.dc.html": {
    "x": 1520,
-   "y": 18836,
+   "y": 18784,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M08-06--empty--desktop.dc.html": {
    "x": 3040,
-   "y": 18836,
+   "y": 18784,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1361,7 +1361,7 @@
   },
   "SCR-M08-06--mod--desktop.dc.html": {
    "x": 4560,
-   "y": 18836,
+   "y": 18784,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1370,7 +1370,7 @@
   },
   "SCR-M08-06--admin--desktop.dc.html": {
    "x": 6080,
-   "y": 18836,
+   "y": 18784,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1379,7 +1379,7 @@
   },
   "SCR-M08-06--loading--desktop.dc.html": {
    "x": 7600,
-   "y": 18836,
+   "y": 18784,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1388,7 +1388,7 @@
   },
   "SCR-M09-01--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 20275,
+   "y": 20184,
    "w": 1440,
    "h": 1054,
    "page": "dot-c",
@@ -1397,7 +1397,7 @@
   },
   "SCR-M09-01--default--desktop.dc.html": {
    "x": 1520,
-   "y": 20275,
+   "y": 20184,
    "w": 1440,
    "h": 1054,
    "page": "dot-c",
@@ -1406,7 +1406,7 @@
   },
   "SCR-M09-01--validation--desktop.dc.html": {
    "x": 3040,
-   "y": 20275,
+   "y": 20184,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1415,7 +1415,7 @@
   },
   "SCR-M09-01--forbidden--desktop.dc.html": {
    "x": 4560,
-   "y": 20275,
+   "y": 20184,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1424,7 +1424,7 @@
   },
   "SCR-M09-01--banned--desktop.dc.html": {
    "x": 6080,
-   "y": 20275,
+   "y": 20184,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1433,7 +1433,7 @@
   },
   "SCR-M09-01--submitted--desktop.dc.html": {
    "x": 7600,
-   "y": 20275,
+   "y": 20184,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1442,7 +1442,7 @@
   },
   "SCR-M09-02--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 21829,
+   "y": 21738,
    "w": 1440,
    "h": 412,
    "page": "dot-c",
@@ -1451,7 +1451,7 @@
   },
   "SCR-M09-02--default--desktop.dc.html": {
    "x": 1520,
-   "y": 21829,
+   "y": 21738,
    "w": 1440,
    "h": 412,
    "page": "dot-c",
@@ -1460,7 +1460,7 @@
   },
   "SCR-M09-02--empty--desktop.dc.html": {
    "x": 3040,
-   "y": 21829,
+   "y": 21738,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1469,7 +1469,7 @@
   },
   "SCR-M09-02--pending--desktop.dc.html": {
    "x": 4560,
-   "y": 21829,
+   "y": 21738,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1478,7 +1478,7 @@
   },
   "SCR-M09-02--rejected--desktop.dc.html": {
    "x": 6080,
-   "y": 21829,
+   "y": 21738,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1487,7 +1487,7 @@
   },
   "SCR-M09-02--loading--desktop.dc.html": {
    "x": 7600,
-   "y": 21829,
+   "y": 21738,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1496,25 +1496,25 @@
   },
   "SCR-M09-03--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 23229,
+   "y": 23138,
    "w": 1440,
-   "h": 543,
+   "h": 517,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M09-03--default--desktop.dc.html": {
    "x": 1520,
-   "y": 23229,
+   "y": 23138,
    "w": 1440,
-   "h": 543,
+   "h": 517,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M09-03--empty--desktop.dc.html": {
    "x": 3040,
-   "y": 23229,
+   "y": 23138,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1523,7 +1523,7 @@
   },
   "SCR-M09-03--mod--desktop.dc.html": {
    "x": 4560,
-   "y": 23229,
+   "y": 23138,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1532,7 +1532,7 @@
   },
   "SCR-M09-03--admin--desktop.dc.html": {
    "x": 6080,
-   "y": 23229,
+   "y": 23138,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1541,7 +1541,7 @@
   },
   "SCR-M09-04--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 24629,
+   "y": 24538,
    "w": 1440,
    "h": 1225,
    "page": "dot-c",
@@ -1550,7 +1550,7 @@
   },
   "SCR-M09-04--default--desktop.dc.html": {
    "x": 1520,
-   "y": 24629,
+   "y": 24538,
    "w": 1440,
    "h": 1225,
    "page": "dot-c",
@@ -1559,7 +1559,7 @@
   },
   "SCR-M09-04--validation--desktop.dc.html": {
    "x": 3040,
-   "y": 24629,
+   "y": 24538,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1568,7 +1568,7 @@
   },
   "SCR-M09-04--pending--desktop.dc.html": {
    "x": 4560,
-   "y": 24629,
+   "y": 24538,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1577,7 +1577,7 @@
   },
   "SCR-M09-04--forbidden--desktop.dc.html": {
    "x": 6080,
-   "y": 24629,
+   "y": 24538,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1586,25 +1586,25 @@
   },
   "SCR-M10-01--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 26354,
+   "y": 26263,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M10-01--default--desktop.dc.html": {
    "x": 1520,
-   "y": 26354,
+   "y": 26263,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M10-01--no-result--desktop.dc.html": {
    "x": 3040,
-   "y": 26354,
+   "y": 26263,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1613,7 +1613,7 @@
   },
   "SCR-M10-01--loading--desktop.dc.html": {
    "x": 4560,
-   "y": 26354,
+   "y": 26263,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1622,25 +1622,25 @@
   },
   "SCR-M10-02--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 27793,
+   "y": 27663,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M10-02--default--desktop.dc.html": {
    "x": 1520,
-   "y": 27793,
+   "y": 27663,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M10-02--pending--desktop.dc.html": {
    "x": 3040,
-   "y": 27793,
+   "y": 27663,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1649,7 +1649,7 @@
   },
   "SCR-M10-02--forbidden--desktop.dc.html": {
    "x": 4560,
-   "y": 27793,
+   "y": 27663,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1658,7 +1658,7 @@
   },
   "SCR-M10-03--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 29232,
+   "y": 29063,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1667,7 +1667,7 @@
   },
   "SCR-M10-03--default--desktop.dc.html": {
    "x": 1520,
-   "y": 29232,
+   "y": 29063,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1676,7 +1676,7 @@
   },
   "SCR-M10-03--forbidden--desktop.dc.html": {
    "x": 3040,
-   "y": 29232,
+   "y": 29063,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1685,7 +1685,7 @@
   },
   "SCR-M10-04--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 30632,
+   "y": 30463,
    "w": 1440,
    "h": 1038,
    "page": "dot-c",
@@ -1694,7 +1694,7 @@
   },
   "SCR-M10-04--default--desktop.dc.html": {
    "x": 1520,
-   "y": 30632,
+   "y": 30463,
    "w": 1440,
    "h": 1038,
    "page": "dot-c",
@@ -1703,7 +1703,7 @@
   },
   "SCR-M10-04--error--desktop.dc.html": {
    "x": 3040,
-   "y": 30632,
+   "y": 30463,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1712,25 +1712,25 @@
   },
   "SCR-M10-05--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 32170,
+   "y": 32001,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M10-05--default--desktop.dc.html": {
    "x": 1520,
-   "y": 32170,
+   "y": 32001,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M10-05--empty--desktop.dc.html": {
    "x": 3040,
-   "y": 32170,
+   "y": 32001,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1739,7 +1739,7 @@
   },
   "SCR-M10-05--validation--desktop.dc.html": {
    "x": 4560,
-   "y": 32170,
+   "y": 32001,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1748,25 +1748,25 @@
   },
   "SCR-M10-06--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 33609,
+   "y": 33401,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M10-06--default--desktop.dc.html": {
    "x": 1520,
-   "y": 33609,
+   "y": 33401,
    "w": 1440,
-   "h": 939,
+   "h": 811,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M10-06--no-result--desktop.dc.html": {
    "x": 3040,
-   "y": 33609,
+   "y": 33401,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1775,7 +1775,7 @@
   },
   "SCR-M10-06--loading--desktop.dc.html": {
    "x": 4560,
-   "y": 33609,
+   "y": 33401,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1784,25 +1784,25 @@
   },
   "SCR-M15-01--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 35048,
+   "y": 34801,
    "w": 1440,
-   "h": 1225,
+   "h": 1312,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M15-01--default--desktop.dc.html": {
    "x": 1520,
-   "y": 35048,
+   "y": 34801,
    "w": 1440,
-   "h": 1225,
+   "h": 1312,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M15-01--empty--desktop.dc.html": {
    "x": 3040,
-   "y": 35048,
+   "y": 34801,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1811,7 +1811,7 @@
   },
   "SCR-M15-01--loading--desktop.dc.html": {
    "x": 4560,
-   "y": 35048,
+   "y": 34801,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1820,25 +1820,25 @@
   },
   "SCR-M15-02--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 36773,
+   "y": 36613,
    "w": 1440,
-   "h": 1225,
+   "h": 1312,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M15-02--default--desktop.dc.html": {
    "x": 1520,
-   "y": 36773,
+   "y": 36613,
    "w": 1440,
-   "h": 1225,
+   "h": 1312,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M15-02--empty--desktop.dc.html": {
    "x": 3040,
-   "y": 36773,
+   "y": 36613,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1847,7 +1847,7 @@
   },
   "SCR-M15-02--loading--desktop.dc.html": {
    "x": 4560,
-   "y": 36773,
+   "y": 36613,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1856,25 +1856,25 @@
   },
   "SCR-M15-03--default--desktop--dark.dc.html": {
    "x": 0,
-   "y": 38498,
+   "y": 38425,
    "w": 1440,
-   "h": 1621,
+   "h": 1795,
    "page": "dot-c",
    "title": "default · tối",
    "expand": "fill"
   },
   "SCR-M15-03--default--desktop.dc.html": {
    "x": 1520,
-   "y": 38498,
+   "y": 38425,
    "w": 1440,
-   "h": 1621,
+   "h": 1795,
    "page": "dot-c",
    "title": "default",
    "expand": "fill"
   },
   "SCR-M15-03--empty--desktop.dc.html": {
    "x": 3040,
-   "y": 38498,
+   "y": 38425,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -1883,7 +1883,7 @@
   },
   "SCR-M15-03--loading--desktop.dc.html": {
    "x": 4560,
-   "y": 38498,
+   "y": 38425,
    "w": 1440,
    "h": 900,
    "page": "dot-c",
@@ -3803,7 +3803,7 @@
   "tieu-de-scr-m08-04": {
    "kind": "title1",
    "x": 0,
-   "y": 15776,
+   "y": 15724,
    "text": "SCR-M08-04 · Lý do cho biện pháp và kết luận vụ (hộp thoại) (2 trạng thái)",
    "maxW": 4480,
    "page": "dot-c"
@@ -3811,7 +3811,7 @@
   "tieu-de-scr-m08-05": {
    "kind": "title1",
    "x": 0,
-   "y": 17176,
+   "y": 17124,
    "text": "SCR-M08-05 · Mức cảnh cáo của tôi (3 trạng thái)",
    "maxW": 6000,
    "page": "dot-c"
@@ -3819,7 +3819,7 @@
   "tieu-de-scr-m08-06": {
    "kind": "title1",
    "x": 0,
-   "y": 18576,
+   "y": 18524,
    "text": "SCR-M08-06 · Nhật ký kiểm duyệt (5 trạng thái)",
    "maxW": 9040,
    "page": "dot-c"
@@ -3827,7 +3827,7 @@
   "tieu-de-scr-m09-01": {
    "kind": "title1",
    "x": 0,
-   "y": 20015,
+   "y": 19924,
    "text": "SCR-M09-01 · Gửi khiếu nại (5 trạng thái)",
    "maxW": 9040,
    "page": "dot-c"
@@ -3835,7 +3835,7 @@
   "tieu-de-scr-m09-02": {
    "kind": "title1",
    "x": 0,
-   "y": 21569,
+   "y": 21478,
    "text": "SCR-M09-02 · Khiếu nại của tôi (5 trạng thái)",
    "maxW": 9040,
    "page": "dot-c"
@@ -3843,7 +3843,7 @@
   "tieu-de-scr-m09-03": {
    "kind": "title1",
    "x": 0,
-   "y": 22969,
+   "y": 22878,
    "text": "SCR-M09-03 · Hàng chờ khiếu nại (Mod/Admin) (4 trạng thái)",
    "maxW": 7520,
    "page": "dot-c"
@@ -3851,7 +3851,7 @@
   "tieu-de-scr-m09-04": {
    "kind": "title1",
    "x": 0,
-   "y": 24369,
+   "y": 24278,
    "text": "SCR-M09-04 · Chi tiết khiếu nại (4 trạng thái)",
    "maxW": 7520,
    "page": "dot-c"
@@ -3859,7 +3859,7 @@
   "tieu-de-scr-m10-01": {
    "kind": "title1",
    "x": 0,
-   "y": 26094,
+   "y": 26003,
    "text": "SCR-M10-01 · Người dùng (Admin Panel) (3 trạng thái)",
    "maxW": 6000,
    "page": "dot-c"
@@ -3867,7 +3867,7 @@
   "tieu-de-scr-m10-02": {
    "kind": "title1",
    "x": 0,
-   "y": 27533,
+   "y": 27403,
    "text": "SCR-M10-02 · Vai trò của một người dùng (3 trạng thái)",
    "maxW": 6000,
    "page": "dot-c"
@@ -3875,7 +3875,7 @@
   "tieu-de-scr-m10-03": {
    "kind": "title1",
    "x": 0,
-   "y": 28972,
+   "y": 28803,
    "text": "SCR-M10-03 · Tự từ chức vai trò (hộp thoại) (2 trạng thái)",
    "maxW": 4480,
    "page": "dot-c"
@@ -3883,7 +3883,7 @@
   "tieu-de-scr-m10-04": {
    "kind": "title1",
    "x": 0,
-   "y": 30372,
+   "y": 30203,
    "text": "SCR-M10-04 · Cấu hình hệ thống (2 trạng thái)",
    "maxW": 4480,
    "page": "dot-c"
@@ -3891,7 +3891,7 @@
   "tieu-de-scr-m10-05": {
    "kind": "title1",
    "x": 0,
-   "y": 31910,
+   "y": 31741,
    "text": "SCR-M10-05 · Banner toàn trang (đặt, sửa, gỡ) (3 trạng thái)",
    "maxW": 6000,
    "page": "dot-c"
@@ -3899,7 +3899,7 @@
   "tieu-de-scr-m10-06": {
    "kind": "title1",
    "x": 0,
-   "y": 33349,
+   "y": 33141,
    "text": "SCR-M10-06 · Nhật ký thao tác Admin (3 trạng thái)",
    "maxW": 6000,
    "page": "dot-c"
@@ -3907,7 +3907,7 @@
   "tieu-de-scr-m15-01": {
    "kind": "title1",
    "x": 0,
-   "y": 34788,
+   "y": 34541,
    "text": "SCR-M15-01 · Thống kê người dùng (3 trạng thái)",
    "maxW": 6000,
    "page": "dot-c"
@@ -3915,7 +3915,7 @@
   "tieu-de-scr-m15-02": {
    "kind": "title1",
    "x": 0,
-   "y": 36513,
+   "y": 36353,
    "text": "SCR-M15-02 · Thống kê nội dung (3 trạng thái)",
    "maxW": 6000,
    "page": "dot-c"
@@ -3923,7 +3923,7 @@
   "tieu-de-scr-m15-03": {
    "kind": "title1",
    "x": 0,
-   "y": 38238,
+   "y": 38165,
    "text": "SCR-M15-03 · Thống kê kiểm duyệt (3 trạng thái)",
    "maxW": 6000,
    "page": "dot-c"

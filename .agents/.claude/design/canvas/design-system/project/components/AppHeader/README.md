@@ -2,9 +2,9 @@
 
 Thanh trên cùng cố định của mọi trang (DD-UI-20): chữ "iShare", ô tìm kiếm ở giữa khoảng còn lại, nhóm nút bên phải.
 
-**Dùng khi:** mọi trang, kể cả khu kiểm duyệt và quản trị.
+**Dùng khi:** mọi trang của người dùng và khách.
 
-**Không dùng khi:** —
+**Không dùng khi:** khu kiểm duyệt và quản trị: dùng thanh riêng của AdminShell (DD-UI-42).
 
 ## Biến thể và trạng thái
 

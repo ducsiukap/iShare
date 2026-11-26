@@ -1,6 +1,6 @@
 # NavBar
 
-Cột điều hướng trái 200px (DD-UI-21); khu kiểm duyệt dùng cùng cột với menu quản trị (DD-UI-22).
+Cột điều hướng trái 200px (DD-UI-21); khu kiểm duyệt và quản trị dùng biến thể `--console` nền sẫm trong AdminShell (DD-UI-42).
 
 **Dùng khi:** mọi trang desktop.
 
@@ -9,8 +9,8 @@ Cột điều hướng trái 200px (DD-UI-21); khu kiểm duyệt dùng cùng c�
 ## Biến thể và trạng thái
 
 - Người dùng: Trang chủ, Chủ đề, Nhóm, Bảng xếp hạng; dòng chân Privacy Policy/ToS; rộng `nav-w` 200px.
-- Khu kiểm duyệt (`--wide`, `nav-w-wide` 240px): nhóm Kiểm duyệt (Hàng chờ báo cáo, Hàng chờ duyệt bài, Hàng chờ khiếu nại, Quản lý Tag, Nhật ký kiểm duyệt), nhóm Quản trị chỉ Admin thấy, mục "Về iShare".
 - Mục đang xem: nền `primary-soft`, chữ và icon `primary`; rê chuột `surface-hover`.
+- Khu kiểm duyệt và quản trị (`--console`, nằm trong cột `is-console__side` rộng `nav-w-wide` 240px của AdminShell): nhóm Kiểm duyệt (Hàng chờ báo cáo, Hàng chờ duyệt bài, Hàng chờ khiếu nại, Quản lý Tag, Nhật ký kiểm duyệt), nhóm Quản trị chỉ Admin thấy (Người dùng, Chủ đề, Cấu hình hệ thống, Banner, Nhật ký Admin, ba trang Thống kê); mỗi mục có icon. Chữ `console-ink`, icon và tên nhóm `console-ink-muted`; rê chuột `console-hover`; mục đang xem nền `console-active`, chữ và icon `console-accent`. Lối "Về iShare" nằm trên thanh của AdminShell.
 
 ## Cần cung cấp
 
@@ -22,4 +22,4 @@ Cột điều hướng trái 200px (DD-UI-21); khu kiểm duyệt dùng cùng c�
 
 ## Class và token
 
-`is-nav`, `is-nav__item`, `is-nav__group`, `is-nav__foot` · token `nav-w`, `primary-soft`, `primary`, `surface-hover`.
+`is-nav`, `is-nav--console`, `is-nav__item`, `is-nav__group`, `is-nav__foot` · token `nav-w`, `nav-w-wide`, `primary-soft`, `primary`, `surface-hover`, `console-*`.
