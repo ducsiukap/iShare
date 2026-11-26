@@ -2,7 +2,7 @@
 
 Liên kết điều hướng tới trang hoặc nội dung khác.
 
-**Dùng khi:** đi tới trang khác: "Xem lịch sử", tên tác giả, tiêu đề bài, Privacy Policy/ToS.
+**Dùng khi:** đi tới trang khác: "Xem lịch sử", tên tác giả, tiêu đề bài, "Chính sách và Điều khoản" ở chân cột menu.
 
 **Không dùng khi:** thực hiện thao tác thay đổi dữ liệu (dùng Button).
 
