@@ -1,16 +1,16 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.5
+phien_ban: 0.6
 trang_thai: Bản nháp
-ngay: 2026-11-25
+ngay: 2026-11-26
 tac_gia: Phạm Văn Đức
 steps_completed: [1, 2, 3, 4, 5, 6]
 buoc_hien_tai: 7
 che_do: thuc-thi
-dot_da_duyet: []
+dot_da_duyet: [A, B, C, D, E]
 dot_da_day_figma: []
 canvas_kham_pha: https://claude.ai/artifact/K2ZxJDPyzjGKHCw8rZZKrs
-canvas_giao_dien:
+canvas_giao_dien: https://claude.ai/artifact/HAykztXFcJbkAiSCXKvift
 design_system: https://claude.ai/artifact/VhNBYBjrD4Rng8CtynS7pp
 figma_file:
 ---
@@ -80,7 +80,7 @@ Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Cl
 - Mật độ: vừa cho màn hình học sinh (`control-h` 40, `row-h` 52, chữ 15); gọn cho khu kiểm duyệt và quản trị
   (`control-h-sm` 32, `row-h-sm` 38, chữ 14) (DD-UI-30). Thang khoảng cách 4px: `space-0-5` 2 … `space-16` 64.
 - Bố cục: `topbar-h` 64, `nav-w` 200 (khu quản trị `nav-w-wide` 240), `aside-w` 260, `content-max` 820, `drawer-w` 420,
-  `dialog-w` 520.
+  `dialog-w` 520, `inbox-w` 340 (cột hộp thư Chat, DD-UI-40).
 - Bo góc: `radius-sm` 2px cho mọi khối; `radius-full` cho ô tìm kiếm, avatar, số đếm, công tắc, thanh kết quả bình chọn.
 - Bóng: khối nội dung không bóng (viền `line`); `shadow-1` cho menu, popover, toast, tooltip; `shadow-2` cho dialog, ngăn
   trượt; lớp nổi không kèm viền (DD-UI-34).
@@ -93,13 +93,13 @@ Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Cl
 
 ## 4. Component (bước 6)
 
-62 component (DD-UI-31). Mỗi component có `README.md` và `preview.html` (mọi trạng thái, cả hai theme) trong design system;
+67 component (62 ở DD-UI-31 + 5 component bố cục ở DD-UI-40). Mỗi component có `README.md` và `preview.html` (mọi trạng thái, cả hai theme) trong design system;
 class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho phần tử bấm được: mặc định, rê chuột, focus
 (vòng `focus` 2px), đang nhấn, tắt; cột "Trạng thái" chỉ ghi phần riêng.
 
 | Component | Biến thể | Trạng thái | Ghi chú |
 |---|---|---|---|
-| Button | chính, phụ, nhẹ, nguy hiểm; cỡ 40/32 | đang xử lý (`aria-busy`) | tối đa một nút chính mỗi vùng |
+| Button | chính, phụ, nhẹ, nguy hiểm, chữ chính, chữ phụ; cỡ 40/32 | đang xử lý (`aria-busy`) | tối đa một nút chính mỗi vùng; hai kiểu chữ chỉ dùng trong EmptyState, ErrorState (DD-UI-36) |
 | IconButton | trong suốt, có viền; cỡ 40/32; có Counter | đang bật/đang mở (`aria-pressed`, `aria-expanded`) | luôn có `aria-label` |
 | Link | thường (gạch chân), trầm | — | trong đoạn văn luôn gạch chân |
 | GoogleButton | một dạng | đang chuyển sang Google | logo G của Google giữ nguyên màu (tài sản Google) |
@@ -146,11 +146,16 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | Toast | success, info, warning, danger; có nút | — | lỗi không tự ẩn |
 | InlineAlert | 4 tone; có nút | — | chờ duyệt, bị từ chối, cảnh cáo |
 | Banner | info, warning | văn bản dài | banner Admin ≤200 ký tự |
-| EmptyState | có/không nút | — | không minh họa, không mascot |
+| EmptyState | có/không nút | — | không minh họa, không mascot; nút chữ đậm, không nền, không viền (DD-UI-36) |
 | Skeleton | dòng, tiêu đề, avatar | — | đứng yên khi giảm chuyển động |
-| ErrorState | không tìm thấy, không có quyền, lỗi, bảo trì | — | câu theo SC |
+| ErrorState | không tìm thấy, không có quyền, lỗi, bảo trì | — | câu theo SC; căn giữa như EmptyState, nút chữ đậm (DD-UI-36) |
 | AppHeader | đã đăng nhập, Guest | — | DD-UI-20 |
 | NavBar | người dùng (200px), khu quản trị (240px) | mục đang xem | DD-UI-21, DD-UI-22 |
+| PageLayout | ba cột, hai cột (`--two`), quản trị (`--admin`, `--admin3`), chat (`--chat`), giữa trang (`--center`) | — | khung cột dưới AppHeader; mọi màn hình dùng một biến thể (DD-UI-40) |
+| PageHeader | đầu trang (`is-h1`), đầu khu vực (`is-h2`), đầu khối nhỏ (`is-label`) | — | tiêu đề trái, hành động phải (DD-UI-40) |
+| SectionCard | thường, gọn (`--compact`, cột phụ) | — | khối giấy trên nền trang (DD-UI-40) |
+| TableOfContents | một dạng | mục đang đọc | "Trong bài này", trang chính sách (DD-UI-40) |
+| DescriptionList | một dạng | — | cặp nhãn – giá trị (DD-UI-40) |
 | Tabs | tab chính, mục con, có số | đã chọn | trạng thái vào URL khi FR có |
 | Dialog | thường, rộng, nguy hiểm | — | giữ focus, Esc đóng (QF-06) |
 | Drawer | một dạng | đang tải, lỗi | Tóm tắt, thông tin nhóm chat, vai trò |
@@ -160,7 +165,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | Pagination | Tải thêm, trang số | đang tải, đã hết | — |
 | StepIndicator | 3 bước đăng ký | đã xong, hiện tại, chưa tới | `aria-current="step"` |
 | EditorToolbar | bài viết (BR-M03-03), bình luận (BR-M04-01) | đang áp dụng, tắt | chỉ định dạng FR cho phép |
-| CommentComposer | bình luận, trả lời có dòng trích, chat | vượt 1.000 từ, bình luận đã khóa | — |
+| CommentComposer | bình luận, trả lời có dòng trích, chat; vùng soạn bài | vượt 1.000 từ, bình luận đã khóa | tự giãn theo nội dung rồi cuộn trong ô (DD-UI-37) |
 
 ## 5. Quyết định thiết kế
 
@@ -201,6 +206,11 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | DD-UI-33 | Thang chữ chốt từ thang tạm bước 3 + tiêu đề mục trong bài `post-h1/2/3` (22/19/17 đậm, dùng lại cỡ của thang) | Claude đề xuất, người dùng duyệt ở bước 6 | BR-M03-03 (H1–H3 trong bài) | 6 | 2026-11-25 |
 | DD-UI-34 | Bóng chỉ cho lớp nổi (`shadow-1` menu/popover/toast/tooltip, `shadow-2` dialog/ngăn trượt), không kèm viền; chuyển động 120/200/280ms, không nảy, tắt khi giảm chuyển động | Claude đề xuất, người dùng duyệt ở bước 6 | AP-31, QF-11 | 6 | 2026-11-25 |
 | DD-UI-35 | Khu kiểm duyệt và quản trị dùng cột điều hướng rộng 240px (`nav-w-wide`) vì nhãn mục dài; cột của người dùng giữ 200px (DD-UI-21) | Claude đề xuất, người dùng duyệt ở bước 6 | Wireframe khu quản trị bước 5 | 6 | 2026-11-25 |
+| DD-UI-36 | Trang trống và trang lỗi: nội dung căn giữa (ErrorState căn giữa như EmptyState, gồm cả trang bảo trì SCR-SHARED-03); nút dạng chữ, không nền, không viền, chữ đậm 700 — việc chính màu chủ đạo (`is-btn--text-primary`), việc phụ màu chữ chính (`is-btn--text`); rê chuột hiện nền nhạt; nút nguy hiểm giữ nguyên | Người dùng yêu cầu khi duyệt gộp đợt A–E | Ý kiến duyệt SCR-SHARED-04 | 7 | 2026-11-26 |
+| DD-UI-37 | Ô soạn tự giãn theo nội dung, không có tay kéo: bình luận, trả lời cao 3 dòng, giãn tới 10 dòng rồi cuộn trong ô; chat 1 dòng, giãn tới 5 dòng; vùng soạn bài cao 280px, giãn tới 560px rồi cuộn trong ô để thanh công cụ luôn nhìn thấy. Lập trình: `field-sizing: content`, trình duyệt chưa hỗ trợ thì đặt chiều cao theo `scrollHeight` | Người dùng yêu cầu; mức giới hạn do Claude đề xuất, người dùng đồng ý (giữ trần 560px cho vùng soạn bài, chat cũng tự giãn) | Ý kiến duyệt ô bình luận, trình soạn | 7 | 2026-11-26 |
+| DD-UI-38 | Ô Lớp/Khối trong trình soạn bài dùng Select (Không chọn, Lớp 10, Lớp 11, Lớp 12) thay cho nút chọn đoạn của màn hình mẫu bước 3, vì nút chọn đoạn không vừa cột phải 260px | Claude đề xuất, người dùng duyệt | QA-A-04 | 7 | 2026-11-26 |
+| DD-UI-39 | Trang kích hoạt lại hiện số lần nhập mã còn lại ("Bạn còn N lần thử", đếm từ 5 theo BR-M01-22); sai lần thứ 5 thì hiện trạng thái mã hết hiệu lực | Claude đề xuất, người dùng duyệt | QA-dot-E câu hỏi 2 | 7 | 2026-11-26 |
+| DD-UI-40 | Khối lặp lại thành component của design system: PageLayout (6 biến thể bố cục chung), PageHeader, SectionCard, TableOfContents, DescriptionList; kiểu chữ tiêu đề `is-h1`, `is-h2`, `is-label`; PostBody thêm bản nhỏ `is-prose--sm`; token mới `inbox-w` 340px cho cột hộp thư Chat. Artboard dùng class của design system, `<helmet>` chỉ còn lớp riêng của artboard (khung cắt, lớp phủ, khung mục lục canvas) | Claude đề xuất (QA-dot-A mục 5), người dùng đồng ý: "khối lặp lại chuyển thành component, làm sao dễ quản lý" | QA-dot-A câu hỏi 2 | 7 | 2026-11-26 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -227,7 +237,7 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 
 | Mã | Dữ liệu | Nguồn |
 |---|---|---|
-| MAU-01 | Bài P301 "Giải phương trình bậc hai" — tác giả Phạm Ngọc Lan (@lan_12; hướng 1–3 lỡ ghi @lan_pham), đăng 08/11/2026 08:30, sửa lúc 09:00 ("đã chỉnh sửa" + "Xem lịch sử"); Lớp 10; Chủ đề Toán; Tag #daiso, #phuongtrinh; 24 upvote; 5 bình luận. Nội dung 301 từ (đủ ngưỡng nút Tóm tắt), có công thức trong dòng, một công thức khối, danh sách đánh số 3 câu hỏi | SC-M03 D-POST, D-HISTORY; BR-M03-27; FR-M13-07; độ dài bổ sung ở bước 3 |
+| MAU-01 | Bài P301 "Giải phương trình bậc hai" — tác giả Phạm Ngọc Lan (@lan_12; hướng 1–3 lỡ ghi @lan_pham), đăng 08/11/2026 08:30, sửa lúc 09:00 và 10:00 theo SC-M03-012, hiển thị "Sửa lần cuối 08/11/2026, 10:00" ("đã chỉnh sửa" + "Xem lịch sử"); Lớp 10; Chủ đề Toán; Tag #daiso, #phuongtrinh; 24 upvote; 5 bình luận. Nội dung 301 từ (đủ ngưỡng nút Tóm tắt), có công thức trong dòng, một công thức khối, danh sách đánh số 3 câu hỏi | SC-M03 D-POST, D-HISTORY; BR-M03-27; FR-M13-07; độ dài bổ sung ở bước 3 |
 | MAU-02 | Tệp đính kèm: bang-bien-thien.png (820 KB), de-cuong-on-tap-hk1.pdf (1,2 MB) | Bổ sung ở bước 3 (tên tệp minh họa) |
 | MAU-03 | Bình chọn Q301: "Phương pháp thế" / "Phân tích nhân tử" / "Dùng công thức"; chọn một hoặc nhiều; kết quả hiện sau khi bình chọn; kết thúc 10:00, 09/11/2026 | SC-M03 D-POLL |
 | MAU-04 | Bình luận gốc: Trần Minh Đức (12 upvote, có công thức) với 2 trả lời — Phạm Ngọc Lan (nhãn "Tác giả", 3 upvote) và Nguyễn Thị Phương Thảo Nguyên (tên dài, 0 upvote); Hà Thu (7 upvote, đã chỉnh sửa); Lê Văn Bình (2 upvote). Trả lời có dòng trích: tên người được trả lời + đầu bình luận | SC-M04 D-ROOT, D-REPLY; BR-M04-04; tên dài bổ sung ở bước 3 |
@@ -250,3 +260,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.3 | 2026-11-25 | Bước 4 được duyệt: screen-inventory.md (75 màn hình, rà soát lại theo SC); DD-UI-14…19 |
 | 0.4 | 2026-11-25 | Bước 5 được duyệt: flows.md (46 đường dẫn, 8 luồng), 28 wireframe trên canvas trang "Bước 5 — Wireframe"; DD-UI-20…27; ngoại lệ AP-10 cho `wf--*` |
 | 0.5 | 2026-11-25 | Bước 6 được duyệt: tokens (tokens.json, contrast-pairs.csv, tokens.css, tokens.dtcg.json), "iShare Design System" (62 component, 84 icon Material Symbols Sharp, font Be Vietnam Pro + JetBrains Mono); mục 3, 4; DD-UI-28…35; chuyển sang chế độ thực thi |
+| 0.6 | 2026-11-26 | Bước 7 (chờ duyệt gộp đợt A–E): DD-UI-36…40 (nút chữ ở trang trống/lỗi, ErrorState căn giữa, ô soạn tự giãn, Lớp/Khối dùng Select, đếm số lần nhập mã, 5 component bố cục); token `inbox-w`; MAU-01 theo SC-M03-012 |

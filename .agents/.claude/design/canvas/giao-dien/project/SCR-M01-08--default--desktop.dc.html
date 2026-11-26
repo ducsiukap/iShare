@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Kích hoạt lại tài khoản</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ds/ishare/tokens.css">
+<link rel="stylesheet" href="./ds/ishare/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.pg{position:relative;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.5}
+.pg-layer{position:absolute;z-index:3}
+.pg-cut{height:900px;overflow:hidden}
+.pg-math{text-align:center}
+.pg-crop{padding:var(--space-8)}
+</style>
+</helmet>
+<div class="pg pg-cut" data-theme="light">
+<header class="is-topbar"><a class="is-logo" href="#">i<span>Share</span></a></header><div class="is-layout is-layout--center"><div class="is-card is-col" style="width: 100%; max-width: var(--dialog-w); gap: var(--space-5)"><div class="is-col" style="gap: var(--space-1)"><h1 class="is-h1">Kích hoạt lại tài khoản</h1><p class="is-muted" style="margin: 0">Tài khoản đã vô hiệu hóa kích hoạt lại được trong 14 ngày.</p></div><div class="is-field"><label class="is-field__label" for="email-kh">Email của tài khoản</label><input id="email-kh" class="is-input" type="email" value="an.study@example.test" placeholder="" disabled></div><p class="is-small" style="margin: 0">Đã gửi mã 6 chữ số tới email trên. Mã có hạn 15 phút.</p><div class="is-field"><label class="is-field__label" for="ma">Mã kích hoạt</label><input id="ma" class="is-input" type="text" value="482731" placeholder="" aria-describedby="ma-gy"><p class="is-field__hint" id="ma-gy">Nhập sai 5 lần thì mã hết hiệu lực</p></div><button type="button" class="is-btn is-btn--primary" style="width: 100%; justify-content: center">Kích hoạt lại</button><p class="is-small is-muted" style="margin: 0; text-align: center">Chưa nhận được mã? Gửi lại sau 42 giây</p></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

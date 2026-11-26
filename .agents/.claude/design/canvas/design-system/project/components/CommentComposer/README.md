@@ -13,6 +13,8 @@
 - Lỗi: vượt 1.000 từ (bộ đếm `danger`, Gửi tắt).
 - Guest, bình luận đã khóa, tài khoản bị khóa: thay ô bằng một dòng giải thích (+ Đăng nhập cho Guest).
 - Chat: ô nhiều dòng + nút gửi chỉ icon; Enter gửi, Shift+Enter xuống dòng.
+- Ô tự giãn theo nội dung, không có tay kéo: bình luận và trả lời cao 3 dòng, giãn tới 10 dòng rồi cuộn trong ô; chat 1 dòng, giãn tới 5 dòng. Dùng `field-sizing: content`; trình duyệt chưa hỗ trợ thì đặt chiều cao theo `scrollHeight` bằng JS.
+- Vùng soạn bài (`is-composer__doc`, dùng cùng EditorToolbar bài viết): cao 280px, giãn theo nội dung tới 560px rồi cuộn trong ô, thanh công cụ luôn nhìn thấy.
 
 ## Cần cung cấp
 
@@ -24,4 +26,4 @@
 
 ## Class và token
 
-`is-composer`, `is-composer__box`, `is-composer__text`, `is-composer__bar`, `is-chatbox` · token `line-strong`, `focus`, `danger`, `body-comment`.
+`is-composer`, `is-composer__box`, `is-composer__text`, `is-composer__doc`, `is-composer__bar`, `is-chatbox` · token `line-strong`, `focus`, `danger`, `body-comment`.

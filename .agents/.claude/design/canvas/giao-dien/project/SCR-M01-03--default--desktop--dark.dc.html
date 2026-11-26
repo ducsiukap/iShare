@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Thiết lập tài khoản · tối</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ds/ishare/tokens.css">
+<link rel="stylesheet" href="./ds/ishare/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.pg{position:relative;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.5}
+.pg-layer{position:absolute;z-index:3}
+.pg-cut{height:900px;overflow:hidden}
+.pg-math{text-align:center}
+.pg-crop{padding:var(--space-8)}
+</style>
+</helmet>
+<div class="pg" data-theme="dark">
+<header class="is-topbar"><a class="is-logo" href="#">i<span>Share</span></a></header><div class="is-layout is-layout--center"><div class="is-card is-col" style="width: 100%; max-width: var(--dialog-w); gap: var(--space-5)"><ol class="is-steps" aria-label="Các bước đăng ký"><li class="is-step is-step--done"><span class="is-step__bar"></span><span class="is-step__label">1. Tài khoản<span class="is-sr"> (đã xong)</span></span></li><li class="is-step is-step--done"><span class="is-step__bar"></span><span class="is-step__label">2. Xác minh email<span class="is-sr"> (đã xong)</span></span></li><li class="is-step is-step--current" aria-current="step"><span class="is-step__bar"></span><span class="is-step__label">3. Hồ sơ</span></li></ol><div class="is-col" style="gap: var(--space-1)"><h1 class="is-h1">Thiết lập hồ sơ</h1><p class="is-muted" style="margin: 0">Username và tên hiển thị là bắt buộc; các mục khác bỏ qua được.</p></div><div class="is-avup"><span class="is-avatar is-avatar--lg" aria-hidden="true">MA</span><div class="is-avup__side"><span class="is-strong">Ảnh đại diện <span class="is-field__opt">(không bắt buộc)</span></span><div class="is-row"><button type="button" class="is-btn is-btn--sm">Chọn ảnh</button></div><p class="is-field__hint">JPEG, PNG hoặc WebP, tối đa 5 MB</p></div></div><div class="is-field"><label class="is-field__label" for="un">Username</label><input id="un" class="is-input" type="text" value="An_12A1" placeholder="" aria-describedby="un-gy"><p class="is-field__hint" id="un-gy">3–20 ký tự: chữ cái không dấu, chữ số và dấu _</p></div><div class="is-field"><label class="is-field__label" for="dn">Tên hiển thị</label><input id="dn" class="is-input" type="text" value="Minh An" placeholder="" aria-describedby="dn-gy"><p class="is-field__hint" id="dn-gy">Tối đa 50 ký tự; trùng tên người khác vẫn được</p></div><div class="is-field"><label class="is-field__label" for="bio-dk">Giới thiệu <span class="is-field__opt">(không bắt buộc)</span></label><textarea id="bio-dk" class="is-input" rows="2" placeholder=""></textarea><div class="is-field__foot"><span class="is-field__count">0/155 ký tự</span></div></div><div class="is-field"><label class="is-field__label" for="lop-dk">Lớp/Khối (không bắt buộc)</label><div class="is-selectwrap"><select id="lop-dk" class="is-input is-select"><option>Không chọn</option><option>Lớp 10</option><option selected>Lớp 11</option><option>Lớp 12</option></select><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M480-344 240-584l43-43 197 197 197-197 43 43-240 240Z"/></svg></div></div><div class="is-row" style="justify-content: flex-end"><button type="button" class="is-btn is-btn--primary">Hoàn tất</button></div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1051}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

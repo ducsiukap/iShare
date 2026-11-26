@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Quản lý bình chọn — hạn mới trước hiện tại, lựa chọn trống</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ds/ishare/tokens.css">
+<link rel="stylesheet" href="./ds/ishare/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.pg{position:relative;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.5}
+.pg-layer{position:absolute;z-index:3}
+.pg-cut{height:900px;overflow:hidden}
+.pg-math{text-align:center}
+.pg-crop{padding:var(--space-8)}
+</style>
+</helmet>
+<div class="pg pg-crop" data-theme="light">
+<div style="max-width: var(--content-max)"><section class="is-poll" aria-labelledby="ql-binh-chon"><div class="is-poll__head"><h2 class="is-poll__title" id="ql-binh-chon">Quản lý bình chọn</h2><span class="is-status is-status--success"><svg class="is-ic is-ic--xs" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M120-80v-258l135-149 43 43-118 129h600L669-441l43-43 128 146v258H120Zm60-60h600v-115H180v115Zm305-202L243-585l298-298 242 243-298 298Zm-2-92 208-208-150-150-208 208 150 150ZM180-140v-115 115Z"/></svg>Đang mở</span></div><ol class="is-list" aria-label="Các lựa chọn hiện có"><li><div class="is-li is-li--compact"><span class="is-li__lead is-small" style="min-width: var(--space-5)">1.</span><span class="is-li__main">Phương pháp thế</span></div></li><li><div class="is-li is-li--compact"><span class="is-li__lead is-small" style="min-width: var(--space-5)">2.</span><span class="is-li__main">Phân tích nhân tử</span></div></li><li><div class="is-li is-li--compact"><span class="is-li__lead is-small" style="min-width: var(--space-5)">3.</span><span class="is-li__main">Dùng công thức</span></div></li></ol><p class="is-tiny is-muted" style="margin: 0">Bài đã gửi nên bạn không sửa, xóa lựa chọn đã có và không đổi cách chọn được. Bạn vẫn đổi hạn, thêm lựa chọn hoặc kết thúc bình chọn.</p><div class="is-grid2"><div class="is-col"><div class="is-field"><label class="is-field__label" for="han-moi">Đổi hạn kết thúc</label><input id="han-moi" class="is-input" type="datetime-local" value="2026-11-08T09:00" aria-invalid="true" aria-describedby="han-moi-loi"><p class="is-field__error" id="han-moi-loi"><svg class="is-ic is-ic--xs" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M503.5-289.48q9.5-9.48 9.5-23.5t-9.48-23.52q-9.48-9.5-23.5-9.5t-23.52 9.48q-9.5 9.48-9.5 23.5t9.48 23.52q9.48 9.5 23.5 9.5t23.52-9.48ZM453-433h60v-253h-60v253Zm27.27 353q-82.74 0-155.5-31.5Q252-143 197.5-197.5t-86-127.34Q80-397.68 80-480.5t31.5-155.66Q143-709 197.5-763t127.34-85.5Q397.68-880 480.5-880t155.66 31.5Q709-817 763-763t85.5 127Q880-563 880-480.27q0 82.74-31.5 155.5Q817-252 763-197.68q-54 54.31-127 86Q563-80 480.27-80Zm.23-60Q622-140 721-239.5t99-241Q820-622 721.19-721T480-820q-141 0-240.5 98.81T140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z"/></svg>Hạn kết thúc phải sau thời điểm hiện tại (10:00, 08/11/2026).</p></div><div><button type="button" class="is-btn is-btn--sm">Lưu hạn mới</button></div></div><div class="is-col"><div class="is-field"><label class="is-field__label" for="lua-chon-moi">Thêm lựa chọn</label><input id="lua-chon-moi" class="is-input" value="" placeholder="Nhập nội dung lựa chọn" aria-invalid="true" aria-describedby="lua-chon-loi"><p class="is-field__error" id="lua-chon-loi"><svg class="is-ic is-ic--xs" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M503.5-289.48q9.5-9.48 9.5-23.5t-9.48-23.52q-9.48-9.5-23.5-9.5t-23.52 9.48q-9.5 9.48-9.5 23.5t9.48 23.52q9.48 9.5 23.5 9.5t23.52-9.48ZM453-433h60v-253h-60v253Zm27.27 353q-82.74 0-155.5-31.5Q252-143 197.5-197.5t-86-127.34Q80-397.68 80-480.5t31.5-155.66Q143-709 197.5-763t127.34-85.5Q397.68-880 480.5-880t155.66 31.5Q709-817 763-763t85.5 127Q880-563 880-480.27q0 82.74-31.5 155.5Q817-252 763-197.68q-54 54.31-127 86Q563-80 480.27-80Zm.23-60Q622-140 721-239.5t99-241Q820-622 721.19-721T480-820q-141 0-240.5 98.81T140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z"/></svg>Nhập nội dung lựa chọn trước khi thêm.</p></div><div><button type="button" class="is-btn is-btn--sm"><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z"/></svg>Thêm lựa chọn</button></div></div></div><div class="is-row" style="justify-content: space-between; padding-top: var(--space-3); border-top: 1px solid var(--line)"><span class="is-small is-muted">Kết thúc ngay: bình chọn đóng lúc này và không nhận thêm phiếu.</span><button type="button" class="is-btn is-btn--danger is-btn--sm">Kết thúc ngay</button></div><div class="is-row" style="justify-content: flex-end"><button type="button" class="is-btn is-btn--ghost is-btn--sm">Đóng</button></div></section></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":900,"height":576}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
