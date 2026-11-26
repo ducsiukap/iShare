@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Hàng chờ báo cáo — không còn vụ mở</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ds/ishare/tokens.css">
+<link rel="stylesheet" href="./ds/ishare/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.pg{position:relative;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.5}
+.pg-layer{position:absolute;z-index:3}
+.pg-cut{height:900px;overflow:hidden}
+.pg-math{text-align:center}
+.pg-crop{padding:var(--space-8)}
+</style>
+</helmet>
+<div class="pg pg-cut" data-theme="light">
+<header class="is-topbar"><a class="is-logo" href="#">i<span>Share</span></a><div class="is-topbar__mid"><form role="search" class="is-search"><label class="is-sr" for="tim-kiem">Tìm kiếm</label><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M796-121 533-384q-30 26-70 40.5T378-329q-108 0-183-75t-75-181q0-106 75-181t182-75q106 0 180.5 75T632-585q0 43-14 83t-42 75l264 262-44 44ZM377-389q81 0 138-57.5T572-585q0-81-57-138.5T377-781q-82 0-139.5 57.5T180-585q0 81 57.5 138.5T377-389Z"/></svg><input id="tim-kiem" type="search" placeholder="Tìm bài viết, Chủ đề, Tag, người dùng, nhóm"></form></div><div class="is-topbar__end"><button type="button" class="is-btn is-btn--primary"><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M180-180h44l472-471-44-44-472 471v44Zm-60 60v-128l617-616 128 128-617 616H120Zm659-617-41-41 41 41Zm-105 64-22-22 44 44-22-22Z"/></svg>Viết bài</button><button type="button" class="is-iconbtn" aria-label="Thông báo"><svg class="is-ic" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M160-200v-60h80v-304q0-84 49.5-150.5T420-798v-82h120v82q81 17 130.5 83.5T720-564v304h80v60H160Zm320-302Zm0 422q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM300-260h360v-304q0-75-52.5-127.5T480-744q-75 0-127.5 52.5T300-564v304Z"/></svg></button><button type="button" class="is-iconbtn" aria-label="Tin nhắn"><svg class="is-ic" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M240-240v-140h500v-340h140v639L721-240H240ZM80-280v-600h600v440H240L80-280Zm60-145 75-75h405v-320H140v395Zm0-75v-320 320Z"/></svg></button><button type="button" class="is-avbtn" aria-label="Menu tài khoản Minh" aria-haspopup="menu" aria-expanded="false"><span class="is-avatar" aria-hidden="true">M</span></button></div></header><div class="is-layout is-layout--admin"><nav class="is-nav is-nav--wide" aria-label="Khu kiểm duyệt"><a class="is-nav__item" href="#"><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="m274-450 248 248-42 42-320-320 320-320 42 42-248 248h526v60H274Z"/></svg>Về iShare</a><div class="is-nav__group">Kiểm duyệt</div><a class="is-nav__item" href="#" aria-current="page">Hàng chờ báo cáo</a><a class="is-nav__item" href="#">Hàng chờ duyệt bài</a><a class="is-nav__item" href="#">Hàng chờ khiếu nại</a><a class="is-nav__item" href="#">Quản lý Tag</a><a class="is-nav__item" href="#">Nhật ký kiểm duyệt</a><div class="is-nav__foot"><a href="#">Privacy Policy/ToS</a></div></nav><main class="is-layout__main"><div class="is-pagehead" style="align-items: flex-end"><div class="is-col" style="gap: var(--space-1)"><h1 class="is-h1">Hàng chờ báo cáo</h1><p class="is-muted" style="margin: 0">Xếp theo ưu tiên: mức nặng cao nhất của các lý do + số báo cáo × 2; bằng điểm thì vụ mở trước đứng trước.</p></div></div><div class="is-filters" role="group" aria-label="Lọc hàng chờ"><div class="is-field" style="width: 180px"><label class="is-field__label" for="loc-doi-tuong">Đối tượng</label><div class="is-selectwrap"><select id="loc-doi-tuong" class="is-input is-select is-input--sm"><option selected>Tất cả</option><option>Bài viết</option><option>Bình luận</option><option>Người dùng</option><option>Nhóm</option></select><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M480-344 240-584l43-43 197 197 197-197 43 43-240 240Z"/></svg></div></div><div class="is-field" style="width: 180px"><label class="is-field__label" for="loc-nguon">Nguồn</label><div class="is-selectwrap"><select id="loc-nguon" class="is-input is-select is-input--sm"><option selected>Tất cả</option><option>Người dùng</option><option>AI gắn cờ</option></select><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M480-344 240-584l43-43 197 197 197-197 43 43-240 240Z"/></svg></div></div></div><div class="is-feed"><div class="is-empty"><svg class="is-ic is-empty__ic" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M480-80q-85 0-158-30.5T195-195q-54-54-84.5-127T80-480q0-84 30.5-157T195-764q54-54 127-85t158-31q75 0 140 24t117 66l-43 43q-44-35-98-54t-116-19q-145 0-242.5 97.5T140-480q0 145 97.5 242.5T480-140q145 0 242.5-97.5T820-480q0-30-4.5-58.5T802-594l46-46q16 37 24 77t8 83q0 85-31 158t-85 127q-54 54-127 84.5T480-80Zm-59-218L256-464l45-45 120 120 414-414 46 45-460 460Z"/></svg><h3 class="is-empty__title">Không còn vụ nào đang mở</h3><p class="is-empty__text">Vụ mới sẽ hiện ở đây khi có báo cáo hoặc AI gắn cờ.</p></div></div></main></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

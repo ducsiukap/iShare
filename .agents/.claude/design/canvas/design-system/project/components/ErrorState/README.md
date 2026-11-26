@@ -12,6 +12,7 @@ Trang hoặc vùng báo lỗi: không tìm thấy, không có quyền, lỗi t�
 - Không có quyền: nói vì sao (bài trong nhóm Private, chỉ Admin).
 - Lỗi tải, hệ thống bận (cờ tính năng tắt): "Hệ thống đang bận, vui lòng thử lại sau" + Thử lại.
 - Bảo trì: trang riêng, chỉ ADMIN dùng được hệ thống.
+- Căn giữa vùng nội dung như EmptyState; nút dạng chữ: Button chữ chính (việc chính) và chữ phụ (việc phụ), không nền, không viền.
 
 ## Cần cung cấp
 
@@ -23,4 +24,4 @@ Trang hoặc vùng báo lỗi: không tìm thấy, không có quyền, lỗi t�
 
 ## Class và token
 
-`is-errorpage`, `is-errorpage__code`, `is-errorpage__title`, `is-errorpage__text` · token `h1`, `ink-muted`.
+`is-errorpage`, `is-errorpage__code`, `is-errorpage__title`, `is-errorpage__text`, `is-errorpage__acts` · token `h1`, `ink-muted`.

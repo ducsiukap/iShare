@@ -9,6 +9,7 @@ Trạng thái trống: chưa có gì để hiện, nói vì sao và gợi bướ
 ## Biến thể và trạng thái
 
 - Icon trung tính, tiêu đề, một câu, tối đa hai nút. Không minh họa, không mascot (PRODUCT.md mục 6).
+- Nút dạng chữ, không nền, không viền: việc chính dùng Button chữ chính (`--text-primary`), việc phụ dùng chữ phụ (`--text`).
 
 ## Cần cung cấp
 

@@ -1,8 +1,8 @@
 ---
 ma_tai_lieu: SCREEN-INVENTORY
-phien_ban: 0.2
+phien_ban: 0.3
 trang_thai: Đã duyệt
-ngay: 2026-11-25
+ngay: 2026-11-26
 tac_gia: Phạm Văn Đức
 ---
 # Danh mục màn hình — iShare
@@ -66,7 +66,7 @@ Vai trò (US `uc:actors`): ACT-001 Guest · ACT-002 Người dùng đã đăng n
 | SCR-M01-02 | Chờ xác minh email (bước 2) | M01 | ACT-001 | UC-M01-002, UC-M01-016 | SC-M01-001 | FR-M01-02 | default, expired, error | desktop | E | Magic link hạn 1 giờ; nút gửi lại email. |
 | SCR-M01-03 | Thiết lập tài khoản (bước 3) | M01 | ACT-002 | UC-M01-003 | SC-M01-001 | FR-M01-03 | default, validation | desktop | E | Bắt buộc username (3–20 ký tự a–z, 0–9, _), display_name; bỏ qua được bio, Lớp/Khối, avatar. |
 | SCR-M01-04 | Đăng nhập | M01 | ACT-001 | UC-M01-005, UC-M01-015, UC-M01-017, UC-M01-018 | SC-M01-007 | FR-M01-05, FR-M01-04 | default, validation, error | desktop | E | Email + mật khẩu, nút Google, lối sang quên mật khẩu và đăng ký. Theo nhánh của SC-M01-007: tài khoản chưa xong đăng ký → về bước xác minh (SCR-M01-02) hoặc thiết lập (SCR-M01-03); email chỉ có Google → nhắc đăng nhập bằng Google; DEACTIVATED → báo và dẫn sang trang kích hoạt lại; BANNED → SCR-SHARED-05; bảo trì → chỉ ADMIN vào được (SCR-SHARED-03); chính sách mới → SCR-M01-10. Đăng nhập Google tự liên kết tài khoản email cùng địa chỉ, không hỏi. |
-| SCR-M01-05 | Quên mật khẩu | M01 | ACT-001 | UC-M01-008 | SC-M01-018 | FR-M01-09 | default, validation, submitted, banned | desktop | E | submitted: đã gửi magic link (hạn 15 phút). banned: tài khoản BANNED không lấy lại mật khẩu được (SC-M01-018). |
+| SCR-M01-05 | Quên mật khẩu | M01 | ACT-001 | UC-M01-008 | SC-M01-018 | FR-M01-09 | default, validation, submitted, banned | desktop | E | submitted: đã gửi magic link (hạn 15 phút). banned: tài khoản BANNED vẫn đặt lại được mật khẩu qua magic link, xong chỉ vào màn hình tài khoản bị khóa để khiếu nại (FR-M01-09.16, BF-M01-018; câu hỏi mở #6). |
 | SCR-M01-06 | Đặt mật khẩu mới qua liên kết | M01 | ACT-001 | UC-M01-019 | SC-M01-018 | FR-M01-09 | default, validation, expired | desktop | E | — |
 | SCR-M01-07 | Cài đặt tài khoản | M01 | ACT-002, ACT-003 | UC-M01-007, UC-M01-009, UC-M01-022, UC-M01-023 | SC-M01-017, SC-M01-022 | FR-M01-08, FR-M01-10, FR-M08-13, FR-M10-05 | default, validation, warned, mod | desktop | E | Gom: đổi mật khẩu, mức cảnh cáo của mình (SCR-M08-05), từ chức (Mod/Admin, SCR-M10-03), vô hiệu hóa tài khoản. FR không nói nơi đặt — xem câu hỏi mở #2. Vô hiệu hóa là một nút, SC-M01-022 không có bước xác nhận. |
 | SCR-M01-08 | Kích hoạt lại tài khoản (trang riêng, nhập mã email) | M01 | ACT-001 | UC-M01-010 | SC-M01-023 | FR-M01-11 | default, validation, expired | desktop | E | — |
@@ -229,3 +229,4 @@ ghi vào cột `uc` của màn hình đó.
 | 3 | SC-M08-011: Mod gỡ ban trực tiếp trên tài khoản, không qua vụ, nhưng không nói Mod mở tài khoản ở đâu (trang Người dùng của Admin Panel chỉ cho Admin). Đề xuất: hồ sơ người dùng ở chế độ Mod/Admin có nút Gỡ ban khi tài khoản đang bị ban. | SCR-M02-01 | Đã trả lời 2026-11-25: đồng ý |
 | 4 | Phạm vi bản tối (PRODUCT.md câu hỏi mở #4): vẽ bản tối cho mọi trạng thái, chỉ trạng thái default của mỗi màn hình, hay vài màn hình đại diện? | Mọi màn hình | Đã trả lời 2026-11-25: bản tối cho trạng thái default của mỗi màn hình (75 artboard); bước 8 tự bật theme tối cho mọi trạng thái còn lại để soát (DD-UI-15) |
 | 5 | Email hệ thống gửi (link xác minh, đặt lại mật khẩu, mã kích hoạt, thông báo ban, gỡ ban…) không nằm trong danh mục. Có cần thiết kế mẫu email không? Mặc định: không (ngoài giao diện ứng dụng). | — | Hoãn 2026-11-25: định dạng email quyết sau (DD-UI-19) |
+| 6 | Ghi chú cũ của SCR-M01-05 `banned` nói tài khoản BANNED không lấy lại mật khẩu được; FR-M01-09.01, FR-M01-09.16 và BF-M01-018 cho đặt lại, xong chỉ vào màn hình tài khoản bị khóa. Đề xuất: theo FR, sửa ghi chú | SCR-M01-05 | Đã trả lời 2026-11-26: đồng ý theo FR |

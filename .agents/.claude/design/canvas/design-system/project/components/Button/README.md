@@ -12,6 +12,7 @@ Nút bấm cho một hành động; nhãn là động từ rõ nghĩa, không c�
 - **Phụ** (mặc định): việc phụ đứng cạnh nút chính: Lưu nháp, Hủy trong form.
 - **Nhẹ** (`--ghost`): việc ít quan trọng trong dải nút: Hủy trong dialog, Bỏ qua.
 - **Nguy hiểm** (`--danger`): việc không hoàn tác được: Ban, Xóa nhóm, Vô hiệu hóa tài khoản.
+- **Chữ chính** (`--text-primary`) và **chữ phụ** (`--text`): nút chữ, không nền, không viền; chữ đậm 700 màu chủ đạo hoặc màu chữ chính, rê chuột hiện nền nhạt. Chỉ dùng cho nút trong EmptyState và ErrorState.
 - Cỡ vừa (40px, mặc định) và nhỏ (`--sm`, 32px) cho bảng, bộ lọc khu quản trị và dòng thông báo.
 - Trạng thái: mặc định, rê chuột, focus (vòng 2px `focus`, cách 2px), đang nhấn, tắt (`disabled`), đang xử lý (`aria-busy`, icon xoay, nhãn đổi thành dạng tiếp diễn).
 
@@ -28,4 +29,4 @@ Nút bấm cho một hành động; nhãn là động từ rõ nghĩa, không c�
 
 ## Class và token
 
-`is-btn`, `is-btn--primary`, `is-btn--ghost`, `is-btn--danger`, `is-btn--sm` · token `primary`, `primary-hover`, `on-primary`, `danger`, `danger-hover`, `on-danger`, `line-strong`, `surface-hover`, `radius-sm`, `control-h`, `control-h-sm`.
+`is-btn`, `is-btn--primary`, `is-btn--ghost`, `is-btn--danger`, `is-btn--text-primary`, `is-btn--text`, `is-btn--sm` · token `primary`, `primary-hover`, `primary-soft`, `on-primary`, `ink`, `danger`, `danger-hover`, `on-danger`, `line-strong`, `surface-hover`, `radius-sm`, `control-h`, `control-h-sm`.

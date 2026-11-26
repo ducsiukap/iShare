@@ -10,6 +10,7 @@ Phần đầu và nội dung bài ở trang chi tiết: tiêu đề `display`, d
 
 - Định dạng: đậm, nghiêng, gạch chân, gạch ngang, tô sáng (`mark`); tiêu đề mục H1–H3 (`post-h1/2/3`); danh sách chấm, số, việc cần làm; code trong dòng và khối code tô màu cú pháp (`syntax-*`, JetBrains Mono, tắt ký tự ghép); công thức KaTeX trong dòng và khối (1.1em, khối dài cuộn ngang); bảng (cuộn ngang trong khung); trích dẫn; đường kẻ ngang; liên kết có nhãn; @nhắc tên.
 - Trạng thái trang (Bị ẩn, Chờ duyệt, Bị khóa bình luận, Ẩn danh) hiện bằng StatusLabel cạnh dòng tác giả và InlineAlert phía trên nội dung.
+- Bản nhỏ (`is-prose--sm`, 16/1.6 như `body-comment`) cho nội dung đặt trong thẻ, ví dụ từng phiên bản ở Lịch sử sửa bài.
 
 ## Cần cung cấp
 
@@ -22,4 +23,4 @@ Phần đầu và nội dung bài ở trang chi tiết: tiêu đề `display`, d
 
 ## Class và token
 
-`is-post`, `is-post__title`, `is-prose`, `tok-k|s|n|f|c`, `is-mention` · token `body`, `post-h1`, `post-h2`, `post-h3`, `code`, `mark`, `syntax-*`, `primary-soft`, `bg`, `line`.
+`is-post`, `is-post__title`, `is-prose`, `is-prose--sm`, `tok-k|s|n|f|c`, `is-mention` · token `body`, `body-comment`, `post-h1`, `post-h2`, `post-h3`, `code`, `mark`, `syntax-*`, `primary-soft`, `bg`, `line`.

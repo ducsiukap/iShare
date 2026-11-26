@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Quên mật khẩu — đã gửi liên kết</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ds/ishare/tokens.css">
+<link rel="stylesheet" href="./ds/ishare/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.pg{position:relative;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.5}
+.pg-layer{position:absolute;z-index:3}
+.pg-cut{height:900px;overflow:hidden}
+.pg-math{text-align:center}
+.pg-crop{padding:var(--space-8)}
+</style>
+</helmet>
+<div class="pg pg-cut" data-theme="light">
+<header class="is-topbar"><a class="is-logo" href="#">i<span>Share</span></a></header><div class="is-layout is-layout--center"><div class="is-card is-col" style="width: 100%; max-width: var(--dialog-w); gap: var(--space-5)"><div class="is-col" style="gap: var(--space-1)"><h1 class="is-h1">Quên mật khẩu</h1><p class="is-muted" style="margin: 0">Nhập email của tài khoản, chúng tôi gửi liên kết đặt lại mật khẩu (hạn 15 phút).</p></div><div class="is-alert is-alert--success" role="status"><span class="is-alert__ic is-tone-success"><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="m421-298 283-283-46-45-237 237-120-120-45 45 165 166Zm59 218q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Zm0-60q142 0 241-99.5T820-480q0-142-99-241t-241-99q-141 0-240.5 99T140-480q0 141 99.5 240.5T480-140Zm0-340Z"/></svg></span><div class="is-alert__body"><p class="is-alert__title">Liên kết đã được gửi, vui lòng kiểm tra email của bạn</p><p class="is-alert__text">Liên kết có hạn 15 phút; liên kết gửi trước đó không dùng được nữa.</p></div></div><p class="is-small" style="margin: 0; text-align: center"><a class="is-link" href="#">Về đăng nhập</a></p></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
