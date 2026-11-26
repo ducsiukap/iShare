@@ -13,6 +13,7 @@ Before you start, read [../COMMON-RULES.md](../COMMON-RULES.md). Then pick the s
 | Interview the stakeholder, decompose modules and features, maintain the registers | [ba-interview](../skills/ba-interview/SKILL.md) | Active |
 | Write or revise the Functional Requirement (FR) document of one module (7 gated steps) | [analyzing-functional-requirements](../skills/analyzing-functional-requirements/SKILL.md) | Active |
 | Identify project/module use cases and write detailed US documents (7 gated steps) | [use-case-analysis](../skills/use-case-analysis/SKILL.md) | Active |
+| Derive six-part scenarios for the business flows in each detailed UC group from FR + US (4 steps) | [scenarios](../skills/scenarios/SKILL.md) | Active |
 | Analyse dependencies between modules | `analyzing-dependencies` | Planned |
 | Assess technical feasibility | `assessing-tech-feasibility` | Planned |
 | Architecture, database schema, API contract, ADR, performance analysis | [technical-design](../skills/technical-design/SKILL.md) | Active (Phase 7 and 8) |
@@ -32,6 +33,11 @@ Idea draft ──► ba-interview ──► registers (ISS / QA / DEC / OPEN / g
                                    ▼
                                 FR-Mxx.md
                                    │
+                                   ├──► use-case-analysis ──► US-Mxx.md / US-overview.md
+                                   │                              │
+                                   ├──────────────────────────────┘
+                                   ├──► scenarios ──► SC-Mxx.md
+                                   │       (FR + module US; four steps, complete exception paths)
           ┌────────────────────────┼──────────────────────────┐
           ▼                        ▼                          ▼
    dependencies /         NFR (Phase 7), data model      HMI / screen specs
@@ -51,6 +57,8 @@ A requirement gap found in a later phase comes back to this phase for that scope
 | Registers, intake, module registry (live) | `.agents/.claude/system_analysis/output/registers/`, `.../output/phase0-intake.md` |
 | FR documents | `.agents/.claude/system_analysis/output/fr/FR-Mxx.md` (tool cache in `.../fr/.work/`) |
 | Use Case documents (US) | `docs/specs/us/US-Mxx.md`; shared project overview: `docs/specs/us/US-overview.md` |
+| Scenario documents (including drafts) | `<input-base>/scenarios/Mxx/SC-Mxx.md`; scenarios is beside input `fr/` and `us/`, module subfolder Mxx comes from FR. Current project: `docs/specs/scenarios/Mxx/`. Reuse the common file across agents; QA, if separate, goes beside SC. |
+| Scenario approval status | Preserve the document status and gaps; the user-requested output location does not imply approval. Intermediate files/caches remain in the agent workspace. |
 | Technical design outputs | `.agents/.claude/system_analysis/output/<architecture or data-model or api or adr or performance>/` |
 | Approved documents | `docs/specs/` — promoted only after stakeholder approval |
 
@@ -63,11 +71,11 @@ A requirement gap found in a later phase comes back to this phase for that scope
 3. **Everything is traceable** to the draft or to a register item (`ISS`, `QA`, `DEC`, `OPEN`).
 4. **Unknown is not a guess.** A gap is confirmed with the stakeholder as the skill describes; answers go into the registers after the stakeholder approves the draft entry.
 5. **Requirements describe behaviour, not design.** No layout, tables, fields or technology in a requirement.
-6. **Gated work.** Skills with steps stop after every step and continue only on the stakeholder's explicit confirmation.
+6. **Gated work.** Follow the selected skill's gates. FR and US production have per-step gates unless the user has authorized continuous work. The scenario skill runs its four processing steps continuously by default; stop at a step only when requested or when missing information blocks that scope. Permission to proceed is separate from approval of the resulting document.
 
 ## Language
 
-English is the default (COMMON-RULES Rule 1). **Exception (DEC-139):** FR documents are Vietnamese, with English kept only for necessary technical terms.
+English is the default (COMMON-RULES Rule 1). **Exception (DEC-139):** FR documents are Vietnamese, with English kept only for necessary technical terms. US and scenario documents follow their skills' Vietnamese language contract and carry `[Vietnamese Doc]`.
 
 ## Adding a skill
 
