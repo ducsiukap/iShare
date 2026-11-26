@@ -63,6 +63,7 @@ Rà trên ảnh chụp bản sao cục bộ (Chromium, 1440 px, font của desig
 | QA-A-09 | SCR-SHARED-04 và mọi ErrorState, EmptyState | Nhất quán | Trang lỗi căn trái, khác trang trống căn giữa; nút trong trang trống, trang lỗi có nền đặc | Căn giữa; nút chữ đậm không nền, không viền: màu chủ đạo cho việc chính, màu chữ chính cho việc phụ (DD-UI-36) | Phải sửa | Đã sửa — theo ý kiến duyệt 2026-11-26 |
 | QA-A-10 | SCR-M04-01, SCR-M03-01 (và chat SCR-M16-02) | Tương tác | Ô bình luận và vùng soạn bài cao cố định, có tay kéo | Tự giãn theo nội dung tới mức giới hạn rồi cuộn trong ô (DD-UI-37) | Phải sửa | Đã sửa — người dùng duyệt mức giới hạn 2026-11-26 (DD-UI-37) |
 | QA-A-11 | Mọi màn hình | Nhất quán | Khung trang, khối, mục lục, danh sách nhãn – giá trị, tiêu đề dựng bằng lớp `pg-*` riêng trong `<helmet>` của artboard | Chuyển thành component của design system (DD-UI-40); so ảnh chụp trước và sau: không đổi giao diện | Nên sửa | Đã sửa — người dùng duyệt 2026-11-26 |
+| QA-A-12 | SCR-SHARED-01 và mọi trang có thanh trên cùng | Token | Số đếm trên chuông, Tin nhắn và chữ tắt trong avatar ở thanh trên cùng hiện bằng font mặc định của trình duyệt (IconButton, nút avatar thiếu `font: inherit`); phát hiện khi đẩy sang Figma | Thêm `font: inherit` cho `is-iconbtn`, `is-avbtn` trong design system | Phải sửa | Đã sửa 2026-11-26 |
 
 Thông điệp hệ thống lấy đúng chữ của nguồn: "Hệ thống đang bận, vui lòng thử lại sau", "Nội dung không tồn tại",
 "Người dùng không tồn tại", "Tài khoản đã bị khóa", "Không thể gợi ý chủ đề lúc này, vui lòng chọn thủ công",

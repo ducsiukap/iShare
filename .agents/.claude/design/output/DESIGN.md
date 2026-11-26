@@ -1,18 +1,18 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.6
+phien_ban: 0.7
 trang_thai: Bản nháp
 ngay: 2026-11-26
 tac_gia: Phạm Văn Đức
-steps_completed: [1, 2, 3, 4, 5, 6]
-buoc_hien_tai: 7
+steps_completed: [1, 2, 3, 4, 5, 6, 7]
+buoc_hien_tai: 8
 che_do: thuc-thi
 dot_da_duyet: [A, B, C, D, E]
-dot_da_day_figma: []
+dot_da_day_figma: [A, B, C, D, E]
 canvas_kham_pha: https://claude.ai/artifact/K2ZxJDPyzjGKHCw8rZZKrs
 canvas_giao_dien: https://claude.ai/artifact/HAykztXFcJbkAiSCXKvift
 design_system: https://claude.ai/artifact/VhNBYBjrD4Rng8CtynS7pp
-figma_file:
+figma_file: https://www.figma.com/design/yEi02SPwmNAfYwKX2gMN8m
 ---
 # Thiết kế giao diện — iShare (DESIGN.md)
 
@@ -23,10 +23,10 @@ figma_file:
 
 | Mục | Giá trị |
 |---|---|
-| Bước hiện tại | 7 — Thiết kế hi-fi theo đợt |
+| Bước hiện tại | 8 — Kiểm tra toàn bộ |
 | Hướng thẩm mỹ | "Sổ tay" (DD-UI-08) |
 | Số màn hình / artboard | 75 màn hình; 281 artboard sáng + 75 tối = 356 (screen-inventory.md, DD-UI-14, DD-UI-15) |
-| Đợt đã duyệt | — |
+| Đợt đã duyệt | A, B, C, D, E — đã đẩy sang Figma "iShare — UI" (5 page, 356 frame) |
 
 ## 2. Hướng thẩm mỹ đã chọn (bước 3)
 
@@ -211,6 +211,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | DD-UI-38 | Ô Lớp/Khối trong trình soạn bài dùng Select (Không chọn, Lớp 10, Lớp 11, Lớp 12) thay cho nút chọn đoạn của màn hình mẫu bước 3, vì nút chọn đoạn không vừa cột phải 260px | Claude đề xuất, người dùng duyệt | QA-A-04 | 7 | 2026-11-26 |
 | DD-UI-39 | Trang kích hoạt lại hiện số lần nhập mã còn lại ("Bạn còn N lần thử", đếm từ 5 theo BR-M01-22); sai lần thứ 5 thì hiện trạng thái mã hết hiệu lực | Claude đề xuất, người dùng duyệt | QA-dot-E câu hỏi 2 | 7 | 2026-11-26 |
 | DD-UI-40 | Khối lặp lại thành component của design system: PageLayout (6 biến thể bố cục chung), PageHeader, SectionCard, TableOfContents, DescriptionList; kiểu chữ tiêu đề `is-h1`, `is-h2`, `is-label`; PostBody thêm bản nhỏ `is-prose--sm`; token mới `inbox-w` 340px cho cột hộp thư Chat. Artboard dùng class của design system, `<helmet>` chỉ còn lớp riêng của artboard (khung cắt, lớp phủ, khung mục lục canvas) | Claude đề xuất (QA-dot-A mục 5), người dùng đồng ý: "khối lặp lại chuyển thành component, làm sao dễ quản lý" | QA-dot-A câu hỏi 2 | 7 | 2026-11-26 |
+| DD-UI-41 | Bản Figma "iShare — UI" là bản lưu, canvas là nguồn gốc (không sửa trên Figma). Mỗi artboard đẩy bằng `html_to_figma` từ bản HTML tự chứa (font nhúng); chỉ trong bản Figma: công thức MathML chuyển thành chữ Unicode (dòng) hoặc phân số dựng bằng HTML (khối), nhãn trục biểu đồ đặt lại font Be Vietnam Pro, số dòng của từng đoạn chữ chỉnh khớp với trình duyệt (ô nhập một dòng thì cắt phần thừa như trình duyệt); mỗi page một đợt, mỗi màn hình một hàng có nhãn, frame tên theo artboard | Claude đề xuất cách đẩy; người dùng duyệt chất lượng đợt A và cho đẩy hết: "cứ đẩy hết đi nhé" | Q7-03 | 7 | 2026-11-26 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -261,3 +262,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.4 | 2026-11-25 | Bước 5 được duyệt: flows.md (46 đường dẫn, 8 luồng), 28 wireframe trên canvas trang "Bước 5 — Wireframe"; DD-UI-20…27; ngoại lệ AP-10 cho `wf--*` |
 | 0.5 | 2026-11-25 | Bước 6 được duyệt: tokens (tokens.json, contrast-pairs.csv, tokens.css, tokens.dtcg.json), "iShare Design System" (62 component, 84 icon Material Symbols Sharp, font Be Vietnam Pro + JetBrains Mono); mục 3, 4; DD-UI-28…35; chuyển sang chế độ thực thi |
 | 0.6 | 2026-11-26 | Bước 7 (chờ duyệt gộp đợt A–E): DD-UI-36…40 (nút chữ ở trang trống/lỗi, ErrorState căn giữa, ô soạn tự giãn, Lớp/Khối dùng Select, đếm số lần nhập mã, 5 component bố cục); token `inbox-w`; MAU-01 theo SC-M03-012 |
+| 0.7 | 2026-11-26 | Bước 7 được duyệt: đợt A–E đã duyệt và đẩy sang Figma "iShare — UI" (5 page, 356 frame); DD-UI-41 (cách đẩy và chỉnh bản Figma); chuyển sang bước 8 |
