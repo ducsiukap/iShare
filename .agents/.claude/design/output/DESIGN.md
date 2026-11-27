@@ -1,6 +1,6 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.11
+phien_ban: 0.12
 trang_thai: Bản nháp
 ngay: 2026-11-27
 tac_gia: Phạm Văn Đức
@@ -23,7 +23,7 @@ figma_file: https://www.figma.com/design/yEi02SPwmNAfYwKX2gMN8m
 
 | Mục | Giá trị |
 |---|---|
-| Bước hiện tại | 8 — Kiểm tra toàn bộ |
+| Bước hiện tại | 9 — Bàn giao (`handoff/UI-KIT.md`, `handoff/routes.md`, `handoff/css/`) |
 | Hướng thẩm mỹ | "Sổ tay" (DD-UI-08) |
 | Số màn hình / artboard | 75 màn hình; 281 artboard sáng + 75 tối = 356 (screen-inventory.md, DD-UI-14, DD-UI-15) |
 | Đợt đã duyệt | A, B, C, D, E — đã đẩy sang Figma "iShare — UI" (5 page, 356 frame) |
@@ -66,7 +66,7 @@ chọn — 4 màn hình" trên canvas khám phá).
 ## 3. Tokens tóm tắt (bước 6)
 
 Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Claude Design; `tokens.css`, `tokens.dtcg.json` sinh bằng
-`export_tokens.py`). Design system: "iShare Design System" (link ở frontmatter), bản sao trong `canvas/design-system/`.
+`export_tokens.py`; app không dùng Tailwind nên nạp `handoff/css/tokens.vars.css`, DD-UI-45). Design system: "iShare Design System" (link ở frontmatter), bản sao trong `canvas/design-system/`.
 
 - Font: **Be Vietnam Pro** 400/600/700 có nghiêng cho giao diện và nội dung; **JetBrains Mono** cho code, tắt ký tự ghép
   (DD-UI-29). Tệp WOFF2 (OFL) nằm trong design system.
@@ -217,6 +217,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | DD-UI-42 | Khu kiểm duyệt và quản trị dùng khung riêng AdminShell, thay phần "giữ thanh trên cùng, đổi cột trái" của DD-UI-22 và cột menu của DD-UI-35: cột menu nền sẫm `console-bg` cao hết trang, logo vẫn là "iShare", mỗi mục có icon, Mod chỉ thấy nhóm Kiểm duyệt; thanh trên riêng chỉ có vị trí trang (nhóm › trang), "Về iShare", chuông Thông báo, avatar, bỏ ô tìm kiếm, Viết bài, Tin nhắn; nội dung trải hết bề ngang (bỏ giới hạn 820px của SectionCard trong khu này). Thêm 7 token màu `console-*` và 3 màu gốc `teal-850`, `teal-875`, `teal-925` (đạt tương phản, 116/116 cặp); component mới AdminShell, NavBar thêm biến thể `--console`. Màn hình phía người dùng của Mod, Admin giữ AppHeader + NavBar | Người review góp ý trang quản trị "vẫn dùng giao diện như của user thường", muốn mẫu riêng chủ yếu là bảng; Claude đề xuất, người dùng chọn phương án khung riêng cho cả Mod và Admin, giữ chữ logo, duyệt 2 màn mẫu (M10-01, M08-02) | QA-dot-C | 8 | 2026-11-26 |
 | DD-UI-43 | Dòng chân cột menu (NavBar phía người dùng và NavBar `--console` trong AdminShell) ghi "Chính sách và Điều khoản" thay cho "Privacy Policy/ToS", vẫn dẫn tới trang SCR-M01-09 (SC-M01-037). Cột người dùng 200px: chữ xuống hai dòng "Chính sách và / Điều khoản" (giữ cụm bằng khoảng trắng không ngắt); cột quản trị 240px: một dòng. Tên trang "Privacy Policy/ToS" trong spec và tiêu đề trang giữ nguyên | Người dùng hỏi đổi chữ sang tiếng Việt và chọn "Chính sách và Điều khoản" trong 3 phương án | — | 8 | 2026-11-27 |
 | DD-UI-44 | Màn hình bị cảnh cáo (soạn bài SCR-M03-01, khu bình luận SCR-M04-01) có nút "Khiếu nại cảnh cáo này" trong InlineAlert, mở cùng biểu mẫu SCR-M09-01 mà thông báo cảnh cáo dẫn tới (FR-M08-09.05, FR-M08-10.03) | QA-F-08 (QF-16); người dùng đồng ý bổ sung | QA-final | 8 | 2026-11-27 |
+| DD-UI-45 | Bàn giao cho phase Coding: repo frontend không dùng Tailwind — app nạp `handoff/css/tokens.vars.css` (biến CSS thuần, tên ngắn, hai theme qua `data-theme`; chính là `tokens.css` design system sinh từ `tokens.json`) rồi `handoff/css/components.css` (class `is-*`), font trong `handoff/css/fonts/`; `tokens/tokens.css` (`@theme` Tailwind) và `tokens.dtcg.json` chỉ để đồng bộ công cụ. Tên component React PascalCase, không tiền tố, trùng tên trong design system; class CSS giữ tiền tố `is-` | Người dùng chọn ở câu hỏi bước 9: "Không dùng Tailwind"; "PascalCase, không tiền tố" | Q9-01, Q9-02 | 9 | 2026-11-27 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -272,3 +273,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.9 | 2026-11-27 | DD-UI-43: dòng chân cột menu đổi thành "Chính sách và Điều khoản"; đăng lại canvas, design system, sửa chữ trên cả 5 page Figma |
 | 0.10 | 2026-11-27 | Bước 8 lần 1: QA-final, sửa QA-F-01…10 trên canvas, design system (GroupCard, TagInput, ConversationItem, DescriptionList `--stack`, ô mật khẩu Hiện/Ẩn, cấp tiêu đề theo ngữ cảnh, `main` cho trang không có cột menu) và Figma; DD-UI-44 |
 | 0.11 | 2026-11-27 | Bước 8 được duyệt: QA-final chốt (QA-F-01…10 đã sửa trên canvas, design system và Figma); chuyển sang bước 9 |
+| 0.12 | 2026-11-27 | Bước 9 (chờ nghiệm thu): `handoff/UI-KIT.md` (68 component), `handoff/routes.md` (75 màn hình, 49 có đường dẫn riêng), `handoff/css/` (tokens.vars.css, components.css, fonts); DD-UI-45 (không Tailwind, tên PascalCase); `flows.md` mục 2 theo DD-UI-42, DD-UI-43 |
