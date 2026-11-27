@@ -11,6 +11,7 @@ Chọn nhiều giá trị thành chip trong một ô: Tag (gõ tự do, có gợ
 - Chế độ Tag: chip Tag có nút gỡ, ô gõ còn lại; gõ ra danh sách gợi ý (Combobox).
 - Chế độ Chủ đề: chip TopicChip; dòng "Gợi ý chủ đề" với chip nét đứt bấm để thêm — ẩn khi AI tắt (FR-M05).
 - Đã đủ số lượng: ô gõ tắt, gợi ý "Đã đủ 5 Tag"; lỗi thiếu Chủ đề: viền `danger` + câu lỗi.
+- Chip không rộng quá ô; tên dài ("Khoa học tự nhiên (Lý/Hóa/Sinh)") xuống dòng trong chip, không tràn ô (QA-F-02).
 
 ## Cần cung cấp
 

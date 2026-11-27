@@ -9,6 +9,7 @@ Một cuộc trò chuyện trong Hộp thư Chat: tên (người hoặc nhóm ch
 ## Biến thể và trạng thái
 
 - Có tin chưa đọc: tin gần nhất đậm + Counter; đang mở: nền `primary-soft`; đã tắt popup cuộc này: icon chuông gạch.
+- Tên và tin gần nhất mỗi thứ một dòng, dài thì cắt bằng dấu "…", không chạy vào cột thời điểm và số chưa đọc (QA-F-03).
 
 ## Cần cung cấp
 
@@ -20,4 +21,4 @@ Một cuộc trò chuyện trong Hộp thư Chat: tên (người hoặc nhóm ch
 
 ## Class và token
 
-`is-convo`, `is-convo--unread`, `is-convo__name`, `is-convo__last`, `is-convo__end` · token `primary-soft`, `primary`, `ink-muted`.
+`is-convo`, `is-convo--unread`, `is-convo__main`, `is-convo__name`, `is-convo__last`, `is-convo__end` · token `primary-soft`, `primary`, `ink-muted`.
