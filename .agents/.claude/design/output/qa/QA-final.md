@@ -1,7 +1,7 @@
 ---
 ma_tai_lieu: QA-final
 phien_ban: 0.2
-trang_thai: Chờ duyệt lần 2
+trang_thai: Đã chốt
 ngay: 2026-11-27
 tac_gia: Phạm Văn Đức
 ---
