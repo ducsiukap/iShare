@@ -18,7 +18,7 @@ Biểu đồ cột xu hướng theo thời gian của trang Thống kê; tối �
 
 ## Khả năng truy cập
 
-- SVG `role="img"` với tiêu đề; bảng số liệu tương đương trong `details`; cột ≥ 3:1 trên `surface`.
+- SVG `role="img"` với tiêu đề (heading theo ngữ cảnh, `h2` khi nằm ngay dưới `h1` của trang); bảng số liệu tương đương trong `details`; cột ≥ 3:1 trên `surface`.
 
 ## Class và token
 

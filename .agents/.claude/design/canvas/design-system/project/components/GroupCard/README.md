@@ -10,6 +10,7 @@ Thẻ một nhóm: Public/Private, tên, mô tả 2 dòng, số thành viên, n�
 
 - Nút theo quan hệ: Tham gia (Public), Gửi yêu cầu (Private), Rút yêu cầu (đang chờ), Đã tham gia (thành viên, mở menu Rời nhóm).
 - Nhóm bị Mod khóa: StatusLabel "Bị khóa", không có nút tham gia.
+- Chân thẻ: số thành viên luôn một dòng; thiếu chỗ thì nút xuống hàng dưới, không tràn khỏi thẻ (QA-F-01).
 
 ## Cần cung cấp
 
@@ -17,7 +18,7 @@ Thẻ một nhóm: Public/Private, tên, mô tả 2 dòng, số thành viên, n�
 
 ## Khả năng truy cập
 
-- Thẻ là `<article>` có `h3`; nút nói rõ việc ("Gửi yêu cầu tham gia CLB Toán").
+- Thẻ là `<article>`; tên nhóm là `h2` khi danh sách nằm ngay dưới `h1`, `h3` trong một mục có `h2` (QF-17); nút nói rõ việc ("Gửi yêu cầu tham gia CLB Toán").
 
 ## Class và token
 

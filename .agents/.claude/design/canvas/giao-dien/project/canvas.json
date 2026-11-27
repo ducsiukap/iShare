@@ -452,7 +452,7 @@
    "x": 6860,
    "y": 14475,
    "w": 900,
-   "h": 970,
+   "h": 1010,
    "page": "dot-a",
    "title": "warned"
   },
@@ -2011,7 +2011,7 @@
    "x": 0,
    "y": 4546,
    "w": 1440,
-   "h": 622,
+   "h": 633,
    "page": "dot-d",
    "title": "default · tối",
    "expand": "fill"
@@ -2020,7 +2020,7 @@
    "x": 1520,
    "y": 4546,
    "w": 1440,
-   "h": 622,
+   "h": 633,
    "page": "dot-d",
    "title": "default",
    "expand": "fill"

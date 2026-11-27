@@ -1,6 +1,6 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.9
+phien_ban: 0.10
 trang_thai: Bản nháp
 ngay: 2026-11-26
 tac_gia: Phạm Văn Đức
@@ -112,7 +112,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | Switch | có/không dòng mô tả | bật, tắt hẳn khi đang bật | hiệu lực ngay, không cần Lưu |
 | FileDrop | một dạng | đang kéo tệp vào, lỗi | luôn có nút Chọn tệp (QF-10) |
 | SearchField | thanh trên cùng | có chữ (nút Xóa), mở gợi ý | bo tròn hai đầu, tối đa 560px |
-| TagInput | Tag, Chủ đề (có Gợi ý chủ đề của AI) | đủ số lượng, lỗi thiếu Chủ đề | Gợi ý ẩn khi AI tắt |
+| TagInput | Tag, Chủ đề (có Gợi ý chủ đề của AI) | đủ số lượng, lỗi thiếu Chủ đề | Gợi ý ẩn khi AI tắt; chip dài xuống dòng trong chip, không tràn ô |
 | SegmentedControl | 2–5 lựa chọn | đã chọn | khoảng thời gian Thống kê, sắp xếp bình luận |
 | Combobox | nhóm gợi ý, lịch sử | mục đang trỏ, không có gợi ý, lỗi giới hạn tần suất | mẫu combobox ARIA |
 | DateTimeField | một dạng | lỗi hạn trước hiện tại | hạn kết thúc bình chọn |
@@ -124,7 +124,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | Badge | huy hiệu + ngày đạt; Ngôi sao tuần | — | tiết chế (DD-UI-05), không hiện tiến độ |
 | Counter | nhấn mạnh, trầm; chấm chưa đọc | 99+, ẩn khi 0 | `aria-hidden`, số nằm trong nhãn nút |
 | StatusLabel | success, warning, danger, info, trung tính, chỉ chữ | — | luôn có chữ (QF-03) |
-| PostCard | thường, trong nhóm, ẩn danh, có nhãn trạng thái | rê chuột | số liệu chỉ để xem (DD-UI-13) |
+| PostCard | thường, trong nhóm, ẩn danh, có nhãn trạng thái | rê chuột | số liệu chỉ để xem (DD-UI-13); cấp tiêu đề theo ngữ cảnh: h2 ngay dưới h1, h3 trong mục có h2 (QF-17) |
 | PostBody | đầu bài + nội dung giàu định dạng | trạng thái bài qua StatusLabel, InlineAlert | BR-M03-03, KaTeX, tô màu cú pháp |
 | ActionBar | một dạng | đã upvote, đã lưu, bài của mình, dưới 300 từ, bình luận đã khóa | DD-UI-10, DD-UI-11 |
 | UpvoteButton | bài viết, bình luận (nhỏ) | đã upvote, tắt với nội dung của mình | nét dày khi chưa bấm |
@@ -134,10 +134,10 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | Comment | bình luận gốc, trả lời có dòng trích | đã chỉnh sửa, đã bị gỡ | avatar cạnh tên (DD-UI-12) |
 | ListItem | liên kết, tĩnh có nút; vừa/gọn | đang chọn | Chủ đề, lịch sử sửa, danh sách chặn |
 | UserRow | theo ngữ cảnh thao tác; nhãn vai trò | tài khoản bị khóa, đã xóa | — |
-| GroupCard | Public, Private | Tham gia / Gửi yêu cầu / Rút yêu cầu / Đã tham gia, bị khóa | — |
+| GroupCard | Public, Private | Tham gia / Gửi yêu cầu / Rút yêu cầu / Đã tham gia, bị khóa | số thành viên một dòng, nút xuống hàng khi thiếu chỗ; cấp tiêu đề theo ngữ cảnh |
 | LeaderboardRow | có/không Ngôi sao tuần | người đang xem, đã xóa | không cúp, không vàng bạc đồng |
 | NotificationItem | người, hệ thống; có nút Chấp nhận/Từ chối | chưa đọc, hết hạn | giọng tôn trọng khi xử lý |
-| ConversationItem | 1-1, nhóm chat | chưa đọc, đang mở, tắt popup | — |
+| ConversationItem | 1-1, nhóm chat | chưa đọc, đang mở, tắt popup | tên và tin gần nhất một dòng, cắt bằng dấu "…" |
 | MessageBubble | đến, đi, hệ thống; dải ngày | đã xem, đã thu hồi, có tin mới | `role="log"` |
 | NewMessagePopup | một dạng | — | `role="status"`, không cướp focus |
 | DataTable | gọn (mặc định khu quản trị), vừa | sắp xếp, rê chuột, đang chọn, trống, đang tải | `table` thật, cuộn ngang trong khung |
@@ -147,7 +147,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | Toast | success, info, warning, danger; có nút | — | lỗi không tự ẩn |
 | InlineAlert | 4 tone; có nút | — | chờ duyệt, bị từ chối, cảnh cáo |
 | Banner | info, warning | văn bản dài | banner Admin ≤200 ký tự |
-| EmptyState | có/không nút | — | không minh họa, không mascot; nút chữ đậm, không nền, không viền (DD-UI-36) |
+| EmptyState | có/không nút | — | không minh họa, không mascot; nút chữ đậm, không nền, không viền (DD-UI-36); cấp tiêu đề theo ngữ cảnh |
 | Skeleton | dòng, tiêu đề, avatar | — | đứng yên khi giảm chuyển động |
 | ErrorState | không tìm thấy, không có quyền, lỗi, bảo trì | — | câu theo SC; căn giữa như EmptyState, nút chữ đậm (DD-UI-36) |
 | AppHeader | đã đăng nhập, Guest | — | DD-UI-20 |
@@ -157,7 +157,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | PageHeader | đầu trang (`is-h1`), đầu khu vực (`is-h2`), đầu khối nhỏ (`is-label`) | — | tiêu đề trái, hành động phải (DD-UI-40) |
 | SectionCard | thường, gọn (`--compact`, cột phụ) | — | khối giấy trên nền trang (DD-UI-40) |
 | TableOfContents | một dạng | mục đang đọc | "Trong bài này", trang chính sách (DD-UI-40) |
-| DescriptionList | một dạng | — | cặp nhãn – giá trị (DD-UI-40) |
+| DescriptionList | thường; `--stack` cho cột phụ hẹp (nhãn nằm trên giá trị) | — | cặp nhãn – giá trị (DD-UI-40) |
 | Tabs | tab chính, mục con, có số | đã chọn | trạng thái vào URL khi FR có |
 | Dialog | thường, rộng, nguy hiểm | — | giữ focus, Esc đóng (QF-06) |
 | Drawer | một dạng | đang tải, lỗi | Tóm tắt, thông tin nhóm chat, vai trò |
@@ -216,6 +216,7 @@ class `is-*` trong `components/bundle.css`. Trạng thái tương tác chung cho
 | DD-UI-41 | Bản Figma "iShare — UI" là bản lưu, canvas là nguồn gốc (không sửa trên Figma). Mỗi artboard đẩy bằng `html_to_figma` từ bản HTML tự chứa (font nhúng); chỉ trong bản Figma: công thức MathML chuyển thành chữ Unicode (dòng) hoặc phân số dựng bằng HTML (khối), nhãn trục biểu đồ đặt lại font Be Vietnam Pro, số dòng của từng đoạn chữ chỉnh khớp với trình duyệt (ô nhập một dòng thì cắt phần thừa như trình duyệt); mỗi page một đợt, mỗi màn hình một hàng có nhãn, frame tên theo artboard | Claude đề xuất cách đẩy; người dùng duyệt chất lượng đợt A và cho đẩy hết: "cứ đẩy hết đi nhé" | Q7-03 | 7 | 2026-11-26 |
 | DD-UI-42 | Khu kiểm duyệt và quản trị dùng khung riêng AdminShell, thay phần "giữ thanh trên cùng, đổi cột trái" của DD-UI-22 và cột menu của DD-UI-35: cột menu nền sẫm `console-bg` cao hết trang, logo vẫn là "iShare", mỗi mục có icon, Mod chỉ thấy nhóm Kiểm duyệt; thanh trên riêng chỉ có vị trí trang (nhóm › trang), "Về iShare", chuông Thông báo, avatar, bỏ ô tìm kiếm, Viết bài, Tin nhắn; nội dung trải hết bề ngang (bỏ giới hạn 820px của SectionCard trong khu này). Thêm 7 token màu `console-*` và 3 màu gốc `teal-850`, `teal-875`, `teal-925` (đạt tương phản, 116/116 cặp); component mới AdminShell, NavBar thêm biến thể `--console`. Màn hình phía người dùng của Mod, Admin giữ AppHeader + NavBar | Người review góp ý trang quản trị "vẫn dùng giao diện như của user thường", muốn mẫu riêng chủ yếu là bảng; Claude đề xuất, người dùng chọn phương án khung riêng cho cả Mod và Admin, giữ chữ logo, duyệt 2 màn mẫu (M10-01, M08-02) | QA-dot-C | 8 | 2026-11-26 |
 | DD-UI-43 | Dòng chân cột menu (NavBar phía người dùng và NavBar `--console` trong AdminShell) ghi "Chính sách và Điều khoản" thay cho "Privacy Policy/ToS", vẫn dẫn tới trang SCR-M01-09 (SC-M01-037). Cột người dùng 200px: chữ xuống hai dòng "Chính sách và / Điều khoản" (giữ cụm bằng khoảng trắng không ngắt); cột quản trị 240px: một dòng. Tên trang "Privacy Policy/ToS" trong spec và tiêu đề trang giữ nguyên | Người dùng hỏi đổi chữ sang tiếng Việt và chọn "Chính sách và Điều khoản" trong 3 phương án | — | 8 | 2026-11-27 |
+| DD-UI-44 | Màn hình bị cảnh cáo (soạn bài SCR-M03-01, khu bình luận SCR-M04-01) có nút "Khiếu nại cảnh cáo này" trong InlineAlert, mở cùng biểu mẫu SCR-M09-01 mà thông báo cảnh cáo dẫn tới (FR-M08-09.05, FR-M08-10.03) | QA-F-08 (QF-16); người dùng đồng ý bổ sung | QA-final | 8 | 2026-11-27 |
 
 ## 6. Anti-pattern: ngoại lệ và điều cần tránh riêng
 
@@ -269,3 +270,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.7 | 2026-11-26 | Bước 7 được duyệt: đợt A–E đã duyệt và đẩy sang Figma "iShare — UI" (5 page, 356 frame); DD-UI-41 (cách đẩy và chỉnh bản Figma); chuyển sang bước 8 |
 | 0.8 | 2026-11-26 | DD-UI-42: khung quản trị riêng AdminShell cho khu kiểm duyệt và quản trị (token `console-*`, 68 component); đăng lại canvas, design system, đẩy lại page đợt C trên Figma |
 | 0.9 | 2026-11-27 | DD-UI-43: dòng chân cột menu đổi thành "Chính sách và Điều khoản"; đăng lại canvas, design system, sửa chữ trên cả 5 page Figma |
+| 0.10 | 2026-11-27 | Bước 8 lần 1: QA-final, sửa QA-F-01…10 trên canvas, design system (GroupCard, TagInput, ConversationItem, DescriptionList `--stack`, ô mật khẩu Hiện/Ẩn, cấp tiêu đề theo ngữ cảnh, `main` cho trang không có cột menu) và Figma; DD-UI-44 |

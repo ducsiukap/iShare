@@ -18,7 +18,7 @@ Một bài trong danh sách (trang chủ, kết quả tìm kiếm, hồ sơ, tra
 
 ## Khả năng truy cập
 
-- Mỗi thẻ là `<article>` có tiêu đề `h3`; con số kèm chữ ẩn "upvote", "bình luận".
+- Mỗi thẻ là `<article>`; tiêu đề lấy cấp theo ngữ cảnh: `h2` khi danh sách nằm ngay dưới `h1` của trang, `h3` khi danh sách nằm trong một mục có `h2` (QF-17). Con số kèm chữ ẩn "upvote", "bình luận".
 
 ## Class và token
 

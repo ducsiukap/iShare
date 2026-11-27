@@ -17,7 +17,7 @@ Trạng thái trống: chưa có gì để hiện, nói vì sao và gợi bướ
 
 ## Khả năng truy cập
 
-- Tiêu đề là heading đúng cấp trong trang.
+- Tiêu đề là heading theo ngữ cảnh: `h2` khi trạng thái trống nằm ngay dưới `h1`, `h3` trong một mục có `h2` (QF-17).
 
 ## Class và token
 

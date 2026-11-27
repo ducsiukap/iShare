@@ -9,6 +9,7 @@ Danh sách cặp nhãn – giá trị, nhãn `ink-muted` bên trái, giá trị 
 ## Biến thể và trạng thái
 
 - Cỡ chữ 14px; cột nhãn vừa nội dung, cột giá trị co giãn và xuống dòng.
+- Biến thể `is-dl--stack` cho cột phụ hẹp (thông tin bài, cột Tác giả của vụ báo cáo): nhãn nằm trên giá trị, để ngày giờ và tên không bị tách dòng (QA-F-09).
 
 ## Cần cung cấp
 
@@ -20,4 +21,4 @@ Danh sách cặp nhãn – giá trị, nhãn `ink-muted` bên trái, giá trị 
 
 ## Class và token
 
-`is-dl` · token `ink-muted`, `space-2`, `space-3`.
+`is-dl`, `is-dl--stack` · token `ink-muted`, `space-2`, `space-3`.
