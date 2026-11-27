@@ -1,8 +1,8 @@
 ---
 ma_tai_lieu: FLOWS
-phien_ban: 0.2
+phien_ban: 0.3
 trang_thai: Đã duyệt
-ngay: 2026-11-25
+ngay: 2026-11-27
 tac_gia: Phạm Văn Đức
 ---
 # Sơ đồ trang, điều hướng và luồng — iShare
@@ -77,9 +77,9 @@ SCR-M10-03, SCR-M11-04, SCR-M11-07, SCR-M11-09, SCR-M13-01, SCR-M16-03, SCR-M16-
 |---|---|---|---|
 | Desktop — thanh trên cùng | Một hàng cố định đầu trang | Chữ "iShare" (về `/`) · ô tìm kiếm nằm giữa logo và nhóm nút (DD-UI-09) · Viết bài · chuông Thông báo · biểu tượng Tin nhắn có số chưa đọc · avatar → menu: Hồ sơ, Cài đặt tài khoản, Khiếu nại của tôi, Khu kiểm duyệt (Mod/Admin), Đăng xuất. Guest: Đăng nhập, Đăng ký thay cho chuông/tin nhắn/avatar | DD-UI-20 |
 | Desktop — cột trái | Danh sách dọc 200px, mục đang xem tô nền nhạt | Trang chủ · Chủ đề · Nhóm · Bảng xếp hạng. Tin nhắn không lặp ở cột trái (đã có biểu tượng trên thanh trên cùng, FR-M07-07) | DD-UI-21 |
-| Desktop — chân trang | Một dòng cuối cột trái | Privacy Policy/ToS (SC-M01-037) | DD-UI-21 |
+| Desktop — chân trang | Một dòng cuối cột menu (cột người dùng và cột quản trị) | "Chính sách và Điều khoản" → trang Privacy Policy/ToS (SC-M01-037) | DD-UI-21, DD-UI-43 |
 | Mobile | Không áp dụng (DD-UI-02) | — | — |
-| Khu quản trị | Cùng thanh trên cùng; cột trái đổi sang menu quản trị, có lối "Về iShare" | Kiểm duyệt (Mod, Admin): Hàng chờ báo cáo, Hàng chờ duyệt bài, Hàng chờ khiếu nại, Quản lý Tag, Nhật ký kiểm duyệt. Quản trị (chỉ Admin): Người dùng, Chủ đề, Cấu hình hệ thống, Banner, Nhật ký Admin, Thống kê (Người dùng, Nội dung, Kiểm duyệt) | DD-UI-22 |
+| Khu quản trị | Khung riêng AdminShell: cột menu nền sẫm cao hết trang có logo "iShare", mỗi mục có icon; thanh trên chỉ có vị trí trang (nhóm › trang), "Về iShare", chuông Thông báo, avatar (không có ô tìm kiếm, Viết bài, Tin nhắn); nội dung trải hết bề ngang. Mod chỉ thấy nhóm Kiểm duyệt | Kiểm duyệt (Mod, Admin): Hàng chờ báo cáo, Hàng chờ duyệt bài, Hàng chờ khiếu nại, Quản lý Tag, Nhật ký kiểm duyệt. Quản trị (chỉ Admin): Người dùng, Chủ đề, Cấu hình hệ thống, Banner, Nhật ký Admin, Thống kê (Người dùng, Nội dung, Kiểm duyệt) | DD-UI-22, DD-UI-42 |
 | Vị trí cố định | Thông báo, chat, báo cáo, khiếu nại | Thông báo: chuông → ngăn 10 thông báo, cuối ngăn "Xem tất cả" → `/notifications`. Chat: biểu tượng → `/messages`; popup tin mới góc dưới phải. Báo cáo: mục "Báo cáo" cuối thanh thao tác bài (DD-UI-10), trong menu "…" của bình luận, hồ sơ, trang nhóm. Khiếu nại: nút "Khiếu nại" trong thông báo xử lý, trên màn hình tài khoản bị khóa, và menu avatar → Khiếu nại của tôi | DD-UI-23 |
 | Hộp thoại | Hộp giữa màn hình, nền mờ phía sau; đóng bằng Esc hoặc nút Đóng | Báo cáo, lý do biện pháp, tạo nhóm chat, thêm thành viên, gửi yêu cầu tham gia, mời vào nhóm, rời nhóm, đổi Chủ đề/Tag (Mod), gộp Chủ đề, người theo dõi, từ chức | DD-UI-24 |
 | Ngăn bên phải | Ngăn trượt trong trang, không rời trang | Tóm tắt bài (SCR-M13-01), thông tin nhóm chat (SCR-M16-04), vai trò người dùng (SCR-M10-02) | DD-UI-24 |
@@ -207,3 +207,4 @@ Nguồn: SC-M06-001, SC-M06-002, SC-M06-003. Artboard: `wf--tim-kiem--SCR-M06-01
 |---|---|---|
 | 0.1 | 2026-11-25 | Tạo tệp ở bước 5 |
 | 0.2 | 2026-11-25 | Bước 5 được duyệt; điều hướng DD-UI-20…24, quy tắc đường dẫn DD-UI-26 |
+| 0.3 | 2026-11-27 | Mục 2: khu quản trị dùng khung AdminShell (DD-UI-42); chữ chân cột menu "Chính sách và Điều khoản" (DD-UI-43). Bảng màn hình → đường dẫn cho phase Coding: `handoff/routes.md` |

@@ -1,8 +1,8 @@
 ---
 ma_tai_lieu: SCREEN-INVENTORY
-phien_ban: 0.3
+phien_ban: 0.4
 trang_thai: Đã duyệt
-ngay: 2026-11-26
+ngay: 2026-11-27
 tac_gia: Phạm Văn Đức
 ---
 # Danh mục màn hình — iShare
@@ -56,7 +56,7 @@ Vai trò (US `uc:actors`): ACT-001 Guest · ACT-002 Người dùng đã đăng n
 <!-- ui:screens -->
 | id | name | module | roles | uc | sc | sources | states | devices | batch | notes |
 |---|---|---|---|---|---|---|---|---|---|---|
-| SCR-SHARED-01 | Khung ứng dụng (thanh trên cùng, điều hướng trái, menu tài khoản) | SHARED | ACT-001, ACT-002, ACT-003 | UC-M01-006, UC-M01-021, UC-M01-013 | SC-M01-014, SC-M01-037 | FR-M01-07, FR-M07-05, FR-M07-07, FR-M10-13 | default, guest, mod, admin | desktop | A | Logo chữ iShare, ô tìm kiếm (SCR-M06-01), nút Viết bài, chuông (SCR-M07-01), biểu tượng Tin nhắn có số chưa đọc (SCR-M07-03), avatar → menu: Hồ sơ, Cài đặt tài khoản, Đăng xuất. Guest: nút Đăng nhập/Đăng ký. Mod/Admin: thêm lối vào khung quản trị (SCR-SHARED-06). Chân trang có liên kết Privacy Policy/ToS (SC-M01-037). |
+| SCR-SHARED-01 | Khung ứng dụng (thanh trên cùng, điều hướng trái, menu tài khoản) | SHARED | ACT-001, ACT-002, ACT-003 | UC-M01-006, UC-M01-021, UC-M01-013 | SC-M01-014, SC-M01-037 | FR-M01-07, FR-M07-05, FR-M07-07, FR-M10-13 | default, guest, mod, admin | desktop | A | Logo chữ iShare, ô tìm kiếm (SCR-M06-01), nút Viết bài, chuông (SCR-M07-01), biểu tượng Tin nhắn có số chưa đọc (SCR-M07-03), avatar → menu: Hồ sơ, Cài đặt tài khoản, Đăng xuất. Guest: nút Đăng nhập/Đăng ký. Mod/Admin: thêm lối vào khung quản trị (SCR-SHARED-06). Chân cột menu có liên kết "Chính sách và Điều khoản" tới trang Privacy Policy/ToS (SC-M01-037, DD-UI-43). |
 | SCR-SHARED-02 | Banner thông báo toàn trang | SHARED | ACT-001, ACT-002, ACT-003 | UC-M10-017 | SC-M10-014 | FR-M10-13 | default, long | desktop | A | Nằm trên mọi trang, dưới thanh trên cùng; có nút đóng. |
 | SCR-SHARED-03 | Trang bảo trì | SHARED | ACT-001, ACT-002, ACT-008 | UC-M10-011 | SC-M10-009 | FR-M10-10 | default | desktop | E | Khi bật bảo trì (maintenance) chỉ tài khoản ADMIN dùng được hệ thống; default chính là trang bảo trì. |
 | SCR-SHARED-04 | Trang lỗi chung | SHARED | ACT-001, ACT-002, ACT-003 | — | SC-M02-001, SC-M03-007 | FR-M02-01.21, FR-M03-07, FR-M11-03.06 | default, forbidden, error | desktop | A | default = không tìm thấy (not-found): "Người dùng không tồn tại", "Nội dung không tồn tại", không có quyền, lỗi tải. Khi cờ Group/Chat/Gamification tắt dùng thông báo "Hệ thống đang bận, vui lòng thử lại sau" (trạng thái error). |
