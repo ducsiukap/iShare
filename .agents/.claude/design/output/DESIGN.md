@@ -1,11 +1,11 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.10
+phien_ban: 0.11
 trang_thai: Bản nháp
-ngay: 2026-11-26
+ngay: 2026-11-27
 tac_gia: Phạm Văn Đức
-steps_completed: [1, 2, 3, 4, 5, 6, 7]
-buoc_hien_tai: 8
+steps_completed: [1, 2, 3, 4, 5, 6, 7, 8]
+buoc_hien_tai: 9
 che_do: thuc-thi
 dot_da_duyet: [A, B, C, D, E]
 dot_da_day_figma: [A, B, C, D, E]
@@ -271,3 +271,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.8 | 2026-11-26 | DD-UI-42: khung quản trị riêng AdminShell cho khu kiểm duyệt và quản trị (token `console-*`, 68 component); đăng lại canvas, design system, đẩy lại page đợt C trên Figma |
 | 0.9 | 2026-11-27 | DD-UI-43: dòng chân cột menu đổi thành "Chính sách và Điều khoản"; đăng lại canvas, design system, sửa chữ trên cả 5 page Figma |
 | 0.10 | 2026-11-27 | Bước 8 lần 1: QA-final, sửa QA-F-01…10 trên canvas, design system (GroupCard, TagInput, ConversationItem, DescriptionList `--stack`, ô mật khẩu Hiện/Ẩn, cấp tiêu đề theo ngữ cảnh, `main` cho trang không có cột menu) và Figma; DD-UI-44 |
+| 0.11 | 2026-11-27 | Bước 8 được duyệt: QA-final chốt (QA-F-01…10 đã sửa trên canvas, design system và Figma); chuyển sang bước 9 |
