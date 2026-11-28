@@ -1,8 +1,8 @@
 ---
 ma_tai_lieu: SCREEN-INVENTORY
-phien_ban: 0.4
-trang_thai: Đã duyệt
-ngay: 2026-11-27
+phien_ban: 1.0
+trang_thai: Đã chốt
+ngay: 2026-11-28
 tac_gia: Phạm Văn Đức
 ---
 # Danh mục màn hình — iShare

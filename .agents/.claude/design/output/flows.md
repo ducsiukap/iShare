@@ -1,8 +1,8 @@
 ---
 ma_tai_lieu: FLOWS
-phien_ban: 0.3
-trang_thai: Đã duyệt
-ngay: 2026-11-27
+phien_ban: 1.0
+trang_thai: Đã chốt
+ngay: 2026-11-28
 tac_gia: Phạm Văn Đức
 ---
 # Sơ đồ trang, điều hướng và luồng — iShare
@@ -208,3 +208,4 @@ Nguồn: SC-M06-001, SC-M06-002, SC-M06-003. Artboard: `wf--tim-kiem--SCR-M06-01
 | 0.1 | 2026-11-25 | Tạo tệp ở bước 5 |
 | 0.2 | 2026-11-25 | Bước 5 được duyệt; điều hướng DD-UI-20…24, quy tắc đường dẫn DD-UI-26 |
 | 0.3 | 2026-11-27 | Mục 2: khu quản trị dùng khung AdminShell (DD-UI-42); chữ chân cột menu "Chính sách và Điều khoản" (DD-UI-43). Bảng màn hình → đường dẫn cho phase Coding: `handoff/routes.md` |
+| 1.0 | 2026-11-28 | Nghiệm thu bước 9, chốt |

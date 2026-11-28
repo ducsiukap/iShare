@@ -1,8 +1,8 @@
 ---
 ma_tai_lieu: ROUTES
-phien_ban: 0.1
-trang_thai: Bản nháp
-ngay: 2026-11-27
+phien_ban: 1.0
+trang_thai: Đã chốt
+ngay: 2026-11-28
 tac_gia: Phạm Văn Đức
 ---
 # Màn hình → đường dẫn trang — iShare (routes.md)
