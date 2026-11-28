@@ -14,7 +14,7 @@ The single entry point for any agent working on iShare. This directory tells an 
 | Phase | Entry file | Use for | Status |
 |---|---|---|---|
 | System Analysis | [phases/system-analysis.md](./phases/system-analysis.md) | Interviews, registers, Functional Requirement documents, architecture, data model, API, ADR | **Active** |
-| Design | [phases/design.md](./phases/design.md) | UI/UX: mockups, flows, design system, prototypes | Draft — not yet aligned with the current workflow |
+| Design | [phases/design.md](./phases/design.md) | UI/UX: mockups, flows, design system, prototypes | **Done** — approved design in [docs/specs/design/](../docs/specs/design/) (handoff: `handoff/UI-KIT.md`, `handoff/routes.md`); canvas copies in [docs/resources/design/canvas/](../docs/resources/design/canvas/) |
 | Coding | [phases/coding.md](./phases/coding.md) | Features, bug fixes, tests, refactoring, deployment | Draft — not yet aligned with the current workflow |
 
 Not sure which phase? Writing or fixing code → Coding. Producing visual designs → Design. Anything about requirements, data, architecture or APIs → System Analysis.
@@ -28,6 +28,7 @@ Not sure which phase? Writing or fixing code → Coding. Producing visual design
 | Interview the stakeholder, maintain registers | [ba-interview](./skills/ba-interview/SKILL.md) | System Analysis |
 | Write or revise one module's FR document (7 gated steps) | [analyzing-functional-requirements](./skills/analyzing-functional-requirements/SKILL.md) · [user guide](./skills/analyzing-functional-requirements/README.md) | System Analysis |
 | Architecture, database, API, ADR, performance | [technical-design](./skills/technical-design/SKILL.md) | System Analysis (Phase 7, 8) |
+| Design the UI from FR/US/SC: brief, references, aesthetic direction, screen inventory, flows and wireframes, design system, hi-fi batches, QA, handoff (9 gated steps; Claude Design + Figma; blocks "AI-generated" look) | [designing-ui](./skills/designing-ui/SKILL.md) · [user guide](./skills/designing-ui/README.md) | Design |
 
 Planned: `analyzing-dependencies`, `assessing-tech-feasibility`.
 

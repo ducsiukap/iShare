@@ -17,3 +17,7 @@ __pycache__/
 *.pyc
 
 .agents/.claude/system_analysis/output/export
+
+# Ảnh chụp giao diện của bên khác dùng cho moodboard (chỉ tham chiếu nội bộ, không commit)
+.agents/.claude/design/output/moodboard/*.jpg
+.agents/.claude/design/output/moodboard/*.png

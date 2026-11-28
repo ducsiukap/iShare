@@ -1,0 +1,679 @@
+{
+  "attachments": {},
+  "boards": {
+    "Main.dc.html": {
+      "h": 560,
+      "is_interactive": true,
+      "page": "huong",
+      "title": "Mục lục bước 3",
+      "w": 720,
+      "x": 0,
+      "y": 0
+    },
+    "bang-mau.dc.html": {
+      "h": 1000,
+      "page": "mau",
+      "title": "Bảng màu thay thế",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "font-test.dc.html": {
+      "expand": "fill",
+      "h": 7980,
+      "page": "font",
+      "title": "Thử font tiếng Việt",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "huong-1--chi-tiet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 2740,
+      "page": "huong",
+      "title": "Hướng 1 — Sổ tay · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 900
+    },
+    "huong-1--chi-tiet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 2740,
+      "page": "huong",
+      "title": "Hướng 1 — Sổ tay · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 900
+    },
+    "huong-2--chi-tiet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 2880,
+      "page": "huong",
+      "title": "Hướng 2 — Bảng tin · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 4240
+    },
+    "huong-2--chi-tiet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 2880,
+      "page": "huong",
+      "title": "Hướng 2 — Bảng tin · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 4240
+    },
+    "huong-3--chi-tiet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 2840,
+      "page": "huong",
+      "title": "Hướng 3 — Giấy kiểm tra · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 7720
+    },
+    "huong-3--chi-tiet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 2840,
+      "page": "huong",
+      "title": "Hướng 3 — Giấy kiểm tra · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 7720
+    },
+    "huong-4--chi-tiet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 2700,
+      "page": "chon",
+      "title": "Chi tiết bài viết · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 300
+    },
+    "huong-4--chi-tiet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 2700,
+      "page": "chon",
+      "title": "Chi tiết bài viết · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 300
+    },
+    "huong-4--ho-so--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 1060,
+      "page": "chon",
+      "title": "Hồ sơ người dùng · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 5600
+    },
+    "huong-4--ho-so--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1060,
+      "page": "chon",
+      "title": "Hồ sơ người dùng · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 5600
+    },
+    "huong-4--trang-chu--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 1440,
+      "page": "chon",
+      "title": "Trang chủ · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 3560
+    },
+    "huong-4--trang-chu--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1440,
+      "page": "chon",
+      "title": "Trang chủ · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 3560
+    },
+    "huong-4--viet-bai--desktop--dark.dc.html": {
+      "expand": "fill",
+      "h": 1140,
+      "page": "chon",
+      "title": "Viết bài · tối",
+      "w": 1440,
+      "x": 1520,
+      "y": 7260
+    },
+    "huong-4--viet-bai--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1140,
+      "page": "chon",
+      "title": "Viết bài · sáng",
+      "w": 1440,
+      "x": 0,
+      "y": 7260
+    },
+    "wf--bao-cao--SCR-M08-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 770,
+      "page": "wf",
+      "title": "SCR-M08-01 · Báo cáo",
+      "w": 1440,
+      "x": 0,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M08-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 650,
+      "page": "wf",
+      "title": "SCR-M08-02 · Hàng chờ báo cáo",
+      "w": 1440,
+      "x": 1520,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M08-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 940,
+      "page": "wf",
+      "title": "SCR-M08-03 · Chi tiết vụ",
+      "w": 1440,
+      "x": 3040,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M08-04--desktop.dc.html": {
+      "expand": "fill",
+      "h": 650,
+      "page": "wf",
+      "title": "SCR-M08-04 · Lý do biện pháp",
+      "w": 1440,
+      "x": 4560,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M09-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 690,
+      "page": "wf",
+      "title": "SCR-M09-01 · Gửi khiếu nại",
+      "w": 1440,
+      "x": 7600,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M09-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 490,
+      "page": "wf",
+      "title": "SCR-M09-02 · Khiếu nại của tôi",
+      "w": 1440,
+      "x": 12160,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M09-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 650,
+      "page": "wf",
+      "title": "SCR-M09-03 · Hàng chờ khiếu nại",
+      "w": 1440,
+      "x": 9120,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-M09-04--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "page": "wf",
+      "title": "SCR-M09-04 · Chi tiết khiếu nại",
+      "w": 1440,
+      "x": 10640,
+      "y": 6170
+    },
+    "wf--bao-cao--SCR-SHARED-05--desktop.dc.html": {
+      "expand": "fill",
+      "h": 570,
+      "page": "wf",
+      "title": "SCR-SHARED-05 · Tài khoản bị khóa",
+      "w": 1440,
+      "x": 6080,
+      "y": 6170
+    },
+    "wf--chat--SCR-M16-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 530,
+      "page": "wf",
+      "title": "SCR-M16-01 · Hộp thư Chat",
+      "w": 1440,
+      "x": 0,
+      "y": 10900
+    },
+    "wf--chat--SCR-M16-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 750,
+      "page": "wf",
+      "title": "SCR-M16-02 · Cuộc trò chuyện",
+      "w": 1440,
+      "x": 1520,
+      "y": 10900
+    },
+    "wf--chat--SCR-M16-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 580,
+      "page": "wf",
+      "title": "SCR-M16-03 · Tạo nhóm chat",
+      "w": 1440,
+      "x": 3040,
+      "y": 10900
+    },
+    "wf--dang-ky--SCR-M01-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 830,
+      "page": "wf",
+      "title": "SCR-M01-01 · Đăng ký bước 1",
+      "w": 1440,
+      "x": 0,
+      "y": 300
+    },
+    "wf--dang-ky--SCR-M01-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 560,
+      "page": "wf",
+      "title": "SCR-M01-02 · Chờ xác minh email",
+      "w": 1440,
+      "x": 1520,
+      "y": 300
+    },
+    "wf--dang-ky--SCR-M01-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 970,
+      "page": "wf",
+      "title": "SCR-M01-03 · Thiết lập tài khoản",
+      "w": 1440,
+      "x": 3040,
+      "y": 300
+    },
+    "wf--dang-ky--SCR-M01-04--desktop.dc.html": {
+      "expand": "fill",
+      "h": 810,
+      "page": "wf",
+      "title": "SCR-M01-04 · Đăng nhập",
+      "w": 1440,
+      "x": 4560,
+      "y": 300
+    },
+    "wf--doc-bai--SCR-M03-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1780,
+      "page": "wf",
+      "title": "SCR-M03-02 · Chi tiết bài viết",
+      "w": 1440,
+      "x": 1520,
+      "y": 3790
+    },
+    "wf--doc-bai--SCR-M14-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1170,
+      "page": "wf",
+      "title": "SCR-M14-01 · Trang chủ",
+      "w": 1440,
+      "x": 0,
+      "y": 3790
+    },
+    "wf--nhom--SCR-M11-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 500,
+      "page": "wf",
+      "title": "SCR-M11-01 · Danh sách nhóm",
+      "w": 1440,
+      "x": 0,
+      "y": 7770
+    },
+    "wf--nhom--SCR-M11-03--desktop.dc.html": {
+      "expand": "fill",
+      "h": 760,
+      "page": "wf",
+      "title": "SCR-M11-03 · Trang nhóm",
+      "w": 1440,
+      "x": 1520,
+      "y": 7770
+    },
+    "wf--nhom--SCR-M11-04--desktop.dc.html": {
+      "expand": "fill",
+      "h": 550,
+      "page": "wf",
+      "title": "SCR-M11-04 · Gửi yêu cầu tham gia",
+      "w": 1440,
+      "x": 3040,
+      "y": 7770
+    },
+    "wf--nhom--SCR-M11-10--desktop.dc.html": {
+      "expand": "fill",
+      "h": 690,
+      "page": "wf",
+      "title": "SCR-M11-10 · Hàng chờ duyệt bài của nhóm",
+      "w": 1440,
+      "x": 4560,
+      "y": 7770
+    },
+    "wf--soan-bai--SCR-M03-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1320,
+      "page": "wf",
+      "title": "SCR-M03-01 · Viết bài",
+      "w": 1440,
+      "x": 0,
+      "y": 1870
+    },
+    "wf--soan-bai--SCR-M03-05--desktop.dc.html": {
+      "expand": "fill",
+      "h": 890,
+      "page": "wf",
+      "title": "SCR-M03-05 · Hàng chờ duyệt bài",
+      "w": 1440,
+      "x": 1520,
+      "y": 1870
+    },
+    "wf--thong-bao--SCR-M07-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1170,
+      "page": "wf",
+      "title": "SCR-M07-01 · Ngăn thông báo",
+      "w": 1440,
+      "x": 0,
+      "y": 9130
+    },
+    "wf--thong-bao--SCR-M07-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 760,
+      "page": "wf",
+      "title": "SCR-M07-02 · Trang Thông báo",
+      "w": 1440,
+      "x": 1520,
+      "y": 9130
+    },
+    "wf--tim-kiem--SCR-M06-01--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1170,
+      "page": "wf",
+      "title": "SCR-M06-01 · Gợi ý tìm kiếm",
+      "w": 1440,
+      "x": 0,
+      "y": 12250
+    },
+    "wf--tim-kiem--SCR-M06-02--desktop.dc.html": {
+      "expand": "fill",
+      "h": 750,
+      "page": "wf",
+      "title": "SCR-M06-02 · Kết quả tìm kiếm",
+      "w": 1440,
+      "x": 1520,
+      "y": 12250
+    },
+    "b6--bo-icon--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1080,
+      "page": "b6",
+      "title": "Q6-04 · Bộ icon",
+      "w": 1440,
+      "x": 0,
+      "y": 300
+    },
+    "b6--font-mono--desktop.dc.html": {
+      "expand": "fill",
+      "h": 1240,
+      "page": "b6",
+      "title": "Q6-01 · Font cho khối code",
+      "w": 1440,
+      "x": 1540,
+      "y": 300
+    },
+    "b6--mat-do--desktop.dc.html": {
+      "expand": "fill",
+      "h": 840,
+      "page": "b6",
+      "title": "Q6-02 · Mật độ",
+      "w": 1440,
+      "x": 3080,
+      "y": 300
+    },
+    "font-test-chot.dc.html": {
+      "expand": "fill",
+      "h": 7820,
+      "page": "font",
+      "title": "Font đã chốt — Be Vietnam Pro + JetBrains Mono (bước 6)",
+      "w": 1440,
+      "x": 1540,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-24T03:52:27Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "b6",
+    "view": "canvas"
+  },
+  "notes": {
+    "tieu-de-chon-chi-tiet-bai": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "chon",
+      "text": "Chi tiết bài viết",
+      "w": 240,
+      "x": 0,
+      "y": 0
+    },
+    "tieu-de-chon-ho-so": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "chon",
+      "text": "Hồ sơ người dùng (người khác xem)",
+      "w": 240,
+      "x": 0,
+      "y": 5300
+    },
+    "tieu-de-chon-trang-chu": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "chon",
+      "text": "Trang chủ — Thịnh hành › Bài viết",
+      "w": 240,
+      "x": 0,
+      "y": 3260
+    },
+    "tieu-de-chon-viet-bai": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "chon",
+      "text": "Viết bài (bài nháp)",
+      "w": 240,
+      "x": 0,
+      "y": 6960
+    },
+    "tieu-de-huong-1": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "huong",
+      "text": "Hướng 1 — Sổ tay",
+      "w": 240,
+      "x": 0,
+      "y": 600
+    },
+    "tieu-de-huong-2": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "huong",
+      "text": "Hướng 2 — Bảng tin",
+      "w": 240,
+      "x": 0,
+      "y": 3940
+    },
+    "tieu-de-huong-3": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "huong",
+      "text": "Hướng 3 — Giấy kiểm tra",
+      "w": 240,
+      "x": 0,
+      "y": 7420
+    },
+    "tieu-de-wf-bao-cao": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.4 Báo cáo → Mod xử lý → khiếu nại",
+      "w": 240,
+      "x": 0,
+      "y": 5870
+    },
+    "tieu-de-wf-chat": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.7 Chat 1-1 và nhóm chat",
+      "w": 240,
+      "x": 0,
+      "y": 10600
+    },
+    "tieu-de-wf-dang-ky": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.1 Đăng ký và xác minh email",
+      "w": 240,
+      "x": 0,
+      "y": 0
+    },
+    "tieu-de-wf-doc-bai": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.3 Đọc bài → bình luận, trả lời → upvote",
+      "w": 240,
+      "x": 0,
+      "y": 3490
+    },
+    "tieu-de-wf-nhom": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.5 Tìm và tham gia nhóm, đăng bài ẩn danh",
+      "w": 240,
+      "x": 0,
+      "y": 7470
+    },
+    "tieu-de-wf-soan-bai": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.2 Soạn bài → gửi → đã đăng / chờ duyệt / bị từ chối",
+      "w": 240,
+      "x": 0,
+      "y": 1570
+    },
+    "tieu-de-wf-thong-bao": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.6 Nhận thông báo → đi tới nội dung",
+      "w": 240,
+      "x": 0,
+      "y": 8830
+    },
+    "tieu-de-wf-tim-kiem": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "wf",
+      "text": "3.8 Tìm kiếm có bộ lọc",
+      "w": 240,
+      "x": 0,
+      "y": 11950
+    },
+    "tieu-de-b6": {
+      "kind": "title1",
+      "maxW": 4520,
+      "page": "b6",
+      "text": "Bước 6 — Chọn bộ icon, font code, mật độ",
+      "w": 240,
+      "x": 0,
+      "y": 0
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "huong-1--chi-tiet-bai--desktop.dc.html",
+    "huong-1--chi-tiet-bai--desktop--dark.dc.html",
+    "huong-2--chi-tiet-bai--desktop.dc.html",
+    "huong-2--chi-tiet-bai--desktop--dark.dc.html",
+    "huong-3--chi-tiet-bai--desktop.dc.html",
+    "huong-3--chi-tiet-bai--desktop--dark.dc.html",
+    "bang-mau.dc.html",
+    "font-test.dc.html",
+    "huong-4--chi-tiet-bai--desktop.dc.html",
+    "huong-4--chi-tiet-bai--desktop--dark.dc.html",
+    "huong-4--trang-chu--desktop.dc.html",
+    "huong-4--trang-chu--desktop--dark.dc.html",
+    "huong-4--ho-so--desktop.dc.html",
+    "huong-4--ho-so--desktop--dark.dc.html",
+    "huong-4--viet-bai--desktop.dc.html",
+    "huong-4--viet-bai--desktop--dark.dc.html",
+    "wf--dang-ky--SCR-M01-01--desktop.dc.html",
+    "wf--dang-ky--SCR-M01-02--desktop.dc.html",
+    "wf--dang-ky--SCR-M01-03--desktop.dc.html",
+    "wf--dang-ky--SCR-M01-04--desktop.dc.html",
+    "wf--soan-bai--SCR-M03-01--desktop.dc.html",
+    "wf--soan-bai--SCR-M03-05--desktop.dc.html",
+    "wf--doc-bai--SCR-M14-01--desktop.dc.html",
+    "wf--doc-bai--SCR-M03-02--desktop.dc.html",
+    "wf--bao-cao--SCR-M08-01--desktop.dc.html",
+    "wf--bao-cao--SCR-M08-02--desktop.dc.html",
+    "wf--bao-cao--SCR-M08-03--desktop.dc.html",
+    "wf--bao-cao--SCR-M08-04--desktop.dc.html",
+    "wf--bao-cao--SCR-SHARED-05--desktop.dc.html",
+    "wf--bao-cao--SCR-M09-01--desktop.dc.html",
+    "wf--bao-cao--SCR-M09-03--desktop.dc.html",
+    "wf--bao-cao--SCR-M09-04--desktop.dc.html",
+    "wf--bao-cao--SCR-M09-02--desktop.dc.html",
+    "wf--nhom--SCR-M11-01--desktop.dc.html",
+    "wf--nhom--SCR-M11-03--desktop.dc.html",
+    "wf--nhom--SCR-M11-04--desktop.dc.html",
+    "wf--nhom--SCR-M11-10--desktop.dc.html",
+    "wf--thong-bao--SCR-M07-01--desktop.dc.html",
+    "wf--thong-bao--SCR-M07-02--desktop.dc.html",
+    "wf--chat--SCR-M16-01--desktop.dc.html",
+    "wf--chat--SCR-M16-02--desktop.dc.html",
+    "wf--chat--SCR-M16-03--desktop.dc.html",
+    "wf--tim-kiem--SCR-M06-01--desktop.dc.html",
+    "wf--tim-kiem--SCR-M06-02--desktop.dc.html",
+    "b6--bo-icon--desktop.dc.html",
+    "b6--font-mono--desktop.dc.html",
+    "b6--mat-do--desktop.dc.html",
+    "font-test-chot.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "huong",
+      "name": "Bước 3 — Hướng thẩm mỹ"
+    },
+    {
+      "id": "mau",
+      "name": "Bảng màu"
+    },
+    {
+      "id": "font",
+      "name": "Font"
+    },
+    {
+      "id": "chon",
+      "name": "Hướng đã chọn — 4 màn hình"
+    },
+    {
+      "id": "wf",
+      "name": "Bước 5 — Wireframe"
+    },
+    {
+      "id": "b6",
+      "name": "Bước 6 — Lựa chọn"
+    }
+  ],
+  "title": "iShare — Khám phá",
+  "v": 3
+}

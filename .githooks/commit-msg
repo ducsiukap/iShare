@@ -1,0 +1,23 @@
+#!/bin/sh
+# commit-msg hook: reject agent attribution in commits (COMMON-RULES Rule 11).
+# Enable once per clone:  git config core.hooksPath .githooks
+
+# Drop the "git commit -v" diff and comment lines before checking.
+msg=$(sed -e '/^# -\{24\} >8 -\{24\}$/,$d' -e '/^#/d' "$1")
+
+pattern='^[[:space:]]*co-authored-by:.*(claude|anthropic|openai|chatgpt|copilot|gemini|cursor|codex|\[bot\])'
+pattern="$pattern"'|^[[:space:]]*claude-session:|claude\.ai/code|noreply@anthropic\.com'
+pattern="$pattern"'|generated (with|by) \[?(claude|chatgpt|copilot|gemini|cursor|codex)|🤖'
+
+bad=$(printf '%s\n' "$msg" | LC_ALL=C grep -inE "$pattern")
+author=$(git var GIT_AUTHOR_IDENT 2>/dev/null | sed 's/ [0-9]* [-+][0-9]*$//')
+bad_author=$(printf '%s\n' "$author" | LC_ALL=C grep -iE 'claude|anthropic|\[bot\]')
+
+if [ -n "$bad" ] || [ -n "$bad_author" ]; then
+    echo "commit-msg: commit rejected - agent attribution is not allowed (COMMON-RULES Rule 11)." >&2
+    [ -n "$bad" ] && printf '  message line %s\n' "$bad" >&2
+    [ -n "$bad_author" ] && printf '  author: %s\n' "$bad_author" >&2
+    echo "Remove these lines (or fix the author) and commit again." >&2
+    exit 1
+fi
+exit 0

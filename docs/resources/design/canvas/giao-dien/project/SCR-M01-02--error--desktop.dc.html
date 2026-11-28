@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Xác minh email — gửi lại lỗi</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ds/ishare/tokens.css">
+<link rel="stylesheet" href="./ds/ishare/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.pg{position:relative;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.5}
+.pg-layer{position:absolute;z-index:3}
+.pg-cut{height:900px;overflow:hidden}
+.pg-math{text-align:center}
+.pg-crop{padding:var(--space-8)}
+</style>
+</helmet>
+<div class="pg pg-cut" data-theme="light">
+<header class="is-topbar"><a class="is-logo" href="#">i<span>Share</span></a></header><main class="is-layout is-layout--center"><div class="is-card is-col" style="width: 100%; max-width: var(--dialog-w); gap: var(--space-5)"><ol class="is-steps" aria-label="Các bước đăng ký"><li class="is-step is-step--done"><span class="is-step__bar"></span><span class="is-step__label">1. Tài khoản<span class="is-sr"> (đã xong)</span></span></li><li class="is-step is-step--current" aria-current="step"><span class="is-step__bar"></span><span class="is-step__label">2. Xác minh email</span></li><li class="is-step"><span class="is-step__bar"></span><span class="is-step__label">3. Hồ sơ</span></li></ol><span class="is-avatar is-avatar--lg is-avatar--muted" aria-hidden="true"><svg class="is-ic" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M80-160v-640h494q-3 15-4 30t1 30H145l335 218 151-98q10 9 21 16.67 11 7.68 23 13.33L480-462 140-685v465h680v-360q16.79-4.78 31.4-13.39Q866-602 880-613v453H80Zm60-580v520-520Zm542 57.88q-32-32.12-32-78T682.12-838q32.12-32 78-32T838-837.88q32 32.12 32 78T837.88-682q-32.12 32-78 32T682-682.12Z"/></svg></span><div class="is-col" style="gap: var(--space-1)"><h1 class="is-h1">Kiểm tra email của bạn</h1><p class="is-muted" style="margin: 0">Chúng tôi đã gửi liên kết xác minh tới an.study@example.test.</p></div><div class="is-alert is-alert--danger" role="alert"><span class="is-alert__ic is-tone-danger"><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M503.5-289.48q9.5-9.48 9.5-23.5t-9.48-23.52q-9.48-9.5-23.5-9.5t-23.52 9.48q-9.5 9.48-9.5 23.5t9.48 23.52q9.48 9.5 23.5 9.5t23.52-9.48ZM453-433h60v-253h-60v253Zm27.27 353q-82.74 0-155.5-31.5Q252-143 197.5-197.5t-86-127.34Q80-397.68 80-480.5t31.5-155.66Q143-709 197.5-763t127.34-85.5Q397.68-880 480.5-880t155.66 31.5Q709-817 763-763t85.5 127Q880-563 880-480.27q0 82.74-31.5 155.5Q817-252 763-197.68q-54 54.31-127 86Q563-80 480.27-80Zm.23-60Q622-140 721-239.5t99-241Q820-622 721.19-721T480-820q-141 0-240.5 98.81T140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z"/></svg></span><div class="is-alert__body"><p class="is-alert__title">Hệ thống đang bận, vui lòng thử lại sau</p><p class="is-alert__text">Chưa gửi lại được email xác minh.</p></div></div><p class="is-small is-muted" style="margin: 0">Liên kết có hạn 1 giờ. Không thấy email? Bạn xem thư mục Spam hoặc gửi lại.</p><div class="is-row"><button type="button" class="is-btn is-btn--primary">Gửi lại email</button><button type="button" class="is-btn is-btn--ghost">Đổi email</button></div></div></main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

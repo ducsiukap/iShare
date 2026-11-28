@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Đặt mật khẩu mới · tối</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ds/ishare/tokens.css">
+<link rel="stylesheet" href="./ds/ishare/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.pg{position:relative;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.5}
+.pg-layer{position:absolute;z-index:3}
+.pg-cut{height:900px;overflow:hidden}
+.pg-math{text-align:center}
+.pg-crop{padding:var(--space-8)}
+</style>
+</helmet>
+<div class="pg pg-cut" data-theme="dark">
+<header class="is-topbar"><a class="is-logo" href="#">i<span>Share</span></a></header><main class="is-layout is-layout--center"><div class="is-card is-col" style="width: 100%; max-width: var(--dialog-w); gap: var(--space-5)"><div class="is-col" style="gap: var(--space-1)"><h1 class="is-h1">Đặt mật khẩu mới</h1><p class="is-muted" style="margin: 0">Cho tài khoản an.study@example.test</p></div><div class="is-field"><label class="is-field__label" for="mk-moi">Mật khẩu mới</label><div class="is-inputwrap"><input id="mk-moi" class="is-input" type="password" value="••••••••••••" placeholder="" autocomplete="new-password" aria-describedby="mk-moi-gy"><span class="is-inputwrap__end"><button type="button" class="is-iconbtn is-iconbtn--sm" aria-label="Hiện mật khẩu"><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M600.5-379.5Q650-429 650-500t-49.5-120.5Q551-670 480-670t-120.5 49.5Q310-571 310-500t49.5 120.5Q409-330 480-330t120.5-49.5Zm-200-41Q368-453 368-500t32.5-79.5Q433-612 480-612t79.5 32.5Q592-547 592-500t-32.5 79.5Q527-388 480-388t-79.5-32.5ZM216-283Q98-366 40-500q58-134 176-217t264-83q146 0 264 83t176 217q-58 134-176 217t-264 83q-146 0-264-83Zm264-217Zm222.5 174.5Q804-391 857-500q-53-109-154.5-174.5T480-740q-121 0-222.5 65.5T102-500q54 109 155.5 174.5T480-260q121 0 222.5-65.5Z"/></svg></button></span></div><p class="is-field__hint" id="mk-moi-gy">8–64 ký tự</p></div><div class="is-field"><label class="is-field__label" for="mk-lai">Nhập lại mật khẩu mới</label><div class="is-inputwrap"><input id="mk-lai" class="is-input" type="password" value="••••••••••••" placeholder="" autocomplete="new-password"><span class="is-inputwrap__end"><button type="button" class="is-iconbtn is-iconbtn--sm" aria-label="Hiện mật khẩu"><svg class="is-ic is-ic--sm" viewBox="0 -960 960 960" aria-hidden="true" focusable="false"><path d="M600.5-379.5Q650-429 650-500t-49.5-120.5Q551-670 480-670t-120.5 49.5Q310-571 310-500t49.5 120.5Q409-330 480-330t120.5-49.5Zm-200-41Q368-453 368-500t32.5-79.5Q433-612 480-612t79.5 32.5Q592-547 592-500t-32.5 79.5Q527-388 480-388t-79.5-32.5ZM216-283Q98-366 40-500q58-134 176-217t264-83q146 0 264 83t176 217q-58 134-176 217t-264 83q-146 0-264-83Zm264-217Zm222.5 174.5Q804-391 857-500q-53-109-154.5-174.5T480-740q-121 0-222.5 65.5T102-500q54 109 155.5 174.5T480-260q121 0 222.5-65.5Z"/></svg></button></span></div></div><p class="is-small is-muted" style="margin: 0">Sau khi đổi, các thiết bị khác đang đăng nhập bị đăng xuất; thiết bị này được đăng nhập luôn.</p><button type="button" class="is-btn is-btn--primary" style="width: 100%; justify-content: center">Đổi mật khẩu</button></div></main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+fg,bg,min,note
+ink,bg,4.5,Chữ chính trên nền trang
+ink,surface,4.5,Chữ chính trên khối
+ink,surface-raised,4.5,"Chữ trong menu, dialog"
+ink,surface-hover,4.5,Chữ trên dòng đang rê chuột
+ink,primary-soft,4.5,Chữ trên mục đang chọn
+ink,mark,4.5,Chữ tô sáng trong bài
+ink-muted,bg,4.5,Chữ phụ trên nền trang
+ink-muted,surface,4.5,Chữ phụ trên khối
+ink-muted,surface-raised,4.5,"Chữ phụ trong menu, dialog"
+ink-muted,surface-hover,4.5,Chữ phụ trên dòng đang rê chuột
+ink-muted,primary-soft,4.5,Chữ phụ trên mục đang chọn
+primary,bg,4.5,Liên kết trên nền trang
+primary,surface,4.5,"Liên kết, Upvote, chữ Chủ đề trên khối"
+primary,surface-raised,4.5,Mục đang chọn trong menu
+primary,surface-hover,4.5,Upvote khi rê chuột
+primary,primary-soft,4.5,"Mục điều hướng đang chọn, chip Chủ đề, avatar chữ cái"
+on-primary,primary,4.5,Chữ trên nút chính
+on-primary,primary-hover,4.5,Chữ trên nút chính khi rê chuột
+line-strong,bg,3,Viền ô nhập trên nền trang
+line-strong,surface,3,Viền ô nhập trên khối
+line-strong,surface-raised,3,Viền ô nhập trong dialog
+line-strong,surface-hover,3,Viền checkbox trên dòng đang rê chuột
+focus,bg,3,Vòng focus trên nền trang
+focus,surface,3,Vòng focus trên khối
+focus,surface-raised,3,Vòng focus trong dialog
+focus,primary-soft,3,Vòng focus trên mục đang chọn
+success,success-soft,4.5,Thông báo thành công
+success,surface,4.5,Nhãn Đã đăng trên khối
+warning,warning-soft,4.5,"Cảnh báo, Chờ duyệt"
+warning,surface,4.5,Nhãn Chờ duyệt trên khối
+danger,danger-soft,4.5,Thông báo lỗi
+danger,surface,4.5,"Lỗi dưới ô nhập, nhãn Bị từ chối"
+danger,bg,4.5,Lỗi trên nền trang
+danger,surface-raised,4.5,"Mục menu nguy hiểm (Xóa, Ban)"
+on-danger,danger,4.5,Chữ trên nút nguy hiểm
+on-danger,danger-hover,4.5,Chữ trên nút nguy hiểm khi rê chuột
+info,info-soft,4.5,Thông tin
+info,surface,4.5,Nhãn vai trò Mod/Admin trên khối
+syntax-keyword,bg,4.5,Từ khóa trong khối code
+syntax-string,bg,4.5,Chuỗi trong khối code
+syntax-number,bg,4.5,Số trong khối code
+syntax-function,bg,4.5,Tên hàm trong khối code
+syntax-comment,bg,4.5,Chú thích trong khối code
+ink,success-soft,4.5,Chữ trong thông báo thành công
+ink,warning-soft,4.5,Chữ trong cảnh báo
+ink,danger-soft,4.5,Chữ trong thông báo lỗi
+ink,info-soft,4.5,"Chữ trong thông tin, banner toàn trang"
+surface,ink,4.5,Chữ tooltip (nền ink)
+chart-1,surface,3,Cột biểu đồ chuỗi 1
+chart-2,surface,3,Cột biểu đồ chuỗi 2
+chart-3,surface,3,Cột biểu đồ chuỗi 3
+console-ink,console-bg,4.5,Mục menu quản trị
+console-ink,console-hover,4.5,Mục menu quản trị khi rê chuột
+console-ink-muted,console-bg,4.5,"Tên nhóm menu, chân cột menu quản trị"
+console-ink-muted,console-hover,4.5,Icon mục menu quản trị khi rê chuột
+console-accent,console-active,4.5,Mục menu quản trị đang xem
+console-accent,console-bg,4.5,Chữ Share của logo trên cột menu quản trị
+console-accent,console-hover,3,Vòng focus trên mục menu quản trị đang rê chuột

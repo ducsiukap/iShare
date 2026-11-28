@@ -1,0 +1,12 @@
+fg,bg,min,note
+ink,bg,4.5,Chữ thân bài trên nền trang
+ink,surface,4.5,Chữ trên card/khối
+ink-muted,surface,4.5,Chữ phụ (thời gian, nhãn phụ)
+on-primary,primary,4.5,Chữ trên nút chính
+primary,surface,3,Viền/icon màu chính trên khối
+line-strong,surface,3,Viền ô nhập
+focus,bg,3,Vòng focus
+danger,danger-soft,4.5,Thông báo lỗi trên nền nhạt
+warning,warning-soft,4.5,Cảnh báo trên nền nhạt
+success,success-soft,4.5,Thành công trên nền nhạt
+info,info-soft,4.5,Thông tin trên nền nhạt
