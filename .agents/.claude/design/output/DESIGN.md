@@ -1,6 +1,6 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
 ngay: 2026-11-28
 tac_gia: Phạm Văn Đức
@@ -65,8 +65,9 @@ chọn — 4 màn hình" trên canvas khám phá).
 
 ## 3. Tokens tóm tắt (bước 6)
 
-Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Claude Design; `tokens.css`, `tokens.dtcg.json` sinh bằng
-`export_tokens.py`; app không dùng Tailwind nên nạp `handoff/css/tokens.vars.css`, DD-UI-45). Design system: "iShare Design System" (link ở frontmatter), bản sao trong `docs/resources/design/canvas/design-system/`.
+Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Claude Design; `tokens.css`, `tokens.dtcg.json` và tệp CSS thuần
+`handoff/css/tokens.vars.css` (`--plain`) sinh bằng `export_tokens.py`; app không dùng Tailwind nên nạp `tokens.vars.css`,
+DD-UI-45). Design system: "iShare Design System" (link ở frontmatter), bản sao trong `docs/resources/design/canvas/design-system/`.
 
 - Font: **Be Vietnam Pro** 400/600/700 có nghiêng cho giao diện và nội dung; **JetBrains Mono** cho code, tắt ký tự ghép
   (DD-UI-29). Tệp WOFF2 (OFL) nằm trong design system.
@@ -275,3 +276,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.11 | 2026-11-27 | Bước 8 được duyệt: QA-final chốt (QA-F-01…10 đã sửa trên canvas, design system và Figma); chuyển sang bước 9 |
 | 0.12 | 2026-11-27 | Bước 9 (chờ nghiệm thu): `handoff/UI-KIT.md` (68 component), `handoff/routes.md` (75 màn hình, 49 có đường dẫn riêng), `handoff/css/` (tokens.vars.css, components.css, fonts); DD-UI-45 (không Tailwind, tên PascalCase); `flows.md` mục 2 theo DD-UI-42, DD-UI-43 |
 | 1.0 | 2026-11-28 | Nghiệm thu bước 9: chốt DESIGN, PRODUCT, screen-inventory, flows, UI-KIT, routes ở bản 1.0; chép `output/` sang `docs/specs/design/`; chuyển bản sao canvas sang `docs/resources/design/canvas/` |
+| 1.1 | 2026-11-28 | `export_tokens.py` thêm chế độ CSS thuần (`--plain`) và xuất bóng theo theme; sinh lại `tokens.css` (bóng đúng, khối tối có bóng và khai báo lại bí danh), `tokens.dtcg.json` (bóng dạng đối tượng shadow, thêm nhóm `size`) và `handoff/css/tokens.vars.css` (cùng giá trị với bản design system); `UI-KIT.md` 1.1 mục 1 theo đó |

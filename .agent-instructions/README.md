@@ -14,7 +14,7 @@ The single entry point for any agent working on iShare. This directory tells an 
 | Phase | Entry file | Use for | Status |
 |---|---|---|---|
 | System Analysis | [phases/system-analysis.md](./phases/system-analysis.md) | Interviews, registers, Functional Requirement documents, architecture, data model, API, ADR | **Active** |
-| Design | [phases/design.md](./phases/design.md) | UI/UX: mockups, flows, design system, prototypes | Draft — not yet aligned with the current workflow |
+| Design | [phases/design.md](./phases/design.md) | UI/UX: mockups, flows, design system, prototypes | **Done** — approved design in [docs/specs/design/](../docs/specs/design/) (handoff: `handoff/UI-KIT.md`, `handoff/routes.md`); canvas copies in [docs/resources/design/canvas/](../docs/resources/design/canvas/) |
 | Coding | [phases/coding.md](./phases/coding.md) | Features, bug fixes, tests, refactoring, deployment | Draft — not yet aligned with the current workflow |
 
 Not sure which phase? Writing or fixing code → Coding. Producing visual designs → Design. Anything about requirements, data, architecture or APIs → System Analysis.

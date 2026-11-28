@@ -133,8 +133,8 @@
   --radius-sm: 2px;
   --radius-full: 9999px;
   /* shadow */
-  --shadow-1: {'light': '0 2px 8px rgba(31, 37, 35, 0.12)', 'dark': '0 2px 8px rgba(0, 0, 0, 0.5)'};
-  --shadow-2: {'light': '0 12px 32px rgba(31, 37, 35, 0.18)', 'dark': '0 12px 32px rgba(0, 0, 0, 0.6)'};
+  --shadow-1: 0 2px 8px rgba(31, 37, 35, 0.12);
+  --shadow-2: 0 12px 32px rgba(31, 37, 35, 0.18);
   /* size */
   --size-control-h: 40px;
   --size-control-h-sm: 32px;
@@ -169,6 +169,7 @@
   --color-primary-hover: var(--color-teal-200);
   --color-on-primary: var(--color-teal-950);
   --color-primary-soft: var(--color-teal-900);
+  --color-focus: var(--color-primary);
   --color-success: var(--color-teal-300);
   --color-success-soft: var(--color-teal-900);
   --color-warning: #e3b35c;
@@ -183,12 +184,19 @@
   --color-syntax-keyword: #98b9ec;
   --color-syntax-string: #e3b35c;
   --color-syntax-number: #f29a87;
+  --color-syntax-function: var(--color-primary);
+  --color-syntax-comment: var(--color-ink-muted);
   --color-chart-1: var(--color-teal-500);
   --color-chart-2: var(--color-teal-300);
   --color-chart-3: var(--color-teal-100);
   --color-console-bg: var(--color-teal-925);
   --color-console-hover: var(--color-teal-900);
   --color-console-active: var(--color-teal-875);
+  --color-console-ink: var(--color-neutral-150);
+  --color-console-ink-muted: var(--color-neutral-400);
+  --color-console-accent: var(--color-teal-200);
   --color-console-line: var(--color-neutral-800);
   --color-scrim: rgba(0, 0, 0, 0.6);
+  --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-2: 0 12px 32px rgba(0, 0, 0, 0.6);
 }
