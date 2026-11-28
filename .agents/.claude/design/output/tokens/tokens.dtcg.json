@@ -679,18 +679,138 @@
     "shadow-1": {
       "$type": "shadow",
       "$value": {
-        "light": "0 2px 8px rgba(31, 37, 35, 0.12)",
-        "dark": "0 2px 8px rgba(0, 0, 0, 0.5)"
+        "color": "rgba(31, 37, 35, 0.12)",
+        "offsetX": "0px",
+        "offsetY": "2px",
+        "blur": "8px",
+        "spread": "0px"
+      },
+      "$extensions": {
+        "ishare.themes": {
+          "dark": {
+            "color": "rgba(0, 0, 0, 0.5)",
+            "offsetX": "0px",
+            "offsetY": "2px",
+            "blur": "8px",
+            "spread": "0px"
+          }
+        }
       },
       "$description": "Menu, popover, gợi ý tìm kiếm, toast, popup tin nhắn mới, tooltip."
     },
     "shadow-2": {
       "$type": "shadow",
       "$value": {
-        "light": "0 12px 32px rgba(31, 37, 35, 0.18)",
-        "dark": "0 12px 32px rgba(0, 0, 0, 0.6)"
+        "color": "rgba(31, 37, 35, 0.18)",
+        "offsetX": "0px",
+        "offsetY": "12px",
+        "blur": "32px",
+        "spread": "0px"
+      },
+      "$extensions": {
+        "ishare.themes": {
+          "dark": {
+            "color": "rgba(0, 0, 0, 0.6)",
+            "offsetX": "0px",
+            "offsetY": "12px",
+            "blur": "32px",
+            "spread": "0px"
+          }
+        }
       },
       "$description": "Dialog, ngăn trượt bên phải."
+    }
+  },
+  "size": {
+    "control-h": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$description": "Chiều cao nút, ô nhập, ô tìm kiếm ở mật độ vừa."
+    },
+    "control-h-sm": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$description": "Chiều cao nút, ô nhập ở mật độ gọn (bảng, bộ lọc khu quản trị) và nút nhỏ."
+    },
+    "row-h": {
+      "$type": "dimension",
+      "$value": "52px",
+      "$description": "Chiều cao tối thiểu dòng bảng, dòng danh sách ở mật độ vừa."
+    },
+    "row-h-sm": {
+      "$type": "dimension",
+      "$value": "38px",
+      "$description": "Chiều cao tối thiểu dòng bảng ở mật độ gọn (khu kiểm duyệt, quản trị)."
+    },
+    "icon": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Icon mặc định (Material Symbols Sharp, lưới 24)."
+    },
+    "icon-sm": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$description": "Icon trong nút, thanh thao tác, mục menu, dòng bảng."
+    },
+    "icon-xs": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Icon trong nhãn trạng thái, nhãn vai trò, dòng meta."
+    },
+    "avatar-sm": {
+      "$type": "dimension",
+      "$value": "28px",
+      "$description": "Avatar trong bình luận, tin nhắn, dòng bảng."
+    },
+    "avatar-md": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$description": "Avatar tác giả bài, UserRow, cuộc trò chuyện, menu tài khoản."
+    },
+    "avatar-lg": {
+      "$type": "dimension",
+      "$value": "96px",
+      "$description": "Avatar trên trang hồ sơ và ô chọn ảnh đại diện."
+    },
+    "topbar-h": {
+      "$type": "dimension",
+      "$value": "64px",
+      "$description": "Chiều cao thanh trên cùng (DD-UI-20)."
+    },
+    "nav-w": {
+      "$type": "dimension",
+      "$value": "200px",
+      "$description": "Bề rộng cột điều hướng trái (DD-UI-21)."
+    },
+    "nav-w-wide": {
+      "$type": "dimension",
+      "$value": "240px",
+      "$description": "Bề rộng cột điều hướng của khu kiểm duyệt và quản trị (nhãn mục dài hơn, DD-UI-22)."
+    },
+    "aside-w": {
+      "$type": "dimension",
+      "$value": "260px",
+      "$description": "Bề rộng cột phụ bên phải khi trang có nội dung phụ."
+    },
+    "inbox-w": {
+      "$type": "dimension",
+      "$value": "340px",
+      "$description": "Bề rộng cột hộp thư (danh sách cuộc trò chuyện) ở trang Chat, giữa cột điều hướng và cuộc trò chuyện."
+    },
+    "content-max": {
+      "$type": "dimension",
+      "$value": "820px",
+      "$description": "Bề rộng tối đa cột nội dung khi trang không có cột phụ."
+    },
+    "drawer-w": {
+      "$type": "dimension",
+      "$value": "420px",
+      "$description": "Bề rộng ngăn trượt bên phải (Tóm tắt, thông tin nhóm chat, vai trò)."
+    },
+    "dialog-w": {
+      "$type": "dimension",
+      "$value": "520px",
+      "$description": "Bề rộng dialog thường; dialog có bảng dùng content-max."
     }
   }
 }

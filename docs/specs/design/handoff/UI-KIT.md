@@ -1,6 +1,6 @@
 ---
 ma_tai_lieu: UI-KIT
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
 ngay: 2026-11-28
 tac_gia: Phạm Văn Đức
@@ -30,13 +30,17 @@ tac_gia: Phạm Văn Đức
   ```
 
 - `css/tokens.vars.css` là biến CSS thuần, tên ngắn (`--ink`, `--surface`, `--space-4`, `--topbar-h`), khai báo trên
-  `:root, [data-theme="light"]` và `[data-theme="dark"]`. Đây là tệp `tokens.css` mà design system sinh từ
-  `tokens.json`, giống hệt tệp canvas dùng (`ds/ishare/tokens.css`). Không sửa tay; khi `tokens.json` đổi thì đăng lại
-  design system và lấy lại tệp này.
+  `:root, [data-theme="light"]` và `[data-theme="dark"]`, kèm lớp kiểu chữ và `@font-face`. Tệp sinh từ `tokens.json`
+  bằng `export_tokens.py --plain`, cùng tên biến và giá trị với tệp design system sinh cho canvas
+  (`ds/ishare/tokens.css`). Không sửa tay; khi `tokens.json` đổi thì chạy lại (từ thư mục gốc repo):
+
+  ```sh
+  python3 .agent-instructions/skills/designing-ui/tools/export_tokens.py --tokens docs/specs/design/tokens/tokens.json \
+    --out-dir docs/specs/design/tokens --plain docs/specs/design/handoff/css/tokens.vars.css
+  ```
 - `tokens/tokens.css` (khối `@theme` của Tailwind v4, tên `--color-*`, `--spacing-*`, `--size-*`, `--text-*`) và
   `tokens/tokens.dtcg.json` (định dạng DTCG cho công cụ token) giữ lại để đồng bộ công cụ, **không nạp vào app**:
-  không có Tailwind thì trình duyệt bỏ qua cả khối `@theme`. Hai tệp này đang ghi sai giá trị bóng có hai theme
-  (`shadow-1`, `shadow-2`); lấy giá trị bóng ở `tokens.vars.css` hoặc `tokens.json`.
+  không có Tailwind thì trình duyệt bỏ qua cả khối `@theme`.
 - Bảng tên giữa các tệp (khi đọc `tokens.json` hoặc nếu sau này đổi sang Tailwind):
 
   | Nhóm | `tokens.vars.css` (app, `components.css`) | `tokens/tokens.css` (Tailwind) | `tokens.json` |
@@ -44,7 +48,7 @@ tac_gia: Phạm Văn Đức
   | Màu | `--ink`, `--primary-soft`, `--console-bg` | `--color-ink`, `--color-primary-soft`, `--color-console-bg` | `color` |
   | Khoảng cách | `--space-0-5` … `--space-16` | `--spacing-0-5` … `--spacing-16` | `spacing` |
   | Bo góc | `--radius-sm`, `--radius-full` | như bên trái | `radius` |
-  | Bóng | `--shadow-1`, `--shadow-2` (đổi theo theme) | `--shadow-*` (đang sai, xem trên) | `shadow` |
+  | Bóng | `--shadow-1`, `--shadow-2` (đổi theo theme) | `--shadow-*` (đổi theo theme) | `shadow` |
   | Kích thước | `--control-h`, `--row-h-sm`, `--topbar-h`, `--dialog-w`… | `--size-control-h`, `--size-topbar-h`… | `size` |
   | Họ font | `--font-sans`, `--font-mono` | như bên trái | `type` |
   | Kiểu chữ | lớp `.display`, `.h1`…`.code` (14 kiểu); component dùng `is-h1`, `is-h2`, `is-label` | `--text-<kiểu>` kèm `--line-height`, `--font-weight` | `type` |
