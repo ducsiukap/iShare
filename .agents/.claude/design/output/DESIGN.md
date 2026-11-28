@@ -1,10 +1,10 @@
 ---
 ma_tai_lieu: DESIGN
-phien_ban: 0.12
-trang_thai: Bản nháp
-ngay: 2026-11-27
+phien_ban: 1.0
+trang_thai: Đã chốt
+ngay: 2026-11-28
 tac_gia: Phạm Văn Đức
-steps_completed: [1, 2, 3, 4, 5, 6, 7, 8]
+steps_completed: [1, 2, 3, 4, 5, 6, 7, 8, 9]
 buoc_hien_tai: 9
 che_do: thuc-thi
 dot_da_duyet: [A, B, C, D, E]
@@ -23,7 +23,7 @@ figma_file: https://www.figma.com/design/yEi02SPwmNAfYwKX2gMN8m
 
 | Mục | Giá trị |
 |---|---|
-| Bước hiện tại | 9 — Bàn giao (`handoff/UI-KIT.md`, `handoff/routes.md`, `handoff/css/`) |
+| Bước hiện tại | Đã xong 9/9 bước, nghiệm thu 2026-11-28; bản chốt ở `docs/specs/design/`, bản sao canvas ở `docs/resources/design/canvas/` |
 | Hướng thẩm mỹ | "Sổ tay" (DD-UI-08) |
 | Số màn hình / artboard | 75 màn hình; 281 artboard sáng + 75 tối = 356 (screen-inventory.md, DD-UI-14, DD-UI-15) |
 | Đợt đã duyệt | A, B, C, D, E — đã đẩy sang Figma "iShare — UI" (5 page, 356 frame) |
@@ -66,7 +66,7 @@ chọn — 4 màn hình" trên canvas khám phá).
 ## 3. Tokens tóm tắt (bước 6)
 
 Nguồn sự thật: `tokens/tokens.json` (định dạng Design System của Claude Design; `tokens.css`, `tokens.dtcg.json` sinh bằng
-`export_tokens.py`; app không dùng Tailwind nên nạp `handoff/css/tokens.vars.css`, DD-UI-45). Design system: "iShare Design System" (link ở frontmatter), bản sao trong `canvas/design-system/`.
+`export_tokens.py`; app không dùng Tailwind nên nạp `handoff/css/tokens.vars.css`, DD-UI-45). Design system: "iShare Design System" (link ở frontmatter), bản sao trong `docs/resources/design/canvas/design-system/`.
 
 - Font: **Be Vietnam Pro** 400/600/700 có nghiêng cho giao diện và nội dung; **JetBrains Mono** cho code, tắt ký tự ghép
   (DD-UI-29). Tệp WOFF2 (OFL) nằm trong design system.
@@ -274,3 +274,4 @@ Dùng chung cho mọi màn hình. Ưu tiên bộ dữ liệu giả lập của S
 | 0.10 | 2026-11-27 | Bước 8 lần 1: QA-final, sửa QA-F-01…10 trên canvas, design system (GroupCard, TagInput, ConversationItem, DescriptionList `--stack`, ô mật khẩu Hiện/Ẩn, cấp tiêu đề theo ngữ cảnh, `main` cho trang không có cột menu) và Figma; DD-UI-44 |
 | 0.11 | 2026-11-27 | Bước 8 được duyệt: QA-final chốt (QA-F-01…10 đã sửa trên canvas, design system và Figma); chuyển sang bước 9 |
 | 0.12 | 2026-11-27 | Bước 9 (chờ nghiệm thu): `handoff/UI-KIT.md` (68 component), `handoff/routes.md` (75 màn hình, 49 có đường dẫn riêng), `handoff/css/` (tokens.vars.css, components.css, fonts); DD-UI-45 (không Tailwind, tên PascalCase); `flows.md` mục 2 theo DD-UI-42, DD-UI-43 |
+| 1.0 | 2026-11-28 | Nghiệm thu bước 9: chốt DESIGN, PRODUCT, screen-inventory, flows, UI-KIT, routes ở bản 1.0; chép `output/` sang `docs/specs/design/`; chuyển bản sao canvas sang `docs/resources/design/canvas/` |

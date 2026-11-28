@@ -1,8 +1,8 @@
 ---
 ma_tai_lieu: UI-KIT
-phien_ban: 0.1
-trang_thai: Bản nháp
-ngay: 2026-11-27
+phien_ban: 1.0
+trang_thai: Đã chốt
+ngay: 2026-11-28
 tac_gia: Phạm Văn Đức
 ---
 # Đặc tả UI Kit — iShare
@@ -12,8 +12,8 @@ tac_gia: Phạm Văn Đức
 
 | Tài nguyên | Vị trí |
 |---|---|
-| Design system "iShare Design System" | https://claude.ai/artifact/VhNBYBjrD4Rng8CtynS7pp — mỗi component có `components/<Tên>/README.md` và `preview.html` (mọi trạng thái, cả hai theme); bản trong repo: `.agents/.claude/design/canvas/design-system/project/` |
-| Canvas "iShare — Giao diện" | https://claude.ai/artifact/HAykztXFcJbkAiSCXKvift — 75 màn hình, 356 artboard; bản trong repo: `.agents/.claude/design/canvas/giao-dien/project/` |
+| Design system "iShare Design System" | https://claude.ai/artifact/VhNBYBjrD4Rng8CtynS7pp — mỗi component có `components/<Tên>/README.md` và `preview.html` (mọi trạng thái, cả hai theme); bản trong repo: `docs/resources/design/canvas/design-system/project/` |
+| Canvas "iShare — Giao diện" | https://claude.ai/artifact/HAykztXFcJbkAiSCXKvift — 75 màn hình, 356 artboard; bản trong repo: `docs/resources/design/canvas/giao-dien/project/` |
 | Figma "iShare — UI" | https://www.figma.com/design/yEi02SPwmNAfYwKX2gMN8m — 5 page (đợt A–E), 356 frame; chỉ là bản lưu của canvas, không sửa trên Figma (DD-UI-41) |
 | Tokens | `tokens/tokens.json` (nguồn), `handoff/css/tokens.vars.css` (nạp vào app) |
 | CSS component | `handoff/css/components.css` (class `is-*`, chỉ dùng biến từ tokens) |
